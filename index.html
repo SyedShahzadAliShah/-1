@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Allama Iqbal Government Degree College-2, Model Colony, Karachi — Excellence in higher education since 1975." />
+  <title>Allama Iqbal Govt. Degree College-2 | Model Colony, Karachi</title>
+  <style>
+    :root {
+      --primary: #0b3d2e;
+      --primary-light: #156b4f;
+      --accent: #c9a227;
+      --accent-light: #e8c84a;
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #5a5a5a;
+      --border: #e2ddd4;
+      --shadow: 0 4px 24px rgba(11, 61, 46, 0.1);
+      --radius: 12px;
+      --transition: 0.3s ease;
+      --header-h: 72px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1412;
+      --surface: #1a221e;
+      --text: #f0ede6;
+      --text-muted: #a8a49a;
+      --border: #2d3832;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: var(--primary-light); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent); }
+
+    .container { width: min(1140px, 92vw); margin: 0 auto; }
+
+    /* ── Announcement Bar ── */
+    .announcement-bar {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.85rem;
+      overflow: hidden;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .announcement-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .announcement-label {
+      background: var(--accent);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: 4vw;
+    }
+
+    .ticker-wrap { overflow: hidden; flex: 1; }
+
+    .ticker {
+      display: flex;
+      gap: 60px;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker:hover { animation-play-state: paused; }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      height: var(--header-h);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--header-h);
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-emblem {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--accent);
+      font-weight: 800;
+      border: 2px solid var(--accent);
+      flex-shrink: 0;
+    }
+
+    .logo-text strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+    }
+
+    nav a {
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    nav a:hover, nav a.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all var(--transition);
+      color: var(--text);
+    }
+
+    .icon-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - var(--header-h) - 36px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-slides { position: absolute; inset: 0; }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-slide.active { opacity: 1; }
+
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,61,46,0.88) 0%, rgba(11,61,46,0.55) 60%, rgba(201,162,39,0.25) 100%);
+    }
+
+    .hero-slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&q=80'); }
+    .hero-slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?w=1600&q=80'); }
+    .hero-slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80'); }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 60px 0;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,162,39,0.9);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      max-width: 700px;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      opacity: 0.92;
+      max-width: 560px;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 3;
+    }
+
+    .hero-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .hero-dot.active { background: var(--accent); transform: scale(1.3); }
+
+    /* ── Stats ── */
+    .stats {
+      background: var(--primary);
+      padding: 40px 0;
+      margin-top: -1px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .stat-item h3 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-item p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+    /* ── Sections ── */
+    section { padding: 80px 0; }
+
+    .section-header { text-align: center; margin-bottom: 48px; }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    .about-image-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .about-content h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .about-content p { color: var(--text-muted); margin-bottom: 16px; }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .about-feature .check {
+      width: 22px;
+      height: 22px;
+      background: var(--primary);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Programs ── */
+    #programs { background: var(--surface); }
+
+    .program-filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .program-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all var(--transition);
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .program-card.hidden { display: none; }
+
+    .program-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
+    }
+
+    .program-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .program-card h3 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .program-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; }
+
+    .program-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    .program-meta span { font-weight: 600; color: var(--accent); }
+
+    /* ── Admissions ── */
+    .admissions-box {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius);
+      padding: 48px;
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .admissions-box h2 { font-size: 1.8rem; margin-bottom: 12px; }
+    .admissions-box p { opacity: 0.9; margin-bottom: 24px; }
+
+    .admission-steps { list-style: none; }
+
+    .admission-steps li {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .admission-form {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px;
+      color: var(--text);
+    }
+
+    .admission-form h3 { color: var(--primary); margin-bottom: 20px; }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: border-color var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group input.error { border-color: #e53e3e; }
+
+    .form-error {
+      color: #e53e3e;
+      font-size: 0.78rem;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .form-error.show { display: block; }
+
+    .form-success {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 14px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    .form-success.show { display: block; }
+
+    /* ── Faculty ── */
+    #faculty { background: var(--surface); }
+
+    .faculty-search {
+      max-width: 400px;
+      margin: 0 auto 36px;
+      position: relative;
+    }
+
+    .faculty-search input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    .faculty-search input:focus { outline: none; border-color: var(--primary); }
+
+    .faculty-search::before {
+      content: '🔍';
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+    }
+
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .faculty-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-align: center;
+      transition: all var(--transition);
+    }
+
+    .faculty-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .faculty-card.hidden { display: none; }
+
+    .faculty-avatar {
+      height: 160px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .faculty-info { padding: 16px; }
+    .faculty-info h4 { font-size: 0.95rem; color: var(--primary); margin-bottom: 4px; }
+    .faculty-info p { font-size: 0.8rem; color: var(--text-muted); }
+    .faculty-info .dept {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.72rem;
+      background: var(--primary);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    /* ── Events ── */
+    .events-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .event-card {
+      display: flex;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all var(--transition);
+    }
+
+    .event-card:hover { box-shadow: var(--shadow); border-color: var(--accent); }
+
+    .event-date {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 64px;
+    }
+
+    .event-date .day { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+    .event-date .month { font-size: 0.72rem; text-transform: uppercase; opacity: 0.85; }
+
+    .event-info h4 { font-size: 0.95rem; color: var(--primary); margin-bottom: 6px; }
+    .event-info p { font-size: 0.83rem; color: var(--text-muted); }
+    .event-info .event-tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── Gallery ── */
+    #gallery { background: var(--surface); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 180px);
+      gap: 12px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:first-child { grid-row: span 2; grid-column: span 2; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-item::after {
+      content: attr(data-caption);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: var(--radius);
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 24px;
+      color: #fff;
+      font-size: 0.95rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-info h3 { color: var(--primary); margin-bottom: 20px; font-size: 1.2rem; }
+
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      color: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item h4 { font-size: 0.9rem; margin-bottom: 2px; }
+    .contact-item p { font-size: 0.85rem; color: var(--text-muted); }
+
+    .map-placeholder {
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 300px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+    }
+
+    .map-placeholder iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.85);
+      padding: 48px 0 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .footer-brand p { font-size: 0.88rem; margin-top: 12px; opacity: 0.8; line-height: 1.7; }
+
+    .footer-col h4 {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: rgba(255,255,255,0.75); font-size: 0.85rem; }
+    .footer-col a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      opacity: 0.7;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Back to Top ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition);
+      z-index: 999;
+      box-shadow: var(--shadow);
+    }
+
+    .back-to-top.show { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-3px); }
+
+    /* ── Mobile Nav ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: calc(var(--header-h) + 36px);
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+      z-index: 999;
+      box-shadow: var(--shadow);
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition);
+    }
+
+    .mobile-nav.open { transform: translateY(0); opacity: 1; visibility: visible; }
+
+    .mobile-nav ul { list-style: none; }
+    .mobile-nav li { border-bottom: 1px solid var(--border); }
+    .mobile-nav a {
+      display: block;
+      padding: 12px 8px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 992px) {
+      .programs-grid, .faculty-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid, .admissions-box, .contact-grid, .events-layout { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: span 1; grid-column: span 2; }
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav { display: block; }
+      .header-actions .btn { display: none; }
+      .programs-grid, .faculty-grid { grid-template-columns: 1fr; }
+      .about-features { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-column: span 1; }
+      section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Ticker -->
+  <div class="announcement-bar">
+    <div class="announcement-inner container">
+      <span class="announcement-label">Notice</span>
+      <div class="ticker-wrap">
+        <div class="ticker" id="ticker"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <div class="logo-emblem">AI</div>
+        <div class="logo-text">
+          <strong>Allama Iqbal Govt. Degree College-2</strong>
+          <span>Model Colony, Karachi</span>
+        </div>
+      </a>
+      <nav>
+        <ul id="navLinks">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#faculty">Faculty</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+        <a href="#admissions" class="btn btn-primary">Apply Now</a>
+        <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#admissions">Admissions</a></li>
+      <li><a href="#faculty">Faculty</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-slides">
+      <div class="hero-slide active"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+    </div>
+    <div class="container hero-content">
+      <span class="hero-badge">Government of Sindh · Est. 1975</span>
+      <h1>Shaping Minds, Building Futures</h1>
+      <p>Allama Iqbal Government Degree College-2 is a premier institution in Model Colony, Karachi, dedicated to academic excellence, character building, and nation-building through quality higher education.</p>
+      <div class="hero-actions">
+        <a href="#admissions" class="btn btn-primary">Apply for Admission</a>
+        <a href="#about" class="btn btn-outline" style="color:#fff;border-color:#fff;">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="container stats-grid" id="statsGrid">
+      <div class="stat-item">
+        <h3 data-target="2500">0</h3>
+        <p>Enrolled Students</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-target="85">0</h3>
+        <p>Faculty Members</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-target="12">0</h3>
+        <p>Academic Programs</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-target="49">0</h3>
+        <p>Years of Excellence</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">About Us</span>
+        <h2>Our Legacy of Learning</h2>
+        <p>A cornerstone of public higher education in East Karachi since 1975.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" alt="College campus" loading="lazy" />
+          <div class="about-image-badge">Est. 1975 · Model Colony</div>
+        </div>
+        <div class="about-content reveal">
+          <h3>Committed to Excellence in Higher Education</h3>
+          <p>Allama Iqbal Government Degree College-2, located in the heart of Model Colony, Karachi, has been a beacon of affordable, quality education for nearly five decades. Affiliated with the University of Karachi, the college serves thousands of students from diverse backgrounds.</p>
+          <p>Our mission is to provide accessible higher education that empowers students with knowledge, critical thinking, and ethical values — preparing them to contribute meaningfully to society and the nation.</p>
+          <div class="about-features">
+            <div class="about-feature"><span class="check">✓</span> University of Karachi Affiliated</div>
+            <div class="about-feature"><span class="check">✓</span> Government Recognized</div>
+            <div class="about-feature"><span class="check">✓</span> Modern Science Labs</div>
+            <div class="about-feature"><span class="check">✓</span> Digital Library Access</div>
+            <div class="about-feature"><span class="check">✓</span> Sports &amp; Cultural Activities</div>
+            <div class="about-feature"><span class="check">✓</span> Merit &amp; Need-Based Scholarships</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Academics</span>
+        <h2>Programs &amp; Disciplines</h2>
+        <p>Explore our diverse range of intermediate and degree programs.</p>
+      </div>
+      <div class="program-filters reveal" id="programFilters"></div>
+      <div class="programs-grid" id="programsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Admissions -->
+  <section id="admissions">
+    <div class="container">
+      <div class="admissions-box reveal">
+        <div>
+          <h2>Admissions Open 2025–26</h2>
+          <p>Join a community of learners dedicated to academic achievement. Admissions for FA, FSc, BA, BSc, B.Com, and BS programs are now open.</p>
+          <ol class="admission-steps">
+            <li><span class="step-num">1</span><div><strong>Collect Prospectus</strong><br><small>Visit the college office or download online</small></div></li>
+            <li><span class="step-num">2</span><div><strong>Submit Application</strong><br><small>Fill the form with required documents</small></div></li>
+            <li><span class="step-num">3</span><div><strong>Merit List</strong><br><small>Check notice board and website for results</small></div></li>
+            <li><span class="step-num">4</span><div><strong>Fee Submission</strong><br><small>Complete enrollment within the deadline</small></div></li>
+          </ol>
+        </div>
+        <div class="admission-form">
+          <h3>Inquiry Form</h3>
+          <form id="inquiryForm" novalidate>
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" placeholder="Enter your full name" />
+              <span class="form-error" id="nameError">Please enter your name</span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="your@email.com" />
+              <span class="form-error" id="emailError">Please enter a valid email</span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" placeholder="03XX-XXXXXXX" />
+              <span class="form-error" id="phoneError">Please enter a valid phone number</span>
+            </div>
+            <div class="form-group">
+              <label for="program">Program of Interest *</label>
+              <select id="program">
+                <option value="">Select a program</option>
+              </select>
+              <span class="form-error" id="programError">Please select a program</span>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="3" placeholder="Any questions or comments..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Submit Inquiry</button>
+            <div class="form-success" id="formSuccess">✓ Your inquiry has been submitted successfully! We will contact you soon.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Faculty -->
+  <section id="faculty">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Our Team</span>
+        <h2>Distinguished Faculty</h2>
+        <p>Experienced educators committed to student success.</p>
+      </div>
+      <div class="faculty-search reveal">
+        <input type="text" id="facultySearch" placeholder="Search faculty by name or department..." />
+      </div>
+      <div class="faculty-grid" id="facultyGrid"></div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section id="events">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Campus Life</span>
+        <h2>Upcoming Events</h2>
+        <p>Stay updated with the latest happenings on campus.</p>
+      </div>
+      <div class="events-layout" id="eventsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Campus</span>
+        <h2>Photo Gallery</h2>
+        <p>Glimpses of life at Allama Iqbal Govt. Degree College-2.</p>
+      </div>
+      <div class="gallery-grid reveal" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Get in Touch</span>
+        <h2>Contact Us</h2>
+        <p>We'd love to hear from you. Reach out for admissions, inquiries, or visits.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>College Information</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>Plot No. ST-1, Sector 31-D, Model Colony,<br>Malir Town, Karachi – 75100, Sindh, Pakistan</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+92-21-34567890<br>+92-21-34567891</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <p>info@aigdc2-karachi.edu.pk<br>admissions@aigdc2-karachi.edu.pk</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <h4>Office Hours</h4>
+              <p>Monday – Friday: 8:00 AM – 2:00 PM<br>Saturday: 8:00 AM – 12:00 PM</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder reveal">
+          <iframe
+            src="https://maps.google.com/maps?q=Model+Colony+Karachi&output=embed"
+            allowfullscreen
+            loading="lazy"
+            title="College location on map"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo" style="color:#fff;">
+            <div class="logo-emblem">AI</div>
+            <div class="logo-text">
+              <strong style="color:#fff;">Allama Iqbal Govt. Degree College-2</strong>
+              <span style="color:rgba(255,255,255,0.6);">Model Colony, Karachi</span>
+            </div>
+          </a>
+          <p>Empowering students through quality government education since 1975. Affiliated with the University of Karachi.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#admissions">Admissions</a></li>
+            <li><a href="#faculty">Faculty</a></li>
+            <li><a href="#events">Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="#programs">Intermediate (FA/FSc)</a></li>
+            <li><a href="#programs">Bachelor of Arts</a></li>
+            <li><a href="#programs">Bachelor of Science</a></li>
+            <li><a href="#programs">Bachelor of Commerce</a></li>
+            <li><a href="#programs">BS Programs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Academic Calendar</a></li>
+            <li><a href="#">Exam Schedule</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">Downloads</a></li>
+            <li><a href="#">HEC Portal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 Allama Iqbal Government Degree College-2, Model Colony, Karachi. All rights reserved.</span>
+        <span>College Code: AIGDC-02-KHI</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img src="" alt="" id="lightboxImg" />
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script>
+    /* ── Data ── */
+    const ANNOUNCEMENTS = [
+      'Admissions for Session 2025–26 are now open — Apply before July 31, 2025.',
+      'Merit list for FSc Pre-Medical will be displayed on August 5, 2025.',
+      'College will remain closed on account of Eid-ul-Adha from June 15–18, 2025.',
+      'Annual Sports Week scheduled from September 10–15, 2025.',
+      'HEC scholarship applications are open for deserving students.',
+      'Mid-term examinations begin from October 1, 2025.',
+    ];
+
+    const PROGRAMS = [
+      { icon: '📐', name: 'FSc Pre-Engineering', category: 'intermediate', duration: '2 Years', seats: '120', desc: 'Physics, Chemistry, Mathematics — gateway to engineering universities.' },
+      { icon: '🧬', name: 'FSc Pre-Medical', category: 'intermediate', duration: '2 Years', seats: '150', desc: 'Physics, Chemistry, Biology — preparing future doctors and scientists.' },
+      { icon: '💼', name: 'I.Com (Commerce)', category: 'intermediate', duration: '2 Years', seats: '100', desc: 'Accounting, Economics, Business Studies for commerce careers.' },
+      { icon: '📚', name: 'FA (Arts)', category: 'intermediate', duration: '2 Years', seats: '80', desc: 'Humanities, languages, and social sciences foundation.' },
+      { icon: '🔬', name: 'BSc (Sciences)', category: 'bachelor', duration: '2 Years', seats: '60', desc: 'Advanced studies in Physics, Chemistry, Mathematics, and Botany.' },
+      { icon: '🎓', name: 'BA (Arts)', category: 'bachelor', duration: '2 Years', seats: '70', desc: 'English, Urdu, Islamic Studies, Political Science, and more.' },
+      { icon: '📊', name: 'B.Com', category: 'bachelor', duration: '2 Years', seats: '90', desc: 'Commerce, finance, and business administration at degree level.' },
+      { icon: '💻', name: 'BS Computer Science', category: 'bs', duration: '4 Years', seats: '50', desc: 'Programming, databases, networking, and software engineering.' },
+      { icon: '🧪', name: 'BS Chemistry', category: 'bs', duration: '4 Years', seats: '40', desc: 'Organic, inorganic, physical, and analytical chemistry.' },
+    ];
+
+    const FACULTY = [
+      { name: 'Prof. Dr. Ahmed Raza', dept: 'Physics', emoji: '👨‍🏫' },
+      { name: 'Dr. Fatima Siddiqui', dept: 'Chemistry', emoji: '👩‍🏫' },
+      { name: 'Prof. Hassan Mahmood', dept: 'Mathematics', emoji: '👨‍🏫' },
+      { name: 'Dr. Saima Akhtar', dept: 'Biology', emoji: '👩‍🏫' },
+      { name: 'Prof. Tariq Jamil', dept: 'English', emoji: '👨‍🏫' },
+      { name: 'Dr. Nadia Khan', dept: 'Urdu', emoji: '👩‍🏫' },
+      { name: 'Prof. Kamran Ali', dept: 'Commerce', emoji: '👨‍🏫' },
+      { name: 'Dr. Rubina Shaikh', dept: 'Computer Science', emoji: '👩‍🏫' },
+    ];
+
+    const EVENTS = [
+      { day: '05', month: 'Aug', title: 'FSc Merit List Announcement', desc: 'First merit list for Pre-Medical and Pre-Engineering will be displayed.', tag: 'Admissions' },
+      { day: '10', month: 'Sep', title: 'Annual Sports Week', desc: 'Inter-class cricket, football, athletics, and prize distribution ceremony.', tag: 'Sports' },
+      { day: '14', month: 'Aug', title: 'Independence Day Celebration', desc: 'Flag hoisting, cultural performances, and patriotic competitions.', tag: 'Cultural' },
+      { day: '01', month: 'Oct', title: 'Mid-Term Examinations', desc: 'Mid-term exams for all intermediate and degree programs begin.', tag: 'Academic' },
+      { day: '20', month: 'Nov', title: 'Science Exhibition 2025', desc: 'Students showcase innovative science projects and research.', tag: 'Academic' },
+      { day: '15', month: 'Dec', title: 'Annual Prize Distribution', desc: 'Honoring top achievers in academics, sports, and extracurriculars.', tag: 'Ceremony' },
+    ];
+
+    const GALLERY = [
+      { src: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80', caption: 'Main Campus Building' },
+      { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80', caption: 'Science Laboratory' },
+      { src: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=80', caption: 'Students in Lecture Hall' },
+      { src: 'https://images.unsplash.com/photo-1571260899304-425eee4c276efc?w=600&q=80', caption: 'College Library' },
+      { src: 'https://images.unsplash.com/photo-1461896836934- voices?w=600&q=80', caption: 'Sports Ground' },
+      { src: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80', caption: 'Graduation Ceremony' },
+    ];
+
+    /* Fix gallery typo */
+    GALLERY[4].src = 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80';
+
+    const FILTERS = [
+      { id: 'all', label: 'All Programs' },
+      { id: 'intermediate', label: 'Intermediate' },
+      { id: 'bachelor', label: 'Bachelor' },
+      { id: 'bs', label: 'BS (4-Year)' },
+    ];
+
+    /* ── Render Functions ── */
+    function renderTicker() {
+      const items = [...ANNOUNCEMENTS, ...ANNOUNCEMENTS];
+      document.getElementById('ticker').innerHTML = items
+        .map(a => `<span>📢 ${a}</span>`)
+        .join('');
+    }
+
+    function renderFilters() {
+      document.getElementById('programFilters').innerHTML = FILTERS
+        .map((f, i) => `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${f.id}">${f.label}</button>`)
+        .join('');
+    }
+
+    function renderPrograms(filter = 'all') {
+      document.getElementById('programsGrid').innerHTML = PROGRAMS
+        .filter(p => filter === 'all' || p.category === filter)
+        .map(p => `
+          <div class="program-card">
+            <div class="program-icon">${p.icon}</div>
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <div class="program-meta">
+              <span>${p.duration}</span>
+              <span>${p.seats} Seats</span>
+            </div>
+          </div>
+        `).join('');
+    }
+
+    function renderFaculty(filter = '') {
+      const q = filter.toLowerCase();
+      document.getElementById('facultyGrid').innerHTML = FACULTY
+        .filter(f => !q || f.name.toLowerCase().includes(q) || f.dept.toLowerCase().includes(q))
+        .map(f => `
+          <div class="faculty-card">
+            <div class="faculty-avatar">${f.emoji}</div>
+            <div class="faculty-info">
+              <h4>${f.name}</h4>
+              <p>${f.dept} Department</p>
+              <span class="dept">${f.dept}</span>
+            </div>
+          </div>
+        `).join('');
+    }
+
+    function renderEvents() {
+      document.getElementById('eventsGrid').innerHTML = EVENTS
+        .map(e => `
+          <div class="event-card">
+            <div class="event-date">
+              <div class="day">${e.day}</div>
+              <div class="month">${e.month}</div>
+            </div>
+            <div class="event-info">
+              <h4>${e.title}</h4>
+              <p>${e.desc}</p>
+              <span class="event-tag">${e.tag}</span>
+            </div>
+          </div>
+        `).join('');
+    }
+
+    function renderGallery() {
+      document.getElementById('galleryGrid').innerHTML = GALLERY
+        .map(g => `
+          <div class="gallery-item" data-caption="${g.caption}" data-src="${g.src}">
+            <img src="${g.src}" alt="${g.caption}" loading="lazy" />
+          </div>
+        `).join('');
+    }
+
+    function populateProgramSelect() {
+      const select = document.getElementById('program');
+      PROGRAMS.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.name;
+        opt.textContent = p.name;
+        select.appendChild(opt);
+      });
+    }
+
+    /* ── Hero Slider ── */
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dotsContainer = document.getElementById('heroDots');
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = `hero-dot${i === 0 ? ' active' : ''}`;
+      dot.setAttribute('aria-label', `Slide ${i + 1}`);
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goToSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      dotsContainer.children[currentSlide].classList.remove('active');
+      currentSlide = n;
+      slides[currentSlide].classList.add('active');
+      dotsContainer.children[currentSlide].classList.add('active');
+    }
+
+    setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
+
+    /* ── Animated Counters ── */
+    function animateCounters() {
+      document.querySelectorAll('[data-target]').forEach(el => {
+        const target = +el.dataset.target;
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            el.textContent = target.toLocaleString() + (target === 49 ? '+' : '+');
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current).toLocaleString();
+          }
+        }, 16);
+      });
+    }
+
+    const statsObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCounters();
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    statsObserver.observe(document.getElementById('statsGrid'));
+
+    /* ── Scroll Reveal ── */
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Active Nav Link ── */
+    const sections = document.querySelectorAll('section[id], .hero');
+    const navLinks = document.querySelectorAll('#navLinks a, .mobile-nav a');
+
+    function updateActiveNav() {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+
+    /* ── Program Filters ── */
+    document.getElementById('programFilters').addEventListener('click', e => {
+      if (!e.target.classList.contains('filter-btn')) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      renderPrograms(e.target.dataset.filter);
+    });
+
+    /* ── Faculty Search ── */
+    document.getElementById('facultySearch').addEventListener('input', e => {
+      renderFaculty(e.target.value);
+    });
+
+    /* ── Form Validation ── */
+    document.getElementById('inquiryForm').addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      const program = document.getElementById('program');
+
+      function showError(field, errorId, condition) {
+        const err = document.getElementById(errorId);
+        if (condition) {
+          field.classList.add('error');
+          err.classList.add('show');
+          valid = false;
+        } else {
+          field.classList.remove('error');
+          err.classList.remove('show');
+        }
+      }
+
+      showError(name, 'nameError', name.value.trim().length < 2);
+      showError(email, 'emailError', email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value));
+      showError(phone, 'phoneError', !/^03\d{2}[-]?\d{7}$/.test(phone.value.replace(/\s/g, '')));
+      showError(program, 'programError', !program.value);
+
+      if (valid) {
+        document.getElementById('formSuccess').classList.add('show');
+        e.target.reset();
+        setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 5000);
+      }
+    });
+
+    /* ── Gallery Lightbox ── */
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    document.getElementById('galleryGrid').addEventListener('click', e => {
+      const item = e.target.closest('.gallery-item');
+      if (!item) return;
+      lightboxImg.src = item.dataset.src;
+      lightboxImg.alt = item.dataset.caption;
+      lightboxCaption.textContent = item.dataset.caption;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    /* ── Dark Mode ── */
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    themeToggle.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next === 'dark' ? 'dark' : '');
+      if (next === 'light') document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', next);
+      themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    /* ── Mobile Nav ── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+      });
+    });
+
+    /* ── Back to Top ── */
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 400);
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── Init ── */
+    renderTicker();
+    renderFilters();
+    renderPrograms();
+    renderFaculty();
+    renderEvents();
+    renderGallery();
+    populateProgramSelect();
+  </script>
+</body>
+</html>
