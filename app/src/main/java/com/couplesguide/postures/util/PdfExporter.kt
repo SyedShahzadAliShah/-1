@@ -286,7 +286,12 @@ object PdfExporter {
             val pointsHeader = if (language == LocaleHelper.LANG_UR) "اہم نکات:" else "Key Points:"
             writer.drawSection(pointsHeader)
             for (point in content.keyPoints) {
-                writer.drawBody("• $point")
+                val line = if (language == LocaleHelper.LANG_UR) {
+                    UrduPdfText.bulletItem(point)
+                } else {
+                    "• $point"
+                }
+                writer.drawBody(line)
                 writer.space(4f)
             }
             pageNumber = writer.finish()
@@ -379,8 +384,8 @@ object PdfExporter {
         title: String
     ): Int {
         val writer = PageWriter(context, document, language, pageNumber)
-        writer.y = PAGE_HEIGHT / 2f - 20f
-        writer.drawTitle(title, 24f)
+        writer.y = PAGE_HEIGHT / 2f - 24f
+        writer.drawTitleCentered(title, 24f)
         return writer.finish()
     }
 
@@ -397,7 +402,12 @@ object PdfExporter {
 
         writer.drawImage(posture.illustrationRes, 340, IMAGE_HEIGHT.toInt())
         writer.drawHeading(content.name)
-        writer.drawBody("${content.category}  |  ${posture.difficulty.label(language)}")
+        val metaLine = if (isRtl) {
+            UrduPdfText.metaLine(content.category, posture.difficulty.label(language))
+        } else {
+            "${content.category}  |  ${posture.difficulty.label(language)}"
+        }
+        writer.drawBody(metaLine)
         writer.space(8f)
         writer.drawBody(content.summary)
         writer.space(10f)
@@ -415,7 +425,12 @@ object PdfExporter {
         }
         writer.drawSection(stepsLabel)
         content.steps.forEachIndexed { index, step ->
-            writer.drawBody("${index + 1}. $step")
+            val line = if (isRtl) {
+                UrduPdfText.numberedItem(index + 1, step)
+            } else {
+                "${index + 1}. $step"
+            }
+            writer.drawBody(line)
             writer.space(4f)
         }
         writer.space(6f)
@@ -423,7 +438,8 @@ object PdfExporter {
         val tipsLabel = if (isRtl) "آرام کے مشورے" else "Comfort Tips"
         writer.drawSection(tipsLabel)
         for (tip in content.tips) {
-            writer.drawBody("• $tip")
+            val line = if (isRtl) UrduPdfText.bulletItem(tip) else "• $tip"
+            writer.drawBody(line)
             writer.space(4f)
         }
         return writer.finish()
@@ -451,16 +467,19 @@ object PdfExporter {
         }
 
         private fun loadTypeface(bold: Boolean): Typeface {
-            return if (isRtl) {
-                try {
-                    Typeface.createFromAsset(context.assets, "fonts/NotoNaskhArabic-Regular.ttf")
-                } catch (_: Exception) {
-                    Typeface.DEFAULT
-                }
-            } else {
-                Typeface.create(Typeface.DEFAULT, if (bold) Typeface.BOLD else Typeface.NORMAL)
+            if (!isRtl) {
+                return Typeface.create(Typeface.DEFAULT, if (bold) Typeface.BOLD else Typeface.NORMAL)
             }
+            val base = try {
+                Typeface.createFromAsset(context.assets, "fonts/NotoNaskhArabic-Regular.ttf")
+            } catch (_: Exception) {
+                Typeface.DEFAULT
+            }
+            return if (bold) Typeface.create(base, Typeface.BOLD) else base
         }
+
+        private fun prepareText(text: String): String =
+            if (isRtl) UrduPdfText.normalize(text) else text
 
         private fun newPage() {
             if (::page.isInitialized) {
@@ -485,16 +504,21 @@ object PdfExporter {
         }
 
         private fun drawPageFooter() {
-            val footerPaint = TextPaint().apply {
+            val label = if (isRtl) {
+                UrduPdfText.pageNumber(displayPageNumber)
+            } else {
+                displayPageNumber.toString()
+            }
+            val footerPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = ContextCompat.getColor(context, R.color.secondary)
-                textSize = 9f
+                textSize = if (isRtl) 10f else 9f
                 typeface = regularTypeface
                 textAlign = Paint.Align.CENTER
             }
             canvas.drawText(
-                displayPageNumber.toString(),
+                label,
                 PAGE_WIDTH / 2f,
-                PAGE_HEIGHT - (BOTTOM_MARGIN / 2f),
+                PAGE_HEIGHT - (BOTTOM_MARGIN / 2f) + 3f,
                 footerPaint
             )
         }
@@ -511,26 +535,41 @@ object PdfExporter {
             y += amount
         }
 
-        fun drawTitle(text: String, size: Float = 28f) {
+        fun drawTitle(text: String, size: Float = if (isRtl) 26f else 28f) {
             drawTextBlock(text, titlePaint(size), spacingAfter = 12f)
         }
 
+        fun drawTitleCentered(text: String, size: Float = if (isRtl) 24f else 24f) {
+            drawTextBlock(
+                text,
+                titlePaint(size),
+                spacingAfter = 12f,
+                alignment = Layout.Alignment.ALIGN_CENTER
+            )
+        }
+
         fun drawHeading(text: String) {
-            drawTextBlock(text, titlePaint(20f), spacingAfter = 10f)
+            drawTextBlock(text, titlePaint(if (isRtl) 19f else 20f), spacingAfter = 10f)
         }
 
         fun drawSection(text: String) {
-            drawTextBlock(text, sectionPaint(14f), spacingAfter = 8f)
+            drawTextBlock(text, sectionPaint(if (isRtl) 15f else 14f), spacingAfter = 8f)
         }
 
         fun drawBody(text: String, paint: TextPaint = bodyPaint()) {
-            drawTextBlock(text, paint, spacingAfter = 6f)
+            drawTextBlock(text, paint, spacingAfter = if (isRtl) 8f else 6f)
         }
 
-        private fun drawTextBlock(text: String, paint: TextPaint, spacingAfter: Float) {
+        private fun drawTextBlock(
+            text: String,
+            paint: TextPaint,
+            spacingAfter: Float,
+            alignment: Layout.Alignment = textAlignment()
+        ) {
             if (text.isBlank()) return
 
-            val fullLayout = buildLayout(text, paint)
+            val prepared = prepareText(text)
+            val fullLayout = buildLayout(prepared, paint, alignment)
             var startLine = 0
             val totalLines = fullLayout.lineCount
 
@@ -548,15 +587,11 @@ object PdfExporter {
                     endLine++
                 }
 
-                val startChar = fullLayout.getLineStart(startLine)
-                val endChar = fullLayout.getLineStart(endLine)
-                val chunk = text.substring(startChar, endChar)
-                val chunkLayout = buildLayout(chunk, paint)
-                val chunkHeight = chunkLayout.height.toFloat() + spacingAfter
-
-                ensureSpace(chunkHeight)
-                drawLayout(chunkLayout)
-                y += chunkHeight
+                val blockHeight = fullLayout.getLineBottom(endLine - 1) -
+                    fullLayout.getLineTop(startLine) + spacingAfter
+                ensureSpace(blockHeight)
+                drawLayoutLines(fullLayout, startLine, endLine)
+                y += blockHeight
 
                 startLine = endLine
                 if (startLine < totalLines) {
@@ -565,9 +600,13 @@ object PdfExporter {
             }
         }
 
-        private fun drawLayout(layout: StaticLayout) {
+        private fun drawLayoutLines(layout: StaticLayout, startLine: Int, endLine: Int) {
+            val top = layout.getLineTop(startLine)
+            val bottom = layout.getLineBottom(endLine - 1)
             canvas.save()
             canvas.translate(MARGIN, y)
+            canvas.clipRect(0f, top.toFloat(), textWidth.toFloat(), bottom.toFloat())
+            canvas.translate(0f, -top.toFloat())
             layout.draw(canvas)
             canvas.restore()
         }
@@ -598,20 +637,31 @@ object PdfExporter {
 
         private fun bodyPaint() = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = ContextCompat.getColor(context, R.color.on_surface)
-            textSize = 12f
+            textSize = if (isRtl) 13.5f else 12f
             typeface = regularTypeface
         }
 
-        private fun buildLayout(text: String, paint: TextPaint): StaticLayout {
+        private fun textAlignment(): Layout.Alignment = Layout.Alignment.ALIGN_NORMAL
+
+        private fun buildLayout(
+            text: String,
+            paint: TextPaint,
+            alignment: Layout.Alignment = textAlignment()
+        ): StaticLayout {
             val direction = if (isRtl) TextDirectionHeuristics.RTL else TextDirectionHeuristics.LTR
-            return StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
-                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+            val builder = StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
+                .setAlignment(alignment)
                 .setTextDirection(direction)
-                .setLineSpacing(0f, 1.2f)
+                .setLineSpacing(0f, if (isRtl) 1.35f else 1.2f)
                 .setIncludePad(false)
-                .setBreakStrategy(Layout.BREAK_STRATEGY_HIGH_QUALITY)
-                .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NORMAL)
-                .build()
+                .setBreakStrategy(
+                    if (isRtl) Layout.BREAK_STRATEGY_BALANCED else Layout.BREAK_STRATEGY_HIGH_QUALITY
+                )
+                .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NONE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                builder.setUseLineSpacingFromFallbacks(false)
+            }
+            return builder.build()
         }
 
         private fun loadBitmap(resId: Int, width: Int, height: Int): Bitmap? {
