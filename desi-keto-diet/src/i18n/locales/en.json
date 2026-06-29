@@ -134,5 +134,17 @@
   "tts": {
     "error": "Could not play audio. Check device volume and try again.",
     "unsupported": "Voice not installed. Opening speech settings — download Urdu or English voice data, then retry."
+  },
+  "vocals": {
+    "title": "Built-in Vocals",
+    "subtitle": "Listen to recipes, health guides, and fitness steps in English or Urdu.",
+    "enabled": "Enable vocals",
+    "autoReadFitness": "Narrate fitness steps during animation",
+    "rate": "Speech speed",
+    "pitch": "Voice pitch",
+    "volume": "Volume",
+    "installVoices": "Install / manage voice data",
+    "listen": "Listen",
+    "nowPlaying": "Now playing"
   }
 }

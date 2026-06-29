@@ -12,7 +12,7 @@ export default function RecipeDetailPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const lang = useLang();
-  const { speaking, error, clearError, toggle } = useTts();
+  const { speaking, activeId, error, clearError, toggle } = useTts();
   const [exporting, setExporting] = useState(false);
 
   const recipe = recipes.find((r) => r.id === id);
@@ -28,7 +28,7 @@ export default function RecipeDetailPage() {
 
   const handleListen = () => {
     clearError();
-    void toggle(narration);
+    void toggle(narration, { title: recipe.title[lang], id: `recipe-detail-${recipe.id}` });
   };
 
   const handleExport = async () => {
@@ -111,7 +111,9 @@ export default function RecipeDetailPage() {
 
       <div className="btn-group">
         <button className="btn btn-audio" onClick={handleListen}>
-          {speaking ? `⏹ ${t('recipes.stopAudio')}` : `🔊 ${t('recipes.listenRecipe')}`}
+          {speaking && activeId === `recipe-detail-${recipe.id}`
+            ? `⏹ ${t('recipes.stopAudio')}`
+            : `🔊 ${t('recipes.listenRecipe')}`}
         </button>
         <button className="btn btn-primary" onClick={handleExport} disabled={exporting}>
           📄 {t('recipes.exportPdf')}

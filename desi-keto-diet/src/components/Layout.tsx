@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import VocalsBar from './VocalsBar';
 import './Layout.css';
 
 const navItems = [
@@ -23,6 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       <main className="main-content">{children}</main>
+      <VocalsBar />
       <nav className="bottom-nav">
         {navItems.map((item) => (
           <NavLink

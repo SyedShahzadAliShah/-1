@@ -3,6 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { recipes, recipeCount } from '../data/recipes';
 import { useLang } from '../hooks/useLang';
+import VocalsButton from '../components/VocalsButton';
+import { buildPreviewNarration } from '../services/tts';
 import type { AilmentCategory, CuisineType } from '../types';
 
 const PAGE_SIZE = 20;
@@ -86,14 +88,24 @@ export default function RecipesPage() {
 
       {paged.map((recipe) => (
         <Link key={recipe.id} to={`/recipes/${recipe.id}`} className="card card-link">
-          <strong>{recipe.title[lang]}</strong>
-          <p style={{ fontSize: '0.85rem', color: '#8fa88f', margin: '0.35rem 0' }}>
-            {recipe.description[lang].slice(0, 100)}...
-          </p>
-          <div>
-            <span className="badge">{t(`cuisines.${recipe.cuisine}`)}</span>
-            <span className="badge">{recipe.macros.calories} cal</span>
-            <span className="badge">{recipe.prepTime + recipe.cookTime} {t('common.minutes')}</span>
+          <div className="card-with-vocals">
+            <div className="card-with-vocals-body">
+              <strong>{recipe.title[lang]}</strong>
+              <p style={{ fontSize: '0.85rem', color: '#8fa88f', margin: '0.35rem 0' }}>
+                {recipe.description[lang].slice(0, 100)}...
+              </p>
+              <div>
+                <span className="badge">{t(`cuisines.${recipe.cuisine}`)}</span>
+                <span className="badge">{recipe.macros.calories} cal</span>
+                <span className="badge">{recipe.prepTime + recipe.cookTime} {t('common.minutes')}</span>
+              </div>
+            </div>
+            <VocalsButton
+              compact
+              id={`recipe-${recipe.id}`}
+              title={recipe.title[lang]}
+              text={buildPreviewNarration(recipe.title[lang], recipe.description[lang])}
+            />
           </div>
         </Link>
       ))}

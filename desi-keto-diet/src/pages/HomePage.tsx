@@ -4,6 +4,8 @@ import { recipes, recipeCount } from '../data/recipes';
 import { ailmentGuides } from '../data/ailments';
 import { fitnessRoutines } from '../data/fitness';
 import { useLang } from '../hooks/useLang';
+import VocalsButton from '../components/VocalsButton';
+import { buildPreviewNarration } from '../services/tts';
 
 const ailmentIcons: Record<string, string> = {
   gastric: '🫃', gyne: '🌸', psyche: '🧠', cardiac: '❤️',
@@ -24,6 +26,13 @@ export default function HomePage() {
       <div className="hero-card">
         <h2>{t('home.welcome')}</h2>
         <p>{t('home.intro')}</p>
+        <div className="card-vocals-row">
+          <VocalsButton
+            id="home-intro"
+            title={t('home.welcome')}
+            text={`${t('home.welcome')}. ${t('home.intro')}`}
+          />
+        </div>
       </div>
 
       <h2 className="section-title">{t('home.ailmentFocus')}</h2>
@@ -49,12 +58,22 @@ export default function HomePage() {
       <h2 className="section-title">{t('home.featuredRecipes')} ({recipeCount})</h2>
       {recipes.slice(0, 3).map((recipe) => (
         <Link key={recipe.id} to={`/recipes/${recipe.id}`} className="card card-link">
-          <strong>{recipe.title[lang]}</strong>
-          <div style={{ marginTop: '0.35rem' }}>
-            <span className="badge">{t(`cuisines.${recipe.cuisine}`)}</span>
-            {recipe.ailments.slice(0, 2).map((a) => (
-              <span key={a} className="badge">{t(`ailments.${a}`)}</span>
-            ))}
+          <div className="card-with-vocals">
+            <div className="card-with-vocals-body">
+              <strong>{recipe.title[lang]}</strong>
+              <div style={{ marginTop: '0.35rem' }}>
+                <span className="badge">{t(`cuisines.${recipe.cuisine}`)}</span>
+                {recipe.ailments.slice(0, 2).map((a) => (
+                  <span key={a} className="badge">{t(`ailments.${a}`)}</span>
+                ))}
+              </div>
+            </div>
+            <VocalsButton
+              compact
+              id={`home-recipe-${recipe.id}`}
+              title={recipe.title[lang]}
+              text={buildPreviewNarration(recipe.title[lang], recipe.description[lang])}
+            />
           </div>
         </Link>
       ))}
@@ -65,10 +84,20 @@ export default function HomePage() {
       <h2 className="section-title">{t('home.startFitness')}</h2>
       {fitnessRoutines.slice(0, 3).map((routine) => (
         <Link key={routine.id} to={`/fitness/${routine.id}`} className="card card-link">
-          <strong>{routine.title[lang]}</strong>
-          <div style={{ marginTop: '0.35rem' }}>
-            <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
-            <span className="badge">{routine.duration} {t('common.minutes')}</span>
+          <div className="card-with-vocals">
+            <div className="card-with-vocals-body">
+              <strong>{routine.title[lang]}</strong>
+              <div style={{ marginTop: '0.35rem' }}>
+                <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
+                <span className="badge">{routine.duration} {t('common.minutes')}</span>
+              </div>
+            </div>
+            <VocalsButton
+              compact
+              id={`home-fitness-${routine.id}`}
+              title={routine.title[lang]}
+              text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
+            />
           </div>
         </Link>
       ))}

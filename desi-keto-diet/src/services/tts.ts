@@ -1,6 +1,13 @@
 import { TextToSpeech, QueueStrategy } from '@capacitor-community/text-to-speech';
 import { Capacitor } from '@capacitor/core';
 import type { Language } from '../types';
+import { DEFAULT_VOCALS_PREFS, type VocalsPrefs } from './vocalsSettings';
+
+export interface SpeakOptions {
+  rate?: number;
+  pitch?: number;
+  volume?: number;
+}
 
 const MAX_CHUNK = 3500;
 const LANG_CANDIDATES: Record<Language, string[]> = {
@@ -123,7 +130,34 @@ export class TtsError extends Error {
   }
 }
 
-export async function speakText(text: string, lang: Language): Promise<void> {
+function resolveSpeakOptions(lang: Language, options?: SpeakOptions): SpeakOptions {
+  const baseRate = lang === 'ur' ? 0.82 : DEFAULT_VOCALS_PREFS.rate;
+  return {
+    rate: options?.rate ?? baseRate,
+    pitch: options?.pitch ?? DEFAULT_VOCALS_PREFS.pitch,
+    volume: options?.volume ?? DEFAULT_VOCALS_PREFS.volume,
+  };
+}
+
+export function prefsToSpeakOptions(prefs: VocalsPrefs, lang: Language): SpeakOptions {
+  const baseRate = lang === 'ur' ? Math.min(prefs.rate, 0.9) : prefs.rate;
+  return { rate: baseRate, pitch: prefs.pitch, volume: prefs.volume };
+}
+
+export async function openVoiceInstall(): Promise<void> {
+  if (Capacitor.getPlatform() !== 'android') return;
+  try {
+    await TextToSpeech.openInstall();
+  } catch {
+    // installer may be unavailable
+  }
+}
+
+export async function speakText(
+  text: string,
+  lang: Language,
+  options?: SpeakOptions,
+): Promise<void> {
   if (!text.trim()) return;
 
   await stopSpeaking();
@@ -150,12 +184,13 @@ export async function speakText(text: string, lang: Language): Promise<void> {
     for (let i = 0; i < chunks.length; i++) {
       if (abortRequested) throw new TtsError('Playback stopped.', 'aborted');
 
+      const speech = resolveSpeakOptions(lang, options);
       await TextToSpeech.speak({
         text: chunks[i],
         lang: locale,
-        rate: lang === 'ur' ? 0.82 : 0.92,
-        pitch: 1.0,
-        volume: 1.0,
+        rate: speech.rate!,
+        pitch: speech.pitch!,
+        volume: speech.volume!,
         voice,
         queueStrategy: QueueStrategy.Flush,
       });
@@ -230,4 +265,8 @@ export function buildHealthNarration(
   medicationAlternatives: string,
 ): string {
   return [title, summary, ketoApproach, medicationAlternatives].join('. ');
+}
+
+export function buildPreviewNarration(title: string, description: string): string {
+  return `${title}. ${description}`;
 }

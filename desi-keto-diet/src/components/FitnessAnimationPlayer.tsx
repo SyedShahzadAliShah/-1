@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { FitnessRoutine } from '../types';
 import { getStepAnimations } from '../data/fitnessAnimations';
 import { useLang } from '../hooks/useLang';
+import { useVocals } from '../context/VocalsContext';
 import ExerciseFigure from './ExerciseFigure';
 import './FitnessAnimationPlayer.css';
 
@@ -13,12 +14,14 @@ interface Props {
 export default function FitnessAnimationPlayer({ routine }: Props) {
   const { t } = useTranslation();
   const lang = useLang();
+  const { prefs, speak, stop } = useVocals();
   const stepMeta = getStepAnimations(routine.id, routine.steps.length);
   const [currentStep, setCurrentStep] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [timeLeft, setTimeLeft] = useState(stepMeta[0].durationSec);
   const stepMetaRef = useRef(stepMeta);
   stepMetaRef.current = stepMeta;
+  const wasPlayingRef = useRef(false);
 
   const totalSteps = routine.steps.length;
   const meta = stepMeta[currentStep];
@@ -55,6 +58,26 @@ export default function FitnessAnimationPlayer({ routine }: Props) {
       setPlaying(false);
     }
   }, [playing, timeLeft, currentStep, totalSteps, goToStep]);
+
+  // Narrate current step during animated playback
+  useEffect(() => {
+    if (!playing || !prefs.enabled || !prefs.autoReadFitness) return;
+    const stepText = routine.steps[currentStep][lang];
+    const stepLabel = t('fitness.stepOf', { current: currentStep + 1, total: totalSteps });
+    void speak({
+      id: `fitness-step-${routine.id}-${currentStep}`,
+      title: routine.title[lang],
+      text: `${stepLabel}. ${stepText}`,
+      language: lang,
+    });
+  }, [playing, currentStep, prefs.enabled, prefs.autoReadFitness, routine.id, routine.steps, routine.title, lang, totalSteps, speak, t]);
+
+  useEffect(() => {
+    if (wasPlayingRef.current && !playing) {
+      void stop();
+    }
+    wasPlayingRef.current = playing;
+  }, [playing, stop]);
 
   const togglePlay = () => {
     if (playing) {

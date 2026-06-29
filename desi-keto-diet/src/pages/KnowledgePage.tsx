@@ -2,33 +2,17 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { knowledgeArticles } from '../data/knowledge';
 import { useLang } from '../hooks/useLang';
-import { useTts } from '../hooks/useTts';
+import VocalsButton from '../components/VocalsButton';
 
 export default function KnowledgePage() {
   const { t } = useTranslation();
   const lang = useLang();
-  const { speaking, error, clearError, speak, stop } = useTts();
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [activeId, setActiveId] = useState<string | null>(null);
-
-  const handleListen = async (id: string, text: string) => {
-    clearError();
-    if (speaking && activeId === id) {
-      await stop();
-      setActiveId(null);
-      return;
-    }
-    setActiveId(id);
-    await speak(text);
-    setActiveId(null);
-  };
 
   return (
     <div>
       <h2 className="section-title">{t('knowledge.title')}</h2>
       <p className="section-subtitle">{t('knowledge.subtitle')}</p>
-
-      {error && <p className="tts-error" role="alert">{error}</p>}
 
       {knowledgeArticles.map((article) => (
         <div key={article.id} className="card">
@@ -54,14 +38,11 @@ export default function KnowledgePage() {
                 </ul>
               </div>
 
-              <button
-                className="btn btn-audio"
-                onClick={() => handleListen(article.id, article.content[lang])}
-              >
-                {speaking && activeId === article.id
-                  ? `⏹ ${t('recipes.stopAudio')}`
-                  : `🔊 ${t('recipes.listenRecipe')}`}
-              </button>
+              <VocalsButton
+                id={`knowledge-${article.id}`}
+                title={article.title[lang]}
+                text={article.content[lang]}
+              />
             </>
           )}
         </div>

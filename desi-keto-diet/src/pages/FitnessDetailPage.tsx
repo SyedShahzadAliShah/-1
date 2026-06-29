@@ -12,7 +12,7 @@ export default function FitnessDetailPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const lang = useLang();
-  const { speaking, error, clearError, toggle } = useTts();
+  const { speaking, activeId, error, clearError, toggle } = useTts();
 
   const routine = fitnessRoutines.find((r) => r.id === id);
   if (!routine) return <p>{t('common.noResults')}</p>;
@@ -26,7 +26,7 @@ export default function FitnessDetailPage() {
 
   const handleListen = () => {
     clearError();
-    void toggle(narration);
+    void toggle(narration, { title: routine.title[lang], id: `fitness-detail-${routine.id}` });
   };
 
   return (
@@ -68,7 +68,9 @@ export default function FitnessDetailPage() {
 
       <div className="btn-group">
         <button className="btn btn-audio" onClick={handleListen}>
-          {speaking ? `⏹ ${t('recipes.stopAudio')}` : `🔊 ${t('fitness.listenRoutine')}`}
+          {speaking && activeId === `fitness-detail-${routine.id}`
+            ? `⏹ ${t('recipes.stopAudio')}`
+            : `🔊 ${t('fitness.listenRoutine')}`}
         </button>
         <button className="btn btn-primary" onClick={() => exportFitnessPdf(routine, lang)}>
           📄 {t('recipes.exportPdf')}

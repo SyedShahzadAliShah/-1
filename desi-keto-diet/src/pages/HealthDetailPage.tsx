@@ -11,7 +11,7 @@ export default function HealthDetailPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const lang = useLang();
-  const { speaking, error, clearError, toggle } = useTts();
+  const { speaking, activeId, error, clearError, toggle } = useTts();
 
   const guide = ailmentGuides.find((g) => g.id === id);
   if (!guide) return <p>{t('common.noResults')}</p>;
@@ -25,7 +25,7 @@ export default function HealthDetailPage() {
 
   const handleListen = () => {
     clearError();
-    void toggle(narration);
+    void toggle(narration, { title: guide.title[lang], id: `health-detail-${guide.id}` });
   };
 
   return (
@@ -70,7 +70,9 @@ export default function HealthDetailPage() {
 
       <div className="btn-group">
         <button className="btn btn-audio" onClick={handleListen}>
-          {speaking ? `⏹ ${t('recipes.stopAudio')}` : `🔊 ${t('recipes.listenRecipe')}`}
+          {speaking && activeId === `health-detail-${guide.id}`
+            ? `⏹ ${t('recipes.stopAudio')}`
+            : `🔊 ${t('recipes.listenRecipe')}`}
         </button>
         <button className="btn btn-primary" onClick={() => exportHealthGuidePdf(guide, lang)}>
           📄 {t('recipes.exportPdf')}
