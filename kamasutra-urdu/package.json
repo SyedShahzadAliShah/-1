@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "cap:sync": "npm run build && npx cap sync android",
-    "android:build": "npm run cap:sync && cd android && ./gradlew assembleDebug"
+    "android:build": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "videos:generate": "python3 scripts/generate-posture-videos.py"
   },
   "dependencies": {
     "@capacitor-community/text-to-speech": "^8.0.2",

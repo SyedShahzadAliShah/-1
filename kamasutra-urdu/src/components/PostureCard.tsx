@@ -11,6 +11,7 @@ export function PostureCard({ posture, onClick }: PostureCardProps) {
     <button className="posture-card" onClick={onClick} type="button">
       <div className="posture-card-illustration">
         <PostureIllustration type={posture.illustration} />
+        <span className="video-badge">▶ ویڈیو</span>
       </div>
       <div className="posture-card-body">
         <h3>{posture.nameUrdu}</h3>

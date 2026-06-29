@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Posture } from '../data/postures';
 import { PostureIllustration } from './Illustrations';
+import { PostureVideo } from './PostureVideo';
 import { speakUrdu, stopSpeaking } from '../services/tts';
 import { exportPosturePdf } from '../services/pdfExport';
 
@@ -60,7 +61,13 @@ export function PostureDetail({ posture, onBack }: PostureDetailProps) {
         </div>
       </header>
 
-      <div className="detail-illustration" ref={svgRef}>
+      <PostureVideo
+        src={posture.videoUrl}
+        title={`${posture.nameUrdu} — عملی ویڈیو`}
+        captionUrdu={posture.videoCaptionUrdu}
+      />
+
+      <div className="detail-illustration detail-illustration-static" ref={svgRef}>
         <PostureIllustration type={posture.illustration} />
       </div>
 

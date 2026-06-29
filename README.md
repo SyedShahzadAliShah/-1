@@ -7,6 +7,7 @@ An **18+ Android educational app** for couples, inspired by Kamasutra posture tr
 - **18+ age verification** gate on first launch
 - **12 practical intimacy postures** with Urdu descriptions, benefits, and tips
 - **Educational SVG illustrations** for each posture (diagram-style, tasteful)
+- **Embedded video clips** — animated posture demonstrations for every position (bundled MP4, plays offline)
 - **Urdu TTS** — listen to full posture guides or individual sections (uses device Urdu voice on Android)
 - **PDF export** — single posture or complete guidebook download
 - **RTL Urdu UI** with Noto Nastaliq Urdu typography
@@ -35,6 +36,7 @@ Install on Android 7.0+ (API 24+). Enable "Install from unknown sources" if side
 ```bash
 cd kamasutra-urdu
 npm install
+npm run videos:generate   # optional: regenerate posture demo clips
 npm run build
 npx cap sync android
 ```
