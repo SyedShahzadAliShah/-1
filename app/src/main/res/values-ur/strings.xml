@@ -23,6 +23,12 @@
     <string name="key_points">اہم نکات</string>
     <string name="pdf_exporting">PDF بن رہی ہے…</string>
     <string name="pdf_ready">PDF شیئر کے لیے تیار</string>
+    <string name="pdf_ready_title">PDF تیار</string>
+    <string name="pdf_open">PDF کھولیں</string>
+    <string name="pdf_save_downloads">ڈاؤن لوڈز میں محفوظ کریں</string>
+    <string name="pdf_print">پرنٹ کریں</string>
+    <string name="pdf_saved_downloads">ڈاؤن لوڈز/IntimacyGuide/%1$s میں محفوظ</string>
+    <string name="pdf_save_failed">PDF ڈاؤن لوڈز میں محفوظ نہیں ہو سکی</string>
     <string name="pdf_failed">PDF نہیں بن سکی</string>
     <string name="voice_not_ready">آواز کا نظام تیار نہیں</string>
     <string name="imagination_postures">تخیلی پوزیشنز</string>

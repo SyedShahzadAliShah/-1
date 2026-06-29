@@ -23,6 +23,12 @@
     <string name="key_points">Key Points</string>
     <string name="pdf_exporting">Creating PDF…</string>
     <string name="pdf_ready">PDF ready to share</string>
+    <string name="pdf_ready_title">PDF Ready</string>
+    <string name="pdf_open">Open PDF</string>
+    <string name="pdf_save_downloads">Save to Downloads</string>
+    <string name="pdf_print">Print</string>
+    <string name="pdf_saved_downloads">Saved to Downloads/IntimacyGuide/%1$s</string>
+    <string name="pdf_save_failed">Could not save PDF to Downloads</string>
     <string name="pdf_failed">Could not create PDF</string>
     <string name="voice_not_ready">Voice engine not ready</string>
     <string name="imagination_postures">Imagination Postures</string>

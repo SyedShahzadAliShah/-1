@@ -191,11 +191,10 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.pdf_exporting, Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             try {
-                val file = withContext(Dispatchers.IO) {
+                val result = withContext(Dispatchers.IO) {
                     PdfExporter.exportFullGuide(this@MainActivity, language)
                 }
-                PdfExporter.sharePdf(this@MainActivity, file)
-                Toast.makeText(this@MainActivity, R.string.pdf_ready, Toast.LENGTH_SHORT).show()
+                PdfExporter.showExportActions(this@MainActivity, result)
             } catch (e: Exception) {
                 Toast.makeText(this@MainActivity, R.string.pdf_failed, Toast.LENGTH_SHORT).show()
             }

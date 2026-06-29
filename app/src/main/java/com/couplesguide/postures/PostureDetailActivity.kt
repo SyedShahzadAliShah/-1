@@ -144,11 +144,10 @@ class PostureDetailActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.pdf_exporting, Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             try {
-                val file = withContext(Dispatchers.IO) {
+                val result = withContext(Dispatchers.IO) {
                     PdfExporter.exportPosture(this@PostureDetailActivity, posture, language)
                 }
-                PdfExporter.sharePdf(this@PostureDetailActivity, file)
-                Toast.makeText(this@PostureDetailActivity, R.string.pdf_ready, Toast.LENGTH_SHORT).show()
+                PdfExporter.showExportActions(this@PostureDetailActivity, result)
             } catch (e: Exception) {
                 Toast.makeText(this@PostureDetailActivity, R.string.pdf_failed, Toast.LENGTH_SHORT).show()
             }
