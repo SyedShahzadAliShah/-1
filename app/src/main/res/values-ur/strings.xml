@@ -25,5 +25,13 @@
     <string name="pdf_ready">PDF شیئر کے لیے تیار</string>
     <string name="pdf_failed">PDF نہیں بن سکی</string>
     <string name="voice_not_ready">آواز کا نظام تیار نہیں</string>
+    <string name="imagination_postures">تخیلی پوزیشنز</string>
+    <string name="imagination_postures_hint">جسمانی قربت سے پہلے تعلق بنانے کی تعلیمی تصور مشقیں۔</string>
+    <string name="imagination_exercise">تخیلی مشق</string>
+    <string name="step_label_en">Step %1$d.</string>
+    <string name="step_label_ur">قدم %1$d۔</string>
+    <string name="voice_language_fallback">اردو آواز دستیاب نہیں — انگریزی استعمال ہو رہی ہے۔</string>
+    <string name="voice_install_prompt">سسٹم ٹیکسٹ ٹو اسپیچ میں آواز کا ڈیٹا انسٹال کریں۔</string>
+    <string name="voice_open_settings">ٹی ٹی ایس ترتیبات</string>
     <string name="chapter_illustration">باب کی تصویر</string>
 </resources>

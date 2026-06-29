@@ -56,6 +56,9 @@ class PostureDetailActivity : AppCompatActivity() {
             onSpeakingChanged = { speaking ->
                 isSpeaking = speaking
                 invalidateOptionsMenu()
+            },
+            onLanguageIssue = { message ->
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
         )
 
@@ -83,6 +86,14 @@ class PostureDetailActivity : AppCompatActivity() {
         binding.difficultyBadge.text = posture.difficulty.label(language)
         binding.summaryText.text = content.summary
         binding.descriptionText.text = content.description
+
+        val stepsHeader = if (posture.isImagination) {
+            getString(R.string.imagination_exercise)
+        } else {
+            getString(R.string.how_to)
+        }
+        binding.stepsHeader.text = stepsHeader
+
         binding.stepsList.text = content.steps
             .mapIndexed { index, step -> "${index + 1}. $step" }
             .joinToString("\n\n")
@@ -123,7 +134,10 @@ class PostureDetailActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        voiceNarrator?.speak(NarrationBuilder.buildPostureNarration(posture, language), language)
+        voiceNarrator?.speak(
+            NarrationBuilder.buildPostureNarration(this, posture, language),
+            language
+        )
     }
 
     private fun exportPosturePdf() {

@@ -25,5 +25,13 @@
     <string name="pdf_ready">PDF ready to share</string>
     <string name="pdf_failed">Could not create PDF</string>
     <string name="voice_not_ready">Voice engine not ready</string>
+    <string name="imagination_postures">Imagination Postures</string>
+    <string name="imagination_postures_hint">Educational visualization exercises to build connection before physical intimacy.</string>
+    <string name="imagination_exercise">Imagination Exercise</string>
+    <string name="step_label_en">Step %1$d.</string>
+    <string name="step_label_ur">قدم %1$d۔</string>
+    <string name="voice_language_fallback">Urdu voice unavailable — using English.</string>
+    <string name="voice_install_prompt">Install voice data in system Text-to-speech settings.</string>
+    <string name="voice_open_settings">TTS Settings</string>
     <string name="chapter_illustration">Chapter illustration</string>
 </resources>

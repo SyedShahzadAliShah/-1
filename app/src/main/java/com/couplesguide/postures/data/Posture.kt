@@ -15,7 +15,8 @@ data class Posture(
     val illustrationRes: Int,
     val categoryId: String,
     val english: LocalizedContent,
-    val urdu: LocalizedContent
+    val urdu: LocalizedContent,
+    val isImagination: Boolean = false
 ) {
     fun content(language: String): LocalizedContent =
         if (language == "ur") urdu else english

@@ -14,6 +14,26 @@ object NarrationBuilder {
         return "$title. $message"
     }
 
+    fun buildMainGuideNarration(context: Context, language: String): String {
+        val sb = StringBuilder(buildWelcomeNarration(context, language))
+        sb.append(" ").append(sectionLabel(context, R.string.guide_chapters, language)).append(".")
+        for (chapter in GuideRepository.getChapters()) {
+            val c = chapter.content(language)
+            sb.append(" ").append(c.title).append(". ").append(c.summary)
+        }
+        sb.append(" ").append(sectionLabel(context, R.string.imagination_postures, language)).append(".")
+        for (posture in PostureRepository.getImaginationPostures()) {
+            val c = posture.content(language)
+            sb.append(" ").append(c.name).append(". ").append(c.summary)
+        }
+        sb.append(" ").append(sectionLabel(context, R.string.all_postures, language)).append(".")
+        for (posture in PostureRepository.getPhysicalPostures()) {
+            val c = posture.content(language)
+            sb.append(" ").append(c.name).append(". ").append(c.summary)
+        }
+        return sb.toString()
+    }
+
     fun buildChapterNarration(chapterId: String, language: String): String {
         val chapter = GuideRepository.getChapterById(chapterId) ?: return ""
         val content = chapter.content(language)
@@ -21,23 +41,29 @@ object NarrationBuilder {
         return "${content.title}. ${content.summary}. ${content.body}. $points"
     }
 
-    fun buildPostureNarration(posture: Posture, language: String): String {
+    fun buildPostureNarration(context: Context, posture: Posture, language: String): String {
         val content = posture.content(language)
-        val steps = content.steps.mapIndexed { i, s -> "Step ${i + 1}. $s" }.joinToString(". ")
+        val stepsPrefix = if (posture.isImagination) {
+            context.getString(R.string.imagination_exercise)
+        } else {
+            context.getString(R.string.how_to)
+        }
+        val tipsLabel = context.getString(R.string.tips)
+        val steps = content.steps.mapIndexed { i, s ->
+            "${stepLabel(context, i + 1, language)} $s"
+        }.joinToString(". ")
         val tips = content.tips.joinToString(". ")
-        return "${content.name}. ${content.summary}. ${content.description}. $steps. Tips. $tips"
+        return "${content.name}. ${content.summary}. ${content.description}. $steps. $tipsLabel. $tips"
     }
 
-    fun buildFullGuideNarration(context: Context, language: String): String {
-        val sb = StringBuilder(buildWelcomeNarration(context, language))
-        for (chapter in GuideRepository.getChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
+    private fun sectionLabel(context: Context, resId: Int, @Suppress("UNUSED_PARAMETER") language: String): String =
+        context.getString(resId)
+
+    private fun stepLabel(context: Context, number: Int, language: String): String {
+        return if (language == LocaleHelper.LANG_UR) {
+            context.getString(R.string.step_label_ur, number)
+        } else {
+            context.getString(R.string.step_label_en, number)
         }
-        for (posture in PostureRepository.getAllPostures()) {
-            val c = posture.content(language)
-            sb.append(" ").append(c.name).append(". ").append(c.summary)
-        }
-        return sb.toString()
     }
 }

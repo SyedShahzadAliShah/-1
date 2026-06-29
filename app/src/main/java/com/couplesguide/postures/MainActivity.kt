@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var postureAdapter: PostureAdapter
     private lateinit var chapterAdapter: ChapterAdapter
+    private lateinit var imaginationAdapter: PostureAdapter
     private var categoryAdapter: CategoryAdapter? = null
     private var selectedCategory = PostureRepository.CAT_ALL
     private var language = LocaleHelper.LANG_EN
@@ -55,8 +56,15 @@ class MainActivity : AppCompatActivity() {
             onSpeakingChanged = { speaking ->
                 isSpeaking = speaking
                 invalidateOptionsMenu()
-            }
+            },
+            onLanguageIssue = { message -> showVoiceMessage(message) }
         )
+
+        imaginationAdapter = PostureAdapter(language) { posture ->
+            startActivity(Intent(this, PostureDetailActivity::class.java).apply {
+                putExtra(PostureDetailActivity.EXTRA_POSTURE_ID, posture.id)
+            })
+        }
 
         postureAdapter = PostureAdapter(language) { posture ->
             startActivity(Intent(this, PostureDetailActivity::class.java).apply {
@@ -76,6 +84,10 @@ class MainActivity : AppCompatActivity() {
         binding.chapterList.layoutManager = LinearLayoutManager(this)
         binding.chapterList.adapter = chapterAdapter
         chapterAdapter.submitList(GuideRepository.getChapters())
+
+        binding.imaginationList.layoutManager = LinearLayoutManager(this)
+        binding.imaginationList.adapter = imaginationAdapter
+        imaginationAdapter.submitList(PostureRepository.getImaginationPostures())
 
         setupCategories()
         updatePostureList()
@@ -165,8 +177,14 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        val text = NarrationBuilder.buildWelcomeNarration(this, language)
-        voiceNarrator?.speak(text, language)
+        val text = NarrationBuilder.buildMainGuideNarration(this, language)
+        if (voiceNarrator?.speak(text, language) != true) {
+            Toast.makeText(this, R.string.voice_install_prompt, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showVoiceMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     private fun exportFullGuidePdf() {

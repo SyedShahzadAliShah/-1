@@ -9,10 +9,11 @@ object PostureRepository {
     const val CAT_SIDE = "side_by_side"
     const val CAT_REAR = "rear_entry"
     const val CAT_STANDING = "standing_seated"
+    const val CAT_IMAGINATION = "imagination"
     const val CAT_VARIATIONS = "variations"
 
     fun getCategoryIds(): List<String> = listOf(
-        CAT_ALL, CAT_FACE, CAT_SIDE, CAT_REAR, CAT_STANDING, CAT_VARIATIONS
+        CAT_ALL, CAT_FACE, CAT_SIDE, CAT_REAR, CAT_STANDING, CAT_VARIATIONS, CAT_IMAGINATION
     )
 
     fun getCategoryLabel(categoryId: String, language: String): String {
@@ -26,7 +27,8 @@ object PostureRepository {
         CAT_SIDE to ("Side by Side" to "ساتھ ساتھ"),
         CAT_REAR to ("Rear Entry" to "پیچھے سے"),
         CAT_STANDING to ("Standing & Seated" to "کھڑے اور بیٹھے"),
-        CAT_VARIATIONS to ("Variations" to "تبدیلیاں")
+        CAT_VARIATIONS to ("Variations" to "تبدیلیاں"),
+        CAT_IMAGINATION to ("Imagination" to "تخیل")
     )
 
     private val postures: List<Posture> = listOf(
@@ -431,12 +433,19 @@ object PostureRepository {
         urdu = LocalizedContent(urName, urCat, urSummary, urDesc, urSteps, urTips)
     )
 
-    fun getAllPostures(): List<Posture> = postures
+    fun getAllPostures(): List<Posture> =
+        postures + ImaginationPostureRepository.getImaginationPostures()
+
+    fun getPhysicalPostures(): List<Posture> = postures
+
+    fun getImaginationPostures(): List<Posture> =
+        ImaginationPostureRepository.getImaginationPostures()
 
     fun getPosturesByCategory(categoryId: String): List<Posture> {
-        if (categoryId == CAT_ALL) return postures
-        return postures.filter { it.categoryId == categoryId }
+        val all = getAllPostures()
+        if (categoryId == CAT_ALL) return all
+        return all.filter { it.categoryId == categoryId }
     }
 
-    fun getPostureById(id: String): Posture? = postures.find { it.id == id }
+    fun getPostureById(id: String): Posture? = getAllPostures().find { it.id == id }
 }

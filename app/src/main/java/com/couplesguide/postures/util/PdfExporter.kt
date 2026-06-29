@@ -37,8 +37,9 @@ object PdfExporter {
 
         pageNumber = writeTitlePage(context, document, language, pageNumber)
         pageNumber = writeChapters(context, document, language, pageNumber)
+        pageNumber = writeImaginationSection(context, document, language, pageNumber)
 
-        for (posture in PostureRepository.getAllPostures()) {
+        for (posture in PostureRepository.getPhysicalPostures()) {
             pageNumber = writePosturePage(context, document, posture, language, pageNumber)
         }
 
@@ -192,6 +193,47 @@ object PdfExporter {
         return pageNumber
     }
 
+    private fun writeImaginationSection(
+        context: Context,
+        document: PdfDocument,
+        language: String,
+        startPage: Int
+    ): Int {
+        var pageNumber = startPage
+        val sectionTitle = context.getString(
+            if (language == LocaleHelper.LANG_UR) R.string.imagination_postures else R.string.imagination_postures
+        )
+        pageNumber = writeSectionDivider(context, document, language, pageNumber, sectionTitle)
+        for (posture in PostureRepository.getImaginationPostures()) {
+            pageNumber = writePosturePage(context, document, posture, language, pageNumber)
+        }
+        val physicalTitle = context.getString(R.string.all_postures)
+        pageNumber = writeSectionDivider(context, document, language, pageNumber, physicalTitle)
+        return pageNumber
+    }
+
+    private fun writeSectionDivider(
+        context: Context,
+        document: PdfDocument,
+        language: String,
+        pageNumber: Int,
+        title: String
+    ): Int {
+        val isRtl = language == LocaleHelper.LANG_UR
+        val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
+        val page = document.startPage(pageInfo)
+        val canvas = page.canvas
+        val paint = TextPaint().apply {
+            color = ContextCompat.getColor(context, R.color.primary)
+            textSize = 26f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            textAlign = Paint.Align.CENTER
+        }
+        canvas.drawText(title, PAGE_WIDTH / 2f, PAGE_HEIGHT / 2f, paint)
+        document.finishPage(page)
+        return pageNumber + 1
+    }
+
     private fun writePosturePage(
         context: Context,
         document: PdfDocument,
@@ -250,7 +292,13 @@ object PdfExporter {
         y = drawWrappedText(canvas, content.description, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
         y += 14f
 
-        val stepsLabel = if (isRtl) "طریقہ کار" else "How To"
+        val stepsLabel = if (posture.isImagination) {
+            if (isRtl) "تخیلی مشق" else "Imagination Exercise"
+        } else if (isRtl) {
+            "طریقہ کار"
+        } else {
+            "How To"
+        }
         canvas.drawText(stepsLabel, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, sectionPaint)
         y += 20f
         content.steps.forEachIndexed { index, step ->

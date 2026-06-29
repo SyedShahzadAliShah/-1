@@ -322,6 +322,76 @@ def gen_guide_cover():
     save("pic_guide_cover", img)
 
 
+def dreamy_sky(draw, y=40):
+    for i in range(8):
+        x = 60 + i * 70
+        draw.ellipse((x, y + (i % 3) * 8, x + 6, y + (i % 3) * 8 + 6), fill=(255, 255, 200))
+
+
+def gen_imagine_breath():
+    img, draw = new_canvas()
+    dreamy_sky(draw)
+    oval(draw, (220, 160, 280, 220), SKIN_A)
+    oval(draw, (360, 160, 420, 220), SKIN_B)
+    for x in [250, 300, 350]:
+        draw.ellipse((x, 120, x + 40, 160), fill=(255, 230, 180, 80), outline=SECONDARY)
+    label(draw, "Breath Together")
+    save("pic_imagine_breath", img)
+
+
+def gen_imagine_candlelight():
+    img, draw = new_canvas()
+    rounded_rect(draw, (40, 40, W - 40, H - 40), (30, 20, 35), 20)
+    draw.rectangle((280, 140, 300, 220), fill=(255, 220, 150))
+    draw.polygon([(290, 120), (275, 140), (305, 140)], fill=(255, 200, 80))
+    oval(draw, (200, 180, 260, 240), SKIN_A)
+    oval(draw, (380, 180, 440, 240), SKIN_B)
+    label(draw, "Candlelight")
+    save("pic_imagine_candlelight", img)
+
+
+def gen_imagine_embrace():
+    img, draw = new_canvas()
+    bed_base(draw, 285)
+    rounded_rect(draw, (240, 170, 400, 260), SKIN_B, 20)
+    oval(draw, (270, 140, 310, 180), SKIN_A)
+    oval(draw, (330, 140, 370, 180), SKIN_B)
+    label(draw, "Slow Embrace")
+    save("pic_imagine_embrace", img)
+
+
+def gen_imagine_ocean():
+    img, draw = new_canvas()
+    for y in range(200, 360, 30):
+        draw.arc((40, y, W - 40, y + 50), 0, 180, fill=(100, 150, 200), width=3)
+    person_side(draw, 280, 250, True, SKIN_A, 1.0)
+    person_side(draw, 360, 250, False, SKIN_B, 1.0)
+    label(draw, "Ocean Waves")
+    save("pic_imagine_ocean", img)
+
+
+def gen_imagine_starlight():
+    img, draw = new_canvas()
+    draw.rectangle((0, 0, W, 180), fill=(25, 20, 50))
+    dreamy_sky(draw, 30)
+    bed_base(draw, 285)
+    person_side(draw, 270, 250, True, SKIN_A, 0.95)
+    person_side(draw, 370, 250, False, SKIN_B, 0.95)
+    label(draw, "Starlight")
+    save("pic_imagine_starlight", img)
+
+
+def gen_imagine_morning():
+    img, draw = new_canvas()
+    draw.rectangle((0, 0, W, 160), fill=(255, 235, 200))
+    draw.ellipse((480, 30, 560, 110), fill=(255, 220, 100))
+    bed_base(draw, 280)
+    person_lying_back(draw, 300, 240, SKIN_A, 0.9)
+    person_side(draw, 360, 235, False, SKIN_B, 0.85)
+    label(draw, "Morning Light")
+    save("pic_imagine_morning", img)
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     gen_missionary()
@@ -341,4 +411,10 @@ if __name__ == "__main__":
     gen_chapter_explore()
     gen_spooning()
     gen_guide_cover()
+    gen_imagine_breath()
+    gen_imagine_candlelight()
+    gen_imagine_embrace()
+    gen_imagine_ocean()
+    gen_imagine_starlight()
+    gen_imagine_morning()
     print("done")
