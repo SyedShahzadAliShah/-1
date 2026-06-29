@@ -9,6 +9,7 @@ export function Home() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [exporting, setExporting] = useState(false);
+  const [exportMsg, setExportMsg] = useState<string | null>(null);
 
   const selected = postures.find((p) => p.id === selectedId);
   const filtered =
@@ -16,6 +17,7 @@ export function Home() {
 
   const handleExportAll = async () => {
     setExporting(true);
+    setExportMsg(null);
     try {
       const getSvgForPosture = (id: string): SVGSVGElement | null => {
         const posture = postures.find((p) => p.id === id);
@@ -23,6 +25,10 @@ export function Home() {
         return svgStringToElement(getPostureSvgString(posture.illustration));
       };
       await exportAllPosturesPdf(postures, getSvgForPosture);
+      setExportMsg('مکمل PDF تیار — محفوظ یا شیئر کریں');
+    } catch (err) {
+      console.error('PDF export failed:', err);
+      setExportMsg('PDF برآمد ناکام — دوبارہ کوشش کریں');
     } finally {
       setExporting(false);
     }
@@ -43,6 +49,10 @@ export function Home() {
           {exporting ? 'برآمد...' : '📄 تمام PDF'}
         </button>
       </header>
+
+      {exportMsg && (
+        <p className={`export-toast${exportMsg.includes('ناکام') ? ' error' : ''}`}>{exportMsg}</p>
+      )}
 
       <div className="disclaimer">
         <p>

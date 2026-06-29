@@ -35,7 +35,7 @@ export const postures: Posture[] = [
       'تکیے کے نیچے کولہے اٹھائیں تاکہ زاویہ بہتر ہو۔ ہاتھوں سے پیٹ، کمر اور پیروں کو سہارا دیں۔ رفتار آہستہ سے شروع کریں۔',
     difficulty: 'آسان',
     illustration: 'missionary',
-    videoUrl: '/videos/missionary.mp4',
+    videoUrl: 'videos/missionary.mp4',
     videoCaptionUrdu: 'مشترکہ وضع کی عملی مثال — آہستہ ہم آہنگ حرکت دکھائی گئی ہے',
   },
   {
@@ -52,7 +52,7 @@ export const postures: Posture[] = [
       'گھٹنے کے درمیان تکیہ رکھیں۔ اوپر والا پیر ہلکا سا اٹھائیں۔ ہاتھوں سے سینے یا پیٹ کو نرم چھوئیں۔',
     difficulty: 'آسان',
     illustration: 'spooning',
-    videoUrl: '/videos/spooning.mp4',
+    videoUrl: 'videos/spooning.mp4',
     videoCaptionUrdu: 'چمچے کی وضع — پہلو کے بل قریب بیٹھنے کا طریقہ',
   },
   {
@@ -69,7 +69,7 @@ export const postures: Posture[] = [
       'اگر گھٹنے میں درد ہو تو تکیے استعمال کریں۔ کمر سیدھی رکھیں۔ وزن یکساں تقسیم کریں۔',
     difficulty: 'درمیانہ',
     illustration: 'lotus',
-    videoUrl: '/videos/lotus.mp4',
+    videoUrl: 'videos/lotus.mp4',
     videoCaptionUrdu: 'کمل کی وضع — سامنے بیٹھ کر گلے ملنے کی مثال',
   },
   {
@@ -86,7 +86,7 @@ export const postures: Posture[] = [
       'ہاتھوں کو سینے یا بستر پر سہارا دیں۔ آہستہ گھومنے سے زاویہ بدلیں۔ بات چیت سے رضامندی برقرار رکھیں۔',
     difficulty: 'درمیانہ',
     illustration: 'cowgirl',
-    videoUrl: '/videos/cowgirl.mp4',
+    videoUrl: 'videos/cowgirl.mp4',
     videoCaptionUrdu: 'سواری کی وضع — اوپر والے شریک کی کنٹرول شدہ حرکت',
   },
   {
@@ -103,7 +103,7 @@ export const postures: Posture[] = [
       'نیچے والی ٹانگ سیدھی رکھیں۔ اوپر والی ٹانگ ہلکی موڑ میں۔ کولہے کے نیچے چھوٹا تکیہ مددگار ہے۔',
     difficulty: 'آسان',
     illustration: 'side',
-    videoUrl: '/videos/side-by-side.mp4',
+    videoUrl: 'videos/side-by-side.mp4',
     videoCaptionUrdu: 'پہلو بہ پہلو — آمنے سامنے لیٹنے کی وضع',
   },
   {
@@ -120,7 +120,7 @@ export const postures: Posture[] = [
       'ہمیشہ مضبوط سہارا استعمال کریں۔ پھسلن سے بچنے کے لیے نرم سطح۔ تھکاوٹ محسوس ہو تو فوراً وضع بدلیں۔',
     difficulty: 'مشکل',
     illustration: 'standing',
-    videoUrl: '/videos/standing.mp4',
+    videoUrl: 'videos/standing.mp4',
     videoCaptionUrdu: 'کھڑے ہوئے — دیوار کے سہارے توازن برقرار رکھیں',
   },
   {
@@ -137,7 +137,7 @@ export const postures: Posture[] = [
       'گھٹنے کے نیچے تکیہ رکھیں۔ کمر نہ جھکائیں۔ باقاعدہ وقفے لیں اور بات چیت کریں۔',
     difficulty: 'درمیانہ',
     illustration: 'doggy',
-    videoUrl: '/videos/doggy.mp4',
+    videoUrl: 'videos/doggy.mp4',
     videoCaptionUrdu: 'چار پایوں پر — کمر سیدھی اور آہستہ رفتار',
   },
   {
@@ -154,7 +154,7 @@ export const postures: Posture[] = [
       'ہاتھوں سے سہارا لیں۔ آہستہ حرکت کریں۔ اگر تکلیف ہو تو فوراً رک جائیں۔',
     difficulty: 'مشکل',
     illustration: 'reverse',
-    videoUrl: '/videos/reverse-cowgirl.mp4',
+    videoUrl: 'videos/reverse-cowgirl.mp4',
     videoCaptionUrdu: 'الٹ سواری — پیٹھ کی طرف بیٹھنے کی مثال',
   },
   {
@@ -171,7 +171,7 @@ export const postures: Posture[] = [
       'ٹانگوں کو نرم سہارا دیں۔ کولہے کے نیچے تکیہ۔ زیادہ دیر تک نہ رکھیں اگر خون کا بہاؤ محسوس ہو۔',
     difficulty: 'درمیانہ',
     illustration: 'butterfly',
-    videoUrl: '/videos/butterfly.mp4',
+    videoUrl: 'videos/butterfly.mp4',
     videoCaptionUrdu: 'تتلی کی وضع — اٹھی ہوئی ٹانگوں کے ساتھ',
   },
   {
@@ -188,7 +188,7 @@ export const postures: Posture[] = [
       'پہلے گہری سانسیں لیں۔ کمر سیدھی۔ آہستہ حرکت سے شروع کریں۔ خاموشی میں بھی رابطہ برقرار رکھیں۔',
     difficulty: 'درمیانہ',
     illustration: 'yabyum',
-    videoUrl: '/videos/yab-yum.mp4',
+    videoUrl: 'videos/yab-yum.mp4',
     videoCaptionUrdu: 'یاب یوم — گود میں سامنے بیٹھنے کی روایتی وضع',
   },
   {
@@ -205,7 +205,7 @@ export const postures: Posture[] = [
       'تکیے استعمال کریں۔ ٹانگیں زیادہ نہ اٹھائیں اگر درد ہو۔ آرام سے رفتار مقرر کریں۔',
     difficulty: 'آسان',
     illustration: 'scissors',
-    videoUrl: '/videos/scissors.mp4',
+    videoUrl: 'videos/scissors.mp4',
     videoCaptionUrdu: 'قینچی کی وضع — کراس ٹانگوں کے ساتھ مساوی شرکت',
   },
   {
@@ -222,7 +222,7 @@ export const postures: Posture[] = [
       'کولہے کے نیچے تکیہ رکھ سکتے ہیں۔ زیادہ دیر نہ رکھیں۔ کمر میں درد ہو تو فوراً چھوڑ دیں۔',
     difficulty: 'مشکل',
     illustration: 'bridge',
-    videoUrl: '/videos/bridge.mp4',
+    videoUrl: 'videos/bridge.mp4',
     videoCaptionUrdu: 'پل کی وضع — کولہے اٹھا کر پل بنانے کی مثال',
   },
 ];

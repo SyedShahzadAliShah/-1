@@ -13,6 +13,7 @@ interface PostureDetailProps {
 export function PostureDetail({ posture, onBack }: PostureDetailProps) {
   const [speaking, setSpeaking] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [exportMsg, setExportMsg] = useState<string | null>(null);
   const svgRef = useRef<HTMLDivElement>(null);
 
   const fullText = `${posture.nameUrdu}. ${posture.description} فوائد: ${posture.benefits} مشورے: ${posture.tips}`;
@@ -37,9 +38,14 @@ export function PostureDetail({ posture, onBack }: PostureDetailProps) {
 
   const handleExportPdf = async () => {
     setExporting(true);
+    setExportMsg(null);
     try {
       const svg = svgRef.current?.querySelector('svg') ?? null;
       await exportPosturePdf(posture, svg);
+      setExportMsg('PDF تیار — محفوظ یا شیئر کریں');
+    } catch (err) {
+      console.error('PDF export failed:', err);
+      setExportMsg('PDF برآمد ناکام — دوبارہ کوشش کریں');
     } finally {
       setExporting(false);
     }
@@ -60,6 +66,10 @@ export function PostureDetail({ posture, onBack }: PostureDetailProps) {
           </button>
         </div>
       </header>
+
+      {exportMsg && (
+        <p className={`export-toast${exportMsg.includes('ناکام') ? ' error' : ''}`}>{exportMsg}</p>
+      )}
 
       <PostureVideo
         src={posture.videoUrl}
