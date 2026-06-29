@@ -1,0 +1,118 @@
+{
+  "app": {
+    "name": "Desi Keto Diet",
+    "tagline": "Heal Through Food, Not Pills",
+    "subtitle": "Reverse ailments with Pakistani keto wisdom"
+  },
+  "nav": {
+    "home": "Home",
+    "recipes": "Recipes",
+    "health": "Health Guides",
+    "fitness": "Fitness",
+    "knowledge": "Knowledge",
+    "settings": "Settings"
+  },
+  "home": {
+    "welcome": "Welcome to Desi Keto Diet",
+    "intro": "Discover how traditional South Asian cuisine can be adapted to ketogenic principles to help reverse gastric issues, hormonal imbalances, mental health challenges, and more — naturally, without dependency on medications.",
+    "featuredRecipes": "Featured Recipes",
+    "ailmentFocus": "Heal By Condition",
+    "cuisineExplore": "Explore Cuisines",
+    "startFitness": "Start Moving"
+  },
+  "recipes": {
+    "title": "Keto Recipes",
+    "filterCuisine": "Cuisine",
+    "filterAilment": "For Condition",
+    "all": "All",
+    "prepTime": "Prep",
+    "cookTime": "Cook",
+    "servings": "Servings",
+    "macros": "Nutrition",
+    "calories": "Calories",
+    "protein": "Protein",
+    "fat": "Fat",
+    "carbs": "Net Carbs",
+    "fiber": "Fiber",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "healingNotes": "Healing Notes",
+    "listenRecipe": "Listen to Recipe",
+    "exportPdf": "Export PDF",
+    "stopAudio": "Stop Audio"
+  },
+  "health": {
+    "title": "Health Guides",
+    "subtitle": "Condition-specific keto protocols",
+    "ketoApproach": "Keto Approach",
+    "foodsToEat": "Foods to Eat",
+    "foodsToAvoid": "Foods to Avoid",
+    "lifestyleTips": "Lifestyle Tips",
+    "medicationNote": "Natural Alternatives to Medication",
+    "disclaimer": "This app provides educational dietary guidance. Always consult your physician before changing medications or treatment plans."
+  },
+  "fitness": {
+    "title": "Fitness Routines",
+    "subtitle": "Movement therapy for healing",
+    "duration": "Duration",
+    "difficulty": "Difficulty",
+    "benefits": "Benefits",
+    "steps": "Steps",
+    "caloriesBurn": "Est. Calories Burned",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "listenRoutine": "Listen to Routine"
+  },
+  "knowledge": {
+    "title": "In-Depth Knowledge",
+    "subtitle": "Science of Desi Keto healing",
+    "keyTakeaways": "Key Takeaways"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "english": "English",
+    "urdu": "اردو",
+    "about": "About",
+    "aboutText": "Desi Keto Diet combines the metabolic benefits of ketogenic nutrition with the rich culinary heritage of Pakistan and South Asia. Our mission is to empower you to reverse chronic ailments through mindful eating, traditional recipes adapted for low-carb living, and holistic fitness — reducing reliance on lifelong medications."
+  },
+  "ailments": {
+    "gastric": "Gastric & Digestive",
+    "gyne": "Gynecological & Hormonal",
+    "psyche": "Mental Health & Psyche",
+    "cardiac": "Heart & Cardiovascular",
+    "diabetic": "Diabetes & Blood Sugar",
+    "thyroid": "Thyroid & Metabolism",
+    "joint": "Joints & Inflammation",
+    "liver": "Liver & Detox",
+    "kidney": "Kidney Health"
+  },
+  "cuisines": {
+    "pakistani": "Pakistani",
+    "bbq": "Bar B.Q.",
+    "chinese": "Chinese",
+    "continental": "Continental",
+    "mughlai": "Mughlai",
+    "punjabi": "Punjabi",
+    "sindhi": "Sindhi",
+    "balochi": "Balochi"
+  },
+  "fitnessTypes": {
+    "aerobic": "Aerobic",
+    "yoga": "Yoga",
+    "hiit": "HIIT",
+    "walking": "Walking",
+    "strength": "Strength Training",
+    "stretching": "Stretching",
+    "pilates": "Pilates"
+  },
+  "common": {
+    "minutes": "min",
+    "back": "Back",
+    "search": "Search recipes...",
+    "noResults": "No results found",
+    "exportSuccess": "PDF exported successfully",
+    "exportError": "Failed to export PDF"
+  }
+}
