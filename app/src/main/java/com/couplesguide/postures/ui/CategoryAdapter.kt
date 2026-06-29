@@ -3,13 +3,15 @@ package com.couplesguide.postures.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.couplesguide.postures.data.PostureRepository
 import com.couplesguide.postures.databinding.ItemCategoryBinding
 
 class CategoryAdapter(
-    private val categories: List<String>,
+    private val language: String,
     private val onCategoryClick: (String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
+    private val categoryIds = PostureRepository.getCategoryIds()
     private var selectedPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,17 +22,17 @@ class CategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categories[position], position == selectedPosition)
+        holder.bind(categoryIds[position], position == selectedPosition)
     }
 
-    override fun getItemCount() = categories.size
+    override fun getItemCount() = categoryIds.size
 
     inner class ViewHolder(
         private val binding: ItemCategoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(category: String, isSelected: Boolean) {
-            binding.categoryChip.text = category
+        fun bind(categoryId: String, isSelected: Boolean) {
+            binding.categoryChip.text = PostureRepository.getCategoryLabel(categoryId, language)
             binding.categoryChip.isChecked = isSelected
             binding.categoryChip.setOnClickListener {
                 val pos = bindingAdapterPosition
@@ -39,7 +41,7 @@ class CategoryAdapter(
                     selectedPosition = pos
                     notifyItemChanged(previous)
                     notifyItemChanged(selectedPosition)
-                    onCategoryClick(category)
+                    onCategoryClick(categoryId)
                 }
             }
         }

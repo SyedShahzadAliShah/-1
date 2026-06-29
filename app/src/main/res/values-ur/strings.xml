@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">قربت کی رہنمائی</string>
+    <string name="app_subtitle">مکمل جوڑوں کی گائیڈ</string>
+    <string name="welcome_title">ساتھ سیکھیں، ہمیشہ بات کریں</string>
+    <string name="welcome_message">یہ مکمل گائیڈ جوڑوں کو تصویری ہدایات، آواز میں سننے، PDF برآمد، اور آرام کے مشوروں کے ساتھ قریبی پوزیشنز سیکھنے میں مدد دیتی ہے — انگریزی اور اردو دونوں میں۔ ہر جسم مختلف ہے؛ وہ پوزیشنز اپنائیں جو آپ دونوں کے لیے درست ہوں۔</string>
+    <string name="guide_chapters">گائیڈ کے باب</string>
+    <string name="browse_categories">زمرے کے لحاظ سے دیکھیں</string>
+    <string name="all_postures">پوزیشنز</string>
+    <string name="no_postures">اس زمرے میں کوئی پوزیشن نہیں ملی۔</string>
+    <string name="posture_illustration">پوزیشن کی تصویر</string>
+    <string name="about_position">اس پوزیشن کے بارے میں</string>
+    <string name="how_to">طریقہ کار</string>
+    <string name="tips">آرام کے مشورے</string>
+    <string name="listen">سنیں</string>
+    <string name="stop">رکیں</string>
+    <string name="export_pdf">PDF برآمد</string>
+    <string name="export_full_guide">مکمل گائیڈ برآمد</string>
+    <string name="share_pdf">PDF شیئر کریں</string>
+    <string name="language">زبان</string>
+    <string name="english">English</string>
+    <string name="urdu">اردو</string>
+    <string name="key_points">اہم نکات</string>
+    <string name="pdf_exporting">PDF بن رہی ہے…</string>
+    <string name="pdf_ready">PDF شیئر کے لیے تیار</string>
+    <string name="pdf_failed">PDF نہیں بن سکی</string>
+    <string name="voice_not_ready">آواز کا نظام تیار نہیں</string>
+    <string name="chapter_illustration">باب کی تصویر</string>
+</resources>

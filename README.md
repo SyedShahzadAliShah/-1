@@ -1,13 +1,15 @@
 # Intimacy Guide
 
-An educational Android app that helps couples learn intimate postures with step-by-step instructions, comfort tips, and an emphasis on communication and consent.
+An educational bilingual Android app (English & Urdu) that helps couples learn intimate postures with illustrated guides, voice narration, and PDF export.
 
 ## Features
 
-- **12 illustrated postures** across 5 categories (Face to Face, Side by Side, Rear Entry, Standing & Seated, Variations)
-- **Step-by-step guides** with difficulty ratings
-- **Comfort tips** for each position
-- **Category filtering** to browse by type
+- **Bilingual** — Full English and Urdu (اردو) support with in-app language switching
+- **12 illustrated postures** across 5 categories
+- **4 guide chapters** — Communication, Connection, Comfort, Exploration
+- **Voice narration** — Text-to-speech reads guide content aloud (English or Urdu)
+- **PDF export** — Export the full guide or individual postures with images
+- **Step-by-step instructions** with difficulty ratings and comfort tips
 
 ## Build the APK
 
@@ -18,17 +20,7 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-The APK will be at:
-
-```
-app/build/outputs/apk/debug/app-debug.apk
-```
-
-For a release build:
-
-```bash
-./gradlew assembleRelease
-```
+APK output: `app/build/outputs/apk/debug/app-debug.apk`
 
 ## Install on Device
 
@@ -36,8 +28,19 @@ For a release build:
 adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 
+## Usage
+
+| Action | How |
+|--------|-----|
+| Switch language | Toolbar menu → Language → English or اردو |
+| Listen | Tap the play icon to hear narration |
+| Export PDF | Tap the save icon to create and share a PDF |
+
 ## App Info
 
 - **Package:** `com.couplesguide.postures`
+- **Version:** 2.0.0
 - **Min SDK:** 24 (Android 7.0)
 - **Target SDK:** 34
+
+**Note:** Urdu voice narration requires Urdu TTS data installed on the device (Settings → Language → Text-to-speech).

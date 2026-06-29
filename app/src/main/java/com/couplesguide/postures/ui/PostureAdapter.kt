@@ -9,6 +9,7 @@ import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.databinding.ItemPostureBinding
 
 class PostureAdapter(
+    private val language: String,
     private val onPostureClick: (Posture) -> Unit
 ) : ListAdapter<Posture, PostureAdapter.ViewHolder>(DiffCallback()) {
 
@@ -28,10 +29,11 @@ class PostureAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(posture: Posture) {
-            binding.postureName.text = posture.name
-            binding.postureSummary.text = posture.summary
-            binding.difficultyText.text = posture.difficulty.label
-            binding.categoryText.text = posture.category
+            val content = posture.content(language)
+            binding.postureName.text = content.name
+            binding.postureSummary.text = content.summary
+            binding.difficultyText.text = posture.difficulty.label(language)
+            binding.categoryText.text = content.category
             binding.thumbnail.setImageResource(posture.illustrationRes)
             binding.root.setOnClickListener { onPostureClick(posture) }
         }
