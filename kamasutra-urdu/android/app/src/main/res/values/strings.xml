@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">قربت کی تعلیم</string>
+    <string name="title_activity_main">قربت کی تعلیم</string>
+    <string name="package_name">com.couples.kamasutra.urdu</string>
+    <string name="custom_url_scheme">com.couples.kamasutra.urdu</string>
+</resources>
