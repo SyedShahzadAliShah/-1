@@ -48,6 +48,7 @@ export default function FitnessPage() {
                 <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
                 <span className="badge">{routine.duration} {t('common.minutes')}</span>
                 <span className="badge">{t(`fitness.${routine.difficulty}`)}</span>
+                <span className="badge badge-animated">▶ {t('fitness.animatedRoutine')}</span>
               </div>
             </div>
           </div>

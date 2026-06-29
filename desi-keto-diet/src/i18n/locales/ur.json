@@ -62,7 +62,16 @@
     "beginner": "ابتدائی",
     "intermediate": "درمیانہ",
     "advanced": "اعلیٰ",
-    "listenRoutine": "روٹین سنیں"
+    "listenRoutine": "روٹین سنیں",
+    "animatedRoutine": "متحرک گائیڈ",
+    "stepOf": "قدم {{current}} از {{total}}",
+    "play": "چلائیں",
+    "pause": "روکیں",
+    "prevStep": "پچھلا قدم",
+    "nextStep": "اگلا قدم",
+    "restart": "دوبارہ شروع",
+    "keepGoing": "جاری رکھیں!",
+    "ready": "شروع کرنے کے لیے چلائیں دبائیں"
   },
   "knowledge": {
     "title": "تفصیلی علم",

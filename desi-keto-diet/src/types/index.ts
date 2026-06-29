@@ -62,6 +62,42 @@ export interface AilmentGuide {
   medicationAlternatives: LocalizedText;
 }
 
+export type ExerciseAnimation =
+  | 'walk'
+  | 'breathe'
+  | 'squat'
+  | 'pushup'
+  | 'jumping-jack'
+  | 'plank'
+  | 'march'
+  | 'butterfly'
+  | 'cobra'
+  | 'twist'
+  | 'rest'
+  | 'jog'
+  | 'burpee'
+  | 'mountain-climber'
+  | 'high-knee'
+  | 'neck-roll'
+  | 'shoulder-roll'
+  | 'knee-lift'
+  | 'ankle-circle'
+  | 'cat-cow'
+  | 'goblet-squat'
+  | 'row'
+  | 'overhead-press'
+  | 'deadlift'
+  | 'hundred'
+  | 'roll-up'
+  | 'leg-stretch'
+  | 'child-pose'
+  | 'stretch';
+
+export interface FitnessStepMeta {
+  animation: ExerciseAnimation;
+  durationSec: number;
+}
+
 export interface FitnessRoutine {
   id: string;
   type: FitnessType;

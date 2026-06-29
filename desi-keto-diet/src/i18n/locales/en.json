@@ -62,7 +62,16 @@
     "beginner": "Beginner",
     "intermediate": "Intermediate",
     "advanced": "Advanced",
-    "listenRoutine": "Listen to Routine"
+    "listenRoutine": "Listen to Routine",
+    "animatedRoutine": "Animated Guide",
+    "stepOf": "Step {{current}} of {{total}}",
+    "play": "Play",
+    "pause": "Pause",
+    "prevStep": "Previous step",
+    "nextStep": "Next step",
+    "restart": "Restart routine",
+    "keepGoing": "Keep going!",
+    "ready": "Tap play to start"
   },
   "knowledge": {
     "title": "In-Depth Knowledge",
