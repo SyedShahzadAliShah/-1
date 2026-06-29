@@ -1,0 +1,10 @@
+# Logs
+logs
+*.log
+
+# Android build artifacts (keep source)
+local.properties
+.gradle/
+build/
+app/build/
+capacitor-cordova-android-plugins/build/
