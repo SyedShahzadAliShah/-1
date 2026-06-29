@@ -6,6 +6,8 @@
     android:viewportHeight="120">
     <path android:fillColor="@color/figure_secondary" android:pathData="M30,75 L170,75 L170,85 L30,85 Z"/>
     <path android:fillColor="@color/figure_secondary" android:pathData="M 50.0,63.0 A 7.0,7.0 0 1,1 50.0,77.0 A 7.0,7.0 0 1,1 50.0,63.0"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M70,25 L130,25 L130,75 L70,75 Z"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M 100.0,48.0 A 7.0,7.0 0 1,1 100.0,62.0 A 7.0,7.0 0 1,1 100.0,48.0"/>
+    <group android:name="motion_primary" android:pivotX="100" android:pivotY="60">
+        <path android:fillColor="@color/figure_primary" android:pathData="M70,25 L130,25 L130,75 L70,75 Z"/>
+        <path android:fillColor="@color/figure_primary" android:pathData="M 100.0,48.0 A 7.0,7.0 0 1,1 100.0,62.0 A 7.0,7.0 0 1,1 100.0,48.0"/>
+    </group>
 </vector>

@@ -3,6 +3,8 @@ package com.couplesguide.postures.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.couplesguide.postures.util.AnimatedIllustrationHelper
+import com.couplesguide.postures.util.IllustrationAssets
 import com.couplesguide.postures.data.GuideChapter
 import com.couplesguide.postures.databinding.ItemChapterBinding
 
@@ -31,15 +33,27 @@ class ChapterAdapter(
 
     override fun getItemCount() = chapters.size
 
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.stopAnimation()
+        super.onViewRecycled(holder)
+    }
+
     inner class ViewHolder(
         private val binding: ItemChapterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun stopAnimation() {
+            AnimatedIllustrationHelper.stop(binding.chapterImage)
+        }
 
         fun bind(chapter: GuideChapter) {
             val content = chapter.content(language)
             binding.chapterTitle.text = content.title
             binding.chapterSummary.text = content.summary
-            binding.chapterImage.setImageResource(chapter.illustrationRes)
+            AnimatedIllustrationHelper.bind(
+                binding.chapterImage,
+                IllustrationAssets.animatedRes(chapter.illustrationRes)
+            )
             binding.root.setOnClickListener { onChapterClick(chapter) }
         }
     }

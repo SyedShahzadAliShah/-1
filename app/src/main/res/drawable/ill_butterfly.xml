@@ -5,8 +5,12 @@
     android:viewportWidth="200"
     android:viewportHeight="120">
     <path android:fillColor="#E0D0C8" android:pathData="M20,65 L180,65 L180,85 L20,85 Z"/>
-    <path android:fillColor="@color/figure_secondary" android:pathData="M50,45 L50,65 L150,65 L150,45 Z"/>
-    <path android:fillColor="@color/figure_secondary" android:pathData="M 60.0,33.0 A 7.0,7.0 0 1,1 60.0,47.0 A 7.0,7.0 0 1,1 60.0,33.0"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M120,30 L140,50 L130,65 L110,45 Z"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M 125.0,21.0 A 7.0,7.0 0 1,1 125.0,35.0 A 7.0,7.0 0 1,1 125.0,21.0"/>
+    <group android:name="figure_bottom" android:pivotX="100" android:pivotY="75">
+        <path android:fillColor="@color/figure_secondary" android:pathData="M50,45 L50,65 L150,65 L150,45 Z"/>
+        <path android:fillColor="@color/figure_secondary" android:pathData="M 60.0,33.0 A 7.0,7.0 0 1,1 60.0,47.0 A 7.0,7.0 0 1,1 60.0,33.0"/>
+    </group>
+    <group android:name="motion_primary" android:pivotX="100" android:pivotY="60">
+        <path android:fillColor="@color/figure_primary" android:pathData="M120,30 L140,50 L130,65 L110,45 Z"/>
+        <path android:fillColor="@color/figure_primary" android:pathData="M 125.0,21.0 A 7.0,7.0 0 1,1 125.0,35.0 A 7.0,7.0 0 1,1 125.0,21.0"/>
+    </group>
 </vector>

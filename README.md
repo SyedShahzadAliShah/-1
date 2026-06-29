@@ -6,7 +6,7 @@ An educational bilingual Android app (English & Urdu) that helps couples learn i
 
 - **Bilingual** — Full English and Urdu (اردو) support with in-app language switching
 - **12 illustrated postures** across 5 categories
-- **4 guide chapters** — Communication, Connection, Comfort, Exploration
+- **Animated illustrations** — Postures and chapters use motion graphics (bob, sway, pulse)
 - **Voice narration** — Text-to-speech reads guide content aloud (English or Urdu)
 - **PDF export** — Export the full guide or individual postures with images
 - **Step-by-step instructions** with difficulty ratings and comfort tips
@@ -39,7 +39,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 ## App Info
 
 - **Package:** `com.couplesguide.postures`
-- **Version:** 2.0.0
+- **Version:** 2.1.0
 - **Min SDK:** 24 (Android 7.0)
 - **Target SDK:** 34
 

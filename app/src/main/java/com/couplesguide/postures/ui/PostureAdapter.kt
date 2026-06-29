@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.databinding.ItemPostureBinding
+import com.couplesguide.postures.util.AnimatedIllustrationHelper
+import com.couplesguide.postures.util.IllustrationAssets
 
 class PostureAdapter(
     private val language: String,
@@ -24,9 +26,18 @@ class PostureAdapter(
         holder.bind(getItem(position))
     }
 
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.stopAnimation()
+        super.onViewRecycled(holder)
+    }
+
     inner class ViewHolder(
         private val binding: ItemPostureBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun stopAnimation() {
+            AnimatedIllustrationHelper.stop(binding.thumbnail)
+        }
 
         fun bind(posture: Posture) {
             val content = posture.content(language)
@@ -34,7 +45,10 @@ class PostureAdapter(
             binding.postureSummary.text = content.summary
             binding.difficultyText.text = posture.difficulty.label(language)
             binding.categoryText.text = content.category
-            binding.thumbnail.setImageResource(posture.illustrationRes)
+            AnimatedIllustrationHelper.bind(
+                binding.thumbnail,
+                IllustrationAssets.animatedRes(posture.illustrationRes)
+            )
             binding.root.setOnClickListener { onPostureClick(posture) }
         }
     }

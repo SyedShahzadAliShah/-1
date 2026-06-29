@@ -5,7 +5,9 @@
     android:viewportWidth="200"
     android:viewportHeight="120">
     <path android:fillColor="@color/surface_variant" android:pathData="M30,75 L170,75 L170,95 L30,95 Z"/>
-    <path android:fillColor="@color/figure_secondary" android:pathData="M55,55 L95,55 L95,75 L55,75 Z"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M105,55 L145,55 L145,75 L105,75 Z"/>
-    <path android:fillColor="@color/secondary" android:pathData="M80,45 L120,45 L120,52 L80,52 Z"/>
+    <group android:name="motion_primary" android:pivotX="100" android:pivotY="60">
+        <path android:fillColor="@color/figure_secondary" android:pathData="M55,55 L95,55 L95,75 L55,75 Z"/>
+        <path android:fillColor="@color/figure_primary" android:pathData="M105,55 L145,55 L145,75 L105,75 Z"/>
+        <path android:fillColor="@color/secondary" android:pathData="M80,45 L120,45 L120,52 L80,52 Z"/>
+    </group>
 </vector>

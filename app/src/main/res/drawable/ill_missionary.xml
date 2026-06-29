@@ -4,10 +4,12 @@
     android:height="120dp"
     android:viewportWidth="200"
     android:viewportHeight="120">
-    <!-- Bottom figure lying down -->
     <path android:fillColor="@color/figure_secondary" android:pathData="M30,75 L170,75 L170,85 L30,85 Z"/>
-    <path android:fillColor="@color/figure_secondary" android:pathData="M 50.0,62.0 A 8.0,8.0 0 1,1 50.0,78.0 A 8.0,8.0 0 1,1 50.0,62.0"/>
-  <!-- Top figure -->
-    <path android:fillColor="@color/figure_primary" android:pathData="M60,45 L140,45 L140,75 L60,75 Z"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M 100.0,30.0 A 8.0,8.0 0 1,1 100.0,46.0 A 8.0,8.0 0 1,1 100.0,30.0"/>
+    <group android:name="figure_bottom" android:pivotX="100" android:pivotY="75">
+        <path android:fillColor="@color/figure_secondary" android:pathData="M 50.0,62.0 A 8.0,8.0 0 1,1 50.0,78.0 A 8.0,8.0 0 1,1 50.0,62.0"/>
+    </group>
+    <group android:name="motion_primary" android:pivotX="100" android:pivotY="60">
+        <path android:fillColor="@color/figure_primary" android:pathData="M60,45 L140,45 L140,75 L60,75 Z"/>
+        <path android:fillColor="@color/figure_primary" android:pathData="M 100.0,30.0 A 8.0,8.0 0 1,1 100.0,46.0 A 8.0,8.0 0 1,1 100.0,30.0"/>
+    </group>
 </vector>

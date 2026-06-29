@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
 import com.couplesguide.postures.databinding.ActivityPostureDetailBinding
+import com.couplesguide.postures.util.AnimatedIllustrationHelper
+import com.couplesguide.postures.util.IllustrationAssets
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.PdfExporter
@@ -63,10 +65,23 @@ class PostureDetailActivity : AppCompatActivity() {
         bindContent()
     }
 
+    override fun onResume() {
+        super.onResume()
+        AnimatedIllustrationHelper.start(binding.illustration)
+    }
+
+    override fun onPause() {
+        AnimatedIllustrationHelper.stop(binding.illustration)
+        super.onPause()
+    }
+
     private fun bindContent() {
         val content = posture.content(language)
         supportActionBar?.title = content.name
-        binding.illustration.setImageResource(posture.illustrationRes)
+        AnimatedIllustrationHelper.bind(
+            binding.illustration,
+            IllustrationAssets.animatedRes(posture.illustrationRes)
+        )
         binding.postureName.text = content.name
         binding.categoryBadge.text = content.category
         binding.difficultyBadge.text = posture.difficulty.label(language)

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.couplesguide.postures.data.GuideChapter
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.databinding.ActivityChapterDetailBinding
+import com.couplesguide.postures.util.AnimatedIllustrationHelper
+import com.couplesguide.postures.util.IllustrationAssets
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.VoiceNarrator
@@ -58,10 +60,23 @@ class ChapterDetailActivity : AppCompatActivity() {
         bindContent()
     }
 
+    override fun onResume() {
+        super.onResume()
+        AnimatedIllustrationHelper.start(binding.illustration)
+    }
+
+    override fun onPause() {
+        AnimatedIllustrationHelper.stop(binding.illustration)
+        super.onPause()
+    }
+
     private fun bindContent() {
         val content = chapter.content(language)
         supportActionBar?.title = content.title
-        binding.illustration.setImageResource(chapter.illustrationRes)
+        AnimatedIllustrationHelper.bind(
+            binding.illustration,
+            IllustrationAssets.animatedRes(chapter.illustrationRes)
+        )
         binding.chapterTitle.text = content.title
         binding.chapterSummary.text = content.summary
         binding.chapterBody.text = content.body

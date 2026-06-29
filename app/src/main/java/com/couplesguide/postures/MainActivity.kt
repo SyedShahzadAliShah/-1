@@ -16,6 +16,8 @@ import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.CategoryAdapter
 import com.couplesguide.postures.ui.ChapterAdapter
 import com.couplesguide.postures.ui.PostureAdapter
+import com.couplesguide.postures.util.AnimatedIllustrationHelper
+import com.couplesguide.postures.util.IllustrationAssets
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.PdfExporter
@@ -78,6 +80,20 @@ class MainActivity : AppCompatActivity() {
 
         setupCategories()
         updatePostureList()
+        AnimatedIllustrationHelper.bind(
+            binding.guideCoverImage,
+            IllustrationAssets.animatedRes(R.drawable.ill_guide_cover)
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        AnimatedIllustrationHelper.start(binding.guideCoverImage)
+    }
+
+    override fun onPause() {
+        AnimatedIllustrationHelper.stop(binding.guideCoverImage)
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

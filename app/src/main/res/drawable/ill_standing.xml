@@ -4,8 +4,12 @@
     android:height="120dp"
     android:viewportWidth="200"
     android:viewportHeight="120">
-    <path android:fillColor="@color/figure_secondary" android:pathData="M85,40 L85,85 L115,85 L115,40 Z"/>
-    <path android:fillColor="@color/figure_secondary" android:pathData="M 100.0,24.0 A 8.0,8.0 0 1,1 100.0,40.0 A 8.0,8.0 0 1,1 100.0,24.0"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M70,25 L70,55 L130,55 L130,25 Z"/>
-    <path android:fillColor="@color/figure_primary" android:pathData="M 100.0,11.0 A 7.0,7.0 0 1,1 100.0,25.0 A 7.0,7.0 0 1,1 100.0,11.0"/>
+    <group android:name="figure_bottom" android:pivotX="100" android:pivotY="75">
+        <path android:fillColor="@color/figure_secondary" android:pathData="M85,40 L85,85 L115,85 L115,40 Z"/>
+        <path android:fillColor="@color/figure_secondary" android:pathData="M 100.0,24.0 A 8.0,8.0 0 1,1 100.0,40.0 A 8.0,8.0 0 1,1 100.0,24.0"/>
+    </group>
+    <group android:name="motion_primary" android:pivotX="100" android:pivotY="60">
+        <path android:fillColor="@color/figure_primary" android:pathData="M70,25 L70,55 L130,55 L130,25 Z"/>
+        <path android:fillColor="@color/figure_primary" android:pathData="M 100.0,11.0 A 7.0,7.0 0 1,1 100.0,25.0 A 7.0,7.0 0 1,1 100.0,11.0"/>
+    </group>
 </vector>

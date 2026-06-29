@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ill_scissors">
+    <target android:name="motion_primary" android:animation="@animator/anim_rock_horizontal" />
+    <target android:name="motion_secondary" android:animation="@animator/anim_rock_horizontal" />
+</animated-vector>
