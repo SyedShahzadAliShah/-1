@@ -8,7 +8,10 @@ import com.couplesguide.postures.data.PostureRepository
 
 object NarrationBuilder {
 
-    fun buildWelcomeNarration(context: Context, language: String): String {
+    fun buildWelcomeNarration(
+        context: Context,
+        @Suppress("UNUSED_PARAMETER") language: String
+    ): String {
         val title = context.getString(R.string.welcome_title)
         val message = context.getString(R.string.welcome_message)
         return "$title. $message"

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/ill_lotus">
-    <target android:name="motion_primary" android:animation="@animator/anim_sway" />
-</animated-vector>

@@ -28,6 +28,7 @@ import android.text.StaticLayout
 import android.text.TextDirectionHeuristics
 import android.text.TextPaint
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -199,6 +200,7 @@ object PdfExporter {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveToDownloadsMediaStore(context: Context, result: ExportResult): Uri? {
         val resolver = context.contentResolver
         val values = ContentValues().apply {
@@ -650,6 +652,7 @@ object PdfExporter {
 
         private fun textAlignment(): Layout.Alignment = Layout.Alignment.ALIGN_NORMAL
 
+        @Suppress("WrongConstant") // Layout.BREAK_STRATEGY_* values match LineBreaker.* and work on API 24+
         private fun buildLayout(
             text: String,
             paint: TextPaint,
