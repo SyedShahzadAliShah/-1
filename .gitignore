@@ -1,0 +1,12 @@
+/local.properties
+/.gradle/
+/build/
+/app/build/
+/android-sdk/
+/gradle-8.7/
+*.iml
+.idea/
+.DS_Store
+captures/
+*.apk
+*.aab
