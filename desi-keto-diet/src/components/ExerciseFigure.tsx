@@ -1,3 +1,19 @@
+/**
+ * ExerciseFigure — Classic instructional figurine style.
+ *
+ * Design language: clean geometric shapes, single green palette,
+ * no skin tones or facial detail — like fitness-equipment instruction manuals.
+ *
+ * Four pose modes:
+ *   standing — upright exercises (walk, squat, press, etc.)
+ *   seated   — cross-legged floor (butterfly, breathe)
+ *   prone    — face-down floor (plank, cobra, pushup, cat-cow)
+ *   supine   — on-back floor (rest, hundred, roll-up, child-pose)
+ *
+ * CSS animations target the same class names (.fig-arm-l, .fig-leg-r, …)
+ * so ExerciseFigure.css drives all movement without knowing the shape.
+ */
+
 import { useId } from 'react';
 import type { ExerciseAnimation } from '../types';
 import { HumanFigureDefs } from './HumanFigureDefs';
@@ -11,405 +27,399 @@ interface Props {
 type PoseMode = 'standing' | 'seated' | 'prone' | 'supine';
 
 function getPoseMode(a: ExerciseAnimation): PoseMode {
-  if (['butterfly', 'breathe'].includes(a))                                         return 'seated';
-  if (['plank', 'mountain-climber', 'cobra', 'pushup', 'cat-cow'].includes(a))     return 'prone';
-  if (['rest', 'hundred', 'roll-up', 'leg-stretch', 'child-pose'].includes(a))     return 'supine';
+  if (['butterfly', 'breathe'].includes(a)) return 'seated';
+  if (['plank', 'mountain-climber', 'cobra', 'pushup', 'cat-cow'].includes(a)) return 'prone';
+  if (['rest', 'hundred', 'roll-up', 'leg-stretch', 'child-pose'].includes(a)) return 'supine';
   return 'standing';
 }
 
-/* ─── Sub-components ─────────────────────────────────────────── */
+/* colours threaded into every sub-component */
+interface C { body: string; limb: string; head: string; joint: string; out: string }
 
-/** Detailed face + head used by all poses */
-function Head({
-  cx, cy, rx = 16, ry = 18,
-  sk, hr,
-}: { cx: number; cy: number; rx?: number; ry?: number; sk: string; hr: string }) {
-  const fx = cx; const fy = cy + 2;
+/* ── Classic head — plain circle, no facial features ───────────── */
+function FigHead({ cx, cy, r = 16, c }: { cx: number; cy: number; r?: number; c: C }) {
   return (
     <g className="fig-head human-head">
-      {/* Skull */}
-      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill={sk} />
-      {/* Hair */}
-      <path fill={hr}
-        d={`M ${cx-rx+2} ${cy-ry*0.5}
-            C ${cx-rx} ${cy-ry-8} ${cx+rx} ${cy-ry-8} ${cx+rx-2} ${cy-ry*0.5}
-            C ${cx+rx+3} ${cy+ry*0.1} ${cx+rx-2} ${cy+ry*0.7} ${cx} ${cy+ry+2}
-            C ${cx-rx+2} ${cy+ry*0.7} ${cx-rx-3} ${cy+ry*0.1} ${cx-rx+2} ${cy-ry*0.5} Z`}
-      />
-      {/* Side ponytail */}
-      <path fill={hr}
-        d={`M ${cx+rx-4} ${cy-ry*0.4}
-            C ${cx+rx+10} ${cy} ${cx+rx+14} ${cy+ry*0.8} ${cx+rx+6} ${cy+ry+8}
-            C ${cx+rx+2} ${cy+ry*0.3} ${cx+rx-2} ${cy+ry*0.1} ${cx+rx-4} ${cy-ry*0.4} Z`}
-      />
-      {/* Headband */}
-      <path fill="#40916c"
-        d={`M ${cx-rx+1} ${cy-ry*0.6} Q ${cx} ${cy-ry-4} ${cx+rx-1} ${cy-ry*0.6}
-            L ${cx+rx-1} ${cy-ry*0.3} Q ${cx} ${cy-ry} ${cx-rx+1} ${cy-ry*0.3} Z`}
-      />
-      {/* Face */}
-      <ellipse cx={fx} cy={fy} rx={rx-3} ry={ry-3} fill={sk} />
-      {/* Ears */}
-      <ellipse cx={cx-rx+1}  cy={fy} rx="3" ry="4.5" fill={sk} />
-      <ellipse cx={cx+rx-1}  cy={fy} rx="3" ry="4.5" fill={sk} />
-      {/* Cheeks */}
-      <ellipse cx={fx-5}  cy={fy+5} rx="4" ry="2.5" fill="#e09090" opacity="0.28" />
-      <ellipse cx={fx+5}  cy={fy+5} rx="4" ry="2.5" fill="#e09090" opacity="0.28" />
-      {/* Eyes */}
-      <ellipse cx={fx-5}  cy={fy-1} rx="3.5" ry="3"   fill="#fff" />
-      <ellipse cx={fx+5}  cy={fy-1} rx="3.5" ry="3"   fill="#fff" />
-      <circle  cx={fx-5}  cy={fy-1} r="2.1"          fill="#1a2e1a" />
-      <circle  cx={fx+5}  cy={fy-1} r="2.1"          fill="#1a2e1a" />
-      <circle  cx={fx-4.2} cy={fy-1.8} r="0.8"       fill="#fff"    />
-      <circle  cx={fx+5.8} cy={fy-1.8} r="0.8"       fill="#fff"    />
-      {/* Brows */}
-      <path d={`M ${fx-8} ${fy-5} Q ${fx-5} ${fy-7} ${fx-2} ${fy-5}`}
-        fill="none" stroke="#4a3020" strokeWidth="1.5" strokeLinecap="round" />
-      <path d={`M ${fx+2} ${fy-5} Q ${fx+5} ${fy-7} ${fx+8} ${fy-5}`}
-        fill="none" stroke="#4a3020" strokeWidth="1.5" strokeLinecap="round" />
-      {/* Nose */}
-      <path d={`M ${fx} ${fy+2} L ${fx-2} ${fy+6} L ${fx+2} ${fy+6}`}
-        fill="none" stroke="#b87450" strokeWidth="1" strokeLinecap="round" />
-      {/* Smile */}
-      <path d={`M ${fx-6} ${fy+8} Q ${fx} ${fy+13} ${fx+6} ${fy+8}`}
-        fill="none" stroke="#8b5a3c" strokeWidth="1.6" strokeLinecap="round" />
+      <circle cx={cx} cy={cy} r={r}
+        fill={c.head} stroke={c.out} strokeWidth="1.5" />
+      {/* subtle inner highlight — gives the ball-joint feel */}
+      <circle cx={cx - r * 0.28} cy={cy - r * 0.3} r={r * 0.28}
+        fill="rgba(255,255,255,0.22)" />
     </g>
   );
 }
 
-/** Running shoe for standing figure */
-function Shoe({ x, y, dir = 1, sh }: { x: number; y: number; dir?: number; sh: string }) {
-  const tip = x + dir * 16;
-  const back = x - dir * 10;
-  return (
-    <g>
-      <ellipse cx={x + dir * 3} cy={y} rx="14" ry="5.5" fill="#d4a570" />
-      <path fill={sh}
-        d={`M ${back} ${y} L ${tip} ${y} L ${tip-dir*2} ${y+7} L ${back+dir*2} ${y+7} Z`} />
-      <rect x={Math.min(back+dir*2, tip-dir*4)} y={y+6}
-        width="20" height="3.5" rx="1.5" fill="#0d1a0d" />
-      <path d={`M ${x-dir*2} ${y} L ${x+dir*4} ${y-1}`}
-        fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" />
-    </g>
-  );
+/* ── Figurine foot — simple elongated oval ─────────────────────── */
+function FigFoot({ cx, cy }: { cx: number; cy: number; c: C }) {
+  return <ellipse cx={cx} cy={cy} rx="11" ry="4.5" fill="rgba(45,106,79,0.8)" />;
 }
 
-/* ─── STANDING body ───────────────────────────────────────────── */
-function StandingBody({
-  sk, sl, to, lg, sh,
-  animation,
-}: { sk: string; sl: string; to: string; lg: string; sh: string; animation: ExerciseAnimation }) {
+/* ─────────────────────────────────────────────────────────────────
+   STANDING (default) — upright classic figurine
+   ───────────────────────────────────────────────────────────────── */
+function StandingFig({ c, animation }: { c: C; animation: ExerciseAnimation }) {
+  const J = c.joint; // joint ball colour shorthand
   return (
     <>
-      {/* Neck */}
-      <rect className="fig-neck human-neck" x="92" y="44" width="16" height="13" rx="6" fill={sk} />
+      {/* neck */}
+      <rect className="fig-neck" x="93" y="37" width="14" height="14" rx="7"
+        fill={c.body} stroke={c.out} strokeWidth="1" />
 
-      {/* Torso — sports top */}
-      <path className="fig-torso human-torso" fill={to}
-        d="M 73 56 C 85 49 115 49 127 56 L 125 80 L 127 118
-           C 113 126 87 126 73 118 L 75 80 Z" />
-      {/* Shoulder highlights */}
-      <ellipse cx="77" cy="63" rx="5" ry="9" fill="rgba(255,255,255,0.07)" />
-      <ellipse cx="123" cy="63" rx="5" ry="9" fill="rgba(255,255,255,0.07)" />
-      {/* Core */}
-      <ellipse cx="100" cy="97" rx="9" ry="11" fill="rgba(255,255,255,0.05)" />
-      {/* Strap lines */}
-      <path d="M 77 56 L 79 118" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="2" />
-      <path d="M 123 56 L 121 118" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="2" />
+      {/* torso — tapered hourglass */}
+      <path className="fig-torso human-torso"
+        d="M 76 52 C 86 46 114 46 124 52
+           L 122 82 L 124 118
+           C 112 124 88 124 76 118
+           L 78 82 Z"
+        fill={c.body} stroke={c.out} strokeWidth="1.5" />
 
-      {/* Leggings */}
-      <path className="human-leggings" fill={lg}
-        d="M 73 118 L 127 118 L 124 135 C 112 142 88 142 76 135 Z" />
+      {/* inner body highlight */}
+      <ellipse cx="100" cy="85" rx="12" ry="18" fill="rgba(255,255,255,0.08)" />
 
-      {/* Shoulder joints */}
-      <circle cx="77" cy="58" r="5.5" fill={sk} />
-      <circle cx="123" cy="58" r="5.5" fill={sk} />
+      {/* hip block */}
+      <path d="M 76 118 L 124 118 L 120 134 C 110 140 90 140 80 134 Z"
+        fill={c.body} stroke={c.out} strokeWidth="1.5" />
 
-      {/* Left arm */}
+      {/* ── shoulder joints ── */}
+      <circle cx="78"  cy="54" r="7"   fill={J} stroke={c.out} strokeWidth="1" />
+      <circle cx="122" cy="54" r="7"   fill={J} stroke={c.out} strokeWidth="1" />
+
+      {/* ── left arm ── */}
       <g className="fig-arm-l">
-        <path className="human-upper-arm" d={`M 77 58 L 61 88`}
-          stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-        <circle cx="61" cy="88" r="5" fill={sk} />
-        <path className="human-forearm" d={`M 61 88 L 52 114`}
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <ellipse className="human-hand" cx="50" cy="118" rx="7" ry="5.5" fill={sk} />
+        <path d="M 78 54 L 62 86"
+          fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+        <circle cx="62" cy="86" r="6"  fill={J} stroke={c.out} strokeWidth="1" />
+        <path d="M 62 86 L 52 113"
+          fill="none" stroke={c.limb} strokeWidth="11" strokeLinecap="round" />
+        <circle cx="50" cy="117" r="6" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
 
-      {/* Right arm */}
+      {/* ── right arm ── */}
       <g className="fig-arm-r">
-        <path className="human-upper-arm" d={`M 123 58 L 139 88`}
-          stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-        <circle cx="139" cy="88" r="5" fill={sk} />
-        <path className="human-forearm" d={`M 139 88 L 148 114`}
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <ellipse className="human-hand" cx="150" cy="118" rx="7" ry="5.5" fill={sk} />
+        <path d="M 122 54 L 138 86"
+          fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+        <circle cx="138" cy="86" r="6"  fill={J} stroke={c.out} strokeWidth="1" />
+        <path d="M 138 86 L 148 113"
+          fill="none" stroke={c.limb} strokeWidth="11" strokeLinecap="round" />
+        <circle cx="150" cy="117" r="6" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
 
-      {/* Hip joints */}
-      <circle cx="87" cy="131" r="6" fill={sk} />
-      <circle cx="113" cy="131" r="6" fill={sk} />
+      {/* ── hip joints ── */}
+      <circle cx="87"  cy="130" r="7.5" fill={J} stroke={c.out} strokeWidth="1" />
+      <circle cx="113" cy="130" r="7.5" fill={J} stroke={c.out} strokeWidth="1" />
 
-      {/* Left leg */}
+      {/* ── left leg ── */}
       <g className="fig-leg-l">
-        <path className="human-thigh" d={`M 87 131 L 78 175`}
-          stroke={sl} strokeWidth="14" strokeLinecap="round" fill="none" />
-        <circle cx="78" cy="175" r="5.5" fill={sk} />
+        <path d="M 87 130 L 78 175"
+          fill="none" stroke={c.limb} strokeWidth="14" strokeLinecap="round" />
+        <circle cx="78" cy="175" r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
       <g className="fig-shin-l">
-        <path className="human-calf" d={`M 78 175 L 70 212`}
-          stroke={sl} strokeWidth="11" strokeLinecap="round" fill="none" />
-        <Shoe x={64} y={215} dir={-1} sh={sh} />
+        <path d="M 78 175 L 70 214"
+          fill="none" stroke={c.limb} strokeWidth="11" strokeLinecap="round" />
+        <FigFoot cx={64} cy={217} c={c} />
       </g>
 
-      {/* Right leg */}
+      {/* ── right leg ── */}
       <g className="fig-leg-r">
-        <path className="human-thigh" d={`M 113 131 L 122 175`}
-          stroke={sl} strokeWidth="14" strokeLinecap="round" fill="none" />
-        <circle cx="122" cy="175" r="5.5" fill={sk} />
+        <path d="M 113 130 L 122 175"
+          fill="none" stroke={c.limb} strokeWidth="14" strokeLinecap="round" />
+        <circle cx="122" cy="175" r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
       <g className="fig-shin-r">
-        <path className="human-calf" d={`M 122 175 L 130 212`}
-          stroke={sl} strokeWidth="11" strokeLinecap="round" fill="none" />
-        <Shoe x={136} y={215} dir={1} sh={sh} />
+        <path d="M 122 175 L 130 214"
+          fill="none" stroke={c.limb} strokeWidth="11" strokeLinecap="round" />
+        <FigFoot cx={136} cy={217} c={c} />
       </g>
 
-      {/* Butterfly pose overlay */}
+      {/* butterfly leg overlay */}
       {animation === 'butterfly' && (
         <g className="pose-overlay butterfly-legs">
-          <path className="human-thigh butterfly-leg"
-            d="M 100 132 L 62 162" stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-          <path className="human-thigh butterfly-leg"
-            d="M 100 132 L 138 162" stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-          <path className="human-calf butterfly-leg"
-            d="M 62 162 L 52 180" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-          <path className="human-calf butterfly-leg"
-            d="M 138 162 L 148 180" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
+          <circle cx="100" cy="130" r="7.5" fill={J} stroke={c.out} strokeWidth="1" />
+          <path d="M 100 130 L 62 162"
+            fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+          <circle cx="62" cy="162" r="6" fill={J} stroke={c.out} strokeWidth="1" />
+          <path d="M 62 162 L 52 180"
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+          <path d="M 100 130 L 138 162"
+            fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+          <circle cx="138" cy="162" r="6" fill={J} stroke={c.out} strokeWidth="1" />
+          <path d="M 138 162 L 148 180"
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
         </g>
       )}
     </>
   );
 }
 
-/* ─── SEATED cross-legged body ────────────────────────────────── */
-function SeatedBody({
-  sk, sl, to, lg,
-}: { sk: string; sl: string; to: string; lg: string; animation?: ExerciseAnimation }) {
+/* ─────────────────────────────────────────────────────────────────
+   SEATED — cross-legged meditation / butterfly
+   ───────────────────────────────────────────────────────────────── */
+function SeatedFig({ c }: { c: C }) {
+  const J = c.joint;
   return (
     <>
-      {/* Neck */}
-      <rect className="fig-neck human-neck" x="92" y="58" width="16" height="13" rx="6" fill={sk} />
+      {/* neck */}
+      <rect className="fig-neck" x="93" y="54" width="14" height="13" rx="6.5"
+        fill={c.body} stroke={c.out} strokeWidth="1" />
 
-      {/* Torso — upright seated */}
-      <path className="fig-torso human-torso" fill={to}
-        d="M 76 70 C 87 63 113 63 124 70 L 122 92 L 124 128
-           C 112 136 88 136 76 128 L 78 92 Z" />
-      <ellipse cx="100" cy="108" rx="9" ry="11" fill="rgba(255,255,255,0.05)" />
-      <path d="M 79 70 L 81 128" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="2" />
-      <path d="M 121 70 L 119 128" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="2" />
+      {/* upright torso */}
+      <path className="fig-torso human-torso"
+        d="M 78 68 C 88 62 112 62 122 68
+           L 120 92 L 122 128
+           C 110 134 90 134 78 128
+           L 80 92 Z"
+        fill={c.body} stroke={c.out} strokeWidth="1.5" />
+      <ellipse cx="100" cy="100" rx="11" ry="16" fill="rgba(255,255,255,0.07)" />
 
-      {/* Waistband */}
-      <path className="human-leggings" fill={lg}
-        d="M 76 128 L 124 128 L 122 142 C 110 148 90 148 78 142 Z" />
+      {/* waist */}
+      <path d="M 78 128 L 122 128 L 119 142 C 109 148 91 148 81 142 Z"
+        fill={c.body} stroke={c.out} strokeWidth="1.5" />
 
-      {/* Shoulders */}
-      <circle cx="80" cy="72" r="5.5" fill={sk} />
-      <circle cx="120" cy="72" r="5.5" fill={sk} />
+      {/* shoulder joints */}
+      <circle cx="80"  cy="70" r="7" fill={J} stroke={c.out} strokeWidth="1" />
+      <circle cx="120" cy="70" r="7" fill={J} stroke={c.out} strokeWidth="1" />
 
-      {/* Arms resting on knees */}
+      {/* left arm — resting on knee */}
       <g className="fig-arm-l">
-        <path className="human-upper-arm" d="M 80 72 L 64 100"
-          stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-        <circle cx="64" cy="100" r="4.5" fill={sk} />
-        <path className="human-forearm" d="M 64 100 L 58 130"
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <ellipse className="human-hand" cx="57" cy="135" rx="7" ry="5" fill={sk} />
-      </g>
-      <g className="fig-arm-r">
-        <path className="human-upper-arm" d="M 120 72 L 136 100"
-          stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-        <circle cx="136" cy="100" r="4.5" fill={sk} />
-        <path className="human-forearm" d="M 136 100 L 142 130"
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <ellipse className="human-hand" cx="143" cy="135" rx="7" ry="5" fill={sk} />
+        <path d="M 80 70 L 63 100"
+          fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+        <circle cx="63" cy="100" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+        <path d="M 63 100 L 56 132"
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+        <circle cx="55" cy="136" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
 
-      {/* Cross-legged pose — left */}
+      {/* right arm — resting on knee */}
+      <g className="fig-arm-r">
+        <path d="M 120 70 L 137 100"
+          fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+        <circle cx="137" cy="100" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+        <path d="M 137 100 L 144 132"
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+        <circle cx="145" cy="136" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+      </g>
+
+      {/* hip joints */}
+      <circle cx="87"  cy="142" r="7" fill={J} stroke={c.out} strokeWidth="1" />
+      <circle cx="113" cy="142" r="7" fill={J} stroke={c.out} strokeWidth="1" />
+
+      {/* cross-legged left leg */}
       <g className="fig-leg-l">
-        <path className="human-thigh" d="M 86 142 L 56 168"
-          stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-        <circle cx="56" cy="168" r="5" fill={sk} />
+        <path d="M 87 142 L 55 170"
+          fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+        <circle cx="55" cy="170" r="6" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
       <g className="fig-shin-l">
-        <path className="human-calf" d="M 56 168 L 80 180"
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <ellipse cx="82" cy="182" rx="9" ry="5" fill={sk} />
+        <path d="M 55 170 L 80 182"
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+        <ellipse cx="82" cy="184" rx="9" ry="4.5" fill="rgba(45,106,79,0.75)" />
       </g>
 
-      {/* Cross-legged pose — right */}
+      {/* cross-legged right leg */}
       <g className="fig-leg-r">
-        <path className="human-thigh" d="M 114 142 L 144 168"
-          stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-        <circle cx="144" cy="168" r="5" fill={sk} />
+        <path d="M 113 142 L 145 170"
+          fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+        <circle cx="145" cy="170" r="6" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
       <g className="fig-shin-r">
-        <path className="human-calf" d="M 144 168 L 120 180"
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <ellipse cx="118" cy="182" rx="9" ry="5" fill={sk} />
+        <path d="M 145 170 L 120 182"
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+        <ellipse cx="118" cy="184" rx="9" ry="4.5" fill="rgba(45,106,79,0.75)" />
       </g>
 
-      {/* Yoga mat */}
-      <rect x="40" y="186" width="120" height="9" rx="4.5"
-        fill="rgba(82,183,136,0.3)" stroke="rgba(82,183,136,0.55)" strokeWidth="1" />
+      {/* yoga mat */}
+      <rect x="38" y="188" width="124" height="8" rx="4"
+        fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.55)" strokeWidth="1" />
     </>
   );
 }
 
-/* ─── PRONE horizontal body ───────────────────────────────────── */
-function ProneBody({
-  sk, sl, to, lg, animation,
-}: { sk: string; sl: string; to: string; lg: string; sh?: string; animation: ExerciseAnimation }) {
-  const isPlank   = animation === 'plank' || animation === 'mountain-climber';
-  const isCobra   = animation === 'cobra';
-  const isPushup  = animation === 'pushup';
-  const isCatCow  = animation === 'cat-cow';
+/* ─────────────────────────────────────────────────────────────────
+   PRONE — face-down horizontal (plank, pushup, cobra, cat-cow)
+   ───────────────────────────────────────────────────────────────── */
+function ProneFig({ c, animation }: { c: C; animation: ExerciseAnimation }) {
+  const J  = c.joint;
+  const GY = 197; // ground level
 
-  // Ground level, body center y
-  const GY  = 195;  // ground
-  const BAY = isCobra ? 155 : 165;  // body (arms) attachment Y
+  const isPlank      = animation === 'plank' || animation === 'mountain-climber';
+  const isPushup     = animation === 'pushup';
+  const isCobra      = animation === 'cobra';
+  const isCatCow     = animation === 'cat-cow';
+  const bodyY        = isPushup ? 168 : 162; // body centerline Y
 
   return (
     <>
-      {/* Yoga/exercise mat */}
-      <rect x="15" y={GY} width="175" height="10" rx="5"
-        fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.5)" strokeWidth="1" />
+      {/* exercise mat */}
+      <rect x="12" y={GY} width="178" height="9" rx="4.5"
+        fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.52)" strokeWidth="1" />
 
-      {/* ── Plank / Mountain-climber ── */}
+      {/* ── PLANK / MOUNTAIN-CLIMBER ── */}
       {(isPlank || isPushup) && (
         <>
-          {/* Head */}
-          <Head cx={26} cy={BAY - 5} rx={13} ry={15} sk={sk} hr="url(#no-hr)" />
-          {/* Body */}
-          <path className="fig-torso human-torso" fill={to}
-            d={`M 38 ${BAY - 9} L 148 ${BAY - 7} L 148 ${BAY + 9} L 38 ${BAY + 11} Z`} />
-          <path className="human-leggings" fill={lg}
-            d={`M 148 ${BAY - 7} L 175 ${BAY - 3} L 175 ${BAY + 10} L 148 ${BAY + 9} Z`} />
-          {/* Support arms */}
+          <FigHead cx={24} cy={bodyY - 6} r={13} c={c} />
+          {/* neck */}
+          <rect x="35" y={bodyY - 9} width="12" height="11" rx="5.5"
+            fill={c.body} stroke={c.out} strokeWidth="1" />
+          {/* horizontal torso */}
+          <path className="fig-torso human-torso"
+            d={`M 45 ${bodyY - 10} L 148 ${bodyY - 8}
+                L 148 ${bodyY + 10} L 45 ${bodyY + 12} Z`}
+            fill={c.body} stroke={c.out} strokeWidth="1.5" />
+          {/* hips extension */}
+          <path d={`M 148 ${bodyY - 8} L 178 ${bodyY - 4}
+                    L 178 ${bodyY + 8} L 148 ${bodyY + 10} Z`}
+            fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+          {/* shoulder joints */}
+          <circle cx="50" cy={bodyY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+          <circle cx="88" cy={bodyY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+          {/* support arms → hands on floor */}
           <g className="fig-arm-l">
-            <path className="human-upper-arm"
-              d={`M 52 ${BAY} L 52 ${GY}`}
-              stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-            <circle cx="52" cy={GY} r="6" fill={sk} />
+            <path d={`M 50 ${bodyY} L 50 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+            <circle cx="50" cy={GY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
           <g className="fig-arm-r">
-            <path className="human-upper-arm"
-              d={`M 88 ${BAY} L 88 ${GY}`}
-              stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-            <circle cx="88" cy={GY} r="6" fill={sk} />
+            <path d={`M 88 ${bodyY} L 88 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+            <circle cx="88" cy={GY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
-          {/* Legs */}
+
+          {/* hip joint */}
+          <circle cx="155" cy={bodyY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+          {/* legs → toes on floor */}
           <g className="fig-leg-l">
-            <path className="human-thigh"
-              d={`M 148 ${BAY} L 164 ${BAY + 4}`}
-              stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
+            <path d={`M 155 ${bodyY} L 164 ${bodyY + 5}`}
+              fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+            <circle cx="164" cy={bodyY + 5} r="6" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
           <g className="fig-shin-l">
-            <path className="human-calf"
-              d={`M 164 ${BAY + 4} L 172 ${GY}`}
-              stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-            <ellipse cx="176" cy={GY + 1} rx="8" ry="4" fill={sk} />
+            <path d={`M 164 ${bodyY + 5} L 172 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+            <ellipse cx="176" cy={GY} rx="8" ry="4" fill="rgba(45,106,79,0.8)" />
           </g>
           <g className="fig-leg-r">
-            <path className="human-thigh"
-              d={`M 148 ${BAY} L 162 ${BAY + 6}`}
-              stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
+            <path d={`M 155 ${bodyY} L 162 ${bodyY + 8}`}
+              fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+            <circle cx="162" cy={bodyY + 8} r="6" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
           <g className="fig-shin-r">
-            <path className="human-calf"
-              d={`M 162 ${BAY + 6} L 168 ${GY}`}
-              stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-            <ellipse cx="172" cy={GY + 1} rx="8" ry="4" fill={sk} />
+            <path d={`M 162 ${bodyY + 8} L 168 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+            <ellipse cx="172" cy={GY} rx="8" ry="4" fill="rgba(45,106,79,0.8)" />
           </g>
         </>
       )}
 
-      {/* ── Cobra ── */}
+      {/* ── COBRA ── */}
       {isCobra && (
         <>
-          {/* Lower body flat */}
-          <path className="fig-leg-l human-thigh"
-            d="M 108 185 L 148 192" stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-          <path className="fig-leg-r human-thigh"
-            d="M 108 188 L 155 195" stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-          <path className="fig-shin-l human-calf"
-            d="M 148 192 L 172 196" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-          <path className="fig-shin-r human-calf"
-            d="M 155 195 L 180 198" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-          {/* Hips/waist flat */}
-          <path fill={lg}
-            d="M 100 182 L 162 190 L 160 198 L 98 190 Z" />
-          {/* Arching torso */}
-          <path className="fig-torso human-torso cobra-body" fill={to}
-            d="M 98 182 Q 68 158 48 138 Q 38 128 36 118
-               L 44 112 Q 60 124 72 136 Q 90 154 110 176 Z" />
-          {/* Arms pushing up */}
+          {/* flat lower body */}
+          <g className="fig-leg-l">
+            <path d="M 105 185 L 148 192"
+              fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+            <circle cx="148" cy="192" r="6" fill={J} stroke={c.out} strokeWidth="1" />
+          </g>
+          <g className="fig-shin-l">
+            <path d="M 148 192 L 173 196"
+              fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+            <ellipse cx="178" cy={GY} rx="7" ry="3.5" fill="rgba(45,106,79,0.8)" />
+          </g>
+          <g className="fig-leg-r">
+            <path d="M 105 188 L 155 194"
+              fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+            <circle cx="155" cy="194" r="6" fill={J} stroke={c.out} strokeWidth="1" />
+          </g>
+          <g className="fig-shin-r">
+            <path d="M 155 194 L 182 198"
+              fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+          </g>
+
+          {/* hip/waist */}
+          <ellipse cx="108" cy="185" rx="14" ry="7" fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+          {/* arched torso rising from hips */}
+          <path className="fig-torso human-torso"
+            d="M 100 182 Q 72 158 50 136 Q 40 125 38 116
+               L 46 110 Q 58 122 70 134 Q 90 152 108 176 Z"
+            fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+          {/* shoulder joints */}
+          <circle cx="46" cy="112" r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+          {/* pushing-up arms */}
           <g className="fig-arm-l">
-            <path className="human-upper-arm"
-              d="M 48 138 L 44 168" stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-            <path className="human-forearm"
-              d="M 44 168 L 42 195" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-            <ellipse cx="42" cy={GY} rx="7" ry="5" fill={sk} />
+            <path d="M 46 112 L 43 145"
+              fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+            <circle cx="43" cy="145" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+            <path d="M 43 145 L 41 GY"
+              fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+            <circle cx="41" cy={GY} r="6" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
           <g className="fig-arm-r">
-            <path className="human-upper-arm"
-              d="M 70 152 L 66 178" stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-            <path className="human-forearm"
-              d="M 66 178 L 64 195" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-            <ellipse cx="64" cy={GY} rx="7" ry="5" fill={sk} />
+            <path d="M 66 138 L 63 168"
+              fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+            <circle cx="63" cy="168" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+            <path d="M 63 168 L 61 197"
+              fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+            <circle cx="61" cy={GY} r="6" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
-          {/* Head raised */}
-          <Head cx={34} cy={108} rx={13} ry={15} sk={sk} hr="url(#no-hr)" />
+
+          {/* raised head */}
+          <FigHead cx={34} cy={108} r={13} c={c} />
         </>
       )}
 
-      {/* ── Cat-cow ── */}
+      {/* ── CAT-COW — on all fours ── */}
       {isCatCow && (
         <>
-          {/* On all-fours — hands and knees */}
-          <Head cx={28} cy={BAY - 22} rx={13} ry={15} sk={sk} hr="url(#no-hr)" />
-          {/* Neck */}
-          <path d={`M 40 ${BAY - 15} L 55 ${BAY}`}
-            stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-          {/* Back */}
-          <path className="fig-torso human-torso" fill={to}
-            d={`M 55 ${BAY - 7} Q 100 ${BAY - 18} 140 ${BAY - 5}
-                L 140 ${BAY + 9} Q 100 ${BAY + 20} 55 ${BAY + 7} Z`} />
-          {/* Front arms (hands on floor) */}
+          <FigHead cx={26} cy={bodyY - 24} r={13} c={c} />
+          {/* neck */}
+          <path d={`M 38 ${bodyY - 16} L 52 ${bodyY}`}
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+
+          {/* back / torso — arching shape driven by cat-cow animation */}
+          <path className="fig-torso human-torso"
+            d={`M 52 ${bodyY - 8} Q 100 ${bodyY - 20} 142 ${bodyY - 6}
+                L 142 ${bodyY + 10} Q 100 ${bodyY + 22} 52 ${bodyY + 8} Z`}
+            fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+          {/* hip block */}
+          <ellipse cx="142" cy={bodyY} rx="12" ry="10" fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+          {/* front shoulder joints */}
+          <circle cx="57" cy={bodyY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+          <circle cx="80" cy={bodyY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+          {/* front arms → hands on floor */}
           <g className="fig-arm-l">
-            <path className="human-upper-arm"
-              d={`M 62 ${BAY - 2} L 58 ${GY}`}
-              stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-            <circle cx="58" cy={GY} r="6" fill={sk} />
+            <path d={`M 57 ${bodyY} L 55 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+            <circle cx="55" cy={GY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
           <g className="fig-arm-r">
-            <path className="human-upper-arm"
-              d={`M 82 ${BAY - 4} L 78 ${GY}`}
-              stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-            <circle cx="78" cy={GY} r="6" fill={sk} />
+            <path d={`M 80 ${bodyY} L 78 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+            <circle cx="78" cy={GY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
-          {/* Back legs (knees on floor) */}
-          <path fill={lg}
-            d={`M 140 ${BAY - 5} L 150 ${BAY - 2} L 150 ${BAY + 12} L 140 ${BAY + 9} Z`} />
+
+          {/* back knee joints */}
+          <circle cx="146" cy={bodyY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+          <circle cx="158" cy={bodyY + 2} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+          {/* back legs → knees on floor */}
           <g className="fig-leg-l">
-            <path className="human-thigh"
-              d={`M 145 ${BAY} L 148 ${GY}`}
-              stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-            <circle cx="148" cy={GY} r="6" fill={sk} />
+            <path d={`M 146 ${bodyY} L 148 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+            <circle cx="148" cy={GY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
           <g className="fig-leg-r">
-            <path className="human-thigh"
-              d={`M 155 ${BAY + 2} L 160 ${GY}`}
-              stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-            <circle cx="160" cy={GY} r="6" fill={sk} />
+            <path d={`M 158 ${bodyY + 2} L 161 ${GY}`}
+              fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+            <circle cx="161" cy={GY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
           </g>
         </>
       )}
@@ -417,173 +427,172 @@ function ProneBody({
   );
 }
 
-/* ─── SUPINE (lying on back) body ─────────────────────────────── */
-function SupineBody({
-  sk, sl, to, lg, sh, animation,
-}: { sk: string; sl: string; to: string; lg: string; sh: string; animation: ExerciseAnimation }) {
-  const GY   = 198;  // ground / mat level
-  const BY   = 172;  // body center Y (lying flat)
-  const isChildPose = animation === 'child-pose';
+/* ─────────────────────────────────────────────────────────────────
+   SUPINE — on-back horizontal (rest, hundred, roll-up, child-pose)
+   ───────────────────────────────────────────────────────────────── */
+function SupineFig({ c, animation }: { c: C; animation: ExerciseAnimation }) {
+  const J  = c.joint;
+  const GY = 200;
+  const BY = 173; // body centre Y
+  const isChild = animation === 'child-pose';
 
-  if (isChildPose) {
-    // Child pose: kneeling, body folded forward
+  if (isChild) {
+    /* child pose: kneeling, curled forward */
     return (
       <>
-        <rect x="20" y={GY} width="165" height="10" rx="5"
-          fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.5)" strokeWidth="1" />
-        {/* Head bowed */}
-        <Head cx={36} cy={BY - 10} rx={13} ry={14} sk={sk} hr="url(#no-hr)" />
-        {/* Curved back/spine */}
-        <path className="fig-torso human-torso" fill={to}
-          d="M 46 168 Q 72 152 100 150 Q 128 148 148 155
-             L 148 166 Q 128 160 100 162 Q 72 164 46 180 Z" />
-        <path fill={lg}
-          d="M 148 155 L 168 158 L 168 170 L 148 166 Z" />
-        {/* Arms stretched forward */}
+        <rect x="18" y={GY} width="166" height="9" rx="4.5"
+          fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.52)" strokeWidth="1" />
+        <FigHead cx={34} cy={BY - 12} r={13} c={c} />
+        {/* curved back */}
+        <path className="fig-torso human-torso"
+          d="M 44 170 Q 70 152 100 150 Q 130 148 148 156
+             L 148 167 Q 130 160 100 162 Q 70 165 44 182 Z"
+          fill={c.body} stroke={c.out} strokeWidth="1.5" />
+        {/* hip block */}
+        <path d="M 148 156 L 168 160 L 168 171 L 148 167 Z"
+          fill={c.body} stroke={c.out} strokeWidth="1.5" />
+        {/* arms stretched forward */}
         <g className="fig-arm-l">
-          <path className="human-upper-arm"
-            d="M 62 165 L 42 172" stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-          <path className="human-forearm"
-            d="M 42 172 L 26 175" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-          <ellipse cx="20" cy="177" rx="8" ry="5" fill={sk} />
+          <path d="M 60 168 L 38 174"
+            fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+          <circle cx="38" cy="174" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+          <path d="M 38 174 L 22 177"
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+          <circle cx="18" cy="179" r="6" fill={J} stroke={c.out} strokeWidth="1" />
         </g>
         <g className="fig-arm-r">
-          <path className="human-upper-arm"
-            d="M 68 163 L 48 168" stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-          <path className="human-forearm"
-            d="M 48 168 L 30 171" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-          <ellipse cx="24" cy="173" rx="8" ry="5" fill={sk} />
+          <path d="M 66 166 L 46 171"
+            fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+          <circle cx="46" cy="171" r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+          <path d="M 46 171 L 30 174"
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+          <circle cx="26" cy="176" r="6" fill={J} stroke={c.out} strokeWidth="1" />
         </g>
-        {/* Knees/shins on floor */}
+        {/* shins on floor */}
         <g className="fig-leg-l">
-          <path className="human-thigh"
-            d="M 148 158 L 155 198" stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
+          <path d="M 148 159 L 155 200"
+            fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+          <circle cx="155" cy={GY} r="6" fill={J} stroke={c.out} strokeWidth="1" />
         </g>
         <g className="fig-shin-l">
-          <path className="human-calf"
-            d="M 155 198 L 168 198" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
+          <path d="M 155 200 L 168 200"
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
         </g>
         <g className="fig-leg-r">
-          <path className="human-thigh"
-            d="M 154 162 L 162 198" stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
+          <path d="M 154 163 L 162 200"
+            fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+          <circle cx="162" cy={GY} r="6" fill={J} stroke={c.out} strokeWidth="1" />
         </g>
         <g className="fig-shin-r">
-          <path className="human-calf"
-            d="M 162 198 L 177 198" stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
+          <path d="M 162 200 L 178 200"
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
         </g>
       </>
     );
   }
 
-  // Supine — lying on back, head at left
+  /* default supine — lying on back, head left */
   return (
     <>
-      {/* Mat */}
-      <rect x="10" y={GY - 4} width="180" height="10" rx="5"
-        fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.5)" strokeWidth="1" />
+      {/* mat */}
+      <rect x="8" y={GY - 5} width="184" height="9" rx="4.5"
+        fill="rgba(82,183,136,0.28)" stroke="rgba(82,183,136,0.52)" strokeWidth="1" />
 
-      {/* Head */}
-      <Head cx={24} cy={BY - 4} rx={13} ry={15} sk={sk} hr="url(#no-hr)" />
+      <FigHead cx={22} cy={BY - 3} r={13} c={c} />
 
-      {/* Torso horizontal */}
-      <path className="fig-torso human-torso" fill={to}
-        d={`M 37 ${BY - 10} L 140 ${BY - 8} L 140 ${BY + 10} L 37 ${BY + 12} Z`} />
-      <path className="human-leggings" fill={lg}
-        d={`M 140 ${BY - 8} L 175 ${BY - 5} L 175 ${BY + 8} L 140 ${BY + 10} Z`} />
+      {/* neck */}
+      <rect x="33" y={BY - 7} width="11" height="11" rx="5.5"
+        fill={c.body} stroke={c.out} strokeWidth="1" />
 
-      {/* Arms along sides */}
+      {/* horizontal torso */}
+      <path className="fig-torso human-torso"
+        d={`M 42 ${BY - 10} L 145 ${BY - 8} L 145 ${BY + 10} L 42 ${BY + 12} Z`}
+        fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+      {/* hip/legs block */}
+      <path d={`M 145 ${BY - 8} L 178 ${BY - 5} L 178 ${BY + 8} L 145 ${BY + 10} Z`}
+        fill={c.body} stroke={c.out} strokeWidth="1.5" />
+
+      {/* shoulder joint */}
+      <circle cx="56" cy={BY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+      {/* arms loosely at sides */}
       <g className="fig-arm-l">
-        <path className="human-upper-arm"
-          d={`M 60 ${BY + 2} L 60 ${GY - 6}`}
-          stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-        <path className="human-forearm"
-          d={`M 60 ${GY - 6} L 58 ${GY + 2}`}
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
+        <path d={`M 56 ${BY + 2} L 57 ${GY - 5}`}
+          fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+        <circle cx="57" cy={GY - 5} r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+        <path d={`M 57 ${GY - 5} L 55 ${GY + 2}`}
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
       </g>
       <g className="fig-arm-r">
-        <path className="human-upper-arm"
-          d={`M 80 ${BY - 2} L 82 ${GY - 6}`}
-          stroke={sl} strokeWidth="12" strokeLinecap="round" fill="none" />
-        <path className="human-forearm"
-          d={`M 82 ${GY - 6} L 80 ${GY + 2}`}
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
+        <path d={`M 76 ${BY - 2} L 78 ${GY - 5}`}
+          fill="none" stroke={c.limb} strokeWidth="12" strokeLinecap="round" />
+        <circle cx="78" cy={GY - 5} r="5.5" fill={J} stroke={c.out} strokeWidth="1" />
+        <path d={`M 78 ${GY - 5} L 76 ${GY + 2}`}
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
       </g>
 
-      {/* Legs */}
+      {/* hip joints */}
+      <circle cx="145" cy={BY} r="6.5" fill={J} stroke={c.out} strokeWidth="1" />
+
+      {/* legs */}
       <g className="fig-leg-l">
-        <path className="human-thigh"
-          d={`M 140 ${BY} L 160 ${BY + 2}`}
-          stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-        <circle cx="160" cy={BY + 2} r="5" fill={sk} />
+        <path d={`M 145 ${BY} L 162 ${BY + 2}`}
+          fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+        <circle cx="162" cy={BY + 2} r="6" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
       <g className="fig-shin-l">
-        <path className="human-calf"
-          d={`M 160 ${BY + 2} L 178 ${BY + 4}`}
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <Shoe x={182} y={BY + 5} dir={1} sh={sh} />
+        <path d={`M 162 ${BY + 2} L 180 ${BY + 4}`}
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+        <ellipse cx="186" cy={BY + 5} rx="10" ry="4" fill="rgba(45,106,79,0.8)" />
       </g>
       <g className="fig-leg-r">
-        <path className="human-thigh"
-          d={`M 140 ${BY + 4} L 158 ${BY + 6}`}
-          stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-        <circle cx="158" cy={BY + 6} r="5" fill={sk} />
+        <path d={`M 145 ${BY + 5} L 160 ${BY + 7}`}
+          fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+        <circle cx="160" cy={BY + 7} r="6" fill={J} stroke={c.out} strokeWidth="1" />
       </g>
       <g className="fig-shin-r">
-        <path className="human-calf"
-          d={`M 158 ${BY + 6} L 176 ${BY + 8}`}
-          stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        <Shoe x={180} y={BY + 9} dir={1} sh={sh} />
+        <path d={`M 160 ${BY + 7} L 178 ${BY + 9}`}
+          fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
+        <ellipse cx="184" cy={BY + 10} rx="10" ry="4" fill="rgba(45,106,79,0.8)" />
       </g>
 
-      {/* Hundred pose: legs lifted */}
+      {/* hundred: legs lifted */}
       {animation === 'hundred' && (
-        <g className="fig-leg-l hundred-lift" style={{ transformOrigin: '140px 172px' }}>
-          <path className="human-thigh"
-            d={`M 140 ${BY} L 158 ${BY - 18}`}
-            stroke={sl} strokeWidth="13" strokeLinecap="round" fill="none" />
-          <circle cx="158" cy={BY - 18} r="5" fill={sk} />
-          <path className="human-calf"
-            d={`M 158 ${BY - 18} L 176 ${BY - 16}`}
-            stroke={sl} strokeWidth="10" strokeLinecap="round" fill="none" />
-        </g>
-      )}
-
-      {/* Roll-up: head and shoulders lifted */}
-      {animation === 'roll-up' && (
-        <g className="fig-torso-lift roll-up-upper" style={{ transformOrigin: '140px 172px' }}>
-          <path
-            d={`M 70 ${BY - 25} Q 100 ${BY - 42} 130 ${BY - 30}
-                L 135 ${BY - 18} Q 105 ${BY - 30} 72 ${BY - 14} Z`}
-            fill={to} />
+        <g style={{ transformOrigin: '145px 173px' }}>
+          <path d={`M 145 ${BY} L 163 ${BY - 20}`}
+            fill="none" stroke={c.limb} strokeWidth="13" strokeLinecap="round" />
+          <circle cx="163" cy={BY - 20} r="6" fill={J} stroke={c.out} strokeWidth="1" />
+          <path d={`M 163 ${BY - 20} L 181 ${BY - 18}`}
+            fill="none" stroke={c.limb} strokeWidth="10" strokeLinecap="round" />
         </g>
       )}
     </>
   );
 }
 
-/* ─── Main component ──────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   Main exported component
+   ═══════════════════════════════════════════════════════════════ */
 export default function ExerciseFigure({ animation, compact = false }: Props) {
   const rawId = useId();
   const p = `hf${rawId.replace(/[^a-zA-Z0-9]/g, '')}`;
 
-  const sk = `url(#${p}-sk)`;
-  const sl = `url(#${p}-sl)`;
-  const to = `url(#${p}-to)`;
-  const lg = `url(#${p}-lg)`;
-  const sh = `url(#${p}-sh)`;
-  const hr = `url(#${p}-hr)`;
+  const c: C = {
+    body:  `url(#${p}-body)`,
+    limb:  `url(#${p}-limb)`,
+    head:  `url(#${p}-head)`,
+    joint: `url(#${p}-joint)`,
+    out:   'rgba(27,67,50,0.6)',
+  };
 
-  const mode = getPoseMode(animation);
-
+  const mode     = getPoseMode(animation);
   const isSeated = mode === 'seated';
   const isProne  = mode === 'prone';
   const isSupine = mode === 'supine';
 
-  // Head position per mode
-  const headCx = isProne || isSupine ? -999 : 100; // floor heads drawn inside body components
-  const headCy = isSeated ? 40 : 24;
-  const headRx = isSeated ? 15 : 16;
-  const headRy = isSeated ? 17 : 18;
+  const headCy = isSeated ? 40 : 22;
+  const headR  = isSeated ? 15 : 16;
 
   return (
     <div
@@ -596,49 +605,46 @@ export default function ExerciseFigure({ animation, compact = false }: Props) {
       <svg viewBox="0 0 200 240" className="exercise-svg">
         <HumanFigureDefs prefix={p} />
 
-        {/* Ambient radial glow on stage */}
-        <ellipse cx="100" cy="195" rx="80" ry="50" fill={`url(#${p}-gl)`} />
+        {/* ambient ground glow */}
+        <ellipse cx="100" cy="198" rx="85" ry="48" fill={`url(#${p}-glow)`} />
 
-        {/* Ground shadow */}
+        {/* cast shadow */}
         <ellipse
-          className={`human-shadow ${isProne || isSupine ? 'shadow-floor' : ''}`}
-          cx={isProne ? 100 : (isSupine ? 100 : 100)}
-          cy={isProne ? 206 : (isSupine ? 204 : 226)}
-          rx={isProne ? 80 : (isSupine ? 80 : 38)}
-          ry={isProne ? 7  : (isSupine ? 7  : 7)}
+          className="human-shadow"
+          cx="100"
+          cy={isProne || isSupine ? 207 : 228}
+          rx={isProne || isSupine ? 82 : 38}
+          ry={isProne || isSupine ? 7  : 7}
         />
 
+        {/* ── figure group (CSS animations target children) ── */}
         <g
-          className={`figure-body human-figure${isSeated ? ' human-seated' : ''}${isProne ? ' human-prone' : ''}${isSupine ? ' human-supine' : ''}`}
-          filter={`url(#${p}-sf)`}
+          className={[
+            'figure-body human-figure',
+            isSeated ? 'human-seated' : '',
+            isProne  ? 'human-prone'  : '',
+            isSupine ? 'human-supine' : '',
+          ].join(' ').trim()}
+          filter={`url(#${p}-shadow)`}
         >
-          {/* Head (for standing & seated) */}
+          {/* head drawn here for standing + seated; floor poses include their own */}
           {!isProne && !isSupine && (
-            <Head cx={headCx} cy={headCy} rx={headRx} ry={headRy} sk={sk} hr={hr} />
+            <FigHead cx={100} cy={headCy} r={headR} c={c} />
           )}
 
-          {/* Body */}
-          {mode === 'standing' && (
-            <StandingBody sk={sk} sl={sl} to={to} lg={lg} sh={sh} animation={animation} />
-          )}
-          {mode === 'seated' && (
-            <SeatedBody sk={sk} sl={sl} to={to} lg={lg} animation={animation} />
-          )}
-          {mode === 'prone' && (
-            <ProneBody sk={sk} sl={sl} to={to} lg={lg} animation={animation} />
-          )}
-          {mode === 'supine' && (
-            <SupineBody sk={sk} sl={sl} to={to} lg={lg} sh={sh} animation={animation} />
-          )}
+          {mode === 'standing' && <StandingFig c={c} animation={animation} />}
+          {mode === 'seated'   && <SeatedFig   c={c} />}
+          {mode === 'prone'    && <ProneFig    c={c} animation={animation} />}
+          {mode === 'supine'   && <SupineFig   c={c} animation={animation} />}
         </g>
 
-        {/* Motion dot for high-energy moves */}
+        {/* energy sparks for explosive moves */}
         {(animation === 'burpee' || animation === 'jumping-jack') && (
-          <g>
-            <circle cx="100" cy="8" r="6" className="motion-dot" filter={`url(#${p}-eg)`} />
-            <circle cx="85"  cy="14" r="3.5" className="motion-dot-sm" />
-            <circle cx="115" cy="14" r="3.5" className="motion-dot-sm" />
-          </g>
+          <>
+            <circle cx="100" cy="8"  r="5.5" className="motion-dot"    filter={`url(#${p}-glow-f)`} />
+            <circle cx="84"  cy="15" r="3.5" className="motion-dot-sm" />
+            <circle cx="116" cy="15" r="3.5" className="motion-dot-sm" />
+          </>
         )}
       </svg>
 

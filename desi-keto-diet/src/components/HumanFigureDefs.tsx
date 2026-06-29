@@ -1,70 +1,53 @@
-/** Shared SVG gradient + filter defs — each instance gets a unique prefix so
- *  multiple ExerciseFigure components on the same page don't share IDs. */
+/**
+ * Classic figurine gradient / filter defs.
+ * Each ExerciseFigure instance gets a unique `prefix` so multiple
+ * instances on the same page never share SVG IDs.
+ */
 export function HumanFigureDefs({ prefix: p }: { prefix: string }) {
   return (
     <defs>
-      {/* Skin — warm South Asian tone */}
-      <radialGradient id={`${p}-sk`} cx="38%" cy="28%" r="68%">
-        <stop offset="0%"   stopColor="#f5cfa8" />
-        <stop offset="45%"  stopColor="#e0a870" />
-        <stop offset="100%" stopColor="#bc7845" />
-      </radialGradient>
-
-      {/* Limb skin — side-lit cylinder look */}
-      <linearGradient id={`${p}-sl`} x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%"   stopColor="#bc7845" />
-        <stop offset="30%"  stopColor="#e8b88a" />
-        <stop offset="65%"  stopColor="#f0c89a" />
-        <stop offset="100%" stopColor="#c98a52" />
+      {/* ── Body & torso fill — mint-to-forest vertical ── */}
+      <linearGradient id={`${p}-body`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   stopColor="#b7e4c7" />
+        <stop offset="50%"  stopColor="#52b788" />
+        <stop offset="100%" stopColor="#1b4332" />
       </linearGradient>
 
-      {/* Sports top — bright green */}
-      <linearGradient id={`${p}-to`} x1="0%" y1="0%" x2="10%" y2="100%">
-        <stop offset="0%"   stopColor="#95e6be" />
-        <stop offset="40%"  stopColor="#52b788" />
+      {/* ── Limb stroke — same palette, slight diagonal sheen ── */}
+      <linearGradient id={`${p}-limb`} x1="0%" y1="0%" x2="60%" y2="100%">
+        <stop offset="0%"   stopColor="#95d5b2" />
         <stop offset="100%" stopColor="#2d6a4f" />
       </linearGradient>
 
-      {/* Leggings — deep green */}
-      <linearGradient id={`${p}-lg`} x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%"   stopColor="#3a8060" />
-        <stop offset="100%" stopColor="#1b3326" />
-      </linearGradient>
+      {/* ── Head circle — radial spotlight ── */}
+      <radialGradient id={`${p}-head`} cx="38%" cy="32%" r="65%">
+        <stop offset="0%"   stopColor="#d8f3dc" />
+        <stop offset="55%"  stopColor="#74c69d" />
+        <stop offset="100%" stopColor="#2d6a4f" />
+      </radialGradient>
 
-      {/* Shoe upper */}
-      <linearGradient id={`${p}-sh`} x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%"   stopColor="#3e6050" />
-        <stop offset="100%" stopColor="#1a2e1a" />
-      </linearGradient>
+      {/* ── Joint highlight (ball joints / ends) ── */}
+      <radialGradient id={`${p}-joint`} cx="35%" cy="30%" r="65%">
+        <stop offset="0%"   stopColor="#f0faf4" />
+        <stop offset="60%"  stopColor="#95d5b2" />
+        <stop offset="100%" stopColor="#40916c" />
+      </radialGradient>
 
-      {/* Hair — dark brown */}
-      <linearGradient id={`${p}-hr`} x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%"   stopColor="#6b4226" />
-        <stop offset="100%" stopColor="#2d1f14" />
-      </linearGradient>
-
-      {/* Stage glow */}
-      <radialGradient id={`${p}-gl`} cx="50%" cy="90%" r="55%">
-        <stop offset="0%"   stopColor="rgba(82,183,136,0.45)" />
+      {/* ── Stage ambient glow ── */}
+      <radialGradient id={`${p}-glow`} cx="50%" cy="88%" r="55%">
+        <stop offset="0%"   stopColor="rgba(82,183,136,0.48)" />
         <stop offset="100%" stopColor="rgba(82,183,136,0)"    />
       </radialGradient>
 
-      {/* Soft drop shadow */}
-      <filter id={`${p}-sf`} x="-25%" y="-25%" width="150%" height="150%">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="b" />
-        <feOffset dx="1" dy="3" result="off" />
-        <feComponentTransfer result="shadow">
-          <feFuncA type="linear" slope="0.28" />
-        </feComponentTransfer>
-        <feMerge>
-          <feMergeNode in="shadow" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
+      {/* ── Soft drop shadow on the whole figure ── */}
+      <filter id={`${p}-shadow`} x="-20%" y="-15%" width="140%" height="135%">
+        <feDropShadow dx="1" dy="3" stdDeviation="2.5"
+          floodColor="rgba(15,26,15,0.55)" />
       </filter>
 
-      {/* Energy glow (for particles, impact dots) */}
-      <filter id={`${p}-eg`} x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="3" result="b" />
+      {/* ── Energy glow for motion dots ── */}
+      <filter id={`${p}-glow-f`} x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="3.5" result="b" />
         <feMerge>
           <feMergeNode in="b" />
           <feMergeNode in="SourceGraphic" />
