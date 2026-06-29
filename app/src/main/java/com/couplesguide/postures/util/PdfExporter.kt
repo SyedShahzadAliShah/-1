@@ -11,6 +11,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.Build
 import android.os.CancellationSignal
@@ -24,6 +25,7 @@ import android.print.PrintManager
 import android.provider.MediaStore
 import android.text.Layout
 import android.text.StaticLayout
+import android.text.TextDirectionHeuristics
 import android.text.TextPaint
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -42,10 +44,12 @@ import java.io.FileOutputStream
 
 object PdfExporter {
 
-    private const val PAGE_WIDTH = 595
-    private const val PAGE_HEIGHT = 842
-    private const val MARGIN = 48f
-    private const val BOTTOM_MARGIN = 56f
+    private const val PAGE_WIDTH = 595   // A4 width in points (72 dpi)
+    private const val PAGE_HEIGHT = 842  // A4 height in points
+    private const val MARGIN = 54f
+    private const val TOP_MARGIN = 54f
+    private const val BOTTOM_MARGIN = 54f
+    private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
     private const val IMAGE_HEIGHT = 150f
     private const val DOWNLOADS_FOLDER = "IntimacyGuide"
 
@@ -180,7 +184,9 @@ object PdfExporter {
             adapter,
             PrintAttributes.Builder()
                 .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                .setResolution(PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                 .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
                 .build()
         )
     }
@@ -430,11 +436,12 @@ object PdfExporter {
         startPage: Int
     ) {
         private val isRtl = language == LocaleHelper.LANG_UR
-        private val textWidth = (PAGE_WIDTH - MARGIN * 2).toInt()
+        private val textWidth = CONTENT_WIDTH.toInt()
         private var pageNumber = startPage
+        private var displayPageNumber = startPage
         private lateinit var page: PdfDocument.Page
         private lateinit var canvas: Canvas
-        var y = MARGIN + 8f
+        var y = TOP_MARGIN
 
         private val regularTypeface: Typeface = loadTypeface(false)
         private val boldTypeface: Typeface = loadTypeface(true)
@@ -457,24 +464,39 @@ object PdfExporter {
 
         private fun newPage() {
             if (::page.isInitialized) {
-                drawPageNumber()
+                drawPageFooter()
                 document.finishPage(page)
             }
-            val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
+            val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber)
+                .setContentRect(
+                    android.graphics.Rect(
+                        MARGIN.toInt(),
+                        TOP_MARGIN.toInt(),
+                        (PAGE_WIDTH - MARGIN).toInt(),
+                        (PAGE_HEIGHT - BOTTOM_MARGIN).toInt()
+                    )
+                )
+                .create()
             page = document.startPage(pageInfo)
             canvas = page.canvas
+            displayPageNumber = pageNumber
             pageNumber++
-            y = MARGIN + 8f
+            y = TOP_MARGIN
         }
 
-        private fun drawPageNumber() {
-            val paint = TextPaint().apply {
+        private fun drawPageFooter() {
+            val footerPaint = TextPaint().apply {
                 color = ContextCompat.getColor(context, R.color.secondary)
-                textSize = 10f
+                textSize = 9f
+                typeface = regularTypeface
                 textAlign = Paint.Align.CENTER
             }
-            val label = pageNumber.toString()
-            canvas.drawText(label, PAGE_WIDTH / 2f, PAGE_HEIGHT - 24f, paint)
+            canvas.drawText(
+                displayPageNumber.toString(),
+                PAGE_WIDTH / 2f,
+                PAGE_HEIGHT - (BOTTOM_MARGIN / 2f),
+                footerPaint
+            )
         }
 
         private fun availableHeight(): Float = PAGE_HEIGHT - BOTTOM_MARGIN - y
@@ -490,46 +512,33 @@ object PdfExporter {
         }
 
         fun drawTitle(text: String, size: Float = 28f) {
-            drawWrappedLine(text, titlePaint(size), size + 12f)
+            drawTextBlock(text, titlePaint(size), spacingAfter = 12f)
         }
 
         fun drawHeading(text: String) {
-            drawWrappedLine(text, titlePaint(20f), 28f)
+            drawTextBlock(text, titlePaint(20f), spacingAfter = 10f)
         }
 
         fun drawSection(text: String) {
-            val paint = sectionPaint(14f)
-            ensureSpace(22f)
-            val x = if (isRtl) PAGE_WIDTH - MARGIN else MARGIN
-            canvas.drawText(text, x, y + 14f, paint)
-            y += 22f
-        }
-
-        private fun drawWrappedLine(text: String, paint: TextPaint, lineHeight: Float) {
-            val layout = buildLayout(text, paint)
-            if (layout.lineCount <= 1) {
-                ensureSpace(lineHeight)
-                val x = if (isRtl) PAGE_WIDTH - MARGIN else MARGIN
-                canvas.drawText(text, x, y + paint.textSize, paint)
-                y += lineHeight
-                return
-            }
-            drawBody(text, paint)
+            drawTextBlock(text, sectionPaint(14f), spacingAfter = 8f)
         }
 
         fun drawBody(text: String, paint: TextPaint = bodyPaint()) {
+            drawTextBlock(text, paint, spacingAfter = 6f)
+        }
+
+        private fun drawTextBlock(text: String, paint: TextPaint, spacingAfter: Float) {
             if (text.isBlank()) return
 
-            val layout = buildLayout(text, paint)
+            val fullLayout = buildLayout(text, paint)
             var startLine = 0
-            val totalLines = layout.lineCount
+            val totalLines = fullLayout.lineCount
 
             while (startLine < totalLines) {
                 var endLine = startLine + 1
                 while (endLine <= totalLines) {
-                    val chunkHeight = layout.getLineBottom(endLine - 1) - layout.getLineTop(startLine)
-                    val available = availableHeight()
-                    if (chunkHeight > available) {
+                    val chunkHeight = fullLayout.getLineBottom(endLine - 1) - fullLayout.getLineTop(startLine)
+                    if (chunkHeight > availableHeight()) {
                         if (endLine - 1 > startLine) {
                             endLine--
                         }
@@ -539,17 +548,14 @@ object PdfExporter {
                     endLine++
                 }
 
-                val startChar = layout.getLineStart(startLine)
-                val endChar = layout.getLineStart(endLine)
+                val startChar = fullLayout.getLineStart(startLine)
+                val endChar = fullLayout.getLineStart(endLine)
                 val chunk = text.substring(startChar, endChar)
                 val chunkLayout = buildLayout(chunk, paint)
-                val chunkHeight = chunkLayout.height.toFloat() + 6f
+                val chunkHeight = chunkLayout.height.toFloat() + spacingAfter
 
                 ensureSpace(chunkHeight)
-                canvas.save()
-                canvas.translate(if (isRtl) PAGE_WIDTH - MARGIN - textWidth else MARGIN, y)
-                chunkLayout.draw(canvas)
-                canvas.restore()
+                drawLayout(chunkLayout)
                 y += chunkHeight
 
                 startLine = endLine
@@ -559,42 +565,52 @@ object PdfExporter {
             }
         }
 
+        private fun drawLayout(layout: StaticLayout) {
+            canvas.save()
+            canvas.translate(MARGIN, y)
+            layout.draw(canvas)
+            canvas.restore()
+        }
+
         fun drawImage(resId: Int, width: Int, height: Int) {
-            val bitmap = loadBitmap(resId, width, height) ?: return
-            ensureSpace(height + 12f)
-            val left = (PAGE_WIDTH - width) / 2f
+            val maxWidth = CONTENT_WIDTH.toInt()
+            val drawWidth = minOf(width, maxWidth)
+            val drawHeight = (height * (drawWidth.toFloat() / width)).toInt()
+            val bitmap = loadBitmap(resId, drawWidth, drawHeight) ?: return
+            ensureSpace(drawHeight + 12f)
+            val left = MARGIN + (CONTENT_WIDTH - drawWidth) / 2f
             canvas.drawBitmap(bitmap, left, y, null)
-            y += height + 12f
+            y += drawHeight + 12f
             bitmap.recycle()
         }
 
-        fun sectionPaint(size: Float): TextPaint = TextPaint().apply {
+        fun sectionPaint(size: Float): TextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = ContextCompat.getColor(context, R.color.secondary)
             textSize = size
             typeface = boldTypeface
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
         }
 
-        private fun titlePaint(size: Float) = TextPaint().apply {
+        private fun titlePaint(size: Float) = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = ContextCompat.getColor(context, R.color.primary)
             textSize = size
             typeface = boldTypeface
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
         }
 
-        private fun bodyPaint() = TextPaint().apply {
+        private fun bodyPaint() = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = ContextCompat.getColor(context, R.color.on_surface)
             textSize = 12f
             typeface = regularTypeface
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
         }
 
         private fun buildLayout(text: String, paint: TextPaint): StaticLayout {
-            val alignment = if (isRtl) Layout.Alignment.ALIGN_OPPOSITE else Layout.Alignment.ALIGN_NORMAL
+            val direction = if (isRtl) TextDirectionHeuristics.RTL else TextDirectionHeuristics.LTR
             return StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
-                .setAlignment(alignment)
-                .setLineSpacing(0f, 1.25f)
-                .setIncludePad(true)
+                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                .setTextDirection(direction)
+                .setLineSpacing(0f, 1.2f)
+                .setIncludePad(false)
+                .setBreakStrategy(Layout.BREAK_STRATEGY_HIGH_QUALITY)
+                .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NORMAL)
                 .build()
         }
 
@@ -606,7 +622,7 @@ object PdfExporter {
         }
 
         fun finish(): Int {
-            drawPageNumber()
+            drawPageFooter()
             document.finishPage(page)
             return pageNumber
         }
@@ -616,6 +632,8 @@ object PdfExporter {
         private val file: File,
         private val jobName: String
     ) : PrintDocumentAdapter() {
+
+        private var pageCount = 0
 
         override fun onLayout(
             oldAttributes: PrintAttributes?,
@@ -628,11 +646,16 @@ object PdfExporter {
                 callback.onLayoutCancelled()
                 return
             }
+            pageCount = readPageCount()
+            if (pageCount <= 0) {
+                callback.onLayoutFailed("PDF has no printable pages")
+                return
+            }
             val info = PrintDocumentInfo.Builder(jobName)
                 .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
-                .setPageCount(PrintDocumentInfo.PAGE_COUNT_UNKNOWN)
+                .setPageCount(pageCount)
                 .build()
-            callback.onLayoutFinished(info, true)
+            callback.onLayoutFinished(info, newAttributes != oldAttributes)
         }
 
         override fun onWrite(
@@ -645,15 +668,28 @@ object PdfExporter {
                 callback.onWriteCancelled()
                 return
             }
+            if (destination == null) {
+                callback.onWriteFailed("No print destination")
+                return
+            }
             try {
                 FileInputStream(file).use { input ->
-                    FileOutputStream(destination?.fileDescriptor).use { output ->
+                    FileOutputStream(destination.fileDescriptor).use { output ->
                         input.copyTo(output)
                     }
                 }
                 callback.onWriteFinished(arrayOf(PageRange.ALL_PAGES))
             } catch (e: Exception) {
                 callback.onWriteFailed(e.message)
+            }
+        }
+
+        private fun readPageCount(): Int {
+            val pfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+            return try {
+                PdfRenderer(pfd).use { it.pageCount }
+            } finally {
+                pfd.close()
             }
         }
     }
