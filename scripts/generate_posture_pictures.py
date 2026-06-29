@@ -12,27 +12,25 @@ from PIL import Image, ImageDraw
 OUT = "/workspace/app/src/main/res/drawable-nodpi"
 W, H = 960, 600
 
-# Anime sex-education palette
-BG = (255, 240, 248)
-BG2 = (230, 220, 255)
-PRIMARY = (140, 80, 120)
-SECONDARY = (210, 140, 170)
-SKIN_A = (255, 224, 196)
-SKIN_A_SHADE = (235, 190, 165)
-SKIN_B = (255, 210, 185)
-SKIN_B_SHADE = (225, 175, 150)
-SKIN_OUTLINE = (50, 40, 60)
-HAIR_A = (95, 60, 45)
-HAIR_B = (50, 55, 95)
-EYE_A = (110, 170, 220)
-EYE_B = (170, 110, 200)
-BED = (235, 215, 235)
-PILLOW = (255, 250, 255)
-ACCENT = (255, 150, 190)
-JOINT = (200, 150, 170)
-LABEL_BG = (255, 255, 255)
-PELVIS = (255, 180, 200, 80)
-BLUSH = (255, 160, 180, 110)
+# Realistic human sex-education palette
+BG = (252, 246, 238)           # Warm cream
+BG2 = (238, 226, 212)          # Slightly darker
+PRIMARY = (78, 52, 42)         # Dark warm brown (text/borders)
+SECONDARY = (138, 100, 80)     # Medium brown (labels/subtitles)
+SKIN_A = (232, 192, 158)       # Fair/medium skin tone
+SKIN_A_SHADE = (198, 158, 126) # Shadow tone for A
+SKIN_A_LIGHT = (248, 218, 190) # Highlight for A
+SKIN_B = (196, 152, 118)       # Medium/warm skin tone
+SKIN_B_SHADE = (164, 122, 90)  # Shadow tone for B
+SKIN_B_LIGHT = (218, 174, 140) # Highlight for B
+SKIN_OUTLINE = (110, 74, 58)   # Natural outline
+HAIR_A = (72, 50, 36)          # Dark brown hair
+HAIR_B = (46, 36, 28)          # Near-black hair
+BED = (212, 196, 188)
+PILLOW = (245, 236, 228)
+ACCENT = (78, 112, 152)        # Educational blue for arrows/labels
+JOINT = (155, 115, 92)
+LABEL_BG = (255, 252, 248)
 
 
 Point = Tuple[float, float]
@@ -56,7 +54,7 @@ class FigurePose:
     ankle_r: Point
 
 
-def new_canvas(title: str = "Anime Sex Education"):
+def new_canvas(title: str = "Sex Education Diagram"):
     img = Image.new("RGB", (W, H), BG)
     draw = ImageDraw.Draw(img, "RGBA")
     for row in range(H):
@@ -65,13 +63,10 @@ def new_canvas(title: str = "Anime Sex Education"):
         g = int(BG[1] * (1 - t) + BG2[1] * t)
         b = int(BG[2] * (1 - t) + BG2[2] * t)
         draw.line([(0, row), (W, row)], fill=(r, g, b))
-    # Soft anime sparkles
-    for sx, sy in [(120, 90), (820, 110), (750, 480), (180, 420), (500, 80)]:
-        draw.ellipse((sx, sy, sx + 6, sy + 6), fill=(255, 255, 255, 180))
-        draw.ellipse((sx + 10, sy + 8, sx + 14, sy + 12), fill=(255, 220, 240, 140))
-    draw.rounded_rectangle((12, 12, W - 12, H - 12), radius=20, outline=PRIMARY, width=4)
-    draw.rounded_rectangle((18, 18, W - 18, 52), radius=12, fill=(255, 255, 255, 200), outline=SECONDARY, width=2)
-    draw.text((32, 26), title, fill=PRIMARY)
+    draw.rounded_rectangle((12, 12, W - 12, H - 12), radius=14, outline=SECONDARY, width=2)
+    draw.rounded_rectangle((18, 18, W - 18, 48), radius=8,
+                            fill=(255, 252, 248, 220), outline=SECONDARY, width=1)
+    draw.text((30, 22), title, fill=SECONDARY)
     return img, draw
 
 
@@ -120,121 +115,152 @@ def title_label(draw: ImageDraw.ImageDraw, text: str):
 def partner_labels(draw: ImageDraw.ImageDraw):
     tag(draw, 80, 70, "Partner A", SECONDARY)
     tag(draw, 80, 110, "Partner B", PRIMARY)
-    tag(draw, 80, 150, "Anime Guide", ACCENT)
 
 
-def anime_limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, color, shade, width: int = 12):
-    draw.line([a, b], fill=SKIN_OUTLINE, width=width + 5)
-    draw.line([a, b], fill=color, width=width)
-    mx = (a[0] + b[0]) / 2 + 2
-    my = (a[1] + b[1]) / 2
-    draw.line([(mx, my), b], fill=shade, width=max(4, width - 4))
+def human_limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, skin, shade, width: int = 13):
+    """Realistic rounded limb with natural shading."""
+    draw.line([a, b], fill=SKIN_OUTLINE, width=width + 4)
+    draw.line([a, b], fill=skin, width=width)
+    # Directional shading to suggest roundness
+    dx = b[0] - a[0]; dy = b[1] - a[1]
+    L = math.sqrt(dx * dx + dy * dy)
+    if L > 1:
+        px = -dy / L * (width // 3)
+        py = dx / L * (width // 3)
+        draw.line([(a[0] + px, a[1] + py), (b[0] + px, b[1] + py)],
+                  fill=shade, width=max(3, width // 3))
 
 
-def anime_hair(draw: ImageDraw.ImageDraw, hx: float, hy: float, head_r: int, hair_color, side: str = "center"):
-    offset = head_r * 0.3 if side == "right" else -head_r * 0.3 if side == "left" else 0
+def human_face(draw: ImageDraw.ImageDraw, cx: float, cy: float, r: int,
+               skin, shade, light, hair):
+    """Realistic proportioned face for educational figures."""
+    hw = r * 0.88  # head oval width (slightly narrower than tall)
+
+    # Hair (behind head, short cap shape)
     draw.ellipse(
-        (hx - head_r - 4 + offset, hy - head_r - 8, hx + head_r + 6 + offset, hy + head_r * 0.3),
-        fill=hair_color,
-        outline=SKIN_OUTLINE,
-        width=2,
-    )
-    # Anime bangs
-    draw.polygon(
-        [
-            (hx - head_r + offset, hy - head_r),
-            (hx + offset, hy - head_r - 6),
-            (hx + head_r + offset, hy - head_r),
-            (hx + head_r * 0.6 + offset, hy - head_r * 0.2),
-            (hx - head_r * 0.6 + offset, hy - head_r * 0.2),
-        ],
-        fill=hair_color,
-        outline=SKIN_OUTLINE,
+        (cx - hw - 2, cy - r * 1.08, cx + hw + 2, cy + r * 0.28),
+        fill=hair, outline=SKIN_OUTLINE, width=2,
     )
 
+    # Head oval
+    draw.ellipse((cx - hw, cy - r, cx + hw, cy + r),
+                 fill=skin, outline=SKIN_OUTLINE, width=2)
 
-def anime_face(draw: ImageDraw.ImageDraw, hx: float, hy: float, head_r: int, skin, shade, hair, eye_color, facing: float = 1.0):
-    anime_hair(draw, hx, hy, head_r, hair, "left" if facing < 0 else "right" if facing > 0 else "center")
+    # Side shadow (subtle, right side)
     draw.ellipse(
-        (hx - head_r, hy - head_r, hx + head_r, hy + head_r),
-        fill=skin,
-        outline=SKIN_OUTLINE,
-        width=3,
+        (cx + hw * 0.28, cy - r * 0.62, cx + hw * 0.88, cy + r * 0.62),
+        fill=shade + (50,),
     )
-    # Cel-shade on cheek
+    # Forehead highlight
     draw.ellipse(
-        (hx + head_r * 0.15 * facing, hy - head_r * 0.1, hx + head_r * 0.85, hy + head_r * 0.75),
-        fill=shade,
+        (cx - hw * 0.28, cy - r * 0.82, cx + hw * 0.22, cy - r * 0.38),
+        fill=light + (60,),
     )
-    draw.ellipse(
-        (hx - head_r, hy - head_r, hx + head_r, hy + head_r),
-        fill=skin,
-        outline=SKIN_OUTLINE,
-        width=3,
-    )
-    # Blush
-    draw.ellipse((hx - head_r * 0.55, hy + head_r * 0.05, hx - head_r * 0.2, hy + head_r * 0.35), fill=BLUSH)
-    draw.ellipse((hx + head_r * 0.2, hy + head_r * 0.05, hx + head_r * 0.55, hy + head_r * 0.35), fill=BLUSH)
-    # Large anime eyes
-    for ex in (hx - head_r * 0.38, hx + head_r * 0.12):
-        draw.ellipse((ex, hy - head_r * 0.15, ex + head_r * 0.42, hy + head_r * 0.38), fill=(255, 255, 255), outline=SKIN_OUTLINE, width=2)
-        draw.ellipse((ex + 4, hy - head_r * 0.05, ex + head_r * 0.3, hy + head_r * 0.28), fill=eye_color, outline=SKIN_OUTLINE, width=1)
-        draw.ellipse((ex + 8, hy - head_r * 0.02, ex + 14, hy + 6), fill=(255, 255, 255))
-    # Small anime mouth
-    draw.arc((hx - head_r * 0.2, hy + head_r * 0.2, hx + head_r * 0.2, hy + head_r * 0.55), 15, 165, fill=SKIN_OUTLINE, width=2)
+    # Redraw head outline cleanly on top
+    draw.ellipse((cx - hw, cy - r, cx + hw, cy + r),
+                 fill=None, outline=SKIN_OUTLINE, width=2)
+
+    # Eyes — realistic almond shape, normal proportions
+    ey = cy - r * 0.10
+    ew = hw * 0.30
+    eh = r * 0.145
+    for ox in (-0.38, 0.10):
+        ex = cx + hw * ox
+        # White
+        draw.ellipse((ex, ey, ex + ew, ey + eh),
+                     fill=(248, 244, 238), outline=SKIN_OUTLINE, width=1)
+        # Iris
+        ir = min(ew, eh) * 0.42
+        icx = ex + ew * 0.52
+        icy = ey + eh * 0.52
+        draw.ellipse((icx - ir, icy - ir, icx + ir, icy + ir),
+                     fill=(58, 42, 30))
+        # Pupil
+        pr = ir * 0.55
+        draw.ellipse((icx - pr, icy - pr, icx + pr, icy + pr),
+                     fill=(22, 16, 12))
+        # Catchlight
+        draw.ellipse((icx - ir * 0.35, icy - ir * 0.38,
+                      icx - ir * 0.35 + 4, icy - ir * 0.38 + 4),
+                     fill=(255, 255, 255))
+
+    # Nose — subtle bridge dot
+    nx = cx + hw * 0.04
+    ny = cy + r * 0.16
+    draw.ellipse((nx - 2, ny - 1, nx + 5, ny + 5), fill=shade)
+
+    # Mouth — neutral relaxed expression
+    my = cy + r * 0.40
+    mw = hw * 0.28
+    # Upper lip line
+    draw.arc((cx - mw, my - 3, cx + mw, my + 6), 200, 340, fill=SKIN_OUTLINE, width=2)
+    # Lower lip line
+    draw.arc((cx - mw * 0.75, my + 1, cx + mw * 0.75, my + 8),
+             15, 165, fill=SKIN_OUTLINE, width=1)
 
 
 def draw_figure(
     draw: ImageDraw.ImageDraw,
     pose: FigurePose,
-    color: Tuple[int, int, int],
+    skin: Tuple[int, int, int],
     shade: Tuple[int, int, int],
+    light: Tuple[int, int, int],
     hair: Tuple[int, int, int],
-    eye_color: Tuple[int, int, int],
-    head_r: int = 30,
+    head_r: int = 26,
     show_joints: bool = False,
     show_pelvis: bool = True,
-    facing: float = 1.0,
 ):
+    """Draw a realistic human figure at the given pose."""
     pelvis_cx = (pose.hip_l[0] + pose.hip_r[0]) / 2
     pelvis_cy = (pose.hip_l[1] + pose.hip_r[1]) / 2
     shoulder_cx = (pose.shoulder_l[0] + pose.shoulder_r[0]) / 2
     shoulder_cy = (pose.shoulder_l[1] + pose.shoulder_r[1]) / 2
 
+    # Torso polygon
+    torso_poly = [pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l]
+    draw.polygon(torso_poly, fill=skin, outline=SKIN_OUTLINE)
+    # Side shading on torso
+    shade_poly = [
+        pose.shoulder_r,
+        pose.hip_r,
+        (pelvis_cx + 10, pelvis_cy + 6),
+        (shoulder_cx + 10, shoulder_cy + 4),
+    ]
+    draw.polygon(shade_poly, fill=shade + (80,))
+    draw.line([pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l, pose.shoulder_l],
+              fill=SKIN_OUTLINE, width=2)
+
+    # Pelvis / hip area marker
     if show_pelvis:
         draw.ellipse(
-            (pelvis_cx - 30, pelvis_cy - 18, pelvis_cx + 30, pelvis_cy + 18),
-            fill=PELVIS,
-            outline=(255, 140, 170, 160),
-            width=2,
+            (pelvis_cx - 22, pelvis_cy - 11, pelvis_cx + 22, pelvis_cy + 11),
+            fill=shade + (60,), outline=SKIN_OUTLINE, width=1,
         )
 
-    torso_poly = [pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l]
-    shade_poly = [pose.shoulder_r, pose.hip_r, (pelvis_cx + 12, pelvis_cy + 8), (shoulder_cx + 10, shoulder_cy + 6)]
-    draw.polygon(torso_poly, fill=color, outline=SKIN_OUTLINE)
-    draw.polygon(shade_poly, fill=shade)
-    draw.line([pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l, pose.shoulder_l], fill=SKIN_OUTLINE, width=3)
+    # Arms
+    human_limb(draw, pose.neck, pose.shoulder_l, skin, shade, 12)
+    human_limb(draw, pose.shoulder_l, pose.elbow_l, skin, shade, 11)
+    human_limb(draw, pose.elbow_l, pose.wrist_l, skin, shade, 10)
+    human_limb(draw, pose.neck, pose.shoulder_r, skin, shade, 12)
+    human_limb(draw, pose.shoulder_r, pose.elbow_r, skin, shade, 11)
+    human_limb(draw, pose.elbow_r, pose.wrist_r, skin, shade, 10)
 
-    anime_limb(draw, pose.neck, pose.shoulder_l, color, shade, 11)
-    anime_limb(draw, pose.shoulder_l, pose.elbow_l, color, shade, 10)
-    anime_limb(draw, pose.elbow_l, pose.wrist_l, color, shade, 9)
-    anime_limb(draw, pose.neck, pose.shoulder_r, color, shade, 11)
-    anime_limb(draw, pose.shoulder_r, pose.elbow_r, color, shade, 10)
-    anime_limb(draw, pose.elbow_r, pose.wrist_r, color, shade, 9)
-    anime_limb(draw, pose.hip_l, pose.knee_l, color, shade, 11)
-    anime_limb(draw, pose.knee_l, pose.ankle_l, color, shade, 10)
-    anime_limb(draw, pose.hip_r, pose.knee_r, color, shade, 11)
-    anime_limb(draw, pose.knee_r, pose.ankle_r, color, shade, 10)
+    # Legs
+    human_limb(draw, pose.hip_l, pose.knee_l, skin, shade, 12)
+    human_limb(draw, pose.knee_l, pose.ankle_l, skin, shade, 11)
+    human_limb(draw, pose.hip_r, pose.knee_r, skin, shade, 12)
+    human_limb(draw, pose.knee_r, pose.ankle_r, skin, shade, 11)
 
+    # Head
     hx, hy = pose.head
-    anime_face(draw, hx, hy, head_r, color, shade, hair, eye_color, facing)
-    anime_limb(draw, pose.head, pose.neck, color, shade, 9)
+    human_face(draw, hx, hy, head_r, skin, shade, light, hair)
+    human_limb(draw, pose.head, pose.neck, skin, shade, 10)
 
     if show_joints:
         for p in (
             pose.neck, pose.shoulder_l, pose.shoulder_r, pose.elbow_l, pose.elbow_r,
-            pose.wrist_l, pose.wrist_r, pose.hip_l, pose.hip_r, pose.knee_l,
-            pose.knee_r, pose.ankle_l, pose.ankle_r,
+            pose.wrist_l, pose.wrist_r, pose.hip_l, pose.hip_r,
+            pose.knee_l, pose.knee_r, pose.ankle_l, pose.ankle_r,
         ):
             joint_dot(draw, p)
 
@@ -248,16 +274,18 @@ def draw_figure_simple(
     draw: ImageDraw.ImageDraw,
     pose: FigurePose,
     color: Tuple[int, int, int],
-    head_r: int = 30,
+    head_r: int = 26,
     show_joints: bool = False,
     show_pelvis: bool = True,
-    facing: float = 1.0,
+    facing: float = 1.0,     # kept for API compatibility, unused
 ):
-    kw = dict(head_r=head_r, show_joints=show_joints, show_pelvis=show_pelvis, facing=facing)
+    """Wrapper that picks skin/shade/hair by partner colour."""
     if color == SKIN_A:
-        draw_figure(draw, pose, SKIN_A, SKIN_A_SHADE, HAIR_A, EYE_A, **kw)
+        draw_figure(draw, pose, SKIN_A, SKIN_A_SHADE, SKIN_A_LIGHT, HAIR_A,
+                    head_r=head_r, show_joints=show_joints, show_pelvis=show_pelvis)
     else:
-        draw_figure(draw, pose, SKIN_B, SKIN_B_SHADE, HAIR_B, EYE_B, **kw)
+        draw_figure(draw, pose, SKIN_B, SKIN_B_SHADE, SKIN_B_LIGHT, HAIR_B,
+                    head_r=head_r, show_joints=show_joints, show_pelvis=show_pelvis)
 
 
 def save(name: str, img: Image.Image):
@@ -755,8 +783,8 @@ def gen_guide_cover():
     draw_figure_simple(draw, lying_back(380, 385, 0.85), SKIN_A)
     draw_figure_simple(draw, lying_back(520, 385, 0.85), SKIN_B)
     draw.text((W // 2 - 200, 115), "Ultimate Intimacy Handbook", fill=PRIMARY)
-    draw.text((W // 2 - 130, 150), "Anime Sex Education for Couples", fill=SECONDARY)
-    draw.text((W // 2 - 100, 175), "English  |  Urdu", fill=ACCENT)
+    draw.text((W // 2 - 130, 150), "Sex Education for Couples", fill=SECONDARY)
+    draw.text((W // 2 - 100, 175), "English  |  Urdu", fill=SECONDARY)
     title_label(draw, "Couples Intercourse Postures")
     save("pic_guide_cover", img)
 

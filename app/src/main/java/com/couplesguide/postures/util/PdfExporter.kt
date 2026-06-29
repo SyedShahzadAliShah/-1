@@ -244,17 +244,17 @@ object PdfExporter {
         val writer = PageWriter(context, document, language, pageNumber)
         val isRtl = language == LocaleHelper.LANG_UR
 
-        val title = if (isRtl) "مکمل ہینڈ بک قریبی تعلق" else "Ultimate Intimacy Handbook"
+        val title = if (isRtl) "مکمل قربت کی ہینڈ بک" else "Ultimate Intimacy Handbook"
         val subtitle = if (isRtl) {
-            "جوڑوں کے لیے انیمے تصویری جنسی تعلیم • انگریزی و اردو"
+            "جوڑوں کے لیے تصویری جنسی تعلیم • انگریزی و اردو"
         } else {
-            "Anime-Illustrated Sex Education Handbook for Couples"
+            "Illustrated Sex Education Handbook for Couples"
         }
         val intro = if (isRtl) {
-            "یہ ہینڈ بک انیمے انداز کی تصویروں کے ساتھ قریبی پوزیشنز سیکھنے، " +
-                "باہمی رضامندی، آرام دہ مواصلات، اور محفوظ تجربہ کرنے میں مدد دیتی ہے۔"
+            "یہ ہینڈ بک تصویری ہدایات کے ساتھ قریبی پوزیشنز سیکھنے، باہمی رضامندی، " +
+                "آرام دہ مواصلات اور محفوظ تجربہ کرنے میں جوڑوں کی مدد کرتی ہے۔"
         } else {
-            "This handbook uses anime-style educational illustrations to help couples learn " +
+            "This handbook uses illustrated educational diagrams to help couples learn " +
                 "intimate postures with mutual consent, comfort-focused communication, and safety."
         }
 
@@ -470,12 +470,14 @@ object PdfExporter {
             if (!isRtl) {
                 return Typeface.create(Typeface.DEFAULT, if (bold) Typeface.BOLD else Typeface.NORMAL)
             }
-            val base = try {
+            // Only Regular is available in assets; using faux-bold on Naskh
+            // distorts Arabic letterforms, so we use Regular for all Urdu text
+            // and compensate with larger font sizes for headings.
+            return try {
                 Typeface.createFromAsset(context.assets, "fonts/NotoNaskhArabic-Regular.ttf")
             } catch (_: Exception) {
                 Typeface.DEFAULT
             }
-            return if (bold) Typeface.create(base, Typeface.BOLD) else base
         }
 
         private fun prepareText(text: String): String =
@@ -498,12 +500,17 @@ object PdfExporter {
                 .create()
             page = document.startPage(pageInfo)
             canvas = page.canvas
-            displayPageNumber = pageNumber
+            displayPageNumber = pageNumber  // record BEFORE incrementing
             pageNumber++
             y = TOP_MARGIN
         }
 
         private fun drawPageFooter() {
+            // Draw a thin separator above the footer
+            val sepY = PAGE_HEIGHT - BOTTOM_MARGIN + 4f
+            canvas.drawLine(MARGIN, sepY, PAGE_WIDTH - MARGIN, sepY,
+                Paint().also { it.color = 0xFFD0C0B0.toInt(); it.strokeWidth = 0.5f })
+
             val label = if (isRtl) {
                 UrduPdfText.pageNumber(displayPageNumber)
             } else {
@@ -511,14 +518,14 @@ object PdfExporter {
             }
             val footerPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = ContextCompat.getColor(context, R.color.secondary)
-                textSize = if (isRtl) 10f else 9f
+                textSize = if (isRtl) 11f else 9f
                 typeface = regularTypeface
                 textAlign = Paint.Align.CENTER
             }
             canvas.drawText(
                 label,
                 PAGE_WIDTH / 2f,
-                PAGE_HEIGHT - (BOTTOM_MARGIN / 2f) + 3f,
+                PAGE_HEIGHT - (BOTTOM_MARGIN / 3f),
                 footerPaint
             )
         }
@@ -535,29 +542,29 @@ object PdfExporter {
             y += amount
         }
 
-        fun drawTitle(text: String, size: Float = if (isRtl) 26f else 28f) {
-            drawTextBlock(text, titlePaint(size), spacingAfter = 12f)
+        fun drawTitle(text: String, size: Float = if (isRtl) 28f else 28f) {
+            drawTextBlock(text, titlePaint(size), spacingAfter = 14f)
         }
 
-        fun drawTitleCentered(text: String, size: Float = if (isRtl) 24f else 24f) {
+        fun drawTitleCentered(text: String, size: Float = 24f) {
             drawTextBlock(
                 text,
                 titlePaint(size),
-                spacingAfter = 12f,
+                spacingAfter = 14f,
                 alignment = Layout.Alignment.ALIGN_CENTER
             )
         }
 
         fun drawHeading(text: String) {
-            drawTextBlock(text, titlePaint(if (isRtl) 19f else 20f), spacingAfter = 10f)
+            drawTextBlock(text, titlePaint(if (isRtl) 21f else 20f), spacingAfter = 10f)
         }
 
         fun drawSection(text: String) {
-            drawTextBlock(text, sectionPaint(if (isRtl) 15f else 14f), spacingAfter = 8f)
+            drawTextBlock(text, sectionPaint(if (isRtl) 16f else 14f), spacingAfter = 8f)
         }
 
         fun drawBody(text: String, paint: TextPaint = bodyPaint()) {
-            drawTextBlock(text, paint, spacingAfter = if (isRtl) 8f else 6f)
+            drawTextBlock(text, paint, spacingAfter = if (isRtl) 10f else 6f)
         }
 
         private fun drawTextBlock(
@@ -637,7 +644,7 @@ object PdfExporter {
 
         private fun bodyPaint() = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = ContextCompat.getColor(context, R.color.on_surface)
-            textSize = if (isRtl) 13.5f else 12f
+            textSize = if (isRtl) 14f else 12f
             typeface = regularTypeface
         }
 
@@ -652,11 +659,9 @@ object PdfExporter {
             val builder = StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
                 .setAlignment(alignment)
                 .setTextDirection(direction)
-                .setLineSpacing(0f, if (isRtl) 1.35f else 1.2f)
+                .setLineSpacing(2f, if (isRtl) 1.4f else 1.2f)
                 .setIncludePad(false)
-                .setBreakStrategy(
-                    if (isRtl) Layout.BREAK_STRATEGY_BALANCED else Layout.BREAK_STRATEGY_HIGH_QUALITY
-                )
+                .setBreakStrategy(Layout.BREAK_STRATEGY_HIGH_QUALITY)
                 .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NONE)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 builder.setUseLineSpacingFromFallbacks(false)
