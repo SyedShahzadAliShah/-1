@@ -31,6 +31,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.couplesguide.postures.R
+import com.couplesguide.postures.data.EducationalInsert
+import com.couplesguide.postures.data.EducationalInsertRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
@@ -67,9 +69,7 @@ object PdfExporter {
             pageNumber = writeTitlePage(context, document, language, pageNumber)
             pageNumber = writeChapters(context, document, language, pageNumber)
             pageNumber = writeImaginationSection(context, document, language, pageNumber)
-            for (posture in PostureRepository.getPhysicalPostures()) {
-                pageNumber = writePosturePages(context, document, posture, language, pageNumber)
-            }
+            writePhysicalPosturesWithEducation(context, document, language, pageNumber)
             FileOutputStream(file).use { document.writeTo(it) }
         } finally {
             document.close()
@@ -307,6 +307,62 @@ object PdfExporter {
             context.getString(R.string.all_postures)
         )
         return pageNumber
+    }
+
+    private fun writePhysicalPosturesWithEducation(
+        context: Context,
+        document: PdfDocument,
+        language: String,
+        startPage: Int
+    ): Int {
+        var pageNumber = startPage
+        val categoryOrder = listOf(
+            PostureRepository.CAT_FACE,
+            PostureRepository.CAT_SIDE,
+            PostureRepository.CAT_REAR,
+            PostureRepository.CAT_STANDING,
+            PostureRepository.CAT_VARIATIONS
+        )
+        val physical = PostureRepository.getPhysicalPostures()
+        var lastCategory: String? = null
+
+        for (categoryId in categoryOrder) {
+            val group = physical.filter { it.categoryId == categoryId }
+            if (group.isEmpty()) continue
+            lastCategory?.let { previous ->
+                EducationalInsertRepository.getInsertAfterCategory(previous)?.let { insert ->
+                    pageNumber = writeEducationalPage(context, document, insert, language, pageNumber)
+                }
+            }
+            for (posture in group) {
+                pageNumber = writePosturePages(context, document, posture, language, pageNumber)
+            }
+            lastCategory = categoryId
+        }
+
+        lastCategory?.let { categoryId ->
+            EducationalInsertRepository.getInsertAfterCategory(categoryId)?.let { insert ->
+                pageNumber = writeEducationalPage(context, document, insert, language, pageNumber)
+            }
+        }
+        return pageNumber
+    }
+
+    private fun writeEducationalPage(
+        context: Context,
+        document: PdfDocument,
+        insert: EducationalInsert,
+        language: String,
+        pageNumber: Int
+    ): Int {
+        val writer = PageWriter(context, document, language, pageNumber)
+        val isUrdu = language == LocaleHelper.LANG_UR
+        val eduLabel = if (isUrdu) "جنسی تعلیم" else "Sex Education"
+        writer.drawSection(eduLabel)
+        writer.drawImage(insert.illustrationRes, 360, 200)
+        writer.drawHeading(if (isUrdu) insert.urduTitle else insert.englishTitle)
+        writer.drawBody(if (isUrdu) insert.urduCaption else insert.englishCaption)
+        return writer.finish()
     }
 
     private fun writeSectionDivider(

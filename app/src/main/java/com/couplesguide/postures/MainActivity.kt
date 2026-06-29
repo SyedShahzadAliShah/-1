@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.couplesguide.postures.data.GuideRepository
+import com.couplesguide.postures.data.PostureListBuilder
+import com.couplesguide.postures.data.PostureListItem
 import com.couplesguide.postures.data.PostureRepository
 import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.CategoryAdapter
@@ -87,7 +89,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.imaginationList.layoutManager = LinearLayoutManager(this)
         binding.imaginationList.adapter = imaginationAdapter
-        imaginationAdapter.submitList(PostureRepository.getImaginationPostures())
+        imaginationAdapter.submitList(
+            PostureRepository.getImaginationPostures().map { PostureListItem.PostureEntry(it) }
+        )
 
         setupCategories()
         updatePostureList()
@@ -148,8 +152,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun updatePostureList() {
         val postures = PostureRepository.getPosturesByCategory(selectedCategory)
-        postureAdapter.submitList(postures)
-        binding.emptyText.visibility = if (postures.isEmpty()) View.VISIBLE else View.GONE
+        val includeEduCards = selectedCategory == PostureRepository.CAT_ALL
+        val items = PostureListBuilder.build(postures, includeEduCards)
+        postureAdapter.submitList(items)
+        binding.emptyText.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun showLanguageDialog() {

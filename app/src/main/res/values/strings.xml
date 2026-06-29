@@ -40,4 +40,6 @@
     <string name="voice_install_prompt">Install voice data in system Text-to-speech settings.</string>
     <string name="voice_open_settings">TTS Settings</string>
     <string name="chapter_illustration">Chapter illustration</string>
+    <string name="sex_education">Sex Education</string>
+    <string name="sex_education_illustration">Sex education illustration with human figures</string>
 </resources>

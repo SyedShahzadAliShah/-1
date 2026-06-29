@@ -40,4 +40,6 @@
     <string name="voice_install_prompt">سسٹم ٹیکسٹ ٹو اسپیچ میں آواز کا ڈیٹا انسٹال کریں۔</string>
     <string name="voice_open_settings">ٹی ٹی ایس ترتیبات</string>
     <string name="chapter_illustration">باب کی تصویر</string>
+    <string name="sex_education">جنسی تعلیم</string>
+    <string name="sex_education_illustration">انسانی اعداد و شمار کے ساتھ جنسی تعلیم کی تصویر</string>
 </resources>
