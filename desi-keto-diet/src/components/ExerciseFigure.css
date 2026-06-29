@@ -1,54 +1,79 @@
 .exercise-stage {
   position: relative;
   width: 100%;
-  height: 260px;
+  height: 280px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 90%, rgba(82, 183, 136, 0.22) 0%, transparent 70%),
+    radial-gradient(ellipse at center bottom, rgba(45, 106, 79, 0.2) 0%, rgba(15, 26, 15, 0.75) 75%);
+  border: 1px solid rgba(82, 183, 136, 0.2);
+}
+
+.exercise-stage-compact {
+  height: 100px;
   border-radius: 12px;
-  background: radial-gradient(ellipse at center bottom, rgba(82, 183, 136, 0.18) 0%, rgba(15, 26, 15, 0.65) 70%);
+  border: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 85%, rgba(82, 183, 136, 0.18) 0%, transparent 65%),
+    rgba(15, 26, 15, 0.5);
+}
+
+.stage-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 40% at 50% 75%, rgba(149, 213, 178, 0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .stage-floor {
   position: absolute;
-  bottom: 22px;
-  left: 8%;
-  right: 8%;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, rgba(82, 183, 136, 0.55), transparent);
-  border-radius: 2px;
+  bottom: 24px;
+  left: 6%;
+  right: 6%;
+  height: 5px;
+  background: linear-gradient(90deg, transparent, rgba(82, 183, 136, 0.6), rgba(149, 213, 178, 0.4), rgba(82, 183, 136, 0.6), transparent);
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(82, 183, 136, 0.3);
 }
 
 .exercise-svg {
-  width: 200px;
-  height: 230px;
+  width: 220px;
+  height: 250px;
   z-index: 1;
+}
+
+.exercise-stage-compact .exercise-svg {
+  width: 88px;
+  height: 100px;
+}
+
+.ambient-glow {
+  opacity: 0.85;
 }
 
 /* ── Human figure base styles ── */
 .human-shadow {
-  fill: rgba(0, 0, 0, 0.25);
+  fill: rgba(0, 0, 0, 0.3);
   animation: shadow-pulse 0.6s ease-in-out infinite;
 }
 
 .human-mat {
-  fill: rgba(82, 183, 136, 0.25);
-  stroke: rgba(82, 183, 136, 0.4);
+  fill: rgba(82, 183, 136, 0.3);
+  stroke: rgba(82, 183, 136, 0.5);
   stroke-width: 1;
 }
 
-.human-skull, .human-face, .human-neck {
-  fill: url(#skinGrad);
-}
-
-.human-face {
-  fill: url(#skinGrad);
-}
-
-.human-hair {
-  fill: #3d2817;
+.human-hair, .human-ponytail {
   stroke: none;
+}
+
+.human-headband {
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-width: 0.5;
 }
 
 .human-eye {
@@ -57,96 +82,100 @@
 
 .human-eye-shine {
   fill: #fff;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .human-brow {
   fill: none;
-  stroke: #5c3d2e;
-  stroke-width: 1.5;
+  stroke: #4a3020;
+  stroke-width: 1.6;
   stroke-linecap: round;
 }
 
 .human-smile {
   fill: none;
   stroke: #8b5a3c;
-  stroke-width: 1.5;
+  stroke-width: 1.6;
   stroke-linecap: round;
 }
 
 .human-torso {
-  fill: url(#shirtGrad);
   stroke: #2d6a4f;
   stroke-width: 1.5;
 }
 
-.human-collar {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.35);
-  stroke-width: 1.5;
-}
-
-.human-shorts {
-  fill: url(#shortsGrad);
+.human-leggings {
   stroke: #1b4332;
   stroke-width: 1.5;
 }
 
 .human-upper-arm, .human-forearm, .human-thigh, .human-calf {
   fill: none;
-  stroke: url(#skinGrad);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.human-upper-arm { stroke-width: 11; }
-.human-forearm { stroke-width: 9; }
-.human-thigh { stroke-width: 13; }
-.human-calf { stroke-width: 10; }
+.human-upper-arm { stroke-width: 12; }
+.human-forearm { stroke-width: 10; }
+.human-thigh { stroke-width: 14; }
+.human-calf { stroke-width: 11; }
 
 .human-hand {
-  fill: url(#skinGrad);
   stroke: #b8845a;
   stroke-width: 1;
 }
 
+.human-joint {
+  stroke: rgba(184, 132, 90, 0.5);
+  stroke-width: 0.5;
+}
+
 .human-foot {
-  fill: url(#skinGrad);
+  stroke: #b8845a;
+  stroke-width: 0.5;
 }
 
 .human-shoe {
-  fill: #1b4332;
   stroke: #0f1a0f;
   stroke-width: 0.5;
 }
 
 .pose-overlay .butterfly-leg {
-  stroke: url(#skinGrad);
   stroke-linecap: round;
 }
 
 .cobra-torso {
   fill: none;
-  stroke: url(#skinGrad);
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+
+.plank-body, .pushup-torso-line {
+  fill: none;
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+
+.plank-arm, .plank-leg, .pushup-arm {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.child-back {
+  fill: none;
   stroke-width: 14;
   stroke-linecap: round;
 }
 
-.cobra-head .human-skull,
-.cobra-head .human-face {
-  fill: url(#skinGrad);
-}
-
-.plank-body {
+.child-arms {
   fill: none;
-  stroke: url(#shirtGrad);
-  stroke-width: 14;
+  stroke-width: 9;
   stroke-linecap: round;
 }
 
 .motion-dot {
   fill: #f4d03f;
-  filter: drop-shadow(0 0 4px rgba(244, 208, 63, 0.6));
 }
 
 @keyframes shadow-pulse {
@@ -308,10 +337,12 @@
   transform: rotate(-75deg) translateY(30px);
   transform-origin: 100px 110px;
 }
-.exercise-plank .human-figure {
-  opacity: 0.2;
+.exercise-plank .human-figure,
+.exercise-mountain-climber .human-figure {
+  opacity: 0.12;
 }
-.exercise-plank .plank-pose {
+.exercise-plank .plank-pose,
+.exercise-mountain-climber .plank-pose {
   opacity: 1;
 }
 .exercise-plank .plank-body {
@@ -704,8 +735,27 @@
   50% { transform: translateY(32px) rotate(5deg); }
 }
 
-.exercise-mountain-climber .human-figure {
-  opacity: 0.35;
+.exercise-pushup .human-figure {
+  opacity: 0.15;
+}
+.exercise-pushup .pushup-pose {
+  opacity: 1;
+  animation: pushup-overlay 1.2s ease-in-out infinite;
+  transform-origin: 100px 155px;
+}
+
+@keyframes pushup-overlay {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.exercise-child-pose .human-figure {
+  opacity: 0.2;
+}
+.exercise-child-pose .child-pose-overlay {
+  opacity: 1;
+  animation: child-pose 3s ease-in-out infinite;
+  transform-origin: 110px 170px;
 }
 
 /* Butterfly seated legs */

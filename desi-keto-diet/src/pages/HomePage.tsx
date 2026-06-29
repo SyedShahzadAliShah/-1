@@ -5,7 +5,9 @@ import { ailmentGuides } from '../data/ailments';
 import { fitnessRoutines } from '../data/fitness';
 import { useLang } from '../hooks/useLang';
 import VocalsButton from '../components/VocalsButton';
+import FitnessFigureEmbed from '../components/FitnessFigureEmbed';
 import { buildPreviewNarration } from '../services/tts';
+import '../components/FitnessFigureEmbed.css';
 
 const ailmentIcons: Record<string, string> = {
   gastric: '🫃', gyne: '🌸', psyche: '🧠', cardiac: '❤️',
@@ -84,20 +86,23 @@ export default function HomePage() {
       <h2 className="section-title">{t('home.startFitness')}</h2>
       {fitnessRoutines.slice(0, 3).map((routine) => (
         <Link key={routine.id} to={`/fitness/${routine.id}`} className="card card-link">
-          <div className="card-with-vocals">
-            <div className="card-with-vocals-body">
+          <div className="fitness-card-layout">
+            <FitnessFigureEmbed routineId={routine.id} />
+            <div className="fitness-card-body">
               <strong>{routine.title[lang]}</strong>
               <div style={{ marginTop: '0.35rem' }}>
                 <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
                 <span className="badge">{routine.duration} {t('common.minutes')}</span>
               </div>
             </div>
-            <VocalsButton
-              compact
-              id={`home-fitness-${routine.id}`}
-              title={routine.title[lang]}
-              text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
-            />
+            <div className="fitness-card-actions">
+              <VocalsButton
+                compact
+                id={`home-fitness-${routine.id}`}
+                title={routine.title[lang]}
+                text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
+              />
+            </div>
           </div>
         </Link>
       ))}

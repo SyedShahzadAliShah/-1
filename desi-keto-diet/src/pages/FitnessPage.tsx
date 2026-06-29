@@ -4,13 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { fitnessRoutines } from '../data/fitness';
 import { useLang } from '../hooks/useLang';
 import VocalsButton from '../components/VocalsButton';
+import FitnessFigureEmbed from '../components/FitnessFigureEmbed';
 import { buildPreviewNarration } from '../services/tts';
 import type { FitnessType } from '../types';
-
-const icons: Record<string, string> = {
-  aerobic: '🏃', yoga: '🧘', hiit: '⚡', walking: '🚶',
-  strength: '💪', stretching: '🤸', pilates: '🎯',
-};
+import '../components/FitnessFigureEmbed.css';
 
 export default function FitnessPage() {
   const { t } = useTranslation();
@@ -42,25 +39,27 @@ export default function FitnessPage() {
 
       {filtered.map((routine) => (
         <Link key={routine.id} to={`/fitness/${routine.id}`} className="card card-link">
-          <div className="card-with-vocals">
-            <div className="card-with-vocals-body" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <span style={{ fontSize: '1.5rem' }}>{icons[routine.type]}</span>
+          <div className="fitness-card-layout">
+            <FitnessFigureEmbed routineId={routine.id} label={t('fitness.animatedRoutine')} />
+            <div className="fitness-card-body">
+              <strong>{routine.title[lang]}</strong>
+              <p style={{ fontSize: '0.82rem', color: '#8fa88f', margin: '0.3rem 0 0.4rem', lineHeight: 1.4 }}>
+                {routine.description[lang].slice(0, 90)}…
+              </p>
               <div>
-                <strong>{routine.title[lang]}</strong>
-                <div style={{ marginTop: '0.35rem' }}>
-                  <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
-                  <span className="badge">{routine.duration} {t('common.minutes')}</span>
-                  <span className="badge">{t(`fitness.${routine.difficulty}`)}</span>
-                  <span className="badge badge-animated">▶ {t('fitness.animatedRoutine')}</span>
-                </div>
+                <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
+                <span className="badge">{routine.duration} {t('common.minutes')}</span>
+                <span className="badge">{t(`fitness.${routine.difficulty}`)}</span>
               </div>
             </div>
-            <VocalsButton
-              compact
-              id={`fitness-${routine.id}`}
-              title={routine.title[lang]}
-              text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
-            />
+            <div className="fitness-card-actions">
+              <VocalsButton
+                compact
+                id={`fitness-${routine.id}`}
+                title={routine.title[lang]}
+                text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
+              />
+            </div>
           </div>
         </Link>
       ))}

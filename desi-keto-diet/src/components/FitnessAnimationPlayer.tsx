@@ -102,7 +102,10 @@ export default function FitnessAnimationPlayer({ routine }: Props) {
         </span>
       </div>
 
-      <ExerciseFigure key={`${routine.id}-${currentStep}-${meta.animation}`} animation={meta.animation} />
+      <div className="figure-stage-wrap">
+        <ExerciseFigure key={`${routine.id}-${currentStep}-${meta.animation}`} animation={meta.animation} />
+        <span className="figure-pose-badge">{meta.animation.replace(/-/g, ' ')}</span>
+      </div>
 
       <p className="human-figure-caption">{t('fitness.humanDemo')}</p>
 

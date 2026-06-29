@@ -1,0 +1,63 @@
+.fitness-figure-embed {
+  flex-shrink: 0;
+  width: 88px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(82, 183, 136, 0.35);
+  background: radial-gradient(ellipse at center 80%, rgba(45, 106, 79, 0.45) 0%, rgba(15, 26, 15, 0.85) 70%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(149, 213, 178, 0.15);
+  position: relative;
+}
+
+.fitness-figure-embed .exercise-stage-compact {
+  height: 100px;
+  border-radius: 0;
+}
+
+.fitness-figure-embed .exercise-stage-compact .exercise-svg {
+  width: 88px;
+  height: 100px;
+}
+
+.fitness-figure-embed .exercise-stage-compact .stage-floor {
+  bottom: 8px;
+  left: 10%;
+  right: 10%;
+}
+
+.fitness-figure-embed .exercise-stage-compact .stage-glow {
+  opacity: 0.7;
+}
+
+.fitness-figure-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2px 4px;
+  font-size: 0.55rem;
+  text-align: center;
+  color: rgba(216, 243, 220, 0.9);
+  background: linear-gradient(transparent, rgba(15, 26, 15, 0.85));
+  pointer-events: none;
+}
+
+.fitness-card-layout {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.fitness-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.fitness-card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+}

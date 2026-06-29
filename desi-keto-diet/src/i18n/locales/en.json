@@ -78,7 +78,8 @@
     "restart": "Restart routine",
     "keepGoing": "Keep going!",
     "ready": "Tap play to start",
-    "humanDemo": "Animated human demonstration"
+    "humanDemo": "Animated human figure guide",
+    "figurePreview": "Live preview"
   },
   "knowledge": {
     "title": "In-Depth Knowledge",

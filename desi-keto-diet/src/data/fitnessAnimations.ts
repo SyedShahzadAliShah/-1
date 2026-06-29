@@ -69,3 +69,11 @@ export function getStepAnimations(routineId: string, stepCount: number): Fitness
   }));
   return mapped?.length ? mapped : defaults;
 }
+
+/** Primary animation shown on fitness list/home card thumbnails */
+export function getRoutinePreviewAnimation(routineId: string): FitnessStepMeta['animation'] {
+  const steps = routineStepAnimations[routineId];
+  if (!steps?.length) return 'stretch';
+  const featured = steps.find((s) => s.animation !== 'breathe' && s.animation !== 'rest');
+  return featured?.animation ?? steps[0].animation;
+}

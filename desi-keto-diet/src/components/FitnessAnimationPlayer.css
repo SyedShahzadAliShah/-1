@@ -168,3 +168,21 @@
   margin: 0.35rem 0 0;
   font-style: italic;
 }
+
+.figure-stage-wrap {
+  position: relative;
+}
+
+.figure-pose-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.65rem;
+  text-transform: capitalize;
+  color: #95d5b2;
+  background: rgba(15, 26, 15, 0.75);
+  border: 1px solid rgba(82, 183, 136, 0.35);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  letter-spacing: 0.03em;
+}
