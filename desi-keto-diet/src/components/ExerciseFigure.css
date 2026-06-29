@@ -1,823 +1,405 @@
+/* ═══════════════════════════════════════════════════════════════
+   ExerciseFigure — stage + human figure styles + keyframe animations
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Stage ─────────────────────────────────────────────────────── */
 .exercise-stage {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 290px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 16px;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 90%, rgba(82, 183, 136, 0.22) 0%, transparent 70%),
-    radial-gradient(ellipse at center bottom, rgba(45, 106, 79, 0.2) 0%, rgba(15, 26, 15, 0.75) 75%);
-  border: 1px solid rgba(82, 183, 136, 0.2);
+    radial-gradient(ellipse 90% 65% at 50% 95%, rgba(82, 183, 136, 0.24) 0%, transparent 72%),
+    radial-gradient(ellipse at center bottom, rgba(45, 106, 79, 0.18) 0%, rgba(15, 26, 15, 0.82) 80%);
+  border: 1px solid rgba(82, 183, 136, 0.22);
+  box-shadow: inset 0 -1px 0 rgba(82, 183, 136, 0.18);
 }
 
 .exercise-stage-compact {
-  height: 100px;
+  height: 108px;
   border-radius: 12px;
   border: none;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 85%, rgba(82, 183, 136, 0.18) 0%, transparent 65%),
-    rgba(15, 26, 15, 0.5);
+    radial-gradient(ellipse 75% 60% at 50% 88%, rgba(82, 183, 136, 0.2) 0%, transparent 68%),
+    rgba(15, 26, 15, 0.6);
 }
 
 .stage-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 50% 40% at 50% 75%, rgba(149, 213, 178, 0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse 55% 42% at 50% 78%, rgba(149, 213, 178, 0.14) 0%, transparent 72%);
   pointer-events: none;
 }
 
 .stage-floor {
   position: absolute;
-  bottom: 24px;
-  left: 6%;
-  right: 6%;
+  bottom: 28px;
+  left: 5%;
+  right: 5%;
   height: 5px;
-  background: linear-gradient(90deg, transparent, rgba(82, 183, 136, 0.6), rgba(149, 213, 178, 0.4), rgba(82, 183, 136, 0.6), transparent);
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(82, 183, 136, 0.55),
+    rgba(149, 213, 178, 0.5),
+    rgba(82, 183, 136, 0.55),
+    transparent);
   border-radius: 3px;
-  box-shadow: 0 0 12px rgba(82, 183, 136, 0.3);
+  box-shadow: 0 0 14px rgba(82, 183, 136, 0.35);
 }
 
 .exercise-svg {
-  width: 220px;
-  height: 250px;
+  width: 230px;
+  height: 260px;
   z-index: 1;
 }
 
 .exercise-stage-compact .exercise-svg {
-  width: 88px;
-  height: 100px;
+  width: 108px;
+  height: 108px;
 }
 
-.ambient-glow {
-  opacity: 0.85;
+.exercise-stage-compact .stage-floor {
+  bottom: 10px;
 }
 
-/* ── Human figure base styles ── */
+/* ── Shadows ───────────────────────────────────────────────────── */
 .human-shadow {
-  fill: rgba(0, 0, 0, 0.3);
-  animation: shadow-pulse 0.6s ease-in-out infinite;
+  fill: rgba(0, 0, 0, 0.28);
+  animation: shadow-pulse 0.7s ease-in-out infinite;
+}
+.shadow-floor {
+  fill: rgba(0, 0, 0, 0.22);
 }
 
+@keyframes shadow-pulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.28; }
+  50%       { transform: scaleX(0.82); opacity: 0.16; }
+}
+
+/* ── Mat ───────────────────────────────────────────────────────── */
 .human-mat {
-  fill: rgba(82, 183, 136, 0.3);
-  stroke: rgba(82, 183, 136, 0.5);
+  fill: rgba(82, 183, 136, 0.32);
+  stroke: rgba(82, 183, 136, 0.55);
   stroke-width: 1;
 }
 
-.human-hair, .human-ponytail {
-  stroke: none;
-}
-
+/* ── Head / face parts ─────────────────────────────────────────── */
+.human-hair, .human-ponytail { stroke: none; }
 .human-headband {
-  stroke: rgba(255, 255, 255, 0.25);
+  stroke: rgba(255, 255, 255, 0.28);
   stroke-width: 0.5;
 }
+.human-eye          { fill: #1a2e1a; }
+.human-eye-shine    { fill: #fff; opacity: 0.95; }
+.human-brow         { fill: none; stroke: #4a3020; stroke-width: 1.6; stroke-linecap: round; }
+.human-smile        { fill: none; stroke: #8b5a3c; stroke-width: 1.6; stroke-linecap: round; }
 
-.human-eye {
-  fill: #1a2e1a;
-}
+/* ── Torso / outfit ────────────────────────────────────────────── */
+.human-torso        { stroke: #2d6a4f; stroke-width: 1.5; }
+.human-leggings     { stroke: #1b4332; stroke-width: 1.5; }
 
-.human-eye-shine {
-  fill: #fff;
-  opacity: 0.95;
-}
-
-.human-brow {
-  fill: none;
-  stroke: #4a3020;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-}
-
-.human-smile {
-  fill: none;
-  stroke: #8b5a3c;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-}
-
-.human-torso {
-  stroke: #2d6a4f;
-  stroke-width: 1.5;
-}
-
-.human-leggings {
-  stroke: #1b4332;
-  stroke-width: 1.5;
-}
-
-.human-upper-arm, .human-forearm, .human-thigh, .human-calf {
+/* ── Limbs ─────────────────────────────────────────────────────── */
+.human-upper-arm, .human-forearm,
+.human-thigh, .human-calf {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-
 .human-upper-arm { stroke-width: 12; }
-.human-forearm { stroke-width: 10; }
-.human-thigh { stroke-width: 14; }
-.human-calf { stroke-width: 11; }
+.human-forearm   { stroke-width: 10; }
+.human-thigh     { stroke-width: 14; }
+.human-calf      { stroke-width: 11; }
 
-.human-hand {
-  stroke: #b8845a;
-  stroke-width: 1;
-}
+.human-hand { stroke: #b87450; stroke-width: 1; }
+.human-foot { stroke: #b87450; stroke-width: 0.5; }
+.human-shoe { stroke: #0f1a0f; stroke-width: 0.5; }
 
-.human-joint {
-  stroke: rgba(184, 132, 90, 0.5);
-  stroke-width: 0.5;
-}
-
-.human-foot {
-  stroke: #b8845a;
-  stroke-width: 0.5;
-}
-
-.human-shoe {
-  stroke: #0f1a0f;
-  stroke-width: 0.5;
-}
-
-.pose-overlay .butterfly-leg {
-  stroke-linecap: round;
-}
-
-.cobra-torso {
-  fill: none;
-  stroke-width: 15;
-  stroke-linecap: round;
-}
-
-.plank-body, .pushup-torso-line {
-  fill: none;
-  stroke-width: 15;
-  stroke-linecap: round;
-}
-
-.plank-arm, .plank-leg, .pushup-arm {
-  fill: none;
-  stroke-width: 10;
-  stroke-linecap: round;
-}
-
-.child-back {
-  fill: none;
-  stroke-width: 14;
-  stroke-linecap: round;
-}
-
-.child-arms {
-  fill: none;
-  stroke-width: 9;
-  stroke-linecap: round;
-}
-
-.motion-dot {
-  fill: #f4d03f;
-}
-
-@keyframes shadow-pulse {
-  0%, 100% { transform: scaleX(1); opacity: 0.25; }
-  50% { transform: scaleX(0.85); opacity: 0.15; }
-}
-
-.exercise-walk .human-shadow,
-.exercise-jog .human-shadow,
-.exercise-high-knee .human-shadow {
-  animation: shadow-walk 0.6s ease-in-out infinite;
-}
-
-@keyframes shadow-walk {
-  0%, 100% { transform: scaleX(1); }
-  50% { transform: scaleX(0.75); }
-}
-
-/* Seated poses */
-.human-seated {
-  transform: translateY(12px);
-}
-
-.human-floor .fig-leg-l,
-.human-floor .fig-leg-r,
-.human-floor .fig-shin-l,
-.human-floor .fig-shin-r {
-  opacity: 0.85;
-}
-
-/* Legacy line reset — human uses fills */
-.exercise-svg line {
-  stroke-linecap: round;
-}
-
-.pose-overlay {
-  stroke-linecap: round;
-}
-
+/* ── Particles ─────────────────────────────────────────────────── */
 .motion-particles {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-
 .particle {
   position: absolute;
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(149, 213, 178, 0.6);
+  background: rgba(149, 213, 178, 0.65);
   opacity: 0;
 }
+.motion-dot    { fill: #f4d03f; }
+.motion-dot-sm { fill: rgba(244, 208, 63, 0.55); }
 
-/* Hide stick-line styles */
-.exercise-svg .fig-head:not(.human-head) {
-  display: none;
+/* ── CSS transform anchors ─────────────────────────────────────── */
+.fig-arm-l, .fig-arm-r, .fig-leg-l, .fig-leg-r,
+.fig-shin-l, .fig-shin-r, .fig-head, .figure-body,
+.fig-torso, .fig-neck {
+  transform-box: fill-box;
+  transform-origin: center;
 }
+.human-head  { transform-origin: 100px 44px; }
+.fig-arm-l   { transform-origin: 77px  58px; }
+.fig-arm-r   { transform-origin: 123px 58px; }
+.fig-leg-l   { transform-origin: 87px  131px; }
+.fig-leg-r   { transform-origin: 113px 131px; }
+.fig-shin-l  { transform-origin: 78px  175px; }
+.fig-shin-r  { transform-origin: 122px 175px; }
+.figure-body { transform-origin: 100px 212px; }
+
+/* ════════════════════════════════════════════════════════════════
+   PER-EXERCISE ANIMATIONS
+   ════════════════════════════════════════════════════════════════ */
 
 /* ── Walk ── */
-.exercise-walk .figure-body {
-  animation: walk-bob 0.6s ease-in-out infinite;
-}
-.exercise-walk .fig-leg-l {
-  animation: walk-leg-l 0.6s ease-in-out infinite;
-  transform-origin: 100px 110px;
-}
-.exercise-walk .fig-leg-r {
-  animation: walk-leg-r 0.6s ease-in-out infinite;
-  transform-origin: 100px 110px;
-}
-.exercise-walk .fig-arm-l {
-  animation: walk-arm-l 0.6s ease-in-out infinite;
-  transform-origin: 100px 68px;
-}
-.exercise-walk .fig-arm-r {
-  animation: walk-arm-r 0.6s ease-in-out infinite;
-  transform-origin: 100px 68px;
-}
-.exercise-walk .particle { animation: particle-float 1.2s ease-out infinite; }
-.exercise-walk .p1 { left: 30%; bottom: 40%; animation-delay: 0s; }
-.exercise-walk .p2 { left: 50%; bottom: 50%; animation-delay: 0.4s; }
-.exercise-walk .p3 { left: 70%; bottom: 35%; animation-delay: 0.8s; }
+.exercise-walk .figure-body { animation: walk-bob 0.62s ease-in-out infinite; }
+.exercise-walk .fig-leg-l   { animation: walk-leg-l 0.62s ease-in-out infinite; }
+.exercise-walk .fig-leg-r   { animation: walk-leg-r 0.62s ease-in-out infinite; }
+.exercise-walk .fig-arm-l   { animation: walk-arm-l 0.62s ease-in-out infinite; }
+.exercise-walk .fig-arm-r   { animation: walk-arm-r 0.62s ease-in-out infinite; }
+.exercise-walk .human-shadow { animation: shadow-walk 0.62s ease-in-out infinite; }
+.exercise-walk .particle    { animation: particle-float 1.3s ease-out infinite; }
+.exercise-walk .p1 { left: 28%; bottom: 42%; }
+.exercise-walk .p2 { left: 52%; bottom: 52%; animation-delay: 0.43s; }
+.exercise-walk .p3 { left: 72%; bottom: 38%; animation-delay: 0.85s; }
 
 /* ── Jog ── */
-.exercise-jog .figure-body { animation: walk-bob 0.35s ease-in-out infinite; }
-.exercise-jog .fig-leg-l { animation: jog-leg-l 0.35s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-jog .fig-leg-r { animation: jog-leg-r 0.35s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-jog .fig-arm-l { animation: jog-arm-l 0.35s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-jog .fig-arm-r { animation: jog-arm-r 0.35s ease-in-out infinite; transform-origin: 100px 68px; }
+.exercise-jog .figure-body { animation: walk-bob 0.36s ease-in-out infinite; }
+.exercise-jog .fig-leg-l   { animation: jog-leg-l 0.36s ease-in-out infinite; }
+.exercise-jog .fig-leg-r   { animation: jog-leg-r 0.36s ease-in-out infinite; }
+.exercise-jog .fig-arm-l   { animation: jog-arm-l 0.36s ease-in-out infinite; }
+.exercise-jog .fig-arm-r   { animation: jog-arm-r 0.36s ease-in-out infinite; }
+.exercise-jog .human-shadow { animation: shadow-walk 0.36s ease-in-out infinite; }
+.exercise-jog .particle    { animation: particle-float 0.85s ease-out infinite; }
+.exercise-jog .p1 { left: 25%; bottom: 45%; }
+.exercise-jog .p2 { left: 55%; bottom: 55%; animation-delay: 0.28s; }
+.exercise-jog .p3 { left: 75%; bottom: 40%; animation-delay: 0.55s; }
 
 /* ── March ── */
 .exercise-march .figure-body { animation: walk-bob 0.5s ease-in-out infinite; }
-.exercise-march .fig-leg-l { animation: march-leg 0.5s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-march .fig-leg-r { animation: march-leg 0.5s ease-in-out infinite reverse; transform-origin: 100px 110px; }
+.exercise-march .fig-leg-l   { animation: march-leg 0.5s ease-in-out infinite; }
+.exercise-march .fig-leg-r   { animation: march-leg 0.5s ease-in-out infinite reverse; }
+.exercise-march .fig-arm-l   { animation: walk-arm-l 0.5s ease-in-out infinite; }
+.exercise-march .fig-arm-r   { animation: walk-arm-r 0.5s ease-in-out infinite; }
 
 /* ── Breathe / meditate ── */
-.exercise-breathe .figure-body { animation: breathe-expand 3s ease-in-out infinite; }
-.exercise-breathe .fig-head { animation: breathe-head 3s ease-in-out infinite; }
-.exercise-breathe .particle { animation: breathe-particle 3s ease-in-out infinite; opacity: 0.5; }
-.exercise-breathe .p1 { left: 35%; top: 20%; }
-.exercise-breathe .p2 { left: 55%; top: 15%; animation-delay: 1s; }
-.exercise-breathe .p3 { left: 45%; top: 10%; animation-delay: 2s; }
+.exercise-breathe .figure-body   { animation: breathe-expand 3.2s ease-in-out infinite; }
+.exercise-breathe .fig-head      { animation: breathe-head 3.2s ease-in-out infinite; }
+.exercise-breathe .fig-torso     { animation: breathe-chest 3.2s ease-in-out infinite; transform-origin: 100px 95px; }
+.exercise-breathe .particle      { animation: breathe-particle 3.2s ease-in-out infinite; opacity: 0.55; }
+.exercise-breathe .p1 { left: 33%; top: 22%; }
+.exercise-breathe .p2 { left: 54%; top: 14%; animation-delay: 1.1s; }
+.exercise-breathe .p3 { left: 44%; top: 8%;  animation-delay: 2.1s; }
 
 /* ── Rest / savasana ── */
-.exercise-rest .figure-body {
-  animation: rest-lie 4s ease-in-out infinite;
-}
-.exercise-rest .human-figure {
-  transform: rotate(90deg) translate(40px, -20px);
-  transform-origin: 100px 120px;
-}
-.exercise-rest .fig-arm-l,
-.exercise-rest .fig-arm-r {
-  opacity: 0.5;
-}
+.exercise-rest .figure-body { animation: rest-breathe 4.5s ease-in-out infinite; }
 
 /* ── Squat ── */
 .exercise-squat .figure-body,
 .exercise-goblet-squat .figure-body {
-  animation: squat-drop 1.4s ease-in-out infinite;
-  transform-origin: 100px 205px;
+  animation: squat-drop 1.5s ease-in-out infinite;
+  transform-origin: 100px 212px;
 }
 .exercise-squat .fig-leg-l,
-.exercise-goblet-squat .fig-leg-l {
-  animation: squat-leg-l 1.4s ease-in-out infinite;
-  transform-origin: 100px 110px;
-}
+.exercise-goblet-squat .fig-leg-l { animation: squat-leg-l 1.5s ease-in-out infinite; }
 .exercise-squat .fig-leg-r,
-.exercise-goblet-squat .fig-leg-r {
-  animation: squat-leg-r 1.4s ease-in-out infinite;
-  transform-origin: 100px 110px;
-}
-.exercise-goblet-squat .fig-arm-l,
-.exercise-goblet-squat .fig-arm-r {
-  animation: goblet-arms 1.4s ease-in-out infinite;
-  transform-origin: 100px 68px;
-}
+.exercise-goblet-squat .fig-leg-r { animation: squat-leg-r 1.5s ease-in-out infinite; }
+.exercise-goblet-squat .fig-arm-l { animation: goblet-arms 1.5s ease-in-out infinite; }
+.exercise-goblet-squat .fig-arm-r { animation: goblet-arms 1.5s ease-in-out infinite; }
 
 /* ── Push-up ── */
-.exercise-pushup .figure-body {
-  animation: pushup-tilt 1.2s ease-in-out infinite;
-  transform-origin: 100px 110px;
-}
-.exercise-pushup .fig-torso { animation: pushup-torso 1.2s ease-in-out infinite; }
-.exercise-pushup .fig-arm-l { animation: pushup-arm 1.2s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-pushup .fig-arm-r { animation: pushup-arm 1.2s ease-in-out infinite; transform-origin: 100px 68px; }
+.exercise-pushup .fig-arm-l { animation: pushup-arm 1.3s ease-in-out infinite; }
+.exercise-pushup .fig-arm-r { animation: pushup-arm 1.3s ease-in-out infinite; }
+.exercise-pushup .figure-body { animation: pushup-body 1.3s ease-in-out infinite; transform-origin: 100px 180px; }
 
 /* ── Jumping jack ── */
-.exercise-jumping-jack .figure-body { animation: jack-bob 0.8s ease-in-out infinite; }
-.exercise-jumping-jack .fig-arm-l { animation: jack-arm-l 0.8s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-jumping-jack .fig-arm-r { animation: jack-arm-r 0.8s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-jumping-jack .fig-leg-l { animation: jack-leg-l 0.8s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-jumping-jack .fig-leg-r { animation: jack-leg-r 0.8s ease-in-out infinite; transform-origin: 100px 110px; }
+.exercise-jumping-jack .figure-body { animation: jack-bob 0.82s ease-in-out infinite; }
+.exercise-jumping-jack .fig-arm-l   { animation: jack-arm-l 0.82s ease-in-out infinite; }
+.exercise-jumping-jack .fig-arm-r   { animation: jack-arm-r 0.82s ease-in-out infinite; }
+.exercise-jumping-jack .fig-leg-l   { animation: jack-leg-l 0.82s ease-in-out infinite; }
+.exercise-jumping-jack .fig-leg-r   { animation: jack-leg-r 0.82s ease-in-out infinite; }
 
 /* ── Plank ── */
-.exercise-plank .figure-body {
-  animation: plank-hold 2s ease-in-out infinite;
-  transform: rotate(-75deg) translateY(30px);
-  transform-origin: 100px 110px;
-}
-.exercise-plank .human-figure,
-.exercise-mountain-climber .human-figure {
-  opacity: 0.12;
-}
-.exercise-plank .plank-pose,
-.exercise-mountain-climber .plank-pose {
-  opacity: 1;
-}
-.exercise-plank .plank-body {
-  animation: plank-shake 2s ease-in-out infinite;
-}
+.exercise-plank .figure-body        { animation: plank-hold 2.2s ease-in-out infinite; }
+.exercise-mountain-climber .fig-leg-l { animation: climber-leg 0.42s ease-in-out infinite; }
+.exercise-mountain-climber .fig-leg-r { animation: climber-leg 0.42s ease-in-out infinite reverse; }
 
 /* ── Butterfly ── */
-.exercise-butterfly .figure-body { animation: butterfly-flap 2s ease-in-out infinite; }
-.exercise-butterfly .fig-leg-l, .exercise-butterfly .fig-leg-r { opacity: 0.2; }
-.exercise-butterfly .butterfly-legs { animation: butterfly-legs 2s ease-in-out infinite; transform-origin: 100px 110px; }
+.exercise-butterfly .figure-body      { animation: breathe-expand 2.2s ease-in-out infinite; }
+.exercise-butterfly .butterfly-legs   { animation: butterfly-flap 2.2s ease-in-out infinite; transform-origin: 100px 132px; }
 
 /* ── Cobra ── */
-.exercise-cobra .cobra-pose {
-  animation: cobra-rise 2.5s ease-in-out infinite;
-  transform-origin: 90px 195px;
-}
-.exercise-cobra .cobra-torso {
-  animation: cobra-arch 2.5s ease-in-out infinite;
-}
-.exercise-cobra .human-figure .fig-leg-l,
-.exercise-cobra .human-figure .fig-leg-r,
-.exercise-cobra .human-figure .fig-shin-l,
-.exercise-cobra .human-figure .fig-shin-r {
-  opacity: 0.12;
-}
-.exercise-cobra .fig-torso {
-  opacity: 0.15;
-}
+.exercise-cobra .figure-body { animation: cobra-arch 2.8s ease-in-out infinite; transform-origin: 100px 190px; }
+.exercise-cobra .fig-arm-l   { animation: cobra-arms 2.8s ease-in-out infinite; }
+.exercise-cobra .fig-arm-r   { animation: cobra-arms 2.8s ease-in-out infinite; }
 
 /* ── Twist ── */
-.exercise-twist .figure-body { animation: twist-body 2s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-twist .fig-arm-l { animation: twist-arm 2s ease-in-out infinite; transform-origin: 100px 68px; }
+.exercise-twist .figure-body { animation: twist-body 2.2s ease-in-out infinite; transform-origin: 100px 97px; }
+.exercise-twist .fig-arm-l   { animation: twist-arm 2.2s ease-in-out infinite; }
 
 /* ── Burpee ── */
-.exercise-burpee .figure-body { animation: burpee-cycle 1.5s ease-in-out infinite; transform-origin: 100px 205px; }
-.exercise-burpee .motion-dot { fill: #f4d03f; animation: burpee-dot 1.5s ease-in-out infinite; }
-
-/* ── Mountain climber ── */
-.exercise-mountain-climber .figure-body {
-  animation: plank-hold 0.3s ease-in-out infinite alternate;
-  transform: rotate(-75deg) translateY(30px);
-  transform-origin: 100px 110px;
-}
-.exercise-mountain-climber .fig-leg-l { animation: climber-leg 0.4s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-mountain-climber .fig-leg-r { animation: climber-leg 0.4s ease-in-out infinite reverse; transform-origin: 100px 110px; }
+.exercise-burpee .figure-body { animation: burpee-cycle 1.6s ease-in-out infinite; transform-origin: 100px 212px; }
+.exercise-burpee .motion-dot  { animation: burpee-dot 1.6s ease-in-out infinite; }
+.exercise-burpee .particle    { animation: particle-float 1.2s ease-out infinite; }
+.exercise-burpee .p1 { left: 25%; bottom: 50%; }
+.exercise-burpee .p2 { left: 50%; bottom: 62%; animation-delay: 0.53s; }
+.exercise-burpee .p3 { left: 75%; bottom: 48%; animation-delay: 1.06s; }
 
 /* ── High knee ── */
-.exercise-high-knee .figure-body { animation: walk-bob 0.4s ease-in-out infinite; }
-.exercise-high-knee .fig-leg-l { animation: high-knee-leg 0.4s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-high-knee .fig-leg-r { animation: high-knee-leg 0.4s ease-in-out infinite 0.2s; transform-origin: 100px 110px; }
-.exercise-high-knee .fig-arm-l { animation: walk-arm-r 0.4s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-high-knee .fig-arm-r { animation: walk-arm-l 0.4s ease-in-out infinite; transform-origin: 100px 68px; }
+.exercise-high-knee .figure-body { animation: walk-bob 0.42s ease-in-out infinite; }
+.exercise-high-knee .fig-leg-l   { animation: high-knee-leg 0.42s ease-in-out infinite; }
+.exercise-high-knee .fig-leg-r   { animation: high-knee-leg 0.42s ease-in-out infinite 0.21s; }
+.exercise-high-knee .fig-arm-l   { animation: walk-arm-r 0.42s ease-in-out infinite; }
+.exercise-high-knee .fig-arm-r   { animation: walk-arm-l 0.42s ease-in-out infinite; }
+.exercise-high-knee .human-shadow { animation: shadow-walk 0.42s ease-in-out infinite; }
 
 /* ── Neck roll ── */
-.exercise-neck-roll .fig-head { animation: neck-roll 3s linear infinite; transform-origin: 100px 44px; }
+.exercise-neck-roll .fig-head { animation: neck-roll 3.2s linear infinite; transform-origin: 100px 44px; }
 
 /* ── Shoulder roll ── */
-.exercise-shoulder-roll .fig-arm-l { animation: shoulder-roll 2s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-shoulder-roll .fig-arm-r { animation: shoulder-roll 2s ease-in-out infinite reverse; transform-origin: 100px 68px; }
+.exercise-shoulder-roll .fig-arm-l { animation: shoulder-roll 2.2s ease-in-out infinite; }
+.exercise-shoulder-roll .fig-arm-r { animation: shoulder-roll 2.2s ease-in-out infinite reverse; }
 
-/* ── Knee lift (seated) ── */
-.exercise-knee-lift .figure-body { transform: translateY(20px); }
-.exercise-knee-lift .fig-leg-l { animation: knee-lift 1.2s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-knee-lift .fig-leg-r { animation: knee-lift 1.2s ease-in-out infinite 0.6s; transform-origin: 100px 110px; }
+/* ── Knee lift ── */
+.exercise-knee-lift .figure-body { animation: walk-bob 1.2s ease-in-out infinite; }
+.exercise-knee-lift .fig-leg-l   { animation: knee-lift 1.2s ease-in-out infinite; }
+.exercise-knee-lift .fig-leg-r   { animation: knee-lift 1.2s ease-in-out infinite 0.6s; }
 
 /* ── Ankle circle ── */
-.exercise-ankle-circle .figure-body { transform: translateY(15px); }
-.exercise-ankle-circle .fig-shin-l { animation: ankle-spin 1.5s linear infinite; transform-origin: 78px 170px; }
-.exercise-ankle-circle .fig-shin-r { animation: ankle-spin 1.5s linear infinite reverse; transform-origin: 122px 170px; }
+.exercise-ankle-circle .fig-shin-l { animation: ankle-spin 1.6s linear infinite; }
+.exercise-ankle-circle .fig-shin-r { animation: ankle-spin 1.6s linear infinite reverse; }
 
 /* ── Cat-cow ── */
-.exercise-cat-cow .figure-body { animation: cat-cow 2.5s ease-in-out infinite; transform-origin: 100px 110px; }
-
-/* ── Row ── */
-.exercise-row .figure-body { animation: row-bend 1.4s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-row .fig-arm-l { animation: row-pull 1.4s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-row .fig-arm-r { animation: row-pull 1.4s ease-in-out infinite; transform-origin: 100px 68px; }
-
-/* ── Overhead press ── */
-.exercise-overhead-press .fig-arm-l { animation: press-up 1.4s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-overhead-press .fig-arm-r { animation: press-up 1.4s ease-in-out infinite; transform-origin: 100px 68px; }
-
-/* ── Deadlift ── */
-.exercise-deadlift .figure-body { animation: deadlift-hinge 1.6s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-deadlift .fig-arm-l, .exercise-deadlift .fig-arm-r { animation: deadlift-arms 1.6s ease-in-out infinite; transform-origin: 100px 68px; }
-
-/* ── Hundred (pilates) ── */
-.exercise-hundred .figure-body { animation: hundred-pump 0.6s ease-in-out infinite; transform: rotate(-45deg) translateY(20px); transform-origin: 100px 110px; }
-.exercise-hundred .fig-arm-l { animation: hundred-arms 0.6s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-hundred .fig-arm-r { animation: hundred-arms 0.6s ease-in-out infinite; transform-origin: 100px 68px; }
-
-/* ── Roll-up ── */
-.exercise-roll-up .figure-body { animation: roll-up 2.5s ease-in-out infinite; transform-origin: 100px 180px; }
-
-/* ── Leg stretch ── */
-.exercise-leg-stretch .figure-body { transform: rotate(-30deg) translateY(30px); transform-origin: 100px 180px; }
-.exercise-leg-stretch .fig-leg-l { animation: leg-stretch 1.5s ease-in-out infinite; transform-origin: 100px 110px; }
+.exercise-cat-cow .figure-body { animation: cat-cow 2.8s ease-in-out infinite; transform-origin: 100px 162px; }
 
 /* ── Child pose ── */
-.exercise-child-pose .figure-body { animation: child-pose 3s ease-in-out infinite; transform-origin: 100px 110px; }
+.exercise-child-pose .figure-body { animation: child-breathe 4s ease-in-out infinite; }
+
+/* ── Hundred ── */
+.exercise-hundred .figure-body { animation: hundred-pump 0.65s ease-in-out infinite; transform-origin: 100px 175px; }
+.exercise-hundred .fig-arm-l   { animation: hundred-arms 0.65s ease-in-out infinite; }
+.exercise-hundred .fig-arm-r   { animation: hundred-arms 0.65s ease-in-out infinite; }
+
+/* ── Roll-up ── */
+.exercise-roll-up .figure-body { animation: roll-up 2.8s ease-in-out infinite; transform-origin: 100px 185px; }
+
+/* ── Leg stretch ── */
+.exercise-leg-stretch .fig-leg-l { animation: leg-stretch 1.8s ease-in-out infinite; }
+
+/* ── Row ── */
+.exercise-row .figure-body { animation: row-bend 1.5s ease-in-out infinite; transform-origin: 100px 97px; }
+.exercise-row .fig-arm-l   { animation: row-pull 1.5s ease-in-out infinite; }
+.exercise-row .fig-arm-r   { animation: row-pull 1.5s ease-in-out infinite; }
+
+/* ── Overhead press ── */
+.exercise-overhead-press .fig-arm-l { animation: press-up 1.5s ease-in-out infinite; }
+.exercise-overhead-press .fig-arm-r { animation: press-up 1.5s ease-in-out infinite; }
+
+/* ── Deadlift ── */
+.exercise-deadlift .figure-body { animation: deadlift-hinge 1.8s ease-in-out infinite; transform-origin: 100px 131px; }
+.exercise-deadlift .fig-arm-l   { animation: deadlift-arms 1.8s ease-in-out infinite; }
+.exercise-deadlift .fig-arm-r   { animation: deadlift-arms 1.8s ease-in-out infinite; }
 
 /* ── Stretch ── */
-.exercise-stretch .figure-body { animation: stretch-reach 2s ease-in-out infinite; transform-origin: 100px 110px; }
-.exercise-stretch .fig-arm-l { animation: stretch-arms 2s ease-in-out infinite; transform-origin: 100px 68px; }
-.exercise-stretch .fig-arm-r { animation: stretch-arms 2s ease-in-out infinite; transform-origin: 100px 68px; }
+.exercise-stretch .figure-body { animation: stretch-reach 2.2s ease-in-out infinite; }
+.exercise-stretch .fig-arm-l   { animation: stretch-arms 2.2s ease-in-out infinite; }
+.exercise-stretch .fig-arm-r   { animation: stretch-arms 2.2s ease-in-out infinite; }
 
-/* ── Keyframes ── */
-@keyframes walk-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
 
-@keyframes walk-leg-l {
-  0%, 100% { transform: rotate(20deg); }
-  50% { transform: rotate(-25deg); }
-}
+/* ════════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ════════════════════════════════════════════════════════════════ */
 
-@keyframes walk-leg-r {
-  0%, 100% { transform: rotate(-25deg); }
-  50% { transform: rotate(20deg); }
-}
+@keyframes walk-bob     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+@keyframes shadow-walk  { 0%,100%{transform:scaleX(1)}     50%{transform:scaleX(0.72)}   }
 
-@keyframes walk-arm-l {
-  0%, 100% { transform: rotate(25deg); }
-  50% { transform: rotate(-20deg); }
-}
+@keyframes walk-leg-l   { 0%,100%{transform:rotate(22deg)} 50%{transform:rotate(-26deg)} }
+@keyframes walk-leg-r   { 0%,100%{transform:rotate(-26deg)} 50%{transform:rotate(22deg)} }
+@keyframes walk-arm-l   { 0%,100%{transform:rotate(26deg)} 50%{transform:rotate(-22deg)} }
+@keyframes walk-arm-r   { 0%,100%{transform:rotate(-22deg)} 50%{transform:rotate(26deg)} }
 
-@keyframes walk-arm-r {
-  0%, 100% { transform: rotate(-20deg); }
-  50% { transform: rotate(25deg); }
-}
+@keyframes jog-leg-l    { 0%,100%{transform:rotate(38deg)} 50%{transform:rotate(-42deg)} }
+@keyframes jog-leg-r    { 0%,100%{transform:rotate(-42deg)} 50%{transform:rotate(38deg)} }
+@keyframes jog-arm-l    { 0%,100%{transform:rotate(42deg)} 50%{transform:rotate(-36deg)} }
+@keyframes jog-arm-r    { 0%,100%{transform:rotate(-36deg)} 50%{transform:rotate(42deg)} }
 
-@keyframes jog-leg-l {
-  0%, 100% { transform: rotate(35deg); }
-  50% { transform: rotate(-40deg); }
-}
+@keyframes march-leg    { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(48deg)} }
 
-@keyframes jog-leg-r {
-  0%, 100% { transform: rotate(-40deg); }
-  50% { transform: rotate(35deg); }
-}
-
-@keyframes jog-arm-l {
-  0%, 100% { transform: rotate(40deg); }
-  50% { transform: rotate(-35deg); }
-}
-
-@keyframes jog-arm-r {
-  0%, 100% { transform: rotate(-35deg); }
-  50% { transform: rotate(40deg); }
-}
-
-@keyframes march-leg {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(45deg); }
-}
-
-@keyframes breathe-expand {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-}
-
-@keyframes breathe-head {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
+@keyframes breathe-expand { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+@keyframes breathe-head   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+@keyframes breathe-chest  { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(1.09)} }
 @keyframes breathe-particle {
-  0% { opacity: 0; transform: translateY(10px) scale(0.5); }
-  50% { opacity: 0.8; transform: translateY(-20px) scale(1); }
-  100% { opacity: 0; transform: translateY(-40px) scale(0.3); }
+  0%  {opacity:0;  transform:translateY(12px) scale(0.5)}
+  50% {opacity:0.8;transform:translateY(-22px) scale(1)}
+  100%{opacity:0;  transform:translateY(-45px) scale(0.3)}
 }
+
+@keyframes rest-breathe { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+
+@keyframes squat-drop   { 0%,100%{transform:translateY(0)} 40%,60%{transform:translateY(28px)} }
+@keyframes squat-leg-l  { 0%,100%{transform:rotate(0deg)} 40%,60%{transform:rotate(58deg)} }
+@keyframes squat-leg-r  { 0%,100%{transform:rotate(0deg)} 40%,60%{transform:rotate(-58deg)} }
+@keyframes goblet-arms  { 0%,100%{transform:rotate(-25deg) translateY(0)} 40%,60%{transform:rotate(-25deg) translateY(10px)} }
+
+@keyframes pushup-body  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(12px)} }
+@keyframes pushup-arm   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(22deg)} }
+
+@keyframes jack-bob     { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-10px) scale(1.03)} }
+@keyframes jack-arm-l   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-145deg)} }
+@keyframes jack-arm-r   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(145deg)} }
+@keyframes jack-leg-l   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-32deg)} }
+@keyframes jack-leg-r   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(32deg)} }
+
+@keyframes plank-hold   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+
+@keyframes climber-leg  { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(48deg)} }
+
+@keyframes butterfly-flap { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(9deg)} }
+
+@keyframes cobra-arch   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-8deg)} }
+@keyframes cobra-arms   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(14deg)} }
+
+@keyframes twist-body   { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(28deg)} }
+@keyframes twist-arm    { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-65deg)} }
+
+@keyframes burpee-cycle { 0%,100%{transform:translateY(0) scale(1)} 25%{transform:translateY(22px) scale(0.95)} 50%{transform:translateY(-18px) scale(1.07)} 75%{transform:translateY(22px) scale(0.95)} }
+@keyframes burpee-dot   { 0%,40%{opacity:0;transform:translateY(35px)} 50%{opacity:1;transform:translateY(0)} 60%,100%{opacity:0;transform:translateY(-14px)} }
+
+@keyframes high-knee-leg { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(74deg)} }
+
+@keyframes neck-roll    { 0%{transform:rotate(0deg)} 25%{transform:rotate(16deg)} 50%{transform:rotate(0deg)} 75%{transform:rotate(-16deg)} 100%{transform:rotate(0deg)} }
+@keyframes shoulder-roll{ 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(355deg)} }
+@keyframes knee-lift    { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(72deg)} }
+@keyframes ankle-spin   { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+
+@keyframes cat-cow      { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-18deg)} }
+@keyframes child-breathe{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+
+@keyframes hundred-pump { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes hundred-arms { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-22deg)} }
+@keyframes roll-up      { 0%,100%{transform:rotate(55deg)} 50%{transform:rotate(0deg)} }
+@keyframes leg-stretch  { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-55deg)} }
+
+@keyframes row-bend     { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(32deg)} }
+@keyframes row-pull     { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-55deg)} }
+@keyframes press-up     { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-165deg)} }
+@keyframes deadlift-hinge { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(42deg)} }
+@keyframes deadlift-arms  { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(22deg)} }
+
+@keyframes stretch-reach { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes stretch-arms  { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-125deg)} }
 
 @keyframes particle-float {
-  0% { opacity: 0; transform: translateX(0); }
-  30% { opacity: 0.7; }
-  100% { opacity: 0; transform: translateX(30px); }
+  0%  {opacity:0; transform:translateX(0) scale(1)}
+  30% {opacity:0.75}
+  100%{opacity:0; transform:translateX(32px) scale(0.5)}
 }
 
-@keyframes squat-drop {
-  0%, 100% { transform: translateY(0); }
-  40%, 60% { transform: translateY(25px); }
-}
-
-@keyframes squat-leg-l {
-  0%, 100% { transform: rotate(0deg); }
-  40%, 60% { transform: rotate(55deg); }
-}
-
-@keyframes squat-leg-r {
-  0%, 100% { transform: rotate(0deg); }
-  40%, 60% { transform: rotate(-55deg); }
-}
-
-@keyframes goblet-arms {
-  0%, 100% { transform: rotate(-30deg) translateY(0); }
-  40%, 60% { transform: rotate(-30deg) translateY(8px); }
-}
-
-@keyframes pushup-tilt {
-  0%, 100% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(70deg) translateY(40px); }
-}
-
-@keyframes pushup-torso { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-@keyframes pushup-arm {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(20deg); }
-}
-
-@keyframes jack-bob {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8px) scale(1.02); }
-}
-
-@keyframes jack-arm-l {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-140deg); }
-}
-
-@keyframes jack-arm-r {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(140deg); }
-}
-
-@keyframes jack-leg-l {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-30deg); }
-}
-
-@keyframes jack-leg-r {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(30deg); }
-}
-
-@keyframes plank-hold {
-  0%, 100% { transform: rotate(-75deg) translateY(30px); }
-  50% { transform: rotate(-75deg) translateY(28px); }
-}
-
-@keyframes plank-shake {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.85; }
-}
-
-@keyframes butterfly-flap {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
-}
-
-@keyframes butterfly-legs {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(8deg); }
-}
-
-@keyframes cobra-rise {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-25deg); }
-}
-
-@keyframes cobra-arch {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-@keyframes twist-body {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(25deg); }
-}
-
-@keyframes twist-arm {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-60deg); }
-}
-
-@keyframes burpee-cycle {
-  0%, 100% { transform: translateY(0) scale(1); }
-  25% { transform: translateY(20px) scale(0.95); }
-  50% { transform: translateY(-15px) scale(1.05); }
-  75% { transform: translateY(20px) scale(0.95); }
-}
-
-@keyframes burpee-dot {
-  0%, 40% { opacity: 0; transform: translateY(30px); }
-  50% { opacity: 1; transform: translateY(0); }
-  60%, 100% { opacity: 0; transform: translateY(-10px); }
-}
-
-@keyframes climber-leg {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(45deg); }
-}
-
-@keyframes high-knee-leg {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(70deg); }
-}
-
-@keyframes neck-roll {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(15deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(-15deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@keyframes shoulder-roll {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(360deg); }
-}
-
-@keyframes knee-lift {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(70deg); }
-}
-
-@keyframes ankle-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes cat-cow {
-  0%, 100% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(-20deg) translateY(-5px); }
-}
-
-@keyframes row-bend {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(30deg); }
-}
-
-@keyframes row-pull {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-50deg); }
-}
-
-@keyframes press-up {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-160deg); }
-}
-
-@keyframes deadlift-hinge {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(40deg); }
-}
-
-@keyframes deadlift-arms {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(20deg); }
-}
-
-@keyframes hundred-pump {
-  0%, 100% { transform: rotate(-45deg) translateY(20px); }
-  50% { transform: rotate(-45deg) translateY(17px); }
-}
-
-@keyframes hundred-arms {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-20deg); }
-}
-
-@keyframes roll-up {
-  0%, 100% { transform: rotate(60deg) translateY(30px); }
-  50% { transform: rotate(0deg) translateY(0); }
-}
-
-@keyframes leg-stretch {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-50deg); }
-}
-
-@keyframes child-pose {
-  0%, 100% { transform: rotate(30deg) translateY(15px); }
-  50% { transform: rotate(35deg) translateY(18px); }
-}
-
-@keyframes stretch-reach {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-@keyframes stretch-arms {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-120deg); }
-}
-
-@keyframes rest-lie {
-  0%, 100% { transform: translateY(30px) rotate(5deg); }
-  50% { transform: translateY(32px) rotate(5deg); }
-}
-
-.exercise-pushup .human-figure {
-  opacity: 0.15;
-}
-.exercise-pushup .pushup-pose {
-  opacity: 1;
-  animation: pushup-overlay 1.2s ease-in-out infinite;
-  transform-origin: 100px 155px;
-}
-
-@keyframes pushup-overlay {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
-}
-
-.exercise-child-pose .human-figure {
-  opacity: 0.2;
-}
-.exercise-child-pose .child-pose-overlay {
-  opacity: 1;
-  animation: child-pose 3s ease-in-out infinite;
-  transform-origin: 110px 170px;
-}
-
-/* Butterfly seated legs */
-.exercise-butterfly .butterfly-legs {
-  animation: butterfly-legs 2s ease-in-out infinite;
-  transform-origin: 100px 128px;
-}
-
-.exercise-butterfly .fig-leg-l,
-.exercise-butterfly .fig-leg-r,
-.exercise-butterfly .fig-shin-l,
-.exercise-butterfly .fig-shin-r {
-  opacity: 0.15;
-}
-
-/* SVG transforms — human limb groups */
-.fig-arm-l, .fig-arm-r, .fig-leg-l, .fig-leg-r,
-.fig-shin-l, .fig-shin-r, .fig-head, .figure-body, .fig-torso, .fig-neck {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.human-head {
-  transform-origin: 100px 44px;
-}
-
-.fig-arm-l, .fig-arm-r {
-  transform-origin: 100px 68px;
-}
-
-.fig-leg-l, .fig-leg-r {
-  transform-origin: 100px 126px;
-}
-
-.fig-shin-l {
-  transform-origin: 78px 170px;
-}
-
-.fig-shin-r {
-  transform-origin: 122px 170px;
-}
-
-.figure-body {
-  transform-origin: 100px 205px;
-}
-
-/* Child pose */
-.exercise-child-pose .human-head {
-  transform: translateY(8px);
-}
-
-/* Breathe — chest expansion */
-.exercise-breathe .human-torso {
-  animation: breathe-chest 3s ease-in-out infinite;
-  transform-origin: 100px 80px;
-}
-
-@keyframes breathe-chest {
-  0%, 100% { transform: scaleX(1); }
-  50% { transform: scaleX(1.08); }
-}
-
+/* ─ Reduced motion ─ */
 @media (prefers-reduced-motion: reduce) {
   .exercise-stage * {
     animation-duration: 0.01ms !important;
