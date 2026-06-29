@@ -53,7 +53,7 @@ object NarrationBuilder {
             "${stepLabel(context, i + 1, language)} $s"
         }.joinToString(". ")
         val tips = content.tips.joinToString(". ")
-        return "${content.name}. ${content.summary}. ${content.description}. $steps. $tipsLabel. $tips"
+        return "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
     }
 
     private fun sectionLabel(context: Context, resId: Int, @Suppress("UNUSED_PARAMETER") language: String): String =

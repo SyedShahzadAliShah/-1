@@ -1,7 +1,10 @@
 package com.couplesguide.postures.util
 
+import android.content.ClipData
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
@@ -24,6 +27,8 @@ object PdfExporter {
     private const val PAGE_WIDTH = 595
     private const val PAGE_HEIGHT = 842
     private const val MARGIN = 48f
+    private const val BOTTOM_MARGIN = 56f
+    private const val IMAGE_HEIGHT = 150f
 
     fun exportFullGuide(context: Context, language: String): File {
         val fileName = if (language == LocaleHelper.LANG_UR) {
@@ -32,46 +37,59 @@ object PdfExporter {
             "intimacy_guide_english.pdf"
         }
         val file = File(context.cacheDir, fileName)
+        if (file.exists()) file.delete()
+
         val document = PdfDocument()
-        var pageNumber = 1
-
-        pageNumber = writeTitlePage(context, document, language, pageNumber)
-        pageNumber = writeChapters(context, document, language, pageNumber)
-        pageNumber = writeImaginationSection(context, document, language, pageNumber)
-
-        for (posture in PostureRepository.getPhysicalPostures()) {
-            pageNumber = writePosturePage(context, document, posture, language, pageNumber)
+        try {
+            var pageNumber = 1
+            pageNumber = writeTitlePage(context, document, language, pageNumber)
+            pageNumber = writeChapters(context, document, language, pageNumber)
+            pageNumber = writeImaginationSection(context, document, language, pageNumber)
+            for (posture in PostureRepository.getPhysicalPostures()) {
+                pageNumber = writePosturePages(context, document, posture, language, pageNumber)
+            }
+            FileOutputStream(file).use { document.writeTo(it) }
+        } finally {
+            document.close()
         }
-
-        FileOutputStream(file).use { document.writeTo(it) }
-        document.close()
         return file
     }
 
     fun exportPosture(context: Context, posture: Posture, language: String): File {
         val content = posture.content(language)
-        val safeName = content.name.replace(" ", "_").replace("(", "").replace(")", "")
+        val safeName = content.name
+            .replace(Regex("[^A-Za-z0-9._-]"), "_")
+            .trim('_')
+            .ifBlank { "posture" }
         val file = File(context.cacheDir, "${safeName}_${language}.pdf")
+        if (file.exists()) file.delete()
+
         val document = PdfDocument()
-        writePosturePage(context, document, posture, language, 1)
-        FileOutputStream(file).use { document.writeTo(it) }
-        document.close()
+        try {
+            writePosturePages(context, document, posture, language, 1)
+            FileOutputStream(file).use { document.writeTo(it) }
+        } finally {
+            document.close()
+        }
         return file
     }
 
     fun sharePdf(context: Context, file: File) {
+        if (!file.exists() || file.length() == 0L) {
+            throw IllegalStateException("PDF file is missing or empty")
+        }
         val uri = FileProvider.getUriForFile(
             context,
             "${context.packageName}.fileprovider",
             file
         )
-        val intent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+        val intent = Intent(Intent.ACTION_SEND).apply {
             type = "application/pdf"
-            putExtra(android.content.Intent.EXTRA_STREAM, uri)
-            addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            putExtra(Intent.EXTRA_STREAM, uri)
+            clipData = ClipData.newRawUri("pdf", uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        val title = context.getString(R.string.share_pdf)
-        context.startActivity(android.content.Intent.createChooser(intent, title))
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_pdf)))
     }
 
     private fun writeTitlePage(
@@ -80,56 +98,30 @@ object PdfExporter {
         language: String,
         pageNumber: Int
     ): Int {
-        val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
-        val page = document.startPage(pageInfo)
-        val canvas = page.canvas
+        val writer = PageWriter(context, document, language, pageNumber)
         val isRtl = language == LocaleHelper.LANG_UR
-
-        val titlePaint = TextPaint().apply {
-            color = ContextCompat.getColor(context, R.color.primary)
-            textSize = 28f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-        }
-        val bodyPaint = TextPaint().apply {
-            color = ContextCompat.getColor(context, R.color.on_surface)
-            textSize = 14f
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-        }
 
         val title = if (isRtl) "مکمل رہنمائی قریبی تعلق" else "Ultimate Intimacy Guide"
         val subtitle = if (isRtl) {
             "جوڑوں کے لیے تصویری رہنمائی • انگریزی و اردو"
         } else {
-            "Illustrated Guide for Couples • English & Urdu"
+            "Illustrated Sex Education Guide for Couples"
         }
         val intro = if (isRtl) {
             "یہ گائیڈ آپ کو قریبی پوزیشنز سیکھنے، باہمی رضامندی، آرام دہ مواصلات، " +
                 "اور ایک دوسرے کے ساتھ محفوظ تجربہ کرنے میں مدد دیتی ہے۔"
         } else {
-            "This guide helps you learn intimate postures, practice mutual consent, " +
-                "communicate comfortably, and explore safely together as a couple."
+            "This guide helps couples learn intimate postures with educational diagrams, " +
+                "mutual consent practices, and comfort-focused communication."
         }
 
-        var y = 120f
-        val textWidth = PAGE_WIDTH - (MARGIN * 2)
-
-        canvas.drawText(title, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, titlePaint)
-        y += 40f
-        canvas.drawText(subtitle, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, bodyPaint)
-        y += 60f
-
-        y = drawWrappedText(canvas, intro, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-
-        val drawable = ContextCompat.getDrawable(context, R.drawable.pic_guide_cover)
-        drawable?.let {
-            val bitmap = drawableToBitmap(it, 300, 180)
-            val left = (PAGE_WIDTH - 300) / 2f
-            canvas.drawBitmap(bitmap, left, y + 40f, null)
-        }
-
-        document.finishPage(page)
-        return pageNumber + 1
+        writer.drawTitle(title)
+        writer.drawBody(subtitle, writer.sectionPaint(14f))
+        writer.space(12f)
+        writer.drawBody(intro)
+        writer.space(16f)
+        writer.drawImage(R.drawable.pic_guide_cover, 320, 190)
+        return writer.finish()
     }
 
     private fun writeChapters(
@@ -139,56 +131,22 @@ object PdfExporter {
         startPage: Int
     ): Int {
         var pageNumber = startPage
-        val isRtl = language == LocaleHelper.LANG_UR
-
         for (chapter in GuideRepository.getChapters()) {
             val content = chapter.content(language)
-            val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
-            val page = document.startPage(pageInfo)
-            val canvas = page.canvas
-
-            val titlePaint = TextPaint().apply {
-                color = ContextCompat.getColor(context, R.color.primary)
-                textSize = 20f
-                typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-                textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-            }
-            val bodyPaint = TextPaint().apply {
-                color = ContextCompat.getColor(context, R.color.on_surface)
-                textSize = 13f
-                textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-            }
-
-            var y = 60f
-            val textWidth = PAGE_WIDTH - (MARGIN * 2)
-
-            val drawable = ContextCompat.getDrawable(context, chapter.illustrationRes)
-            drawable?.let {
-                val bitmap = drawableToBitmap(it, 200, 120)
-                val left = (PAGE_WIDTH - 200) / 2f
-                canvas.drawBitmap(bitmap, left, y, null)
-                y += 140f
-            }
-
-            canvas.drawText(content.title, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, titlePaint)
-            y += 28f
-            y = drawWrappedText(canvas, content.summary, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-            y += 16f
-            y = drawWrappedText(canvas, content.body, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-            y += 16f
-
-            val pointsHeader = if (isRtl) "اہم نکات:" else "Key Points:"
-            canvas.drawText(pointsHeader, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, titlePaint)
-            y += 24f
-
+            val writer = PageWriter(context, document, language, pageNumber)
+            writer.drawImage(chapter.illustrationRes, 280, 160)
+            writer.drawHeading(content.title)
+            writer.drawBody(content.summary)
+            writer.space(8f)
+            writer.drawBody(content.body)
+            writer.space(8f)
+            val pointsHeader = if (language == LocaleHelper.LANG_UR) "اہم نکات:" else "Key Points:"
+            writer.drawSection(pointsHeader)
             for (point in content.keyPoints) {
-                val bullet = if (isRtl) "• $point" else "• $point"
-                y = drawWrappedText(canvas, bullet, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-                y += 8f
+                writer.drawBody("• $point")
+                writer.space(4f)
             }
-
-            document.finishPage(page)
-            pageNumber++
+            pageNumber = writer.finish()
         }
         return pageNumber
     }
@@ -200,15 +158,13 @@ object PdfExporter {
         startPage: Int
     ): Int {
         var pageNumber = startPage
-        val sectionTitle = context.getString(
-            if (language == LocaleHelper.LANG_UR) R.string.imagination_postures else R.string.imagination_postures
-        )
-        pageNumber = writeSectionDivider(context, document, language, pageNumber, sectionTitle)
+        pageNumber = writeSectionDivider(context, document, language, pageNumber,
+            context.getString(R.string.imagination_postures))
         for (posture in PostureRepository.getImaginationPostures()) {
-            pageNumber = writePosturePage(context, document, posture, language, pageNumber)
+            pageNumber = writePosturePages(context, document, posture, language, pageNumber)
         }
-        val physicalTitle = context.getString(R.string.all_postures)
-        pageNumber = writeSectionDivider(context, document, language, pageNumber, physicalTitle)
+        pageNumber = writeSectionDivider(context, document, language, pageNumber,
+            context.getString(R.string.all_postures))
         return pageNumber
     }
 
@@ -219,135 +175,195 @@ object PdfExporter {
         pageNumber: Int,
         title: String
     ): Int {
-        val isRtl = language == LocaleHelper.LANG_UR
-        val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
-        val page = document.startPage(pageInfo)
-        val canvas = page.canvas
-        val paint = TextPaint().apply {
-            color = ContextCompat.getColor(context, R.color.primary)
-            textSize = 26f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText(title, PAGE_WIDTH / 2f, PAGE_HEIGHT / 2f, paint)
-        document.finishPage(page)
-        return pageNumber + 1
+        val writer = PageWriter(context, document, language, pageNumber)
+        writer.y = PAGE_HEIGHT / 2f - 20f
+        writer.drawTitle(title, 24f)
+        return writer.finish()
     }
 
-    private fun writePosturePage(
+    private fun writePosturePages(
         context: Context,
         document: PdfDocument,
         posture: Posture,
         language: String,
-        pageNumber: Int
+        startPage: Int
     ): Int {
         val content = posture.content(language)
         val isRtl = language == LocaleHelper.LANG_UR
-        val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
-        val page = document.startPage(pageInfo)
-        val canvas = page.canvas
+        val writer = PageWriter(context, document, language, startPage)
 
-        val titlePaint = TextPaint().apply {
-            color = ContextCompat.getColor(context, R.color.primary)
-            textSize = 22f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-        }
-        val sectionPaint = TextPaint().apply {
-            color = ContextCompat.getColor(context, R.color.secondary)
-            textSize = 14f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-        }
-        val bodyPaint = TextPaint().apply {
-            color = ContextCompat.getColor(context, R.color.on_surface)
-            textSize = 12f
-            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
-        }
-
-        var y = 50f
-        val textWidth = PAGE_WIDTH - (MARGIN * 2)
-
-        val drawable = ContextCompat.getDrawable(context, posture.illustrationRes)
-        drawable?.let {
-            val bitmap = drawableToBitmap(it, 220, 130)
-            val left = (PAGE_WIDTH - 220) / 2f
-            canvas.drawBitmap(bitmap, left, y, null)
-            y += 145f
-        }
-
-        canvas.drawText(content.name, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, titlePaint)
-        y += 22f
-
-        val meta = "${content.category}  |  ${posture.difficulty.label(language)}"
-        canvas.drawText(meta, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, bodyPaint)
-        y += 24f
-
-        y = drawWrappedText(canvas, content.summary, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-        y += 14f
+        writer.drawImage(posture.illustrationRes, 340, IMAGE_HEIGHT.toInt())
+        writer.drawHeading(content.name)
+        writer.drawBody("${content.category}  |  ${posture.difficulty.label(language)}")
+        writer.space(8f)
+        writer.drawBody(content.summary)
+        writer.space(10f)
 
         val aboutLabel = if (isRtl) "تفصیل" else "About"
-        canvas.drawText(aboutLabel, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, sectionPaint)
-        y += 20f
-        y = drawWrappedText(canvas, content.description, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-        y += 14f
+        writer.drawSection(aboutLabel)
+        writer.drawBody(content.description)
+        writer.space(8f)
 
-        val stepsLabel = if (posture.isImagination) {
-            if (isRtl) "تخیلی مشق" else "Imagination Exercise"
-        } else if (isRtl) {
-            "طریقہ کار"
-        } else {
-            "How To"
+        val stepsLabel = when {
+            posture.isImagination && isRtl -> "تخیلی مشق"
+            posture.isImagination -> "Imagination Exercise"
+            isRtl -> "طریقہ کار"
+            else -> "How To"
         }
-        canvas.drawText(stepsLabel, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, sectionPaint)
-        y += 20f
+        writer.drawSection(stepsLabel)
         content.steps.forEachIndexed { index, step ->
-            val line = "${index + 1}. $step"
-            y = drawWrappedText(canvas, line, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-            y += 6f
+            writer.drawBody("${index + 1}. $step")
+            writer.space(4f)
         }
-        y += 8f
+        writer.space(6f)
 
         val tipsLabel = if (isRtl) "آرام کے مشورے" else "Comfort Tips"
-        canvas.drawText(tipsLabel, if (isRtl) PAGE_WIDTH - MARGIN else MARGIN, y, sectionPaint)
-        y += 20f
+        writer.drawSection(tipsLabel)
         for (tip in content.tips) {
-            y = drawWrappedText(canvas, "• $tip", MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
-            y += 6f
+            writer.drawBody("• $tip")
+            writer.space(4f)
+        }
+        return writer.finish()
+    }
+
+    private class PageWriter(
+        private val context: Context,
+        private val document: PdfDocument,
+        private val language: String,
+        startPage: Int
+    ) {
+        private val isRtl = language == LocaleHelper.LANG_UR
+        private val textWidth = (PAGE_WIDTH - MARGIN * 2).toInt()
+        private var pageNumber = startPage
+        private lateinit var page: PdfDocument.Page
+        private lateinit var canvas: Canvas
+        var y = MARGIN + 8f
+
+        private val regularTypeface: Typeface = loadTypeface(false)
+        private val boldTypeface: Typeface = loadTypeface(true)
+
+        init {
+            newPage()
         }
 
-        document.finishPage(page)
-        return pageNumber + 1
-    }
+        private fun loadTypeface(bold: Boolean): Typeface {
+            return if (isRtl) {
+                try {
+                    Typeface.createFromAsset(context.assets, "fonts/NotoNaskhArabic-Regular.ttf")
+                } catch (_: Exception) {
+                    Typeface.DEFAULT
+                }
+            } else {
+                Typeface.create(Typeface.DEFAULT, if (bold) Typeface.BOLD else Typeface.NORMAL)
+            }
+        }
 
-    private fun drawWrappedText(
-        canvas: Canvas,
-        text: String,
-        x: Float,
-        y: Float,
-        width: Int,
-        paint: TextPaint,
-        isRtl: Boolean
-    ): Float {
-        val alignment = if (isRtl) Layout.Alignment.ALIGN_OPPOSITE else Layout.Alignment.ALIGN_NORMAL
-        val layout = StaticLayout.Builder
-            .obtain(text, 0, text.length, paint, width)
-            .setAlignment(alignment)
-            .setLineSpacing(0f, 1.2f)
-            .build()
+        private fun newPage() {
+            if (::page.isInitialized) {
+                document.finishPage(page)
+            }
+            val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
+            page = document.startPage(pageInfo)
+            canvas = page.canvas
+            pageNumber++
+            y = MARGIN + 8f
+        }
 
-        canvas.save()
-        canvas.translate(if (isRtl) PAGE_WIDTH - MARGIN - width else x, y)
-        layout.draw(canvas)
-        canvas.restore()
-        return y + layout.height
-    }
+        private fun ensureSpace(needed: Float) {
+            if (y + needed > PAGE_HEIGHT - BOTTOM_MARGIN) {
+                newPage()
+            }
+        }
 
-    private fun drawableToBitmap(drawable: android.graphics.drawable.Drawable, width: Int, height: Int): Bitmap {
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        drawable.bounds = Rect(0, 0, width, height)
-        drawable.draw(canvas)
-        return bitmap
+        fun space(amount: Float) {
+            y += amount
+        }
+
+        fun drawTitle(text: String, size: Float = 28f) {
+            val paint = titlePaint(size)
+            ensureSpace(size + 8f)
+            val x = if (isRtl) PAGE_WIDTH - MARGIN else MARGIN
+            canvas.drawText(text, x, y + size, paint)
+            y += size + 12f
+        }
+
+        fun drawHeading(text: String) {
+            val paint = titlePaint(20f)
+            ensureSpace(28f)
+            val x = if (isRtl) PAGE_WIDTH - MARGIN else MARGIN
+            canvas.drawText(text, x, y + 20f, paint)
+            y += 28f
+        }
+
+        fun drawSection(text: String) {
+            val paint = sectionPaint()
+            ensureSpace(22f)
+            val x = if (isRtl) PAGE_WIDTH - MARGIN else MARGIN
+            canvas.drawText(text, x, y + 14f, paint)
+            y += 22f
+        }
+
+        fun drawBody(text: String, paint: TextPaint = bodyPaint()) {
+            val layout = buildLayout(text, paint)
+            ensureSpace(layout.height.toFloat() + 4f)
+            canvas.save()
+            canvas.translate(if (isRtl) PAGE_WIDTH - MARGIN - textWidth else MARGIN, y)
+            layout.draw(canvas)
+            canvas.restore()
+            y += layout.height + 6f
+        }
+
+        fun drawImage(resId: Int, width: Int, height: Int) {
+            val bitmap = loadBitmap(resId, width, height) ?: return
+            ensureSpace(height + 12f)
+            val left = (PAGE_WIDTH - width) / 2f
+            canvas.drawBitmap(bitmap, left, y, null)
+            y += height + 12f
+            bitmap.recycle()
+        }
+
+        fun sectionPaint(size: Float): TextPaint = TextPaint().apply {
+            color = ContextCompat.getColor(context, R.color.secondary)
+            textSize = size
+            typeface = boldTypeface
+            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
+        }
+
+        private fun titlePaint(size: Float) = TextPaint().apply {
+            color = ContextCompat.getColor(context, R.color.primary)
+            textSize = size
+            typeface = boldTypeface
+            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
+        }
+
+        private fun sectionPaint() = sectionPaint(14f)
+
+        private fun bodyPaint() = TextPaint().apply {
+            color = ContextCompat.getColor(context, R.color.on_surface)
+            textSize = 12f
+            typeface = regularTypeface
+            textAlign = if (isRtl) Paint.Align.RIGHT else Paint.Align.LEFT
+        }
+
+        private fun buildLayout(text: String, paint: TextPaint): StaticLayout {
+            val alignment = if (isRtl) Layout.Alignment.ALIGN_OPPOSITE else Layout.Alignment.ALIGN_NORMAL
+            return StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
+                .setAlignment(alignment)
+                .setLineSpacing(0f, 1.25f)
+                .setIncludePad(true)
+                .build()
+        }
+
+        private fun loadBitmap(resId: Int, width: Int, height: Int): Bitmap? {
+            val decoded = BitmapFactory.decodeResource(context.resources, resId) ?: return null
+            val scaled = Bitmap.createScaledBitmap(decoded, width, height, true)
+            if (scaled != decoded) decoded.recycle()
+            return scaled
+        }
+
+        fun finish(): Int {
+            document.finishPage(page)
+            return pageNumber
+        }
     }
 }
