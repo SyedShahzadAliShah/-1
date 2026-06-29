@@ -60,9 +60,9 @@ object PdfExporter {
 
     fun exportFullGuide(context: Context, language: String): ExportResult {
         val displayName = if (language == LocaleHelper.LANG_UR) {
-            "intimacy_guide_urdu.pdf"
+            "intimacy_handbook_urdu.pdf"
         } else {
-            "intimacy_guide_english.pdf"
+            "intimacy_handbook_english.pdf"
         }
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
@@ -244,18 +244,18 @@ object PdfExporter {
         val writer = PageWriter(context, document, language, pageNumber)
         val isRtl = language == LocaleHelper.LANG_UR
 
-        val title = if (isRtl) "مکمل رہنمائی قریبی تعلق" else "Ultimate Intimacy Guide"
+        val title = if (isRtl) "مکمل ہینڈ بک قریبی تعلق" else "Ultimate Intimacy Handbook"
         val subtitle = if (isRtl) {
-            "جوڑوں کے لیے تصویری رہنمائی • انگریزی و اردو"
+            "جوڑوں کے لیے انیمے تصویری جنسی تعلیم • انگریزی و اردو"
         } else {
-            "Illustrated Sex Education Guide for Couples"
+            "Anime-Illustrated Sex Education Handbook for Couples"
         }
         val intro = if (isRtl) {
-            "یہ گائیڈ آپ کو قریبی پوزیشنز سیکھنے، باہمی رضامندی، آرام دہ مواصلات، " +
-                "اور ایک دوسرے کے ساتھ محفوظ تجربہ کرنے میں مدد دیتی ہے۔"
+            "یہ ہینڈ بک انیمے انداز کی تصویروں کے ساتھ قریبی پوزیشنز سیکھنے، " +
+                "باہمی رضامندی، آرام دہ مواصلات، اور محفوظ تجربہ کرنے میں مدد دیتی ہے۔"
         } else {
-            "This guide helps couples learn intimate postures with educational diagrams, " +
-                "mutual consent practices, and comfort-focused communication."
+            "This handbook uses anime-style educational illustrations to help couples learn " +
+                "intimate postures with mutual consent, comfort-focused communication, and safety."
         }
 
         writer.drawTitle(title)

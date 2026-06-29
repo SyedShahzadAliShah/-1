@@ -12,19 +12,27 @@ from PIL import Image, ImageDraw
 OUT = "/workspace/app/src/main/res/drawable-nodpi"
 W, H = 960, 600
 
-BG = (255, 248, 245)
-BG2 = (238, 228, 238)
-PRIMARY = (123, 75, 106)
-SECONDARY = (196, 154, 108)
-SKIN_A = (225, 185, 155)
-SKIN_B = (195, 155, 125)
-SKIN_OUTLINE = (120, 85, 72)
-BED = (220, 200, 192)
-PILLOW = (248, 240, 235)
-ACCENT = (90, 140, 180)
-JOINT = (170, 120, 100)
+# Anime sex-education palette
+BG = (255, 240, 248)
+BG2 = (230, 220, 255)
+PRIMARY = (140, 80, 120)
+SECONDARY = (210, 140, 170)
+SKIN_A = (255, 224, 196)
+SKIN_A_SHADE = (235, 190, 165)
+SKIN_B = (255, 210, 185)
+SKIN_B_SHADE = (225, 175, 150)
+SKIN_OUTLINE = (50, 40, 60)
+HAIR_A = (95, 60, 45)
+HAIR_B = (50, 55, 95)
+EYE_A = (110, 170, 220)
+EYE_B = (170, 110, 200)
+BED = (235, 215, 235)
+PILLOW = (255, 250, 255)
+ACCENT = (255, 150, 190)
+JOINT = (200, 150, 170)
 LABEL_BG = (255, 255, 255)
-PELVIS = (210, 160, 145, 90)
+PELVIS = (255, 180, 200, 80)
+BLUSH = (255, 160, 180, 110)
 
 
 Point = Tuple[float, float]
@@ -48,7 +56,7 @@ class FigurePose:
     ankle_r: Point
 
 
-def new_canvas(title: str = "Sex Education Diagram"):
+def new_canvas(title: str = "Anime Sex Education"):
     img = Image.new("RGB", (W, H), BG)
     draw = ImageDraw.Draw(img, "RGBA")
     for row in range(H):
@@ -57,8 +65,13 @@ def new_canvas(title: str = "Sex Education Diagram"):
         g = int(BG[1] * (1 - t) + BG2[1] * t)
         b = int(BG[2] * (1 - t) + BG2[2] * t)
         draw.line([(0, row), (W, row)], fill=(r, g, b))
-    draw.rounded_rectangle((12, 12, W - 12, H - 12), radius=16, outline=PRIMARY, width=3)
-    draw.text((28, 20), title, fill=PRIMARY)
+    # Soft anime sparkles
+    for sx, sy in [(120, 90), (820, 110), (750, 480), (180, 420), (500, 80)]:
+        draw.ellipse((sx, sy, sx + 6, sy + 6), fill=(255, 255, 255, 180))
+        draw.ellipse((sx + 10, sy + 8, sx + 14, sy + 12), fill=(255, 220, 240, 140))
+    draw.rounded_rectangle((12, 12, W - 12, H - 12), radius=20, outline=PRIMARY, width=4)
+    draw.rounded_rectangle((18, 18, W - 18, 52), radius=12, fill=(255, 255, 255, 200), outline=SECONDARY, width=2)
+    draw.text((32, 26), title, fill=PRIMARY)
     return img, draw
 
 
@@ -107,25 +120,81 @@ def title_label(draw: ImageDraw.ImageDraw, text: str):
 def partner_labels(draw: ImageDraw.ImageDraw):
     tag(draw, 80, 70, "Partner A", SECONDARY)
     tag(draw, 80, 110, "Partner B", PRIMARY)
+    tag(draw, 80, 150, "Anime Guide", ACCENT)
 
 
-def limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, color, width: int = 14):
-    draw.line([a, b], fill=SKIN_OUTLINE, width=width + 4)
+def anime_limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, color, shade, width: int = 12):
+    draw.line([a, b], fill=SKIN_OUTLINE, width=width + 5)
     draw.line([a, b], fill=color, width=width)
+    mx = (a[0] + b[0]) / 2 + 2
+    my = (a[1] + b[1]) / 2
+    draw.line([(mx, my), b], fill=shade, width=max(4, width - 4))
 
 
-def joint_dot(draw: ImageDraw.ImageDraw, p: Point, r: int = 5):
-    x, y = p
-    draw.ellipse((x - r, y - r, x + r, y + r), fill=JOINT, outline=SKIN_OUTLINE, width=1)
+def anime_hair(draw: ImageDraw.ImageDraw, hx: float, hy: float, head_r: int, hair_color, side: str = "center"):
+    offset = head_r * 0.3 if side == "right" else -head_r * 0.3 if side == "left" else 0
+    draw.ellipse(
+        (hx - head_r - 4 + offset, hy - head_r - 8, hx + head_r + 6 + offset, hy + head_r * 0.3),
+        fill=hair_color,
+        outline=SKIN_OUTLINE,
+        width=2,
+    )
+    # Anime bangs
+    draw.polygon(
+        [
+            (hx - head_r + offset, hy - head_r),
+            (hx + offset, hy - head_r - 6),
+            (hx + head_r + offset, hy - head_r),
+            (hx + head_r * 0.6 + offset, hy - head_r * 0.2),
+            (hx - head_r * 0.6 + offset, hy - head_r * 0.2),
+        ],
+        fill=hair_color,
+        outline=SKIN_OUTLINE,
+    )
+
+
+def anime_face(draw: ImageDraw.ImageDraw, hx: float, hy: float, head_r: int, skin, shade, hair, eye_color, facing: float = 1.0):
+    anime_hair(draw, hx, hy, head_r, hair, "left" if facing < 0 else "right" if facing > 0 else "center")
+    draw.ellipse(
+        (hx - head_r, hy - head_r, hx + head_r, hy + head_r),
+        fill=skin,
+        outline=SKIN_OUTLINE,
+        width=3,
+    )
+    # Cel-shade on cheek
+    draw.ellipse(
+        (hx + head_r * 0.15 * facing, hy - head_r * 0.1, hx + head_r * 0.85, hy + head_r * 0.75),
+        fill=shade,
+    )
+    draw.ellipse(
+        (hx - head_r, hy - head_r, hx + head_r, hy + head_r),
+        fill=skin,
+        outline=SKIN_OUTLINE,
+        width=3,
+    )
+    # Blush
+    draw.ellipse((hx - head_r * 0.55, hy + head_r * 0.05, hx - head_r * 0.2, hy + head_r * 0.35), fill=BLUSH)
+    draw.ellipse((hx + head_r * 0.2, hy + head_r * 0.05, hx + head_r * 0.55, hy + head_r * 0.35), fill=BLUSH)
+    # Large anime eyes
+    for ex in (hx - head_r * 0.38, hx + head_r * 0.12):
+        draw.ellipse((ex, hy - head_r * 0.15, ex + head_r * 0.42, hy + head_r * 0.38), fill=(255, 255, 255), outline=SKIN_OUTLINE, width=2)
+        draw.ellipse((ex + 4, hy - head_r * 0.05, ex + head_r * 0.3, hy + head_r * 0.28), fill=eye_color, outline=SKIN_OUTLINE, width=1)
+        draw.ellipse((ex + 8, hy - head_r * 0.02, ex + 14, hy + 6), fill=(255, 255, 255))
+    # Small anime mouth
+    draw.arc((hx - head_r * 0.2, hy + head_r * 0.2, hx + head_r * 0.2, hy + head_r * 0.55), 15, 165, fill=SKIN_OUTLINE, width=2)
 
 
 def draw_figure(
     draw: ImageDraw.ImageDraw,
     pose: FigurePose,
     color: Tuple[int, int, int],
-    head_r: int = 24,
+    shade: Tuple[int, int, int],
+    hair: Tuple[int, int, int],
+    eye_color: Tuple[int, int, int],
+    head_r: int = 30,
     show_joints: bool = False,
     show_pelvis: bool = True,
+    facing: float = 1.0,
 ):
     pelvis_cx = (pose.hip_l[0] + pose.hip_r[0]) / 2
     pelvis_cy = (pose.hip_l[1] + pose.hip_r[1]) / 2
@@ -134,63 +203,61 @@ def draw_figure(
 
     if show_pelvis:
         draw.ellipse(
-            (pelvis_cx - 28, pelvis_cy - 16, pelvis_cx + 28, pelvis_cy + 16),
-            fill=(*PELVIS[:3], 70),
-            outline=(*color[:3], 120),
+            (pelvis_cx - 30, pelvis_cy - 18, pelvis_cx + 30, pelvis_cy + 18),
+            fill=PELVIS,
+            outline=(255, 140, 170, 160),
             width=2,
         )
 
-    torso_poly = [
-        pose.shoulder_l,
-        pose.shoulder_r,
-        pose.hip_r,
-        pose.hip_l,
-    ]
+    torso_poly = [pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l]
+    shade_poly = [pose.shoulder_r, pose.hip_r, (pelvis_cx + 12, pelvis_cy + 8), (shoulder_cx + 10, shoulder_cy + 6)]
     draw.polygon(torso_poly, fill=color, outline=SKIN_OUTLINE)
-    draw.line([(shoulder_cx, shoulder_cy), (pelvis_cx, pelvis_cy)], fill=SKIN_OUTLINE, width=2)
+    draw.polygon(shade_poly, fill=shade)
+    draw.line([pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l, pose.shoulder_l], fill=SKIN_OUTLINE, width=3)
 
-    limb(draw, pose.neck, pose.shoulder_l, color, 12)
-    limb(draw, pose.shoulder_l, pose.elbow_l, color, 11)
-    limb(draw, pose.elbow_l, pose.wrist_l, color, 10)
-    limb(draw, pose.neck, pose.shoulder_r, color, 12)
-    limb(draw, pose.shoulder_r, pose.elbow_r, color, 11)
-    limb(draw, pose.elbow_r, pose.wrist_r, color, 10)
-    limb(draw, pose.hip_l, pose.knee_l, color, 12)
-    limb(draw, pose.knee_l, pose.ankle_l, color, 11)
-    limb(draw, pose.hip_r, pose.knee_r, color, 12)
-    limb(draw, pose.knee_r, pose.ankle_r, color, 11)
+    anime_limb(draw, pose.neck, pose.shoulder_l, color, shade, 11)
+    anime_limb(draw, pose.shoulder_l, pose.elbow_l, color, shade, 10)
+    anime_limb(draw, pose.elbow_l, pose.wrist_l, color, shade, 9)
+    anime_limb(draw, pose.neck, pose.shoulder_r, color, shade, 11)
+    anime_limb(draw, pose.shoulder_r, pose.elbow_r, color, shade, 10)
+    anime_limb(draw, pose.elbow_r, pose.wrist_r, color, shade, 9)
+    anime_limb(draw, pose.hip_l, pose.knee_l, color, shade, 11)
+    anime_limb(draw, pose.knee_l, pose.ankle_l, color, shade, 10)
+    anime_limb(draw, pose.hip_r, pose.knee_r, color, shade, 11)
+    anime_limb(draw, pose.knee_r, pose.ankle_r, color, shade, 10)
 
     hx, hy = pose.head
-    draw.ellipse(
-        (hx - head_r, hy - head_r, hx + head_r, hy + head_r),
-        fill=color,
-        outline=SKIN_OUTLINE,
-        width=2,
-    )
-    eye_y = hy - 4
-    draw.ellipse((hx - 8, eye_y - 2, hx - 4, eye_y + 2), fill=SKIN_OUTLINE)
-    draw.ellipse((hx + 4, eye_y - 2, hx + 8, eye_y + 2), fill=SKIN_OUTLINE)
-    draw.arc((hx - 6, hy + 2, hx + 6, hy + 12), 10, 170, fill=SKIN_OUTLINE, width=2)
-
-    limb(draw, pose.head, pose.neck, color, 10)
+    anime_face(draw, hx, hy, head_r, color, shade, hair, eye_color, facing)
+    anime_limb(draw, pose.head, pose.neck, color, shade, 9)
 
     if show_joints:
         for p in (
-            pose.neck,
-            pose.shoulder_l,
-            pose.shoulder_r,
-            pose.elbow_l,
-            pose.elbow_r,
-            pose.wrist_l,
-            pose.wrist_r,
-            pose.hip_l,
-            pose.hip_r,
-            pose.knee_l,
-            pose.knee_r,
-            pose.ankle_l,
-            pose.ankle_r,
+            pose.neck, pose.shoulder_l, pose.shoulder_r, pose.elbow_l, pose.elbow_r,
+            pose.wrist_l, pose.wrist_r, pose.hip_l, pose.hip_r, pose.knee_l,
+            pose.knee_r, pose.ankle_l, pose.ankle_r,
         ):
             joint_dot(draw, p)
+
+
+def joint_dot(draw: ImageDraw.ImageDraw, p: Point, r: int = 5):
+    x, y = p
+    draw.ellipse((x - r, y - r, x + r, y + r), fill=JOINT, outline=SKIN_OUTLINE, width=1)
+
+
+def draw_figure_simple(
+    draw: ImageDraw.ImageDraw,
+    pose: FigurePose,
+    color: Tuple[int, int, int],
+    head_r: int = 30,
+    show_joints: bool = False,
+    show_pelvis: bool = True,
+    facing: float = 1.0,
+):
+    kw = dict(head_r=head_r, show_joints=show_joints, show_pelvis=show_pelvis, facing=facing)
+    if color == SKIN_A:
+        draw_figure(draw, pose, SKIN_A, SKIN_A_SHADE, HAIR_A, EYE_A, **kw)
+    else:
+        draw_figure(draw, pose, SKIN_B, SKIN_B_SHADE, HAIR_B, EYE_B, **kw)
 
 
 def save(name: str, img: Image.Image):
@@ -411,8 +478,8 @@ def lifted_legs(cx: int, cy: int, scale: float = 1.0) -> FigurePose:
 def gen_missionary():
     img, draw = new_canvas()
     bed(draw, 400)
-    draw_figure(draw, lying_back(430, 390, 1.0), SKIN_A)
-    draw_figure(draw, on_top(430, 330, 0.95), SKIN_B)
+    draw_figure_simple(draw, lying_back(430, 390, 1.0), SKIN_A)
+    draw_figure_simple(draw, on_top(430, 330, 0.95), SKIN_B)
     arrow(draw, 560, 360, 610, 360)
     tag(draw, 615, 345, "Face to face")
     partner_labels(draw)
@@ -423,8 +490,8 @@ def gen_missionary():
 def gen_cowgirl():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure(draw, lying_back(430, 400, 0.95), SKIN_A)
-    draw_figure(draw, straddle(430, 290, 0.9), SKIN_B)
+    draw_figure_simple(draw, lying_back(430, 400, 0.95), SKIN_A)
+    draw_figure_simple(draw, straddle(430, 290, 0.9), SKIN_B)
     arrow(draw, 560, 280, 610, 250)
     tag(draw, 615, 235, "Partner B on top")
     partner_labels(draw)
@@ -435,8 +502,8 @@ def gen_cowgirl():
 def gen_spooning():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure(draw, side_lying(500, 380, "left", 1.05), SKIN_B)
-    draw_figure(draw, side_lying(420, 385, "left", 1.0), SKIN_A)
+    draw_figure_simple(draw, side_lying(500, 380, "left", 1.05), SKIN_B)
+    draw_figure_simple(draw, side_lying(420, 385, "left", 1.0), SKIN_A)
     tag(draw, 600, 300, "Same direction")
     partner_labels(draw)
     title_label(draw, "Spooning Position")
@@ -446,8 +513,8 @@ def gen_spooning():
 def gen_side_by_side():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure(draw, side_lying(360, 380, "right", 1.0), SKIN_A)
-    draw_figure(draw, side_lying(540, 380, "left", 1.0), SKIN_B)
+    draw_figure_simple(draw, side_lying(360, 380, "right", 1.0), SKIN_A)
+    draw_figure_simple(draw, side_lying(540, 380, "left", 1.0), SKIN_B)
     arrow(draw, 400, 310, 500, 310)
     tag(draw, 420, 280, "Facing each other")
     partner_labels(draw)
@@ -458,8 +525,8 @@ def gen_side_by_side():
 def gen_doggy():
     img, draw = new_canvas()
     bed(draw, 415)
-    draw_figure(draw, hands_knees(400, 360, 1.0), SKIN_A)
-    draw_figure(draw, kneeling_behind(520, 330, 0.95), SKIN_B)
+    draw_figure_simple(draw, hands_knees(400, 360, 1.0), SKIN_A)
+    draw_figure_simple(draw, kneeling_behind(520, 330, 0.95), SKIN_B)
     arrow(draw, 470, 350, 510, 340)
     tag(draw, 515, 320, "Rear entry")
     partner_labels(draw)
@@ -470,9 +537,9 @@ def gen_doggy():
 def gen_lotus():
     img, draw = new_canvas()
     draw.rounded_rectangle((120, 430, W - 120, 500), radius=16, fill=BED, outline=(190, 170, 160), width=2)
-    draw_figure(draw, seated(430, 400, 1.0), SKIN_A)
+    draw_figure_simple(draw, seated(430, 400, 1.0), SKIN_A)
     p_b = straddle(430, 320, 0.85)
-    draw_figure(draw, p_b, SKIN_B)
+    draw_figure_simple(draw, p_b, SKIN_B)
     tag(draw, 560, 300, "Seated embrace")
     partner_labels(draw)
     title_label(draw, "Lotus Position")
@@ -482,8 +549,8 @@ def gen_lotus():
 def gen_standing():
     img, draw = new_canvas()
     draw.rounded_rectangle((700, 120, 740, 480), radius=8, fill=(210, 200, 195))
-    draw_figure(draw, standing(500, 280, 1.0), SKIN_B)
-    draw_figure(draw, lifted_legs(420, 310, 0.85), SKIN_A)
+    draw_figure_simple(draw, standing(500, 280, 1.0), SKIN_B)
+    draw_figure_simple(draw, lifted_legs(420, 310, 0.85), SKIN_A)
     tag(draw, 560, 200, "Wall support")
     partner_labels(draw)
     title_label(draw, "Standing Position")
@@ -493,9 +560,9 @@ def gen_standing():
 def gen_edge_bed():
     img, draw = new_canvas()
     bed(draw, 400)
-    draw_figure(draw, lying_back(350, 385, 0.95), SKIN_A)
+    draw_figure_simple(draw, lying_back(350, 385, 0.95), SKIN_A)
     p = standing(540, 290, 0.9)
-    draw_figure(draw, p, SKIN_B)
+    draw_figure_simple(draw, p, SKIN_B)
     arrow(draw, 450, 380, 490, 350)
     tag(draw, 495, 335, "At bed edge")
     partner_labels(draw)
@@ -506,10 +573,10 @@ def gen_edge_bed():
 def gen_reverse_cowgirl():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure(draw, lying_back(430, 400, 0.95), SKIN_A)
+    draw_figure_simple(draw, lying_back(430, 400, 0.95), SKIN_A)
     p = straddle(430, 295, 0.9)
     p = pose(**{**p.__dict__, "head": (p.head[0], p.head[1] + 8)})
-    draw_figure(draw, p, SKIN_B, show_pelvis=False)
+    draw_figure_simple(draw, p, SKIN_B, show_pelvis=False)
     tag(draw, 560, 250, "Facing away")
     partner_labels(draw)
     title_label(draw, "Reverse Cowgirl")
@@ -522,8 +589,8 @@ def gen_butterfly():
     pillow(draw, (360, 375, 500, 395))
     p = lying_back(400, 360, 0.95)
     p = pose(**{**p.__dict__, "knee_l": (p.knee_l[0] - 15, p.knee_l[1] - 25), "knee_r": (p.knee_r[0] + 15, p.knee_r[1] - 25)})
-    draw_figure(draw, p, SKIN_A)
-    draw_figure(draw, standing(540, 290, 0.85), SKIN_B)
+    draw_figure_simple(draw, p, SKIN_A)
+    draw_figure_simple(draw, standing(540, 290, 0.85), SKIN_B)
     tag(draw, 560, 240, "Hips elevated")
     partner_labels(draw)
     title_label(draw, "Butterfly Position")
@@ -533,8 +600,8 @@ def gen_butterfly():
 def gen_scissors():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure(draw, side_lying(360, 380, "right", 1.0), SKIN_A)
-    draw_figure(draw, side_lying(520, 385, "left", 1.0), SKIN_B)
+    draw_figure_simple(draw, side_lying(360, 380, "right", 1.0), SKIN_A)
+    draw_figure_simple(draw, side_lying(520, 385, "left", 1.0), SKIN_B)
     draw.line([(400, 410), (480, 410)], fill=ACCENT, width=3)
     tag(draw, 600, 330, "Legs intertwined")
     partner_labels(draw)
@@ -548,8 +615,8 @@ def gen_lazy_dog():
     pillow(draw, (350, 380, 490, 400))
     p_a = hands_knees(400, 390, 0.9)
     p_a = pose(**{**p_a.__dict__, "head": (p_a.head[0] + 20, p_a.head[1] + 30)})
-    draw_figure(draw, p_a, SKIN_A)
-    draw_figure(draw, on_top(420, 350, 0.85), SKIN_B)
+    draw_figure_simple(draw, p_a, SKIN_A)
+    draw_figure_simple(draw, on_top(420, 350, 0.85), SKIN_B)
     tag(draw, 560, 310, "Flat & relaxed")
     partner_labels(draw)
     title_label(draw, "Lazy Dog Position")
@@ -560,7 +627,7 @@ def gen_lazy_dog():
 
 def gen_edu_body_map():
     img, draw = new_canvas("Body Awareness")
-    draw_figure(draw, standing(480, 260, 1.35), SKIN_A, show_joints=True, show_pelvis=True)
+    draw_figure_simple(draw, standing(480, 260, 1.35), SKIN_A, show_joints=True, show_pelvis=True)
     labels = [
         (560, 150, "Head & neck"),
         (620, 220, "Chest"),
@@ -579,8 +646,8 @@ def gen_edu_body_map():
 def gen_edu_face_contact():
     img, draw = new_canvas("Face-to-Face Education")
     bed(draw, 405)
-    draw_figure(draw, lying_back(400, 390, 0.9), SKIN_A)
-    draw_figure(draw, on_top(400, 335, 0.85), SKIN_B)
+    draw_figure_simple(draw, lying_back(400, 390, 0.9), SKIN_A)
+    draw_figure_simple(draw, on_top(400, 335, 0.85), SKIN_B)
     tag(draw, 560, 300, "Eye contact")
     tag(draw, 560, 340, "Kissing")
     tag(draw, 560, 380, "Verbal check-ins")
@@ -594,7 +661,7 @@ def gen_edu_hip_pillow():
     img, draw = new_canvas("Hip Support")
     bed(draw, 405)
     pillow(draw, (370, 388, 510, 408))
-    draw_figure(draw, lying_back(430, 385, 0.95), SKIN_A)
+    draw_figure_simple(draw, lying_back(430, 385, 0.95), SKIN_A)
     arrow(draw, 560, 395, 520, 395)
     tag(draw, 565, 380, "Pillow under hips")
     tag(draw, 565, 420, "Better angle & comfort")
@@ -604,8 +671,8 @@ def gen_edu_hip_pillow():
 
 def gen_edu_consent_talk():
     img, draw = new_canvas("Consent Education")
-    draw_figure(draw, standing(340, 280, 1.1), SKIN_A)
-    draw_figure(draw, standing(620, 280, 1.1), SKIN_B)
+    draw_figure_simple(draw, standing(340, 280, 1.1), SKIN_A)
+    draw_figure_simple(draw, standing(620, 280, 1.1), SKIN_B)
     draw.rounded_rectangle((380, 180, 580, 230), radius=14, fill=LABEL_BG, outline=PRIMARY, width=2)
     draw.text((410, 198), "Is this okay for you?", fill=PRIMARY)
     draw.rounded_rectangle((400, 420, 560, 470), radius=14, fill=LABEL_BG, outline=SECONDARY, width=2)
@@ -617,8 +684,8 @@ def gen_edu_consent_talk():
 def gen_edu_side_alignment():
     img, draw = new_canvas("Side Position Guide")
     bed(draw, 405)
-    draw_figure(draw, side_lying(400, 380, "right", 1.05), SKIN_A)
-    draw_figure(draw, side_lying(520, 380, "left", 1.05), SKIN_B)
+    draw_figure_simple(draw, side_lying(400, 380, "right", 1.05), SKIN_A)
+    draw_figure_simple(draw, side_lying(520, 380, "left", 1.05), SKIN_B)
     pillow(draw, (430, 430, 490, 450))
     tag(draw, 600, 430, "Knee pillow")
     tag(draw, 600, 340, "Hip alignment")
@@ -630,8 +697,8 @@ def gen_edu_rear_safety():
     img, draw = new_canvas("Rear Entry Safety")
     bed(draw, 415)
     pillow(draw, (360, 382, 470, 402))
-    draw_figure(draw, hands_knees(390, 360, 0.95), SKIN_A)
-    draw_figure(draw, kneeling_behind(510, 330, 0.9), SKIN_B)
+    draw_figure_simple(draw, hands_knees(390, 360, 0.95), SKIN_A)
+    draw_figure_simple(draw, kneeling_behind(510, 330, 0.9), SKIN_B)
     tag(draw, 560, 390, "Hip pillow")
     tag(draw, 560, 330, "Slow pace")
     tag(draw, 560, 290, "Check in often")
@@ -643,8 +710,8 @@ def gen_edu_rear_safety():
 
 def gen_chapter_consent():
     img, draw = new_canvas("Consent Chapter")
-    draw_figure(draw, standing(320, 280, 1.05), SKIN_A)
-    draw_figure(draw, standing(640, 280, 1.05), SKIN_B)
+    draw_figure_simple(draw, standing(320, 280, 1.05), SKIN_A)
+    draw_figure_simple(draw, standing(640, 280, 1.05), SKIN_B)
     draw.rounded_rectangle((340, 320, 620, 390), radius=16, fill=LABEL_BG, outline=PRIMARY, width=2)
     draw.text((400, 345), "Is this okay?", fill=PRIMARY)
     tag(draw, 260, 180, "Communication")
@@ -654,8 +721,8 @@ def gen_chapter_consent():
 
 def gen_chapter_connection():
     img, draw = new_canvas("Connection Chapter")
-    draw_figure(draw, standing(300, 280, 1.0), SKIN_A)
-    draw_figure(draw, standing(660, 280, 1.0), SKIN_B)
+    draw_figure_simple(draw, standing(300, 280, 1.0), SKIN_A)
+    draw_figure_simple(draw, standing(660, 280, 1.0), SKIN_B)
     draw.line([(340, 280), (620, 280)], fill=SECONDARY, width=4)
     for x in range(420, 540, 30):
         draw.ellipse((x, 200, x + 18, 218), fill=PRIMARY)
@@ -667,7 +734,7 @@ def gen_chapter_comfort():
     img, draw = new_canvas("Comfort Chapter")
     bed(draw, 400)
     pillow(draw, (370, 388, 490, 408))
-    draw_figure(draw, lying_back(430, 385, 0.95), SKIN_A)
+    draw_figure_simple(draw, lying_back(430, 385, 0.95), SKIN_A)
     tag(draw, 560, 300, "Pillow support")
     title_label(draw, "Comfort & Safety")
     save("pic_chapter_comfort", img)
@@ -676,20 +743,21 @@ def gen_chapter_comfort():
 def gen_chapter_explore():
     img, draw = new_canvas("Explore Chapter")
     for i, x in enumerate([220, 430, 640]):
-        draw_figure(draw, standing(x, 300, 0.75), SKIN_A if i % 2 == 0 else SKIN_B, show_pelvis=False)
+        draw_figure_simple(draw, standing(x, 300, 0.75), SKIN_A if i % 2 == 0 else SKIN_B, show_pelvis=False)
         draw.ellipse((x - 50, 360, x + 50, 400), outline=PRIMARY, width=2)
     title_label(draw, "Explore Together")
     save("pic_chapter_explore", img)
 
 
 def gen_guide_cover():
-    img, draw = new_canvas("Couples Sex Education")
+    img, draw = new_canvas("Ultimate Intimacy Handbook")
     bed(draw, 400)
-    draw_figure(draw, lying_back(380, 385, 0.85), SKIN_A)
-    draw_figure(draw, lying_back(520, 385, 0.85), SKIN_B)
-    draw.text((W // 2 - 160, 120), "Ultimate Intimacy Guide", fill=PRIMARY)
-    draw.text((W // 2 - 100, 155), "English  |  Urdu", fill=SECONDARY)
-    title_label(draw, "Couples Sex Education")
+    draw_figure_simple(draw, lying_back(380, 385, 0.85), SKIN_A)
+    draw_figure_simple(draw, lying_back(520, 385, 0.85), SKIN_B)
+    draw.text((W // 2 - 200, 115), "Ultimate Intimacy Handbook", fill=PRIMARY)
+    draw.text((W // 2 - 130, 150), "Anime Sex Education for Couples", fill=SECONDARY)
+    draw.text((W // 2 - 100, 175), "English  |  Urdu", fill=ACCENT)
+    title_label(draw, "Couples Intercourse Postures")
     save("pic_guide_cover", img)
 
 
@@ -697,8 +765,8 @@ def gen_guide_cover():
 
 def gen_imagine_breath():
     img, draw = new_canvas("Breath Exercise")
-    draw_figure(draw, seated(360, 320, 0.9), SKIN_A, show_pelvis=False)
-    draw_figure(draw, seated(600, 320, 0.9), SKIN_B, show_pelvis=False)
+    draw_figure_simple(draw, seated(360, 320, 0.9), SKIN_A, show_pelvis=False)
+    draw_figure_simple(draw, seated(600, 320, 0.9), SKIN_B, show_pelvis=False)
     for x in range(380, 580, 50):
         draw.arc((x, 180, x + 60, 240), 200, 340, fill=SECONDARY, width=3)
     tag(draw, 400, 340, "Breathe together")
@@ -711,8 +779,8 @@ def gen_imagine_candlelight():
     draw.rectangle((60, 60, W - 60, H - 80), fill=(35, 25, 45))
     draw.rectangle((460, 240, 500, 380), fill=(255, 220, 150))
     draw.polygon([(480, 210), (455, 245), (505, 245)], fill=(255, 200, 80))
-    draw_figure(draw, seated(340, 330, 0.85), SKIN_A, show_pelvis=False)
-    draw_figure(draw, seated(620, 330, 0.85), SKIN_B, show_pelvis=False)
+    draw_figure_simple(draw, seated(340, 330, 0.85), SKIN_A, show_pelvis=False)
+    draw_figure_simple(draw, seated(620, 330, 0.85), SKIN_B, show_pelvis=False)
     title_label(draw, "Candlelight Gaze")
     save("pic_imagine_candlelight", img)
 
@@ -720,8 +788,8 @@ def gen_imagine_candlelight():
 def gen_imagine_embrace():
     img, draw = new_canvas("Embrace Exercise")
     bed(draw, 400)
-    draw_figure(draw, side_lying(400, 370, "right", 0.95), SKIN_A)
-    draw_figure(draw, side_lying(480, 370, "left", 0.95), SKIN_B)
+    draw_figure_simple(draw, side_lying(400, 370, "right", 0.95), SKIN_A)
+    draw_figure_simple(draw, side_lying(480, 370, "left", 0.95), SKIN_B)
     title_label(draw, "Slow Embrace")
     save("pic_imagine_embrace", img)
 
@@ -730,8 +798,8 @@ def gen_imagine_ocean():
     img, draw = new_canvas("Ocean Visualization")
     for row in range(300, 500, 35):
         draw.arc((80, row, W - 80, row + 50), 0, 180, fill=ACCENT, width=3)
-    draw_figure(draw, side_lying(380, 380, "right", 0.95), SKIN_A)
-    draw_figure(draw, side_lying(520, 380, "left", 0.95), SKIN_B)
+    draw_figure_simple(draw, side_lying(380, 380, "right", 0.95), SKIN_A)
+    draw_figure_simple(draw, side_lying(520, 380, "left", 0.95), SKIN_B)
     title_label(draw, "Ocean Waves")
     save("pic_imagine_ocean", img)
 
@@ -743,8 +811,8 @@ def gen_imagine_starlight():
         x, y = 50 + i * 45, 40 + (i % 5) * 25
         draw.ellipse((x, y, x + 5, y + 5), fill=(255, 255, 200))
     bed(draw, 400)
-    draw_figure(draw, side_lying(380, 380, "right", 0.9), SKIN_A)
-    draw_figure(draw, side_lying(520, 380, "left", 0.9), SKIN_B)
+    draw_figure_simple(draw, side_lying(380, 380, "right", 0.9), SKIN_A)
+    draw_figure_simple(draw, side_lying(520, 380, "left", 0.9), SKIN_B)
     title_label(draw, "Starlit Embrace")
     save("pic_imagine_starlight", img)
 
@@ -754,8 +822,8 @@ def gen_imagine_morning():
     draw.rectangle((0, 0, W, 200), fill=(255, 235, 200))
     draw.ellipse((760, 40, 880, 160), fill=(255, 220, 100))
     bed(draw, 400)
-    draw_figure(draw, side_lying(400, 375, "right", 0.95), SKIN_A)
-    draw_figure(draw, side_lying(500, 375, "left", 0.95), SKIN_B)
+    draw_figure_simple(draw, side_lying(400, 375, "right", 0.95), SKIN_A)
+    draw_figure_simple(draw, side_lying(500, 375, "left", 0.95), SKIN_B)
     title_label(draw, "Morning Light")
     save("pic_imagine_morning", img)
 

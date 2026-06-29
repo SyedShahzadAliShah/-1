@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">قربت کی رہنمائی</string>
-    <string name="app_subtitle">مکمل جوڑوں کی گائیڈ</string>
-    <string name="welcome_title">ساتھ سیکھیں، ہمیشہ بات کریں</string>
-    <string name="welcome_message">یہ مکمل گائیڈ جوڑوں کو تصویری ہدایات، آواز میں سننے، PDF برآمد، اور آرام کے مشوروں کے ساتھ قریبی پوزیشنز سیکھنے میں مدد دیتی ہے — انگریزی اور اردو دونوں میں۔ ہر جسم مختلف ہے؛ وہ پوزیشنز اپنائیں جو آپ دونوں کے لیے درست ہوں۔</string>
+    <string name="app_name">قربت کی ہینڈ بک</string>
+    <string name="app_subtitle">مکمل جوڑوں کی جنسی تعلیم</string>
+    <string name="welcome_title">انیمے تصویری قربت کی ہینڈ بک</string>
+    <string name="welcome_message">جوڑوں کے لیے مکمل ہینڈ بک — انیمے انداز میں تعلیمی تصویریں، آواز میں سننے، قابلِ پرنٹ PDF، اور قریبی پوزیشنز کے آرام کے مشورے۔ انگریزی اور اردو میں ساتھ سیکھیں۔ ہر جسم مختلف ہے؛ وہ پوزیشنز اپنائیں جو آپ دونوں کے لیے درست ہوں۔</string>
     <string name="guide_chapters">گائیڈ کے باب</string>
     <string name="browse_categories">زمرے کے لحاظ سے دیکھیں</string>
     <string name="all_postures">پوزیشنز</string>
@@ -15,7 +15,7 @@
     <string name="listen">سنیں</string>
     <string name="stop">رکیں</string>
     <string name="export_pdf">PDF برآمد</string>
-    <string name="export_full_guide">مکمل گائیڈ برآمد</string>
+    <string name="export_full_guide">مکمل ہینڈ بک برآمد</string>
     <string name="share_pdf">PDF شیئر کریں</string>
     <string name="language">زبان</string>
     <string name="english">English</string>
@@ -41,5 +41,5 @@
     <string name="voice_open_settings">ٹی ٹی ایس ترتیبات</string>
     <string name="chapter_illustration">باب کی تصویر</string>
     <string name="sex_education">جنسی تعلیم</string>
-    <string name="sex_education_illustration">انسانی اعداد و شمار کے ساتھ جنسی تعلیم کی تصویر</string>
+    <string name="sex_education_illustration">انیمے انداز میں جنسی تعلیم کی پوزیشن تصویر</string>
 </resources>
