@@ -44,7 +44,7 @@ export default function SettingsPage() {
       <div className="card">
         <h3 style={{ margin: '0 0 0.5rem', color: '#95d5b2', fontSize: '0.95rem' }}>Features</h3>
         <ul style={{ margin: 0, paddingInlineStart: '1.25rem', fontSize: '0.85rem', color: '#c8d8c8' }}>
-          <li>10+ Keto recipes (Pakistani, BBQ, Chinese, Continental, Mughlai, Sindhi, Balochi)</li>
+          <li>200 Keto recipes (Pakistani, BBQ, Chinese, Continental, Mughlai, Punjabi, Sindhi, Balochi)</li>
           <li>9 condition-specific health guides (Gastric, Gyne, Psyche, Cardiac, Diabetic, Thyroid, Joint, Liver, Kidney)</li>
           <li>8 fitness routines (Aerobic, Yoga, HIIT, Walking, Strength, Stretching, Pilates)</li>
           <li>Bilingual English/Urdu with RTL support</li>

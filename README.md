@@ -4,7 +4,7 @@
 
 ## Features
 
-- **10+ Keto Recipes** across Pakistani, Bar B.Q., Chinese, Continental, Mughlai, Punjabi, Sindhi, and Balochi cuisines
+- **200 Keto Recipes** (25 per cuisine) across Pakistani, Bar B.Q., Chinese, Continental, Mughlai, Punjabi, Sindhi, and Balochi cuisines
 - **9 Health Guides** for Gastric, Gynecological, Mental Health (Psyche), Cardiac, Diabetic, Thyroid, Joint, Liver, and Kidney conditions
 - **8 Fitness Routines** including Aerobic, Yoga, HIIT, Walking, Strength Training, Stretching, and Pilates
 - **Bilingual** English/Urdu with full RTL support

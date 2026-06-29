@@ -39,7 +39,13 @@
     "healingNotes": "Healing Notes",
     "listenRecipe": "Listen to Recipe",
     "exportPdf": "Export PDF",
-    "stopAudio": "Stop Audio"
+    "stopAudio": "Stop Audio",
+    "totalCount": "{{count}} keto recipes across 8 cuisines",
+    "showing": "Showing {{shown}} of {{total}}",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "pageOf": "Page {{page}} of {{total}}",
+    "viewAll": "Browse all {{count}} recipes"
   },
   "health": {
     "title": "Health Guides",

@@ -39,7 +39,13 @@
     "healingNotes": "شفا یابی نوٹس",
     "listenRecipe": "ترکیب سنیں",
     "exportPdf": "پی ڈی ایف برآمد",
-    "stopAudio": "آڈیو بند کریں"
+    "stopAudio": "آڈیو بند کریں",
+    "totalCount": "8 کھانوں میں {{count}} کیٹو ترکیبیں",
+    "showing": "{{total}} میں سے {{shown}} دکھائے",
+    "prevPage": "پچھلا",
+    "nextPage": "اگلا",
+    "pageOf": "صفحہ {{page}} از {{total}}",
+    "viewAll": "تمام {{count}} ترکیبیں دیکھیں"
   },
   "health": {
     "title": "صحت گائیڈ",

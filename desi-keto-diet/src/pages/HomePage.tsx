@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { recipes } from '../data/recipes';
+import { recipes, recipeCount } from '../data/recipes';
 import { ailmentGuides } from '../data/ailments';
 import { fitnessRoutines } from '../data/fitness';
 import { useLang } from '../hooks/useLang';
@@ -46,7 +46,7 @@ export default function HomePage() {
         ))}
       </div>
 
-      <h2 className="section-title">{t('home.featuredRecipes')}</h2>
+      <h2 className="section-title">{t('home.featuredRecipes')} ({recipeCount})</h2>
       {recipes.slice(0, 3).map((recipe) => (
         <Link key={recipe.id} to={`/recipes/${recipe.id}`} className="card card-link">
           <strong>{recipe.title[lang]}</strong>
@@ -58,6 +58,9 @@ export default function HomePage() {
           </div>
         </Link>
       ))}
+      <Link to="/recipes" className="btn btn-primary" style={{ display: 'block', textAlign: 'center', textDecoration: 'none', marginTop: '0.5rem' }}>
+        {t('recipes.viewAll', { count: recipeCount })}
+      </Link>
 
       <h2 className="section-title">{t('home.startFitness')}</h2>
       {fitnessRoutines.slice(0, 3).map((routine) => (
