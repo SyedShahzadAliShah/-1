@@ -1,0 +1,59 @@
+.vocals-bar {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  z-index: 190;
+  pointer-events: none;
+}
+
+.vocals-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(27, 67, 50, 0.95);
+  border: 1px solid rgba(82, 183, 136, 0.45);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+  backdrop-filter: blur(10px);
+}
+
+.vocals-bar-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.vocals-bar-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.vocals-bar-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #d8f3dc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vocals-bar-stop {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 208, 63, 0.4);
+  background: rgba(116, 81, 45, 0.5);
+  color: #f4d03f;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vocals-bar-stop:active {
+  transform: scale(0.95);
+}
