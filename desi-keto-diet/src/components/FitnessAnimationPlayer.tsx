@@ -81,6 +81,8 @@ export default function FitnessAnimationPlayer({ routine }: Props) {
 
       <ExerciseFigure key={`${routine.id}-${currentStep}-${meta.animation}`} animation={meta.animation} />
 
+      <p className="human-figure-caption">{t('fitness.humanDemo')}</p>
+
       <div className="timer-bar">
         <div className="timer-fill" style={{ width: `${playing ? progress : 0}%` }} />
       </div>

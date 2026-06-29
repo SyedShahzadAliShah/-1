@@ -160,3 +160,11 @@
 .step-dot.done {
   background: rgba(82, 183, 136, 0.55);
 }
+
+.human-figure-caption {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #6b7f6b;
+  margin: 0.35rem 0 0;
+  font-style: italic;
+}

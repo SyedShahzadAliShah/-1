@@ -77,7 +77,8 @@
     "nextStep": "Next step",
     "restart": "Restart routine",
     "keepGoing": "Keep going!",
-    "ready": "Tap play to start"
+    "ready": "Tap play to start",
+    "humanDemo": "Animated human demonstration"
   },
   "knowledge": {
     "title": "In-Depth Knowledge",
