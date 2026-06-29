@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { fitnessRoutines } from '../data/fitness';
 import { useLang } from '../hooks/useLang';
-import { speakText, stopSpeaking, buildFitnessNarration } from '../services/tts';
+import { useTts } from '../hooks/useTts';
+import { buildFitnessNarration } from '../services/tts';
 import { exportFitnessPdf } from '../services/pdf';
 
 export default function FitnessDetailPage() {
@@ -11,26 +11,21 @@ export default function FitnessDetailPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const lang = useLang();
-  const [speaking, setSpeaking] = useState(false);
+  const { speaking, error, clearError, toggle } = useTts();
 
   const routine = fitnessRoutines.find((r) => r.id === id);
   if (!routine) return <p>{t('common.noResults')}</p>;
 
-  const handleListen = async () => {
-    if (speaking) {
-      await stopSpeaking();
-      setSpeaking(false);
-      return;
-    }
-    setSpeaking(true);
-    const text = buildFitnessNarration(
-      routine.title[lang],
-      routine.description[lang],
-      routine.steps.map((s) => s[lang]),
-      lang
-    );
-    await speakText(text, lang);
-    setSpeaking(false);
+  const narration = buildFitnessNarration(
+    routine.title[lang],
+    routine.description[lang],
+    routine.steps.map((s) => s[lang]),
+    lang,
+  );
+
+  const handleListen = () => {
+    clearError();
+    void toggle(narration);
   };
 
   return (
@@ -65,6 +60,8 @@ export default function FitnessDetailPage() {
           <span key={a} className="badge">{t(`ailments.${a}`)}</span>
         ))}
       </div>
+
+      {error && <p className="tts-error" role="alert">{error}</p>}
 
       <div className="btn-group">
         <button className="btn btn-audio" onClick={handleListen}>

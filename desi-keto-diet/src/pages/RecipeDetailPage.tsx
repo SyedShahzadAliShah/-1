@@ -1,38 +1,34 @@
-import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { recipes } from '../data/recipes';
 import { useLang } from '../hooks/useLang';
-import { speakText, stopSpeaking, buildRecipeNarration } from '../services/tts';
+import { useTts } from '../hooks/useTts';
+import { buildRecipeNarration } from '../services/tts';
 import { exportRecipePdf } from '../services/pdf';
+import { useState } from 'react';
 
 export default function RecipeDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const lang = useLang();
-  const [speaking, setSpeaking] = useState(false);
+  const { speaking, error, clearError, toggle } = useTts();
   const [exporting, setExporting] = useState(false);
 
   const recipe = recipes.find((r) => r.id === id);
   if (!recipe) return <p>{t('common.noResults')}</p>;
 
-  const handleListen = async () => {
-    if (speaking) {
-      await stopSpeaking();
-      setSpeaking(false);
-      return;
-    }
-    setSpeaking(true);
-    const text = buildRecipeNarration(
-      recipe.title[lang],
-      recipe.ingredients.map((i) => i[lang]),
-      recipe.instructions.map((s) => s[lang]),
-      recipe.healingNotes[lang],
-      lang
-    );
-    await speakText(text, lang);
-    setSpeaking(false);
+  const narration = buildRecipeNarration(
+    recipe.title[lang],
+    recipe.ingredients.map((i) => i[lang]),
+    recipe.instructions.map((s) => s[lang]),
+    recipe.healingNotes[lang],
+    lang,
+  );
+
+  const handleListen = () => {
+    clearError();
+    void toggle(narration);
   };
 
   const handleExport = async () => {
@@ -110,6 +106,8 @@ export default function RecipeDetailPage() {
         <h3>{t('recipes.healingNotes')}</h3>
         <p style={{ lineHeight: 1.6 }}>{recipe.healingNotes[lang]}</p>
       </div>
+
+      {error && <p className="tts-error" role="alert">{error}</p>}
 
       <div className="btn-group">
         <button className="btn btn-audio" onClick={handleListen}>

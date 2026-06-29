@@ -114,5 +114,9 @@
     "noResults": "No results found",
     "exportSuccess": "PDF exported successfully",
     "exportError": "Failed to export PDF"
+  },
+  "tts": {
+    "error": "Could not play audio. Check device volume and try again.",
+    "unsupported": "Voice not installed. Opening speech settings — download Urdu or English voice data, then retry."
   }
 }

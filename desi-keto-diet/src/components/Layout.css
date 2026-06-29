@@ -392,3 +392,14 @@
   color: #c8d8c8;
   white-space: pre-line;
 }
+
+.tts-error {
+  font-size: 0.8rem;
+  color: #f4a261;
+  background: rgba(244, 162, 97, 0.12);
+  border: 1px solid rgba(244, 162, 97, 0.35);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  margin: 0.75rem 0;
+  line-height: 1.5;
+}

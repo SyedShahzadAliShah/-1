@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ailmentGuides } from '../data/ailments';
 import { useLang } from '../hooks/useLang';
-import { speakText, stopSpeaking } from '../services/tts';
+import { useTts } from '../hooks/useTts';
+import { buildHealthNarration } from '../services/tts';
 import { exportHealthGuidePdf } from '../services/pdf';
 
 export default function HealthDetailPage() {
@@ -11,26 +11,21 @@ export default function HealthDetailPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const lang = useLang();
-  const [speaking, setSpeaking] = useState(false);
+  const { speaking, error, clearError, toggle } = useTts();
 
   const guide = ailmentGuides.find((g) => g.id === id);
   if (!guide) return <p>{t('common.noResults')}</p>;
 
-  const handleListen = async () => {
-    if (speaking) {
-      await stopSpeaking();
-      setSpeaking(false);
-      return;
-    }
-    setSpeaking(true);
-    const text = [
-      guide.title[lang],
-      guide.summary[lang],
-      guide.ketoApproach[lang],
-      guide.medicationAlternatives[lang],
-    ].join('. ');
-    await speakText(text, lang);
-    setSpeaking(false);
+  const narration = buildHealthNarration(
+    guide.title[lang],
+    guide.summary[lang],
+    guide.ketoApproach[lang],
+    guide.medicationAlternatives[lang],
+  );
+
+  const handleListen = () => {
+    clearError();
+    void toggle(narration);
   };
 
   return (
@@ -70,6 +65,8 @@ export default function HealthDetailPage() {
         <h3>{t('health.medicationNote')}</h3>
         <p style={{ lineHeight: 1.6 }}>{guide.medicationAlternatives[lang]}</p>
       </div>
+
+      {error && <p className="tts-error" role="alert">{error}</p>}
 
       <div className="btn-group">
         <button className="btn btn-audio" onClick={handleListen}>
