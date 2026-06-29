@@ -32,7 +32,7 @@ object PostureRepository {
     private val postures: List<Posture> = listOf(
         posture(
             id = "missionary", categoryId = CAT_FACE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.ill_missionary,
+            illustrationRes = R.drawable.pic_missionary,
             enName = "Missionary", urName = "مشنری",
             enCat = "Face to Face", urCat = "آمنے سامنے",
             enSummary = "Classic face-to-face position with one partner on top.",
@@ -64,7 +64,7 @@ object PostureRepository {
         ),
         posture(
             id = "cowgirl", categoryId = CAT_FACE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.ill_cowgirl,
+            illustrationRes = R.drawable.pic_cowgirl,
             enName = "Cowgirl (Woman on Top)", urName = "کاؤگرل (عورت اوپر)",
             enCat = "Face to Face", urCat = "آمنے سامنے",
             enSummary = "One partner straddles the other while facing them.",
@@ -96,7 +96,7 @@ object PostureRepository {
         ),
         posture(
             id = "spooning", categoryId = CAT_SIDE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.ill_spooning,
+            illustrationRes = R.drawable.pic_spooning,
             enName = "Spooning", urName = "چمچے والی پوزیشن",
             enCat = "Side by Side", urCat = "ساتھ ساتھ",
             enSummary = "Both partners lie on their sides, nestled together.",
@@ -128,7 +128,7 @@ object PostureRepository {
         ),
         posture(
             id = "side_by_side", categoryId = CAT_SIDE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.ill_side_by_side,
+            illustrationRes = R.drawable.pic_side_by_side,
             enName = "Side by Side (Facing)", urName = "سامنے سامنے سیدھے",
             enCat = "Side by Side", urCat = "ساتھ ساتھ",
             enSummary = "Partners lie facing each other on their sides.",
@@ -160,7 +160,7 @@ object PostureRepository {
         ),
         posture(
             id = "doggy", categoryId = CAT_REAR, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.ill_doggy,
+            illustrationRes = R.drawable.pic_doggy,
             enName = "Rear Entry", urName = "پیچھے سے داخلہ",
             enCat = "Rear Entry", urCat = "پیچھے سے",
             enSummary = "One partner kneels while the other enters from behind.",
@@ -192,7 +192,7 @@ object PostureRepository {
         ),
         posture(
             id = "lotus", categoryId = CAT_STANDING, difficulty = Difficulty.ADVANCED,
-            illustrationRes = R.drawable.ill_lotus,
+            illustrationRes = R.drawable.pic_lotus,
             enName = "Lotus", urName = "کمل پوزیشن",
             enCat = "Standing & Seated", urCat = "کھڑے اور بیٹھے",
             enSummary = "Seated face-to-face with legs wrapped around each other.",
@@ -224,7 +224,7 @@ object PostureRepository {
         ),
         posture(
             id = "standing", categoryId = CAT_STANDING, difficulty = Difficulty.ADVANCED,
-            illustrationRes = R.drawable.ill_standing,
+            illustrationRes = R.drawable.pic_standing,
             enName = "Standing", urName = "کھڑے ہوئے",
             enCat = "Standing & Seated", urCat = "کھڑے اور بیٹھے",
             enSummary = "One partner lifts or supports the other while standing.",
@@ -256,7 +256,7 @@ object PostureRepository {
         ),
         posture(
             id = "edge_of_bed", categoryId = CAT_VARIATIONS, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.ill_edge_bed,
+            illustrationRes = R.drawable.pic_edge_bed,
             enName = "Edge of Bed", urName = "بستر کے کنارے",
             enCat = "Variations", urCat = "تبدیلیاں",
             enSummary = "One partner at the bed edge while the other stands.",
@@ -288,7 +288,7 @@ object PostureRepository {
         ),
         posture(
             id = "reverse_cowgirl", categoryId = CAT_VARIATIONS, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.ill_reverse_cowgirl,
+            illustrationRes = R.drawable.pic_reverse_cowgirl,
             enName = "Reverse Cowgirl", urName = "الٹ کاؤگرل",
             enCat = "Variations", urCat = "تبدیلیاں",
             enSummary = "Top partner faces away while straddling the other.",
@@ -320,7 +320,7 @@ object PostureRepository {
         ),
         posture(
             id = "butterfly", categoryId = CAT_VARIATIONS, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.ill_butterfly,
+            illustrationRes = R.drawable.pic_butterfly,
             enName = "Butterfly", urName = "تتلی پوزیشن",
             enCat = "Variations", urCat = "تبدیلیاں",
             enSummary = "Reclining partner's hips elevated with legs open wide.",
@@ -352,7 +352,7 @@ object PostureRepository {
         ),
         posture(
             id = "scissors", categoryId = CAT_SIDE, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.ill_scissors,
+            illustrationRes = R.drawable.pic_scissors,
             enName = "Scissors", urName = "قینچی پوزیشن",
             enCat = "Side by Side", urCat = "ساتھ ساتھ",
             enSummary = "Partners lie at an angle with legs intertwined.",
@@ -384,7 +384,7 @@ object PostureRepository {
         ),
         posture(
             id = "lazy_dog", categoryId = CAT_REAR, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.ill_lazy_dog,
+            illustrationRes = R.drawable.pic_lazy_dog,
             enName = "Lazy Dog", urName = "آرام دہ پیچھے سے",
             enCat = "Rear Entry", urCat = "پیچھے سے",
             enSummary = "A relaxed rear-entry variation lying flat.",

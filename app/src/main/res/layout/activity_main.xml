@@ -52,7 +52,7 @@
                         android:contentDescription="@string/posture_illustration"
                         android:padding="12dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ill_guide_cover" />
+                        android:src="@drawable/pic_guide_cover" />
 
                     <TextView
                         android:layout_width="match_parent"

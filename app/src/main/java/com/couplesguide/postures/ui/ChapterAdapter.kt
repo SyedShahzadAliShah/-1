@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
-import com.couplesguide.postures.util.IllustrationAssets
 import com.couplesguide.postures.data.GuideChapter
 import com.couplesguide.postures.databinding.ItemChapterBinding
 
@@ -50,10 +49,7 @@ class ChapterAdapter(
             val content = chapter.content(language)
             binding.chapterTitle.text = content.title
             binding.chapterSummary.text = content.summary
-            AnimatedIllustrationHelper.bind(
-                binding.chapterImage,
-                IllustrationAssets.animatedRes(chapter.illustrationRes)
-            )
+            AnimatedIllustrationHelper.bind(binding.chapterImage, chapter.illustrationRes)
             binding.root.setOnClickListener { onChapterClick(chapter) }
         }
     }

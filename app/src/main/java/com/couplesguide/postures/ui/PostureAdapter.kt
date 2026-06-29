@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.databinding.ItemPostureBinding
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
-import com.couplesguide.postures.util.IllustrationAssets
 
 class PostureAdapter(
     private val language: String,
@@ -45,10 +44,7 @@ class PostureAdapter(
             binding.postureSummary.text = content.summary
             binding.difficultyText.text = posture.difficulty.label(language)
             binding.categoryText.text = content.category
-            AnimatedIllustrationHelper.bind(
-                binding.thumbnail,
-                IllustrationAssets.animatedRes(posture.illustrationRes)
-            )
+            AnimatedIllustrationHelper.bind(binding.thumbnail, posture.illustrationRes)
             binding.root.setOnClickListener { onPostureClick(posture) }
         }
     }

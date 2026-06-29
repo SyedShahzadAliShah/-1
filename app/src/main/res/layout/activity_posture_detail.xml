@@ -41,11 +41,11 @@
                 <ImageView
                     android:id="@+id/illustration"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="240dp"
                     android:background="@color/illustration_bg"
                     android:contentDescription="@string/posture_illustration"
-                    android:padding="24dp"
-                    android:scaleType="fitCenter" />
+                    android:padding="8dp"
+                    android:scaleType="centerCrop" />
 
             </com.google.android.material.card.MaterialCardView>
 

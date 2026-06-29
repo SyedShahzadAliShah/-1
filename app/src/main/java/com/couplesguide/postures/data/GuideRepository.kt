@@ -11,7 +11,7 @@ object GuideRepository {
     private val chapters = listOf(
         GuideChapter(
             id = "consent",
-            illustrationRes = R.drawable.ill_chapter_consent,
+            illustrationRes = R.drawable.pic_chapter_consent,
             english = ChapterContent(
                 title = "Communication & Consent",
                 summary = "The foundation of every intimate experience.",
@@ -43,7 +43,7 @@ object GuideRepository {
         ),
         GuideChapter(
             id = "connection",
-            illustrationRes = R.drawable.ill_chapter_connection,
+            illustrationRes = R.drawable.pic_chapter_connection,
             english = ChapterContent(
                 title = "Building Connection",
                 summary = "Emotional closeness enhances physical intimacy.",
@@ -75,7 +75,7 @@ object GuideRepository {
         ),
         GuideChapter(
             id = "comfort",
-            illustrationRes = R.drawable.ill_chapter_comfort,
+            illustrationRes = R.drawable.pic_chapter_comfort,
             english = ChapterContent(
                 title = "Comfort & Safety",
                 summary = "Physical comfort makes exploration enjoyable.",
@@ -107,7 +107,7 @@ object GuideRepository {
         ),
         GuideChapter(
             id = "exploration",
-            illustrationRes = R.drawable.ill_chapter_explore,
+            illustrationRes = R.drawable.pic_chapter_explore,
             english = ChapterContent(
                 title = "Exploring Together",
                 summary = "Variety keeps intimacy fresh and exciting.",

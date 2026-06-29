@@ -120,7 +120,7 @@ object PdfExporter {
 
         y = drawWrappedText(canvas, intro, MARGIN, y, textWidth.toInt(), bodyPaint, isRtl)
 
-        val drawable = ContextCompat.getDrawable(context, R.drawable.ill_guide_cover)
+        val drawable = ContextCompat.getDrawable(context, R.drawable.pic_guide_cover)
         drawable?.let {
             val bitmap = drawableToBitmap(it, 300, 180)
             val left = (PAGE_WIDTH - 300) / 2f

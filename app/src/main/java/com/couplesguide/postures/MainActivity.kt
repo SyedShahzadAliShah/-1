@@ -17,7 +17,6 @@ import com.couplesguide.postures.ui.CategoryAdapter
 import com.couplesguide.postures.ui.ChapterAdapter
 import com.couplesguide.postures.ui.PostureAdapter
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
-import com.couplesguide.postures.util.IllustrationAssets
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.PdfExporter
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         updatePostureList()
         AnimatedIllustrationHelper.bind(
             binding.guideCoverImage,
-            IllustrationAssets.animatedRes(R.drawable.ill_guide_cover)
+            R.drawable.pic_guide_cover
         )
     }
 
