@@ -1,52 +1,65 @@
 /**
- * Classic figurine gradient / filter defs.
- * Each ExerciseFigure instance gets a unique `prefix` so multiple
- * instances on the same page never share SVG IDs.
+ * Female model SVG defs — skin, hair, outfit, stage.
+ * Unique `prefix` per instance prevents shared-ID collisions.
  */
 export function HumanFigureDefs({ prefix: p }: { prefix: string }) {
   return (
     <defs>
-      {/* ── Body & torso fill — mint-to-forest vertical ── */}
-      <linearGradient id={`${p}-body`} x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%"   stopColor="#b7e4c7" />
-        <stop offset="50%"  stopColor="#52b788" />
-        <stop offset="100%" stopColor="#1b4332" />
+      {/* ─ Skin — warm South Asian ─ */}
+      <radialGradient id={`${p}-skin`} cx="38%" cy="30%" r="68%">
+        <stop offset="0%"   stopColor="#f8d5b0" />
+        <stop offset="45%"  stopColor="#e8a870" />
+        <stop offset="100%" stopColor="#bf8450" />
+      </radialGradient>
+
+      {/* ─ Limb skin — side-lit cylinder ─ */}
+      <linearGradient id={`${p}-slim`} x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"   stopColor="#c08850" />
+        <stop offset="35%"  stopColor="#f0bc88" />
+        <stop offset="65%"  stopColor="#f8d0a8" />
+        <stop offset="100%" stopColor="#c89060" />
       </linearGradient>
 
-      {/* ── Limb stroke — same palette, slight diagonal sheen ── */}
-      <linearGradient id={`${p}-limb`} x1="0%" y1="0%" x2="60%" y2="100%">
-        <stop offset="0%"   stopColor="#95d5b2" />
+      {/* ─ Hair — rich dark brown ─ */}
+      <linearGradient id={`${p}-hair`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   stopColor="#5c3820" />
+        <stop offset="60%"  stopColor="#3a2214" />
+        <stop offset="100%" stopColor="#22140c" />
+      </linearGradient>
+
+      {/* ─ Sports crop-top — bright mint / emerald ─ */}
+      <linearGradient id={`${p}-top`} x1="0%" y1="0%" x2="10%" y2="100%">
+        <stop offset="0%"   stopColor="#a8e8c8" />
+        <stop offset="45%"  stopColor="#52b788" />
         <stop offset="100%" stopColor="#2d6a4f" />
       </linearGradient>
 
-      {/* ── Head circle — radial spotlight ── */}
-      <radialGradient id={`${p}-head`} cx="38%" cy="32%" r="65%">
-        <stop offset="0%"   stopColor="#d8f3dc" />
-        <stop offset="55%"  stopColor="#74c69d" />
-        <stop offset="100%" stopColor="#2d6a4f" />
-      </radialGradient>
+      {/* ─ Leggings — deep forest green ─ */}
+      <linearGradient id={`${p}-leg`} x1="0%" y1="0%" x2="5%" y2="100%">
+        <stop offset="0%"   stopColor="#3a8060" />
+        <stop offset="100%" stopColor="#1a3028" />
+      </linearGradient>
 
-      {/* ── Joint highlight (ball joints / ends) ── */}
-      <radialGradient id={`${p}-joint`} cx="35%" cy="30%" r="65%">
-        <stop offset="0%"   stopColor="#f0faf4" />
-        <stop offset="60%"  stopColor="#95d5b2" />
-        <stop offset="100%" stopColor="#40916c" />
-      </radialGradient>
+      {/* ─ Shoe ─ */}
+      <linearGradient id={`${p}-shoe`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   stopColor="#e0e8e4" />
+        <stop offset="100%" stopColor="#8ab09a" />
+      </linearGradient>
 
-      {/* ── Stage ambient glow ── */}
-      <radialGradient id={`${p}-glow`} cx="50%" cy="88%" r="55%">
-        <stop offset="0%"   stopColor="rgba(82,183,136,0.48)" />
+      {/* ─ Stage glow ─ */}
+      <radialGradient id={`${p}-glow`} cx="50%" cy="90%" r="56%">
+        <stop offset="0%"   stopColor="rgba(82,183,136,0.46)" />
         <stop offset="100%" stopColor="rgba(82,183,136,0)"    />
       </radialGradient>
 
-      {/* ── Soft drop shadow on the whole figure ── */}
-      <filter id={`${p}-shadow`} x="-20%" y="-15%" width="140%" height="135%">
+      {/* ─ Soft figure drop-shadow ─ */}
+      <filter id={`${p}-shadow`} x="-22%" y="-18%" width="144%" height="140%">
         <feDropShadow dx="1" dy="3" stdDeviation="2.5"
-          floodColor="rgba(15,26,15,0.55)" />
+          floodColor="rgba(12,24,12,0.5)" />
       </filter>
 
-      {/* ── Energy glow for motion dots ── */}
-      <filter id={`${p}-glow-f`} x="-60%" y="-60%" width="220%" height="220%">
+      {/* ─ Energy glow for sparks / motion dots ─ */}
+      <filter id={`${p}-spark`} x="-60%" y="-60%" width="220%" height="220%">
         <feGaussianBlur stdDeviation="3.5" result="b" />
         <feMerge>
           <feMergeNode in="b" />
