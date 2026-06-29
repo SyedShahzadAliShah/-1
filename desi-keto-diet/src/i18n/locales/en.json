@@ -68,18 +68,7 @@
     "beginner": "Beginner",
     "intermediate": "Intermediate",
     "advanced": "Advanced",
-    "listenRoutine": "Listen to Routine",
-    "animatedRoutine": "Animated Guide",
-    "stepOf": "Step {{current}} of {{total}}",
-    "play": "Play",
-    "pause": "Pause",
-    "prevStep": "Previous step",
-    "nextStep": "Next step",
-    "restart": "Restart routine",
-    "keepGoing": "Keep going!",
-    "ready": "Tap play to start",
-    "humanDemo": "Animated human figure guide",
-    "figurePreview": "Live preview"
+    "listenRoutine": "Listen to Routine"
   },
   "knowledge": {
     "title": "In-Depth Knowledge",
@@ -140,7 +129,6 @@
     "title": "Built-in Vocals",
     "subtitle": "Listen to recipes, health guides, and fitness steps in English or Urdu.",
     "enabled": "Enable vocals",
-    "autoReadFitness": "Narrate fitness steps during animation",
     "rate": "Speech speed",
     "pitch": "Voice pitch",
     "volume": "Volume",

@@ -5,7 +5,6 @@ import { useLang } from '../hooks/useLang';
 import { useTts } from '../hooks/useTts';
 import { buildFitnessNarration } from '../services/tts';
 import { exportFitnessPdf } from '../services/pdf';
-import FitnessAnimationPlayer from '../components/FitnessAnimationPlayer';
 
 export default function FitnessDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -41,8 +40,6 @@ export default function FitnessDetailPage() {
       </div>
 
       <p style={{ lineHeight: 1.6, color: '#c8d8c8', marginTop: '0.75rem' }}>{routine.description[lang]}</p>
-
-      <FitnessAnimationPlayer routine={routine} />
 
       <div className="content-section">
         <h3>{t('fitness.benefits')}</h3>

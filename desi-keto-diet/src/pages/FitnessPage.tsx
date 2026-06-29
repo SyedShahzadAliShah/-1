@@ -4,10 +4,18 @@ import { useTranslation } from 'react-i18next';
 import { fitnessRoutines } from '../data/fitness';
 import { useLang } from '../hooks/useLang';
 import VocalsButton from '../components/VocalsButton';
-import FitnessFigureEmbed from '../components/FitnessFigureEmbed';
 import { buildPreviewNarration } from '../services/tts';
 import type { FitnessType } from '../types';
-import '../components/FitnessFigureEmbed.css';
+
+const typeIcons: Record<FitnessType, string> = {
+  aerobic: '🏃',
+  yoga: '🧘',
+  hiit: '⚡',
+  walking: '🚶',
+  strength: '💪',
+  stretching: '🤸',
+  pilates: '🩰',
+};
 
 export default function FitnessPage() {
   const { t } = useTranslation();
@@ -39,27 +47,27 @@ export default function FitnessPage() {
 
       {filtered.map((routine) => (
         <Link key={routine.id} to={`/fitness/${routine.id}`} className="card card-link">
-          <div className="fitness-card-layout">
-            <FitnessFigureEmbed routineId={routine.id} label={t('fitness.animatedRoutine')} />
-            <div className="fitness-card-body">
-              <strong>{routine.title[lang]}</strong>
-              <p style={{ fontSize: '0.82rem', color: '#8fa88f', margin: '0.3rem 0 0.4rem', lineHeight: 1.4 }}>
-                {routine.description[lang].slice(0, 90)}…
-              </p>
+          <div className="card-with-vocals">
+            <div className="card-with-vocals-body" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span style={{ fontSize: '1.75rem' }}>{typeIcons[routine.type]}</span>
               <div>
-                <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
-                <span className="badge">{routine.duration} {t('common.minutes')}</span>
-                <span className="badge">{t(`fitness.${routine.difficulty}`)}</span>
+                <strong>{routine.title[lang]}</strong>
+                <p style={{ fontSize: '0.82rem', color: '#8fa88f', margin: '0.3rem 0 0.4rem', lineHeight: 1.4 }}>
+                  {routine.description[lang].slice(0, 90)}…
+                </p>
+                <div>
+                  <span className="badge">{t(`fitnessTypes.${routine.type}`)}</span>
+                  <span className="badge">{routine.duration} {t('common.minutes')}</span>
+                  <span className="badge">{t(`fitness.${routine.difficulty}`)}</span>
+                </div>
               </div>
             </div>
-            <div className="fitness-card-actions">
-              <VocalsButton
-                compact
-                id={`fitness-${routine.id}`}
-                title={routine.title[lang]}
-                text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
-              />
-            </div>
+            <VocalsButton
+              compact
+              id={`fitness-${routine.id}`}
+              title={routine.title[lang]}
+              text={buildPreviewNarration(routine.title[lang], routine.description[lang])}
+            />
           </div>
         </Link>
       ))}

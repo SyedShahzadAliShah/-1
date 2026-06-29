@@ -3,7 +3,6 @@ export interface VocalsPrefs {
   rate: number;
   pitch: number;
   volume: number;
-  autoReadFitness: boolean;
 }
 
 const STORAGE_KEY = 'desi-keto-vocals';
@@ -13,7 +12,6 @@ export const DEFAULT_VOCALS_PREFS: VocalsPrefs = {
   rate: 0.92,
   pitch: 1.0,
   volume: 1.0,
-  autoReadFitness: true,
 };
 
 export function loadVocalsPrefs(): VocalsPrefs {
@@ -26,7 +24,6 @@ export function loadVocalsPrefs(): VocalsPrefs {
       rate: clamp(parsed.rate ?? DEFAULT_VOCALS_PREFS.rate, 0.5, 1.5),
       pitch: clamp(parsed.pitch ?? DEFAULT_VOCALS_PREFS.pitch, 0.5, 2.0),
       volume: clamp(parsed.volume ?? DEFAULT_VOCALS_PREFS.volume, 0.1, 1.0),
-      autoReadFitness: parsed.autoReadFitness ?? DEFAULT_VOCALS_PREFS.autoReadFitness,
     };
   } catch {
     return { ...DEFAULT_VOCALS_PREFS };

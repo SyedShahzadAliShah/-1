@@ -110,11 +110,6 @@ export default function SettingsPage() {
           on={prefs.enabled}
           onChange={(enabled) => updatePrefs({ enabled })}
         />
-        <Toggle
-          label={t('vocals.autoReadFitness')}
-          on={prefs.autoReadFitness}
-          onChange={(autoReadFitness) => updatePrefs({ autoReadFitness })}
-        />
 
         <SliderRow
           label={t('vocals.rate')}
