@@ -9,4 +9,5 @@
 .DS_Store
 captures/
 *.apk
+!releases/*.apk
 *.aab
