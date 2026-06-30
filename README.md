@@ -1,33 +1,36 @@
-# Intimacy Guide
+# Intimacy Handbook — Married Couples Posture Guide
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Bilingual (English & Urdu) intimate sexual postures guide for married couples, with illustrated positioning photos, man/woman role guidance, sex education chapters, voice narration, and PDF export.
 
 ## Download
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+**Latest (v3.2.2)** — Married couples posture guide with illustrated positioning photos:
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.2-debug.apk
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+> **Important:** Uninstall any older version first, then install v3.2.2. On the home screen you should see **"Version 3.2.2 — Married Couples Posture Guide with Photos"** below the subtitle.
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+## Features
 
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
+- **12 intimate postures** with 960×600 educational positioning diagrams (Man/Woman labeled)
+- **Man & woman role guidance** for each posture — position and tips for each partner
+- **4 foundation chapters** — Communication & Consent, Connection, Comfort & Safety, Exploration
 - **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
 - **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
+- **6 imagination exercises** — visualization to build connection before physical intimacy
+- **Bilingual** — full English and Urdu support
+- **Voice narration** — listen to posture and chapter content
+- **PDF export** — export individual postures or the full handbook
 
-## v2.4 fixes
+## Postures Included
 
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+| Category | Positions |
+|----------|-----------|
+| Face to Face | Missionary, Cowgirl |
+| Side by Side | Spooning, Side by Side (Facing), Scissors |
+| Rear Entry | Rear Entry, Lazy Dog |
+| Standing & Seated | Lotus, Standing |
+| Variations | Edge of Bed, Reverse Cowgirl, Butterfly |
 
 ## Build
 
@@ -35,6 +38,10 @@ Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture
 python3 scripts/generate_posture_pictures.py
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
+cp app/build/outputs/apk/debug/app-debug.apk releases/IntimacyHandbook-v3.2.2-debug.apk
 ```
 
-## Version 3.2.1
+## Version 3.2.2
+
+- Updated branding and copy for married couples focus
+- Regenerated all posture positioning diagram photos
