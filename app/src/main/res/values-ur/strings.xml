@@ -50,4 +50,5 @@
     <string name="womans_role">عورت کا کردار</string>
     <string name="position_label">پوزیشن</string>
     <string name="guidance_label">رہنمائی</string>
+    <string name="version_badge">ورژن %1$s — مرد/عورت کردار + اس کے لیے اور اس کے لیے جنسی تعلیم</string>
 </resources>

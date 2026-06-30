@@ -4,11 +4,18 @@ Bilingual (English & Urdu) couples sex-education app with embedded diagram pictu
 
 ## Download
 
-**Latest (v3.2.0)** — man/woman posture roles + sex education for him & her:
+**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.0-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
 
-Previous: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-de33/releases/IntimacyHandbook-v3.1-debug.apk
+Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+
+> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+
+## v3.2.1
+
+- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
+- **Fix:** Version badge on home screen so you can confirm the correct build is installed
 
 ## v3.2.0
 
@@ -30,4 +37,4 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.0
+## Version 3.2.1

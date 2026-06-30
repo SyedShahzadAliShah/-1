@@ -19,6 +19,8 @@ import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.CategoryAdapter
 import com.couplesguide.postures.ui.ChapterAdapter
 import com.couplesguide.postures.ui.PostureAdapter
+import com.couplesguide.postures.BuildConfig
+import com.couplesguide.postures.util.RecyclerViewHelper
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
@@ -97,27 +99,33 @@ class MainActivity : AppCompatActivity() {
 
         binding.postureList.layoutManager = LinearLayoutManager(this)
         binding.postureList.adapter = postureAdapter
+        RecyclerViewHelper.setupNestedList(binding.postureList)
 
-        binding.chapterList.layoutManager = LinearLayoutManager(this)
+        RecyclerViewHelper.setupNestedList(binding.chapterList)
         binding.chapterList.adapter = chapterAdapter
         chapterAdapter.submitList(GuideRepository.getChapters())
+        binding.chapterList.post { binding.chapterList.requestLayout() }
 
-        binding.forHimList.layoutManager = LinearLayoutManager(this)
+        RecyclerViewHelper.setupNestedList(binding.forHimList)
         binding.forHimList.adapter = forHimAdapter
         forHimAdapter.submitList(GenderEducationRepository.getForHimChapters())
+        binding.forHimList.post { binding.forHimList.requestLayout() }
 
-        binding.forHerList.layoutManager = LinearLayoutManager(this)
+        RecyclerViewHelper.setupNestedList(binding.forHerList)
         binding.forHerList.adapter = forHerAdapter
         forHerAdapter.submitList(GenderEducationRepository.getForHerChapters())
+        binding.forHerList.post { binding.forHerList.requestLayout() }
 
-        binding.imaginationList.layoutManager = LinearLayoutManager(this)
+        RecyclerViewHelper.setupNestedList(binding.imaginationList)
         binding.imaginationList.adapter = imaginationAdapter
         imaginationAdapter.submitList(
             PostureRepository.getImaginationPostures().map { PostureListItem.PostureEntry(it) }
         )
+        binding.imaginationList.post { binding.imaginationList.requestLayout() }
 
         setupCategories()
         updatePostureList()
+        binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(
             binding.guideCoverImage,
             R.drawable.pic_guide_cover
@@ -178,6 +186,7 @@ class MainActivity : AppCompatActivity() {
         val includeEduCards = selectedCategory == PostureRepository.CAT_ALL
         val items = PostureListBuilder.build(postures, includeEduCards)
         postureAdapter.submitList(items)
+        binding.postureList.post { binding.postureList.requestLayout() }
         binding.emptyText.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
     }
 
