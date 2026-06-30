@@ -4,11 +4,18 @@ Bilingual (English & Urdu) couples sex-education app with realistic posture pict
 
 ## Download
 
-**Latest (v3.4.0)** — realistic posture pictures with man/woman undergarment figures for all 12 intimacy positions:
+**Latest (v3.5.0)** — high-quality realistic posture illustrations with warm lighting and clearer angles:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/real-pics-intimacy-postures-56ca/releases/IntimacyHandbook-v3.4.0-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/real-pics-intimacy-postures-56ca/releases/IntimacyHandbook-v3.5.0-debug.apk
 
-> **Important:** Uninstall any older version first, then install v3.4.0. On the home screen you should see **"Version 3.4.0 — Real posture pictures + Man/Woman roles"** below the subtitle.
+> **Important:** Uninstall any older version first, then install v3.5.0. On the home screen you should see **"Version 3.5.0 — HQ posture illustrations + Man/Woman roles"** below the subtitle.
+
+## v3.5.0
+
+- **Higher-quality illustrations** — 1280×800 resolution with warm key lighting, drop shadows, and fabric highlights
+- **More detailed figures** — capsule limbs, hands, feet, collarbone hints, and undergarment fabric folds
+- **Clearer posture angles** — dashed angle guides on key positions (missionary, cowgirl, doggy, butterfly, reverse cowgirl)
+- Enhanced bed/sheet rendering with fold lines and pillow shadows
 
 ## v3.4.0
 

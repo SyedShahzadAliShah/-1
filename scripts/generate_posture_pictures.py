@@ -7,10 +7,12 @@ import os
 from dataclasses import dataclass
 from typing import Dict, Iterable, List, Optional, Tuple
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 OUT = "/workspace/app/src/main/res/drawable-nodpi"
-W, H = 960, 600
+W, H = 1280, 800
+SX = W / 960.0
+SY = H / 600.0
 
 # Realistic human sex-education palette
 BG = (252, 246, 238)           # Warm cream
@@ -27,21 +29,42 @@ SKIN_OUTLINE = (110, 74, 58)   # Natural outline
 HAIR_A = (72, 50, 36)          # Dark brown hair
 HAIR_B = (46, 36, 28)          # Near-black hair
 BED = (212, 196, 188)
+BED_SHADOW = (185, 168, 158)
+SHEET = (248, 240, 232)
+SHEET_FOLD = (225, 210, 200)
 PILLOW = (245, 236, 228)
+PILLOW_SHADOW = (210, 195, 185)
 ACCENT = (78, 112, 152)        # Educational blue for arrows/labels
 JOINT = (155, 115, 92)
 LABEL_BG = (255, 252, 248)
+SHADOW = (120, 90, 75, 45)
+LIGHT_WARM = (255, 248, 235, 35)
 MALE_UNDERWEAR = (45, 58, 92)
 MALE_UNDERWEAR_EDGE = (30, 42, 72)
 MALE_UNDERWEAR_BAND = (62, 78, 118)
+MALE_UNDERWEAR_HIGHLIGHT = (72, 92, 138)
 FEMALE_BRA = (180, 100, 120)
 FEMALE_BRA_EDGE = (140, 70, 90)
 FEMALE_BRA_STRAP = (155, 85, 105)
+FEMALE_BRA_HIGHLIGHT = (210, 140, 158)
 FEMALE_PANTIES = (190, 110, 130)
 FEMALE_PANTIES_EDGE = (150, 80, 100)
+FEMALE_PANTIES_HIGHLIGHT = (220, 150, 168)
 
 
 Point = Tuple[float, float]
+
+
+def sx(v: float) -> float:
+    return v * SX
+
+
+def sy(v: float) -> float:
+    return v * SY
+
+
+def pt(x: float, y: float) -> Point:
+    return (sx(x), sy(y))
 
 
 @dataclass
@@ -71,33 +94,76 @@ def new_canvas(title: str = "Sex Education Diagram"):
         g = int(BG[1] * (1 - t) + BG2[1] * t)
         b = int(BG[2] * (1 - t) + BG2[2] * t)
         draw.line([(0, row), (W, row)], fill=(r, g, b))
-    draw.rounded_rectangle((12, 12, W - 12, H - 12), radius=14, outline=SECONDARY, width=2)
-    draw.rounded_rectangle((18, 18, W - 18, 48), radius=8,
-                            fill=(255, 252, 248, 220), outline=SECONDARY, width=1)
-    draw.text((30, 22), title, fill=SECONDARY)
+    # Warm key light from upper-left
+    for row in range(H // 2):
+        alpha = int(28 * (1 - row / (H // 2)))
+        draw.line([(0, row), (W // 2, row)], fill=LIGHT_WARM[:3] + (alpha,))
+    draw.rounded_rectangle((sx(12), sy(12), W - sx(12), H - sy(12)), radius=int(sx(14)), outline=SECONDARY, width=3)
+    draw.rounded_rectangle((sx(18), sy(18), W - sx(18), sy(48)), radius=int(sx(8)),
+                            fill=(255, 252, 248, 220), outline=SECONDARY, width=2)
+    draw.text((sx(30), sy(22)), title, fill=SECONDARY)
     return img, draw
 
 
-def bed(draw: ImageDraw.ImageDraw, y: int = 420):
-    draw.ellipse((W // 2 - 210, y + 58, W // 2 + 210, y + 92), fill=(180, 160, 155))
-    draw.rounded_rectangle((60, y, W - 60, y + 72), radius=20, fill=BED, outline=(190, 170, 160), width=2)
-    draw.rounded_rectangle((80, y - 26, W - 80, y + 6), radius=14, fill=PILLOW, outline=(210, 195, 185), width=2)
+def apply_finish(img: Image.Image) -> Image.Image:
+    """Subtle vignette and sharpen for a polished educational look."""
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    odraw = ImageDraw.Draw(overlay, "RGBA")
+    margin = int(min(W, H) * 0.08)
+    odraw.rounded_rectangle(
+        (margin, margin, W - margin, H - margin),
+        radius=int(sx(20)),
+        outline=(60, 40, 30, 18),
+        width=int(sx(30)),
+    )
+    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
+    return img.filter(ImageFilter.UnsharpMask(radius=1.2, percent=90, threshold=2))
 
 
-def pillow(draw: ImageDraw.ImageDraw, xy: Tuple[int, int, int, int]):
-    draw.rounded_rectangle(xy, radius=8, fill=PILLOW, outline=SECONDARY, width=2)
+def figure_shadow(draw: ImageDraw.ImageDraw, pose: FigurePose, spread: float = 1.0):
+    """Soft drop shadow beneath a figure for depth."""
+    xs = [pose.head[0], pose.ankle_l[0], pose.ankle_r[0], pose.wrist_l[0], pose.wrist_r[0]]
+    ys = [pose.head[1], pose.ankle_l[1], pose.ankle_r[1], pose.wrist_l[1], pose.wrist_r[1]]
+    cx = sum(xs) / len(xs)
+    cy = max(ys) + sy(8)
+    rx = sx(55 * spread)
+    ry = sy(12 * spread)
+    draw.ellipse((cx - rx, cy - ry, cx + rx, cy + ry), fill=SHADOW)
 
 
-def tag(draw: ImageDraw.ImageDraw, x: int, y: int, text: str, color=PRIMARY):
-    tw = len(text) * 9 + 24
-    draw.rounded_rectangle((x, y, x + tw, y + 30), radius=8, fill=LABEL_BG, outline=color, width=2)
-    draw.text((x + 12, y + 7), text, fill=color)
+def bed(draw: ImageDraw.ImageDraw, y: float = 420):
+    y = sy(y)
+    draw.ellipse((W // 2 - int(sx(210)), y + int(sy(58)), W // 2 + int(sx(210)), y + int(sy(92))), fill=BED_SHADOW)
+    draw.rounded_rectangle((int(sx(60)), y, W - int(sx(60)), y + int(sy(72))), radius=int(sx(20)), fill=BED, outline=(190, 170, 160), width=3)
+    # Sheet fold lines
+    for i, offset in enumerate((100, 200, 320, 440, 560, 680, 780)):
+        x = int(sx(offset))
+        draw.line([(x, y + int(sy(8))), (x + int(sx(18)), y + int(sy(68)))], fill=SHEET_FOLD, width=2)
+    draw.rounded_rectangle((int(sx(60)), y, W - int(sx(60)), y + int(sy(72))), radius=int(sx(20)), fill=SHEET, outline=(190, 170, 160), width=2)
+    draw.rounded_rectangle((int(sx(80)), y - int(sy(26)), W - int(sx(80)), y + int(sy(6))), radius=int(sx(14)), fill=PILLOW, outline=(210, 195, 185), width=2)
+    draw.ellipse((W // 2 - int(sx(120)), y - int(sy(20)), W // 2 - int(sx(40)), y + int(sy(4))), fill=PILLOW_SHADOW)
+
+
+def pillow(draw: ImageDraw.ImageDraw, xy: Tuple[float, float, float, float]):
+    x1, y1, x2, y2 = xy
+    draw.rounded_rectangle((int(sx(x1)), int(sy(y1)), int(sx(x2)), int(sy(y2))), radius=int(sx(8)), fill=PILLOW, outline=SECONDARY, width=2)
+    draw.line([(int(sx(x1 + 8)), int(sy(y1 + 4))), (int(sx(x2 - 8)), int(sy(y1 + 4)))], fill=PILLOW_SHADOW, width=1)
+
+
+def tag(draw: ImageDraw.ImageDraw, x: float, y: float, text: str, color=PRIMARY):
+    x, y = sx(x), sy(y)
+    tw = int(len(text) * sx(9) + sx(24))
+    th = int(sy(30))
+    draw.rounded_rectangle((x + 2, y + 2, x + tw + 2, y + th + 2), radius=int(sx(8)), fill=(80, 60, 50, 30))
+    draw.rounded_rectangle((x, y, x + tw, y + th), radius=int(sx(8)), fill=LABEL_BG, outline=color, width=2)
+    draw.text((x + int(sx(12)), y + int(sy(7))), text, fill=color)
 
 
 def arrow(draw: ImageDraw.ImageDraw, x1: float, y1: float, x2: float, y2: float, color=ACCENT):
-    draw.line([(x1, y1), (x2, y2)], fill=color, width=3)
+    x1, y1, x2, y2 = sx(x1), sy(y1), sx(x2), sy(y2)
+    draw.line([(x1, y1), (x2, y2)], fill=color, width=4)
     angle = math.atan2(y2 - y1, x2 - x1)
-    size = 10
+    size = sx(10)
     draw.polygon(
         [
             (x2, y2),
@@ -108,16 +174,36 @@ def arrow(draw: ImageDraw.ImageDraw, x1: float, y1: float, x2: float, y2: float,
     )
 
 
+def angle_guide(draw: ImageDraw.ImageDraw, x1: float, y1: float, x2: float, y2: float, label: str = ""):
+    """Dashed guide line to clarify posture angle."""
+    x1, y1, x2, y2 = sx(x1), sy(y1), sx(x2), sy(y2)
+    dx, dy = x2 - x1, y2 - y1
+    length = math.hypot(dx, dy)
+    if length < 1:
+        return
+    steps = int(length / sx(12))
+    for i in range(0, steps, 2):
+        t1 = i / steps
+        t2 = min((i + 1) / steps, 1.0)
+        draw.line(
+            [(x1 + dx * t1, y1 + dy * t1), (x1 + dx * t2, y1 + dy * t2)],
+            fill=(ACCENT[0], ACCENT[1], ACCENT[2], 160),
+            width=2,
+        )
+    if label:
+        tag(draw, x2 / SX + 10, y2 / SY - 20, label, ACCENT)
+
+
 def title_label(draw: ImageDraw.ImageDraw, text: str):
-    tw = len(text) * 7
+    tw = int(len(text) * sx(7))
     draw.rounded_rectangle(
-        (W // 2 - tw - 20, H - 52, W // 2 + tw + 20, H - 14),
-        radius=12,
+        (W // 2 - tw - int(sx(20)), H - int(sy(52)), W // 2 + tw + int(sx(20)), H - int(sy(14))),
+        radius=int(sx(12)),
         fill=LABEL_BG,
         outline=PRIMARY,
         width=2,
     )
-    draw.text((W // 2 - tw + 6, H - 44), text, fill=PRIMARY)
+    draw.text((W // 2 - tw + int(sx(6)), H - int(sy(44))), text, fill=PRIMARY)
 
 
 def partner_labels(draw: ImageDraw.ImageDraw):
@@ -125,18 +211,53 @@ def partner_labels(draw: ImageDraw.ImageDraw):
     tag(draw, 80, 110, "Woman", PRIMARY)
 
 
-def human_limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, skin, shade, width: int = 13):
-    """Realistic rounded limb with natural shading."""
-    draw.line([a, b], fill=SKIN_OUTLINE, width=width + 4)
+def human_limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, skin, shade, light, width: int = 13):
+    """Rounded capsule limb with directional lighting."""
+    width = int(sx(width))
+    ax, ay, bx, by = a[0], a[1], b[0], b[1]
+    draw.line([a, b], fill=SKIN_OUTLINE, width=width + 5)
     draw.line([a, b], fill=skin, width=width)
-    # Directional shading to suggest roundness
-    dx = b[0] - a[0]; dy = b[1] - a[1]
-    L = math.sqrt(dx * dx + dy * dy)
-    if L > 1:
-        px = -dy / L * (width // 3)
-        py = dx / L * (width // 3)
-        draw.line([(a[0] + px, a[1] + py), (b[0] + px, b[1] + py)],
-                  fill=shade, width=max(3, width // 3))
+    dx, dy = bx - ax, by - ay
+    length = math.hypot(dx, dy)
+    if length > 1:
+        px, py = -dy / length, dx / length
+        offset = width * 0.28
+        draw.line(
+            [(ax + px * offset, ay + py * offset), (bx + px * offset, by + py * offset)],
+            fill=shade,
+            width=max(4, width // 3),
+        )
+        draw.line(
+            [(ax - px * offset * 0.6, ay - py * offset * 0.6), (bx - px * offset * 0.6, by - py * offset * 0.6)],
+            fill=light + (80,) if len(light) == 3 else light,
+            width=max(3, width // 4),
+        )
+    r = width // 2 + 1
+    for end in (a, b):
+        draw.ellipse((end[0] - r, end[1] - r, end[0] + r, end[1] + r), fill=skin, outline=SKIN_OUTLINE, width=1)
+
+
+def draw_hand(draw: ImageDraw.ImageDraw, wrist: Point, elbow: Point, skin, shade):
+    wx, wy = wrist
+    ex, ey = elbow
+    dx, dy = wx - ex, wy - ey
+    length = max(math.hypot(dx, dy), 1.0)
+    hx = wx + dx / length * sx(8)
+    hy = wy + dy / length * sx(8)
+    hw, hh = int(sx(7)), int(sy(9))
+    draw.ellipse((hx - hw, hy - hh, hx + hw, hy + hh), fill=skin, outline=SKIN_OUTLINE, width=1)
+    draw.ellipse((hx - hw + 2, hy - hh + 2, hx + hw - 2, hy + hh - 4), fill=shade + (40,))
+
+
+def draw_foot(draw: ImageDraw.ImageDraw, ankle: Point, knee: Point, skin, shade):
+    ax, ay = ankle
+    kx, ky = knee
+    dx, dy = ax - kx, ay - ky
+    length = max(math.hypot(dx, dy), 1.0)
+    fx = ax + dx / length * sx(10)
+    fy = ay + dy / length * sx(4)
+    fw, fh = int(sx(10)), int(sy(6))
+    draw.ellipse((fx - fw, fy - fh, fx + fw, fy + fh), fill=skin, outline=SKIN_OUTLINE, width=1)
 
 
 def human_face(draw: ImageDraw.ImageDraw, cx: float, cy: float, r: int,
@@ -219,50 +340,66 @@ def draw_figure(
     show_pelvis: bool = True,
 ):
     """Draw a realistic human figure at the given pose."""
+    head_r = int(sx(head_r))
     pelvis_cx = (pose.hip_l[0] + pose.hip_r[0]) / 2
     pelvis_cy = (pose.hip_l[1] + pose.hip_r[1]) / 2
     shoulder_cx = (pose.shoulder_l[0] + pose.shoulder_r[0]) / 2
     shoulder_cy = (pose.shoulder_l[1] + pose.shoulder_r[1]) / 2
 
-    # Torso polygon
+    # Torso polygon with chest highlight
     torso_poly = [pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l]
     draw.polygon(torso_poly, fill=skin, outline=SKIN_OUTLINE)
-    # Side shading on torso
     shade_poly = [
         pose.shoulder_r,
         pose.hip_r,
-        (pelvis_cx + 10, pelvis_cy + 6),
-        (shoulder_cx + 10, shoulder_cy + 4),
+        (pelvis_cx + sx(10), pelvis_cy + sy(6)),
+        (shoulder_cx + sx(10), shoulder_cy + sy(4)),
     ]
     draw.polygon(shade_poly, fill=shade + (80,))
+    light_poly = [
+        pose.shoulder_l,
+        (shoulder_cx - sx(6), shoulder_cy - sy(4)),
+        (pelvis_cx - sx(6), pelvis_cy - sy(2)),
+        pose.hip_l,
+    ]
+    draw.polygon(light_poly, fill=light + (50,))
     draw.line([pose.shoulder_l, pose.shoulder_r, pose.hip_r, pose.hip_l, pose.shoulder_l],
-              fill=SKIN_OUTLINE, width=2)
+              fill=SKIN_OUTLINE, width=3)
 
-    # Pelvis / hip area marker
+    # Collarbone hint
+    draw.line(
+        [pose.shoulder_l, (shoulder_cx, shoulder_cy - sy(4)), pose.shoulder_r],
+        fill=shade + (60,), width=2,
+    )
+
     if show_pelvis:
         draw.ellipse(
-            (pelvis_cx - 22, pelvis_cy - 11, pelvis_cx + 22, pelvis_cy + 11),
+            (pelvis_cx - sx(22), pelvis_cy - sy(11), pelvis_cx + sx(22), pelvis_cy + sy(11)),
             fill=shade + (60,), outline=SKIN_OUTLINE, width=1,
         )
 
     # Arms
-    human_limb(draw, pose.neck, pose.shoulder_l, skin, shade, 12)
-    human_limb(draw, pose.shoulder_l, pose.elbow_l, skin, shade, 11)
-    human_limb(draw, pose.elbow_l, pose.wrist_l, skin, shade, 10)
-    human_limb(draw, pose.neck, pose.shoulder_r, skin, shade, 12)
-    human_limb(draw, pose.shoulder_r, pose.elbow_r, skin, shade, 11)
-    human_limb(draw, pose.elbow_r, pose.wrist_r, skin, shade, 10)
+    human_limb(draw, pose.neck, pose.shoulder_l, skin, shade, light, 12)
+    human_limb(draw, pose.shoulder_l, pose.elbow_l, skin, shade, light, 11)
+    human_limb(draw, pose.elbow_l, pose.wrist_l, skin, shade, light, 10)
+    human_limb(draw, pose.neck, pose.shoulder_r, skin, shade, light, 12)
+    human_limb(draw, pose.shoulder_r, pose.elbow_r, skin, shade, light, 11)
+    human_limb(draw, pose.elbow_r, pose.wrist_r, skin, shade, light, 10)
+    draw_hand(draw, pose.wrist_l, pose.elbow_l, skin, shade)
+    draw_hand(draw, pose.wrist_r, pose.elbow_r, skin, shade)
 
     # Legs
-    human_limb(draw, pose.hip_l, pose.knee_l, skin, shade, 12)
-    human_limb(draw, pose.knee_l, pose.ankle_l, skin, shade, 11)
-    human_limb(draw, pose.hip_r, pose.knee_r, skin, shade, 12)
-    human_limb(draw, pose.knee_r, pose.ankle_r, skin, shade, 11)
+    human_limb(draw, pose.hip_l, pose.knee_l, skin, shade, light, 12)
+    human_limb(draw, pose.knee_l, pose.ankle_l, skin, shade, light, 11)
+    human_limb(draw, pose.hip_r, pose.knee_r, skin, shade, light, 12)
+    human_limb(draw, pose.knee_r, pose.ankle_r, skin, shade, light, 11)
+    draw_foot(draw, pose.ankle_l, pose.knee_l, skin, shade)
+    draw_foot(draw, pose.ankle_r, pose.knee_r, skin, shade)
 
     # Head
     hx, hy = pose.head
     human_face(draw, hx, hy, head_r, skin, shade, light, hair)
-    human_limb(draw, pose.head, pose.neck, skin, shade, 10)
+    human_limb(draw, pose.head, pose.neck, skin, shade, light, 10)
 
     if show_joints:
         for p in (
@@ -356,15 +493,19 @@ def draw_male_underwear(draw: ImageDraw.ImageDraw, pose: FigurePose):
     band_y = (upper[1] + mid[1]) / 2
     band_x = (upper[0] + mid[0]) / 2
     _rotated_ellipse(
-        draw, band_x, band_y, half_w * 1.05, 7 * scale,
+        draw, band_x, band_y, half_w * 1.05, sy(7) * scale,
         angle + math.pi / 2, MALE_UNDERWEAR_BAND, MALE_UNDERWEAR_EDGE, 2,
     )
 
     rx = half_w * 1.08
-    ry = max(16 * scale, length * 0.22)
+    ry = max(sy(16) * scale, length * 0.22)
     _rotated_ellipse(
-        draw, pelvis[0], pelvis[1] + 4 * scale, rx, ry, angle,
+        draw, pelvis[0], pelvis[1] + sy(4) * scale, rx, ry, angle,
         MALE_UNDERWEAR, MALE_UNDERWEAR_EDGE, 2,
+    )
+    _rotated_ellipse(
+        draw, pelvis[0] - sx(8), pelvis[1] + sy(2) * scale, rx * 0.45, ry * 0.35, angle,
+        MALE_UNDERWEAR_HIGHLIGHT + (90,), None,
     )
 
     leg_l = _point_on_torso(pose, 1.0, -half_w * 0.55)
@@ -380,18 +521,22 @@ def draw_female_bra(draw: ImageDraw.ImageDraw, pose: FigurePose):
     band = _point_on_torso(pose, 0.42)
 
     _rotated_ellipse(
-        draw, chest[0], chest[1], half_w * 0.92, 14 * scale, angle,
+        draw, chest[0], chest[1], half_w * 0.92, sy(14) * scale, angle,
         FEMALE_BRA, FEMALE_BRA_EDGE, 2,
     )
     _rotated_ellipse(
-        draw, band[0], band[1], half_w * 0.88, 6 * scale, angle + math.pi / 2,
+        draw, chest[0] - sx(6), chest[1] - sy(2) * scale, half_w * 0.35, sy(8) * scale, angle,
+        FEMALE_BRA_HIGHLIGHT + (70,), None,
+    )
+    _rotated_ellipse(
+        draw, band[0], band[1], half_w * 0.88, sy(6) * scale, angle + math.pi / 2,
         FEMALE_BRA, FEMALE_BRA_EDGE, 2,
     )
 
     for side in (-1, 1):
         strap_top = _point_on_torso(pose, 0.05, side * half_w * 0.35)
         strap_bot = _point_on_torso(pose, 0.28, side * half_w * 0.55)
-        draw.line([strap_top, strap_bot], fill=FEMALE_BRA_STRAP, width=max(3, int(3 * scale)))
+        draw.line([strap_top, strap_bot], fill=FEMALE_BRA_STRAP, width=max(3, int(sx(3) * scale)))
 
 
 def draw_female_panties(draw: ImageDraw.ImageDraw, pose: FigurePose):
@@ -402,13 +547,17 @@ def draw_female_panties(draw: ImageDraw.ImageDraw, pose: FigurePose):
 
     _rotated_ellipse(
         draw, (upper[0] + pelvis[0]) / 2, (upper[1] + pelvis[1]) / 2,
-        half_w * 0.95, max(14 * scale, length * 0.18), angle,
+        half_w * 0.95, max(sy(14) * scale, length * 0.18), angle,
         FEMALE_PANTIES, FEMALE_PANTIES_EDGE, 2,
+    )
+    _rotated_ellipse(
+        draw, pelvis[0] - sx(5), pelvis[1] - sy(2) * scale, half_w * 0.3, sy(6) * scale, angle,
+        FEMALE_PANTIES_HIGHLIGHT + (70,), None,
     )
 
     waist = _point_on_torso(pose, 0.74)
     _rotated_ellipse(
-        draw, waist[0], waist[1], half_w * 0.82, 5 * scale, angle + math.pi / 2,
+        draw, waist[0], waist[1], half_w * 0.82, sy(5) * scale, angle + math.pi / 2,
         FEMALE_PANTIES, FEMALE_PANTIES_EDGE, 2,
     )
 
@@ -430,9 +579,12 @@ def draw_figure_simple(
     show_pelvis: bool = True,
     facing: float = 1.0,     # kept for API compatibility, unused
     gender: Optional[str] = None,
+    shadow: bool = True,
 ):
     """Wrapper that picks skin/shade/hair by partner colour."""
     show_pelvis = show_pelvis and gender is None
+    if shadow:
+        figure_shadow(draw, pose)
     if color == SKIN_A:
         draw_figure(draw, pose, SKIN_A, SKIN_A_SHADE, SKIN_A_LIGHT, HAIR_A,
                     head_r=head_r, show_joints=show_joints, show_pelvis=show_pelvis)
@@ -444,6 +596,7 @@ def draw_figure_simple(
 
 
 def save(name: str, img: Image.Image):
+    img = apply_finish(img)
     path = os.path.join(OUT, f"{name}.png")
     img.save(path, "PNG", optimize=True)
     print("saved", path, os.path.getsize(path))
@@ -467,7 +620,7 @@ def pose(**kwargs) -> FigurePose:
         ankle_r=(0, 0),
     )
     defaults.update(kwargs)
-    return FigurePose(**defaults)
+    return FigurePose(**{k: pt(v[0], v[1]) for k, v in defaults.items()})
 
 
 def lying_back(cx: int, cy: int, scale: float = 1.0) -> FigurePose:
@@ -492,7 +645,7 @@ def lying_back(cx: int, cy: int, scale: float = 1.0) -> FigurePose:
 
 def lying_prone(cx: int, cy: int, scale: float = 1.0) -> FigurePose:
     p = lying_back(cx, cy, scale)
-    return pose(**{k: (v[0], v[1] - 8 * scale) for k, v in p.__dict__.items()})
+    return FigurePose(**{k: (v[0], v[1] - sy(8 * scale)) for k, v in p.__dict__.items()})
 
 
 def on_top(cx: int, cy: int, scale: float = 1.0) -> FigurePose:
@@ -661,8 +814,13 @@ def lifted_legs(cx: int, cy: int, scale: float = 1.0) -> FigurePose:
 def gen_missionary():
     img, draw = new_canvas()
     bed(draw, 400)
-    draw_figure_simple(draw, lying_back(430, 390, 1.0), SKIN_A, gender="female")
-    draw_figure_simple(draw, on_top(430, 330, 0.95), SKIN_B, gender="male")
+    p_f = lying_back(430, 395, 1.0)
+    p_m = on_top(430, 325, 0.95)
+    figure_shadow(draw, p_f)
+    figure_shadow(draw, p_m, 0.9)
+    draw_figure_simple(draw, p_f, SKIN_A, gender="female", shadow=False)
+    draw_figure_simple(draw, p_m, SKIN_B, gender="male", shadow=False)
+    angle_guide(draw, 430, 360, 430, 310, "Torso angle")
     arrow(draw, 560, 360, 610, 360)
     tag(draw, 615, 345, "Face to face")
     partner_labels(draw)
@@ -673,8 +831,13 @@ def gen_missionary():
 def gen_cowgirl():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure_simple(draw, lying_back(430, 400, 0.95), SKIN_A, gender="male")
-    draw_figure_simple(draw, straddle(430, 290, 0.9), SKIN_B, gender="female")
+    p_m = lying_back(430, 405, 0.95)
+    p_f = straddle(430, 285, 0.92)
+    figure_shadow(draw, p_m)
+    figure_shadow(draw, p_f, 0.9)
+    draw_figure_simple(draw, p_m, SKIN_A, gender="male", shadow=False)
+    draw_figure_simple(draw, p_f, SKIN_B, gender="female", shadow=False)
+    angle_guide(draw, 430, 400, 430, 290, "Vertical alignment")
     arrow(draw, 560, 280, 610, 250)
     tag(draw, 615, 235, "Woman on top")
     partner_labels(draw)
@@ -708,8 +871,13 @@ def gen_side_by_side():
 def gen_doggy():
     img, draw = new_canvas()
     bed(draw, 415)
-    draw_figure_simple(draw, hands_knees(400, 360, 1.0), SKIN_A, gender="female")
-    draw_figure_simple(draw, kneeling_behind(520, 330, 0.95), SKIN_B, gender="male")
+    p_f = hands_knees(395, 365, 1.0)
+    p_m = kneeling_behind(530, 328, 0.95)
+    figure_shadow(draw, p_f)
+    figure_shadow(draw, p_m, 0.9)
+    draw_figure_simple(draw, p_f, SKIN_A, gender="female", shadow=False)
+    draw_figure_simple(draw, p_m, SKIN_B, gender="male", shadow=False)
+    angle_guide(draw, 395, 365, 530, 340, "Hip line")
     arrow(draw, 470, 350, 510, 340)
     tag(draw, 515, 320, "Rear entry")
     partner_labels(draw)
@@ -756,10 +924,14 @@ def gen_edge_bed():
 def gen_reverse_cowgirl():
     img, draw = new_canvas()
     bed(draw, 405)
-    draw_figure_simple(draw, lying_back(430, 400, 0.95), SKIN_A, gender="male")
-    p = straddle(430, 295, 0.9)
-    p = pose(**{**p.__dict__, "head": (p.head[0], p.head[1] + 8)})
-    draw_figure_simple(draw, p, SKIN_B, show_pelvis=False, gender="female")
+    p_m = lying_back(430, 400, 0.95)
+    p_f = straddle(430, 290, 0.9)
+    p_f = FigurePose(**{**p_f.__dict__, "head": (p_f.head[0], p_f.head[1] + sy(8))})
+    figure_shadow(draw, p_m)
+    figure_shadow(draw, p_f, 0.9)
+    draw_figure_simple(draw, p_m, SKIN_A, gender="male", shadow=False)
+    draw_figure_simple(draw, p_f, SKIN_B, show_pelvis=False, gender="female", shadow=False)
+    angle_guide(draw, 430, 295, 430, 250, "Facing away")
     tag(draw, 560, 250, "Facing away")
     partner_labels(draw)
     title_label(draw, "Reverse Cowgirl")
@@ -771,9 +943,17 @@ def gen_butterfly():
     bed(draw, 400)
     pillow(draw, (360, 375, 500, 395))
     p = lying_back(400, 360, 0.95)
-    p = pose(**{**p.__dict__, "knee_l": (p.knee_l[0] - 15, p.knee_l[1] - 25), "knee_r": (p.knee_r[0] + 15, p.knee_r[1] - 25)})
-    draw_figure_simple(draw, p, SKIN_A, gender="female")
-    draw_figure_simple(draw, standing(540, 290, 0.85), SKIN_B, gender="male")
+    p = FigurePose(**{
+        **p.__dict__,
+        "knee_l": (p.knee_l[0] - sx(15), p.knee_l[1] - sy(25)),
+        "knee_r": (p.knee_r[0] + sx(15), p.knee_r[1] - sy(25)),
+    })
+    p_m = standing(545, 288, 0.85)
+    figure_shadow(draw, p)
+    figure_shadow(draw, p_m, 0.9)
+    draw_figure_simple(draw, p, SKIN_A, gender="female", shadow=False)
+    draw_figure_simple(draw, p_m, SKIN_B, gender="male", shadow=False)
+    angle_guide(draw, 400, 360, 545, 300, "Hip elevation")
     tag(draw, 560, 240, "Hips elevated")
     partner_labels(draw)
     title_label(draw, "Butterfly Position")
@@ -797,9 +977,12 @@ def gen_lazy_dog():
     bed(draw, 415)
     pillow(draw, (350, 380, 490, 400))
     p_a = hands_knees(400, 390, 0.9)
-    p_a = pose(**{**p_a.__dict__, "head": (p_a.head[0] + 20, p_a.head[1] + 30)})
-    draw_figure_simple(draw, p_a, SKIN_A, gender="female")
-    draw_figure_simple(draw, on_top(420, 350, 0.85), SKIN_B, gender="male")
+    p_a = FigurePose(**{**p_a.__dict__, "head": (p_a.head[0] + sx(20), p_a.head[1] + sy(30))})
+    p_b = on_top(420, 348, 0.85)
+    figure_shadow(draw, p_a)
+    figure_shadow(draw, p_b, 0.9)
+    draw_figure_simple(draw, p_a, SKIN_A, gender="female", shadow=False)
+    draw_figure_simple(draw, p_b, SKIN_B, gender="male", shadow=False)
     tag(draw, 560, 310, "Flat & relaxed")
     partner_labels(draw)
     title_label(draw, "Lazy Dog Position")
