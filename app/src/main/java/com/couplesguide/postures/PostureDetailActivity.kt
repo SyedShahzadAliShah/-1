@@ -98,6 +98,30 @@ class PostureDetailActivity : AppCompatActivity() {
             .mapIndexed { index, step -> "${index + 1}. $step" }
             .joinToString("\n\n")
         binding.tipsList.text = content.tips.joinToString("\n\n") { "• $it" }
+        bindPartnerRoles(content)
+    }
+
+    private fun bindPartnerRoles(content: com.couplesguide.postures.data.LocalizedContent) {
+        val showRoles = !posture.isImagination && content.forMan != null && content.forWoman != null
+        val visibility = if (showRoles) android.view.View.VISIBLE else android.view.View.GONE
+
+        binding.manRoleHeader.visibility = visibility
+        binding.manPositionLabel.visibility = visibility
+        binding.manPositionText.visibility = visibility
+        binding.manGuidanceLabel.visibility = visibility
+        binding.manGuidanceList.visibility = visibility
+        binding.womanRoleHeader.visibility = visibility
+        binding.womanPositionLabel.visibility = visibility
+        binding.womanPositionText.visibility = visibility
+        binding.womanGuidanceLabel.visibility = visibility
+        binding.womanGuidanceList.visibility = visibility
+
+        if (!showRoles) return
+
+        binding.manPositionText.text = content.forMan!!.position
+        binding.manGuidanceList.text = content.forMan.guidance.joinToString("\n\n") { "• $it" }
+        binding.womanPositionText.text = content.forWoman!!.position
+        binding.womanGuidanceList.text = content.forWoman.guidance.joinToString("\n\n") { "• $it" }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

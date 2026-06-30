@@ -424,14 +424,25 @@ object PostureRepository {
         enSummary: String, urSummary: String, enDesc: String, urDesc: String,
         enSteps: List<String>, urSteps: List<String>,
         enTips: List<String>, urTips: List<String>
-    ) = Posture(
-        id = id,
-        difficulty = difficulty,
-        illustrationRes = illustrationRes,
-        categoryId = categoryId,
-        english = LocalizedContent(enName, enCat, enSummary, enDesc, enSteps, enTips),
-        urdu = LocalizedContent(urName, urCat, urSummary, urDesc, urSteps, urTips)
-    )
+    ): Posture {
+        val roles = PostureRoleContent.getRoles(id)
+        return Posture(
+            id = id,
+            difficulty = difficulty,
+            illustrationRes = illustrationRes,
+            categoryId = categoryId,
+            english = LocalizedContent(
+                enName, enCat, enSummary, enDesc, enSteps, enTips,
+                forMan = roles?.enMan,
+                forWoman = roles?.enWoman
+            ),
+            urdu = LocalizedContent(
+                urName, urCat, urSummary, urDesc, urSteps, urTips,
+                forMan = roles?.urMan,
+                forWoman = roles?.urWoman
+            )
+        )
+    }
 
     fun getAllPostures(): List<Posture> =
         postures + ImaginationPostureRepository.getImaginationPostures()

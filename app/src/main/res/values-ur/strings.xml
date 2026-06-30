@@ -42,4 +42,12 @@
     <string name="chapter_illustration">باب کی تصویر</string>
     <string name="sex_education">جنسی تعلیم</string>
     <string name="sex_education_illustration">انیمے انداز میں جنسی تعلیم کی پوزیشن تصویر</string>
+    <string name="sex_education_for_him">جنسی تعلیم — اس کے لیے</string>
+    <string name="sex_education_for_him_hint">مردوں کے لیے جسم، جوش، برداشت اور اعتماد کی رہنمائی۔</string>
+    <string name="sex_education_for_her">جنسی تعلیم — اس کے لیے</string>
+    <string name="sex_education_for_her_hint">عورتوں کے لیے جوش، لطف، آرام اور اعتماد کی رہنمائی۔</string>
+    <string name="mans_role">مرد کا کردار</string>
+    <string name="womans_role">عورت کا کردار</string>
+    <string name="position_label">پوزیشن</string>
+    <string name="guidance_label">رہنمائی</string>
 </resources>

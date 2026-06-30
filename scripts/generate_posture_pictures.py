@@ -113,8 +113,8 @@ def title_label(draw: ImageDraw.ImageDraw, text: str):
 
 
 def partner_labels(draw: ImageDraw.ImageDraw):
-    tag(draw, 80, 70, "Partner A", SECONDARY)
-    tag(draw, 80, 110, "Partner B", PRIMARY)
+    tag(draw, 80, 70, "Man", SECONDARY)
+    tag(draw, 80, 110, "Woman", PRIMARY)
 
 
 def human_limb(draw: ImageDraw.ImageDraw, a: Point, b: Point, skin, shade, width: int = 13):
@@ -521,7 +521,7 @@ def gen_cowgirl():
     draw_figure_simple(draw, lying_back(430, 400, 0.95), SKIN_A)
     draw_figure_simple(draw, straddle(430, 290, 0.9), SKIN_B)
     arrow(draw, 560, 280, 610, 250)
-    tag(draw, 615, 235, "Partner B on top")
+    tag(draw, 615, 235, "Woman on top")
     partner_labels(draw)
     title_label(draw, "Cowgirl / Woman on Top")
     save("pic_cowgirl", img)

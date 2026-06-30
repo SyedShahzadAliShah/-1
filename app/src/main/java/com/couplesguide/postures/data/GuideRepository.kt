@@ -6,7 +6,8 @@ object GuideRepository {
 
     fun getChapters(): List<GuideChapter> = chapters
 
-    fun getChapterById(id: String): GuideChapter? = chapters.find { it.id == id }
+    fun getChapterById(id: String): GuideChapter? =
+        chapters.find { it.id == id } ?: GenderEducationRepository.getChapterById(id)
 
     private val chapters = listOf(
         GuideChapter(

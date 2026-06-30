@@ -36,6 +36,7 @@ import androidx.core.content.FileProvider
 import com.couplesguide.postures.R
 import com.couplesguide.postures.data.EducationalInsert
 import com.couplesguide.postures.data.EducationalInsertRepository
+import com.couplesguide.postures.data.GenderEducationRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
@@ -73,6 +74,16 @@ object PdfExporter {
             var pageNumber = 1
             pageNumber = writeTitlePage(context, document, language, pageNumber)
             pageNumber = writeChapters(context, document, language, pageNumber)
+            pageNumber = writeGenderEducationSection(
+                context, document, language, pageNumber,
+                context.getString(R.string.sex_education_for_him),
+                GenderEducationRepository.getForHimChapters()
+            )
+            pageNumber = writeGenderEducationSection(
+                context, document, language, pageNumber,
+                context.getString(R.string.sex_education_for_her),
+                GenderEducationRepository.getForHerChapters()
+            )
             pageNumber = writeImaginationSection(context, document, language, pageNumber)
             writePhysicalPosturesWithEducation(context, document, language, pageNumber)
             FileOutputStream(file).use { document.writeTo(it) }
@@ -301,6 +312,41 @@ object PdfExporter {
         return pageNumber
     }
 
+    private fun writeGenderEducationSection(
+        context: Context,
+        document: PdfDocument,
+        language: String,
+        startPage: Int,
+        sectionTitle: String,
+        chapters: List<com.couplesguide.postures.data.GuideChapter>
+    ): Int {
+        var pageNumber = startPage
+        pageNumber = writeSectionDivider(context, document, language, pageNumber, sectionTitle)
+        for (chapter in chapters) {
+            val content = chapter.content(language)
+            val writer = PageWriter(context, document, language, pageNumber)
+            writer.drawImage(chapter.illustrationRes, 280, 160)
+            writer.drawHeading(content.title)
+            writer.drawBody(content.summary)
+            writer.space(8f)
+            writer.drawBody(content.body)
+            writer.space(8f)
+            val pointsHeader = if (language == LocaleHelper.LANG_UR) "اہم نکات:" else "Key Points:"
+            writer.drawSection(pointsHeader)
+            for (point in content.keyPoints) {
+                val line = if (language == LocaleHelper.LANG_UR) {
+                    UrduPdfText.bulletItem(point)
+                } else {
+                    "• $point"
+                }
+                writer.drawBody(line)
+                writer.space(4f)
+            }
+            pageNumber = writer.finish()
+        }
+        return pageNumber
+    }
+
     private fun writeImaginationSection(
         context: Context,
         document: PdfDocument,
@@ -443,6 +489,39 @@ object PdfExporter {
             val line = if (isRtl) UrduPdfText.bulletItem(tip) else "• $tip"
             writer.drawBody(line)
             writer.space(4f)
+        }
+
+        if (!posture.isImagination) {
+            content.forMan?.let { man ->
+                writer.space(6f)
+                val manLabel = if (isRtl) "مرد کا کردار" else "Man's Role"
+                writer.drawSection(manLabel)
+                val posLabel = if (isRtl) "پوزیشن" else "Position"
+                writer.drawBody("$posLabel: ${man.position}")
+                writer.space(4f)
+                val guideLabel = if (isRtl) "رہنمائی" else "Guidance"
+                writer.drawBody(guideLabel)
+                for (item in man.guidance) {
+                    val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
+                    writer.drawBody(line)
+                    writer.space(4f)
+                }
+            }
+            content.forWoman?.let { woman ->
+                writer.space(6f)
+                val womanLabel = if (isRtl) "عورت کا کردار" else "Woman's Role"
+                writer.drawSection(womanLabel)
+                val posLabel = if (isRtl) "پوزیشن" else "Position"
+                writer.drawBody("$posLabel: ${woman.position}")
+                writer.space(4f)
+                val guideLabel = if (isRtl) "رہنمائی" else "Guidance"
+                writer.drawBody(guideLabel)
+                for (item in woman.guidance) {
+                    val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
+                    writer.drawBody(line)
+                    writer.space(4f)
+                }
+            }
         }
         return writer.finish()
     }

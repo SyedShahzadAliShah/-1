@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.couplesguide.postures.data.GenderEducationRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.PostureListBuilder
 import com.couplesguide.postures.data.PostureListItem
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var postureAdapter: PostureAdapter
     private lateinit var chapterAdapter: ChapterAdapter
+    private lateinit var forHimAdapter: ChapterAdapter
+    private lateinit var forHerAdapter: ChapterAdapter
     private lateinit var imaginationAdapter: PostureAdapter
     private var categoryAdapter: CategoryAdapter? = null
     private var selectedCategory = PostureRepository.CAT_ALL
@@ -80,12 +83,32 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
+        forHimAdapter = ChapterAdapter(language) { chapter ->
+            startActivity(Intent(this, ChapterDetailActivity::class.java).apply {
+                putExtra(ChapterDetailActivity.EXTRA_CHAPTER_ID, chapter.id)
+            })
+        }
+
+        forHerAdapter = ChapterAdapter(language) { chapter ->
+            startActivity(Intent(this, ChapterDetailActivity::class.java).apply {
+                putExtra(ChapterDetailActivity.EXTRA_CHAPTER_ID, chapter.id)
+            })
+        }
+
         binding.postureList.layoutManager = LinearLayoutManager(this)
         binding.postureList.adapter = postureAdapter
 
         binding.chapterList.layoutManager = LinearLayoutManager(this)
         binding.chapterList.adapter = chapterAdapter
         chapterAdapter.submitList(GuideRepository.getChapters())
+
+        binding.forHimList.layoutManager = LinearLayoutManager(this)
+        binding.forHimList.adapter = forHimAdapter
+        forHimAdapter.submitList(GenderEducationRepository.getForHimChapters())
+
+        binding.forHerList.layoutManager = LinearLayoutManager(this)
+        binding.forHerList.adapter = forHerAdapter
+        forHerAdapter.submitList(GenderEducationRepository.getForHerChapters())
 
         binding.imaginationList.layoutManager = LinearLayoutManager(this)
         binding.imaginationList.adapter = imaginationAdapter

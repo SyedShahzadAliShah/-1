@@ -2,6 +2,7 @@ package com.couplesguide.postures.util
 
 import android.content.Context
 import com.couplesguide.postures.R
+import com.couplesguide.postures.data.GenderEducationRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
@@ -21,6 +22,16 @@ object NarrationBuilder {
         val sb = StringBuilder(buildWelcomeNarration(context, language))
         sb.append(" ").append(sectionLabel(context, R.string.guide_chapters, language)).append(".")
         for (chapter in GuideRepository.getChapters()) {
+            val c = chapter.content(language)
+            sb.append(" ").append(c.title).append(". ").append(c.summary)
+        }
+        sb.append(" ").append(sectionLabel(context, R.string.sex_education_for_him, language)).append(".")
+        for (chapter in GenderEducationRepository.getForHimChapters()) {
+            val c = chapter.content(language)
+            sb.append(" ").append(c.title).append(". ").append(c.summary)
+        }
+        sb.append(" ").append(sectionLabel(context, R.string.sex_education_for_her, language)).append(".")
+        for (chapter in GenderEducationRepository.getForHerChapters()) {
             val c = chapter.content(language)
             sb.append(" ").append(c.title).append(". ").append(c.summary)
         }
@@ -56,7 +67,22 @@ object NarrationBuilder {
             "${stepLabel(context, i + 1, language)} $s"
         }.joinToString(". ")
         val tips = content.tips.joinToString(". ")
-        return "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
+        val sb = StringBuilder(
+            "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
+        )
+        if (!posture.isImagination) {
+            val manLabel = context.getString(R.string.mans_role)
+            val womanLabel = context.getString(R.string.womans_role)
+            content.forMan?.let { man ->
+                val guidance = man.guidance.joinToString(". ")
+                sb.append(" $manLabel. ${man.position}. $guidance")
+            }
+            content.forWoman?.let { woman ->
+                val guidance = woman.guidance.joinToString(". ")
+                sb.append(" $womanLabel. ${woman.position}. $guidance")
+            }
+        }
+        return sb.toString()
     }
 
     private fun sectionLabel(context: Context, resId: Int, @Suppress("UNUSED_PARAMETER") language: String): String =

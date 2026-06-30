@@ -1,12 +1,19 @@
 package com.couplesguide.postures.data
 
+data class PartnerRole(
+    val position: String,
+    val guidance: List<String>
+)
+
 data class LocalizedContent(
     val name: String,
     val category: String,
     val summary: String,
     val description: String,
     val steps: List<String>,
-    val tips: List<String>
+    val tips: List<String>,
+    val forMan: PartnerRole? = null,
+    val forWoman: PartnerRole? = null
 )
 
 data class Posture(

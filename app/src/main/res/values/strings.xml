@@ -42,4 +42,12 @@
     <string name="chapter_illustration">Chapter illustration</string>
     <string name="sex_education">Sex Education</string>
     <string name="sex_education_illustration">Anime-style sex education posture illustration</string>
+    <string name="sex_education_for_him">Sex Education — For Him</string>
+    <string name="sex_education_for_him_hint">Anatomy, arousal, stamina, and confidence guidance for men.</string>
+    <string name="sex_education_for_her">Sex Education — For Her</string>
+    <string name="sex_education_for_her_hint">Arousal, pleasure, comfort, and confidence guidance for women.</string>
+    <string name="mans_role">Man\'s Role</string>
+    <string name="womans_role">Woman\'s Role</string>
+    <string name="position_label">Position</string>
+    <string name="guidance_label">Guidance</string>
 </resources>
