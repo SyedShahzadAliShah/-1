@@ -4,13 +4,17 @@ Bilingual (English & Urdu) couples sex-education app with embedded diagram pictu
 
 ## Download
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+**Latest (v3.3.0)** — undergarment posture diagrams for all 12 intimacy positions:
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/undergarment-posture-illustrations-feae/releases/IntimacyHandbook-v3.3.0-debug.apk
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+> **Important:** Uninstall any older version first, then install v3.3.0. On the home screen you should see **"Version 3.3.0 — Undergarment posture diagrams + Man/Woman roles"** below the subtitle.
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+## v3.3.0
+
+- **Undergarment illustrations** — all 12 sexual postures show man (boxer briefs) and woman (bra + panties) in educational diagrams
+- **Gender-accurate figures** — each posture diagram matches man/woman roles from the guide content
+- Updated educational inserts, chapters, and imagination exercises with the same undergarment style
 
 ## v3.2.1
 
