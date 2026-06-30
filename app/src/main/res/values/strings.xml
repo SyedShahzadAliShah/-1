@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Intimacy Handbook</string>
     <string name="app_subtitle">Ultimate Couples Sex Education</string>
-    <string name="welcome_title">Your Anime-Illustrated Intimacy Handbook</string>
-    <string name="welcome_message">The ultimate handbook for couples — anime-style educational illustrations, voice narration, printable PDF, and comfort tips for intimate postures. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
+    <string name="welcome_title">Your High-Quality Intimacy Handbook</string>
+    <string name="welcome_message">The ultimate handbook for couples — detailed realistic posture pictures with warm lighting, undergarment figures, voice narration, printable PDF, and comfort tips for intimate postures. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
     <string name="guide_chapters">Guide Chapters</string>
     <string name="browse_categories">Browse by Category</string>
     <string name="all_postures">Postures</string>
@@ -41,7 +41,7 @@
     <string name="voice_open_settings">TTS Settings</string>
     <string name="chapter_illustration">Chapter illustration</string>
     <string name="sex_education">Sex Education</string>
-    <string name="sex_education_illustration">Anime-style sex education posture illustration</string>
+    <string name="sex_education_illustration">High-quality realistic sex education posture illustration</string>
     <string name="sex_education_for_him">Sex Education — For Him</string>
     <string name="sex_education_for_him_hint">Anatomy, arousal, stamina, and confidence guidance for men.</string>
     <string name="sex_education_for_her">Sex Education — For Her</string>
@@ -50,5 +50,5 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — HQ posture illustrations + Man/Woman roles</string>
 </resources>
