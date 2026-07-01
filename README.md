@@ -6,9 +6,9 @@ Bilingual (English & Urdu) couples sex-education app with **23 embedded posture 
 
 **Latest (v3.6.0)** — all 23 fun positions with PDF photos embedded (censorship removed):
 
-Build from source or install the APK from releases after building.
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/embed-pdf-posture-photos-466b/releases/IntimacyHandbook-v3.6.0-debug.apk
 
-> On the home screen you should see **"Version 3.6.0 — 23 PDF posture photos embedded"** below the subtitle.
+> **Important:** Uninstall any older version first, then install v3.6.0. On the home screen you should see **"Version 3.6.0 — 23 PDF posture photos embedded"** below the subtitle.
 
 ## v3.6.0
 
