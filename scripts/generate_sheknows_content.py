@@ -1025,52 +1025,16 @@ def main():
     os.makedirs(OUT_IMG, exist_ok=True)
     os.makedirs(os.path.dirname(OUT_KT), exist_ok=True)
 
-    # Download real SheKnows article images (replaces generated figure diagrams)
-    print("Downloading SheKnows article images...")
+    # Download ALL illustrations from SheKnows (positions, categories, edu, chapters, imagination)
+    print("Downloading all SheKnows images (replacing stick figures)...")
     import subprocess
     result = subprocess.run(
         [sys.executable, os.path.join(SCRIPT_DIR, "download_sheknows_images.py")],
         check=False,
     )
     if result.returncode != 0:
-        print("Warning: some SheKnows images failed; falling back to generated diagrams for missing ones.")
-        for p in POSITIONS:
-            pic_path = os.path.join(OUT_IMG, f"pic_{p['id']}.png")
-            if not os.path.exists(pic_path):
-                gen_image(f"pic_{p['id']}", p["en"], p["tpl"])
-
-    # Edu cards, chapters, imagination (not in SheKnows article)
-    print("Generating edu / imagination assets...")
-    gen.gen_missionary()
-    gen.gen_cowgirl()
-    gen.gen_spooning()
-    gen.gen_side_by_side()
-    gen.gen_doggy()
-    gen.gen_lotus()
-    gen.gen_standing()
-    gen.gen_edge_bed()
-    gen.gen_reverse_cowgirl()
-    gen.gen_butterfly()
-    gen.gen_scissors()
-    gen.gen_lazy_dog()
-    gen.gen_edu_body_map()
-    gen.gen_edu_face_contact()
-    gen.gen_edu_hip_pillow()
-    gen.gen_edu_consent_talk()
-    gen.gen_edu_side_alignment()
-    gen.gen_edu_rear_safety()
-    gen.gen_chapter_consent()
-    gen.gen_chapter_connection()
-    gen.gen_chapter_comfort()
-    gen.gen_chapter_explore()
-    if not os.path.exists(os.path.join(OUT_IMG, "pic_guide_cover.png")):
-        gen.gen_guide_cover()
-    gen.gen_imagine_breath()
-    gen.gen_imagine_candlelight()
-    gen.gen_imagine_embrace()
-    gen.gen_imagine_ocean()
-    gen.gen_imagine_starlight()
-    gen.gen_imagine_morning()
+        print("ERROR: SheKnows image download failed.", file=sys.stderr)
+        sys.exit(1)
 
     kt = generate_kotlin()
     with open(OUT_KT, "w", encoding="utf-8") as f:
