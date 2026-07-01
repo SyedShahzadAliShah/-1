@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Intimacy Handbook</string>
     <string name="app_subtitle">Ultimate Couples Sex Education</string>
-    <string name="welcome_title">Your Anime-Illustrated Intimacy Handbook</string>
-    <string name="welcome_message">The ultimate handbook for couples — anime-style educational illustrations, voice narration, printable PDF, and comfort tips for intimate postures. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
+    <string name="welcome_title">69 Sex Positions — Bilingual Couples Handbook</string>
+    <string name="welcome_message">Every screen uses real illustrations from the SheKnows article — all 69 positions plus education chapters, sex-ed cards, and imagination exercises. Bilingual tutorials, voice narration, and PDF export included.</string>
     <string name="guide_chapters">Guide Chapters</string>
     <string name="browse_categories">Browse by Category</string>
     <string name="all_postures">Postures</string>
@@ -41,7 +41,7 @@
     <string name="voice_open_settings">TTS Settings</string>
     <string name="chapter_illustration">Chapter illustration</string>
     <string name="sex_education">Sex Education</string>
-    <string name="sex_education_illustration">Anime-style sex education posture illustration</string>
+    <string name="sex_education_illustration">SheKnows sex education illustration</string>
     <string name="sex_education_for_him">Sex Education — For Him</string>
     <string name="sex_education_for_him_hint">Anatomy, arousal, stamina, and confidence guidance for men.</string>
     <string name="sex_education_for_her">Sex Education — For Her</string>
@@ -50,5 +50,10 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — 100% SheKnows photos · No stick figures</string>
+    <string name="sheknows_embed_title">SheKnows 69 Positions Guide</string>
+    <string name="sheknows_embed_hint">Embedded reference from SheKnows health &amp; wellness. All tutorials below include English &amp; Urdu with voice narration and PDF export.</string>
+    <string name="open_sheknows_full">Open full article in browser</string>
+    <string name="source_reference">Source Reference</string>
+    <string name="open_sheknows_article">View on SheKnows.com</string>
 </resources>

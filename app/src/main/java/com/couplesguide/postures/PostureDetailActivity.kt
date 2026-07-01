@@ -1,8 +1,13 @@
 package com.couplesguide.postures
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -99,6 +104,28 @@ class PostureDetailActivity : AppCompatActivity() {
             .joinToString("\n\n")
         binding.tipsList.text = content.tips.joinToString("\n\n") { "• $it" }
         bindPartnerRoles(content)
+        bindSourceReference()
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun bindSourceReference() {
+        val url = posture.sourceUrl
+        if (url.isNullOrBlank()) {
+            binding.sourceHeader.visibility = View.GONE
+            binding.openSourceButton.visibility = View.GONE
+            binding.sourceWebView.visibility = View.GONE
+            return
+        }
+        binding.sourceHeader.visibility = View.VISIBLE
+        binding.openSourceButton.visibility = View.VISIBLE
+        binding.sourceWebView.visibility = View.VISIBLE
+        binding.sourceWebView.settings.javaScriptEnabled = true
+        binding.sourceWebView.settings.domStorageEnabled = true
+        binding.sourceWebView.webViewClient = WebViewClient()
+        binding.sourceWebView.loadUrl(url)
+        binding.openSourceButton.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
     }
 
     private fun bindPartnerRoles(content: com.couplesguide.postures.data.LocalizedContent) {

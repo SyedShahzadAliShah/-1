@@ -376,11 +376,19 @@ object PdfExporter {
     ): Int {
         var pageNumber = startPage
         val categoryOrder = listOf(
-            PostureRepository.CAT_FACE,
-            PostureRepository.CAT_SIDE,
-            PostureRepository.CAT_REAR,
-            PostureRepository.CAT_STANDING,
-            PostureRepository.CAT_VARIATIONS
+            PostureRepository.CAT_CLASSIC,
+            PostureRepository.CAT_NON_PENETRATIVE,
+            PostureRepository.CAT_ELEVATED,
+            PostureRepository.CAT_SHOWER,
+            PostureRepository.CAT_BONDAGE,
+            PostureRepository.CAT_CAR,
+            PostureRepository.CAT_SOLO,
+            PostureRepository.CAT_FLAT,
+            PostureRepository.CAT_BLINDFOLD,
+            PostureRepository.CAT_ANAL,
+            PostureRepository.CAT_BEACH,
+            PostureRepository.CAT_ORGASM,
+            PostureRepository.CAT_CREATIVE
         )
         val physical = PostureRepository.getPhysicalPostures()
         var lastCategory: String? = null

@@ -1,10 +1,14 @@
 package com.couplesguide.postures
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -124,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         binding.imaginationList.post { binding.imaginationList.requestLayout() }
 
         setupCategories()
+        setupSheknowsEmbed()
         updatePostureList()
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(
@@ -168,6 +173,17 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setupSheknowsEmbed() {
+        binding.sheknowsWebView.settings.javaScriptEnabled = true
+        binding.sheknowsWebView.settings.domStorageEnabled = true
+        binding.sheknowsWebView.webViewClient = WebViewClient()
+        binding.sheknowsWebView.loadUrl(PostureRepository.SHEKNOWS_SOURCE_URL)
+        binding.openSheknowsButton.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PostureRepository.SHEKNOWS_SOURCE_URL)))
         }
     }
 
