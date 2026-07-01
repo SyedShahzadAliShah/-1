@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Intimacy Handbook</string>
-    <string name="app_subtitle">Ultimate Couples Sex Education</string>
-    <string name="welcome_title">Your Anime-Illustrated Intimacy Handbook</string>
-    <string name="welcome_message">The ultimate handbook for couples — anime-style educational illustrations, voice narration, printable PDF, and comfort tips for intimate postures. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
+    <string name="app_subtitle">Intimate Postures Guide for Married Couples</string>
+    <string name="welcome_title">Intimate Sexual Postures — Guidelines for Married Couples</string>
+    <string name="welcome_message">A complete handbook for married couples — illustrated posture diagrams with Man/Woman role guidance, step-by-step instructions, comfort tips, voice narration, and printable PDF. Browse 12 intimate positions with photos, plus sex education for him and her. Available in English and Urdu. Every body is different; choose what feels right for both of you.</string>
     <string name="guide_chapters">Guide Chapters</string>
     <string name="browse_categories">Browse by Category</string>
     <string name="all_postures">Postures</string>
@@ -50,5 +50,5 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — Urdu + Voice + PDF Export</string>
 </resources>
