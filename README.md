@@ -4,11 +4,16 @@ Bilingual (English & Urdu) couples sex-education app with embedded photo illustr
 
 ## Download
 
-**Latest (v4.0.0)** — embedded photo illustrations from the uploaded guide:
+**Latest (v4.0.1)** — embedded photo illustrations with automatic face privacy masking:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/embed-photo-illustrations-5144/releases/IntimacyHandbook-v4.0.0-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/embed-photo-illustrations-5144/releases/IntimacyHandbook-v4.0.1-debug.apk
 
-> **Important:** Uninstall any older version first, then install v4.0.0. On the home screen you should see **"Version 4.0.0 — Embedded photo illustrations + Man/Woman roles"** below the subtitle.
+> **Important:** Uninstall any older version first, then install v4.0.1. On the home screen you should see **"Version 4.0.1 — Photo illustrations with face privacy masking"** below the subtitle.
+
+## v4.0.1
+
+- **Face privacy masking** — male and female faces are automatically detected and blurred in every photo illustration
+- Uses YuNet face detection with pixelation + Gaussian blur for anonymization
 
 ## v4.0.0
 
@@ -31,7 +36,7 @@ https://github.com/SyedShahzadAliShah/-1/raw/cursor/embed-photo-illustrations-51
 ## Build
 
 ```bash
-pip install pymupdf pillow
+pip install pymupdf pillow opencv-python-headless
 python3 scripts/embed_pdf_photo_illustrations.py
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
@@ -43,4 +48,4 @@ To regenerate diagram-style illustrations instead:
 python3 scripts/generate_posture_pictures.py
 ```
 
-## Version 4.0.0
+## Version 4.0.1
