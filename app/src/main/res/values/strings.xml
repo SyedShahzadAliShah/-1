@@ -2,13 +2,13 @@
 <resources>
     <string name="app_name">Intimacy Handbook</string>
     <string name="app_subtitle">Ultimate Couples Sex Education</string>
-    <string name="welcome_title">Your Anime-Illustrated Intimacy Handbook</string>
-    <string name="welcome_message">The ultimate handbook for couples — anime-style educational illustrations, voice narration, printable PDF, and comfort tips for intimate postures. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
+    <string name="welcome_title">Your Photo-Illustrated Intimacy Handbook</string>
+    <string name="welcome_message">The ultimate handbook for couples — embedded photo illustrations for every posture, voice narration, printable PDF, and comfort tips for intimate positions. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
     <string name="guide_chapters">Guide Chapters</string>
     <string name="browse_categories">Browse by Category</string>
     <string name="all_postures">Postures</string>
     <string name="no_postures">No postures found in this category.</string>
-    <string name="posture_illustration">Posture illustration</string>
+    <string name="posture_illustration">Posture photo illustration</string>
     <string name="about_position">About This Position</string>
     <string name="how_to">How To</string>
     <string name="tips">Tips for Comfort</string>
@@ -39,9 +39,9 @@
     <string name="voice_language_fallback">Urdu voice unavailable — using English.</string>
     <string name="voice_install_prompt">Install voice data in system Text-to-speech settings.</string>
     <string name="voice_open_settings">TTS Settings</string>
-    <string name="chapter_illustration">Chapter illustration</string>
+    <string name="chapter_illustration">Chapter photo illustration</string>
     <string name="sex_education">Sex Education</string>
-    <string name="sex_education_illustration">Anime-style sex education posture illustration</string>
+    <string name="sex_education_illustration">Photo sex education posture illustration</string>
     <string name="sex_education_for_him">Sex Education — For Him</string>
     <string name="sex_education_for_him_hint">Anatomy, arousal, stamina, and confidence guidance for men.</string>
     <string name="sex_education_for_her">Sex Education — For Her</string>
@@ -50,5 +50,5 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — Embedded photo illustrations + Man/Woman roles</string>
 </resources>
