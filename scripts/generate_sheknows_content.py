@@ -1025,13 +1025,22 @@ def main():
     os.makedirs(OUT_IMG, exist_ok=True)
     os.makedirs(os.path.dirname(OUT_KT), exist_ok=True)
 
-    print(f"Generating {len(POSITIONS)} posture diagrams...")
-    for p in POSITIONS:
-        pic_id = f"pic_{p['id']}"
-        gen_image(pic_id, p["en"], p["tpl"])
+    # Download real SheKnows article images (replaces generated figure diagrams)
+    print("Downloading SheKnows article images...")
+    import subprocess
+    result = subprocess.run(
+        [sys.executable, os.path.join(SCRIPT_DIR, "download_sheknows_images.py")],
+        check=False,
+    )
+    if result.returncode != 0:
+        print("Warning: some SheKnows images failed; falling back to generated diagrams for missing ones.")
+        for p in POSITIONS:
+            pic_path = os.path.join(OUT_IMG, f"pic_{p['id']}.png")
+            if not os.path.exists(pic_path):
+                gen_image(f"pic_{p['id']}", p["en"], p["tpl"])
 
-    # Also run base generator for edu cards, chapters, imagination, cover
-    print("Generating base edu assets...")
+    # Edu cards, chapters, imagination (not in SheKnows article)
+    print("Generating edu / imagination assets...")
     gen.gen_missionary()
     gen.gen_cowgirl()
     gen.gen_spooning()
@@ -1054,7 +1063,8 @@ def main():
     gen.gen_chapter_connection()
     gen.gen_chapter_comfort()
     gen.gen_chapter_explore()
-    gen.gen_guide_cover()
+    if not os.path.exists(os.path.join(OUT_IMG, "pic_guide_cover.png")):
+        gen.gen_guide_cover()
     gen.gen_imagine_breath()
     gen.gen_imagine_candlelight()
     gen.gen_imagine_embrace()

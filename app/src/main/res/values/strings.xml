@@ -3,7 +3,7 @@
     <string name="app_name">Intimacy Handbook</string>
     <string name="app_subtitle">Ultimate Couples Sex Education</string>
     <string name="welcome_title">69 Sex Positions — Bilingual Couples Handbook</string>
-    <string name="welcome_message">Complete rebuild from the SheKnows slideshow: every position includes educational diagrams, step-by-step tutorials in English and Urdu, text-to-speech voice narration, and printable PDF export for offline study.</string>
+    <string name="welcome_message">Complete rebuild from the SheKnows slideshow with real article illustrations for every position. Step-by-step tutorials in English and Urdu, text-to-speech voice narration, and printable PDF export.</string>
     <string name="guide_chapters">Guide Chapters</string>
     <string name="browse_categories">Browse by Category</string>
     <string name="all_postures">Postures</string>
@@ -50,7 +50,7 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — 69 SheKnows positions · Urdu/English · Voice · PDF</string>
+    <string name="version_badge">Version %1$s — SheKnows photos · Urdu/English · Voice · PDF</string>
     <string name="sheknows_embed_title">SheKnows 69 Positions Guide</string>
     <string name="sheknows_embed_hint">Embedded reference from SheKnows health &amp; wellness. All tutorials below include English &amp; Urdu with voice narration and PDF export.</string>
     <string name="open_sheknows_full">Open full article in browser</string>
