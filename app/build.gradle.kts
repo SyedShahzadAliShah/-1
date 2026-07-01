@@ -11,8 +11,8 @@ android {
         applicationId = "com.couplesguide.postures"
         minSdk = 24
         targetSdk = 34
-        versionCode = 16
-        versionName = "3.2.2"
+        versionCode = 17
+        versionName = "3.2.3"
     }
 
     buildTypes {
