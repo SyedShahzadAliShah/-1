@@ -12,459 +12,877 @@ object PostureRoleContent {
     fun getRoles(postureId: String): BilingualRoles? = roles[postureId]
 
     private val roles: Map<String, BilingualRoles> = mapOf(
-        "missionary" to BilingualRoles(
+        "bicycle" to BilingualRoles(
             enMan = PartnerRole(
-                position = "On top, facing her, supporting weight on hands or forearms",
+                position = "At bed edge holding partner's ankles",
                 guidance = listOf(
-                    "Keep your weight distributed — don't press down heavily on her chest",
-                    "Adjust hip angle by shifting knees wider or narrower",
-                    "Maintain eye contact and check in with gentle words",
-                    "Control depth and pace — start slow and respond to her feedback"
+                    "Guide leg movement gently",
+                    "Keep communication open",
+                    "Adjust pace together",
+                    "Support partner's lower back if needed"
                 )
             ),
             urMan = PartnerRole(
-                position = "اوپر، اس کے سامنے، وزن ہاتھوں یا بازوؤں پر",
+                position = "بستر کے کنارے ساتھی کے ٹخنوں کو پکڑے",
                 guidance = listOf(
-                    "وزن برابر رکھیں — سینے پر زیادہ دباؤ نہ ڈالیں",
-                    "گھٹنوں کی چوڑائی بدل کر کولہے کا زاویہ ایڈجسٹ کریں",
-                    "آنکھوں سے رابطہ رکھیں اور نرم الفاظ سے پوچھتے رہیں",
-                    "گہرائی اور رفتار کنٹرول کریں — آہستہ شروع کریں"
+                    "ٹانگوں کی حرکت آہستہ رہنمائی کریں",
+                    "بات چیت جاری رکھیں",
+                    "رفتار ساتھ مل کر",
+                    "ضرورت ہو تو کمر سہارا دیں"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lying on her back with knees slightly bent, facing him",
+                position = "Lying back with legs lifted in cycling motion",
                 guidance = listOf(
-                    "Place a pillow under your lower back or hips for a better angle",
-                    "Wrap legs around his waist or keep feet flat on the bed",
-                    "Guide his hips with your hands to show preferred depth",
-                    "Use your pelvic floor to adjust sensation — squeeze or relax as needed"
+                    "Hold bed edge for stability",
+                    "Bend knees comfortably toward chest",
+                    "Tell partner your preferred pace",
+                    "Relax shoulders and breathe"
                 )
             ),
             urWoman = PartnerRole(
-                position = "پیٹ کے بل، گھٹنے ہلکے موڑے، اس کے سامنے",
+                position = "پیٹھ کے بل ٹانگیں سائیکلنگ انداز میں اٹھائے",
                 guidance = listOf(
-                    "کمر یا کولہے کے نیچے تکیہ رکھیں بہتر زاویے کے لیے",
-                    "ٹانگیں اس کی کمر کے گرد لپیٹیں یا پاؤں بستر پر رکھیں",
-                    "ہاتھوں سے کولہے رہنمائی کریں پسندیدہ گہرائی دکھانے کے لیے",
-                    "پیلویک پٹھوں سے احساس ایڈجسٹ کریں"
+                    "استحکام کے لیے بستر پکڑیں",
+                    "گھٹنے آرام سے سینے کی طرف",
+                    "پسندیدہ رفتار بتائیں",
+                    "کندھے ڈھیلے، سانس لیں"
                 )
             )
         ),
-        "cowgirl" to BilingualRoles(
+        "face_to_face" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Lying on his back, relaxed, hands free to touch her",
+                position = "Seated with partner on lap facing you",
                 guidance = listOf(
-                    "Let her set the pace — your role is to support and respond",
-                    "Place hands on her hips, waist, or breasts as she prefers",
-                    "Lift hips slightly to meet her movement if it feels good",
-                    "Communicate if depth becomes uncomfortable"
+                    "Wrap arms around her back",
+                    "Rock together slowly",
+                    "Maintain eye contact",
+                    "Let her set depth on your lap"
                 )
             ),
             urMan = PartnerRole(
-                position = "پیٹ کے بل لیٹا، آرام سے، ہاتھ آزاد چھونے کے لیے",
+                position = "بیٹھے، ساتھی گود میں آمنے سامنے",
                 guidance = listOf(
-                    "اسے رفتار طے کرنے دیں — آپ کا کردار سہارا اور ردعمل ہے",
-                    "ہاتھ کولہے، کمر یا سینے پر رکھیں جیسا وہ پسند کرے",
-                    "اگر اچھا لگے تو کولہے ہلکا اٹھائیں",
-                    "گہرائی تکلیف دہ ہو تو بتائیں"
+                    "کمر کے گرد باہیں لپیٹیں",
+                    "آہستہ ساتھ ہلیں",
+                    "آنکھوں سے رابطہ",
+                    "گود میں گہرائی وہ طے کرے"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Straddling him on top, facing him, controlling movement",
+                position = "Sitting on his lap, facing him",
                 guidance = listOf(
-                    "Kneel or sit on his hips — use thighs for balance and control",
-                    "Rock forward and back or grind in circles to find your angle",
-                    "Lean forward to kiss or sit upright for deeper penetration",
-                    "Brace hands on his chest — you control depth and speed entirely"
+                    "Wrap arms around his neck or shoulders",
+                    "Rock hips to find rhythm",
+                    "Kiss and stay connected",
+                    "Control movement from on top"
                 )
             ),
             urWoman = PartnerRole(
-                position = "اوپر اس کے اوپر، آمنے سامنے، حرکت کنٹرول کرتے ہوئے",
+                position = "اس کی گود میں آمنے سامنے",
                 guidance = listOf(
-                    "کولہوں پر بیٹھیں — رانوں سے توازن اور کنٹرول",
-                    "آگے پیچھے یا گول گھمائیں اپنا زاویہ تلاش کرنے کے لیے",
-                    "بوسے کے لیے جھکیں یا گہری داخلہ کے لیے سیدھے بیٹھیں",
-                    "سینے پر ہاتھ رکھیں — گہرائی اور رفتار مکمل آپ کے کنٹرول میں"
+                    "گردن یا کندھوں کے گرد باہیں",
+                    "کولہے ہلائیں تال تلاش کرنے کے لیے",
+                    "بوسہ اور قربت",
+                    "اوپر سے حرکت کنٹرول کریں"
+                )
+            )
+        ),
+        "the_plug" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Behind partner in rear-entry position",
+                guidance = listOf(
+                    "Start slow and shallow",
+                    "Grip hips gently",
+                    "Check in about depth",
+                    "Adjust angle with knee position"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "پیچھے سے داخلہ",
+                guidance = listOf(
+                    "آہستہ ہلکی شروعات",
+                    "کولہے نرمی سے پکڑیں",
+                    "گہرائی پوچھتے رہیں",
+                    "گھٹنوں سے زاویہ بدلیں"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "On hands and knees or forward-leaning",
+                guidance = listOf(
+                    "Use pillow under hips",
+                    "Arch or flatten back to adjust",
+                    "Control depth by shifting hips",
+                    "Speak up about comfort"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "ہاتھ گھٹنوں پر یا آگے جھکی",
+                guidance = listOf(
+                    "کولہے کے نیچے تکیہ",
+                    "کمر آرچ یا سیدھی کریں",
+                    "کولہے ہلاکر گہرائی کنٹرول",
+                    "آرام کے بارے میں بتائیں"
+                )
+            )
+        ),
+        "lying_dog" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Lying on top or behind, slow grinding",
+                guidance = listOf(
+                    "Keep weight on forearms",
+                    "Grind slowly instead of thrusting",
+                    "Whisper and stay connected",
+                    "Perfect for low-energy nights"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "اوپر یا پیچھے، آہستہ رگڑ",
+                guidance = listOf(
+                    "وزن بازوؤں پر",
+                    "جھٹکوں کی بجائے رگڑ",
+                    "آہستہ باتیں کریں",
+                    "تھکاوٹ میں بہترین"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Flat on stomach with pillow under hips",
+                guidance = listOf(
+                    "Relax completely",
+                    "Pillow raises angle comfortably",
+                    "Reach back to guide hips",
+                    "Minimal effort needed"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "پیٹ کے بل تکیے کے ساتھ",
+                guidance = listOf(
+                    "مکمل آرام",
+                    "تکیہ زاویہ بہتر بناتا ہے",
+                    "ہاتھ پیچھے رہنمائی کے لیے",
+                    "کم محنت"
                 )
             )
         ),
         "spooning" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Behind her, curled around her body, entering from the rear",
+                position = "Behind her, curled close from the rear",
                 guidance = listOf(
-                    "Wrap your arm around her waist or hold her close from behind",
-                    "Keep movements slow and shallow — this position is about closeness",
-                    "Kiss her neck and shoulder to deepen intimacy",
-                    "Adjust your hip angle by bending your top knee forward"
+                    "Wrap arm around waist",
+                    "Keep movements slow",
+                    "Kiss neck and shoulder",
+                    "Bend top knee for angle"
                 )
             ),
             urMan = PartnerRole(
-                position = "اس کے پیچھے، جسم کے گرد لپٹا، پیچھے سے",
+                position = "پیچھے قریب لپٹا",
                 guidance = listOf(
-                    "بازو کمر کے گرد لپیٹیں یا پیچھے سے قریب رکھیں",
-                    "حرکت آہستہ اور ہلکی رکھیں — یہ پوزیشن قربت کے لیے ہے",
-                    "گردن اور کندھے پر بوسہ دیں",
-                    "اوپر والے گھٹنے کو آگے موڑ کر زاویہ بدلیں"
+                    "کمر کے گرد بازو",
+                    "آہستہ حرکت",
+                    "گردن پر بوسہ",
+                    "زاویے کے لیے گھٹنا موڑیں"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lying on her side in front, slightly curled forward",
+                position = "Lying on side in front",
                 guidance = listOf(
-                    "Bend knees slightly and place a pillow between them for hip alignment",
-                    "Reach back to guide his hips or hold his hand",
-                    "Press back into him to control depth",
-                    "Ideal for tired evenings — minimal effort required"
+                    "Pillow between knees",
+                    "Reach back to guide",
+                    "Press back for depth control",
+                    "Low effort and cozy"
                 )
             ),
             urWoman = PartnerRole(
-                position = "سامنے سیدھے لیٹے، ہلکا آگے جھکے",
+                position = "سامنے سیدھے لیٹے",
                 guidance = listOf(
-                    "گھٹنے ہلکے موڑیں اور درمیان تکیہ رکھیں",
-                    "پیچھے ہاتھ بڑھا کر کولہے رہنمائی کریں",
-                    "پیچھے دباؤ سے گہرائی کنٹرول کریں",
-                    "تھکی ہوئی شاموں کے لیے بہترین — کم محنت"
+                    "گھٹنوں کے درمیان تکیہ",
+                    "پیچھے ہاتھ رہنمائی",
+                    "پیچھے دباؤ سے گہرائی",
+                    "آرام دہ"
                 )
             )
         ),
-        "side_by_side" to BilingualRoles(
+        "bridge_69" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Lying on his side, facing her, legs intertwined with hers",
+                position = "Active partner — communicate and adjust together",
                 guidance = listOf(
-                    "Place top leg over her hip for closer contact",
-                    "Use your hand on her lower back or hip to guide rhythm",
-                    "Keep movements gentle — this position favors slow intimacy",
-                    "Maintain eye contact at close range"
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
                 )
             ),
             urMan = PartnerRole(
-                position = "سیدھے اس کے سامنے، ٹانگیں آپس میں",
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
                 guidance = listOf(
-                    "اوپر والی ٹانگ اس کی ران پر رکھیں",
-                    "کمر یا کولہے پر ہاتھ سے تال رہنمائی کریں",
-                    "حرکت نرم رکھیں — یہ پوزیشن آہستہ قربت کے لیے ہے",
-                    "قریب سے آنکھوں کا رابطہ رکھیں"
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lying on her side, facing him, equal participation",
+                position = "Receiving partner — relax and guide your partner",
                 guidance = listOf(
-                    "Wrap top leg over his hip to pull him closer",
-                    "Rock hips together to find a shared rhythm",
-                    "Use your free hand to touch his chest or guide movement",
-                    "Whisper and kiss — this position is built for emotional connection"
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
                 )
             ),
             urWoman = PartnerRole(
-                position = "سیدھے اس کے سامنے، برابر شرکت",
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
                 guidance = listOf(
-                    "اوپر والی ٹانگ اس کی ران پر لپیٹیں",
-                    "کولہے ساتھ ہلائیں مشترکہ تال کے لیے",
-                    "آزاد ہاتھ سے سینے کو چھوئیں یا رہنمائی کریں",
-                    "آہستہ باتیں اور بوسے — جذباتی تعلق کے لیے بہترین"
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
                 )
             )
         ),
-        "doggy" to BilingualRoles(
+        "waterfall" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Kneeling or standing behind her, holding her hips",
+                position = "Active partner — communicate and adjust together",
                 guidance = listOf(
-                    "Grip her hips gently — never pull aggressively",
-                    "Start with slow, shallow thrusts and increase only with her consent",
-                    "Check in verbally — rear entry can feel intense",
-                    "Vary angle by standing taller or kneeling lower"
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
                 )
             ),
             urMan = PartnerRole(
-                position = "پیچھے گھٹنوں یا کھڑے، کولہے پکڑے",
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
                 guidance = listOf(
-                    "کولہے نرمی سے پکڑیں — زبردستی نہ کھینچیں",
-                    "آہستہ ہلکی جھٹکوں سے شروع کریں",
-                    "زبانی پوچھتے رہیں — یہ پوزیشن شدید ہو سکتی ہے",
-                    "اونچا کھڑے یا نیچے بیٹھ کر زاویہ بدلیں"
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "On hands and knees (or lying flat), presenting from behind",
+                position = "Receiving partner — relax and guide your partner",
                 guidance = listOf(
-                    "Place a firm pillow under hips to raise angle and reduce strain",
-                    "Drop to forearms for a more relaxed variation",
-                    "Arch or flatten your back to change sensation",
-                    "You control depth by shifting hips forward or back"
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
                 )
             ),
             urWoman = PartnerRole(
-                position = "ہاتھ گھٹنوں پر (یا پیٹ کے بل)، پیچھے سے",
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
                 guidance = listOf(
-                    "کولہے کے نیچے مضبوط تکیہ رکھیں",
-                    "آرام کے لیے بازوؤں پر جھکیں",
-                    "کمر آرچ یا سیدھی کر کے احساس بدلیں",
-                    "کولہے آگے پیچھے ہلاکر گہرائی کنٹرول کریں"
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
                 )
             )
         ),
-        "lotus" to BilingualRoles(
+        "one_up" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Seated with legs extended or cross-legged, supporting her weight",
+                position = "Active partner — communicate and adjust together",
                 guidance = listOf(
-                    "Sit against a headboard or wall for back support",
-                    "Hold her waist firmly to help her balance on your lap",
-                    "Move together with small rocking motions — not deep thrusting",
-                    "Breathe in sync — this position is meditative and slow"
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
                 )
             ),
             urMan = PartnerRole(
-                position = "بیٹھا، ٹانگیں پھیلی یا پیر باندھے، اس کا وزن سہارا",
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
                 guidance = listOf(
-                    "سرے یا دیوار سے ٹیک لگائیں کمر کے لیے",
-                    "کمر مضبوطی سے پکڑیں توازن کے لیے",
-                    "چھوٹی ہلکی حرکتیں — گہری جھٹکیں نہیں",
-                    "ہم آہنگ سانس — یہ پوزیشن آہستہ اور باخبر ہے"
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Sitting on his lap, facing him, legs wrapped around his waist",
+                position = "Receiving partner — relax and guide your partner",
                 guidance = listOf(
-                    "Wrap legs securely around his waist for stability",
-                    "Use cushions under your hips if flexibility is limited",
-                    "Rock your hips slowly — you both move as one unit",
-                    "Keep arms around his neck or shoulders for balance"
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
                 )
             ),
             urWoman = PartnerRole(
-                position = "اس کی گود میں آمنے سامنے، ٹانگیں کمر کے گرد",
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
                 guidance = listOf(
-                    "ٹانگیں مضبوطی سے کمر کے گرد لپیٹیں",
-                    "لچک کم ہو تو کولہے کے نیچے گدوے استعمال کریں",
-                    "کولہے آہستہ ہلائیں — دونوں ایک اکائی کی طرح",
-                    "توازن کے لیے گردن یا کندھوں کے گرد باہیں"
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
                 )
             )
         ),
-        "standing" to BilingualRoles(
+        "cowgirl" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Standing, supporting her full weight against a wall",
+                position = "Lying on back, hands on her hips",
                 guidance = listOf(
-                    "Stand with back firmly against a sturdy wall",
-                    "Support her thighs with both hands — never let go suddenly",
-                    "Keep movements small and controlled — balance is critical",
-                    "Communicate before lifting or lowering her"
+                    "Let her set pace",
+                    "Lift hips to meet her",
+                    "Communicate about depth",
+                    "Enjoy the view and connection"
                 )
             ),
             urMan = PartnerRole(
-                position = "کھڑا، دیوار سے سہارا دے کر اس کا پورا وزن اٹھائے",
+                position = "پیٹھ کے بل، کولہے پر ہاتھ",
                 guidance = listOf(
-                    "مضبوط دیوار سے ٹیک لگا کر کھڑے ہوں",
-                    "دونوں ہاتھوں سے رانیں سہاریں — اچانک نہ چھوڑیں",
-                    "حرکت چھوٹی اور کنٹرول میں رکھیں",
-                    "اٹھانے یا نیچے لانے سے پہلے بتائیں"
+                    "اسے رفتار طے کرنے دیں",
+                    "ملنے کے لیے کولہے اٹھائیں",
+                    "گہرائی کے بارے میں بات کریں",
+                    "قربت سے لطف اٹھائیں"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lifted against the wall, legs wrapped around his waist",
+                position = "Straddling on top, facing him",
                 guidance = listOf(
-                    "Wrap legs tightly around his waist and grip his shoulders",
-                    "Press back against the wall for stability",
-                    "Keep core engaged to help maintain balance",
-                    "If too strenuous, try one foot on a chair instead"
+                    "Use thighs for balance",
+                    "Rock or grind to find angle",
+                    "Lean forward to kiss",
+                    "You control depth entirely"
                 )
             ),
             urWoman = PartnerRole(
-                position = "دیوار سے لگی، ٹانگیں اس کی کمر کے گرد",
+                position = "اوپر آمنے سامنے",
                 guidance = listOf(
-                    "ٹانگیں مضبوطی سے کمر کے گرد، کندھے پکڑیں",
-                    "دیوار سے پیچھے دباؤ سے توازن",
-                    "کور پٹھے استعمال کریں توازن کے لیے",
-                    "بہت مشکل ہو تو ایک پاؤں کرسی پر رکھیں"
+                    "رانوں سے توازن",
+                    "کولہے ہلائیں زاویہ تلاش کرنے کے لیے",
+                    "بوسے کے لیے جھکیں",
+                    "گہرائی آپ کنٹرول کریں"
                 )
             )
         ),
-        "edge_of_bed" to BilingualRoles(
+        "hot_seat" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Standing between her legs at the bed edge",
+                position = "Seated, partner facing away on your lap",
                 guidance = listOf(
-                    "Adjust bed height — her hips should be level with yours",
-                    "Hold her thighs or hips for stability and connection",
-                    "Standing gives you leverage — use it gently",
-                    "Great position when she has limited mobility"
+                    "Guide forward-back movement",
+                    "Support partner leaning back",
+                    "Communicate about depth",
+                    "Use chair arms for stability"
                 )
             ),
             urMan = PartnerRole(
-                position = "بستر کے کنارے اس کی ٹانگوں کے درمیان کھڑا",
+                position = "بیٹھے، ساتھی الٹ گود میں",
                 guidance = listOf(
-                    "بستر کی اونچائی ایڈجسٹ کریں — کولہے آپ کے برابر",
-                    "رانیں یا کولہے پکڑیں استحکام اور تعلق کے لیے",
-                    "کھڑے ہونے سے فائدہ — نرمی سے استعمال کریں",
-                    "جب اس کی حرکت محدود ہو تو بہترین"
+                    "آگے پیچھے رہنمائی",
+                    "پیچھے جھکنے میں سہارا",
+                    "گہرائی کے بارے میں بات",
+                    "کرسی کے بازو استعمال کریں"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Sitting or lying at the very edge of the bed, legs open",
+                position = "Straddling facing away, leaning back",
                 guidance = listOf(
-                    "Scoot to the bed edge so hips are at the perfect height",
-                    "Rest calves on his shoulders or keep feet on the floor",
-                    "Grip the bed edge for stability",
-                    "Adjust leg position — bent, straight, or over shoulders"
+                    "Lean back on his thighs",
+                    "Control by rocking hips",
+                    "Find G-spot angle",
+                    "Brace on chair arms"
                 )
             ),
             urWoman = PartnerRole(
-                position = "بستر کے بالکل کنارے، ٹانگیں کھولے",
+                position = "الٹ اوپر پیچھے جھکے",
                 guidance = listOf(
-                    "کنارے تک بیٹھیں یا لیٹیں تاکہ کولہے درست اونچائی پر",
-                    "پنڈلیاں اس کے کندھوں پر یا پاؤں فرش پر",
-                    "استحکام کے لیے بستر کا کنارہ پکڑیں",
-                    "ٹانگیں موڑی، سیدھی یا کندھوں پر رکھ کر آزمائیں"
+                    "رانوں پر جھکیں",
+                    "کولہے ہلاکر کنٹرول",
+                    "جی سپاٹ زاویہ تلاش کریں",
+                    "بازوؤں پر سہارا"
                 )
             )
         ),
-        "reverse_cowgirl" to BilingualRoles(
+        "pole_position" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Lying on his back, viewing her from behind",
+                position = "Active partner — communicate and adjust together",
                 guidance = listOf(
-                    "Enjoy the visual but communicate about depth — you have less control",
-                    "Place hands on her hips to guide pace if needed",
-                    "Tell her clearly if angle or depth needs adjustment",
-                    "Resist the urge to thrust upward aggressively"
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
                 )
             ),
             urMan = PartnerRole(
-                position = "پیٹ کے بل، پیچھے سے دیکھتے ہوئے",
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
                 guidance = listOf(
-                    "لطف اندوز ہوں لیکن گہرائی کے بارے میں بتائیں",
-                    "ضرورت ہو تو کولہے پر ہاتھ سے رفتار رہنمائی کریں",
-                    "زاویہ یا گہرائی ایڈجسٹ چاہیے تو واضح بتائیں",
-                    "اوپر زبردستی جھٹکنے سے بچیں"
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Straddling him facing away, full control of movement",
+                position = "Receiving partner — relax and guide your partner",
                 guidance = listOf(
-                    "Face toward his feet — lean forward on his thighs for balance",
-                    "Control depth carefully since he cannot see your face easily",
-                    "Try gentle hip circles or rocking for varied sensation",
-                    "Turn to check his comfort if you're unsure"
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
                 )
             ),
             urWoman = PartnerRole(
-                position = "پیٹھ کر کے اوپر، مکمل حرکت کنٹرول",
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
                 guidance = listOf(
-                    "پاؤں کی طرف منہ — توازن کے لیے رانوں پر جھکیں",
-                    "گہرائی احتیاط سے کنٹرول کریں — وہ آپ کا چہرہ نہیں دیکھ سکتا",
-                    "کولہے گول گھمائیں یا ہلائیں تنوع کے لیے",
-                    "یقین نہ ہو تو مڑ کر اس کا آرام پوچھیں"
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
                 )
             )
         ),
-        "butterfly" to BilingualRoles(
+        "david_copperfield" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Standing or kneeling at the bed edge, facing her elevated hips",
+                position = "Active partner — communicate and adjust together",
                 guidance = listOf(
-                    "Her elevated hips give you a direct angle — start gently",
-                    "Hold her legs or ankles if she places them on your shoulders",
-                    "This angle can be intense — check in frequently",
-                    "Kneeling is easier on your knees than standing for longer sessions"
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
                 )
             ),
             urMan = PartnerRole(
-                position = "بستر کے کنارے کھڑا یا گھٹنوں پر، اونچے کولہوں کے سامنے",
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
                 guidance = listOf(
-                    "اونچے کولہے براہ راست زاویہ دیتے ہیں — نرمی سے شروع کریں",
-                    "ٹانگیں کندھوں پر ہوں تو پکڑ سکتے ہیں",
-                    "یہ زاویہ شدید ہو سکتا ہے — بار بار پوچھیں",
-                    "لمبے سیشن کے لیے گھٹنوں پر بیٹھنا آسان"
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lying on back with hips raised on a pillow, legs open wide",
+                position = "Receiving partner — relax and guide your partner",
                 guidance = listOf(
-                    "Use a wedge or firm pillow under hips for stable elevation",
-                    "Pull knees toward chest or rest legs on his shoulders",
-                    "Hold your own legs if needed for comfort",
-                    "This position offers excellent G-spot access depending on anatomy"
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
                 )
             ),
             urWoman = PartnerRole(
-                position = "پیٹھ کے بل تکیے پر اونچے کولہے، ٹانگیں کھولے",
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
                 guidance = listOf(
-                    "مثلثی یا مضبوط تکیہ کولہے کے نیچے رکھیں",
-                    "گھٹنے سینے کی طرف کھینچیں یا ٹانگیں کندھوں پر",
-                    "آرام کے لیے اپنی ٹانگیں خود پکڑ سکتی ہیں",
-                    "جسم کی ساخت کے مطابق بہترین زاویہ"
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
                 )
             )
         ),
-        "scissors" to BilingualRoles(
+        "the_throne" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Lying on his side at an angle, legs scissored with hers",
+                position = "Kneeling between partner's open legs",
                 guidance = listOf(
-                    "Align your top thigh against her hip for contact",
-                    "Use hip grinding rather than deep thrusting",
-                    "This position favors mutual stimulation over penetration depth",
-                    "Adjust the angle of your bodies until contact feels natural"
+                    "Maintain eye contact",
+                    "Use varied tongue and finger techniques",
+                    "Ask what feels good",
+                    "Take breaks if jaw tires"
                 )
             ),
             urMan = PartnerRole(
-                position = "ترچھے سیدھے، ٹانگیں قینچی کی طرح",
+                position = "کھلے پاؤں کے درمیان گھٹنے ٹیکے",
                 guidance = listOf(
-                    "اوپر والی ران اس کے کولہے سے ملائیں",
-                    "گہری جھٹکوں کی بجائے کولہے رگڑیں",
-                    "یہ پوزیشن گہرائی سے زیادہ باہمی محرک کے لیے ہے",
-                    "جسم کا زاویہ ایڈجسٹ کریں جب رابطہ قدرتی لگے"
+                    "آنکھوں سے رابطہ",
+                    "مختلف تکنیکیں",
+                    "پوچھیں کیا اچھا لگے",
+                    "تھکاوٹ ہو تو وقفہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lying on her side at an angle, legs intertwined with his",
+                position = "Seated in chair, legs apart",
                 guidance = listOf(
-                    "Place top leg over his hip and press close",
-                    "Use your hand between bodies for added clitoral stimulation",
-                    "Rock hips together in a slow grinding motion",
-                    "Excellent for intimacy when deep penetration is uncomfortable"
+                    "Relax into the chair",
+                    "Guide with hands on head or shoulders",
+                    "Communicate preferences clearly",
+                    "Let go and enjoy"
                 )
             ),
             urWoman = PartnerRole(
-                position = "ترچھے سیدھے، ٹانگیں اس کے ساتھ ملی",
+                position = "کرسی پر ٹانگیں پھیلا کر",
                 guidance = listOf(
-                    "اوپر والی ٹانگ اس کی ران پر رکھیں اور قریب دبائیں",
-                    "جسموں کے درمیان ہاتھ سے اضافی محرک دیں",
-                    "کولہے آہستہ رگڑ کر ہم آہنگ حرکت کریں",
-                    "گہری داخلہ تکلیف دہ ہو تو قربت کے لیے بہترین"
+                    "کرسی میں آرام کریں",
+                    "سر یا کندھے پر ہاتھ رہنمائی",
+                    "پسند واضح بتائیں",
+                    "لطف اٹھائیں"
                 )
             )
         ),
-        "lazy_dog" to BilingualRoles(
+        "the_pretzel" to BilingualRoles(
             enMan = PartnerRole(
-                position = "Lying on top of her or positioned behind, minimal thrusting",
+                position = "Active partner — communicate and adjust together",
                 guidance = listOf(
-                    "Distribute your weight on forearms — don't press on her back",
-                    "Use slow grinding motions instead of vigorous thrusting",
-                    "Perfect when energy is low — intimacy without athletic effort",
-                    "Whisper, kiss her neck, and keep movements languid"
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
                 )
             ),
             urMan = PartnerRole(
-                position = "اوپر یا پیچھے، کم جھٹکوں کے ساتھ",
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
                 guidance = listOf(
-                    "وزن بازوؤں پر رکھیں — کمر پر دباؤ نہ ڈالیں",
-                    "تیز جھٹکوں کی بجائے آہستہ رگڑ",
-                    "تھکاوٹ میں بہترین — کم محنت والی قربت",
-                    "آہستہ باتیں، گردن پر بوسہ، سست حرکت"
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
                 )
             ),
             enWoman = PartnerRole(
-                position = "Lying flat on stomach with pillow under hips",
+                position = "Receiving partner — relax and guide your partner",
                 guidance = listOf(
-                    "Place a soft pillow under hips to raise angle comfortably",
-                    "Keep legs slightly apart or together — try both",
-                    "Relax completely — this is a restful, low-effort position",
-                    "Reach back to guide his hips if you want more or less pressure"
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
                 )
             ),
             urWoman = PartnerRole(
-                position = "پیٹ کے بل لیٹے، کولہے کے نیچے تکیہ",
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
                 guidance = listOf(
-                    "کولہے کے نیچے نرم تکیہ آرام دہ زاویے کے لیے",
-                    "ٹانگیں ہلکی فاصلے پر یا ساتھ — دونوں آزمائیں",
-                    "مکمل آرام — یہ سست، کم محنت والی پوزیشن ہے",
-                    "دباؤ زیادہ یا کم چاہیے تو پیچھے ہاتھ بڑھائیں"
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "the_shelf" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Standing or kneeling at bed edge between her legs",
+                guidance = listOf(
+                    "Hold hips firmly for stability",
+                    "Adjust for clitoral contact",
+                    "Match bed height to yours",
+                    "Communicate about angle"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "بستر کے کنارے درمیان میں",
+                guidance = listOf(
+                    "کولہے مضبوط پکڑیں",
+                    "کلائیٹورل رابطے کے لیے زاویہ",
+                    "بستر کی اونچائی ایڈجسٹ",
+                    "زاویے کے بارے میں بات"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Hips at bed edge, leaning on hands",
+                guidance = listOf(
+                    "Scoot to perfect edge height",
+                    "Grip bed for stability",
+                    "Guide his hips",
+                    "Adjust leg position"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "کولہے بستر کے کنارے، ہاتھوں پر",
+                guidance = listOf(
+                    "درست اونچائی پر بیٹھیں",
+                    "بستر پکڑیں",
+                    "کولہے رہنمائی کریں",
+                    "ٹانگیں ایڈجسٹ کریں"
+                )
+            )
+        ),
+        "butter" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Active partner — communicate and adjust together",
+                guidance = listOf(
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
+                guidance = listOf(
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Receiving partner — relax and guide your partner",
+                guidance = listOf(
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
+                guidance = listOf(
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "wheelbarrow" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Standing behind, holding partner's hips/legs",
+                guidance = listOf(
+                    "Support weight carefully",
+                    "Start with short holds",
+                    "Build strength gradually",
+                    "Have soft surface nearby"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "پیچھے کھڑے کولہے پکڑے",
+                guidance = listOf(
+                    "وزن احتیاط سے",
+                    "چھوٹے عرصے سے شروع",
+                    "آہستہ طاقت بڑھائیں",
+                    "نرم سطح قریب"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Hands on floor, body angled down",
+                guidance = listOf(
+                    "Keep arms strong",
+                    "Communicate if arms tire",
+                    "Engage core for stability",
+                    "Stop if uncomfortable"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "ہاتھ فرش پر جسم جھکا",
+                guidance = listOf(
+                    "بازو مضبوط رکھیں",
+                    "تھکاوٹ ہو تو بتائیں",
+                    "کور ٹائٹ",
+                    "تکلیف ہو تو رکیں"
+                )
+            )
+        ),
+        "mountain_climber" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Active partner — communicate and adjust together",
+                guidance = listOf(
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
+                guidance = listOf(
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Receiving partner — relax and guide your partner",
+                guidance = listOf(
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
+                guidance = listOf(
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "spork" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Active partner — communicate and adjust together",
+                guidance = listOf(
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
+                guidance = listOf(
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Receiving partner — relax and guide your partner",
+                guidance = listOf(
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
+                guidance = listOf(
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "the_x" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Active partner — communicate and adjust together",
+                guidance = listOf(
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
+                guidance = listOf(
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Receiving partner — relax and guide your partner",
+                guidance = listOf(
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
+                guidance = listOf(
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "angel_of_snows" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Active partner — communicate and adjust together",
+                guidance = listOf(
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
+                guidance = listOf(
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Receiving partner — relax and guide your partner",
+                guidance = listOf(
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
+                guidance = listOf(
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "the_spider" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Active partner — communicate and adjust together",
+                guidance = listOf(
+                    "Start slowly",
+                    "Check in frequently",
+                    "Adjust angle as needed",
+                    "Respond to partner's feedback"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "فعال ساتھی — بات چیت اور ایڈجسٹمنٹ",
+                guidance = listOf(
+                    "آہستہ شروع کریں",
+                    "بار بار پوچھیں",
+                    "زاویہ بدلیں",
+                    "ساتھی کے ردعمل پر توجہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Receiving partner — relax and guide your partner",
+                guidance = listOf(
+                    "Speak up about comfort",
+                    "Use pillows for support",
+                    "Guide with hands or words",
+                    "Breathe and stay present"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "وصول کنندہ — آرام کریں اور رہنمائی کریں",
+                guidance = listOf(
+                    "آرام کے بارے میں بتائیں",
+                    "تکیے استعمال کریں",
+                    "ہاتھ یا الفاظ سے رہنمائی",
+                    "سانس لیں، موجود رہیں"
+                )
+            )
+        ),
+        "the_standard" to BilingualRoles(
+            enMan = PartnerRole(
+                position = "Kneeling between partner's open legs",
+                guidance = listOf(
+                    "Maintain eye contact",
+                    "Use varied tongue and finger techniques",
+                    "Ask what feels good",
+                    "Take breaks if jaw tires"
+                )
+            ),
+            urMan = PartnerRole(
+                position = "کھلے پاؤں کے درمیان گھٹنے ٹیکے",
+                guidance = listOf(
+                    "آنکھوں سے رابطہ",
+                    "مختلف تکنیکیں",
+                    "پوچھیں کیا اچھا لگے",
+                    "تھکاوٹ ہو تو وقفہ"
+                )
+            ),
+            enWoman = PartnerRole(
+                position = "Seated in chair, legs apart",
+                guidance = listOf(
+                    "Relax into the chair",
+                    "Guide with hands on head or shoulders",
+                    "Communicate preferences clearly",
+                    "Let go and enjoy"
+                )
+            ),
+            urWoman = PartnerRole(
+                position = "کرسی پر ٹانگیں پھیلا کر",
+                guidance = listOf(
+                    "کرسی میں آرام کریں",
+                    "سر یا کندھے پر ہاتھ رہنمائی",
+                    "پسند واضح بتائیں",
+                    "لطف اٹھائیں"
                 )
             )
         )

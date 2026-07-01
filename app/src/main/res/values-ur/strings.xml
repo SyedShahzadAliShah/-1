@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">قربت کی ہینڈ بک</string>
     <string name="app_subtitle">مکمل جوڑوں کی جنسی تعلیم</string>
-    <string name="welcome_title">انیمے تصویری قربت کی ہینڈ بک</string>
-    <string name="welcome_message">جوڑوں کے لیے مکمل ہینڈ بک — انیمے انداز میں تعلیمی تصویریں، آواز میں سننے، قابلِ پرنٹ PDF، اور قریبی پوزیشنز کے آرام کے مشورے۔ انگریزی اور اردو میں ساتھ سیکھیں۔ ہر جسم مختلف ہے؛ وہ پوزیشنز اپنائیں جو آپ دونوں کے لیے درست ہوں۔</string>
+    <string name="welcome_title">23 تفریحی پوزیشنز — مصور جوڑوں کی گائیڈ</string>
+    <string name="welcome_message">جوڑوں کے لیے مکمل ہینڈ بک — منسلک گائیڈ کی 23 پوزیشن تصاویر (سنسرشپ ہٹائی گئی)، آواز میں سننے، قابلِ پرنٹ PDF، اور آرام کے مشورے۔ انگریزی اور اردو میں ساتھ سیکھیں۔</string>
     <string name="guide_chapters">گائیڈ کے باب</string>
     <string name="browse_categories">زمرے کے لحاظ سے دیکھیں</string>
     <string name="all_postures">پوزیشنز</string>
@@ -50,5 +50,5 @@
     <string name="womans_role">عورت کا کردار</string>
     <string name="position_label">پوزیشن</string>
     <string name="guidance_label">رہنمائی</string>
-    <string name="version_badge">ورژن %1$s — مرد/عورت کردار + اس کے لیے اور اس کے لیے جنسی تعلیم</string>
+    <string name="version_badge">ورژن %1$s — PDF کی 23 پوزیشن تصاویر شامل</string>
 </resources>

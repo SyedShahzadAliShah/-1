@@ -858,18 +858,7 @@ def gen_imagine_morning():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    gen_missionary()
-    gen_cowgirl()
-    gen_spooning()
-    gen_side_by_side()
-    gen_doggy()
-    gen_lotus()
-    gen_standing()
-    gen_edge_bed()
-    gen_reverse_cowgirl()
-    gen_butterfly()
-    gen_scissors()
-    gen_lazy_dog()
+    # Posture photos come from scripts/embed_pdf_postures.py — do not regenerate here.
     gen_edu_body_map()
     gen_edu_face_contact()
     gen_edu_hip_pillow()
@@ -880,7 +869,6 @@ if __name__ == "__main__":
     gen_chapter_connection()
     gen_chapter_comfort()
     gen_chapter_explore()
-    gen_guide_cover()
     gen_imagine_breath()
     gen_imagine_candlelight()
     gen_imagine_embrace()
