@@ -4,13 +4,17 @@ Bilingual (English & Urdu) couples sex-education app with embedded diagram pictu
 
 ## Download
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+**Latest (v3.3.0)** — 8 SheKnows-inspired married-couples postures + Reigniting the Spark chapter:
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/sheknows-posture-training-07e0/releases/IntimacyHandbook-v3.3.0-debug.apk
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+> **Important:** Uninstall any older version first, then install v3.3.0. On the home screen you should see **"Version 3.3.0 — SheKnows postures + Man/Woman roles + Sex Ed"** below the subtitle.
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+## v3.3.0
+
+- **8 new postures** from SheKnows guidance: CAT, Rocking Horse, Seated Scissors, Countertop, Lap Dance, Layer Cake, Reverse Slither, Yab-Yum
+- **New guide chapter:** Reigniting the Spark — keeping married intimacy fresh through gradual exploration
+- Full bilingual training: steps, tips, man/woman roles, and diagrams for each posture
 
 ## v3.2.1
 
@@ -37,4 +41,4 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+## Version 3.3.0
