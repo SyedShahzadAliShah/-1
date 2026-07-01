@@ -137,6 +137,42 @@ object GuideRepository {
                     "کارکردگی نہیں، لطف پر توجہ دیں"
                 )
             )
+        ),
+        GuideChapter(
+            id = "spark",
+            illustrationRes = R.drawable.pic_chapter_spark,
+            english = ChapterContent(
+                title = "Reigniting the Spark",
+                summary = "Why trying new postures keeps married intimacy fresh.",
+                body = "Even your favorite positions can become routine over months and years. " +
+                    "Trying a new posture — one at a time — helps stoke intimacy and opens conversations " +
+                    "about what feels best right now. There is no need for complicated contortions; " +
+                    "simple variations like shifting hip angle, using a countertop, or slowing down " +
+                    "in a seated embrace can reignite connection. Remember: what feels good can change, " +
+                    "and it is always okay to test something out and adjust together.",
+                keyPoints = listOf(
+                    "Branch out gradually — one new posture per session",
+                    "Talk about what felt good afterward",
+                    "Simple changes often matter more than acrobatics",
+                    "Preferences evolve — stay curious together"
+                )
+            ),
+            urdu = ChapterContent(
+                title = "جوش دوبارہ جگانا",
+                summary = "نئی پوزیشنز شادی شدہ قربت کو تازہ کیوں رکھتی ہیں۔",
+                body = "ماہوں اور سالوں میں پسندیدہ پوزیشنز بھی معمول بن سکتی ہیں۔ " +
+                    "ایک وقت میں ایک نئی پوزیشن آزمانے سے قربت تازہ ہوتی ہے اور " +
+                    "اس بات پر گفتگو کھلتی ہے کہ ابھی کیا بہتر لگتا ہے۔ پیچیدہ موڑوں کی ضرورت نہیں؛ " +
+                    "کولہے کا زاویہ بدلنا، کاؤنٹر استعمال کرنا، یا بیٹھ کر آہستہ قربت " +
+                    "تعلق دوبارہ جلا سکتی ہے۔ یاد رکھیں: جو اچھا لگتا ہے بدل سکتا ہے، " +
+                    "اور کچھ آزمانا اور ساتھ مل کر ایڈجسٹ کرنا ہمیشہ ٹھیک ہے۔",
+                keyPoints = listOf(
+                    "آہستہ آہستہ نیا آزمائیں — ہر سیشن میں ایک پوزیشن",
+                    "بعد میں بتائیں کیا اچھا لگا",
+                    "سادہ تبدیلیاں اکثر مشکل حرکتوں سے زیادہ اہم",
+                    "پسند بدلتی ہے — ساتھ مل کر تجسس رکھیں"
+                )
+            )
         )
     )
 }

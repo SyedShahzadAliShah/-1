@@ -415,6 +415,294 @@ object PostureRepository {
                 "نیچے والا تکیے کی موٹائی سے کولہے کی اونچائی بدلے۔",
                 "نرم مساج کے ساتھ ملا کر آرام دہ بنائیں۔"
             )
+        ),
+        posture(
+            id = "cat", categoryId = CAT_FACE, difficulty = Difficulty.INTERMEDIATE,
+            illustrationRes = R.drawable.pic_cat,
+            enName = "Coital Alignment (CAT)", urName = "کوائٹل الائنمنٹ (CAT)",
+            enCat = "Face to Face", urCat = "آمنے سامنے",
+            enSummary = "An upgraded missionary with circular hip movement for dual stimulation.",
+            urSummary = "مشنری کی بہتر شکل جس میں گول کولہے کی حرکت سے دہرا محرک ملتا ہے۔",
+            enDesc = "Based on the Coital Alignment Technique: the penetrating partner shifts weight forward so contact presses along the external vulva rather than deep thrusting. Both partners move hips in circles to stimulate internal and clitoral zones simultaneously while maintaining face-to-face intimacy.",
+            urDesc = "کوائٹل الائنمنٹ تکنیک پر مبنی: اوپر والا ساتھی وزن آگے رکھتا ہے تاکہ گہرے جھٹکوں کی بجائے بیرونی محرک کو دباؤ ملے۔ دونوں کولہے گول گھمائیں — اندرونی اور کلائیٹورل دونوں محرک ساتھ ساتھ، آمنے سامنے قربت برقرار۔",
+            enSteps = listOf(
+                "Receiving partner lies on their back with knees slightly bent.",
+                "Penetrating partner enters from above, then shifts weight forward onto the partner.",
+                "Avoid in-and-out thrusting — move hips in slow circles instead.",
+                "Receiving partner tilts hips at different angles and may wrap legs around partner's back.",
+                "Maintain eye contact and adjust pace together."
+            ),
+            urSteps = listOf(
+                "سامنے والا ساتھی پیٹ کے بل لیٹے، گھٹنے ہلکے موڑے۔",
+                "اوپر والا داخل ہو، پھر وزن آگے ساتھی پر رکھے۔",
+                "اندر باہر جھٹکوں سے بچیں — کولہے آہستہ گول گھمائیں۔",
+                "سامنے والا کولہے مختلف زاویوں پر جھکائے، ٹانگیں پیچھے لپیٹ سکتا ہے۔",
+                "آنکھوں کا رابطہ رکھیں اور رفتار ساتھ مل کر طے کریں۔"
+            ),
+            enTips = listOf(
+                "Focus on grinding, not thrusting — this is the key difference from missionary.",
+                "Experiment with hip angles to find the sweet spot for both partners.",
+                "Excellent for couples who want clitoral stimulation during penetration.",
+                "Take your time — this position rewards patience over speed."
+            ),
+            urTips = listOf(
+                "رگڑ پر توجہ دیں، جھٹکوں پر نہیں — یہ مشنری سے فرق ہے۔",
+                "کولہے کے زاویے آزمائیں دونوں کے لیے بہترین نقطہ تلاش کریں۔",
+                "داخلہ کے ساتھ کلائیٹورل محرک چاہنے والے جوڑوں کے لیے بہترین۔",
+                "وقت لیں — یہ پوزیشن صبر کا انعام دیتی ہے۔"
+            )
+        ),
+        posture(
+            id = "rocking_horse", categoryId = CAT_FACE, difficulty = Difficulty.INTERMEDIATE,
+            illustrationRes = R.drawable.pic_rocking_horse,
+            enName = "Rocking Horse", urName = "جھولنے والا گھوڑا",
+            enCat = "Face to Face", urCat = "آمنے سامنے",
+            enSummary = "Seated face-to-face with rocking motion for G-spot and closeness.",
+            urSummary = "بیٹھ کر آمنے سامنے جھولنے والی حرکت — G-spot اور قربت کے لیے۔",
+            enDesc = "The receiving partner sits between the penetrating partner's legs with legs nearly wrapped around them. Both partners rock into each other, controlling depth while staying physically close. Can be gentle or passionate.",
+            urDesc = "سامنے والا ساتھی دوسرے کی ٹانگوں کے درمیان بیٹھے، ٹانگیں تقریباً لپیٹے۔ دونوں ایک دوسرے کی طرف جھولیں، گہرائی کنٹرول کرتے ہوئے قریب رہیں۔ نرم یا پرجوش — دونوں طرح ممکن۔",
+            enSteps = listOf(
+                "Penetrating partner sits with legs extended or slightly apart.",
+                "Receiving partner sits facing them, straddling between their legs.",
+                "Wrap arms around each other for balance and closeness.",
+                "Rock hips together — forward and back or in gentle circles.",
+                "Adjust leg wrap for more or less depth."
+            ),
+            urSteps = listOf(
+                "پیچھے والا ساتھی ٹانگیں پھیلا کر یا ہلکا کھول کر بیٹھے۔",
+                "سامنے والا آمنے سامنے ان کی ٹانگوں کے درمیان بیٹھے۔",
+                "توازن اور قربت کے لیے باہیں ایک دوسرے کے گرد لپیٹیں۔",
+                "کولہے ساتھ جھولیں — آگے پیچھے یا ہلکے گول۔",
+                "گہرائی کے لیے ٹانگوں کی لپیٹ ایڈجسٹ کریں۔"
+            ),
+            enTips = listOf(
+                "Ideal for G-spot stimulation with sustained eye contact.",
+                "Use cushions under hips if flexibility is limited.",
+                "Small rocking motions are often more effective than large ones.",
+                "Great transition position from foreplay to intercourse."
+            ),
+            urTips = listOf(
+                "G-spot محرک اور آنکھوں کے رابطے کے لیے بہترین۔",
+                "لچک کم ہو تو کولہے کے نیچے گدوے استعمال کریں۔",
+                "چھوٹی جھولنے والی حرکتیں اکثر بڑی سے زیادہ مؤثر۔",
+                "پیش بازی سے داخلہ میں آنے کے لیے بہترین پل۔"
+            )
+        ),
+        posture(
+            id = "seated_scissors", categoryId = CAT_VARIATIONS, difficulty = Difficulty.INTERMEDIATE,
+            illustrationRes = R.drawable.pic_seated_scissors,
+            enName = "Seated Scissors", urName = "بیٹھی قینچی",
+            enCat = "Variations", urCat = "تبدیلیاں",
+            enSummary = "A playful reverse-cowgirl variation with one bent leg.",
+            urSummary = "الٹ کاؤگرل کی تفریحی شکل — ایک موڑی ہوئی ٹانگ کے ساتھ۔",
+            enDesc = "The penetrating partner lies on their back with one leg bent. The receiving partner straddles the bent leg and arranges their legs for comfort. Plenty of support and room for both to experiment with bounce and grind.",
+            urDesc = "پیچھے والا پیٹ کے بل ایک ٹانگ موڑے لیٹے۔ سامنے والا موڑی ٹانگ پر بیٹھے اور اپنی ٹانگیں آرام سے رکھے۔ دونوں کے لیے سہارا اور تجربے کی گنجائش۔",
+            enSteps = listOf(
+                "Penetrating partner lies on back with one knee bent upward.",
+                "Receiving partner straddles the bent leg, facing toward partner's feet.",
+                "Arrange remaining legs however feels most comfortable.",
+                "Receiving partner bounces, grinds, or rocks at their own pace.",
+                "Penetrating partner relaxes and enjoys the view."
+            ),
+            urSteps = listOf(
+                "پیچھے والا پیٹ کے بل ایک گھٹنا اوپر موڑے لیٹے۔",
+                "سامنے والا موڑی ٹانگ پر بیٹھے، پاؤں کی طرف منہ کرے۔",
+                "باقی ٹانگیں جہاں آرام محسوس ہو وہاں رکھیں۔",
+                "سامنے والا اپنی رفتار سے اچھلے، رگڑے یا جھولے۔",
+                "پیچھے والا آرام کرے اور لطف اٹھائے۔"
+            ),
+            enTips = listOf(
+                "Fun for both — top partner controls, bottom partner relaxes.",
+                "Try alternating which leg is bent for variety.",
+                "Excellent for couples who enjoy woman-on-top dynamics.",
+                "Use hands on thighs for balance and guidance."
+            ),
+            urTips = listOf(
+                "دونوں کے لیے مزہ — اوپر والا کنٹرول، نیچے والا آرام۔",
+                "تنوع کے لیے موڑی ٹانگ بدل کر آزمائیں۔",
+                "عورت اوپر پسند کرنے والے جوڑوں کے لیے بہترین۔",
+                "توازن کے لیے رانوں پر ہاتھ رکھیں۔"
+            )
+        ),
+        posture(
+            id = "countertop", categoryId = CAT_STANDING, difficulty = Difficulty.BEGINNER,
+            illustrationRes = R.drawable.pic_countertop,
+            enName = "Countertop", urName = "کاؤنٹر ٹاپ",
+            enCat = "Standing & Seated", urCat = "کھڑے اور بیٹھے",
+            enSummary = "Use any sturdy hip-height surface for spontaneous intimacy.",
+            urSummary = "کولہے کی اونچائی کی مضبوط سطح پر اچانک قربت۔",
+            enDesc = "The receiving partner lies or sits on a sturdy flat surface at hip height — countertop, desk, or table. The penetrating partner stands before them. Both hands remain free for touch and stimulation.",
+            urDesc = "سامنے والا کولہے کی اونچائی کی مضبوط سطح پر بیٹھے یا لیٹے — کاؤنٹر، میز یا ٹیبل۔ دوسرا سامنے کھڑا ہو۔ دونوں کے ہاتھ آزاد چھونے اور محرک دینے کے لیے۔",
+            enSteps = listOf(
+                "Find a sturdy surface at approximately hip height.",
+                "Receiving partner sits or lies back on the edge.",
+                "Penetrating partner stands between their legs.",
+                "Adjust surface height with a step stool if needed.",
+                "Use free hands for nipple, clitoral, or hair stimulation."
+            ),
+            urSteps = listOf(
+                "کولہے کی اونچائی کی مضبوط سطح تلاش کریں۔",
+                "سامنے والا کنارے پر بیٹھے یا پیٹھ کے بل لیٹے۔",
+                "دوسرا ٹانگوں کے درمیان کھڑا ہو۔",
+                "ضرورت ہو تو سٹیپ سے اونچائی ایڈجسٹ کریں۔",
+                "آزاد ہاتھوں سے چھونے اور محرک دیں۔"
+            ),
+            enTips = listOf(
+                "Also works well for oral sex — giver kneels instead of standing.",
+                "Ensure the surface is stable before putting weight on it.",
+                "Great for spontaneous moments outside the bedroom.",
+                "Different heights? This position levels the playing field."
+            ),
+            urTips = listOf(
+                "زبانی لطف کے لیے بھی اچھا — کھڑے کی بجائے گھٹنوں پر بیٹھیں۔",
+                "وزن ڈالنے سے پہلے سطح مستحکم یقینی بنائیں۔",
+                "بیڈروم سے باہر اچانک لمحات کے لیے بہترین۔",
+                "اونچائی مختلف ہو؟ یہ پوزیشن برابر کر دیتی ہے۔"
+            )
+        ),
+        posture(
+            id = "lap_dance", categoryId = CAT_STANDING, difficulty = Difficulty.BEGINNER,
+            illustrationRes = R.drawable.pic_lap_dance,
+            enName = "Lap Dance", urName = "گود میں رقص",
+            enCat = "Standing & Seated", urCat = "کھڑے اور بیٹھے",
+            enSummary = "Seated straddle with deep eye contact and partner-controlled movement.",
+            urSummary = "بیٹھ کر اوپر بیٹھنا — گہری آنکھوں کا رابطہ اور حرکت پر کنٹرول۔",
+            enDesc = "Use an armless chair or firm surface. The receiving partner straddles the penetrating partner's lap, face-to-face or back-to-front. Feet on the floor provide leverage for bouncing, grinding, and rotation.",
+            urDesc = "بغیر بازو کی کرسی یا مضبوط سطح استعمال کریں۔ سامنے والا گود میں بیٹھے — آمنے سامنے یا پیٹھ کر کے۔ فرش پر پاؤں سے اچھلنے، رگڑنے اور گھومنے کا فائدہ ملتا ہے۔",
+            enSteps = listOf(
+                "Penetrating partner sits firmly in a chair or on bed edge.",
+                "Receiving partner straddles their lap, facing them or away.",
+                "Plant feet on the floor for leverage and balance.",
+                "Rotate, bounce, or grind to find the best rhythm.",
+                "Maintain eye contact if face-to-face for deeper intimacy."
+            ),
+            urSteps = listOf(
+                "پیچھے والا کرسی یا بستر کے کنارے مضبوطی سے بیٹھے۔",
+                "سامنے والا گود میں بیٹھے — آمنے سامنے یا پیٹھ کر۔",
+                "فرش پر پاؤں رکھیں توازن اور فائدے کے لیے۔",
+                "گھمائیں، اچھلیں یا رگڑیں بہترین تال تلاش کرنے کے لیے۔",
+                "آمنے سامنے ہوں تو آنکھوں کا رابطہ قربت بڑھاتا ہے۔"
+            ),
+            enTips = listOf(
+                "Accessible for different heights and mobility levels.",
+                "Top partner does the work — great when one partner is tired.",
+                "Face-to-back variation adds a different sensation angle.",
+                "Ideal for deep penetration with emotional connection."
+            ),
+            urTips = listOf(
+                "مختلف قد اور حرکت کی سطحوں کے لیے آسان۔",
+                "اوپر والا محنت کرے — جب ایک تھکا ہو تو بہترین۔",
+                "پیٹھ کر کے مختلف احساس ملتا ہے۔",
+                "گہری داخلہ اور جذباتی تعلق کے لیے بہترین۔"
+            )
+        ),
+        posture(
+            id = "layer_cake", categoryId = CAT_FACE, difficulty = Difficulty.BEGINNER,
+            illustrationRes = R.drawable.pic_layer_cake,
+            enName = "Layer Cake", urName = "لیئر کیک",
+            enCat = "Face to Face", urCat = "آمنے سامنے",
+            enSummary = "Full-body grinding without penetration — maximum clitoral contact.",
+            urSummary = "بغیر داخلہ پورے جسم کی رگڑ — زیادہ سے زیادہ کلائیٹورل رابطہ۔",
+            enDesc = "One partner lies on their back while the other lies flat on top, facing them. Both press genitals together and grind at a shared rhythm. No penetration — pure external stimulation and skin-to-skin closeness.",
+            urDesc = "ایک پیٹ کے بل لیٹے، دوسرا اوپر آمنے سامنے لیٹے۔ دونوں محرک ایک دوسرے سے ملائیں اور مشترکہ تال پر رگڑیں۔ بغیر داخلہ — صرف بیرونی محرک اور جلد سے جلد قربت۔",
+            enSteps = listOf(
+                "Bottom partner lies on their back comfortably.",
+                "Top partner lies flat on top, facing the bottom partner.",
+                "Align hips so genitals press together naturally.",
+                "Rock and grind together at a rhythm that feels good.",
+                "Top partner may grip the bed edge for extra friction."
+            ),
+            urSteps = listOf(
+                "نیچے والا آرام سے پیٹ کے بل لیٹے۔",
+                "اوپر والا آمنے سامنے سیدھا اوپر لیٹے۔",
+                "کولہے ایسے ملائیں کہ محرک قدرتی طور پر رابطے میں آئیں۔",
+                "مشترکہ تال پر ساتھ رگڑیں۔",
+                "اوپر والا بستر کا کنارہ پکڑ کر زیادہ رگڑ حاصل کر سکتا ہے۔"
+            ),
+            enTips = listOf(
+                "Use lubricant to keep friction pleasurable, not painful.",
+                "Perfect on days when penetration doesn't feel right.",
+                "Excellent during menstruation or recovery periods.",
+                "Builds intimacy through full-body contact and eye contact."
+            ),
+            urTips = listOf(
+                "لوبریکنٹ استعمال کریں تاکہ رگڑ لذیذ رہے، تکلیف دہ نہیں۔",
+                "جب داخلہ مناسب نہ لگے اس دن بہترین۔",
+                "ماہواری یا صحت یابی کے دوران بہترین۔",
+                "پورے جسم اور آنکھوں کے رابطے سے قربت بنتی ہے۔"
+            )
+        ),
+        posture(
+            id = "reverse_slither", categoryId = CAT_REAR, difficulty = Difficulty.INTERMEDIATE,
+            illustrationRes = R.drawable.pic_reverse_slither,
+            enName = "Reverse Slither", urName = "الٹ رینگنا",
+            enCat = "Rear Entry", urCat = "پیچھے سے",
+            enSummary = "Rear entry with full skin contact and deep penetration.",
+            urSummary = "پیچھے سے داخلہ مکمل جلد رابطے اور گہری داخلہ کے ساتھ۔",
+            enDesc = "The receiving partner lies flat on their stomach while the penetrating partner lies on top, entering from behind. Combines the depth of rear entry with the intimacy of full-body contact. Heads close together for whispered words.",
+            urDesc = "سامنے والا پیٹ کے بل لیٹے، دوسرا اوپر پیچھے سے داخل ہو۔ پیچھے سے گہرائی اور پورے جسم کے رابطے کی قربت ملتی ہے۔ سر قریب — آہستہ باتوں کے لیے۔",
+            enSteps = listOf(
+                "Receiving partner lies flat on stomach, optionally with pillow under hips.",
+                "Penetrating partner lies on top, entering from behind.",
+                "Keep weight distributed lightly on forearms.",
+                "Use slow grinding and shallow thrusts.",
+                "Whisper, kiss neck, and stay connected throughout."
+            ),
+            urSteps = listOf(
+                "سامنے والا پیٹ کے بل لیٹے، اختیاری تکیہ کولہے کے نیچے۔",
+                "دوسرا اوپر پیچھے سے داخل ہو۔",
+                "وزن بازوؤں پر ہلکا رکھیں۔",
+                "آہستہ رگڑ اور ہلکی جھٹکیں استعمال کریں۔",
+                "آہستہ باتیں، گردن پر بوسہ، تعلق برقرار رکھیں۔"
+            ),
+            enTips = listOf(
+                "Receiving partner can slip a hand underneath for self-stimulation.",
+                "Pillow under hips improves angle and comfort.",
+                "More intimate than traditional doggy — bodies fully connected.",
+                "Great for breast and clitoral stimulation from behind."
+            ),
+            urTips = listOf(
+                "سامنے والا ہاتھ نیچے بڑھا کر خود محرک دے سکتا ہے۔",
+                "کولہے کے نیچے تکیہ زاویہ اور آرام بہتر بناتا ہے۔",
+                "روایتی ڈاگی سے زیادہ قریبی — جسم مکمل جڑے۔",
+                "پیچھے سے سینے اور کلائیٹورل محرک کے لیے بہترین۔"
+            )
+        ),
+        posture(
+            id = "yab_yum", categoryId = CAT_FACE, difficulty = Difficulty.BEGINNER,
+            illustrationRes = R.drawable.pic_yab_yum,
+            enName = "Yab-Yum", urName = "یب-یم",
+            enCat = "Face to Face", urCat = "آمنے سامنے",
+            enSummary = "Tantric seated embrace with synchronized breathing and slow rocking.",
+            urSummary = "تانترک بیٹھی گلے ملنے والی قربت — ہم آہنگ سانس اور آہستہ جھولنا۔",
+            enDesc = "A popular Tantric position: the penetrating partner sits cross-legged on the floor or bed. The receiving partner sits in their lap, legs wrapped around their back. Rock side-to-side while holding each other close rather than vigorous thrusting.",
+            urDesc = "مشہور تانترک پوزیشن: پیچھے والا پیر باندھ کر فرش یا بستر پر بیٹھے۔ سامنے والا گود میں بیٹھے، ٹانگیں پیٹھ کے گرد۔ زور دار جھٹکوں کی بجائے قریب پکڑ کر آہستہ آگے پیچھے جھولیں۔",
+            enSteps = listOf(
+                "Penetrating partner sits cross-legged on a firm surface.",
+                "Receiving partner sits in their lap, facing them, legs around their waist.",
+                "Wrap arms tightly around each other.",
+                "Rock side-to-side slowly — breathe in sync.",
+                "Try eye-gazing to deepen emotional connection."
+            ),
+            urSteps = listOf(
+                "پیچھے والا پیر باندھ کر مضبوط سطح پر بیٹھے۔",
+                "سامنے والا گود میں آمنے سامنے، ٹانگیں کمر کے گرد۔",
+                "باہیں مضبوطی سے ایک دوسرے کے گرد لپیٹیں۔",
+                "آہستہ آگے پیچھے جھولیں — سانسیں ہم آہنگ رکھیں۔",
+                "آنکھوں میں دیکھیں جذباتی تعلق گہرا کرنے کے لیے۔"
+            ),
+            enTips = listOf(
+                "Focus on connection over performance — this is meditative intimacy.",
+                "Use cushions under sit bones if floor is uncomfortable.",
+                "Breathe each other's breath for a powerful bonding effect.",
+                "Ideal for married couples reconnecting after busy periods."
+            ),
+            urTips = listOf(
+                "کارکردگی سے زیادہ تعلق — یہ باخبر قربت ہے۔",
+                "فرش سخت ہو تو بیٹھنے کی ہڈیوں کے نیچے گدوے رکھیں۔",
+                "ایک دوسرے کی سانس محسوس کریں — مضبوط تعلق بنتا ہے۔",
+                "مصروف دورانیے کے بعد دوبارہ جڑنے والے شادی شدہ جوڑوں کے لیے بہترین۔"
+            )
         )
     )
 

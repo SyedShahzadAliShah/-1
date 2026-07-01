@@ -651,6 +651,125 @@ def gen_lazy_dog():
     save("pic_lazy_dog", img)
 
 
+# --- SheKnows-inspired married-couples training postures ---
+
+def gen_cat():
+    img, draw = new_canvas()
+    bed(draw, 400)
+    draw_figure_simple(draw, lying_back(430, 390, 1.0), SKIN_A)
+    p_b = on_top(430, 310, 0.9)
+    p_b = pose(**{**p_b.__dict__, "head": (p_b.head[0], p_b.head[1] - 12)})
+    draw_figure_simple(draw, p_b, SKIN_B)
+    draw.arc((520, 320, 600, 400), 200, 340, fill=ACCENT, width=3)
+    tag(draw, 605, 330, "Circular hips")
+    tag(draw, 605, 370, "Shifted higher")
+    partner_labels(draw)
+    title_label(draw, "Coital Alignment (CAT)")
+    save("pic_cat", img)
+
+
+def gen_rocking_horse():
+    img, draw = new_canvas()
+    draw.rounded_rectangle((120, 430, W - 120, 500), radius=16, fill=BED, outline=(190, 170, 160), width=2)
+    draw_figure_simple(draw, seated(430, 410, 1.0), SKIN_B)
+    p_a = straddle(430, 320, 0.88)
+    p_a = pose(**{**p_a.__dict__, "knee_l": (p_a.knee_l[0] - 8, p_a.knee_l[1] + 10),
+                  "knee_r": (p_a.knee_r[0] + 8, p_a.knee_r[1] + 10)})
+    draw_figure_simple(draw, p_a, SKIN_A)
+    arrow(draw, 560, 350, 610, 370)
+    tag(draw, 615, 355, "Rock together")
+    partner_labels(draw)
+    title_label(draw, "Rocking Horse")
+    save("pic_rocking_horse", img)
+
+
+def gen_seated_scissors():
+    img, draw = new_canvas()
+    bed(draw, 405)
+    draw_figure_simple(draw, lying_back(430, 400, 0.95), SKIN_B)
+    p_a = straddle(430, 300, 0.9)
+    p_a = pose(**{**p_a.__dict__,
+                  "knee_l": (p_a.knee_l[0] - 25, p_a.knee_l[1] + 15),
+                  "ankle_l": (p_a.ankle_l[0] - 35, p_a.ankle_l[1] + 5)})
+    draw_figure_simple(draw, p_a, SKIN_A)
+    tag(draw, 560, 260, "One leg bent")
+    tag(draw, 560, 300, "Straddle & grind")
+    partner_labels(draw)
+    title_label(draw, "Seated Scissors")
+    save("pic_seated_scissors", img)
+
+
+def gen_countertop():
+    img, draw = new_canvas()
+    draw.rounded_rectangle((200, 360, W - 200, 420), radius=10, fill=(200, 185, 175), outline=SECONDARY, width=2)
+    draw_figure_simple(draw, lying_back(430, 350, 0.9), SKIN_A)
+    draw_figure_simple(draw, standing(540, 280, 0.88), SKIN_B)
+    tag(draw, 560, 240, "Hip-height surface")
+    tag(draw, 560, 280, "Hands free")
+    partner_labels(draw)
+    title_label(draw, "Countertop Position")
+    save("pic_countertop", img)
+
+
+def gen_lap_dance():
+    img, draw = new_canvas()
+    draw.rounded_rectangle((360, 420, 500, 480), radius=8, fill=(180, 160, 150), outline=SECONDARY, width=2)
+    draw_figure_simple(draw, seated(430, 400, 0.95), SKIN_B)
+    draw_figure_simple(draw, straddle(430, 300, 0.88), SKIN_A)
+    tag(draw, 560, 280, "Straddle lap")
+    tag(draw, 560, 320, "Eye contact")
+    partner_labels(draw)
+    title_label(draw, "Lap Dance Position")
+    save("pic_lap_dance", img)
+
+
+def gen_layer_cake():
+    img, draw = new_canvas()
+    bed(draw, 405)
+    draw_figure_simple(draw, lying_back(430, 395, 0.95), SKIN_A)
+    p_b = on_top(430, 355, 0.9)
+    p_b = pose(**{**p_b.__dict__, "head": (p_b.head[0] + 15, p_b.head[1] + 25)})
+    draw_figure_simple(draw, p_b, SKIN_B, show_pelvis=False)
+    arrow(draw, 560, 370, 610, 370)
+    tag(draw, 615, 355, "Grinding")
+    tag(draw, 615, 390, "No penetration")
+    partner_labels(draw)
+    title_label(draw, "Layer Cake")
+    save("pic_layer_cake", img)
+
+
+def gen_reverse_slither():
+    img, draw = new_canvas()
+    bed(draw, 415)
+    p_a = hands_knees(400, 400, 0.9)
+    p_a = pose(**{**p_a.__dict__, "head": (p_a.head[0] + 25, p_a.head[1] + 35)})
+    draw_figure_simple(draw, p_a, SKIN_A)
+    p_b = on_top(420, 365, 0.85)
+    p_b = pose(**{**p_b.__dict__, "head": (p_b.head[0] + 20, p_b.head[1] + 30)})
+    draw_figure_simple(draw, p_b, SKIN_B)
+    tag(draw, 560, 320, "Full contact")
+    tag(draw, 560, 360, "Rear entry")
+    partner_labels(draw)
+    title_label(draw, "Reverse Slither")
+    save("pic_reverse_slither", img)
+
+
+def gen_yab_yum():
+    img, draw = new_canvas()
+    draw.rounded_rectangle((280, 440, W - 280, 510), radius=16, fill=BED, outline=(190, 170, 160), width=2)
+    p_b = seated(430, 420, 1.0)
+    p_b = pose(**{**p_b.__dict__,
+                  "knee_l": (p_b.knee_l[0] - 15, p_b.knee_l[1] + 20),
+                  "knee_r": (p_b.knee_r[0] + 15, p_b.knee_r[1] + 20)})
+    draw_figure_simple(draw, p_b, SKIN_B)
+    draw_figure_simple(draw, straddle(430, 310, 0.85), SKIN_A)
+    tag(draw, 560, 280, "Tantric embrace")
+    tag(draw, 560, 320, "Slow rocking")
+    partner_labels(draw)
+    title_label(draw, "Yab-Yum")
+    save("pic_yab_yum", img)
+
+
 # --- Educational inserts ---
 
 def gen_edu_body_map():
@@ -777,6 +896,19 @@ def gen_chapter_explore():
     save("pic_chapter_explore", img)
 
 
+def gen_chapter_spark():
+    img, draw = new_canvas("Reignite Chapter")
+    bed(draw, 400)
+    draw_figure_simple(draw, lying_back(360, 385, 0.85), SKIN_A)
+    draw_figure_simple(draw, on_top(360, 335, 0.8), SKIN_B)
+    draw_figure_simple(draw, side_lying(540, 380, "left", 0.8), SKIN_A)
+    draw_figure_simple(draw, seated(700, 400, 0.75), SKIN_B, show_pelvis=False)
+    tag(draw, 560, 250, "Try something new")
+    tag(draw, 560, 290, "Keep the spark alive")
+    title_label(draw, "Reigniting the Spark")
+    save("pic_chapter_spark", img)
+
+
 def gen_guide_cover():
     img, draw = new_canvas("Ultimate Intimacy Handbook")
     bed(draw, 400)
@@ -870,6 +1002,14 @@ if __name__ == "__main__":
     gen_butterfly()
     gen_scissors()
     gen_lazy_dog()
+    gen_cat()
+    gen_rocking_horse()
+    gen_seated_scissors()
+    gen_countertop()
+    gen_lap_dance()
+    gen_layer_cake()
+    gen_reverse_slither()
+    gen_yab_yum()
     gen_edu_body_map()
     gen_edu_face_contact()
     gen_edu_hip_pillow()
@@ -880,6 +1020,7 @@ if __name__ == "__main__":
     gen_chapter_connection()
     gen_chapter_comfort()
     gen_chapter_explore()
+    gen_chapter_spark()
     gen_guide_cover()
     gen_imagine_breath()
     gen_imagine_candlelight()
