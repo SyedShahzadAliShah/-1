@@ -1,16 +1,25 @@
 # Intimacy Guide
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Bilingual (English & Urdu) couples sex-education app with embedded photo illustrations, imagination postures, voice narration, and PDF export.
 
 ## Download
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+**Latest (v4.0.1)** — embedded photo illustrations with automatic face privacy masking:
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/embed-photo-illustrations-5144/releases/IntimacyHandbook-v4.0.1-debug.apk
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+> **Important:** Uninstall any older version first, then install v4.0.1. On the home screen you should see **"Version 4.0.1 — Photo illustrations with face privacy masking"** below the subtitle.
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+## v4.0.1
+
+- **Face privacy masking** — male and female faces are automatically detected and blurred in every photo illustration
+- Uses YuNet face detection with pixelation + Gaussian blur for anonymization
+
+## v4.0.0
+
+- **Embedded photo illustrations** — all 12 postures, chapters, education cards, and imagination exercises use real photo illustrations extracted from the uploaded guide PDF
+- **1280×800 framed assets** — each photo is cropped and placed in an educational frame with posture title
+- **Regeneration script** — `scripts/embed_pdf_photo_illustrations.py` rebuilds all drawable assets from the source PDF
 
 ## v3.2.1
 
@@ -24,17 +33,19 @@ Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture
 - **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
 - Diagram labels updated to Man/Woman
 
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
-
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
+pip install pymupdf pillow opencv-python-headless
+python3 scripts/embed_pdf_photo_illustrations.py
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+To regenerate diagram-style illustrations instead:
+
+```bash
+python3 scripts/generate_posture_pictures.py
+```
+
+## Version 4.0.1
