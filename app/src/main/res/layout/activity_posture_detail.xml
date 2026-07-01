@@ -251,10 +251,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="24dp"
                 android:lineSpacingExtra="6dp"
                 android:textColor="@color/on_surface"
                 android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/sourceHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/source_reference"
+                android:textColor="@color/on_surface"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/openSourceButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/open_sheknows_article"
+                android:visibility="gone" />
+
+            <WebView
+                android:id="@+id/sourceWebView"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
                 android:visibility="gone" />
 
         </LinearLayout>

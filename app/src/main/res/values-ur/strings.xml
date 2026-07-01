@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">قربت کی ہینڈ بک</string>
     <string name="app_subtitle">مکمل جوڑوں کی جنسی تعلیم</string>
-    <string name="welcome_title">انیمے تصویری قربت کی ہینڈ بک</string>
-    <string name="welcome_message">جوڑوں کے لیے مکمل ہینڈ بک — انیمے انداز میں تعلیمی تصویریں، آواز میں سننے، قابلِ پرنٹ PDF، اور قریبی پوزیشنز کے آرام کے مشورے۔ انگریزی اور اردو میں ساتھ سیکھیں۔ ہر جسم مختلف ہے؛ وہ پوزیشنز اپنائیں جو آپ دونوں کے لیے درست ہوں۔</string>
+    <string name="welcome_title">۶۹ پوزیشنز — دو لسانی جوڑوں کی ہینڈ بک</string>
+    <string name="welcome_message">SheKnows سلائیڈ شو سے مکمل دوبارہ تعمیر: ہر پوزیشن میں تعلیمی خاکے، انگریزی اور اردو میں قدم بہ قدم سبق، آواز میں سننے، اور آف لائن مطالعے کے لیے PDF برآمد۔</string>
     <string name="guide_chapters">گائیڈ کے باب</string>
     <string name="browse_categories">زمرے کے لحاظ سے دیکھیں</string>
     <string name="all_postures">پوزیشنز</string>
@@ -50,5 +50,10 @@
     <string name="womans_role">عورت کا کردار</string>
     <string name="position_label">پوزیشن</string>
     <string name="guidance_label">رہنمائی</string>
-    <string name="version_badge">ورژن %1$s — مرد/عورت کردار + اس کے لیے اور اس کے لیے جنسی تعلیم</string>
+    <string name="version_badge">ورژن %1$s — ۶۹ SheKnows پوزیشنز · اردو/انگریزی · آواز · PDF</string>
+    <string name="sheknows_embed_title">SheKnows ۶۹ پوزیشنز گائیڈ</string>
+    <string name="sheknows_embed_hint">SheKnows صحت و تندرستی کا embedded حوالہ۔ نیچے تمام سبق انگریزی و اردو میں آواز اور PDF کے ساتھ۔</string>
+    <string name="open_sheknows_full">مکمل مضمون براؤزر میں کھولیں</string>
+    <string name="source_reference">ماخذ حوالہ</string>
+    <string name="open_sheknows_article">SheKnows.com پر دیکھیں</string>
 </resources>

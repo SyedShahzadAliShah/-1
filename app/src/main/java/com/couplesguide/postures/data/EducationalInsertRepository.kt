@@ -17,7 +17,7 @@ object EducationalInsertRepository {
     private val inserts = listOf(
         EducationalInsert(
             id = "edu_face_contact",
-            afterCategoryId = PostureRepository.CAT_FACE,
+            afterCategoryId = PostureRepository.CAT_CLASSIC,
             illustrationRes = R.drawable.pic_edu_face_contact,
             englishTitle = "Face-to-Face Education",
             urduTitle = "آمنے سامنے تعلیم",
@@ -25,26 +25,17 @@ object EducationalInsertRepository {
             urduCaption = "آنکھوں کا رابطہ، بوسہ، اور زبانی پوچھ گچھ تعلق اور محفوظ احساس بڑھاتے ہیں۔"
         ),
         EducationalInsert(
-            id = "edu_side_alignment",
-            afterCategoryId = PostureRepository.CAT_SIDE,
-            illustrationRes = R.drawable.pic_edu_side_alignment,
-            englishTitle = "Side-by-Side Alignment",
-            urduTitle = "ساتھ ساتھ ہم آہنگی",
-            englishCaption = "Use a pillow between knees to align hips and reduce strain.",
-            urduCaption = "گھٹنوں کے درمیان تکیہ رکھیں تاکہ کولہے ہم آہنگ رہیں اور دباؤ کم ہو۔"
-        ),
-        EducationalInsert(
-            id = "edu_rear_safety",
-            afterCategoryId = PostureRepository.CAT_REAR,
-            illustrationRes = R.drawable.pic_edu_rear_safety,
-            englishTitle = "Rear Entry Comfort",
-            urduTitle = "پیچھے سے آرام",
-            englishCaption = "Hip pillows, slow pace, and frequent check-ins keep this position comfortable.",
-            urduCaption = "کولہے کے تکیے، آہستہ رفتار، اور بار بار پوچھ گچھ اس پوزیشن کو آرام دہ رکھتی ہے۔"
+            id = "edu_consent_talk",
+            afterCategoryId = PostureRepository.CAT_NON_PENETRATIVE,
+            illustrationRes = R.drawable.pic_edu_consent_talk,
+            englishTitle = "Ongoing Consent",
+            urduTitle = "مسلسل رضامندی",
+            englishCaption = "Ask what feels good. Either partner can pause or adjust at any time.",
+            urduCaption = "پوچھیں کیا اچھا لگتا ہے۔ کوئی بھی ساتھی کسی وقت رک یا تبدیلی کر سکتا ہے۔"
         ),
         EducationalInsert(
             id = "edu_hip_pillow",
-            afterCategoryId = PostureRepository.CAT_STANDING,
+            afterCategoryId = PostureRepository.CAT_ELEVATED,
             illustrationRes = R.drawable.pic_edu_hip_pillow,
             englishTitle = "Hip Support Guide",
             urduTitle = "کولہے کی سہارا گائیڈ",
@@ -52,8 +43,17 @@ object EducationalInsertRepository {
             urduCaption = "مضبوط تکیے سے کولہے اونچے کرنے سے بہت جوڑوں کے لیے زاویہ اور آرام بہتر ہوتا ہے۔"
         ),
         EducationalInsert(
+            id = "edu_rear_safety",
+            afterCategoryId = PostureRepository.CAT_ANAL,
+            illustrationRes = R.drawable.pic_edu_rear_safety,
+            englishTitle = "Anal Comfort & Safety",
+            urduTitle = "پیچھے سے آرام اور حفاظت",
+            englishCaption = "Generous lube, slow pace, and frequent check-ins are essential for anal play.",
+            urduCaption = "کافی لوبریکنٹ، آہستہ رفتار، اور بار بار پوچھ گچھ پیچھے سے لطف کے لیے ضروری ہے۔"
+        ),
+        EducationalInsert(
             id = "edu_body_map",
-            afterCategoryId = PostureRepository.CAT_VARIATIONS,
+            afterCategoryId = PostureRepository.CAT_CREATIVE,
             illustrationRes = R.drawable.pic_edu_body_map,
             englishTitle = "Know Your Body",
             urduTitle = "اپنے جسم کو جانیں",
