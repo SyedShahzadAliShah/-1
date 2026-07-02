@@ -8,11 +8,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.couplesguide.postures"
+        applicationId = "com.urduseded.guide"
         minSdk = 24
         targetSdk = 34
-        versionCode = 15
-        versionName = "3.2.1"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {

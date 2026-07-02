@@ -1,33 +1,21 @@
-# Intimacy Guide
+# تصویری جنسی تعلیم (Urdu Sex Education)
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+اردو میں مکمل تصویری جنسی تعلیم ایپ — ہر سبق میں تصویر، اردو تفصیل، آواز میں سننے اور PDF برآمد۔
 
-## Download
+## خصوصیات
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+- **صرف اردو** — تمام مواد، UI اور آواز اردو میں
+- **تصویری سبق** — 20 تعلیمی سبق 5 زمرے میں
+- **آواز** — ہر سبق اور مکمل گائیڈ اردو TTS سے سنیں
+- **PDF برآمد** — مکمل گائیڈ یا انفرادی سبق PDF میں محفوظ، شیئر یا پرنٹ کریں
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+## زمرے
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+1. **بنیادی تعلیم** — رضامندی، مواصلات، جسم کی ساخت، جوش
+2. **مردوں کے لیے** — جوش، لطف دینا، برداشت، اعتماد
+3. **عورتوں کے لیے** — جوش، لطف، آرام، اعتماد
+4. **محفوظ قربت** — آرام، ہم آہنگی، حفاظت، صفائی
+5. **صحت اور فلاح** — جذباتی صحت، طبی مدد، صحت مند عادات
 
 ## Build
 
@@ -37,4 +25,10 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+APK: `app/build/outputs/apk/debug/app-debug.apk`
+
+## Version 1.0.0
+
+- نئی ایپ: تصویری اردو جنسی تعلیم
+- 20 تصویری سبق، اردو آواز، PDF برآمد
+- پیکیج: `com.urduseded.guide`

@@ -101,11 +101,7 @@ class VoiceNarrator(
     private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean, val message: String)
 
     private fun applyLanguage(engine: TextToSpeech, language: String): LocaleResult? {
-        val candidates = if (language == LocaleHelper.LANG_UR) {
-            listOf(Locale("ur", "PK"), Locale("ur", "IN"), Locale("ur"))
-        } else {
-            listOf(Locale.US, Locale.UK, Locale.ENGLISH)
-        }
+        val candidates = listOf(Locale("ur", "PK"), Locale("ur", "IN"), Locale("ur"))
 
         for (locale in candidates) {
             when (engine.isLanguageAvailable(locale)) {
@@ -120,18 +116,8 @@ class VoiceNarrator(
         }
 
         if (language == LocaleHelper.LANG_UR) {
-            when (engine.isLanguageAvailable(Locale.US)) {
-                TextToSpeech.LANG_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
-                    engine.language = Locale.US
-                    return LocaleResult(
-                        Locale.US,
-                        true,
-                        "Urdu voice not installed. Using English narration."
-                    )
-                }
-            }
+            onLanguageIssue?.invoke("اردو آواز دستیاب نہیں۔ براہ کرم سسٹم میں اردو TTS انسٹال کریں۔")
+            return null
         }
 
         onLanguageIssue?.invoke("Voice language not available on this device.")
