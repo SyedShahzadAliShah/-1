@@ -4,11 +4,13 @@ Bilingual (English & Urdu) couples sex-education app with embedded diagram pictu
 
 ## Download
 
-**Latest (v4.0.0)** — How to Satisfy Your Wife Ultimate Edition (30 moves from attached guide):
+**Latest (v4.0.0)** — How to Satisfy Your Wife Ultimate Edition (30 moves):
 
-Build locally with `./gradlew assembleDebug` after setting `ANDROID_HOME`.
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/wife-ultimate-edition-6289/releases/IntimacyHandbook-v4.0.0-debug.apk
 
-Previous: **v3.2.1** — man/woman posture roles + sex education for him & her
+> **Important:** Uninstall any older version first, then install v4.0.0. On the home screen you should see **"Version 4.0.0 — Wife Ultimate Edition (30 moves)"** below the subtitle.
+
+Previous: **v3.2.1** — https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
 
 ## v4.0.0 — Wife Ultimate Edition
 

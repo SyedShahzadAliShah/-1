@@ -16,7 +16,6 @@ import com.couplesguide.postures.data.PostureListBuilder
 import com.couplesguide.postures.data.PostureListItem
 import com.couplesguide.postures.data.PostureRepository
 import com.couplesguide.postures.data.UltimateEditionRepository
-import com.couplesguide.postures.data.PostureRepository
 import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.CategoryAdapter
 import com.couplesguide.postures.ui.ChapterAdapter
@@ -41,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var forHerAdapter: ChapterAdapter
     private lateinit var ultimateAdapter: PostureAdapter
     private lateinit var ultimateIntroAdapter: ChapterAdapter
+    private lateinit var imaginationAdapter: PostureAdapter
     private var categoryAdapter: CategoryAdapter? = null
     private var selectedCategory = PostureRepository.CAT_ALL
     private var language = LocaleHelper.LANG_EN
