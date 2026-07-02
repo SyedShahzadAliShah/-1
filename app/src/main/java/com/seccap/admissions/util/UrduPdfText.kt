@@ -2,7 +2,9 @@ package com.seccap.admissions.util
 
 object UrduPdfText {
 
-    private const val RLM = "\u200F"
+    private const val RLM = "\u200F"   // RIGHT-TO-LEFT MARK
+    private const val LRE = "\u202A"   // LEFT-TO-RIGHT EMBEDDING (for numbers, IDs, URLs)
+    private const val PDF = "\u202C"   // POP DIRECTIONAL FORMATTING
     private const val NDASH = "\u2013"
 
     private val urduDigits = charArrayOf('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹')
@@ -11,6 +13,16 @@ object UrduPdfText {
         val t = text.trim()
         return if (t.isEmpty()) t else "$RLM$t"
     }
+
+    /** Wrap Latin digits/URLs in LTR embedding so they don't overflow RTL margins. */
+    fun embedLtr(text: String): String {
+        if (text.isBlank()) return text
+        return "$LRE$text$PDF"
+    }
+
+    /** Label + value line with safe bidi for mixed Urdu / Latin content. */
+    fun fieldLine(label: String, value: String): String =
+        normalize("$label: ${embedLtr(value)}")
 
     fun toUrduDigits(number: Int): String =
         number.toString().map { if (it.isDigit()) urduDigits[it - '0'] else it }.joinToString("")

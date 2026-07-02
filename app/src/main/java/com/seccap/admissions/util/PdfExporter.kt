@@ -50,6 +50,7 @@ object PdfExporter {
     private const val TOP_MARGIN = 54f
     private const val BOTTOM_MARGIN = 54f
     private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
+    private const val RTL_EDGE_PAD = 14f   // extra inset so Urdu glyphs don't clip at the right edge
     private const val DOWNLOADS_FOLDER = "SecCapAdmissions"
 
     data class ExportResult(
@@ -231,10 +232,18 @@ object PdfExporter {
         writer.drawBody(subtitle, writer.sectionPaint(13f))
         writer.space(8f)
         writer.drawBody(
-            if (isRtl) "درخواست ID: ${draft.applicationId}" else "Application ID: ${draft.applicationId}"
+            if (isRtl) {
+                UrduPdfText.fieldLine("درخواست ID", draft.applicationId)
+            } else {
+                "Application ID: ${draft.applicationId}"
+            }
         )
         writer.drawBody(
-            if (isRtl) "تاریخ: ${dateFmt.format(Date(draft.lastUpdated))}" else "Date: ${dateFmt.format(Date(draft.lastUpdated))}"
+            if (isRtl) {
+                UrduPdfText.fieldLine("تاریخ", dateFmt.format(Date(draft.lastUpdated)))
+            } else {
+                "Date: ${dateFmt.format(Date(draft.lastUpdated))}"
+            }
         )
         writer.space(12f)
 
@@ -381,7 +390,12 @@ object PdfExporter {
         startPage: Int
     ) {
         private val isRtl = language == LocaleHelper.LANG_UR
-        private val textWidth = CONTENT_WIDTH.toInt()
+        private val layoutWidth = if (isRtl) {
+            (CONTENT_WIDTH - RTL_EDGE_PAD * 2).toInt()
+        } else {
+            CONTENT_WIDTH.toInt()
+        }
+        private val contentLeft = if (isRtl) MARGIN + RTL_EDGE_PAD else MARGIN
         private val regularTypeface = loadTypeface(false)
         private val boldTypeface = loadTypeface(true)
         private var pageNumber = startPage
@@ -451,7 +465,7 @@ object PdfExporter {
 
         fun drawField(label: String, value: String) {
             if (value.isBlank()) return
-            val text = if (isRtl) "$label: $value" else "$label: $value"
+            val text = if (isRtl) UrduPdfText.fieldLine(label, value) else "$label: $value"
             drawBody(text)
         }
 
@@ -476,8 +490,14 @@ object PdfExporter {
                 val top = layout.getLineTop(startLine)
                 val bottom = layout.getLineBottom(endLine - 1)
                 canvas.save()
-                canvas.translate(MARGIN, y)
-                canvas.clipRect(0f, top.toFloat(), textWidth.toFloat(), bottom.toFloat())
+                canvas.translate(contentLeft, y)
+                val clipPad = if (isRtl) RTL_EDGE_PAD else 0f
+                canvas.clipRect(
+                    -clipPad,
+                    top.toFloat(),
+                    layoutWidth.toFloat() + clipPad,
+                    bottom.toFloat()
+                )
                 canvas.translate(0f, -top.toFloat())
                 layout.draw(canvas)
                 canvas.restore()
@@ -508,14 +528,17 @@ object PdfExporter {
         @Suppress("WrongConstant")
         private fun buildLayout(text: String, paint: TextPaint): StaticLayout {
             val direction = if (isRtl) TextDirectionHeuristics.RTL else TextDirectionHeuristics.LTR
-            return StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
+            val builder = StaticLayout.Builder.obtain(text, 0, text.length, paint, layoutWidth)
                 .setAlignment(Layout.Alignment.ALIGN_NORMAL)
                 .setTextDirection(direction)
                 .setLineSpacing(2f, if (isRtl) 1.4f else 1.2f)
-                .setIncludePad(false)
+                .setIncludePad(isRtl)
                 .setBreakStrategy(Layout.BREAK_STRATEGY_HIGH_QUALITY)
                 .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NONE)
-                .build()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                builder.setUseLineSpacingFromFallbacks(false)
+            }
+            return builder.build()
         }
 
         fun finish(): Int {
