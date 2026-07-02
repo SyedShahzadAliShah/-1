@@ -49,7 +49,12 @@ object PdfExporter {
     private const val MARGIN = 54f
     private const val TOP_MARGIN = 54f
     private const val BOTTOM_MARGIN = 54f
-    private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
+    private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2  // 487 pt
+    // RTL (Urdu) text anchors its visual start at the right edge of the StaticLayout.
+    // The clipRect would cut off sub-pixel-antialiased glyph strokes at exactly x=CONTENT_WIDTH.
+    // Fix: shrink the layout width by this many points so glyphs sit clear of the clip boundary,
+    // while keeping the clip itself at the original CONTENT_WIDTH.
+    private const val RTL_EDGE_PAD = 8f
     private const val IMAGE_HEIGHT = 220f
     private const val DOWNLOADS_FOLDER = "SpectacularMoves"
 
@@ -345,7 +350,10 @@ object PdfExporter {
         private val document: PdfDocument,
         startPage: Int
     ) {
-        private val textWidth = CONTENT_WIDTH.toInt()
+        // Layout width is inset by RTL_EDGE_PAD so RTL glyphs don't touch the clip boundary.
+        private val textWidth = (CONTENT_WIDTH - RTL_EDGE_PAD).toInt()
+        // Clip right remains at the full CONTENT_WIDTH, giving RTL_EDGE_PAD pts of bleed room.
+        private val clipWidth = CONTENT_WIDTH.toInt()
         private var pageNumber = startPage
         private var displayPageNumber = startPage
         private lateinit var page: PdfDocument.Page
@@ -494,7 +502,9 @@ object PdfExporter {
             val bottom = layout.getLineBottom(endLine - 1)
             canvas.save()
             canvas.translate(MARGIN, y)
-            canvas.clipRect(0f, top.toFloat(), textWidth.toFloat(), bottom.toFloat())
+            // Use clipWidth (= CONTENT_WIDTH) on the right so the RTL_EDGE_PAD gap between
+            // the layout's right edge and the clip prevents anti-aliased glyph pixels being cropped.
+            canvas.clipRect(0f, top.toFloat(), clipWidth.toFloat(), bottom.toFloat())
             canvas.translate(0f, -top.toFloat())
             layout.draw(canvas)
             canvas.restore()
