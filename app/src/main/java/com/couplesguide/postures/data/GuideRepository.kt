@@ -7,7 +7,11 @@ object GuideRepository {
     fun getChapters(): List<GuideChapter> = chapters
 
     fun getChapterById(id: String): GuideChapter? =
-        chapters.find { it.id == id } ?: GenderEducationRepository.getChapterById(id)
+        chapters.find { it.id == id }
+            ?: GenderEducationRepository.getChapterById(id)
+            ?: if (id == UltimateEditionRepository.getIntroChapter().id) {
+                UltimateEditionRepository.getIntroChapter()
+            } else null
 
     private val chapters = listOf(
         GuideChapter(

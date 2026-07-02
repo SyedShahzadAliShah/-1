@@ -4,13 +4,19 @@ Bilingual (English & Urdu) couples sex-education app with embedded diagram pictu
 
 ## Download
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+**Latest (v4.0.0)** — How to Satisfy Your Wife Ultimate Edition (30 moves from attached guide):
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+Build locally with `./gradlew assembleDebug` after setting `ANDROID_HOME`.
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+Previous: **v3.2.1** — man/woman posture roles + sex education for him & her
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+## v4.0.0 — Wife Ultimate Edition
+
+- **New:** "How to Satisfy Your Wife — Ultimate Edition" section with intro chapter + 30 moves adapted from the attached PDF guide
+- **Moves include:** Coital Alignment (CAT), Zen Hero, Bucking Bronco, Call of the Wild, Bedtime Stories, Oh My Goddess, Splash, The Grand Finale, and 22 more
+- **Each move:** bilingual EN/UR, step-by-step instructions, man/woman roles, educational illustrations
+- **PDF export & voice narration** include the full Ultimate Edition section
+- **Browse by category:** new "Ultimate Edition" filter in posture categories
 
 ## v3.2.1
 
@@ -37,4 +43,4 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+## Version 4.0.0

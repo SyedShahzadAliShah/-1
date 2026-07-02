@@ -789,6 +789,21 @@ def gen_guide_cover():
     save("pic_guide_cover", img)
 
 
+def gen_ultimate_cover():
+    img, draw = new_canvas("Satisfy Your Wife — Ultimate Edition")
+    draw.rectangle((60, 80, W - 60, 200), fill=(55, 35, 65), outline=SECONDARY, width=2)
+    draw.text((W // 2 - 220, 110), "How to Satisfy Your Wife", fill=(255, 248, 240))
+    draw.text((W // 2 - 120, 145), "Ultimate Edition", fill=(255, 200, 180))
+    draw.text((W // 2 - 80, 175), "30 Spectacular Moves", fill=SECONDARY)
+    bed(draw, 400)
+    draw_figure_simple(draw, seated(380, 340, 0.9), SKIN_A, show_pelvis=False)
+    draw_figure_simple(draw, seated(580, 340, 0.9), SKIN_B, show_pelvis=False)
+    for x in range(200, 760, 60):
+        draw.polygon([(x, 250), (x + 15, 230), (x + 30, 250)], fill=(255, 220, 150))
+    title_label(draw, "Ultimate Edition")
+    save("pic_ultimate_cover", img)
+
+
 # --- Imagination postures ---
 
 def gen_imagine_breath():
@@ -881,6 +896,7 @@ if __name__ == "__main__":
     gen_chapter_comfort()
     gen_chapter_explore()
     gen_guide_cover()
+    gen_ultimate_cover()
     gen_imagine_breath()
     gen_imagine_candlelight()
     gen_imagine_embrace()

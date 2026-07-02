@@ -40,6 +40,7 @@ import com.couplesguide.postures.data.GenderEducationRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.UltimateEditionRepository
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -73,6 +74,7 @@ object PdfExporter {
         try {
             var pageNumber = 1
             pageNumber = writeTitlePage(context, document, language, pageNumber)
+            pageNumber = writeUltimateEditionSection(context, document, language, pageNumber)
             pageNumber = writeChapters(context, document, language, pageNumber)
             pageNumber = writeGenderEducationSection(
                 context, document, language, pageNumber,
@@ -308,6 +310,44 @@ object PdfExporter {
                 writer.space(4f)
             }
             pageNumber = writer.finish()
+        }
+        return pageNumber
+    }
+
+    private fun writeUltimateEditionSection(
+        context: Context,
+        document: PdfDocument,
+        language: String,
+        startPage: Int
+    ): Int {
+        var pageNumber = startPage
+        pageNumber = writeSectionDivider(
+            context, document, language, pageNumber,
+            context.getString(R.string.ultimate_edition)
+        )
+        val intro = UltimateEditionRepository.getIntroChapter()
+        val introContent = intro.content(language)
+        val introWriter = PageWriter(context, document, language, pageNumber)
+        introWriter.drawImage(intro.illustrationRes, 280, 160)
+        introWriter.drawHeading(introContent.title)
+        introWriter.drawBody(introContent.summary)
+        introWriter.space(8f)
+        introWriter.drawBody(introContent.body)
+        introWriter.space(8f)
+        val pointsHeader = if (language == LocaleHelper.LANG_UR) "اہم نکات:" else "Key Points:"
+        introWriter.drawSection(pointsHeader)
+        for (point in introContent.keyPoints) {
+            val line = if (language == LocaleHelper.LANG_UR) {
+                UrduPdfText.bulletItem(point)
+            } else {
+                "• $point"
+            }
+            introWriter.drawBody(line)
+            introWriter.space(4f)
+        }
+        pageNumber = introWriter.finish()
+        for (posture in PostureRepository.getUltimateEditionMoves()) {
+            pageNumber = writePosturePages(context, document, posture, language, pageNumber)
         }
         return pageNumber
     }

@@ -6,6 +6,7 @@ import com.couplesguide.postures.data.GenderEducationRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.UltimateEditionRepository
 
 object NarrationBuilder {
 
@@ -20,6 +21,13 @@ object NarrationBuilder {
 
     fun buildMainGuideNarration(context: Context, language: String): String {
         val sb = StringBuilder(buildWelcomeNarration(context, language))
+        sb.append(" ").append(sectionLabel(context, R.string.ultimate_edition, language)).append(".")
+        val intro = UltimateEditionRepository.getIntroChapter().content(language)
+        sb.append(" ").append(intro.title).append(". ").append(intro.summary)
+        for (posture in PostureRepository.getUltimateEditionMoves()) {
+            val c = posture.content(language)
+            sb.append(" ").append(c.name).append(". ").append(c.summary)
+        }
         sb.append(" ").append(sectionLabel(context, R.string.guide_chapters, language)).append(".")
         for (chapter in GuideRepository.getChapters()) {
             val c = chapter.content(language)

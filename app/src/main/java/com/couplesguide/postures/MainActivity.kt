@@ -15,6 +15,8 @@ import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.PostureListBuilder
 import com.couplesguide.postures.data.PostureListItem
 import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.UltimateEditionRepository
+import com.couplesguide.postures.data.PostureRepository
 import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.CategoryAdapter
 import com.couplesguide.postures.ui.ChapterAdapter
@@ -37,7 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chapterAdapter: ChapterAdapter
     private lateinit var forHimAdapter: ChapterAdapter
     private lateinit var forHerAdapter: ChapterAdapter
-    private lateinit var imaginationAdapter: PostureAdapter
+    private lateinit var ultimateAdapter: PostureAdapter
+    private lateinit var ultimateIntroAdapter: ChapterAdapter
     private var categoryAdapter: CategoryAdapter? = null
     private var selectedCategory = PostureRepository.CAT_ALL
     private var language = LocaleHelper.LANG_EN
@@ -66,6 +69,18 @@ class MainActivity : AppCompatActivity() {
             },
             onLanguageIssue = { message -> showVoiceMessage(message) }
         )
+
+        ultimateAdapter = PostureAdapter(language) { posture ->
+            startActivity(Intent(this, PostureDetailActivity::class.java).apply {
+                putExtra(PostureDetailActivity.EXTRA_POSTURE_ID, posture.id)
+            })
+        }
+
+        ultimateIntroAdapter = ChapterAdapter(language) { chapter ->
+            startActivity(Intent(this, ChapterDetailActivity::class.java).apply {
+                putExtra(ChapterDetailActivity.EXTRA_CHAPTER_ID, chapter.id)
+            })
+        }
 
         imaginationAdapter = PostureAdapter(language) { posture ->
             startActivity(Intent(this, PostureDetailActivity::class.java).apply {
@@ -101,6 +116,18 @@ class MainActivity : AppCompatActivity() {
         binding.postureList.adapter = postureAdapter
         RecyclerViewHelper.setupNestedList(binding.postureList)
 
+        RecyclerViewHelper.setupNestedList(binding.ultimateIntroList)
+        binding.ultimateIntroList.adapter = ultimateIntroAdapter
+        ultimateIntroAdapter.submitList(listOf(UltimateEditionRepository.getIntroChapter()))
+        binding.ultimateIntroList.post { binding.ultimateIntroList.requestLayout() }
+
+        RecyclerViewHelper.setupNestedList(binding.ultimateList)
+        binding.ultimateList.adapter = ultimateAdapter
+        ultimateAdapter.submitList(
+            PostureRepository.getUltimateEditionMoves().map { PostureListItem.PostureEntry(it) }
+        )
+        binding.ultimateList.post { binding.ultimateList.requestLayout() }
+
         RecyclerViewHelper.setupNestedList(binding.chapterList)
         binding.chapterList.adapter = chapterAdapter
         chapterAdapter.submitList(GuideRepository.getChapters())
@@ -130,15 +157,21 @@ class MainActivity : AppCompatActivity() {
             binding.guideCoverImage,
             R.drawable.pic_guide_cover
         )
+        AnimatedIllustrationHelper.bind(
+            binding.ultimateCoverImage,
+            R.drawable.pic_ultimate_cover
+        )
     }
 
     override fun onResume() {
         super.onResume()
         AnimatedIllustrationHelper.start(binding.guideCoverImage)
+        AnimatedIllustrationHelper.start(binding.ultimateCoverImage)
     }
 
     override fun onPause() {
         AnimatedIllustrationHelper.stop(binding.guideCoverImage)
+        AnimatedIllustrationHelper.stop(binding.ultimateCoverImage)
         super.onPause()
     }
 

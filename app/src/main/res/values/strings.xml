@@ -50,5 +50,8 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="ultimate_edition">How to Satisfy Your Wife — Ultimate Edition</string>
+    <string name="ultimate_edition_hint">30 spectacular moves from the attached guide — bilingual, illustrated, with man/woman roles.</string>
+    <string name="ultimate_moves">Ultimate Edition Moves</string>
+    <string name="version_badge">Version %1$s — Wife Ultimate Edition (30 moves)</string>
 </resources>

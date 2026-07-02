@@ -9,11 +9,12 @@ object PostureRepository {
     const val CAT_SIDE = "side_by_side"
     const val CAT_REAR = "rear_entry"
     const val CAT_STANDING = "standing_seated"
+    const val CAT_ULTIMATE = "ultimate_edition"
     const val CAT_IMAGINATION = "imagination"
     const val CAT_VARIATIONS = "variations"
 
     fun getCategoryIds(): List<String> = listOf(
-        CAT_ALL, CAT_FACE, CAT_SIDE, CAT_REAR, CAT_STANDING, CAT_VARIATIONS, CAT_IMAGINATION
+        CAT_ALL, CAT_ULTIMATE, CAT_FACE, CAT_SIDE, CAT_REAR, CAT_STANDING, CAT_VARIATIONS, CAT_IMAGINATION
     )
 
     fun getCategoryLabel(categoryId: String, language: String): String {
@@ -23,6 +24,7 @@ object PostureRepository {
 
     private val categoryLabels = mapOf(
         CAT_ALL to ("All" to "سب"),
+        CAT_ULTIMATE to ("Ultimate Edition" to "الٹیمیٹ ایڈیشن"),
         CAT_FACE to ("Face to Face" to "آمنے سامنے"),
         CAT_SIDE to ("Side by Side" to "ساتھ ساتھ"),
         CAT_REAR to ("Rear Entry" to "پیچھے سے"),
@@ -445,9 +447,11 @@ object PostureRepository {
     }
 
     fun getAllPostures(): List<Posture> =
-        postures + ImaginationPostureRepository.getImaginationPostures()
+        postures + UltimateEditionRepository.getMoves() + ImaginationPostureRepository.getImaginationPostures()
 
     fun getPhysicalPostures(): List<Posture> = postures
+
+    fun getUltimateEditionMoves(): List<Posture> = UltimateEditionRepository.getMoves()
 
     fun getImaginationPostures(): List<Posture> =
         ImaginationPostureRepository.getImaginationPostures()

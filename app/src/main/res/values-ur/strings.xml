@@ -50,5 +50,8 @@
     <string name="womans_role">عورت کا کردار</string>
     <string name="position_label">پوزیشن</string>
     <string name="guidance_label">رہنمائی</string>
-    <string name="version_badge">ورژن %1$s — مرد/عورت کردار + اس کے لیے اور اس کے لیے جنسی تعلیم</string>
+    <string name="ultimate_edition">بیوی کو کیسے خوش کریں — الٹیمیٹ ایڈیشن</string>
+    <string name="ultimate_edition_hint">منسلکہ گائیڈ کی 30 شاندار حرکیں — دو لسانی، تصویری، مرد/عورت کردار کے ساتھ۔</string>
+    <string name="ultimate_moves">الٹیمیٹ ایڈیشن حرکیں</string>
+    <string name="version_badge">ورژن %1$s — بیوی الٹیمیٹ ایڈیشن (30 حرکیں)</string>
 </resources>
