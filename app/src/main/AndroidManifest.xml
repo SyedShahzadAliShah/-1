@@ -14,11 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntimacyGuide">
         <activity
-            android:name=".ChapterDetailActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".PostureDetailActivity"
+            android:name=".LessonDetailActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
