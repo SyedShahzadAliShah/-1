@@ -26,7 +26,7 @@ class PostureDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPostureDetailBinding
     private lateinit var posture: Posture
-    private var language = LocaleHelper.LANG_EN
+    private val language = LocaleHelper.LANG_UR
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
@@ -40,7 +40,6 @@ class PostureDetailActivity : AppCompatActivity() {
         binding = ActivityPostureDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        language = LocaleHelper.getLanguage(this)
         val postureId = intent.getStringExtra(EXTRA_POSTURE_ID)
         val found = postureId?.let { PostureRepository.getPostureById(it) }
 
@@ -78,7 +77,7 @@ class PostureDetailActivity : AppCompatActivity() {
     }
 
     private fun bindContent() {
-        val content = posture.content(language)
+        val content = posture.urdu
         supportActionBar?.title = content.name
         AnimatedIllustrationHelper.bind(binding.illustration, posture.illustrationRes)
         binding.postureName.text = content.name

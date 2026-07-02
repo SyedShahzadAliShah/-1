@@ -11,3 +11,4 @@ captures/
 *.apk
 !releases/*.apk
 *.aab
+extracted_pdf_pages/

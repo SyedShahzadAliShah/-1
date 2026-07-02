@@ -2,97 +2,57 @@ package com.couplesguide.postures.util
 
 import android.content.Context
 import com.couplesguide.postures.R
-import com.couplesguide.postures.data.GenderEducationRepository
-import com.couplesguide.postures.data.GuideRepository
+import com.couplesguide.postures.data.BookIntroRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.SpectacularMovesRepository
 
 object NarrationBuilder {
 
-    fun buildWelcomeNarration(
-        context: Context,
-        @Suppress("UNUSED_PARAMETER") language: String
-    ): String {
-        val title = context.getString(R.string.welcome_title)
-        val message = context.getString(R.string.welcome_message)
-        return "$title. $message"
+    fun buildWelcomeNarration(context: Context, @Suppress("UNUSED_PARAMETER") language: String): String {
+        val intro = BookIntroRepository.getIntroChapter().urdu
+        return "${intro.title}. ${intro.summary}. ${intro.body}"
     }
 
-    fun buildMainGuideNarration(context: Context, language: String): String {
-        val sb = StringBuilder(buildWelcomeNarration(context, language))
-        sb.append(" ").append(sectionLabel(context, R.string.guide_chapters, language)).append(".")
-        for (chapter in GuideRepository.getChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.sex_education_for_him, language)).append(".")
-        for (chapter in GenderEducationRepository.getForHimChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.sex_education_for_her, language)).append(".")
-        for (chapter in GenderEducationRepository.getForHerChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.imagination_postures, language)).append(".")
-        for (posture in PostureRepository.getImaginationPostures()) {
-            val c = posture.content(language)
+    fun buildMainGuideNarration(context: Context, @Suppress("UNUSED_PARAMETER") language: String): String {
+        val sb = StringBuilder(buildWelcomeNarration(context, LocaleHelper.LANG_UR))
+        sb.append(" ").append(context.getString(R.string.all_postures)).append(".")
+        for (posture in PostureRepository.getAllPostures()) {
+            val c = posture.urdu
             sb.append(" ").append(c.name).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.all_postures, language)).append(".")
-        for (posture in PostureRepository.getPhysicalPostures()) {
-            val c = posture.content(language)
-            sb.append(" ").append(c.name).append(". ").append(c.summary)
+                .append(". ").append(c.description)
+            c.steps.forEachIndexed { i, step ->
+                sb.append(" قدم ").append(i + 1).append("۔ ").append(step)
+            }
         }
         return sb.toString()
     }
 
-    fun buildChapterNarration(chapterId: String, language: String): String {
-        val chapter = GuideRepository.getChapterById(chapterId) ?: return ""
-        val content = chapter.content(language)
+    fun buildChapterNarration(chapterId: String, @Suppress("UNUSED_PARAMETER") language: String): String {
+        if (chapterId != BookIntroRepository.getIntroChapter().id) return ""
+        val content = BookIntroRepository.getIntroChapter().urdu
         val points = content.keyPoints.joinToString(". ")
         return "${content.title}. ${content.summary}. ${content.body}. $points"
     }
 
-    fun buildPostureNarration(context: Context, posture: Posture, language: String): String {
-        val content = posture.content(language)
-        val stepsPrefix = if (posture.isImagination) {
-            context.getString(R.string.imagination_exercise)
-        } else {
-            context.getString(R.string.how_to)
-        }
-        val tipsLabel = context.getString(R.string.tips)
+    fun buildPostureNarration(context: Context, posture: Posture, @Suppress("UNUSED_PARAMETER") language: String): String {
+        val content = posture.urdu
         val steps = content.steps.mapIndexed { i, s ->
-            "${stepLabel(context, i + 1, language)} $s"
+            "${context.getString(R.string.step_label_ur, i + 1)} $s"
         }.joinToString(". ")
         val tips = content.tips.joinToString(". ")
-        val sb = StringBuilder(
-            "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
-        )
-        if (!posture.isImagination) {
-            val manLabel = context.getString(R.string.mans_role)
-            val womanLabel = context.getString(R.string.womans_role)
-            content.forMan?.let { man ->
-                val guidance = man.guidance.joinToString(". ")
-                sb.append(" $manLabel. ${man.position}. $guidance")
-            }
-            content.forWoman?.let { woman ->
-                val guidance = woman.guidance.joinToString(". ")
-                sb.append(" $womanLabel. ${woman.position}. $guidance")
-            }
-        }
-        return sb.toString()
+        return "${content.name}. ${content.summary}. ${content.description}. " +
+            "${context.getString(R.string.how_to)}. $steps. ${context.getString(R.string.tips)}. $tips"
     }
 
-    private fun sectionLabel(context: Context, resId: Int, @Suppress("UNUSED_PARAMETER") language: String): String =
-        context.getString(resId)
-
-    private fun stepLabel(context: Context, number: Int, language: String): String {
-        return if (language == LocaleHelper.LANG_UR) {
-            context.getString(R.string.step_label_ur, number)
-        } else {
-            context.getString(R.string.step_label_en, number)
+    fun buildCategoryNarration(categoryId: String): String {
+        if (categoryId == PostureRepository.CAT_ALL) return ""
+        val label = SpectacularMovesRepository.getCategoryLabel(categoryId)
+        val moves = SpectacularMovesRepository.getMovesByCategory(categoryId)
+        val sb = StringBuilder("$label۔")
+        for (move in moves) {
+            sb.append(" ").append(move.urdu.name).append(". ").append(move.urdu.summary)
         }
+        return sb.toString()
     }
 }

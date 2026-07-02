@@ -5,8 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.couplesguide.postures.data.BookIntroRepository
 import com.couplesguide.postures.data.GuideChapter
-import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.databinding.ActivityChapterDetailBinding
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
@@ -21,7 +21,7 @@ class ChapterDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChapterDetailBinding
     private lateinit var chapter: GuideChapter
-    private var language = LocaleHelper.LANG_EN
+    private val language = LocaleHelper.LANG_UR
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
@@ -35,9 +35,11 @@ class ChapterDetailActivity : AppCompatActivity() {
         binding = ActivityChapterDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        language = LocaleHelper.getLanguage(this)
         val chapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
-        val found = chapterId?.let { GuideRepository.getChapterById(it) }
+        val found = when (chapterId) {
+            BookIntroRepository.getIntroChapter().id -> BookIntroRepository.getIntroChapter()
+            else -> null
+        }
 
         if (found == null) {
             finish()
@@ -73,7 +75,7 @@ class ChapterDetailActivity : AppCompatActivity() {
     }
 
     private fun bindContent() {
-        val content = chapter.content(language)
+        val content = chapter.urdu
         supportActionBar?.title = content.title
         AnimatedIllustrationHelper.bind(binding.illustration, chapter.illustrationRes)
         binding.chapterTitle.text = content.title
