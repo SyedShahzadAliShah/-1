@@ -17,7 +17,7 @@ object EducationalInsertRepository {
     private val inserts = listOf(
         EducationalInsert(
             id = "edu_face_contact",
-            afterCategoryId = PostureRepository.CAT_FACE,
+            afterCategoryId = SpectacularMovesRepository.CAT_HES_ON_TOP,
             illustrationRes = R.drawable.pic_edu_face_contact,
             englishTitle = "Face-to-Face Education",
             urduTitle = "آمنے سامنے تعلیم",
@@ -26,7 +26,7 @@ object EducationalInsertRepository {
         ),
         EducationalInsert(
             id = "edu_side_alignment",
-            afterCategoryId = PostureRepository.CAT_SIDE,
+            afterCategoryId = SpectacularMovesRepository.CAT_SIDE,
             illustrationRes = R.drawable.pic_edu_side_alignment,
             englishTitle = "Side-by-Side Alignment",
             urduTitle = "ساتھ ساتھ ہم آہنگی",
@@ -35,7 +35,7 @@ object EducationalInsertRepository {
         ),
         EducationalInsert(
             id = "edu_rear_safety",
-            afterCategoryId = PostureRepository.CAT_REAR,
+            afterCategoryId = SpectacularMovesRepository.CAT_REAR,
             illustrationRes = R.drawable.pic_edu_rear_safety,
             englishTitle = "Rear Entry Comfort",
             urduTitle = "پیچھے سے آرام",
@@ -44,7 +44,7 @@ object EducationalInsertRepository {
         ),
         EducationalInsert(
             id = "edu_hip_pillow",
-            afterCategoryId = PostureRepository.CAT_STANDING,
+            afterCategoryId = SpectacularMovesRepository.CAT_STANDING,
             illustrationRes = R.drawable.pic_edu_hip_pillow,
             englishTitle = "Hip Support Guide",
             urduTitle = "کولہے کی سہارا گائیڈ",
@@ -53,7 +53,7 @@ object EducationalInsertRepository {
         ),
         EducationalInsert(
             id = "edu_body_map",
-            afterCategoryId = PostureRepository.CAT_VARIATIONS,
+            afterCategoryId = SpectacularMovesRepository.CAT_ORGASM,
             illustrationRes = R.drawable.pic_edu_body_map,
             englishTitle = "Know Your Body",
             urduTitle = "اپنے جسم کو جانیں",
