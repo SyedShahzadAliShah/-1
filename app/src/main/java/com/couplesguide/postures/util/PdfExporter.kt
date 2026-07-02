@@ -46,19 +46,33 @@ import java.io.FileOutputStream
 
 object PdfExporter {
 
-    private const val PAGE_WIDTH = 595   // A4 width in points (72 dpi)
-    private const val PAGE_HEIGHT = 842  // A4 height in points
+    private const val PAGE_WIDTH_A4 = 595    // A4 width in points (72 dpi)
+    private const val PAGE_HEIGHT_A4 = 842   // A4 height in points
+    private const val PAGE_WIDTH_LEGAL = 612  // US Legal 8.5" width in points
+    private const val PAGE_HEIGHT_LEGAL = 1008 // US Legal 14" height in points
     private const val MARGIN = 54f
     private const val TOP_MARGIN = 54f
     private const val BOTTOM_MARGIN = 54f
-    private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
+    private const val RTL_EDGE_PADDING = 8f  // inset for Arabic glyph overhang on visual right edge
     private const val IMAGE_HEIGHT = 150f
     private const val DOWNLOADS_FOLDER = "IntimacyGuide"
+    private const val MIN_SHRINK_SCALE = 0.55f
 
     data class ExportResult(
         val file: File,
-        val displayName: String
+        val displayName: String,
+        val pageWidth: Int = PAGE_WIDTH_A4,
+        val pageHeight: Int = PAGE_HEIGHT_A4
     )
+
+    private fun pageSizeFor(language: String): Pair<Int, Int> =
+        if (language == LocaleHelper.LANG_UR) {
+            PAGE_WIDTH_LEGAL to PAGE_HEIGHT_LEGAL
+        } else {
+            PAGE_WIDTH_A4 to PAGE_HEIGHT_A4
+        }
+
+    private fun contentWidth(pageWidth: Int) = pageWidth - MARGIN * 2
 
     fun exportFullGuide(context: Context, language: String): ExportResult {
         val displayName = if (language == LocaleHelper.LANG_UR) {
@@ -66,46 +80,52 @@ object PdfExporter {
         } else {
             "intimacy_handbook_english.pdf"
         }
+        val (pageWidth, pageHeight) = pageSizeFor(language)
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
 
         val document = PdfDocument()
         try {
             var pageNumber = 1
-            pageNumber = writeTitlePage(context, document, language, pageNumber)
-            pageNumber = writeChapters(context, document, language, pageNumber)
+            pageNumber = writeTitlePage(context, document, language, pageNumber, pageWidth, pageHeight)
+            pageNumber = writeChapters(context, document, language, pageNumber, pageWidth, pageHeight)
             pageNumber = writeGenderEducationSection(
-                context, document, language, pageNumber,
+                context, document, language, pageNumber, pageWidth, pageHeight,
                 context.getString(R.string.sex_education_for_him),
                 GenderEducationRepository.getForHimChapters()
             )
             pageNumber = writeGenderEducationSection(
-                context, document, language, pageNumber,
+                context, document, language, pageNumber, pageWidth, pageHeight,
                 context.getString(R.string.sex_education_for_her),
                 GenderEducationRepository.getForHerChapters()
             )
-            pageNumber = writeImaginationSection(context, document, language, pageNumber)
-            writePhysicalPosturesWithEducation(context, document, language, pageNumber)
+            pageNumber = writeImaginationSection(context, document, language, pageNumber, pageWidth, pageHeight)
+            writePhysicalPosturesWithEducation(context, document, language, pageNumber, pageWidth, pageHeight)
             FileOutputStream(file).use { document.writeTo(it) }
         } finally {
             document.close()
         }
-        return ExportResult(file, displayName)
+        return ExportResult(file, displayName, pageWidth, pageHeight)
     }
 
     fun exportPosture(context: Context, posture: Posture, language: String): ExportResult {
         val displayName = "${posture.id}_${language}.pdf"
+        val (pageWidth, pageHeight) = pageSizeFor(language)
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
 
         val document = PdfDocument()
         try {
-            writePosturePages(context, document, posture, language, 1)
+            if (language == LocaleHelper.LANG_UR) {
+                writePostureSinglePage(context, document, posture, language, 1, pageWidth, pageHeight)
+            } else {
+                writePosturePages(context, document, posture, language, 1, pageWidth, pageHeight)
+            }
             FileOutputStream(file).use { document.writeTo(it) }
         } finally {
             document.close()
         }
-        return ExportResult(file, displayName)
+        return ExportResult(file, displayName, pageWidth, pageHeight)
     }
 
     fun showExportActions(activity: AppCompatActivity, result: ExportResult) {
@@ -189,13 +209,18 @@ object PdfExporter {
         if (!result.file.exists() || result.file.length() == 0L) {
             throw IllegalStateException("PDF file is missing or empty")
         }
+        val mediaSize = if (result.pageHeight > PAGE_HEIGHT_A4) {
+            PrintAttributes.MediaSize.NA_LEGAL
+        } else {
+            PrintAttributes.MediaSize.ISO_A4
+        }
         val printManager = activity.getSystemService(Context.PRINT_SERVICE) as PrintManager
         val adapter = PdfPrintDocumentAdapter(result.file, result.displayName)
         printManager.print(
             result.displayName,
             adapter,
             PrintAttributes.Builder()
-                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                .setMediaSize(mediaSize)
                 .setResolution(PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                 .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                 .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
@@ -252,9 +277,11 @@ object PdfExporter {
         context: Context,
         document: PdfDocument,
         language: String,
-        pageNumber: Int
+        pageNumber: Int,
+        pageWidth: Int,
+        pageHeight: Int
     ): Int {
-        val writer = PageWriter(context, document, language, pageNumber)
+        val writer = PageWriter(context, document, language, pageNumber, pageWidth, pageHeight)
         val isRtl = language == LocaleHelper.LANG_UR
 
         val title = if (isRtl) "مکمل قربت کی ہینڈ بک" else "Ultimate Intimacy Handbook"
@@ -284,12 +311,14 @@ object PdfExporter {
         context: Context,
         document: PdfDocument,
         language: String,
-        startPage: Int
+        startPage: Int,
+        pageWidth: Int,
+        pageHeight: Int
     ): Int {
         var pageNumber = startPage
         for (chapter in GuideRepository.getChapters()) {
             val content = chapter.content(language)
-            val writer = PageWriter(context, document, language, pageNumber)
+            val writer = PageWriter(context, document, language, pageNumber, pageWidth, pageHeight)
             writer.drawImage(chapter.illustrationRes, 280, 160)
             writer.drawHeading(content.title)
             writer.drawBody(content.summary)
@@ -317,14 +346,18 @@ object PdfExporter {
         document: PdfDocument,
         language: String,
         startPage: Int,
+        pageWidth: Int,
+        pageHeight: Int,
         sectionTitle: String,
         chapters: List<com.couplesguide.postures.data.GuideChapter>
     ): Int {
         var pageNumber = startPage
-        pageNumber = writeSectionDivider(context, document, language, pageNumber, sectionTitle)
+        pageNumber = writeSectionDivider(
+            context, document, language, pageNumber, pageWidth, pageHeight, sectionTitle
+        )
         for (chapter in chapters) {
             val content = chapter.content(language)
-            val writer = PageWriter(context, document, language, pageNumber)
+            val writer = PageWriter(context, document, language, pageNumber, pageWidth, pageHeight)
             writer.drawImage(chapter.illustrationRes, 280, 160)
             writer.drawHeading(content.title)
             writer.drawBody(content.summary)
@@ -351,18 +384,28 @@ object PdfExporter {
         context: Context,
         document: PdfDocument,
         language: String,
-        startPage: Int
+        startPage: Int,
+        pageWidth: Int,
+        pageHeight: Int
     ): Int {
         var pageNumber = startPage
         pageNumber = writeSectionDivider(
-            context, document, language, pageNumber,
+            context, document, language, pageNumber, pageWidth, pageHeight,
             context.getString(R.string.imagination_postures)
         )
         for (posture in PostureRepository.getImaginationPostures()) {
-            pageNumber = writePosturePages(context, document, posture, language, pageNumber)
+            pageNumber = if (language == LocaleHelper.LANG_UR) {
+                writePostureSinglePage(
+                    context, document, posture, language, pageNumber, pageWidth, pageHeight
+                )
+            } else {
+                writePosturePages(
+                    context, document, posture, language, pageNumber, pageWidth, pageHeight
+                )
+            }
         }
         pageNumber = writeSectionDivider(
-            context, document, language, pageNumber,
+            context, document, language, pageNumber, pageWidth, pageHeight,
             context.getString(R.string.all_postures)
         )
         return pageNumber
@@ -372,7 +415,9 @@ object PdfExporter {
         context: Context,
         document: PdfDocument,
         language: String,
-        startPage: Int
+        startPage: Int,
+        pageWidth: Int,
+        pageHeight: Int
     ): Int {
         var pageNumber = startPage
         val categoryOrder = listOf(
@@ -390,18 +435,30 @@ object PdfExporter {
             if (group.isEmpty()) continue
             lastCategory?.let { previous ->
                 EducationalInsertRepository.getInsertAfterCategory(previous)?.let { insert ->
-                    pageNumber = writeEducationalPage(context, document, insert, language, pageNumber)
+                    pageNumber = writeEducationalPage(
+                        context, document, insert, language, pageNumber, pageWidth, pageHeight
+                    )
                 }
             }
             for (posture in group) {
-                pageNumber = writePosturePages(context, document, posture, language, pageNumber)
+                pageNumber = if (language == LocaleHelper.LANG_UR) {
+                    writePostureSinglePage(
+                        context, document, posture, language, pageNumber, pageWidth, pageHeight
+                    )
+                } else {
+                    writePosturePages(
+                        context, document, posture, language, pageNumber, pageWidth, pageHeight
+                    )
+                }
             }
             lastCategory = categoryId
         }
 
         lastCategory?.let { categoryId ->
             EducationalInsertRepository.getInsertAfterCategory(categoryId)?.let { insert ->
-                pageNumber = writeEducationalPage(context, document, insert, language, pageNumber)
+                pageNumber = writeEducationalPage(
+                    context, document, insert, language, pageNumber, pageWidth, pageHeight
+                )
             }
         }
         return pageNumber
@@ -412,9 +469,11 @@ object PdfExporter {
         document: PdfDocument,
         insert: EducationalInsert,
         language: String,
-        pageNumber: Int
+        pageNumber: Int,
+        pageWidth: Int,
+        pageHeight: Int
     ): Int {
-        val writer = PageWriter(context, document, language, pageNumber)
+        val writer = PageWriter(context, document, language, pageNumber, pageWidth, pageHeight)
         val isUrdu = language == LocaleHelper.LANG_UR
         val eduLabel = if (isUrdu) "جنسی تعلیم" else "Sex Education"
         writer.drawSection(eduLabel)
@@ -429,24 +488,57 @@ object PdfExporter {
         document: PdfDocument,
         language: String,
         pageNumber: Int,
+        pageWidth: Int,
+        pageHeight: Int,
         title: String
     ): Int {
-        val writer = PageWriter(context, document, language, pageNumber)
-        writer.y = PAGE_HEIGHT / 2f - 24f
+        val writer = PageWriter(context, document, language, pageNumber, pageWidth, pageHeight)
+        writer.y = pageHeight / 2f - 24f
         writer.drawTitleCentered(title, 24f)
         return writer.finish()
     }
 
-    private fun writePosturePages(
+    private fun writePostureSinglePage(
         context: Context,
         document: PdfDocument,
         posture: Posture,
         language: String,
-        startPage: Int
+        startPage: Int,
+        pageWidth: Int,
+        pageHeight: Int
     ): Int {
+        val measurer = PageWriter(
+            context = context,
+            document = document,
+            language = language,
+            startPage = startPage,
+            pageWidth = pageWidth,
+            pageHeight = pageHeight,
+            allowPagination = false,
+            dryRun = true
+        )
+        drawPostureContent(measurer, posture, language)
+        val contentHeight = measurer.y - measurer.contentOriginY
+        val availableHeight = pageHeight - TOP_MARGIN - BOTTOM_MARGIN
+        val scale = (availableHeight / contentHeight).coerceIn(MIN_SHRINK_SCALE, 1f)
+
+        val writer = PageWriter(
+            context = context,
+            document = document,
+            language = language,
+            startPage = startPage,
+            pageWidth = pageWidth,
+            pageHeight = pageHeight,
+            allowPagination = false,
+            contentScale = scale
+        )
+        drawPostureContent(writer, posture, language)
+        return writer.finish()
+    }
+
+    private fun drawPostureContent(writer: PageWriter, posture: Posture, language: String) {
         val content = posture.content(language)
         val isRtl = language == LocaleHelper.LANG_UR
-        val writer = PageWriter(context, document, language, startPage)
 
         writer.drawImage(posture.illustrationRes, 340, IMAGE_HEIGHT.toInt())
         writer.drawHeading(content.name)
@@ -523,6 +615,19 @@ object PdfExporter {
                 }
             }
         }
+    }
+
+    private fun writePosturePages(
+        context: Context,
+        document: PdfDocument,
+        posture: Posture,
+        language: String,
+        startPage: Int,
+        pageWidth: Int,
+        pageHeight: Int
+    ): Int {
+        val writer = PageWriter(context, document, language, startPage, pageWidth, pageHeight)
+        drawPostureContent(writer, posture, language)
         return writer.finish()
     }
 
@@ -530,30 +635,39 @@ object PdfExporter {
         private val context: Context,
         private val document: PdfDocument,
         private val language: String,
-        startPage: Int
+        startPage: Int,
+        private val pageWidth: Int,
+        private val pageHeight: Int,
+        private val allowPagination: Boolean = true,
+        private val dryRun: Boolean = false,
+        private val contentScale: Float = 1f
     ) {
         private val isRtl = language == LocaleHelper.LANG_UR
-        private val textWidth = CONTENT_WIDTH.toInt()
+        private val contentAreaWidth = contentWidth(pageWidth)
+        private val rtlPad = if (isRtl) RTL_EDGE_PADDING else 0f
+        private val textWidth = (contentAreaWidth - rtlPad * 2f).toInt()
+        private val useLogicalCoords = contentScale < 1f
         private var pageNumber = startPage
         private var displayPageNumber = startPage
         private lateinit var page: PdfDocument.Page
         private lateinit var canvas: Canvas
-        var y = TOP_MARGIN
+        private var scaledCanvasActive = false
+        var y = if (useLogicalCoords) 0f else TOP_MARGIN
+        val contentOriginY get() = if (useLogicalCoords) 0f else TOP_MARGIN
 
         private val regularTypeface: Typeface = loadTypeface(false)
         private val boldTypeface: Typeface = loadTypeface(true)
 
         init {
-            newPage()
+            if (!dryRun) {
+                newPage()
+            }
         }
 
         private fun loadTypeface(bold: Boolean): Typeface {
             if (!isRtl) {
                 return Typeface.create(Typeface.DEFAULT, if (bold) Typeface.BOLD else Typeface.NORMAL)
             }
-            // Only Regular is available in assets; using faux-bold on Naskh
-            // distorts Arabic letterforms, so we use Regular for all Urdu text
-            // and compensate with larger font sizes for headings.
             return try {
                 Typeface.createFromAsset(context.assets, "fonts/NotoNaskhArabic-Regular.ttf")
             } catch (_: Exception) {
@@ -564,32 +678,59 @@ object PdfExporter {
         private fun prepareText(text: String): String =
             if (isRtl) UrduPdfText.normalize(text) else text
 
+        private fun textX(): Float = if (useLogicalCoords) rtlPad else MARGIN + rtlPad
+
+        private fun imageLeft(drawWidth: Int): Float {
+            val areaWidth = if (useLogicalCoords) contentAreaWidth else contentAreaWidth
+            val origin = if (useLogicalCoords) 0f else MARGIN
+            return origin + (areaWidth - drawWidth) / 2f
+        }
+
         private fun newPage() {
             if (::page.isInitialized) {
+                finishScaledCanvas()
                 drawPageFooter()
                 document.finishPage(page)
             }
-            val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber)
+            val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber)
                 .setContentRect(
                     android.graphics.Rect(
                         MARGIN.toInt(),
                         TOP_MARGIN.toInt(),
-                        (PAGE_WIDTH - MARGIN).toInt(),
-                        (PAGE_HEIGHT - BOTTOM_MARGIN).toInt()
+                        (pageWidth - MARGIN).toInt(),
+                        (pageHeight - BOTTOM_MARGIN).toInt()
                     )
                 )
                 .create()
             page = document.startPage(pageInfo)
             canvas = page.canvas
-            displayPageNumber = pageNumber  // record BEFORE incrementing
+            displayPageNumber = pageNumber
             pageNumber++
-            y = TOP_MARGIN
+            y = if (useLogicalCoords) 0f else TOP_MARGIN
+            beginScaledCanvas()
+        }
+
+        private fun beginScaledCanvas() {
+            if (contentScale < 1f) {
+                canvas.save()
+                canvas.translate(MARGIN, TOP_MARGIN)
+                canvas.scale(contentScale, contentScale)
+                scaledCanvasActive = true
+            }
+        }
+
+        private fun finishScaledCanvas() {
+            if (scaledCanvasActive) {
+                canvas.restore()
+                scaledCanvasActive = false
+            }
         }
 
         private fun drawPageFooter() {
-            // Draw a thin separator above the footer
-            val sepY = PAGE_HEIGHT - BOTTOM_MARGIN + 4f
-            canvas.drawLine(MARGIN, sepY, PAGE_WIDTH - MARGIN, sepY,
+            if (dryRun) return
+
+            val sepY = pageHeight - BOTTOM_MARGIN + 4f
+            canvas.drawLine(MARGIN, sepY, pageWidth - MARGIN, sepY,
                 Paint().also { it.color = 0xFFD0C0B0.toInt(); it.strokeWidth = 0.5f })
 
             val label = if (isRtl) {
@@ -605,16 +746,23 @@ object PdfExporter {
             }
             canvas.drawText(
                 label,
-                PAGE_WIDTH / 2f,
-                PAGE_HEIGHT - (BOTTOM_MARGIN / 3f),
+                pageWidth / 2f,
+                pageHeight - (BOTTOM_MARGIN / 3f),
                 footerPaint
             )
         }
 
-        private fun availableHeight(): Float = PAGE_HEIGHT - BOTTOM_MARGIN - y
+        private fun availableHeight(): Float {
+            val bottom = if (useLogicalCoords) {
+                (pageHeight - TOP_MARGIN - BOTTOM_MARGIN) / contentScale
+            } else {
+                pageHeight - BOTTOM_MARGIN
+            }
+            return bottom - y
+        }
 
         private fun ensureSpace(needed: Float) {
-            if (needed > availableHeight()) {
+            if (allowPagination && needed > availableHeight()) {
                 newPage()
             }
         }
@@ -623,7 +771,7 @@ object PdfExporter {
             y += amount
         }
 
-        fun drawTitle(text: String, size: Float = if (isRtl) 28f else 28f) {
+        fun drawTitle(text: String, size: Float = 28f) {
             drawTextBlock(text, titlePaint(size), spacingAfter = 14f)
         }
 
@@ -682,31 +830,41 @@ object PdfExporter {
                 y += blockHeight
 
                 startLine = endLine
-                if (startLine < totalLines) {
+                if (startLine < totalLines && allowPagination) {
                     newPage()
                 }
             }
         }
 
         private fun drawLayoutLines(layout: StaticLayout, startLine: Int, endLine: Int) {
+            if (dryRun) return
+
             val top = layout.getLineTop(startLine)
             val bottom = layout.getLineBottom(endLine - 1)
             canvas.save()
-            canvas.translate(MARGIN, y)
-            canvas.clipRect(0f, top.toFloat(), textWidth.toFloat(), bottom.toFloat())
+            canvas.translate(textX(), y)
+            canvas.clipRect(
+                -rtlPad,
+                top.toFloat(),
+                textWidth + rtlPad,
+                bottom.toFloat()
+            )
             canvas.translate(0f, -top.toFloat())
             layout.draw(canvas)
             canvas.restore()
         }
 
         fun drawImage(resId: Int, width: Int, height: Int) {
-            val maxWidth = CONTENT_WIDTH.toInt()
+            val maxWidth = contentAreaWidth.toInt()
             val drawWidth = minOf(width, maxWidth)
             val drawHeight = (height * (drawWidth.toFloat() / width)).toInt()
-            val bitmap = loadBitmap(resId, drawWidth, drawHeight) ?: return
             ensureSpace(drawHeight + 12f)
-            val left = MARGIN + (CONTENT_WIDTH - drawWidth) / 2f
-            canvas.drawBitmap(bitmap, left, y, null)
+            if (dryRun) {
+                y += drawHeight + 12f
+                return
+            }
+            val bitmap = loadBitmap(resId, drawWidth, drawHeight) ?: return
+            canvas.drawBitmap(bitmap, imageLeft(drawWidth), y, null)
             y += drawHeight + 12f
             bitmap.recycle()
         }
@@ -731,7 +889,7 @@ object PdfExporter {
 
         private fun textAlignment(): Layout.Alignment = Layout.Alignment.ALIGN_NORMAL
 
-        @Suppress("WrongConstant") // Layout.BREAK_STRATEGY_* values match LineBreaker.* and work on API 24+
+        @Suppress("WrongConstant")
         private fun buildLayout(
             text: String,
             paint: TextPaint,
@@ -742,7 +900,7 @@ object PdfExporter {
                 .setAlignment(alignment)
                 .setTextDirection(direction)
                 .setLineSpacing(2f, if (isRtl) 1.4f else 1.2f)
-                .setIncludePad(false)
+                .setIncludePad(isRtl)
                 .setBreakStrategy(Layout.BREAK_STRATEGY_HIGH_QUALITY)
                 .setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NONE)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -759,8 +917,11 @@ object PdfExporter {
         }
 
         fun finish(): Int {
-            drawPageFooter()
-            document.finishPage(page)
+            if (!dryRun) {
+                finishScaledCanvas()
+                drawPageFooter()
+                document.finishPage(page)
+            }
             return pageNumber
         }
     }
