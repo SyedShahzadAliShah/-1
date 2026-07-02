@@ -6,21 +6,26 @@
         android:maxSdkVersion="28" />
 
     <application
-        android:name=".IntimacyApp"
+        android:name=".SecCapApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IntimacyGuide">
+        android:theme="@style/Theme.SecCapAdmissions">
         <activity
-            android:name=".ChapterDetailActivity"
+            android:name=".CollegeBrowserActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".PostureDetailActivity"
+            android:name=".GuideActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ApplicationWizardActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

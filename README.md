@@ -1,40 +1,32 @@
-# Intimacy Guide
+# SECCAP Admissions
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Android helper app for **SECCAP** (Sindh Electronic Centralized College Admission Program) — the Government of Sindh's system for 1st-year (Class XI) admissions to government colleges.
 
-## Download
+## Features
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+- **6-step application wizard** — Educational details, personal info, faculty selection, zone & college preferences (up to 5), document checklist, and review
+- **Voice narration (TTS)** — Step-by-step spoken guidance in English and Urdu
+- **PDF export** — Printable application summary and admission guide (open, share, save to Downloads, print)
+- **Bilingual UI** — Full English and Urdu support with RTL layout
+- **College browser** — Explore 15+ government colleges across 7 zones with seat counts and cutoff marks
+- **Draft persistence** — Save and resume your application anytime
+- **Official portal link** — Quick access to [seccap.dgcs.gos.pk](https://seccap.dgcs.gos.pk)
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+## Disclaimer
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+This is a **helper app** for preparing applications offline. Final submission must be done on the official SECCAP portal.
 
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
-export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+Requires Android SDK 34, minSdk 24.
+
+## Tech Stack
+
+- Kotlin, Material Design 3, View Binding
+- ViewPager2 wizard, RecyclerView
+- Android TextToSpeech for voice narration
+- Android PdfDocument API for PDF export (no third-party libraries)
