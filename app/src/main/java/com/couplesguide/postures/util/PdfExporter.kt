@@ -570,14 +570,6 @@ object PdfExporter {
                 document.finishPage(page)
             }
             val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber)
-                .setContentRect(
-                    android.graphics.Rect(
-                        MARGIN.toInt(),
-                        TOP_MARGIN.toInt(),
-                        (PAGE_WIDTH - MARGIN).toInt(),
-                        (PAGE_HEIGHT - BOTTOM_MARGIN).toInt()
-                    )
-                )
                 .create()
             page = document.startPage(pageInfo)
             canvas = page.canvas
