@@ -7,47 +7,6 @@ sealed class PostureListItem {
 
 object PostureListBuilder {
 
-    private val categoryOrder = listOf(
-        PostureRepository.CAT_FACE,
-        PostureRepository.CAT_SIDE,
-        PostureRepository.CAT_REAR,
-        PostureRepository.CAT_STANDING,
-        PostureRepository.CAT_VARIATIONS
-    )
-
-    fun build(postures: List<Posture>, includeEducationalCards: Boolean): List<PostureListItem> {
-        if (!includeEducationalCards) {
-            return postures.map { PostureListItem.PostureEntry(it) }
-        }
-
-        val imagination = postures.filter { it.isImagination }
-        val physical = postures.filter { !it.isImagination }
-        val orderedPhysical = categoryOrder.flatMap { categoryId ->
-            physical.filter { it.categoryId == categoryId }
-        }
-
-        val items = mutableListOf<PostureListItem>()
-        var lastCategory: String? = null
-
-        for (posture in orderedPhysical) {
-            if (lastCategory != null && lastCategory != posture.categoryId) {
-                EducationalInsertRepository.getInsertAfterCategory(lastCategory)?.let { insert ->
-                    items.add(PostureListItem.EducationalCard(insert))
-                }
-            }
-            items.add(PostureListItem.PostureEntry(posture))
-            lastCategory = posture.categoryId
-        }
-
-        lastCategory?.let { categoryId ->
-            EducationalInsertRepository.getInsertAfterCategory(categoryId)?.let { insert ->
-                if (items.none { it is PostureListItem.EducationalCard && it.insert.id == insert.id }) {
-                    items.add(PostureListItem.EducationalCard(insert))
-                }
-            }
-        }
-
-        imagination.forEach { items.add(PostureListItem.PostureEntry(it)) }
-        return items
-    }
+    fun build(postures: List<Posture>, @Suppress("UNUSED_PARAMETER") includeEducationalCards: Boolean): List<PostureListItem> =
+        postures.map { PostureListItem.PostureEntry(it) }
 }

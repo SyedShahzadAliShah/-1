@@ -1,40 +1,33 @@
-# Intimacy Guide
+# شاندار حرکتیں — Spectacular Sex Moves (Urdu)
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Urdu tutorial app from the attached PDF **"Spectacular Sex Moves She'll Never Forget"** with:
+
+- **Embedded PDF photos** — original move images extracted from the attachment
+- **In-depth Urdu tutorials** — concept (تصور), step-by-step method, and why-it-works tips per move
+- **Voice narration** — Urdu TTS (listen on home screen or per move)
+- **PDF export** — full handbook or single-move PDF with embedded images and Urdu text
 
 ## Download
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+**v4.1.0** — PDF photos embedded + concept-wise Urdu tutorials:
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/spectacular-urdu-tutorial-bd0b/releases/SpectacularMoves-v4.1.0-urdu-debug.apk
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+## v4.1.0
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+- 30 moves from the attached PDF with **original embedded photos** (`pic_move_01` … `pic_move_30`)
+- **Concept-wise Urdu** descriptions: تصور، طریقہ، کیوں مؤثر ہے
+- Urdu voice narration + full/single-move PDF export
+- 9 categories: وہ اوپر، پیچھے سے، زبانی لطف، انزال تک، وغیرہ
 
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
+# Extract photos from PDF (default path: uploaded attachment)
+python3 scripts/embed_spectacular_pdf.py
+
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+## Version 4.1.0
