@@ -50,11 +50,9 @@ object PdfExporter {
     private const val TOP_MARGIN = 54f
     private const val BOTTOM_MARGIN = 54f
     private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2  // 487 pt
-    // RTL (Urdu) text anchors its visual start at the right edge of the StaticLayout.
-    // The clipRect would cut off sub-pixel-antialiased glyph strokes at exactly x=CONTENT_WIDTH.
-    // Fix: shrink the layout width by this many points so glyphs sit clear of the clip boundary,
-    // while keeping the clip itself at the original CONTENT_WIDTH.
-    private const val RTL_EDGE_PAD = 8f
+    // RTL text (ALIGN_NORMAL) anchors each line's visual start at x = layout_width.
+    // Shrink the StaticLayout by this amount so glyphs sit clear of the clipRect boundary.
+    private const val RTL_EDGE_PAD = 4f
     private const val IMAGE_HEIGHT = 220f
     private const val DOWNLOADS_FOLDER = "SpectacularMoves"
 
@@ -382,15 +380,11 @@ object PdfExporter {
                 drawPageFooter()
                 document.finishPage(page)
             }
+            // Do NOT call setContentRect with the inner margin rect: that would set the PDF
+            // MediaBox to the content area, making viewers crop the visible page to exactly
+            // the text column and eliminating the visible right/left margins. Use the full
+            // A4 dimensions so margins appear correctly in every PDF viewer.
             val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber)
-                .setContentRect(
-                    android.graphics.Rect(
-                        MARGIN.toInt(),
-                        TOP_MARGIN.toInt(),
-                        (PAGE_WIDTH - MARGIN).toInt(),
-                        (PAGE_HEIGHT - BOTTOM_MARGIN).toInt()
-                    )
-                )
                 .create()
             page = document.startPage(pageInfo)
             canvas = page.canvas
