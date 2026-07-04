@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Cooking pot / karai icon -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:fillColor="@color/primary"
-        android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"/>
+    <!-- Pot body -->
     <path
         android:fillColor="@color/on_primary"
-        android:pathData="M40,45 Q54,35 68,45 Q54,55 40,45 Z"/>
+        android:pathData="M28,50 Q28,80 54,80 Q80,80 80,50 Z" />
+    <!-- Pot rim -->
     <path
         android:fillColor="@color/on_primary"
-        android:pathData="M38,62 Q54,72 70,62"/>
+        android:pathData="M24,46 Q24,50 54,50 Q84,50 84,46 Q84,42 54,42 Q24,42 24,46 Z" />
+    <!-- Left handle -->
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M24,44 Q16,44 16,50 Q16,56 24,56 L28,56 L28,44 Z" />
+    <!-- Right handle -->
+    <path
+        android:fillColor="@color/on_primary"
+        android:pathData="M84,44 Q92,44 92,50 Q92,56 84,56 L80,56 L80,44 Z" />
+    <!-- Steam lines -->
+    <path
+        android:strokeColor="@color/on_primary"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M44,38 Q42,32 44,26"
+        android:fillColor="#00000000" />
+    <path
+        android:strokeColor="@color/on_primary"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M54,36 Q52,30 54,24"
+        android:fillColor="#00000000" />
+    <path
+        android:strokeColor="@color/on_primary"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M64,38 Q62,32 64,26"
+        android:fillColor="#00000000" />
 </vector>
