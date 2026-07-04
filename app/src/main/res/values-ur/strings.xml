@@ -50,5 +50,13 @@
     <string name="womans_role">عورت کا کردار</string>
     <string name="position_label">پوزیشن</string>
     <string name="guidance_label">رہنمائی</string>
-    <string name="version_badge">ورژن %1$s — مرد/عورت کردار + اس کے لیے اور اس کے لیے جنسی تعلیم</string>
+    <string name="version_badge">ورژن %1$s — تصویری کتاب + اردو آواز</string>
+    <string name="pdf_book_title">تصویری جنسی تعلیمی کتاب</string>
+    <string name="pdf_book_subtitle">اردو آواز کے ساتھ ۴۹ صفحات کی تصویری رہنما</string>
+    <string name="pdf_book_open">تصویری کتاب کھولیں</string>
+    <string name="prev_page">← پچھلا</string>
+    <string name="next_page">اگلا →</string>
+    <string name="page_counter">صفحہ %1$d از %2$d</string>
+    <string name="pdf_page_illustration">تصویری جنسی تعلیم کا صفحہ</string>
+    <string name="urdu_narration_label">اردو وضاحت</string>
 </resources>

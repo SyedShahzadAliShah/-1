@@ -123,6 +123,10 @@ class MainActivity : AppCompatActivity() {
         )
         binding.imaginationList.post { binding.imaginationList.requestLayout() }
 
+        binding.pdfBookCard.setOnClickListener {
+            startActivity(Intent(this, PdfBookActivity::class.java))
+        }
+
         setupCategories()
         updatePostureList()
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
