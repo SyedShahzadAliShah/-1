@@ -1,7 +1,6 @@
-package com.couplesguide.postures.util
+package com.pakrecipes.cooking.util
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
@@ -17,7 +16,7 @@ class VoiceNarrator(
 
     private var tts: TextToSpeech? = null
     private var isReady = false
-    private val pendingSpeech = mutableListOf<Pair<String, String>>()
+    private val pendingSpeech = mutableListOf<String>()
     private var activeUtterances = 0
 
     init {
@@ -27,7 +26,7 @@ class VoiceNarrator(
     override fun onInit(status: Int) {
         isReady = status == TextToSpeech.SUCCESS
         if (isReady) {
-            tts?.setSpeechRate(0.92f)
+            tts?.setSpeechRate(0.88f)
             tts?.setPitch(1.0f)
             attachProgressListener()
         }
@@ -35,7 +34,7 @@ class VoiceNarrator(
         if (isReady && pendingSpeech.isNotEmpty()) {
             val queued = pendingSpeech.toList()
             pendingSpeech.clear()
-            queued.forEach { (text, lang) -> speak(text, lang) }
+            queued.forEach { speak(it) }
         }
     }
 
@@ -49,40 +48,36 @@ class VoiceNarrator(
                 if (utteranceId?.startsWith(UTTERANCE_PREFIX) == true) {
                     activeUtterances = (activeUtterances - 1).coerceAtLeast(0)
                 }
-                if (activeUtterances == 0) {
-                    onSpeakingChanged(false)
-                }
+                if (activeUtterances == 0) onSpeakingChanged(false)
             }
 
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
-                handleError(utteranceId)
+                handleError()
             }
 
             override fun onError(utteranceId: String?, errorCode: Int) {
-                handleError(utteranceId)
+                handleError()
             }
         })
     }
 
-    private fun handleError(utteranceId: String?) {
-        if (utteranceId?.startsWith(UTTERANCE_PREFIX) == true) {
-            activeUtterances = 0
-        }
+    private fun handleError() {
+        activeUtterances = 0
         onSpeakingChanged(false)
     }
 
-    fun speak(text: String, language: String): Boolean {
+    fun speak(text: String): Boolean {
         if (text.isBlank()) return false
         val engine = tts ?: return false
         if (!isReady) {
-            pendingSpeech.add(text to language)
+            pendingSpeech.add(text)
             return true
         }
 
-        val appliedLocale = applyLanguage(engine, language) ?: return false
-        if (appliedLocale.fallbackUsed) {
-            onLanguageIssue?.invoke(appliedLocale.message)
+        val locale = applyUrduLocale(engine) ?: return false
+        if (locale.fallbackUsed) {
+            onLanguageIssue?.invoke("اردو آواز دستیاب نہیں۔ انگریزی میں سنا رہے ہیں۔")
         }
 
         val chunks = chunkText(text)
@@ -98,62 +93,34 @@ class VoiceNarrator(
         return true
     }
 
-    private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean, val message: String)
+    private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean)
 
-    private fun applyLanguage(engine: TextToSpeech, language: String): LocaleResult? {
-        val candidates = if (language == LocaleHelper.LANG_UR) {
-            listOf(Locale("ur", "PK"), Locale("ur", "IN"), Locale("ur"))
-        } else {
-            listOf(Locale.US, Locale.UK, Locale.ENGLISH)
-        }
-
+    private fun applyUrduLocale(engine: TextToSpeech): LocaleResult? {
+        val candidates = listOf(Locale("ur", "PK"), Locale("ur", "IN"), Locale("ur"))
         for (locale in candidates) {
-            when (engine.isLanguageAvailable(locale)) {
-                TextToSpeech.LANG_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
-                    engine.language = locale
-                    selectBestVoice(engine, locale)
-                    return LocaleResult(locale, false, "")
-                }
+            val result = engine.isLanguageAvailable(locale)
+            if (result >= TextToSpeech.LANG_AVAILABLE) {
+                engine.language = locale
+                selectBestVoice(engine, locale)
+                return LocaleResult(locale, false)
             }
         }
-
-        if (language == LocaleHelper.LANG_UR) {
-            when (engine.isLanguageAvailable(Locale.US)) {
-                TextToSpeech.LANG_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
-                    engine.language = Locale.US
-                    return LocaleResult(
-                        Locale.US,
-                        true,
-                        "Urdu voice not installed. Using English narration."
-                    )
-                }
-            }
+        // Fallback to English
+        val en = Locale.US
+        if (engine.isLanguageAvailable(en) >= TextToSpeech.LANG_AVAILABLE) {
+            engine.language = en
+            return LocaleResult(en, true)
         }
-
-        onLanguageIssue?.invoke("Voice language not available on this device.")
+        onLanguageIssue?.invoke("آواز کا نظام دستیاب نہیں ہے۔")
         return null
     }
 
     private fun selectBestVoice(engine: TextToSpeech, locale: Locale) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) return
         val voices = engine.voices ?: return
         val match = voices
             .filter { it.locale.language == locale.language && !it.isNetworkConnectionRequired }
-            .maxByOrNull { voiceScore(it) }
-        if (match != null) {
-            engine.voice = match
-        }
-    }
-
-    private fun voiceScore(voice: Voice): Int {
-        var score = 0
-        if (voice.quality >= Voice.QUALITY_HIGH) score += 2
-        if (!voice.name.contains("network", ignoreCase = true)) score += 1
-        return score
+            .maxByOrNull { if (it.quality >= Voice.QUALITY_HIGH) 2 else 1 }
+        if (match != null) engine.voice = match
     }
 
     private fun chunkText(text: String): List<String> {
@@ -165,10 +132,8 @@ class VoiceNarrator(
                 chunks.add(remaining)
                 break
             }
-            var splitAt = remaining.lastIndexOf('.', MAX_CHUNK)
-            if (splitAt < MAX_CHUNK / 2) {
-                splitAt = remaining.lastIndexOf(' ', MAX_CHUNK)
-            }
+            var splitAt = remaining.lastIndexOf('۔', MAX_CHUNK)
+            if (splitAt < MAX_CHUNK / 2) splitAt = remaining.lastIndexOf(' ', MAX_CHUNK)
             if (splitAt <= 0) splitAt = MAX_CHUNK
             chunks.add(remaining.substring(0, splitAt + 1).trim())
             remaining = remaining.substring(splitAt + 1).trim()
@@ -183,8 +148,6 @@ class VoiceNarrator(
         onSpeakingChanged(false)
     }
 
-    fun isSpeaking(): Boolean = tts?.isSpeaking == true
-
     fun shutdown() {
         pendingSpeech.clear()
         activeUtterances = 0
@@ -196,21 +159,6 @@ class VoiceNarrator(
 
     companion object {
         private const val MAX_CHUNK = 3200
-        private const val UTTERANCE_PREFIX = "narration_"
-
-        fun openTtsSettings(context: Context) {
-            val intents = listOf(
-                Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA),
-                Intent("com.android.settings.TTS_SETTINGS"),
-                Intent(android.provider.Settings.ACTION_SETTINGS)
-            )
-            for (intent in intents) {
-                if (intent.resolveActivity(context.packageManager) != null) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
-                    return
-                }
-            }
-        }
+        private const val UTTERANCE_PREFIX = "recipe_narration_"
     }
 }
