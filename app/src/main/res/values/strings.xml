@@ -50,5 +50,13 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — Illustrated Book + Urdu Narration</string>
+    <string name="pdf_book_title">Illustrated Sex Ed Book</string>
+    <string name="pdf_book_subtitle">49-page illustrated guide with Urdu narration</string>
+    <string name="pdf_book_open">Open Illustrated Book</string>
+    <string name="prev_page">← Prev</string>
+    <string name="next_page">Next →</string>
+    <string name="page_counter">Page %1$d of %2$d</string>
+    <string name="pdf_page_illustration">Illustrated sex education page</string>
+    <string name="urdu_narration_label">اردو وضاحت</string>
 </resources>

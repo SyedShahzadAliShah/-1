@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Page image -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="@color/surface_variant">
+
+            <ImageView
+                android:id="@+id/pageImage"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/pdf_page_illustration" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Urdu title -->
+        <TextView
+            android:id="@+id/pageTitleUrdu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:gravity="end"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- English title -->
+        <TextView
+            android:id="@+id/pageTitleEnglish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/secondary"
+            android:gravity="start"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/secondary"
+            android:alpha="0.3"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Urdu narration label -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/urdu_narration_label"
+            android:textSize="12sp"
+            android:textColor="@color/secondary"
+            android:gravity="end"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Urdu narration text -->
+        <TextView
+            android:id="@+id/pageNarrationUrdu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/on_surface"
+            android:gravity="end"
+            android:lineSpacingExtra="6dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- English narration (collapsed) -->
+        <TextView
+            android:id="@+id/pageNarrationEnglish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/on_surface_variant"
+            android:gravity="start"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
