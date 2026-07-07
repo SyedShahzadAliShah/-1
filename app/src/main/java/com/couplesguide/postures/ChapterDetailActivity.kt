@@ -21,7 +21,7 @@ class ChapterDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChapterDetailBinding
     private lateinit var chapter: GuideChapter
-    private var language = LocaleHelper.LANG_EN
+    private val language = LocaleHelper.LANG_UR
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
@@ -35,7 +35,6 @@ class ChapterDetailActivity : AppCompatActivity() {
         binding = ActivityChapterDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        language = LocaleHelper.getLanguage(this)
         val chapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
         val found = chapterId?.let { GuideRepository.getChapterById(it) }
 

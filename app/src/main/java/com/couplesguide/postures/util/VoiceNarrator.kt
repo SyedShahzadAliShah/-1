@@ -120,21 +120,10 @@ class VoiceNarrator(
         }
 
         if (language == LocaleHelper.LANG_UR) {
-            when (engine.isLanguageAvailable(Locale.US)) {
-                TextToSpeech.LANG_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_AVAILABLE,
-                TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
-                    engine.language = Locale.US
-                    return LocaleResult(
-                        Locale.US,
-                        true,
-                        "Urdu voice not installed. Using English narration."
-                    )
-                }
-            }
+            onLanguageIssue?.invoke("اردو آواز انسٹال نہیں۔ سیٹنگز میں اردو ٹیکسٹ ٹو اسپیچ ڈیٹا انسٹال کریں۔")
+        } else {
+            onLanguageIssue?.invoke("Voice language not available on this device.")
         }
-
-        onLanguageIssue?.invoke("Voice language not available on this device.")
         return null
     }
 

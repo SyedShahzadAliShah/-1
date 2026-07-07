@@ -8,4 +8,13 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
         <item name="android:navigationBarColor">@color/background</item>
     </style>
+
+    <style name="Theme.IntimacyGuide.Cinematic" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/secondary</item>
+        <item name="colorSecondary">@color/primary_light</item>
+        <item name="android:colorBackground">@color/cinematic_bg</item>
+        <item name="android:statusBarColor">@color/cinematic_toolbar</item>
+        <item name="android:navigationBarColor">@color/cinematic_bg</item>
+        <item name="android:windowBackground">@color/cinematic_bg</item>
+    </style>
 </resources>

@@ -14,8 +14,10 @@ object LocaleHelper {
 
     fun getLanguage(context: Context): String {
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        return prefs.getString(KEY_LANGUAGE, LANG_EN) ?: LANG_EN
+        return prefs.getString(KEY_LANGUAGE, LANG_UR) ?: LANG_UR
     }
+
+    fun language(): String = LANG_UR
 
     fun setLanguage(context: Context, language: String) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -25,8 +27,7 @@ object LocaleHelper {
     }
 
     fun wrap(context: Context): Context {
-        val language = getLanguage(context)
-        val locale = if (language == LANG_UR) Locale("ur", "PK") else Locale.ENGLISH
+        val locale = Locale("ur", "PK")
         Locale.setDefault(locale)
         val config = Configuration(context.resources.configuration)
         config.setLocale(locale)
