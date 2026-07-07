@@ -7,12 +7,15 @@
         android:title="@string/listen"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_export"
-        android:icon="@android:drawable/ic_menu_save"
-        android:title="@string/export_full_guide"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/action_explore_guide"
+        android:title="@string/explore_full_guide"
+        app:showAsAction="never" />
     <item
-        android:id="@+id/action_cinematic"
-        android:title="@string/open_cinematic_book"
+        android:id="@+id/action_export_source"
+        android:title="@string/export_source_pdf"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_export_illustrated"
+        android:title="@string/export_illustrated_pdf"
         app:showAsAction="never" />
 </menu>

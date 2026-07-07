@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">قربت کی ہینڈ بک</string>
-    <string name="app_subtitle">مکمل جوڑوں کی جنسی تعلیم</string>
-    <string name="welcome_title">انیمے تصویری قربت کی ہینڈ بک</string>
-    <string name="welcome_message">جوڑوں کے لیے مکمل ہینڈ بک — انیمے انداز میں تعلیمی تصویریں، آواز میں سننے، قابلِ پرنٹ PDF، اور قریبی پوزیشنز کے آرام کے مشورے۔ انگریزی اور اردو میں ساتھ سیکھیں۔ ہر جسم مختلف ہے؛ وہ پوزیشنز اپنائیں جو آپ دونوں کے لیے درست ہوں۔</string>
+    <string name="app_subtitle">مسلم کاما سُترا — اردو سینماٹک رہنما</string>
+    <string name="welcome_title">مسلم کاما سُترا جنسی پوزیشنز</string>
+    <string name="welcome_message">یہ مکمل اردو رہنما آپ کی منسلک PDF کتاب پر مبنی ہے — سینماٹک پیشکش، آواز میں سننے، اور PDF برآمد۔ شوہر اور بیوی کے درمیان حلال قربت، احترام اور باہمی رضامندی پر مبنی ہے۔</string>
     <string name="guide_chapters">گائیڈ کے باب</string>
     <string name="browse_categories">زمرے کے لحاظ سے دیکھیں</string>
     <string name="all_postures">پوزیشنز</string>
@@ -50,5 +50,22 @@
     <string name="womans_role">عورت کا کردار</string>
     <string name="position_label">پوزیشن</string>
     <string name="guidance_label">رہنمائی</string>
-    <string name="version_badge">ورژن %1$s — مرد/عورت کردار + اس کے لیے اور اس کے لیے جنسی تعلیم</string>
+    <string name="version_badge">ورژن %1$s — اردو سینماٹک + PDF برآمد</string>
+    <string name="cinematic_book_title">سینماٹک کتاب</string>
+    <string name="cinematic_intro_title">مسلم کاما سُترا</string>
+    <string name="cinematic_intro_subtitle">اردو سینماٹک رہنما — آواز میں سنیں، تصاویر دیکھیں، PDF برآمد کریں</string>
+    <string name="cinematic_intro_narration">خوش آمدید۔ مسلم کاما سُترا جنسی پوزیشنز۔ یہ اردو سینماٹک رہنما شوہر اور بیوی کے درمیان حلال قربت کے بارے میں ہے۔ آئیے شروع کریں۔</string>
+    <string name="cinematic_loading">سینماٹک پیشکش تیار ہو رہی ہے…</string>
+    <string name="cinematic_page_image">کتاب کا صفحہ</string>
+    <string name="cinematic_prev">پچھلا</string>
+    <string name="cinematic_next">اگلا</string>
+    <string name="cinematic_play">چلائیں</string>
+    <string name="cinematic_pause">روکیں</string>
+    <string name="cinematic_page_indicator">صفحہ %1$d / %2$d</string>
+    <string name="cinematic_complete">کتاب مکمل — PDF برآمد کریں</string>
+    <string name="open_cinematic_book">سینماٹک کتاب کھولیں</string>
+    <string name="open_cinematic_book_hint">15 صفحات — Ken Burns اینیمیشن، اردو آواز، خودکار پیشکش</string>
+    <string name="export_source_pdf">اصل PDF برآمد</string>
+    <string name="export_illustrated_pdf">اردو تصویری PDF برآمد</string>
+    <string name="explore_full_guide">مکمل رہنما دیکھیں</string>
 </resources>

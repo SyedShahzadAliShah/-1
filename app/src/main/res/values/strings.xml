@@ -50,5 +50,22 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — Urdu Cinematic + PDF Export</string>
+    <string name="cinematic_book_title">سینماٹک کتاب</string>
+    <string name="cinematic_intro_title">مسلم کاما سُترا</string>
+    <string name="cinematic_intro_subtitle">اردو سینماٹک رہنما</string>
+    <string name="cinematic_intro_narration">خوش آمدید۔ مسلم کاما سُترا جنسی پوزیشنز۔</string>
+    <string name="cinematic_loading">سینماٹک پیشکش تیار ہو رہی ہے…</string>
+    <string name="cinematic_page_image">کتاب کا صفحہ</string>
+    <string name="cinematic_prev">پچھلا</string>
+    <string name="cinematic_next">اگلا</string>
+    <string name="cinematic_play">چلائیں</string>
+    <string name="cinematic_pause">روکیں</string>
+    <string name="cinematic_page_indicator">صفحہ %1$d / %2$d</string>
+    <string name="cinematic_complete">کتاب مکمل</string>
+    <string name="open_cinematic_book">سینماٹک کتاب کھولیں</string>
+    <string name="open_cinematic_book_hint">15 صفحات — Ken Burns اینیمیشن، اردو آواز</string>
+    <string name="export_source_pdf">اصل PDF برآمد</string>
+    <string name="export_illustrated_pdf">اردو تصویری PDF برآمد</string>
+    <string name="explore_full_guide">مکمل رہنما دیکھیں</string>
 </resources>

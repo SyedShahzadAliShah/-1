@@ -14,4 +14,7 @@
     <color name="figure_primary">#7B4B6A</color>
     <color name="figure_secondary">#C49A6C</color>
     <color name="chip_bg_default">#FFFFFF</color>
+    <color name="cinematic_bg">#1A0F14</color>
+    <color name="cinematic_toolbar">#2D1A24</color>
+    <color name="cinematic_caption">#F5E6D8</color>
 </resources>

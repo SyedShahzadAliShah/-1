@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imaginationAdapter: PostureAdapter
     private var categoryAdapter: CategoryAdapter? = null
     private var selectedCategory = PostureRepository.CAT_ALL
-    private var language = LocaleHelper.LANG_EN
+    private val language = LocaleHelper.LANG_UR
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
@@ -54,8 +53,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        language = LocaleHelper.getLanguage(this)
         setSupportActionBar(binding.toolbar)
+
+        binding.btnOpenCinematic.setOnClickListener {
+            startActivity(Intent(this, CinematicBookActivity::class.java).apply {
+                putExtra(CinematicBookActivity.EXTRA_AUTO_PLAY, true)
+            })
+        }
+        binding.cinematicCard.setOnClickListener {
+            startActivity(Intent(this, CinematicBookActivity::class.java))
+        }
 
         voiceNarrator = VoiceNarrator(
             context = this,
@@ -155,8 +162,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_language -> {
-                showLanguageDialog()
+            R.id.action_cinematic -> {
+                startActivity(Intent(this, CinematicBookActivity::class.java).apply {
+                    putExtra(CinematicBookActivity.EXTRA_AUTO_PLAY, true)
+                })
                 true
             }
             R.id.action_listen -> {
@@ -188,22 +197,6 @@ class MainActivity : AppCompatActivity() {
         postureAdapter.submitList(items)
         binding.postureList.post { binding.postureList.requestLayout() }
         binding.emptyText.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
-    }
-
-    private fun showLanguageDialog() {
-        val options = arrayOf(getString(R.string.english), getString(R.string.urdu))
-        val current = if (language == LocaleHelper.LANG_UR) 1 else 0
-        AlertDialog.Builder(this)
-            .setTitle(R.string.language)
-            .setSingleChoiceItems(options, current) { dialog, which ->
-                val newLang = if (which == 1) LocaleHelper.LANG_UR else LocaleHelper.LANG_EN
-                if (newLang != language) {
-                    LocaleHelper.setLanguage(this, newLang)
-                    recreate()
-                }
-                dialog.dismiss()
-            }
-            .show()
     }
 
     private fun toggleNarration() {
