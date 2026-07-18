@@ -4,245 +4,174 @@ import com.couplesguide.postures.R
 
 object ImaginationPostureRepository {
 
-    fun getImaginationPostures(): List<Posture> = imaginationPostures
+    fun getImaginationPostures(): List<Posture> = chefSpecials
 
-    private val imaginationPostures: List<Posture> = listOf(
-        imagination(
-            id = "imagine_breath",
-            illustrationRes = R.drawable.pic_imagine_breath,
-            enName = "Breath Together",
-            urName = "ساتھ سانس لیں",
-            enSummary = "Imagine your breathing slowly becoming one rhythm.",
-            urSummary = "تصور کریں کہ آپ کی سانسیں آہستہ آہستہ ایک تال بن جائیں۔",
-            enDesc = "This imagination exercise builds calm connection before physical intimacy. " +
-                "Sit or lie facing each other. There is no goal beyond feeling present together.",
-            urDesc = "یہ تخیلی مشق جسمانی قربت سے پہلے پرسکون تعلق بناتی ہے۔ " +
-                "آمنے سامنے بیٹھیں یا لیٹیں۔ مقصد صرف موجودگی محسوس کرنا ہے۔",
+    private val chefSpecials = listOf(
+        special(
+            id = "dum_biryani", illustrationRes = R.drawable.pic_dum_biryani,
+            enName = "Lal Qila Dum Biryani", urName = "لال قلعہ دم بریانی",
+            enCat = "Chef Special", urCat = "شیف کی خاص ڈش",
+            enSummary = "The crown jewel — sealed pot biryani with saffron and aged basmati.",
+            urSummary = "تاج کی جڑ — زعفران اور پرانے باسمتی کے ساتھ بند برتن بریانی۔",
+            enDesc = "Lal Qila's most celebrated dish. Premium basmati layered with tender mutton, sealed with dough, and slow-cooked on dum for hours. Only at the chef's special station.",
+            urDesc = "لال قلعہ کی سب سے مشہور ڈش۔ پریمیم باسمتی، نرم مٹن، آٹے سے بند، گھنٹوں دم پر۔ صرف شیف سپیشل سٹیشن پر۔",
             enSteps = listOf(
-                "Close your eyes and place a hand on your partner's chest or hand.",
-                "Imagine a warm golden light flowing between you with each breath.",
-                "Inhale together for four counts — picture the light growing brighter.",
-                "Exhale together for six counts — picture tension leaving your bodies.",
-                "Repeat until your breathing naturally synchronizes."
+                "Marinate mutton overnight in royal biryani spices.",
+                "Parboil premium aged basmati with whole spices.",
+                "Layer rice and mutton with fried onions, mint, and saffron.",
+                "Seal pot with wheat dough and cook on very low heat 45 minutes.",
+                "Open at table for dramatic presentation."
             ),
             urSteps = listOf(
-                "آنکھیں بند کریں اور ہاتھ ساتھی کے سینے یا ہاتھ پر رکھیں۔",
-                "ہر سانس کے ساتھ گرم سنہری روشنی کا بہاؤ تصور کریں۔",
-                "چار گنتی تک ساتھ سانس لیں — روشنی چمکتی محسوس کریں۔",
-                "چھ گنتی تک ساتھ سانس چھوڑیں — تناؤ نکلتا محسوس کریں۔",
-                "تب تک دہرائیں جب سانسیں خود ہم آہنگ ہو جائیں۔"
+                "مٹن کو شاہی بریانی مسالوں میں رات بھر میرینیٹ کریں۔",
+                "پریمیم باسمتی سابت مسالوں کے ساتھ 70% پکائیں۔",
+                "چاول اور مٹن کی پرتیں، بھنی پیاز، پودینہ، زعفران۔",
+                "آٹے سے بند کر 45 منٹ بہت ہلکی آنچ پر پکائیں۔",
+                "میز پر کھول کر پیش کریں۔"
             ),
-            enTips = listOf(
-                "No need to force perfect timing — near-sync is enough.",
-                "Whisper \"breathe with me\" if it helps you stay connected.",
-                "Use this exercise to transition gently into touch."
-            ),
-            urTips = listOf(
-                "مکمل وقت کی زبردستی نہیں — قریب قریب ہم آہنگی کافی ہے۔",
-                "\"میرے ساتھ سانس لو\" آہستہ کہیں اگر مدد ملے۔",
-                "نرم چھونے میں آنے کے لیے یہ مشق استعمال کریں۔"
-            )
+            enTips = listOf("Arrive early — this sells out first.", "Ask for extra raita.", "Photograph the dum opening!"),
+            urTips = listOf("جلدی آئیں — سب سے پہلے ختم ہوتی ہے۔", "اضافی رائتہ مانگیں۔", "دم کھولنے کی تصویر لیں!")
         ),
-        imagination(
-            id = "imagine_candlelight",
-            illustrationRes = R.drawable.pic_imagine_candlelight,
-            enName = "Candlelight Gaze",
-            urName = "شمع کی روشنی میں نگاہیں",
-            enSummary = "Imagine soft candlelight while holding gentle eye contact.",
-            urSummary = "نرم شمع کی روشنی اور آہستہ آنکھوں کا رابطہ تصور کریں۔",
-            enDesc = "Eye contact deepens emotional intimacy. This imagination posture uses " +
-                "visualization to reduce self-consciousness and build trust.",
-            urDesc = "آنکھوں کا رابطہ جذباتی قربت بڑھاتا ہے۔ یہ تخیلی مشق " +
-                "خود آگاہی کم کر کے اعتماد بناتی ہے۔",
+        special(
+            id = "lq_karahi", illustrationRes = R.drawable.pic_lq_karahi,
+            enName = "Lal Qila Special Karahi", urName = "لال قلعہ سپیشل کڑاہی",
+            enCat = "Chef Special", urCat = "شیف کی خاص ڈش",
+            enSummary = "Secret-recipe karahi with double-cooked tomatoes and special masala.",
+            urSummary = "خفیہ نسخہ کڑاہی، دو بار پکے ٹماٹر اور خاص مسالہ۔",
+            enDesc = "The house signature karahi unavailable anywhere else. Chef's proprietary spice blend with lamb cooked in a cast-iron karahi over open flame.",
+            urDesc = "گھر کی دستخط کڑاہی۔ شیف کا خاص مسالہ، کھلے شعلے پر لوہے کی کڑاہی میں مٹن۔",
             enSteps = listOf(
-                "Dim the lights or imagine a single candle between you.",
-                "Sit knee to knee, spines relaxed, shoulders soft.",
-                "Look into your partner's left eye — the \"soul eye\" — without staring harshly.",
-                "When you blink or look away, return gently without judgment.",
-                "After five minutes, share one word describing what you felt."
+                "Heat karahi with ghee until smoking.",
+                "Add Lal Qila special masala and lamb.",
+                "Cook tomatoes twice for deeper flavor.",
+                "Finish with butter, ginger, and green chilies.",
+                "Serve sizzling directly in the karahi."
             ),
             urSteps = listOf(
-                "روشنی مدھم کریں یا درمیان میں ایک شمع تصور کریں۔",
-                "گھٹنے سے گھٹنا ملائے، آرام سے بیٹھیں۔",
-                "ساتھی کی بائیں آنکھ میں دیکھیں — بغیر سخت گھورے۔",
-                "جب نظر ہٹے تو نرمی سے واپس آئیں، بغیر تنقید کے۔",
-                "پانچ منٹ بعد ایک لفظ میں احساس بتائیں۔"
+                "کڑاہی میں گھی دھوئیں تک گرم کریں۔",
+                "لال قلعہ سپیشل مسالہ اور مٹن ڈالیں۔",
+                "ٹماٹر دو بار پکائیں گہرے ذائقے کے لیے۔",
+                "مکھن، ادرک، ہری مرچ سے ختم کریں۔",
+                "کڑاہی میں گرم گرم پیش کریں۔"
             ),
-            enTips = listOf(
-                "Laughter is normal — smile and continue.",
-                "Start with 60 seconds if five minutes feels long.",
-                "Candlelight is symbolic; a phone's warm screen works too."
-            ),
-            urTips = listOf(
-                "ہنسی معمول ہے — مسکرائیں اور جاری رکھیں۔",
-                "پانچ منٹ لمبے لگیں تو ایک منٹ سے شروع کریں۔",
-                "شمع علامتی ہے؛ فون کی گرم روشنی بھی چل سکتی ہے۔"
-            )
+            enTips = listOf("Limited portions daily.", "Best with roghni naan.", "Medium spice level."),
+            urTips = listOf("روزانہ محدود مقدار۔", "روغنی نان کے ساتھ بہترین۔", "درمیانی تیکھا۔")
         ),
-        imagination(
-            id = "imagine_slow_embrace",
-            illustrationRes = R.drawable.pic_imagine_embrace,
-            enName = "Slow Embrace",
-            urName = "آہستہ آغوش",
-            enSummary = "Picture a long, unhurried hug that gradually deepens closeness.",
-            urSummary = "لمبا بے جلدی والا گلے ملنے کا تصور جو قربت بڑھائے۔",
-            enDesc = "Physical posture begins in the mind. Visualizing a slow embrace " +
-                "prepares the body to relax and welcome your partner.",
-            urDesc = "جسمانی پوزیشن ذہن میں شروع ہوتی ہے۔ آہستہ آغوش کا تصور " +
-                "جسم کو آرام اور ساتھی کا استقبال کرنے کے لیے تیار کرتا ہے۔",
+        special(
+            id = "shahi_tukda", illustrationRes = R.drawable.pic_shahi_tukda,
+            enName = "Shahi Tukda", urName = "شاہی ٹکڑا",
+            enCat = "Chef Special", urCat = "شیف کی خاص ڈش",
+            enSummary = "Royal bread pudding with rabri and silver leaf.",
+            urSummary = "ربڑی اور چاندی ورق والا شاہی بریڈ پڈنگ۔",
+            enDesc = "Fried bread soaked in saffron milk, topped with thick rabri, pistachios, and edible silver. A Mughal-era dessert revived at Lal Qila.",
+            urDesc = "زعفران دودھ میں تلی روٹی، گاڑھی ربڑی، پستے، چاندی ورق۔ لال قلعہ پر مغل دور کا میٹھا۔",
             enSteps = listOf(
-                "Stand or sit and imagine wrapping your arms fully around your partner.",
-                "Picture pulling them closer by one inch every three breaths.",
-                "Feel their heartbeat against yours — real or imagined.",
-                "Imagine warmth spreading from your chest through your arms.",
-                "Open your eyes and recreate the hug physically, matching the imagined pace."
+                "Fry bread slices golden in ghee.",
+                "Soak in warm saffron-cardamom milk.",
+                "Prepare thick rabri from reduced milk.",
+                "Layer bread, rabri, and nuts.",
+                "Garnish with silver leaf and rose petals."
             ),
             urSteps = listOf(
-                "کھڑے یا بیٹھے ساتھی کے گرد بازو لپیٹنے کا تصور کریں۔",
-                "ہر تین سانسوں میں ایک انچ قریب کھینچنے کا خیال کریں۔",
-                "ان کے دل کی دھڑکن اپنے سینے پر محسوس کریں — حقیقی یا تصور میں۔",
-                "سینے سے بازوؤں تک گرمی پھیلنے کا تصور کریں۔",
-                "آنکھیں کھول کر یہی رفتار سے حقیقی آغوش دیں۔"
+                "روٹی کے ٹکڑے گھی میں سنہری تلیں۔",
+                "گرم زعفران ایلیچی دودھ میں بھگوئیں۔",
+                "گاڑھا دودھ سے ربڑی بنائیں۔",
+                "روٹی، ربڑی، مغز کی پرتیں۔",
+                "چاندی ورق اور گلاب کی پنکھڑیاں۔"
             ),
-            enTips = listOf(
-                "Keep shoulders dropped — tension blocks the exercise.",
-                "Let the partner who feels safer initiate tighter contact.",
-                "Pair with soft music if silence feels awkward."
-            ),
-            urTips = listOf(
-                "کندھے ڈھیلے رکھیں — تناؤ رکاوٹ بنتا ہے۔",
-                "جو محفوظ محسوس کرے وہ قریب آنے کی شروعات کرے۔",
-                "خاموشی عجیب لگے تو نرم موسیقی چلائیں۔"
-            )
+            enTips = listOf("Serve at room temperature.", "Small portions — very rich."),
+            urTips = listOf("کمرے کے درجے حرارت پر۔", "چھوٹے حصے — بہت غنی۔")
         ),
-        imagination(
-            id = "imagine_ocean",
-            illustrationRes = R.drawable.pic_imagine_ocean,
-            enName = "Ocean Waves",
-            urName = "سمندر کی لہریں",
-            enSummary = "Imagine intimacy as gentle waves — rising, pausing, falling.",
-            urSummary = "قربت کو نرم لہروں جیسا تصور کریں — اٹھنا، رکنا، اترنا۔",
-            enDesc = "Rhythm reduces performance pressure. This educational imagination " +
-                "posture teaches couples to think in waves rather than constant intensity.",
-            urDesc = "تال کارکردگی کا دباؤ کم کرتی ہے۔ یہ تخیلی مشق جوڑوں کو " +
-                "مسلسل شدت کی بجائے لہروں میں سوچنا سکھاتی ہے۔",
+        special(
+            id = "prawn_tempura", illustrationRes = R.drawable.pic_prawn_tempura,
+            enName = "Prawn Tempura", urName = "پرawn ٹیمپورا",
+            enCat = "Chef Special", urCat = "شیف کی خاص ڈش",
+            enSummary = "Crispy battered prawns with wasabi mayo.",
+            urSummary = "وسابی مایو کے ساتھ کرسپی پرawn۔",
+            enDesc = "Fresh jumbo prawns in light tempura batter, fried until golden. Served with wasabi mayo and pickled ginger at Lal Qila's fusion counter.",
+            urDesc = "بھاری پرawn ہلکے ٹیمپورا بیٹر میں، سنہری تلے۔ وسابی مایو اور اچار ادرک کے ساتھ۔",
             enSteps = listOf(
-                "Lie side by side and close your eyes.",
-                "Imagine you are floating on calm water under a soft sky.",
-                "Picture each wave as a rise of pleasure — not urgent, simply natural.",
-                "Between waves, imagine still water — rest without stopping connection.",
-                "Communicate: say \"wave\" when ready to increase, \"still\" to rest."
+                "Clean and devein jumbo prawns.",
+                "Make ice-cold tempura batter.",
+                "Dip prawns and deep-fry until crispy.",
+                "Serve immediately with wasabi mayo.",
+                "Garnish with pickled ginger and lemon."
             ),
             urSteps = listOf(
-                "ساتھ لیٹ کر آنکھیں بند کریں۔",
-                "پرسکون پانی پر تیرتے نرم آسمان کے نیچے تصور کریں۔",
-                "ہر لہر کو لطف کی چھوٹی سی لہر سمجھیں — بے جلدی، قدرتی۔",
-                "لہروں کے درمیان ساکت پانی — رابطہ بغیر تھکن کے۔",
-                "بتائیں: \"لہر\" جب بڑھنا ہو، \"ساکت\" جب آرام چاہیے۔"
+                "بھاری پرawn صاف کریں۔",
+                "برف ٹھنڈا ٹیمپورا بیٹر بنائیں۔",
+                "پرawn ڈبو کر کرسپی تلیں۔",
+                "وسابی مایو کے ساتھ فوراً پیش کریں۔",
+                "اچار ادرک اور لیموں سے سجائیں۔"
             ),
-            enTips = listOf(
-                "Apply this mental model during physical intimacy later.",
-                "There is no correct speed — your waves are unique.",
-                "Combine with slow breathing from the Breath Together exercise."
-            ),
-            urTips = listOf(
-                "بعد میں جسمانی قربت میں یہ ذہنی ماڈل استعمال کریں۔",
-                "کوئی صحیح رفتار نہیں — آپ کی لہریں منفرد ہیں۔",
-                "سانس والی مشق کے ساتھ ملا کر کریں۔"
-            )
+            enTips = listOf("Weekend special only.", "Eat immediately while crispy."),
+            urTips = listOf("صرف ہفتے کے آخر میں۔", "کرسپی ہوتے ہی کھائیں۔")
         ),
-        imagination(
-            id = "imagine_starlight",
-            illustrationRes = R.drawable.pic_imagine_starlight,
-            enName = "Starlit Embrace",
-            urName = "ستاروں کی چادر میں",
-            enSummary = "Imagine lying together under open stars, safe and unhurried.",
-            urSummary = "کھلے ستاروں کے نیچے ساتھ لیٹنے کا محفوظ بے جلدی تصور۔",
-            enDesc = "Setting a mental scene unlocks playfulness. This posture uses " +
-                "romantic imagination to help couples feel less self-conscious.",
-            urDesc = "ذہنی منظر کھلتاپن بڑھاتا ہے۔ یہ مشق رومانوی تخیل سے " +
-                "جوڑوں کو کم جھجک محسوس کراتی ہے۔",
+        special(
+            id = "sizzling_brownie", illustrationRes = R.drawable.pic_sizzling_brownie,
+            enName = "Sizzling Brownie", urName = "سزلنگ براؤنی",
+            enCat = "Chef Special", urCat = "شیف کی خاص ڈش",
+            enSummary = "Hot chocolate brownie on sizzler with ice cream.",
+            urSummary = "آئس کریم کے ساتھ سزلر پر گرم چاکلیٹ براؤنی۔",
+            enDesc = "Warm fudge brownie served on a sizzling hot plate with vanilla ice cream and chocolate sauce. A dramatic Lal Qila dessert experience.",
+            urDesc = "گرم فیج براؤنی سزلنگ پلیٹ پر ونیلا آئس کریم اور چاکلیٹ ساس کے ساتھ۔",
             enSteps = listOf(
-                "Lie together and imagine a blanket of stars above you.",
-                "Picture cool night air on skin contrasted with partner's warmth.",
-                "Imagine whispering wishes only the stars can hear.",
-                "Let hands explore slowly as if the world has paused for you both.",
-                "Thank each other aloud for sharing the moment."
+                "Bake rich chocolate brownie.",
+                "Heat sizzler plate until smoking.",
+                "Place brownie on hot plate.",
+                "Top with ice cream and chocolate sauce.",
+                "Serve immediately — listen for the sizzle!"
             ),
             urSteps = listOf(
-                "ساتھ لیٹیں اور اوپر ستاروں کی چادر تصور کریں۔",
-                "ٹھنڈی ہوا اور ساتھی کی گرمی کا فرق محسوس کریں۔",
-                "ایسی خواہشیں سرگوشی میں کہیں جو صرف ستارے سنیں۔",
-                "ہاتھ آہستہ دریافت کریں جیسے دنیا رک گئی ہو۔",
-                "زور سے شکریہ کہیں اس لمحے کے لیے۔"
+                "غنی چاکلیٹ براؤنی پکائیں۔",
+                "سزلر پلیٹ دھوئیں تک گرم کریں۔",
+                "براؤنی گرم پلیٹ پر رکھیں۔",
+                "آئس کریم اور چاکلیٹ ساس اوپر۔",
+                "فوراً پیش کریں — سزل کی آواز سنیں!"
             ),
-            enTips = listOf(
-                "Play quiet night sounds if imagination is difficult.",
-                "Works beautifully outdoors on a clear evening.",
-                "Keep phones away to protect the imagined scene."
-            ),
-            urTips = listOf(
-                "تصور مشکل ہو تو رات کی آہستہ آوازیں چلائیں۔",
-                "صاف شام کھلے آسمان下 بہترین ہے۔",
-                "فون دور رکھیں تاکہ منظر محفوظ رہے۔"
-            )
+            enTips = listOf("Order after main course.", "Share between two."),
+            urTips = listOf("کھانے کے بعد آرڈر کریں۔", "دو لوگوں میں شیئر کریں۔")
         ),
-        imagination(
-            id = "imagine_morning",
-            illustrationRes = R.drawable.pic_imagine_morning,
-            enName = "Morning Light",
-            urName = "صبح کی روشنی",
-            enSummary = "Imagine lazy morning intimacy — soft light, no schedule.",
-            urSummary = "سست صبح کی قربت — نرم روشنی، کوئی جلدی نہیں۔",
-            enDesc = "Morning imagination reduces pressure to perform. It reframes intimacy " +
-                "as a gentle awakening rather than a goal-oriented act.",
-            urDesc = "صبح کا تصور کارکردگی کا دباؤ کم کرتا ہے۔ قربت کو " +
-                "مقصد کی بجائے نرم بیداری سمجھنے میں مدد دیتا ہے۔",
+        special(
+            id = "kunafa", illustrationRes = R.drawable.pic_kunafa,
+            enName = "Kunafa", urName = "کنفی",
+            enCat = "Chef Special", urCat = "شیف کی خاص ڈش",
+            enSummary = "Crispy shredded pastry with sweet cheese and syrup.",
+            urSummary = "میٹے پنیر اور شربت والی کرسپی کنفی۔",
+            enDesc = "Middle Eastern kunafa with crispy kataifi threads, melted cheese, and rose-scented syrup. A Lal Qila Ramadan and special occasion dessert.",
+            urDesc = "کریسپی کٹائیفی، پگھلا پنیر، گلاب کی شربت۔ لال قلعہ رمضان اور خاص مواقع کا میٹھا۔",
             enSteps = listOf(
-                "Imagine golden morning light through curtains.",
-                "Picture waking with your partner's breath on your neck.",
-                "Imagine stretching together like cats — slow, unhurried, playful.",
-                "Visualize lazy kisses with nowhere to be.",
-                "Carry this unhurried feeling into whatever you do next."
+                "Layer buttered kataifi in pan.",
+                "Add sweet cheese filling.",
+                "Top with more kataifi and press.",
+                "Bake until golden and crispy.",
+                "Pour warm syrup and garnish with pistachios."
             ),
             urSteps = listOf(
-                "پردوں سے سنہری صبح کی روشنی تصور کریں۔",
-                "گردن پر ساتھی کی سانس سے جاگنے کا خیال کریں۔",
-                "بلیوں کی طرح ساتھ ہلکا پھیلنا — آہستہ، بے جلدی، کھیل۔",
-                "سست بوسے تصور کریں، کہیں جانے کی جلدی نہیں۔",
-                "یہ بے جلدی احساس اگلے قدم میں لے جائیں۔"
+                "مکھن لگی کٹائیفی پرت لگائیں۔",
+                "میٹا پنیر بھرتہ ڈالیں۔",
+                "اوپر کٹائیفی دبائیں۔",
+                "سنہری کرسپی پکائیں۔",
+                "گرم شربت اور پستے۔"
             ),
-            enTips = listOf(
-                "Try on a real weekend morning without alarms.",
-                "Warm beverages beforehand deepen the cozy feeling.",
-                "Gentle touch only until you both feel fully awake."
-            ),
-            urTips = listOf(
-                "حقیقی ویک اینڈ صبح بغیر الارم آزمائیں۔",
-                "گرم مشروب پہلے آرام بڑھاتے ہیں۔",
-                "پوری طرح جاگنے تک صرف نرم چھونا۔"
-            )
+            enTips = listOf("Best served warm.", "Available on weekends and Ramadan."),
+            urTips = listOf("گرم بہترین۔", "ہفتے کے آخر اور رمضان میں۔")
         )
     )
 
-    private fun imagination(
+    private fun special(
         id: String, illustrationRes: Int,
-        enName: String, urName: String,
-        enSummary: String, urSummary: String,
-        enDesc: String, urDesc: String,
+        enName: String, urName: String, enCat: String, urCat: String,
+        enSummary: String, urSummary: String, enDesc: String, urDesc: String,
         enSteps: List<String>, urSteps: List<String>,
         enTips: List<String>, urTips: List<String>
-    ) = Posture(
+    ): Posture = Posture(
         id = id,
-        difficulty = Difficulty.BEGINNER,
+        difficulty = Difficulty.ADVANCED,
         illustrationRes = illustrationRes,
-        categoryId = PostureRepository.CAT_IMAGINATION,
-        isImagination = true,
-        english = LocalizedContent(
-            enName, "Imagination", enSummary, enDesc, enSteps, enTips
-        ),
-        urdu = LocalizedContent(
-            urName, "تخیل", urSummary, urDesc, urSteps, urTips
-        )
+        categoryId = PostureRepository.CAT_SPECIAL,
+        english = LocalizedContent(enName, enCat, enSummary, enDesc, enSteps, enTips),
+        urdu = LocalizedContent(urName, urCat, urSummary, urDesc, urSteps, urTips),
+        isImagination = true
     )
 }

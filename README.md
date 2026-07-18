@@ -1,40 +1,27 @@
-# Intimacy Guide
+# Lal Qila Buffet Menu
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Complete Lal Qila buffet recipe menu app with illustrated dish pictures, embedded Urdu voice narration, and PDF export.
 
-## Download
+## Features
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
-
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+- **40+ buffet recipes** across Pakistani, BBQ, Chinese, Continental, Salads, Breads, Desserts, and Beverages
+- **6 Chef Specials** — Dum Biryani, Special Karahi, Shahi Tukda, and more
+- **Bilingual** — English & Urdu with full RTL support
+- **Voice narration** — Listen to recipes in Urdu (TTS) or English
+- **PDF export** — Export full menu or individual recipes with embedded Urdu font
+- **Buffet guide chapters** — About Lal Qila, stations guide, dining tips
 
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
+python3 scripts/generate_buffet_pictures.py
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+## Version 4.0.0
+
+- Complete transformation to Lal Qila Buffet Recipe Menu
+- 40 recipes with stylized food illustrations
+- Urdu voice narration and PDF export
+- Buffet station guides and chef specials

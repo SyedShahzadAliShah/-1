@@ -30,9 +30,9 @@ data class Posture(
 }
 
 enum class Difficulty(val en: String, val ur: String) {
-    BEGINNER("Beginner", "آسان"),
-    INTERMEDIATE("Intermediate", "درمیانہ"),
-    ADVANCED("Advanced", "مشکل");
+    BEGINNER("Easy", "آسان"),
+    INTERMEDIATE("Medium", "درمیانہ"),
+    ADVANCED("Hard", "مشکل");
 
     fun label(language: String): String = if (language == "ur") ur else en
 }
