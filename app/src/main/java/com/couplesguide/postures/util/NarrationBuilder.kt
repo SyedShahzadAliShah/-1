@@ -70,17 +70,15 @@ object NarrationBuilder {
         val sb = StringBuilder(
             "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
         )
-        if (!posture.isImagination) {
-            val manLabel = context.getString(R.string.mans_role)
-            val womanLabel = context.getString(R.string.womans_role)
-            content.forMan?.let { man ->
-                val guidance = man.guidance.joinToString(". ")
-                sb.append(" $manLabel. ${man.position}. $guidance")
-            }
-            content.forWoman?.let { woman ->
-                val guidance = woman.guidance.joinToString(". ")
-                sb.append(" $womanLabel. ${woman.position}. $guidance")
-            }
+        content.forMan?.let { ingredients ->
+            val items = ingredients.guidance.joinToString(". ")
+            val label = context.getString(R.string.mans_role)
+            sb.append(" $label. $items")
+        }
+        content.forWoman?.let { serving ->
+            val items = serving.guidance.joinToString(". ")
+            val label = context.getString(R.string.womans_role)
+            sb.append(" $label. $items")
         }
         return sb.toString()
     }

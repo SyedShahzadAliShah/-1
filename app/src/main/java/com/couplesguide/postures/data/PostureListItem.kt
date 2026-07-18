@@ -8,11 +8,14 @@ sealed class PostureListItem {
 object PostureListBuilder {
 
     private val categoryOrder = listOf(
-        PostureRepository.CAT_FACE,
-        PostureRepository.CAT_SIDE,
-        PostureRepository.CAT_REAR,
-        PostureRepository.CAT_STANDING,
-        PostureRepository.CAT_VARIATIONS
+        PostureRepository.CAT_PAKISTANI,
+        PostureRepository.CAT_BBQ,
+        PostureRepository.CAT_CHINESE,
+        PostureRepository.CAT_CONTINENTAL,
+        PostureRepository.CAT_SALAD_SOUP,
+        PostureRepository.CAT_BREAD,
+        PostureRepository.CAT_DESSERT,
+        PostureRepository.CAT_BEVERAGE
     )
 
     fun build(postures: List<Posture>, includeEducationalCards: Boolean): List<PostureListItem> {
@@ -20,7 +23,7 @@ object PostureListBuilder {
             return postures.map { PostureListItem.PostureEntry(it) }
         }
 
-        val imagination = postures.filter { it.isImagination }
+        val specials = postures.filter { it.isImagination }
         val physical = postures.filter { !it.isImagination }
         val orderedPhysical = categoryOrder.flatMap { categoryId ->
             physical.filter { it.categoryId == categoryId }
@@ -47,7 +50,7 @@ object PostureListBuilder {
             }
         }
 
-        imagination.forEach { items.add(PostureListItem.PostureEntry(it)) }
+        specials.forEach { items.add(PostureListItem.PostureEntry(it)) }
         return items
     }
 }

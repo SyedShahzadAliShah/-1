@@ -53,7 +53,7 @@ object PdfExporter {
     private const val BOTTOM_MARGIN = 54f
     private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
     private const val IMAGE_HEIGHT = 150f
-    private const val DOWNLOADS_FOLDER = "IntimacyGuide"
+    private const val DOWNLOADS_FOLDER = "LalQilaBuffet"
 
     data class ExportResult(
         val file: File,
@@ -62,9 +62,9 @@ object PdfExporter {
 
     fun exportFullGuide(context: Context, language: String): ExportResult {
         val displayName = if (language == LocaleHelper.LANG_UR) {
-            "intimacy_handbook_urdu.pdf"
+            "lal_qila_buffet_menu_urdu.pdf"
         } else {
-            "intimacy_handbook_english.pdf"
+            "lal_qila_buffet_menu_english.pdf"
         }
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
@@ -257,18 +257,18 @@ object PdfExporter {
         val writer = PageWriter(context, document, language, pageNumber)
         val isRtl = language == LocaleHelper.LANG_UR
 
-        val title = if (isRtl) "مکمل قربت کی ہینڈ بک" else "Ultimate Intimacy Handbook"
+        val title = if (isRtl) "لال قلعہ مکمل بوفے مینو" else "Lal Qila Complete Buffet Menu"
         val subtitle = if (isRtl) {
-            "جوڑوں کے لیے تصویری جنسی تعلیم • انگریزی و اردو"
+            "تصویری بوفے ترکیبیں • اردو آواز • PDF برآمد"
         } else {
-            "Illustrated Sex Education Handbook for Couples"
+            "Illustrated Buffet Recipes with Voice & PDF Export"
         }
         val intro = if (isRtl) {
-            "یہ ہینڈ بک تصویری ہدایات کے ساتھ قریبی پوزیشنز سیکھنے، باہمی رضامندی، " +
-                "آرام دہ مواصلات اور محفوظ تجربہ کرنے میں جوڑوں کی مدد کرتی ہے۔"
+            "یہ مینو لال قلعہ بوفے کی مکمل ترکیبیں پیش کرتا ہے — پاکستانی، باربی کیو، چائنیز، " +
+                "کونٹینینٹل، میٹھا اور شیف کی خاص ڈشیں۔ ہر ترکیب تصویر، اجزاء اور پکانے کے مراحل کے ساتھ۔"
         } else {
-            "This handbook uses illustrated educational diagrams to help couples learn " +
-                "intimate postures with mutual consent, comfort-focused communication, and safety."
+            "This menu presents the complete Lal Qila buffet recipe collection — Pakistani, BBQ, Chinese, " +
+                "Continental, desserts, and chef specials. Every recipe includes pictures, ingredients, and cooking steps."
         }
 
         writer.drawTitle(title)
@@ -376,11 +376,14 @@ object PdfExporter {
     ): Int {
         var pageNumber = startPage
         val categoryOrder = listOf(
-            PostureRepository.CAT_FACE,
-            PostureRepository.CAT_SIDE,
-            PostureRepository.CAT_REAR,
-            PostureRepository.CAT_STANDING,
-            PostureRepository.CAT_VARIATIONS
+            PostureRepository.CAT_PAKISTANI,
+            PostureRepository.CAT_BBQ,
+            PostureRepository.CAT_CHINESE,
+            PostureRepository.CAT_CONTINENTAL,
+            PostureRepository.CAT_SALAD_SOUP,
+            PostureRepository.CAT_BREAD,
+            PostureRepository.CAT_DESSERT,
+            PostureRepository.CAT_BEVERAGE
         )
         val physical = PostureRepository.getPhysicalPostures()
         var lastCategory: String? = null
@@ -416,7 +419,7 @@ object PdfExporter {
     ): Int {
         val writer = PageWriter(context, document, language, pageNumber)
         val isUrdu = language == LocaleHelper.LANG_UR
-        val eduLabel = if (isUrdu) "جنسی تعلیم" else "Sex Education"
+        val eduLabel = if (isUrdu) "بوفے مشورہ" else "Buffet Tip"
         writer.drawSection(eduLabel)
         writer.drawImage(insert.illustrationRes, 360, 200)
         writer.drawHeading(if (isUrdu) insert.urduTitle else insert.englishTitle)
@@ -466,10 +469,10 @@ object PdfExporter {
         writer.space(8f)
 
         val stepsLabel = when {
-            posture.isImagination && isRtl -> "تخیلی مشق"
-            posture.isImagination -> "Imagination Exercise"
-            isRtl -> "طریقہ کار"
-            else -> "How To"
+            posture.isImagination && isRtl -> "شیف کا طریقہ"
+            posture.isImagination -> "Chef's Method"
+            isRtl -> "ترکیب کے مراحل"
+            else -> "Recipe Steps"
         }
         writer.drawSection(stepsLabel)
         content.steps.forEachIndexed { index, step ->
@@ -483,7 +486,7 @@ object PdfExporter {
         }
         writer.space(6f)
 
-        val tipsLabel = if (isRtl) "آرام کے مشورے" else "Comfort Tips"
+        val tipsLabel = if (isRtl) "شیف کے مشورے" else "Chef Tips"
         writer.drawSection(tipsLabel)
         for (tip in content.tips) {
             val line = if (isRtl) UrduPdfText.bulletItem(tip) else "• $tip"
@@ -492,31 +495,21 @@ object PdfExporter {
         }
 
         if (!posture.isImagination) {
-            content.forMan?.let { man ->
+            content.forMan?.let { ingredients ->
                 writer.space(6f)
-                val manLabel = if (isRtl) "مرد کا کردار" else "Man's Role"
-                writer.drawSection(manLabel)
-                val posLabel = if (isRtl) "پوزیشن" else "Position"
-                writer.drawBody("$posLabel: ${man.position}")
-                writer.space(4f)
-                val guideLabel = if (isRtl) "رہنمائی" else "Guidance"
-                writer.drawBody(guideLabel)
-                for (item in man.guidance) {
+                val ingLabel = if (isRtl) "اہم اجزاء" else "Key Ingredients"
+                writer.drawSection(ingLabel)
+                for (item in ingredients.guidance) {
                     val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
                     writer.drawBody(line)
                     writer.space(4f)
                 }
             }
-            content.forWoman?.let { woman ->
+            content.forWoman?.let { serving ->
                 writer.space(6f)
-                val womanLabel = if (isRtl) "عورت کا کردار" else "Woman's Role"
-                writer.drawSection(womanLabel)
-                val posLabel = if (isRtl) "پوزیشن" else "Position"
-                writer.drawBody("$posLabel: ${woman.position}")
-                writer.space(4f)
-                val guideLabel = if (isRtl) "رہنمائی" else "Guidance"
-                writer.drawBody(guideLabel)
-                for (item in woman.guidance) {
+                val serveLabel = if (isRtl) "پیشکش اور جوڑ" else "Serving & Pairing"
+                writer.drawSection(serveLabel)
+                for (item in serving.guidance) {
                     val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
                     writer.drawBody(line)
                     writer.space(4f)

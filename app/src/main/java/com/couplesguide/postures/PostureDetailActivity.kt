@@ -102,26 +102,26 @@ class PostureDetailActivity : AppCompatActivity() {
     }
 
     private fun bindPartnerRoles(content: com.couplesguide.postures.data.LocalizedContent) {
-        val showRoles = !posture.isImagination && content.forMan != null && content.forWoman != null
+        val showRoles = content.forMan != null
         val visibility = if (showRoles) android.view.View.VISIBLE else android.view.View.GONE
 
         binding.manRoleHeader.visibility = visibility
-        binding.manPositionLabel.visibility = visibility
-        binding.manPositionText.visibility = visibility
-        binding.manGuidanceLabel.visibility = visibility
+        binding.manPositionLabel.visibility = android.view.View.GONE
+        binding.manPositionText.visibility = android.view.View.GONE
+        binding.manGuidanceLabel.visibility = android.view.View.GONE
         binding.manGuidanceList.visibility = visibility
-        binding.womanRoleHeader.visibility = visibility
-        binding.womanPositionLabel.visibility = visibility
-        binding.womanPositionText.visibility = visibility
-        binding.womanGuidanceLabel.visibility = visibility
-        binding.womanGuidanceList.visibility = visibility
+        binding.womanRoleHeader.visibility = if (content.forWoman != null) android.view.View.VISIBLE else android.view.View.GONE
+        binding.womanPositionLabel.visibility = android.view.View.GONE
+        binding.womanPositionText.visibility = android.view.View.GONE
+        binding.womanGuidanceLabel.visibility = android.view.View.GONE
+        binding.womanGuidanceList.visibility = if (content.forWoman != null) android.view.View.VISIBLE else android.view.View.GONE
 
         if (!showRoles) return
 
-        binding.manPositionText.text = content.forMan!!.position
-        binding.manGuidanceList.text = content.forMan.guidance.joinToString("\n\n") { "• $it" }
-        binding.womanPositionText.text = content.forWoman!!.position
-        binding.womanGuidanceList.text = content.forWoman.guidance.joinToString("\n\n") { "• $it" }
+        binding.manGuidanceList.text = content.forMan!!.guidance.joinToString("\n\n") { "• $it" }
+        content.forWoman?.let { serving ->
+            binding.womanGuidanceList.text = serving.guidance.joinToString("\n\n") { "• $it" }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -5,15 +5,19 @@ import com.couplesguide.postures.R
 object PostureRepository {
 
     const val CAT_ALL = "all"
-    const val CAT_FACE = "face_to_face"
-    const val CAT_SIDE = "side_by_side"
-    const val CAT_REAR = "rear_entry"
-    const val CAT_STANDING = "standing_seated"
-    const val CAT_IMAGINATION = "imagination"
-    const val CAT_VARIATIONS = "variations"
+    const val CAT_PAKISTANI = "pakistani"
+    const val CAT_BBQ = "bbq"
+    const val CAT_CHINESE = "chinese"
+    const val CAT_CONTINENTAL = "continental"
+    const val CAT_SALAD_SOUP = "salad_soup"
+    const val CAT_BREAD = "bread"
+    const val CAT_DESSERT = "dessert"
+    const val CAT_BEVERAGE = "beverage"
+    const val CAT_SPECIAL = "chef_special"
 
     fun getCategoryIds(): List<String> = listOf(
-        CAT_ALL, CAT_FACE, CAT_SIDE, CAT_REAR, CAT_STANDING, CAT_VARIATIONS, CAT_IMAGINATION
+        CAT_ALL, CAT_PAKISTANI, CAT_BBQ, CAT_CHINESE, CAT_CONTINENTAL,
+        CAT_SALAD_SOUP, CAT_BREAD, CAT_DESSERT, CAT_BEVERAGE, CAT_SPECIAL
     )
 
     fun getCategoryLabel(categoryId: String, language: String): String {
@@ -22,432 +26,502 @@ object PostureRepository {
     }
 
     private val categoryLabels = mapOf(
-        CAT_ALL to ("All" to "سب"),
-        CAT_FACE to ("Face to Face" to "آمنے سامنے"),
-        CAT_SIDE to ("Side by Side" to "ساتھ ساتھ"),
-        CAT_REAR to ("Rear Entry" to "پیچھے سے"),
-        CAT_STANDING to ("Standing & Seated" to "کھڑے اور بیٹھے"),
-        CAT_VARIATIONS to ("Variations" to "تبدیلیاں"),
-        CAT_IMAGINATION to ("Imagination" to "تخیل")
+        CAT_ALL to ("All Dishes" to "تمام کھانے"),
+        CAT_PAKISTANI to ("Pakistani" to "پاکستانی"),
+        CAT_BBQ to ("BBQ & Grill" to "باربی کیو"),
+        CAT_CHINESE to ("Chinese" to "چائنیز"),
+        CAT_CONTINENTAL to ("Continental" to "کونٹینینٹل"),
+        CAT_SALAD_SOUP to ("Salads & Soups" to "سلاد اور سوپ"),
+        CAT_BREAD to ("Breads" to "روٹی"),
+        CAT_DESSERT to ("Desserts" to "میٹھا"),
+        CAT_BEVERAGE to ("Beverages" to "مشروبات"),
+        CAT_SPECIAL to ("Chef Specials" to "شیف کی خاص ڈش")
     )
 
-    private val postures: List<Posture> = listOf(
-        posture(
-            id = "missionary", categoryId = CAT_FACE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.pic_missionary,
-            enName = "Missionary", urName = "مشنری",
-            enCat = "Face to Face", urCat = "آمنے سامنے",
-            enSummary = "Classic face-to-face position with one partner on top.",
-            urSummary = "کلاسک آمنے سامنے پوزیشن جس میں ایک ساتھی اوپر ہوتا ہے۔",
-            enDesc = "One of the most common intimate positions. One partner lies on their back while the other lies on top, facing them. It allows eye contact, kissing, and easy communication.",
-            urDesc = "سب سے عام قریبی پوزیشنز میں سے ایک۔ ایک ساتھی پیٹ کے بل لیٹتا ہے اور دوسرا اوپر آمنے سامنے ہوتا ہے۔ آنکھوں کا رابطہ، بوسہ اور آسان گفتگو ممکن ہے۔",
-            enSteps = listOf(
-                "One partner lies comfortably on their back with knees slightly bent.",
-                "The other partner positions themselves on top, supporting weight on hands or forearms.",
-                "Adjust hip height and leg placement until both feel comfortable.",
-                "Move slowly at first and check in with each other."
-            ),
-            urSteps = listOf(
-                "ایک ساتھی پیٹ کے بل آرام سے لیٹے، گھٹنے ہلکے موڑے ہوئے۔",
-                "دوسرا ساتھی اوپر آئے، وزن ہاتھوں یا بازوؤں پر رکھے۔",
-                "کولہے کی اونچائی اور ٹانگوں کی جگہ ایڈجسٹ کریں۔",
-                "آہستہ شروع کریں اور ایک دوسرے سے پوچھتے رہیں۔"
-            ),
-            enTips = listOf(
-                "Place a pillow under the lower back for better angle.",
-                "Keep communication open — small adjustments help.",
-                "Try varying depth and pace together."
-            ),
-            urTips = listOf(
-                "کمر کے نیچے تکیہ رکھیں بہتر زاویے کے لیے۔",
-                "بات چیت جاری رکھیں — چھوٹی تبدیلیاں مدد کرتی ہیں۔",
-                "گہرائی اور رفتار ساتھ مل کر بدلیں۔"
-            )
+    private val recipes: List<Posture> = listOf(
+        // ── Pakistani ──────────────────────────────────────────────────────
+        recipe("biryani", CAT_PAKISTANI, Difficulty.INTERMEDIATE, R.drawable.pic_biryani,
+            "Chicken Biryani", "چکن بریانی", "Pakistani", "پاکستانی",
+            "Aromatic layered rice with spiced chicken — Lal Qila's signature.",
+            "مصالحہ دار چکن کے ساتھ خوشبودار پرت دار چاول — لال قلعہ کی شہرت۔",
+            "Fragrant basmati rice layered with marinated chicken, fried onions, and Lal Qila's secret biryani masala. Slow-cooked dum style for deep flavor.",
+            "باسمتی چاول، میرینیٹڈ چکن، بھنی پیاز اور لال قلعہ کے خفیہ مسالے کی پرتیں۔ دم پختگی سے گہرا ذائقہ۔",
+            listOf("Soak basmati rice 30 minutes.", "Marinate chicken with yogurt, ginger-garlic, and biryani masala 2 hours.", "Parboil rice until 70% cooked.", "Layer rice and chicken in a heavy pot with fried onions and saffron milk.", "Seal and cook on dum for 25–30 minutes."),
+            listOf("باسمتی چاول 30 منٹ بھگوئیں۔", "چکن کو دہی، ادرک لہسن اور بریانی مسالے میں 2 گھنٹے میرینیٹ کریں۔", "چاول 70% پکائیں۔", "بھنی پیاز اور زعفران والے دودھ کے ساتھ پرتیں لگائیں۔", "بند کر کے 25–30 منٹ دم دیں۔"),
+            listOf("Serve with raita and fresh salad.", "Garnish with fried onions and coriander.", "Rest 10 minutes before opening the pot."),
+            listOf("رائتہ اور تازہ سلاد کے ساتھ پیش کریں۔", "بھنی پیاز اور دھنیا سے سجائیں۔", "برتن کھولنے سے 10 منٹ پہلے آرام دیں۔"),
+            listOf("Basmati rice", "Chicken", "Yogurt", "Biryani masala", "Fried onions", "Saffron", "Ghee"),
+            listOf("باسمتی چاول", "چکن", "دہی", "بریانی مسالہ", "بھنی پیاز", "زعفران", "گھی"),
+            listOf("Raita", "Kachumber salad", "Green chutney"),
+            listOf("رائتہ", "کچومبر سلاد", "ہرا چٹنی")
         ),
-        posture(
-            id = "cowgirl", categoryId = CAT_FACE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.pic_cowgirl,
-            enName = "Cowgirl (Woman on Top)", urName = "کاؤگرل (عورت اوپر)",
-            enCat = "Face to Face", urCat = "آمنے سامنے",
-            enSummary = "One partner straddles the other while facing them.",
-            urSummary = "ایک ساتھی دوسرے کے اوپر آمنے سامنے بیٹھتا یا بیٹھتی ہے۔",
-            enDesc = "The partner on top sits or kneels astride the other, facing them. This gives the top partner control over movement, depth, and pace.",
-            urDesc = "اوپر والا ساتھی آمنے سامنے بیٹھ کر حرکت، گہرائی اور رفتار کنٹرول کرتا ہے۔",
-            enSteps = listOf(
-                "One partner lies on their back.",
-                "The other kneels or sits astride their hips, facing them.",
-                "Top partner braces hands on chest or thighs for balance.",
-                "Rock hips gently to find a comfortable rhythm."
-            ),
-            urSteps = listOf(
-                "ایک ساتھی پیٹ کے بل لیٹے۔",
-                "دوسرا کولہوں پر آمنے سامنے بیٹھے یا گھٹنوں کے بل۔",
-                "اوپر والا سینے یا رانوں پر ہاتھ رکھے توازن کے لیے۔",
-                "کولہے آہستہ ہلائیں آرام دہ تال کے لیے۔"
-            ),
-            enTips = listOf(
-                "The partner on top sets the pace — communicate openly.",
-                "Lean forward for closeness or sit upright for a new angle.",
-                "Use a wall or headboard for support if needed."
-            ),
-            urTips = listOf(
-                "اوپر والا رفتار طے کرے — کھل کر بات کریں۔",
-                "قربت کے لیے جھکیں یا سیدھے بیٹھیں نئے زاویے کے لیے۔",
-                "ضرورت ہو تو دیوار یا سرے کی مدد لیں۔"
-            )
+        recipe("nihari", CAT_PAKISTANI, Difficulty.ADVANCED, R.drawable.pic_nihari,
+            "Beef Nihari", "بیف نہاری", "Pakistani", "پاکستانی",
+            "Slow-cooked beef stew with rich nihari masala.",
+            "دیر پکنے والی گوشت کی قلیہ نہاری مسالے کے ساتھ۔",
+            "Tender beef shank simmered overnight with nihari spices, wheat flour, and ghee. A Lal Qila breakfast buffet classic.",
+            "نہاری مسالے، آٹے اور گھی میں رات بھر پکنے والا نرم گوشت۔ لال قلعہ ناشتے کی بوفے کلاسک۔",
+            listOf("Brown beef with nihari masala and ginger-garlic paste.", "Add water and simmer 4–6 hours until meat is fall-apart tender.", "Dissolve wheat flour in water and stir in to thicken.", "Finish with ghee tadka and lemon."),
+            listOf("گوشت کو نہاری مسالے اور ادرک لہسن کے ساتھ بھونیں۔", "پانی ڈال کر 4–6 گھنٹے پکائیں۔", "آٹے کا میدہ گاڑھا کریں۔", "گھی کی تڑکا اور لیموں سے ختم کریں۔"),
+            listOf("Best served piping hot.", "Garnish with ginger julienne and green chilies.", "Pair with naan or sheermal."),
+            listOf("گرم گرم پیش کریں۔", "ادرک اور ہری مرچ سے سجائیں۔", "نان یا شیرمل کے ساتھ۔"),
+            listOf("Beef shank", "Nihari masala", "Wheat flour", "Ghee", "Ginger", "Lemon"),
+            listOf("گوشت کی کنڈی", "نہاری مسالہ", "آٹا", "گھی", "ادرک", "لیموں")
         ),
-        posture(
-            id = "spooning", categoryId = CAT_SIDE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.pic_spooning,
-            enName = "Spooning", urName = "چمچے والی پوزیشن",
-            enCat = "Side by Side", urCat = "ساتھ ساتھ",
-            enSummary = "Both partners lie on their sides, nestled together.",
-            urSummary = "دونوں ساتھی سیدھے لیٹ کر ایک دوسرے سے لپٹے ہوئے۔",
-            enDesc = "Partners lie on their sides facing the same direction, like spoons. Gentle, intimate, and low-effort — ideal for relaxed moments.",
-            urDesc = "دونوں ایک سمت دیکھتے ہوئے سیدھے لیٹتے ہیں، جیسے چمچے۔ نرم، قریبی اور آسان — آرام کے لیے بہترین۔",
-            enSteps = listOf(
-                "Both lie on their sides facing the same direction.",
-                "The partner behind curls around the front partner.",
-                "Front partner may bend knees slightly.",
-                "Move together slowly and stay attuned to comfort."
-            ),
-            urSteps = listOf(
-                "دونوں ایک سمت دیکھتے ہوئے سیدھے لیٹیں۔",
-                "پیچھے والا ساتھی سامنے والے کے گرد لپٹے۔",
-                "سامنے والا گھٹنے ہلکے موڑ سکتا ہے۔",
-                "آہستہ ساتھ حرکت کریں اور آرام کا خیال رکھیں۔"
-            ),
-            enTips = listOf(
-                "Place a pillow between knees for hip alignment.",
-                "Great for morning intimacy or calm moments.",
-                "Front partner can reach back to guide movement."
-            ),
-            urTips = listOf(
-                "گھٹنوں کے درمیان تکیہ رکھیں۔",
-                "صبح کی قربت یا پرسکون لمحات کے لیے بہترین۔",
-                "سامنے والا پیچھے ہاتھ بڑھا کر رہنمائی کر سکتا ہے۔"
-            )
+        recipe("karahi", CAT_PAKISTANI, Difficulty.INTERMEDIATE, R.drawable.pic_karahi,
+            "Mutton Karahi", "مٹن کڑاہی", "Pakistani", "پاکستانی",
+            "Wok-style mutton in tomato and green chili masala.",
+            "ٹماٹر اور ہری مرچ مسالے میں مٹن کڑاہی۔",
+            "Tender mutton cooked in a traditional karahi with tomatoes, green chilies, ginger, and coriander. Lal Qila's desi station highlight.",
+            "روایتی کڑاہی میں مٹن، ٹماٹر، ہری مرچ، ادرک اور دھنیا۔ لال قلعہ دیسی سٹیشن کی شان۔",
+            listOf("Sauté mutton with ginger-garlic until color changes.", "Add tomatoes and cook until oil separates.", "Add green chilies and karahi masala.", "Finish with butter and fresh coriander."),
+            listOf("مٹن کو ادرک لہسن کے ساتھ بھونیں۔", "ٹماٹر ڈال کر تیل الگ ہونے تک پکائیں۔", "ہری مرچ اور کڑاہی مسالہ شامل کریں۔", "مکھن اور تازہ دھنیا سے ختم کریں۔"),
+            listOf("Serve sizzling in the karahi.", "Best with naan or tandoori roti."),
+            listOf("کڑاہی میں گرم گرم پیش کریں۔", "نان یا تندوری روٹی کے ساتھ بہترین۔"),
+            listOf("Mutton", "Tomatoes", "Green chilies", "Ginger-garlic", "Butter", "Coriander"),
+            listOf("مٹن", "ٹماٹر", "ہری مرچ", "ادرک لہسن", "مکھن", "دھنیا")
         ),
-        posture(
-            id = "side_by_side", categoryId = CAT_SIDE, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.pic_side_by_side,
-            enName = "Side by Side (Facing)", urName = "سامنے سامنے سیدھے",
-            enCat = "Side by Side", urCat = "ساتھ ساتھ",
-            enSummary = "Partners lie facing each other on their sides.",
-            urSummary = "دونوں ساتھی سیدھے لیٹ کر آمنے سامنے۔",
-            enDesc = "Both partners lie on their sides facing one another. Creates closeness and equal participation with less strain.",
-            urDesc = "دونوں سیدھے لیٹ کر آمنے سامنے۔ قربت اور برابر شرکت، کم جسمانی دباؤ۔",
-            enSteps = listOf(
-                "Both lie on sides, facing each other.",
-                "Intertwine legs — top leg over partner's hip works well.",
-                "Stay close with arms around each other.",
-                "Rock hips gently to find a shared rhythm."
-            ),
-            urSteps = listOf(
-                "دونوں سیدھے آمنے سامنے لیٹیں۔",
-                "ٹانگیں آپس میں ملائیں — اوپر والی ران پر رکھیں۔",
-                "بازوؤں سے ایک دوسرے کو قریب رکھیں۔",
-                "کولہے آہستہ ہلائیں مشترکہ تال کے لیے۔"
-            ),
-            enTips = listOf(
-                "Excellent for eye contact and whispered conversation.",
-                "Adjust leg intertwining to change sensation.",
-                "Works well on a firm mattress or padded floor."
-            ),
-            urTips = listOf(
-                "آنکھوں کے رابطے اور آہستہ بات کے لیے بہترین۔",
-                "ٹانگوں کی گرفت بدل کر احساس تبدیل کریں۔",
-                "سخت بستر یا فرش پر کمبل کے ساتھ اچھا کام کرتا ہے۔"
-            )
+        recipe("handi", CAT_PAKISTANI, Difficulty.INTERMEDIATE, R.drawable.pic_handi,
+            "Chicken Handi", "چکن ہانڈی", "Pakistani", "پاکستانی",
+            "Creamy chicken curry cooked in a clay handi.",
+            "مٹی کی ہانڈی میں ملائم چکن کڑی۔",
+            "Boneless chicken in a rich yogurt and cream gravy with handi spices. A buffet favorite at Lal Qila.",
+            "دہی اور کریم کی گاڑھی گرےوی میں بونلیس چکن۔ لال قلعہ بوفے کی پسندیدہ ڈش۔",
+            listOf("Marinate chicken in yogurt and spices.", "Cook onions until golden, add chicken.", "Simmer with cream and handi masala.", "Garnish with cream swirl and kasuri methi."),
+            listOf("چکن کو دہی اور مسالوں میں میرینیٹ کریں۔", "پیاز سنہری کریں، چکن ڈالیں۔", "کریم اور ہانڈی مسالے کے ساتھ پکائیں۔", "کریم اور کسواری میتھی سے سجائیں۔"),
+            listOf("Serve in traditional handi pot.", "Pairs well with garlic naan."),
+            listOf("روایتی ہانڈی میں پیش کریں۔", "لہسن نان کے ساتھ بہترین۔"),
+            listOf("Chicken", "Yogurt", "Cream", "Onions", "Handi masala", "Kasuri methi"),
+            listOf("چکن", "دہی", "کریم", "پیاز", "ہانڈی مسالہ", "کسواری میتھی")
         ),
-        posture(
-            id = "doggy", categoryId = CAT_REAR, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.pic_doggy,
-            enName = "Rear Entry", urName = "پیچھے سے داخلہ",
-            enCat = "Rear Entry", urCat = "پیچھے سے",
-            enSummary = "One partner kneels while the other enters from behind.",
-            urSummary = "ایک گھٹنوں کے بل، دوسرا پیچھے سے۔",
-            enDesc = "One partner is on hands and knees while the other kneels or stands behind. Allows deeper penetration and a different angle.",
-            urDesc = "ایک ہاتھ اور گھٹنوں پر، دوسرا پیچھے کھڑا یا گھٹنوں پر۔ زیادہ گہرائی اور مختلف زاویہ۔",
-            enSteps = listOf(
-                "One partner positions on hands and knees, or lies flat.",
-                "The other kneels or stands behind at comfortable height.",
-                "Front partner can lower to forearms or use a hip pillow.",
-                "Start slowly and adjust knee width or hip height."
-            ),
-            urSteps = listOf(
-                "ایک ہاتھ گھٹنوں پر یا پیٹ کے بل لیٹے۔",
-                "دوسرا آرام دہ اونچائی پر پیچھے کھڑا یا بیٹھے۔",
-                "سامنے والا بازوؤں پر جھکے یا کولہے کے نیچے تکیہ رکھے۔",
-                "آہستہ شروع کریں، گھٹنوں کی چوڑائی یا کولہے ایڈجسٹ کریں۔"
-            ),
-            enTips = listOf(
-                "A pillow under hips improves comfort and angle.",
-                "Front partner controls depth by shifting hips.",
-                "Check in frequently — this position can be intense."
-            ),
-            urTips = listOf(
-                "کولہے کے نیچے تکیہ آرام اور زاویہ بہتر بناتا ہے۔",
-                "سامنے والا کولہے ہلاکر گہرائی کنٹرول کرے۔",
-                "بار بار پوچھتے رہیں — یہ پوزیشن شدید ہو سکتی ہے۔"
-            )
+        recipe("haleem", CAT_PAKISTANI, Difficulty.ADVANCED, R.drawable.pic_haleem,
+            "Haleem", "حلیم", "Pakistani", "پاکستانی",
+            "Slow-cooked lentil and meat porridge with spices.",
+            "دال اور گوشت کی دیر پکنے والی عیدی حلیم۔",
+            "A hearty blend of wheat, barley, lentils, and beef slow-cooked to a smooth consistency. Topped with fried onions, ginger, and lemon at Lal Qila.",
+            "گندم، جو، دالیں اور گوشت کی ہموار عیدی حلیم۔ لال قلعہ پر بھنی پیاز، ادرک اور لیموں سے سجی۔",
+            listOf("Soak grains and lentils overnight.", "Cook meat until tender, shred.", "Combine and slow-cook 6–8 hours, stirring often.", "Temper with ghee, fried onions, and spices."),
+            listOf("اناج اور دالیں رات بھر بھگوئیں۔", "گوشت نرم پکا کر ریشہ کریں۔", "6–8 گھنٹے ہلاتے ہوئے پکائیں۔", "گھی، بھنی پیاز اور مسالوں کی تڑکا دیں۔"),
+            listOf("Serve with naan and lemon wedges.", "Top with julienned ginger and green chilies."),
+            listOf("نان اور لیموں کے ساتھ۔", "ادرک اور ہری مرچ اوپر سے۔"),
+            listOf("Wheat", "Barley", "Lentils", "Beef", "Haleem masala", "Ghee"),
+            listOf("گندم", "جو", "دالیں", "گوشت", "حلیم مسالہ", "گھی")
         ),
-        posture(
-            id = "lotus", categoryId = CAT_STANDING, difficulty = Difficulty.ADVANCED,
-            illustrationRes = R.drawable.pic_lotus,
-            enName = "Lotus", urName = "کمل پوزیشن",
-            enCat = "Standing & Seated", urCat = "کھڑے اور بیٹھے",
-            enSummary = "Seated face-to-face with legs wrapped around each other.",
-            urSummary = "بیٹھ کر آمنے سامنے، ٹانگیں ایک دوسرے کے گرد۔",
-            enDesc = "Both partners sit facing each other with legs intertwined. Emphasizes closeness, slow movement, and synchronized breathing.",
-            urDesc = "دونوں آمنے سامنے بیٹھ کر ٹانگیں ملائیں۔ قربت، آہستہ حرکت اور ہم آہنگ سانس۔",
-            enSteps = listOf(
-                "One partner sits cross-legged or with legs extended.",
-                "The other sits on their lap, wrapping legs around their waist.",
-                "Wrap arms around each other for balance.",
-                "Rock together slowly — small movements are often best."
-            ),
-            urSteps = listOf(
-                "ایک ساتھی پیر باندھ کر یا پھیلا کر بیٹھے۔",
-                "دوسرا گود میں بیٹھے، ٹانگیں کمر کے گرد لپیٹے۔",
-                "توازن کے لیے باہیں ایک دوسرے کے گرد۔",
-                "آہستہ ساتھ ہلیں — چھوٹی حرکتیں اکثر بہترین ہوتی ہیں۔"
-            ),
-            enTips = listOf(
-                "Requires flexibility — use cushions under hips.",
-                "Ideal for slow, mindful intimacy.",
-                "Maintain eye contact to deepen connection."
-            ),
-            urTips = listOf(
-                "لچک چاہیے — کولہے کے نیچے گدوے استعمال کریں۔",
-                "آہستہ، باخبر قربت کے لیے بہترین۔",
-                "آنکھوں کا رابطہ تعلق گہرا کرتا ہے۔"
-            )
+        // ── BBQ ──────────────────────────────────────────────────────────
+        recipe("seekh_kebab", CAT_BBQ, Difficulty.INTERMEDIATE, R.drawable.pic_seekh_kebab,
+            "Seekh Kebab", "سیخ کباب", "BBQ & Grill", "باربی کیو",
+            "Minced meat kebabs on skewers, char-grilled.",
+            "کیمے کے کباب سیخ پر، چار کوال پر۔",
+            "Spiced minced beef or mutton molded on skewers and grilled over charcoal. A Lal Qila live BBQ station staple.",
+            "مصالحہ دار کیمہ سیخ پر لگا کر کوئلے پر گرل۔ لال قلعہ لائیو باربی کیو سٹیشن کی بنیاد۔",
+            listOf("Mix mince with onions, ginger-garlic, and kebab spices.", "Knead until sticky and smooth.", "Mold onto skewers.", "Grill over charcoal, turning until cooked through."),
+            listOf("کیمے میں پیاز، ادرک لہسن اور کباب مسالہ ملائیں۔", "چکنے ہونے تک گوندھیں۔", "سیخ پر لگائیں۔", "کوئلے پر پلٹتے ہوئے پکائیں۔"),
+            listOf("Serve with mint chutney and onion rings.", "Squeeze lemon before eating."),
+            listOf("پودینے کی چٹنی اور پیاز کے حلقے کے ساتھ۔", "کھانے سے پہلے لیموں نچوڑیں۔"),
+            listOf("Minced beef/mutton", "Onions", "Ginger-garlic", "Kebab masala", "Coriander"),
+            listOf("کیمہ", "پیاز", "ادرک لہسن", "کباب مسالہ", "دھنیا")
         ),
-        posture(
-            id = "standing", categoryId = CAT_STANDING, difficulty = Difficulty.ADVANCED,
-            illustrationRes = R.drawable.pic_standing,
-            enName = "Standing", urName = "کھڑے ہوئے",
-            enCat = "Standing & Seated", urCat = "کھڑے اور بیٹھے",
-            enSummary = "One partner lifts or supports the other while standing.",
-            urSummary = "کھڑے ہو کر ایک دوسرے کو سہارا دینا۔",
-            enDesc = "Partners stand, often with one lifted or braced against a wall. Spontaneous but requires strength and stability.",
-            urDesc = "کھڑے ہو کر، اکثر ایک اٹھایا ہوا یا دیوار سے سہارا۔ اچانک لیکن طاقت اور توازن چاہیے۔",
-            enSteps = listOf(
-                "One partner stands with back against a sturdy wall.",
-                "The other faces them, legs wrapped around their waist.",
-                "Standing partner supports weight with hands under thighs.",
-                "Move carefully — balance and communication are essential."
-            ),
-            urSteps = listOf(
-                "ایک مضبوط دیوار سے ٹیک لگا کر کھڑے ہوں۔",
-                "دوسرا آمنے سامنے، ٹانگیں کمر کے گرد۔",
-                "کھڑا ساتھی رانوں کے نیچے ہاتھوں سے سہارا دے۔",
-                "احتیاط سے حرکت کریں — توازن اور بات چیت ضروری ہے۔"
-            ),
-            enTips = listOf(
-                "Use a wall for support — never rely on balance alone.",
-                "Lifted partner can grip shoulders or the wall.",
-                "Try one foot on a chair for an easier variation."
-            ),
-            urTips = listOf(
-                "دیوار سے سہارا لیں — صرف توازن پر بھروسہ نہ کریں۔",
-                "اٹھا ہوا ساتھی کندھے یا دیوار پکڑ سکتا ہے۔",
-                "ایک پاؤں کرسی پر رکھ کر آسان متبادل آزمائیں۔"
-            )
+        recipe("chicken_tikka", CAT_BBQ, Difficulty.BEGINNER, R.drawable.pic_chicken_tikka,
+            "Chicken Tikka", "چکن تکہ", "BBQ & Grill", "باربی کیو",
+            "Marinated chicken chunks grilled to perfection.",
+            "میرینیٹڈ چکن کے ٹکڑے گرل پر۔",
+            "Boneless chicken marinated in yogurt, lemon, and tikka masala, grilled until charred and juicy.",
+            "دہی، لیموں اور تکہ مسالے میں میرینیٹ چکن، رسیلا اور بھنا ہوا۔",
+            listOf("Cut chicken into cubes.", "Marinate 4+ hours with yogurt and tikka masala.", "Thread on skewers.", "Grill on high heat until charred outside, juicy inside."),
+            listOf("چکن کو کیوبز میں کاٹیں۔", "دہی اور تکہ مسالے میں 4+ گھنٹے میرینیٹ کریں۔", "سیخ پر لگائیں۔", "باہر سے بھنا، اندر سے رسیلا پکائیں۔"),
+            listOf("Serve with naan and mint raita.", "Brush with butter while grilling."),
+            listOf("نان اور پودینے کے رائتے کے ساتھ۔", "گرل کرتے ہوئے مکھن لگائیں۔"),
+            listOf("Chicken breast", "Yogurt", "Tikka masala", "Lemon", "Ginger-garlic"),
+            listOf("چکن بریسٹ", "دہی", "تکہ مسالہ", "لیموں", "ادرک لہسن")
         ),
-        posture(
-            id = "edge_of_bed", categoryId = CAT_VARIATIONS, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.pic_edge_bed,
-            enName = "Edge of Bed", urName = "بستر کے کنارے",
-            enCat = "Variations", urCat = "تبدیلیاں",
-            enSummary = "One partner at the bed edge while the other stands.",
-            urSummary = "ایک بستر کے کنارے، دوسرا کھڑا۔",
-            enDesc = "One partner sits or lies at the bed edge with legs draped over. The other stands between their legs. Comfortable and accessible.",
-            urDesc = "ایک بستر کے کنارے بیٹھے یا لیٹے، ٹانگیں باہر۔ دوسرا درمیان میں کھڑا۔ آرام دہ اور آسان۔",
-            enSteps = listOf(
-                "One partner sits or lies at the very edge of the bed.",
-                "Feet on floor or calves on standing partner's shoulders.",
-                "Standing partner positions between their legs.",
-                "Adjust bed height for the best alignment."
-            ),
-            urSteps = listOf(
-                "ایک بستر کے بالکل کنارے بیٹھے یا لیٹیں۔",
-                "پاؤں فرش پر یا پنڈلیاں کھڑے ساتھی کے کندھوں پر۔",
-                "کھڑا ساتھی ٹانگوں کے درمیان کھڑا ہو۔",
-                "بستر کی اونچائی ایڈجسٹ کریں بہتر ہم آہنگی کے لیے۔"
-            ),
-            enTips = listOf(
-                "Works well when one partner has limited mobility.",
-                "Lying partner can grip the bed edge for stability.",
-                "Try bent, straight, or over-shoulder leg positions."
-            ),
-            urTips = listOf(
-                "جب ایک ساتھی کی حرکت محدود ہو تو بہترین۔",
-                "لیٹا ساتھی بستر کا کنارہ پکڑ سکتا ہے۔",
-                "ٹانگیں موڑی، سیدھی یا کندھوں پر رکھ کر آزمائیں۔"
-            )
+        recipe("malai_boti", CAT_BBQ, Difficulty.BEGINNER, R.drawable.pic_malai_boti,
+            "Malai Boti", "ملائی بوٹی", "BBQ & Grill", "باربی کیو",
+            "Creamy marinated chicken grilled until tender.",
+            "ملائم میرینیٹ چکن گرل پر۔",
+            "Mild, creamy chicken pieces marinated with cream, cheese, and mild spices — perfect for those who prefer less heat.",
+            "کریم، پنیر اور ہلکے مسالوں میں میرینیٹ نرم چکن — کم تیکھے پسند کرنے والوں کے لیے۔",
+            listOf("Marinate chicken with cream, cheese, and mild spices 3 hours.", "Thread on skewers.", "Grill on medium heat until golden."),
+            listOf("چکن کو کریم، پنیر اور ہلکے مسالوں میں 3 گھنٹے میرینیٹ کریں۔", "سیخ پر لگائیں۔", "درمیانی آنچ پر سنہری پکائیں۔"),
+            listOf("Serve with garlic naan.", "Drizzle fresh cream before serving."),
+            listOf("لہسن نان کے ساتھ۔", "پیش کرنے سے پہلے تازہ کریم ڈالیں۔"),
+            listOf("Chicken", "Cream", "Cheese", "Mild spices", "Lemon"),
+            listOf("چکن", "کریم", "پنیر", "ہلکے مسالے", "لیموں")
         ),
-        posture(
-            id = "reverse_cowgirl", categoryId = CAT_VARIATIONS, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.pic_reverse_cowgirl,
-            enName = "Reverse Cowgirl", urName = "الٹ کاؤگرل",
-            enCat = "Variations", urCat = "تبدیلیاں",
-            enSummary = "Top partner faces away while straddling the other.",
-            urSummary = "اوپر والا پیٹھ کر کے بیٹھے۔",
-            enDesc = "Like cowgirl, but the top partner faces away. Offers a different angle and new perspective.",
-            urDesc = "کاؤگرل جیسی لیکن اوپر والا منہ دوسری طرف۔ مختلف زاویہ اور نیا تجربہ۔",
-            enSteps = listOf(
-                "One partner lies on their back.",
-                "The other straddles facing away toward their feet.",
-                "Top partner places hands on thighs for balance.",
-                "Lean forward or sit upright to change sensation."
-            ),
-            urSteps = listOf(
-                "ایک پیٹ کے بل لیٹے۔",
-                "دوسرا پاؤں کی طرف منہ کر کے اوپر بیٹھے۔",
-                "اوازن کے لیے رانوں پر ہاتھ رکھیں۔",
-                "آگے جھکیں یا سیدھے بیٹھیں احساس بدلنے کے لیے۔"
-            ),
-            enTips = listOf(
-                "Bottom partner should communicate about depth.",
-                "Top partner controls pace — go slowly at first.",
-                "Try gentle hip circles for variety."
-            ),
-            urTips = listOf(
-                "نیچے والا گہرائی کے بارے میں بتائے۔",
-                "اوپر والا رفتار کنٹرول کرے — آہستہ شروع کریں۔",
-                "کولہے آہستہ گول گھمائیں تنوع کے لیے۔"
-            )
+        recipe("grilled_fish", CAT_BBQ, Difficulty.INTERMEDIATE, R.drawable.pic_grilled_fish,
+            "Grilled Fish", "گرل مچھلی", "BBQ & Grill", "باربی کیو",
+            "Spiced fish fillet grilled with lemon and herbs.",
+            "لیموں اور جڑی بوٹیوں کے ساتھ گرل مچھلی۔",
+            "Fresh fish marinated in lemon, garlic, and herbs, grilled at Lal Qila's seafood station.",
+            "لیموں، لہسن اور جڑی بوٹیوں میں میرینیٹ تازہ مچھلی۔",
+            listOf("Marinate fish with lemon, garlic, and herbs 30 min.", "Grill on medium heat 4–5 min per side.", "Brush with butter and lemon juice."),
+            listOf("مچھلی کو 30 منٹ میرینیٹ کریں۔", "ہر طرف 4–5 منٹ گرل کریں۔", "مکھن اور لیموں کا رس لگائیں۔"),
+            listOf("Serve with tartar sauce and salad.", "Garnish with lemon wedges."),
+            listOf("ٹارٹر ساس اور سلاد کے ساتھ۔", "لیموں کے ٹکڑوں سے سجائیں۔"),
+            listOf("Fish fillet", "Lemon", "Garlic", "Herbs", "Butter"),
+            listOf("مچھلی فلیٹ", "لیموں", "لہسن", "جڑی بوٹیاں", "مکھن")
         ),
-        posture(
-            id = "butterfly", categoryId = CAT_VARIATIONS, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.pic_butterfly,
-            enName = "Butterfly", urName = "تتلی پوزیشن",
-            enCat = "Variations", urCat = "تبدیلیاں",
-            enSummary = "Reclining partner's hips elevated with legs open wide.",
-            urSummary = "لیٹے ہوئے کے کولہے اونچے، ٹانگیں کھلی۔",
-            enDesc = "One partner lies on their back with hips raised on a pillow, legs open. The other stands or kneels at the bed edge.",
-            urDesc = "ایک پیٹ کے بل تکیے پر اونچے کولہے، ٹانگیں کھولے۔ دوسرا کنارے پر کھڑا یا گھٹنوں پر۔",
-            enSteps = listOf(
-                "Place a firm pillow under the reclining partner's hips.",
-                "Lie back with knees toward chest or legs on partner's shoulders.",
-                "Other partner stands or kneels at the bed edge.",
-                "Adjust pillow height until comfortable for both."
-            ),
-            urSteps = listOf(
-                "مضبوط تکیہ کولہے کے نیچے رکھیں۔",
-                "پیٹھ کے بل لیٹیں، گھٹنے سینے کی طرف یا ٹانگیں کندھوں پر۔",
-                "دوسرا ساتھی بستر کے کنارے کھڑا یا گھٹنوں پر۔",
-                "تکیے کی اونچائی دونوں کے آرام کے مطابق رکھیں۔"
-            ),
-            enTips = listOf(
-                "Excellent for targeted stimulation depending on anatomy.",
-                "Use a wedge pillow for stable elevation.",
-                "Reclining partner can hold their own legs."
-            ),
-            urTips = listOf(
-                "جسم کی ساخت کے مطابق بہتر محرک کے لیے۔",
-                "مثلثی تکیہ مستحکم اونچائی کے لیے استعمال کریں۔",
-                "لیٹا ساتھی اپنی ٹانگیں خود پکڑ سکتا ہے۔"
-            )
+        recipe("bbq_wings", CAT_BBQ, Difficulty.BEGINNER, R.drawable.pic_bbq_wings,
+            "BBQ Wings", "باربی کیو ونگز", "BBQ & Grill", "باربی کیو",
+            "Crispy chicken wings in smoky BBQ glaze.",
+            "دھوئیں دار باربی کیو گلیز میں کرسپی ونگز۔",
+            "Chicken wings tossed in Lal Qila's signature BBQ sauce and grilled until crispy and caramelized.",
+            "لال قلعہ کی خاص باربی کیو ساس میں ونگز، کرسپی اور کیراملائزڈ۔",
+            listOf("Season wings with salt and pepper.", "Grill until skin is crispy.", "Toss in BBQ sauce and grill 2 more minutes."),
+            listOf("ونگز کو نمک کالی مرچ لگائیں۔", "کھال کرسپی ہونے تک گرل کریں۔", "باربی کیو ساس میں ملائیں، 2 منٹ اور گرل کریں۔"),
+            listOf("Serve with ranch dip.", "Best eaten hot and crispy."),
+            listOf("رینچ ڈپ کے ساتھ۔", "گرم اور کرسپی کھائیں۔"),
+            listOf("Chicken wings", "BBQ sauce", "Garlic powder", "Paprika"),
+            listOf("چکن ونگز", "باربی کیو ساس", "لہسن پاؤڈر", "پاپرکا")
         ),
-        posture(
-            id = "scissors", categoryId = CAT_SIDE, difficulty = Difficulty.INTERMEDIATE,
-            illustrationRes = R.drawable.pic_scissors,
-            enName = "Scissors", urName = "قینچی پوزیشن",
-            enCat = "Side by Side", urCat = "ساتھ ساتھ",
-            enSummary = "Partners lie at an angle with legs intertwined.",
-            urSummary = "ترچھے لیٹ کر ٹانگیں آپس میں۔",
-            enDesc = "Partners lie on sides at a 90-degree angle with legs scissored. Allows mutual stimulation with less depth.",
-            urDesc = "دونوں ترچھے زاویے پر سیدھے، ٹانگیں قینچی کی طرح۔ کم گہرائی میں باہمی لطف۔",
-            enSteps = listOf(
-                "Both lie on sides facing each other at a slight angle.",
-                "Intertwine legs so thighs and hips align.",
-                "Use hand or hip movement for stimulation.",
-                "Adjust body angle until contact feels natural."
-            ),
-            urSteps = listOf(
-                "دونوں ہلکے زاویے پر آمنے سامنے سیدھے لیٹیں۔",
-                "ٹانگیں ملائیں تاکہ رانیں اور کولہے ہم آہنگ ہوں۔",
-                "ہاتھ یا کولہے کی حرکت سے محرک دیں۔",
-                "جسم کا زاویہ ایڈجسٹ کریں جب رابطہ قدرتی لگے۔"
-            ),
-            enTips = listOf(
-                "Works well for intimacy with less physical intensity.",
-                "Add lubricant if needed for comfortable friction.",
-                "Great for mutual pleasure and synchronized movement."
-            ),
-            urTips = listOf(
-                "کم جسمانی شدت میں قربت کے لیے بہترین۔",
-                "ضرورت ہو تو لوبریکنٹ استعمال کریں۔",
-                "باہمی لطف اور ہم آہنگ حرکت کے لیے بہترین۔"
-            )
+        // ── Chinese ──────────────────────────────────────────────────────
+        recipe("fried_rice", CAT_CHINESE, Difficulty.BEGINNER, R.drawable.pic_fried_rice,
+            "Chicken Fried Rice", "چکن فرائیڈ رائس", "Chinese", "چائنیز",
+            "Wok-tossed rice with chicken and vegetables.",
+            "چکن اور سبزیوں کے ساتھ ووک فرائیڈ رائس۔",
+            "Day-old rice stir-fried with chicken, eggs, spring onions, and soy sauce at Lal Qila's Chinese counter.",
+            "پرانا چاول، چکن، انڈے، ہری پیاز اور سویا ساس کے ساتھ ووک میں تلنا۔",
+            listOf("Cook rice and cool completely.", "Stir-fry chicken, set aside.", "Scramble eggs in wok.", "Toss rice with vegetables, soy sauce, and chicken."),
+            listOf("چاول پکا کر ٹھنڈا کریں۔", "چکن تل کر الگ رکھیں۔", "انڈے پھوڑیں۔", "سبزیاں، سویا ساس اور چکن کے ساتھ چاول ملائیں۔"),
+            listOf("Serve with Manchurian or chili chicken.", "Use high heat for wok hei flavor."),
+            listOf("منچورین یا چلی چکن کے ساتھ۔", "تیز آنچ پر ووک ہی ذائقہ کے لیے۔"),
+            listOf("Rice", "Chicken", "Eggs", "Spring onions", "Soy sauce", "Vegetables"),
+            listOf("چاول", "چکن", "انڈے", "ہری پیاز", "سویا ساس", "سبزیاں")
         ),
-        posture(
-            id = "lazy_dog", categoryId = CAT_REAR, difficulty = Difficulty.BEGINNER,
-            illustrationRes = R.drawable.pic_lazy_dog,
-            enName = "Lazy Dog", urName = "آرام دہ پیچھے سے",
-            enCat = "Rear Entry", urCat = "پیچھے سے",
-            enSummary = "A relaxed rear-entry variation lying flat.",
-            urSummary = "پیٹ کے بل آرام دہ پیچھے سے متبادل۔",
-            enDesc = "A gentler rear entry where the receiving partner lies flat on their stomach. Lower effort and very comfortable.",
-            urDesc = "نرم پیچھے سے داخلہ جہاں سامنے والا پیٹ کے بل لیٹا ہو۔ کم محنت، زیادہ آرام۔",
-            enSteps = listOf(
-                "One partner lies flat on stomach with pillow under hips.",
-                "The other lies on top or positions behind.",
-                "Top partner keeps weight distributed lightly.",
-                "Use slow grinding rather than deep thrusting."
-            ),
-            urSteps = listOf(
-                "ایک پیٹ کے بل کولہے کے نیچے تکیے کے ساتھ۔",
-                "دوسرا اوپر یا پیچھے سے۔",
-                "اوپر والا وزن ہلکا رکھے۔",
-                "گہری جھٹکوں کی بجائے آہستہ رگڑ استعمال کریں۔"
-            ),
-            enTips = listOf(
-                "Ideal when one or both partners are tired.",
-                "Bottom partner adjusts hip height with pillow thickness.",
-                "Combine with gentle massage for relaxation."
-            ),
-            urTips = listOf(
-                "جب تھکاوٹ ہو تو بہترین۔",
-                "نیچے والا تکیے کی موٹائی سے کولہے کی اونچائی بدلے۔",
-                "نرم مساج کے ساتھ ملا کر آرام دہ بنائیں۔"
-            )
+        recipe("chow_mein", CAT_CHINESE, Difficulty.BEGINNER, R.drawable.pic_chow_mein,
+            "Chicken Chow Mein", "چکن چاؤ مین", "Chinese", "چائنیز",
+            "Stir-fried noodles with chicken and crisp vegetables.",
+            "چکن اور کرسپ سبزیوں کے ساتھ تلی ہوئی نوڈلز۔",
+            "Egg noodles wok-fried with chicken, cabbage, carrots, and Lal Qila's chow mein sauce.",
+            "انڈے کی نوڈلز، چکن، گوبھی، گاجر اور لال قلعہ چاؤ مین ساس۔",
+            listOf("Boil noodles until al dente, drain.", "Stir-fry chicken and vegetables.", "Add noodles and chow mein sauce.", "Toss on high heat 2–3 minutes."),
+            listOf("نوڈلز اب ڈنٹے پکائیں۔", "چکن اور سبزیاں تلیں۔", "نوڈلز اور ساس ڈالیں۔", "تیز آنچ پر 2–3 منٹ ملائیں۔"),
+            listOf("Serve immediately while hot.", "Garnish with spring onions."),
+            listOf("گرم گرم فوراً پیش کریں۔", "ہری پیاز سے سجائیں۔"),
+            listOf("Egg noodles", "Chicken", "Cabbage", "Carrots", "Chow mein sauce"),
+            listOf("انڈے کی نوڈلز", "چکن", "گوبھی", "گاجر", "چاؤ مین ساس")
+        ),
+        recipe("manchurian", CAT_CHINESE, Difficulty.INTERMEDIATE, R.drawable.pic_manchurian,
+            "Chicken Manchurian", "چکن منچورین", "Chinese", "چائنیز",
+            "Crispy chicken balls in tangy Manchurian gravy.",
+            "تیز منچورین گرےوی میں کرسپی چکن بالز۔",
+            "Fried chicken dumplings in a sweet-spicy garlic-ginger sauce. A Lal Qila Chinese station favorite.",
+            "میٹھی تیکھی لہسن ادرک ساس میں تلے چکن کے بالز۔",
+            listOf("Make batter with flour, cornstarch, and spices.", "Deep-fry chicken balls until golden.", "Prepare Manchurian sauce with garlic, ginger, and soy.", "Toss balls in sauce just before serving."),
+            listOf("آٹے، کارن فلور اور مسالوں کا بیٹر بنائیں۔", "چکن بالز سنہری تلیں۔", "لہسن، ادرک، سویا کی ساس تیار کریں۔", "پیش کرنے سے پہلے بالز ساس میں ملائیں۔"),
+            listOf("Serve with fried rice.", "Keep balls crispy — add to sauce last."),
+            listOf("فرائیڈ رائس کے ساتھ۔", "بالز کرسپی رکھیں — آخر میں ساس میں ڈالیں۔"),
+            listOf("Chicken mince", "Flour", "Cornstarch", "Garlic", "Ginger", "Soy sauce"),
+            listOf("چکن کیمہ", "آٹا", "کارن فلور", "لہسن", "ادرک", "سویا ساس")
+        ),
+        recipe("sweet_sour", CAT_CHINESE, Difficulty.INTERMEDIATE, R.drawable.pic_sweet_sour,
+            "Sweet & Sour Chicken", "سویٹ اینڈ ساؤر چکن", "Chinese", "چائنیز",
+            "Crispy chicken in sweet and tangy sauce.",
+            "میٹھی اور کھٹی ساس میں کرسپی چکن۔",
+            "Battered chicken pieces in a vibrant sweet-sour sauce with bell peppers and pineapple.",
+            "شملہ مرچ اور انناس کے ساتھ چمکدار سویٹ ساؤر ساس میں چکن۔",
+            listOf("Coat chicken in batter and deep-fry.", "Make sauce with vinegar, sugar, ketchup, and soy.", "Stir-fry peppers and pineapple.", "Combine chicken with sauce."),
+            listOf("چکن کو بیٹر میں ڈال کر تلیں۔", "سرکہ، چینی، کیچپ، سویا کی ساس بنائیں۔", "شملہ مرچ اور انناس تلیں۔", "چکن ساس میں ملائیں۔"),
+            listOf("Serve with steamed rice.", "Garnish with sesame seeds."),
+            listOf("سادہ چاول کے ساتھ۔", "تل کے ساتھ سجائیں۔"),
+            listOf("Chicken", "Bell peppers", "Pineapple", "Vinegar", "Sugar", "Ketchup"),
+            listOf("چکن", "شملہ مرچ", "انناس", "سرکہ", "چینی", "کیچپ")
+        ),
+        recipe("spring_rolls", CAT_CHINESE, Difficulty.INTERMEDIATE, R.drawable.pic_spring_rolls,
+            "Spring Rolls", "سپرنگ رول", "Chinese", "چائنیز",
+            "Crispy vegetable rolls with sweet chili dip.",
+            "میٹھی چلی ڈپ کے ساتھ کرسپی سبزی رول۔",
+            "Golden fried rolls stuffed with cabbage, carrots, and glass noodles. Served with sweet chili sauce at Lal Qila.",
+            "گوبھی، گاجر اور شیشم کی نوڈلز سے بھرے سنہری رول۔ میٹھی چلی ساس کے ساتھ۔",
+            listOf("Prepare filling with shredded vegetables.", "Wrap in spring roll sheets.", "Deep-fry until golden and crispy.", "Serve with sweet chili sauce."),
+            listOf("کٹی ہوئی سبزیوں کا بھرتہ تیار کریں۔", "سپرنگ رول شیٹ میں لپیٹیں۔", "سنہری کرسپی تلیں۔", "میٹھی چلی ساس کے ساتھ پیش کریں۔"),
+            listOf("Serve as appetizer.", "Drain well on paper towels."),
+            listOf("اپیٹائزر کے طور پر۔", "کاغذ پر تیل نکالیں۔"),
+            listOf("Spring roll sheets", "Cabbage", "Carrots", "Glass noodles", "Soy sauce"),
+            listOf("سپرنگ رول شیٹ", "گوبھی", "گاجر", "شیشم نوڈلز", "سویا ساس")
+        ),
+        // ── Continental ──────────────────────────────────────────────────
+        recipe("grilled_chicken", CAT_CONTINENTAL, Difficulty.BEGINNER, R.drawable.pic_grilled_chicken,
+            "Grilled Chicken Breast", "گرل چکن بریسٹ", "Continental", "کونٹینینٹل",
+            "Herb-marinated grilled chicken with jus.",
+            "جڑی بوٹیوں میں میرینیٹ گرل چکن۔",
+            "Juicy chicken breast marinated in herbs and olive oil, grilled and served with pan jus.",
+            "جڑی بوٹیوں اور زیتون کے تیل میں میرینیٹ رسیلا چکن بریسٹ۔",
+            listOf("Marinate chicken 2 hours.", "Grill 6–7 min per side.", "Rest 5 minutes, slice.", "Serve with pan drippings as jus."),
+            listOf("چکن 2 گھنٹے میرینیٹ کریں۔", "ہر طرف 6–7 منٹ گرل کریں۔", "5 منٹ آرام دیں، کاٹیں۔", "پین کے رس کے ساتھ پیش کریں۔"),
+            listOf("Serve with mashed potatoes.", "Pair with garden salad."),
+            listOf("مashed آلو کے ساتھ۔", "گارڈن سلاد کے ساتھ۔"),
+            listOf("Chicken breast", "Olive oil", "Herbs", "Garlic", "Lemon"),
+            listOf("چکن بریسٹ", "زیتون کا تیل", "جڑی بوٹیاں", "لہسن", "لیموں")
+        ),
+        recipe("pasta_alfredo", CAT_CONTINENTAL, Difficulty.BEGINNER, R.drawable.pic_pasta_alfredo,
+            "Pasta Alfredo", "پاستا الفریڈو", "Continental", "کونٹینینٹل",
+            "Creamy fettuccine in parmesan Alfredo sauce.",
+            "پارمیسن الفریڈو ساس میں ملائم فٹیوچینی۔",
+            "Silky pasta tossed in butter, cream, and parmesan. A Lal Qila continental buffet classic.",
+            "مکھن، کریم اور پارمیسن میں ریشمی پاستا۔ لال قلعہ کونٹینینٹل بوفے کلاسک۔",
+            listOf("Cook pasta al dente.", "Melt butter, add cream and parmesan.", "Toss pasta in sauce.", "Season with salt, pepper, and nutmeg."),
+            listOf("پاستا اب ڈنٹے پکائیں۔", "مکھن پگھلائیں، کریم اور پارمیسن ڈالیں۔", "پاستا ساس میں ملائیں۔", "نمک، کالی مرچ، جوزہ ٹیکری۔"),
+            listOf("Serve with garlic bread.", "Top with extra parmesan."),
+            listOf("لہسن بریڈ کے ساتھ۔", "اوپر سے پارمیسن ڈالیں۔"),
+            listOf("Fettuccine", "Butter", "Cream", "Parmesan", "Nutmeg"),
+            listOf("فٹیوچینی", "مکھن", "کریم", "پارمیسن", "جوزہ ٹیکری")
+        ),
+        recipe("chicken_steak", CAT_CONTINENTAL, Difficulty.INTERMEDIATE, R.drawable.pic_chicken_steak,
+            "Chicken Steak", "چکن سٹیک", "Continental", "کونٹینینٹل",
+            "Pan-seared chicken with mushroom sauce.",
+            "مشروم ساس کے ساتھ پین سیرڈ چکن۔",
+            "Tender chicken steak with creamy mushroom sauce, served with vegetables at Lal Qila.",
+            "ملائم چکن سٹیک، کریمی مشروم ساس، سبزیوں کے ساتھ۔",
+            listOf("Season and sear chicken on high heat.", "Make mushroom sauce with cream and stock.", "Rest steak before slicing.", "Plate with sauce and vegetables."),
+            listOf("چکن کو سیزن کر تیز آنچ پر سیر کریں۔", "کریم اور اسٹاک میں مشروم ساس بنائیں۔", "کاٹنے سے پہلے آرام دیں۔", "ساس اور سبزیوں کے ساتھ پیش کریں۔"),
+            listOf("Serve medium-well.", "Pair with mashed potatoes."),
+            listOf("میڈیم ویل پیش کریں۔", "مashed آلو کے ساتھ۔"),
+            listOf("Chicken breast", "Mushrooms", "Cream", "Stock", "Butter"),
+            listOf("چکن بریسٹ", "مشروم", "کریم", "اسٹاک", "مکھن")
+        ),
+        recipe("mashed_potato", CAT_CONTINENTAL, Difficulty.BEGINNER, R.drawable.pic_mashed_potato,
+            "Mashed Potatoes", "مashed آلو", "Continental", "کونٹینینٹل",
+            "Buttery smooth mashed potatoes with cream.",
+            "مکھن اور کریم میں ہموار مashed آلو۔",
+            "Creamy, buttery mashed potatoes — the perfect side at Lal Qila's continental station.",
+            "ملائم مکھنی مashed آلو — لال قلعہ کونٹینینٹل سٹیشن کا بہترین سائیڈ۔",
+            listOf("Boil potatoes until tender.", "Mash with butter and warm cream.", "Season with salt and white pepper.", "Whip until smooth."),
+            listOf("آلو نرم پکائیں۔", "مکھن اور گرم کریم میں ماش کریں۔", "نمک اور سفید مرچ۔", "ہموار ہونے تک پھینٹیں۔"),
+            listOf("Serve with grilled chicken or steak.", "Keep warm until serving."),
+            listOf("گرل چکن یا سٹیک کے ساتھ۔", "پیش کرنے تک گرم رکھیں۔"),
+            listOf("Potatoes", "Butter", "Cream", "Salt", "White pepper"),
+            listOf("آلو", "مکھن", "کریم", "نمک", "سفید مرچ")
+        ),
+        // ── Salads & Soups ─────────────────────────────────────────────────
+        recipe("corn_soup", CAT_SALAD_SOUP, Difficulty.BEGINNER, R.drawable.pic_corn_soup,
+            "Chicken Corn Soup", "چکن کارن سوپ", "Salads & Soups", "سلاد اور سوپ",
+            "Classic Pakistani-style creamy corn soup.",
+            "کلاسک پاکستانی انداز میں ملائم کارن سوپ۔",
+            "Silky chicken and sweet corn soup with egg ribbons — a Lal Qila buffet starter favorite.",
+            "چکن اور میٹھے مکئی کا سوپ انڈے کی پٹیاں کے ساتھ۔",
+            listOf("Simmer chicken stock with shredded chicken.", "Add cream-style corn.", "Thicken with cornstarch slurry.", "Drizzle beaten egg in ribbons."),
+            listOf("چکن اسٹاک میں ریشہ چکن پکائیں۔", "کریم سٹائل کارن ڈالیں۔", "کارن فلور سے گاڑھا کریں۔", "پھینٹے انڈے کی پٹیاں ڈالیں۔"),
+            listOf("Serve hot with soy sauce and chili vinegar.", "Garnish with spring onions."),
+            listOf("سویا ساس اور چلی سرکہ کے ساتھ گرم۔", "ہری پیاز سے سجائیں۔"),
+            listOf("Chicken", "Corn", "Stock", "Eggs", "Cornstarch"),
+            listOf("چکن", "مکئی", "اسٹاک", "انڈے", "کارن فلور")
+        ),
+        recipe("garden_salad", CAT_SALAD_SOUP, Difficulty.BEGINNER, R.drawable.pic_garden_salad,
+            "Fresh Garden Salad", "تازہ گارڈن سلاد", "Salads & Soups", "سلاد اور سوپ",
+            "Crisp mixed greens with vinaigrette.",
+            "وینیگریٹ کے ساتھ کرسپ مخلوط سبزیاں۔",
+            "Fresh lettuce, cucumber, tomatoes, and carrots with Lal Qila's house dressing.",
+            "لیٹش، کھیرا، ٹماٹر، گاجر اور لال قلعہ ہاؤس ڈریسنگ۔",
+            listOf("Wash and chop all vegetables.", "Toss with olive oil and lemon dressing.", "Season with salt and pepper.", "Serve chilled."),
+            listOf("سبزیاں دھو کر کاٹیں۔", "زیتون کے تیل اور لیموں کی ڈریسنگ میں ملائیں۔", "نمک کالی مرچ۔", "ٹھنڈا پیش کریں۔"),
+            listOf("Start your buffet plate here.", "Add before hot dishes."),
+            listOf("بوفے کی ٹرے یہاں سے شروع کریں۔", "گرم کھانوں سے پہلے لیں۔"),
+            listOf("Lettuce", "Cucumber", "Tomatoes", "Carrots", "Olive oil", "Lemon"),
+            listOf("لیٹش", "کھیرا", "ٹماٹر", "گاجر", "زیتون کا تیل", "لیموں")
+        ),
+        recipe("russian_salad", CAT_SALAD_SOUP, Difficulty.BEGINNER, R.drawable.pic_russian_salad,
+            "Russian Salad", "روسی سلاد", "Salads & Soups", "سلاد اور سوپ",
+            "Creamy potato salad with vegetables and mayo.",
+            "مایونیز میں آلو اور سبزیوں کی سلاد۔",
+            "A Lal Qila buffet staple — potatoes, peas, carrots, and apples in creamy mayonnaise.",
+            "لال قلعہ بوفے کی بنیاد — آلو، مٹر، گاجر، سیب مایونیز میں۔",
+            listOf("Boil potatoes, carrots, and peas.", "Dice apples and mix with vegetables.", "Fold in mayonnaise and cream.", "Chill before serving."),
+            listOf("آلو، گاجر، مٹر ابلا لیں۔", "سیب کاٹ کر سبزیوں میں ملائیں۔", "مایونیز اور کریم ملائیں۔", "ٹھنڈا کر پیش کریں۔"),
+            listOf("Serve cold as a side.", "Pairs with grilled items."),
+            listOf("ٹھنڈی سائیڈ کے طور پر۔", "گرل اشیاء کے ساتھ۔"),
+            listOf("Potatoes", "Peas", "Carrots", "Apples", "Mayonnaise"),
+            listOf("آلو", "مٹر", "گاجر", "سیب", "مایونیز")
+        ),
+        recipe("raita", CAT_SALAD_SOUP, Difficulty.BEGINNER, R.drawable.pic_raita,
+            "Mint Raita", "پودینے کا رائتہ", "Salads & Soups", "سلاد اور سوپ",
+            "Cool yogurt dip with mint and cucumber.",
+            "پودینے اور کھیرے کے ساتھ ٹھنڈا دہی۔",
+            "Refreshing yogurt with mint, cucumber, and cumin — essential with biryani at Lal Qila.",
+            "پودینہ، کھیرا، زیرہ — لال قلعہ بریانی کے ساتھ لازمی۔",
+            listOf("Whisk yogurt until smooth.", "Add grated cucumber and chopped mint.", "Season with cumin, salt, and black salt.", "Chill 30 minutes."),
+            listOf("دہی پھینٹیں۔", "کدوکش کھیرا اور کٹا پودینہ ڈالیں۔", "زیرہ، نمک، کالا نمک۔", "30 منٹ ٹھنڈا کریں۔"),
+            listOf("Serve with biryani and BBQ.", "Drizzle with boondi for crunch."),
+            listOf("بریانی اور باربی کیو کے ساتھ۔", "بوندی سے کرنچ کے لیے۔"),
+            listOf("Yogurt", "Cucumber", "Mint", "Cumin", "Black salt"),
+            listOf("دہی", "کھیرا", "پودینہ", "زیرہ", "کالا نمک")
+        ),
+        // ── Breads ───────────────────────────────────────────────────────
+        recipe("naan", CAT_BREAD, Difficulty.INTERMEDIATE, R.drawable.pic_naan,
+            "Tandoori Naan", "تندوری نان", "Breads", "روٹی",
+            "Soft leavened flatbread from the tandoor.",
+            "تندور سے نرم خمیر والی روٹی۔",
+            "Fresh naan baked in Lal Qila's tandoor — soft, slightly charred, perfect for curries.",
+            "لال قلعہ تندور سے تازہ نان — نرم، ہلکا بھنا، کڑی کے لیے بہترین۔",
+            listOf("Make dough with flour, yeast, yogurt, and milk.", "Rest 2 hours until doubled.", "Roll oval shapes.", "Slap onto tandoor wall and bake 2–3 minutes."),
+            listOf("آٹے، خمیر، دہی، دودھ سے ڈو بنائیں۔", "2 گھنٹے پھولنے دیں۔", "بیضوی شکل میں بیلیں۔", "تندور میں 2–3 منٹ پکائیں۔"),
+            listOf("Brush with butter immediately.", "Serve warm with any curry."),
+            listOf("فوراً مکھن لگائیں۔", "کسی بھی کڑی کے ساتھ گرم پیش کریں۔"),
+            listOf("Flour", "Yeast", "Yogurt", "Milk", "Butter"),
+            listOf("آٹا", "خمیر", "دہی", "دودھ", "مکھن")
+        ),
+        recipe("garlic_naan", CAT_BREAD, Difficulty.INTERMEDIATE, R.drawable.pic_garlic_naan,
+            "Garlic Naan", "لہسن نان", "Breads", "روٹی",
+            "Naan topped with garlic and coriander butter.",
+            "لہسن اور دھنیا مکھن والا نان۔",
+            "Classic naan brushed with garlic-coriander butter from Lal Qila's tandoor.",
+            "لال قلعہ تندور سے لہسن دھنیا مکھن والا نان۔",
+            listOf("Prepare naan dough as standard.", "Top with minced garlic and coriander.", "Bake in tandoor.", "Brush with garlic butter."),
+            listOf("نان کا ڈو تیار کریں۔", "اوپر لہسن اور دھنیا لگائیں۔", "تندور میں پکائیں۔", "لہسن مکھن لگائیں۔"),
+            listOf("Best with karahi and handi.", "Serve immediately while aromatic."),
+            listOf("کڑاہی اور ہانڈی کے ساتھ بہترین۔", "خوشبو دار گرم پیش کریں۔"),
+            listOf("Naan dough", "Garlic", "Coriander", "Butter"),
+            listOf("نان ڈو", "لہسن", "دھنیا", "مکھن")
+        ),
+        recipe("roghni_naan", CAT_BREAD, Difficulty.INTERMEDIATE, R.drawable.pic_roghni_naan,
+            "Roghni Naan", "روغنی نان", "Breads", "روٹی",
+            "Naan topped with sesame seeds and ghee.",
+            "تل اور گھی والا روغنی نان۔",
+            "Rich naan brushed with ghee and sprinkled with sesame — Lal Qila's premium bread.",
+            "گھی اور تل والا غنی نان — لال قلعہ کی پریمیم روٹی۔",
+            listOf("Roll naan dough thicker than regular.", "Press sesame seeds on top.", "Bake in tandoor.", "Brush generously with ghee."),
+            listOf("نان کا ڈو عام سے موٹا بیلیں۔", "اوپر تل چپکائیں۔", "تندور میں پکائیں۔", "کثیر گھی لگائیں۔"),
+            listOf("Perfect with nihari and haleem.", "Serve hot."),
+            listOf("نہاری اور حلیم کے ساتھ بہترین۔", "گرم پیش کریں۔"),
+            listOf("Flour", "Yeast", "Sesame seeds", "Ghee"),
+            listOf("آٹا", "خمیر", "تل", "گھی")
+        ),
+        // ── Desserts ─────────────────────────────────────────────────────
+        recipe("gulab_jamun", CAT_DESSERT, Difficulty.INTERMEDIATE, R.drawable.pic_gulab_jamun,
+            "Gulab Jamun", "گلاب جامن", "Desserts", "میٹھا",
+            "Soft milk dumplings in rose-cardamom syrup.",
+            "گلاب ایلیچی شربت میں نرم دودھ کے گولے۔",
+            "Deep-fried khoya balls soaked in warm sugar syrup — Lal Qila dessert station star.",
+            "شکر کی گرم شربت میں تلے کھویا بالز۔",
+            listOf("Make dough from khoya and flour.", "Shape into smooth balls.", "Deep-fry on low heat until golden brown.", "Soak in warm rose-cardamom syrup 2 hours."),
+            listOf("کھویا اور آٹے کا ڈو بنائیں۔", "ہموار گولے بنائیں۔", "ہلکی آنچ پر بھورا تلیں۔", "گرم گلاب ایلیچی شربت میں 2 گھنٹے بھگوئیں۔"),
+            listOf("Serve warm or at room temperature.", "Garnish with pistachios."),
+            listOf("گرم یا کمرے کے درجے حرارت پر۔", "پستے سے سجائیں۔"),
+            listOf("Khoya", "Flour", "Sugar", "Rose water", "Cardamom"),
+            listOf("کھویا", "آٹا", "چینی", "گلاب جل", "یلیچی")
+        ),
+        recipe("kheer", CAT_DESSERT, Difficulty.INTERMEDIATE, R.drawable.pic_kheer,
+            "Kheer", "کھیر", "Desserts", "میٹھا",
+            "Creamy rice pudding with cardamom and nuts.",
+            "یلیچی اور خشک میووں والی ملائم چاول کی کھیر۔",
+            "Slow-cooked basmati rice pudding with milk, sugar, and saffron at Lal Qila.",
+            "دودھ، چینی، زعفران میں دیر پکنے والی باسمتی کھیر۔",
+            listOf("Simmer rice in milk, stirring often.", "Add sugar and cardamom.", "Cook until thick and creamy.", "Garnish with nuts and saffron."),
+            listOf("چاول دودھ میں ہلاتے ہوئے پکائیں۔", "چینی اور ایلیچی ڈالیں۔", "گاڑھی ملائم ہونے تک پکائیں۔", "مغز اور زعفران سے سجائیں۔"),
+            listOf("Serve chilled or warm.", "Best after spicy main course."),
+            listOf("ٹھنڈی یا گرم۔", "تیز کھانے کے بعد بہترین۔"),
+            listOf("Basmati rice", "Milk", "Sugar", "Cardamom", "Nuts", "Saffron"),
+            listOf("باسمتی چاول", "دودھ", "چینی", "یلیچی", "مغز", "زعفران")
+        ),
+        recipe("rasmalai", CAT_DESSERT, Difficulty.ADVANCED, R.drawable.pic_rasmalai,
+            "Rasmalai", "رس ملائی", "Desserts", "میٹھا",
+            "Soft cheese patties in sweet saffron milk.",
+            "میٹھے زعفران والے دودھ میں نرم پنیر کی پتلی۔",
+            "Spongy paneer discs in chilled cardamom-saffron milk — a Lal Qila dessert favorite.",
+            "ٹھنڈے ایلیچی زعفران دودھ میں نرم پنیر ڈسک۔",
+            listOf("Make chenna from milk, shape flat discs.", "Poach in sugar syrup.", "Squeeze gently and soak in flavored milk.", "Chill 4 hours."),
+            listOf("دودھ سے چینا بنائیں، پتلی ڈسک بنائیں۔", "شربت میں پکائیں۔", "ہلکا نچوڑ کر مزیدار دودھ میں بھگوئیں۔", "4 گھنٹے ٹھنڈا کریں۔"),
+            listOf("Serve chilled.", "Garnish with pistachios and silver leaf."),
+            listOf("ٹھنڈا پیش کریں۔", "پستے اور چاندی ورق سے سجائیں۔"),
+            listOf("Milk", "Lemon", "Sugar", "Cardamom", "Saffron", "Pistachios"),
+            listOf("دودھ", "لیموں", "چینی", "یلیچی", "زعفران", "پستے")
+        ),
+        recipe("gajar_halwa", CAT_DESSERT, Difficulty.INTERMEDIATE, R.drawable.pic_gajar_halwa,
+            "Gajar Halwa", "گاجر کا حلوہ", "Desserts", "میٹھا",
+            "Slow-cooked carrot pudding with khoya and nuts.",
+            "کھویا اور مغز والی دیر پکنے والی گاجر کی مٹھائی۔",
+            "Grated carrots cooked in milk and ghee with khoya — winter buffet specialty at Lal Qila.",
+            "دودھ اور گھی میں کدوکش گاجر، کھویا — لال قلعہ سرمائی بوفے خاصیت۔",
+            listOf("Grate carrots finely.", "Cook in milk until absorbed.", "Add ghee, sugar, and khoya.", "Stir until thick, garnish with nuts."),
+            listOf("گاجر باریک کدوکش کریں۔", "دودھ میں خشک ہونے تک پکائیں۔", "گھی، چینی، کھویا ڈالیں۔", "گاڑھا ہونے تک ہلائیں، مغز سے سجائیں۔"),
+            listOf("Serve warm with ice cream.", "Best in winter season."),
+            listOf("آئس کریم کے ساتھ گرم۔", "سردیوں میں بہترین۔"),
+            listOf("Carrots", "Milk", "Ghee", "Sugar", "Khoya", "Nuts"),
+            listOf("گاجر", "دودھ", "گھی", "چینی", "کھویا", "مغز")
+        ),
+        recipe("ice_cream", CAT_DESSERT, Difficulty.BEGINNER, R.drawable.pic_ice_cream,
+            "Ice Cream", "آئس کریم", "Desserts", "میٹھا",
+            "Assorted flavors from Lal Qila's dessert counter.",
+            "لال قلعہ میٹھے کاؤنٹر سے مختلف ذائقے۔",
+            "Creamy ice cream in pistachio, mango, and vanilla — the perfect buffet finale.",
+            "پستہ، آم، ونیلا میں ملائم آئس کریم — بوفے کا بہترین اختتام۔",
+            listOf("Prepare custard base with milk, cream, and sugar.", "Churn in ice cream maker.", "Add flavorings.", "Freeze until firm."),
+            listOf("دودھ، کریم، چینی سے کسٹرڈ بیس بنائیں۔", "آئس کریم مشین میں چرن کریں۔", "ذائقے ڈالیں۔", "سخت ہونے تک فریز کریں۔"),
+            listOf("Serve in waffle cones or bowls.", "Pair with gulab jamun for fusion dessert."),
+            listOf("کون یا پیالے میں۔", "گلاب جامن کے ساتھ فیوژن میٹھا۔"),
+            listOf("Milk", "Cream", "Sugar", "Flavorings", "Eggs"),
+            listOf("دودھ", "کریم", "چینی", "ذائقے", "انڈے")
+        ),
+        // ── Beverages ────────────────────────────────────────────────────
+        recipe("mint_margarita", CAT_BEVERAGE, Difficulty.BEGINNER, R.drawable.pic_mint_margarita,
+            "Mint Margarita", "پودینہ مارگیریٹا", "Beverages", "مشروبات",
+            "Refreshing mint and lemon cooler.",
+            "تروتازہ پودینہ اور لیموں والا کولر۔",
+            "Lal Qila's signature non-alcoholic mint lemonade — tangy, sweet, and cooling.",
+            "لال قلعہ کی خاص پودینہ لیموں کی شربت — کھٹی میٹھی اور ٹھنڈی۔",
+            listOf("Blend fresh mint with lemon juice and sugar.", "Add soda or water.", "Serve over ice.", "Rim glass with salt optionally."),
+            listOf("تازہ پودینہ، لیموں کا رس، چینی بلینڈ کریں۔", "سوڈا یا پانی ڈالیں۔", "برف پر پیش کریں۔", "چاہیں تو نمک لگائیں۔"),
+            listOf("Perfect with spicy BBQ.", "Serve very cold."),
+            listOf("تیز باربی کیو کے ساتھ بہترین۔", "بہت ٹھنڈا پیش کریں۔"),
+            listOf("Mint", "Lemon", "Sugar", "Soda water", "Ice"),
+            listOf("پودینہ", "لیموں", "چینی", "سوڈا", "برف")
+        ),
+        recipe("kashmiri_chai", CAT_BEVERAGE, Difficulty.INTERMEDIATE, R.drawable.pic_kashmiri_chai,
+            "Kashmiri Chai", "کشمیری چائے", "Beverages", "مشروبات",
+            "Pink salted tea with cardamom and nuts.",
+            "یلیچی اور مغز والی گلابی نمکین چائے۔",
+            "Traditional pink tea brewed with green tea leaves, baking soda, and milk — Lal Qila's winter specialty.",
+            "سبز چائے پتی، بیکنگ سوڈا، دودھ سے گلابی چائے — لال قلعہ سرمائی خاصیت۔",
+            listOf("Boil tea leaves with baking soda until pink.", "Add milk and simmer.", "Season with cardamom and salt.", "Garnish with crushed pistachios."),
+            listOf("چائے پتی بیکنگ سوڈا سے گلابی پکائیں۔", "دودھ ڈال کر دم دیں۔", "یلیچی اور نمک۔", "کچلے پستے سے سجائیں۔"),
+            listOf("Serve in small cups.", "Pair with naan and karahi."),
+            listOf("چھوٹے پیالوں میں۔", "نان اور کڑاہی کے ساتھ۔"),
+            listOf("Green tea", "Baking soda", "Milk", "Cardamom", "Salt", "Pistachios"),
+            listOf("سبز چائے", "بیکنگ سوڈا", "دودھ", "یلیچی", "نمک", "پستے")
+        ),
+        recipe("fruit_juice", CAT_BEVERAGE, Difficulty.BEGINNER, R.drawable.pic_fruit_juice,
+            "Fresh Fruit Juice", "تازہ پھلوں کا جوس", "Beverages", "مشروبات",
+            "Seasonal fresh fruit juice blend.",
+            "موسمی تازہ پھلوں کا مشروب۔",
+            "Daily fresh-squeezed juice — orange, mango, or mixed seasonal fruits at Lal Qila.",
+            "روزانہ تازہ نچوڑا جوس — سنترہ، آم یا مخلوط پھل۔",
+            listOf("Select ripe seasonal fruits.", "Juice or blend until smooth.", "Strain if desired.", "Serve immediately over ice."),
+            listOf("پکے موسمی پھل چنیں۔", "نچوڑیں یا بلینڈ کریں۔", "چاہیں تو چھان لیں۔", "برف پر فوراً پیش کریں۔"),
+            listOf("No added sugar for health option.", "Best at breakfast buffet."),
+            listOf("صحت کے لیے بغیر چینی۔", "ناشتے کی بوفے میں بہترین۔"),
+            listOf("Seasonal fruits", "Ice", "Optional sugar"),
+            listOf("موسمی پھل", "برف", "اختیاری چینی")
         )
     )
 
-    private fun posture(
+    private fun recipe(
         id: String, categoryId: String, difficulty: Difficulty, illustrationRes: Int,
         enName: String, urName: String, enCat: String, urCat: String,
         enSummary: String, urSummary: String, enDesc: String, urDesc: String,
         enSteps: List<String>, urSteps: List<String>,
-        enTips: List<String>, urTips: List<String>
-    ): Posture {
-        val roles = PostureRoleContent.getRoles(id)
-        return Posture(
-            id = id,
-            difficulty = difficulty,
-            illustrationRes = illustrationRes,
-            categoryId = categoryId,
-            english = LocalizedContent(
-                enName, enCat, enSummary, enDesc, enSteps, enTips,
-                forMan = roles?.enMan,
-                forWoman = roles?.enWoman
-            ),
-            urdu = LocalizedContent(
-                urName, urCat, urSummary, urDesc, urSteps, urTips,
-                forMan = roles?.urMan,
-                forWoman = roles?.urWoman
-            )
+        enTips: List<String>, urTips: List<String>,
+        enIngredients: List<String>, urIngredients: List<String>,
+        enServing: List<String> = emptyList(), urServing: List<String> = emptyList()
+    ): Posture = Posture(
+        id = id,
+        difficulty = difficulty,
+        illustrationRes = illustrationRes,
+        categoryId = categoryId,
+        english = LocalizedContent(
+            enName, enCat, enSummary, enDesc, enSteps, enTips,
+            forMan = PartnerRole("Key Ingredients", enIngredients),
+            forWoman = PartnerRole("Serving & Pairing", enServing.ifEmpty { enTips.take(2) })
+        ),
+        urdu = LocalizedContent(
+            urName, urCat, urSummary, urDesc, urSteps, urTips,
+            forMan = PartnerRole("اہم اجزاء", urIngredients),
+            forWoman = PartnerRole("پیشکش اور جوڑ", urServing.ifEmpty { urTips.take(2) })
         )
-    }
+    )
 
     fun getAllPostures(): List<Posture> =
-        postures + ImaginationPostureRepository.getImaginationPostures()
+        recipes + ImaginationPostureRepository.getImaginationPostures()
 
-    fun getPhysicalPostures(): List<Posture> = postures
+    fun getPhysicalPostures(): List<Posture> = recipes
 
     fun getImaginationPostures(): List<Posture> =
         ImaginationPostureRepository.getImaginationPostures()

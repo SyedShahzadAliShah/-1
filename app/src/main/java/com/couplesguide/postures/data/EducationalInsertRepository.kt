@@ -16,54 +16,61 @@ object EducationalInsertRepository {
 
     private val inserts = listOf(
         EducationalInsert(
-            id = "edu_face_contact",
-            afterCategoryId = PostureRepository.CAT_FACE,
-            illustrationRes = R.drawable.pic_edu_face_contact,
-            englishTitle = "Face-to-Face Education",
-            urduTitle = "آمنے سامنے تعلیم",
-            englishCaption = "Eye contact, kissing, and verbal check-ins deepen connection and safety.",
-            urduCaption = "آنکھوں کا رابطہ، بوسہ، اور زبانی پوچھ گچھ تعلق اور محفوظ احساس بڑھاتے ہیں۔"
-        ),
-        EducationalInsert(
-            id = "edu_side_alignment",
-            afterCategoryId = PostureRepository.CAT_SIDE,
+            id = "edu_pakistani_tip",
+            afterCategoryId = PostureRepository.CAT_PAKISTANI,
             illustrationRes = R.drawable.pic_edu_side_alignment,
-            englishTitle = "Side-by-Side Alignment",
-            urduTitle = "ساتھ ساتھ ہم آہنگی",
-            englishCaption = "Use a pillow between knees to align hips and reduce strain.",
-            urduCaption = "گھٹنوں کے درمیان تکیہ رکھیں تاکہ کولہے ہم آہنگ رہیں اور دباؤ کم ہو۔"
+            englishTitle = "Pakistani Station Tip",
+            urduTitle = "پاکستانی سٹیشن مشورہ",
+            englishCaption = "Pair biryani with raita and fresh salad. The karahi is best eaten immediately while sizzling hot.",
+            urduCaption = "بریانی رائتہ اور تازہ سلاد کے ساتھ کھائیں۔ کڑاہی گرم گرم فوراً کھائیں۔"
         ),
         EducationalInsert(
-            id = "edu_rear_safety",
-            afterCategoryId = PostureRepository.CAT_REAR,
+            id = "edu_bbq_tip",
+            afterCategoryId = PostureRepository.CAT_BBQ,
+            illustrationRes = R.drawable.pic_edu_face_contact,
+            englishTitle = "BBQ Station Tip",
+            urduTitle = "باربی کیو سٹیشن مشورہ",
+            englishCaption = "Visit the live grill when charcoal is at peak heat. Squeeze fresh lemon on kebabs before eating.",
+            urduCaption = "کوئلے سب سے گرم ہونے پر گرل پر جائیں۔ کباب پر تازہ لیموں نچوڑیں۔"
+        ),
+        EducationalInsert(
+            id = "edu_chinese_tip",
+            afterCategoryId = PostureRepository.CAT_CHINESE,
             illustrationRes = R.drawable.pic_edu_rear_safety,
-            englishTitle = "Rear Entry Comfort",
-            urduTitle = "پیچھے سے آرام",
-            englishCaption = "Hip pillows, slow pace, and frequent check-ins keep this position comfortable.",
-            urduCaption = "کولہے کے تکیے، آہستہ رفتار، اور بار بار پوچھ گچھ اس پوزیشن کو آرام دہ رکھتی ہے۔"
+            englishTitle = "Chinese Station Tip",
+            urduTitle = "چائنیز سٹیشن مشورہ",
+            englishCaption = "Choose dishes straight from the wok for maximum freshness. Fried rice and Manchurian are the perfect combo.",
+            urduCaption = "تازگی کے لیے ووک سے ابھی نکلی ڈشیں لیں۔ فرائیڈ رائس اور منچورین بہترین جوڑا۔"
         ),
         EducationalInsert(
-            id = "edu_hip_pillow",
-            afterCategoryId = PostureRepository.CAT_STANDING,
-            illustrationRes = R.drawable.pic_edu_hip_pillow,
-            englishTitle = "Hip Support Guide",
-            urduTitle = "کولہے کی سہارا گائیڈ",
-            englishCaption = "Elevating hips with a firm pillow improves angle and comfort for many couples.",
-            urduCaption = "مضبوط تکیے سے کولہے اونچے کرنے سے بہت جوڑوں کے لیے زاویہ اور آرام بہتر ہوتا ہے۔"
-        ),
-        EducationalInsert(
-            id = "edu_body_map",
-            afterCategoryId = PostureRepository.CAT_VARIATIONS,
+            id = "edu_continental_tip",
+            afterCategoryId = PostureRepository.CAT_CONTINENTAL,
             illustrationRes = R.drawable.pic_edu_body_map,
-            englishTitle = "Know Your Body",
-            urduTitle = "اپنے جسم کو جانیں",
-            englishCaption = "Understanding body zones helps partners communicate about comfort and pleasure.",
-            urduCaption = "جسم کے حصوں کو سمجھنا ساتھیوں کو آرام اور لطف کے بارے میں بات کرنے میں مدد دیتا ہے۔"
+            englishTitle = "Continental Station Tip",
+            urduTitle = "کونٹینینٹل سٹیشن مشورہ",
+            englishCaption = "Grilled chicken pairs beautifully with mashed potatoes and garden salad for a balanced plate.",
+            urduCaption = "گرل چکن مashed آلو اور گارڈن سلاد کے ساتھ متوازن پلیٹ بناتا ہے۔"
+        ),
+        EducationalInsert(
+            id = "edu_salad_tip",
+            afterCategoryId = PostureRepository.CAT_SALAD_SOUP,
+            illustrationRes = R.drawable.pic_edu_body_map,
+            englishTitle = "Salad Bar Tip",
+            urduTitle = "سلاد بار مشورہ",
+            englishCaption = "Start your buffet with light soups and salads. Corn soup with soy sauce and chili vinegar is a Lal Qila classic.",
+            urduCaption = "بوفے ہلکے سوپ اور سلاد سے شروع کریں۔ سویا ساس اور چلی سرکہ والا کارن سوپ کلاسک ہے۔"
+        ),
+        EducationalInsert(
+            id = "edu_bread_tip",
+            afterCategoryId = PostureRepository.CAT_BREAD,
+            illustrationRes = R.drawable.pic_edu_hip_pillow,
+            englishTitle = "Tandoor Bread Tip",
+            urduTitle = "تندور روٹی مشورہ",
+            englishCaption = "Fresh naan from the tandoor is best with karahi and handi. Roghni naan is perfect with nihari.",
+            urduCaption = "تندور سے تازہ نان کڑاہی اور ہانڈی کے ساتھ بہترین۔ روغنی نان نہاری کے ساتھ۔"
         )
     )
 
     fun getInsertAfterCategory(categoryId: String): EducationalInsert? =
         inserts.find { it.afterCategoryId == categoryId }
-
-    fun getAllInserts(): List<EducationalInsert> = inserts
 }
