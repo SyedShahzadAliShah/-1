@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.couplesguide.postures.data.GuideChapter
-import com.couplesguide.postures.data.GuideRepository
+import com.couplesguide.postures.data.BuffetGuideRepository
 import com.couplesguide.postures.databinding.ActivityChapterDetailBinding
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
@@ -37,7 +37,7 @@ class ChapterDetailActivity : AppCompatActivity() {
 
         language = LocaleHelper.getLanguage(this)
         val chapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
-        val found = chapterId?.let { GuideRepository.getChapterById(it) }
+        val found = chapterId?.let { BuffetGuideRepository.getChapterById(it) }
 
         if (found == null) {
             finish()

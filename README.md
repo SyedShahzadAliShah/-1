@@ -1,40 +1,41 @@
-# Intimacy Guide
+# Karachi Buffet Recipes
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Bilingual (English & Urdu) Android cookbook for authentic Karachi buffet dishes — with voice narration and printable PDF export.
 
-## Download
+## Features
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+- **20+ Karachi buffet recipes** — biryani, karahi, BBQ, curries, seafood, appetizers, and desserts
+- **Buffet planning guide** — culture, menu planning, serving order, and food safety
+- **Urdu voice narration** — listen to full recipes step-by-step in Urdu or English
+- **PDF export** — export individual recipes or the full cookbook with embedded Urdu font (Noto Naskh Arabic)
+- **Category browsing** — filter by Biryani, Karahi, BBQ, Curries, Appetizers, Seafood, Desserts
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+## Recipes Included
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+| Category | Dishes |
+|----------|--------|
+| Biryani | Beef Biryani, Chicken Tikka Biryani |
+| Karahi | Mutton Karahi, Chicken Karahi |
+| BBQ | Seekh Kebab, Chicken Tikka, Chapli Kebab |
+| Curries | Nihari, Haleem, Aloo Gosht, Daal Chawal |
+| Seafood | Fried Fish, Prawn Masala |
+| Appetizers | Samosa Chaat, Dahi Bhalla, Boondi Raita |
+| Desserts | Gulab Jamun, Kheer, Zarda, Gajar Halwa |
 
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
+pip install Pillow
+python3 scripts/generate_recipe_pictures.py
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+APK output: `app/build/outputs/apk/debug/app-debug.apk`
+
+## Version 1.0.0
+
+- Karachi buffet recipe collection with Urdu & English content
+- Voice narration (TTS) for recipes and buffet guide chapters
+- Full cookbook PDF export with RTL Urdu support
+- Food-themed illustrations for every recipe
