@@ -10,15 +10,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.couplesguide.postures.data.GenderEducationRepository
-import com.couplesguide.postures.data.GuideRepository
-import com.couplesguide.postures.data.PostureListBuilder
-import com.couplesguide.postures.data.PostureListItem
-import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.BuffetGuideRepository
+import com.couplesguide.postures.data.RecipeRepository
 import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.CategoryAdapter
 import com.couplesguide.postures.ui.ChapterAdapter
-import com.couplesguide.postures.ui.PostureAdapter
+import com.couplesguide.postures.ui.RecipeAdapter
 import com.couplesguide.postures.BuildConfig
 import com.couplesguide.postures.util.RecyclerViewHelper
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
@@ -33,13 +30,10 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var postureAdapter: PostureAdapter
+    private lateinit var recipeAdapter: RecipeAdapter
     private lateinit var chapterAdapter: ChapterAdapter
-    private lateinit var forHimAdapter: ChapterAdapter
-    private lateinit var forHerAdapter: ChapterAdapter
-    private lateinit var imaginationAdapter: PostureAdapter
     private var categoryAdapter: CategoryAdapter? = null
-    private var selectedCategory = PostureRepository.CAT_ALL
+    private var selectedCategory = RecipeRepository.CAT_ALL
     private var language = LocaleHelper.LANG_EN
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
@@ -56,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         language = LocaleHelper.getLanguage(this)
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
 
         voiceNarrator = VoiceNarrator(
             context = this,
@@ -67,15 +62,9 @@ class MainActivity : AppCompatActivity() {
             onLanguageIssue = { message -> showVoiceMessage(message) }
         )
 
-        imaginationAdapter = PostureAdapter(language) { posture ->
-            startActivity(Intent(this, PostureDetailActivity::class.java).apply {
-                putExtra(PostureDetailActivity.EXTRA_POSTURE_ID, posture.id)
-            })
-        }
-
-        postureAdapter = PostureAdapter(language) { posture ->
-            startActivity(Intent(this, PostureDetailActivity::class.java).apply {
-                putExtra(PostureDetailActivity.EXTRA_POSTURE_ID, posture.id)
+        recipeAdapter = RecipeAdapter(language) { recipe ->
+            startActivity(Intent(this, RecipeDetailActivity::class.java).apply {
+                putExtra(RecipeDetailActivity.EXTRA_RECIPE_ID, recipe.id)
             })
         }
 
@@ -85,46 +74,17 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        forHimAdapter = ChapterAdapter(language) { chapter ->
-            startActivity(Intent(this, ChapterDetailActivity::class.java).apply {
-                putExtra(ChapterDetailActivity.EXTRA_CHAPTER_ID, chapter.id)
-            })
-        }
-
-        forHerAdapter = ChapterAdapter(language) { chapter ->
-            startActivity(Intent(this, ChapterDetailActivity::class.java).apply {
-                putExtra(ChapterDetailActivity.EXTRA_CHAPTER_ID, chapter.id)
-            })
-        }
-
         binding.postureList.layoutManager = LinearLayoutManager(this)
-        binding.postureList.adapter = postureAdapter
+        binding.postureList.adapter = recipeAdapter
         RecyclerViewHelper.setupNestedList(binding.postureList)
 
         RecyclerViewHelper.setupNestedList(binding.chapterList)
         binding.chapterList.adapter = chapterAdapter
-        chapterAdapter.submitList(GuideRepository.getChapters())
+        chapterAdapter.submitList(BuffetGuideRepository.getChapters())
         binding.chapterList.post { binding.chapterList.requestLayout() }
 
-        RecyclerViewHelper.setupNestedList(binding.forHimList)
-        binding.forHimList.adapter = forHimAdapter
-        forHimAdapter.submitList(GenderEducationRepository.getForHimChapters())
-        binding.forHimList.post { binding.forHimList.requestLayout() }
-
-        RecyclerViewHelper.setupNestedList(binding.forHerList)
-        binding.forHerList.adapter = forHerAdapter
-        forHerAdapter.submitList(GenderEducationRepository.getForHerChapters())
-        binding.forHerList.post { binding.forHerList.requestLayout() }
-
-        RecyclerViewHelper.setupNestedList(binding.imaginationList)
-        binding.imaginationList.adapter = imaginationAdapter
-        imaginationAdapter.submitList(
-            PostureRepository.getImaginationPostures().map { PostureListItem.PostureEntry(it) }
-        )
-        binding.imaginationList.post { binding.imaginationList.requestLayout() }
-
         setupCategories()
-        updatePostureList()
+        updateRecipeList()
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(
             binding.guideCoverImage,
@@ -164,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_export -> {
-                exportFullGuidePdf()
+                exportFullCookbookPdf()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -174,20 +134,18 @@ class MainActivity : AppCompatActivity() {
     private fun setupCategories() {
         categoryAdapter = CategoryAdapter(language) { categoryId ->
             selectedCategory = categoryId
-            updatePostureList()
+            updateRecipeList()
         }
         binding.categoryList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.categoryList.adapter = categoryAdapter
     }
 
-    private fun updatePostureList() {
-        val postures = PostureRepository.getPosturesByCategory(selectedCategory)
-        val includeEduCards = selectedCategory == PostureRepository.CAT_ALL
-        val items = PostureListBuilder.build(postures, includeEduCards)
-        postureAdapter.submitList(items)
+    private fun updateRecipeList() {
+        val recipes = RecipeRepository.getRecipesByCategory(selectedCategory)
+        recipeAdapter.submitList(recipes)
         binding.postureList.post { binding.postureList.requestLayout() }
-        binding.emptyText.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        binding.emptyText.visibility = if (recipes.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun showLanguageDialog() {
@@ -225,12 +183,12 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
-    private fun exportFullGuidePdf() {
+    private fun exportFullCookbookPdf() {
         Toast.makeText(this, R.string.pdf_exporting, Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    PdfExporter.exportFullGuide(this@MainActivity, language)
+                    PdfExporter.exportFullCookbook(this@MainActivity, language)
                 }
                 PdfExporter.showExportActions(this@MainActivity, result)
             } catch (e: Exception) {

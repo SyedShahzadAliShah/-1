@@ -6,8 +6,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.couplesguide.postures.data.Posture
-import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.Recipe
+import com.couplesguide.postures.data.RecipeRepository
 import com.couplesguide.postures.databinding.ActivityPostureDetailBinding
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
@@ -18,14 +18,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PostureDetailActivity : AppCompatActivity() {
+class RecipeDetailActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_POSTURE_ID = "posture_id"
+        const val EXTRA_RECIPE_ID = "recipe_id"
     }
 
     private lateinit var binding: ActivityPostureDetailBinding
-    private lateinit var posture: Posture
+    private lateinit var recipe: Recipe
     private var language = LocaleHelper.LANG_EN
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
@@ -41,14 +41,14 @@ class PostureDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         language = LocaleHelper.getLanguage(this)
-        val postureId = intent.getStringExtra(EXTRA_POSTURE_ID)
-        val found = postureId?.let { PostureRepository.getPostureById(it) }
+        val recipeId = intent.getStringExtra(EXTRA_RECIPE_ID)
+        val found = recipeId?.let { RecipeRepository.getRecipeById(it) }
 
         if (found == null) {
             finish()
             return
         }
-        posture = found
+        recipe = found
 
         voiceNarrator = VoiceNarrator(
             context = this,
@@ -78,50 +78,54 @@ class PostureDetailActivity : AppCompatActivity() {
     }
 
     private fun bindContent() {
-        val content = posture.content(language)
+        val content = recipe.content(language)
         supportActionBar?.title = content.name
-        AnimatedIllustrationHelper.bind(binding.illustration, posture.illustrationRes)
+        AnimatedIllustrationHelper.bind(binding.illustration, recipe.illustrationRes)
         binding.postureName.text = content.name
         binding.categoryBadge.text = content.category
-        binding.difficultyBadge.text = posture.difficulty.label(language)
+        binding.difficultyBadge.text = recipe.difficulty.label(language)
         binding.summaryText.text = content.summary
         binding.descriptionText.text = content.description
 
-        val stepsHeader = if (posture.isImagination) {
-            getString(R.string.imagination_exercise)
-        } else {
-            getString(R.string.how_to)
-        }
-        binding.stepsHeader.text = stepsHeader
+        binding.stepsHeader.text = getString(R.string.how_to)
 
-        binding.stepsList.text = content.steps
-            .mapIndexed { index, step -> "${index + 1}. $step" }
-            .joinToString("\n\n")
+        val timeInfo = if (language == LocaleHelper.LANG_UR) {
+            "تیاری: ${recipe.prepMinutes} منٹ  |  پکانا: ${recipe.cookMinutes} منٹ  |  ${recipe.servings} افرد"
+        } else {
+            "Prep: ${recipe.prepMinutes} min  |  Cook: ${recipe.cookMinutes} min  |  Serves ${recipe.servings}"
+        }
+
+        binding.stepsList.text = buildString {
+            append(timeInfo)
+            append("\n\n")
+            append(getString(R.string.ingredients))
+            append("\n")
+            content.ingredients.forEach { append("• $it\n") }
+            append("\n")
+            append(getString(R.string.method))
+            append("\n")
+            content.steps.forEachIndexed { index, step ->
+                append("${index + 1}. $step\n\n")
+            }
+        }
+
         binding.tipsList.text = content.tips.joinToString("\n\n") { "• $it" }
-        bindPartnerRoles(content)
+
+        hidePartnerRoleSections()
     }
 
-    private fun bindPartnerRoles(content: com.couplesguide.postures.data.LocalizedContent) {
-        val showRoles = !posture.isImagination && content.forMan != null && content.forWoman != null
-        val visibility = if (showRoles) android.view.View.VISIBLE else android.view.View.GONE
-
-        binding.manRoleHeader.visibility = visibility
-        binding.manPositionLabel.visibility = visibility
-        binding.manPositionText.visibility = visibility
-        binding.manGuidanceLabel.visibility = visibility
-        binding.manGuidanceList.visibility = visibility
-        binding.womanRoleHeader.visibility = visibility
-        binding.womanPositionLabel.visibility = visibility
-        binding.womanPositionText.visibility = visibility
-        binding.womanGuidanceLabel.visibility = visibility
-        binding.womanGuidanceList.visibility = visibility
-
-        if (!showRoles) return
-
-        binding.manPositionText.text = content.forMan!!.position
-        binding.manGuidanceList.text = content.forMan.guidance.joinToString("\n\n") { "• $it" }
-        binding.womanPositionText.text = content.forWoman!!.position
-        binding.womanGuidanceList.text = content.forWoman.guidance.joinToString("\n\n") { "• $it" }
+    private fun hidePartnerRoleSections() {
+        val gone = android.view.View.GONE
+        binding.manRoleHeader.visibility = gone
+        binding.manPositionLabel.visibility = gone
+        binding.manPositionText.visibility = gone
+        binding.manGuidanceLabel.visibility = gone
+        binding.manGuidanceList.visibility = gone
+        binding.womanRoleHeader.visibility = gone
+        binding.womanPositionLabel.visibility = gone
+        binding.womanPositionText.visibility = gone
+        binding.womanGuidanceLabel.visibility = gone
+        binding.womanGuidanceList.visibility = gone
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -142,7 +146,7 @@ class PostureDetailActivity : AppCompatActivity() {
                 true
             }
             R.id.action_export -> {
-                exportPosturePdf()
+                exportRecipePdf()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -159,21 +163,21 @@ class PostureDetailActivity : AppCompatActivity() {
             return
         }
         voiceNarrator?.speak(
-            NarrationBuilder.buildPostureNarration(this, posture, language),
+            NarrationBuilder.buildRecipeNarration(this, recipe, language),
             language
         )
     }
 
-    private fun exportPosturePdf() {
+    private fun exportRecipePdf() {
         Toast.makeText(this, R.string.pdf_exporting, Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    PdfExporter.exportPosture(this@PostureDetailActivity, posture, language)
+                    PdfExporter.exportRecipe(this@RecipeDetailActivity, recipe, language)
                 }
-                PdfExporter.showExportActions(this@PostureDetailActivity, result)
+                PdfExporter.showExportActions(this@RecipeDetailActivity, result)
             } catch (e: Exception) {
-                Toast.makeText(this@PostureDetailActivity, R.string.pdf_failed, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RecipeDetailActivity, R.string.pdf_failed, Toast.LENGTH_SHORT).show()
             }
         }
     }

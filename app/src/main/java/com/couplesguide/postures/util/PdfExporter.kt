@@ -34,12 +34,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.couplesguide.postures.R
-import com.couplesguide.postures.data.EducationalInsert
-import com.couplesguide.postures.data.EducationalInsertRepository
-import com.couplesguide.postures.data.GenderEducationRepository
-import com.couplesguide.postures.data.GuideRepository
-import com.couplesguide.postures.data.Posture
-import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.BuffetGuideRepository
+import com.couplesguide.postures.data.Recipe
+import com.couplesguide.postures.data.RecipeRepository
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -53,18 +50,18 @@ object PdfExporter {
     private const val BOTTOM_MARGIN = 54f
     private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
     private const val IMAGE_HEIGHT = 150f
-    private const val DOWNLOADS_FOLDER = "IntimacyGuide"
+    private const val DOWNLOADS_FOLDER = "KarachiBuffetRecipes"
 
     data class ExportResult(
         val file: File,
         val displayName: String
     )
 
-    fun exportFullGuide(context: Context, language: String): ExportResult {
+    fun exportFullCookbook(context: Context, language: String): ExportResult {
         val displayName = if (language == LocaleHelper.LANG_UR) {
-            "intimacy_handbook_urdu.pdf"
+            "karachi_buffet_recipes_urdu.pdf"
         } else {
-            "intimacy_handbook_english.pdf"
+            "karachi_buffet_recipes_english.pdf"
         }
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
@@ -74,18 +71,7 @@ object PdfExporter {
             var pageNumber = 1
             pageNumber = writeTitlePage(context, document, language, pageNumber)
             pageNumber = writeChapters(context, document, language, pageNumber)
-            pageNumber = writeGenderEducationSection(
-                context, document, language, pageNumber,
-                context.getString(R.string.sex_education_for_him),
-                GenderEducationRepository.getForHimChapters()
-            )
-            pageNumber = writeGenderEducationSection(
-                context, document, language, pageNumber,
-                context.getString(R.string.sex_education_for_her),
-                GenderEducationRepository.getForHerChapters()
-            )
-            pageNumber = writeImaginationSection(context, document, language, pageNumber)
-            writePhysicalPosturesWithEducation(context, document, language, pageNumber)
+            writeRecipesByCategory(context, document, language, pageNumber)
             FileOutputStream(file).use { document.writeTo(it) }
         } finally {
             document.close()
@@ -93,14 +79,14 @@ object PdfExporter {
         return ExportResult(file, displayName)
     }
 
-    fun exportPosture(context: Context, posture: Posture, language: String): ExportResult {
-        val displayName = "${posture.id}_${language}.pdf"
+    fun exportRecipe(context: Context, recipe: Recipe, language: String): ExportResult {
+        val displayName = "${recipe.id}_${language}.pdf"
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
 
         val document = PdfDocument()
         try {
-            writePosturePages(context, document, posture, language, 1)
+            writeRecipePages(context, document, recipe, language, 1)
             FileOutputStream(file).use { document.writeTo(it) }
         } finally {
             document.close()
@@ -257,18 +243,18 @@ object PdfExporter {
         val writer = PageWriter(context, document, language, pageNumber)
         val isRtl = language == LocaleHelper.LANG_UR
 
-        val title = if (isRtl) "مکمل قربت کی ہینڈ بک" else "Ultimate Intimacy Handbook"
+        val title = if (isRtl) "کراچی بوفے ترکیبیں" else "Karachi Buffet Recipes"
         val subtitle = if (isRtl) {
-            "جوڑوں کے لیے تصویری جنسی تعلیم • انگریزی و اردو"
+            "بریانی، کڑاہی، باربی کیو اور میٹھے • انگریزی و اردو"
         } else {
-            "Illustrated Sex Education Handbook for Couples"
+            "Biryani, Karahi, BBQ & Desserts • English & Urdu"
         }
         val intro = if (isRtl) {
-            "یہ ہینڈ بک تصویری ہدایات کے ساتھ قریبی پوزیشنز سیکھنے، باہمی رضامندی، " +
-                "آرام دہ مواصلات اور محفوظ تجربہ کرنے میں جوڑوں کی مدد کرتی ہے۔"
+            "یہ کتاب کراچی کے مشہور بوفے کھانوں کی مکمل ترکیبیں، اجزاء، طریقہ کار " +
+                "اور پیشکش کے مشورے اردو اور انگریزی میں پیش کرتی ہے۔"
         } else {
-            "This handbook uses illustrated educational diagrams to help couples learn " +
-                "intimate postures with mutual consent, comfort-focused communication, and safety."
+            "This cookbook brings you authentic Karachi buffet recipes with ingredients, " +
+                "step-by-step methods, and serving tips in English and Urdu."
         }
 
         writer.drawTitle(title)
@@ -287,7 +273,7 @@ object PdfExporter {
         startPage: Int
     ): Int {
         var pageNumber = startPage
-        for (chapter in GuideRepository.getChapters()) {
+        for (chapter in BuffetGuideRepository.getChapters()) {
             val content = chapter.content(language)
             val writer = PageWriter(context, document, language, pageNumber)
             writer.drawImage(chapter.illustrationRes, 280, 160)
@@ -312,42 +298,7 @@ object PdfExporter {
         return pageNumber
     }
 
-    private fun writeGenderEducationSection(
-        context: Context,
-        document: PdfDocument,
-        language: String,
-        startPage: Int,
-        sectionTitle: String,
-        chapters: List<com.couplesguide.postures.data.GuideChapter>
-    ): Int {
-        var pageNumber = startPage
-        pageNumber = writeSectionDivider(context, document, language, pageNumber, sectionTitle)
-        for (chapter in chapters) {
-            val content = chapter.content(language)
-            val writer = PageWriter(context, document, language, pageNumber)
-            writer.drawImage(chapter.illustrationRes, 280, 160)
-            writer.drawHeading(content.title)
-            writer.drawBody(content.summary)
-            writer.space(8f)
-            writer.drawBody(content.body)
-            writer.space(8f)
-            val pointsHeader = if (language == LocaleHelper.LANG_UR) "اہم نکات:" else "Key Points:"
-            writer.drawSection(pointsHeader)
-            for (point in content.keyPoints) {
-                val line = if (language == LocaleHelper.LANG_UR) {
-                    UrduPdfText.bulletItem(point)
-                } else {
-                    "• $point"
-                }
-                writer.drawBody(line)
-                writer.space(4f)
-            }
-            pageNumber = writer.finish()
-        }
-        return pageNumber
-    }
-
-    private fun writeImaginationSection(
+    private fun writeRecipesByCategory(
         context: Context,
         document: PdfDocument,
         language: String,
@@ -356,71 +307,91 @@ object PdfExporter {
         var pageNumber = startPage
         pageNumber = writeSectionDivider(
             context, document, language, pageNumber,
-            context.getString(R.string.imagination_postures)
+            context.getString(R.string.all_recipes)
         )
-        for (posture in PostureRepository.getImaginationPostures()) {
-            pageNumber = writePosturePages(context, document, posture, language, pageNumber)
-        }
-        pageNumber = writeSectionDivider(
-            context, document, language, pageNumber,
-            context.getString(R.string.all_postures)
-        )
-        return pageNumber
-    }
-
-    private fun writePhysicalPosturesWithEducation(
-        context: Context,
-        document: PdfDocument,
-        language: String,
-        startPage: Int
-    ): Int {
-        var pageNumber = startPage
         val categoryOrder = listOf(
-            PostureRepository.CAT_FACE,
-            PostureRepository.CAT_SIDE,
-            PostureRepository.CAT_REAR,
-            PostureRepository.CAT_STANDING,
-            PostureRepository.CAT_VARIATIONS
+            RecipeRepository.CAT_BIRYANI,
+            RecipeRepository.CAT_KARAHI,
+            RecipeRepository.CAT_BBQ,
+            RecipeRepository.CAT_CURRY,
+            RecipeRepository.CAT_APPETIZER,
+            RecipeRepository.CAT_SEAFOOD,
+            RecipeRepository.CAT_DESSERT
         )
-        val physical = PostureRepository.getPhysicalPostures()
-        var lastCategory: String? = null
-
         for (categoryId in categoryOrder) {
-            val group = physical.filter { it.categoryId == categoryId }
+            val group = RecipeRepository.getRecipesByCategory(categoryId)
             if (group.isEmpty()) continue
-            lastCategory?.let { previous ->
-                EducationalInsertRepository.getInsertAfterCategory(previous)?.let { insert ->
-                    pageNumber = writeEducationalPage(context, document, insert, language, pageNumber)
-                }
-            }
-            for (posture in group) {
-                pageNumber = writePosturePages(context, document, posture, language, pageNumber)
-            }
-            lastCategory = categoryId
-        }
-
-        lastCategory?.let { categoryId ->
-            EducationalInsertRepository.getInsertAfterCategory(categoryId)?.let { insert ->
-                pageNumber = writeEducationalPage(context, document, insert, language, pageNumber)
+            pageNumber = writeSectionDivider(
+                context, document, language, pageNumber,
+                RecipeRepository.getCategoryLabel(categoryId, language)
+            )
+            for (recipe in group) {
+                pageNumber = writeRecipePages(context, document, recipe, language, pageNumber)
             }
         }
         return pageNumber
     }
 
-    private fun writeEducationalPage(
+    private fun writeRecipePages(
         context: Context,
         document: PdfDocument,
-        insert: EducationalInsert,
+        recipe: Recipe,
         language: String,
-        pageNumber: Int
+        startPage: Int
     ): Int {
-        val writer = PageWriter(context, document, language, pageNumber)
-        val isUrdu = language == LocaleHelper.LANG_UR
-        val eduLabel = if (isUrdu) "جنسی تعلیم" else "Sex Education"
-        writer.drawSection(eduLabel)
-        writer.drawImage(insert.illustrationRes, 360, 200)
-        writer.drawHeading(if (isUrdu) insert.urduTitle else insert.englishTitle)
-        writer.drawBody(if (isUrdu) insert.urduCaption else insert.englishCaption)
+        val content = recipe.content(language)
+        val isRtl = language == LocaleHelper.LANG_UR
+        val writer = PageWriter(context, document, language, startPage)
+
+        writer.drawImage(recipe.illustrationRes, 340, IMAGE_HEIGHT.toInt())
+        writer.drawHeading(content.name)
+        val metaLine = if (isRtl) {
+            UrduPdfText.metaLine(
+                content.category,
+                "${recipe.prepMinutes} منٹ تیاری • ${recipe.cookMinutes} منٹ پکانا • ${recipe.servings} افرد"
+            )
+        } else {
+            "${content.category}  |  Prep ${recipe.prepMinutes}m  |  Cook ${recipe.cookMinutes}m  |  Serves ${recipe.servings}"
+        }
+        writer.drawBody(metaLine)
+        writer.space(8f)
+        writer.drawBody(content.summary)
+        writer.space(10f)
+
+        val aboutLabel = if (isRtl) "تفصیل" else "About"
+        writer.drawSection(aboutLabel)
+        writer.drawBody(content.description)
+        writer.space(8f)
+
+        val ingredientsLabel = if (isRtl) "اجزاء" else "Ingredients"
+        writer.drawSection(ingredientsLabel)
+        for (item in content.ingredients) {
+            val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
+            writer.drawBody(line)
+            writer.space(4f)
+        }
+        writer.space(6f)
+
+        val methodLabel = if (isRtl) "طریقہ کار" else "Method"
+        writer.drawSection(methodLabel)
+        content.steps.forEachIndexed { index, step ->
+            val line = if (isRtl) {
+                UrduPdfText.numberedItem(index + 1, step)
+            } else {
+                "${index + 1}. $step"
+            }
+            writer.drawBody(line)
+            writer.space(4f)
+        }
+        writer.space(6f)
+
+        val tipsLabel = if (isRtl) "مشورے" else "Tips"
+        writer.drawSection(tipsLabel)
+        for (tip in content.tips) {
+            val line = if (isRtl) UrduPdfText.bulletItem(tip) else "• $tip"
+            writer.drawBody(line)
+            writer.space(4f)
+        }
         return writer.finish()
     }
 
@@ -434,95 +405,6 @@ object PdfExporter {
         val writer = PageWriter(context, document, language, pageNumber)
         writer.y = PAGE_HEIGHT / 2f - 24f
         writer.drawTitleCentered(title, 24f)
-        return writer.finish()
-    }
-
-    private fun writePosturePages(
-        context: Context,
-        document: PdfDocument,
-        posture: Posture,
-        language: String,
-        startPage: Int
-    ): Int {
-        val content = posture.content(language)
-        val isRtl = language == LocaleHelper.LANG_UR
-        val writer = PageWriter(context, document, language, startPage)
-
-        writer.drawImage(posture.illustrationRes, 340, IMAGE_HEIGHT.toInt())
-        writer.drawHeading(content.name)
-        val metaLine = if (isRtl) {
-            UrduPdfText.metaLine(content.category, posture.difficulty.label(language))
-        } else {
-            "${content.category}  |  ${posture.difficulty.label(language)}"
-        }
-        writer.drawBody(metaLine)
-        writer.space(8f)
-        writer.drawBody(content.summary)
-        writer.space(10f)
-
-        val aboutLabel = if (isRtl) "تفصیل" else "About"
-        writer.drawSection(aboutLabel)
-        writer.drawBody(content.description)
-        writer.space(8f)
-
-        val stepsLabel = when {
-            posture.isImagination && isRtl -> "تخیلی مشق"
-            posture.isImagination -> "Imagination Exercise"
-            isRtl -> "طریقہ کار"
-            else -> "How To"
-        }
-        writer.drawSection(stepsLabel)
-        content.steps.forEachIndexed { index, step ->
-            val line = if (isRtl) {
-                UrduPdfText.numberedItem(index + 1, step)
-            } else {
-                "${index + 1}. $step"
-            }
-            writer.drawBody(line)
-            writer.space(4f)
-        }
-        writer.space(6f)
-
-        val tipsLabel = if (isRtl) "آرام کے مشورے" else "Comfort Tips"
-        writer.drawSection(tipsLabel)
-        for (tip in content.tips) {
-            val line = if (isRtl) UrduPdfText.bulletItem(tip) else "• $tip"
-            writer.drawBody(line)
-            writer.space(4f)
-        }
-
-        if (!posture.isImagination) {
-            content.forMan?.let { man ->
-                writer.space(6f)
-                val manLabel = if (isRtl) "مرد کا کردار" else "Man's Role"
-                writer.drawSection(manLabel)
-                val posLabel = if (isRtl) "پوزیشن" else "Position"
-                writer.drawBody("$posLabel: ${man.position}")
-                writer.space(4f)
-                val guideLabel = if (isRtl) "رہنمائی" else "Guidance"
-                writer.drawBody(guideLabel)
-                for (item in man.guidance) {
-                    val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
-                    writer.drawBody(line)
-                    writer.space(4f)
-                }
-            }
-            content.forWoman?.let { woman ->
-                writer.space(6f)
-                val womanLabel = if (isRtl) "عورت کا کردار" else "Woman's Role"
-                writer.drawSection(womanLabel)
-                val posLabel = if (isRtl) "پوزیشن" else "Position"
-                writer.drawBody("$posLabel: ${woman.position}")
-                writer.space(4f)
-                val guideLabel = if (isRtl) "رہنمائی" else "Guidance"
-                writer.drawBody(guideLabel)
-                for (item in woman.guidance) {
-                    val line = if (isRtl) UrduPdfText.bulletItem(item) else "• $item"
-                    writer.drawBody(line)
-                    writer.space(4f)
-                }
-            }
-        }
         return writer.finish()
     }
 
