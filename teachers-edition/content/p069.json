@@ -1,0 +1,21 @@
+{
+  "page": 69,
+  "blocks": [
+    {"t": "h1", "en": "Reading Error Messages (Tracebacks)", "ur": "ایرر میسجز پڑھنا، یعنی ٹریس بیکس۔"},
+    {"t": "p", "en": "When Python crashes, it prints a Traceback. It is a roadmap to fix the bug. It tells you:", "ur": "جب پائتھون کریش ہوتا ہے تو وہ ایک ٹریس بیک پرنٹ کرتا ہے۔ یہ غلطی ٹھیک کرنے کا نقشہ ہے۔ یہ آپ کو بتاتا ہے:"},
+    {"t": "li", "en": "1. What type of error occurred.", "ur": "ایک۔ کس قسم کی غلطی ہوئی۔"},
+    {"t": "li", "en": "2. Which file the error is in.", "ur": "دو۔ غلطی کس فائل میں ہے۔"},
+    {"t": "li", "en": "3. Exactly which line number caused the crash.", "ur": "تین۔ بالکل کون سی لائن نمبر کی وجہ سے کریش ہوا۔"},
+    {"t": "code", "en": "Traceback (most recent call last):\n  File \"e:\\Python Code\\debug_program.py\", line 1, in <module>\n    x = int(\"abc\")\nValueError: invalid literal for int() with base 10: 'abc'", "ur": "یہ ایک ٹریس بیک کی مثال ہے۔ اس میں فائل کا نام ڈیبگ پروگرام ڈاٹ پی وائی اور لائن نمبر ایک دکھایا گیا ہے۔ وہاں ایکس برابر انٹ اے بی سی لکھا ہے۔ آخر میں ویلیو ایرر آیا ہے، جس کا مطلب ہے کہ اے بی سی کو بنیاد دس کے انٹیجر میں نہیں بدلا جا سکتا۔"},
+    {"t": "p", "en": "Diagnosis: The traceback clearly states that on Line 1, we tried to convert letters (\"abc\") into an integer, which generated a ValueError.", "ur": "تشخیص۔ ٹریس بیک صاف بتاتا ہے کہ لائن ایک پر ہم نے حروف، یعنی اے بی سی، کو انٹیجر میں بدلنے کی کوشش کی، جس سے ویلیو ایرر پیدا ہوا۔"},
+    {"t": "h2", "en": "Summary", "ur": "خلاصہ۔"},
+    {"t": "li", "lead": "Python", "en": "Python is a High-Level, readable language great for AI, Data, and Web.", "ur": "پائتھون ایک اعلیٰ سطحی اور آسانی سے پڑھی جانے والی زبان ہے، جو مصنوعی ذہانت، ڈیٹا اور ویب کے لیے بہترین ہے۔"},
+    {"t": "li", "lead": "VS Code", "en": "VS Code is a popular editor made into an IDE via Extensions.", "ur": "وی ایس کوڈ ایک مقبول ایڈیٹر ہے جو ایکسٹینشنز کے ذریعے آئی ڈی ای بن جاتا ہے۔"},
+    {"t": "li", "lead": "Variables", "en": "Variables do not need explicit types in Python; types change dynamically.", "ur": "پائتھون میں ویری ایبلز کے لیے واضح قسم لکھنا ضروری نہیں، قسم خود بخود بدلتی رہتی ہے۔"},
+    {"t": "li", "lead": "Data Types:", "en": "Data Types: int, float, str, bool, list, dict.", "ur": "ڈیٹا ٹائپس۔ انٹ، فلوٹ، اسٹر، بول، لسٹ اور ڈکٹ۔"},
+    {"t": "li", "lead": "Input/Output:", "en": "Input/Output: print() outputs data; input() gets data as a string.", "ur": "ان پٹ اور آؤٹ پٹ۔ پرنٹ ڈیٹا کو ظاہر کرتا ہے، اور ان پٹ ڈیٹا کو اسٹرنگ کی صورت میں حاصل کرتا ہے۔"},
+    {"t": "li", "lead": "Control Structures:", "en": "Control Structures: Sequence (top-to-bottom), Selection (if/else), Repetition (for/while).", "ur": "کنٹرول اسٹرکچرز۔ سیکوئنس، یعنی اوپر سے نیچے۔ سلیکشن، یعنی اف اور ایلس۔ اور ریپیٹیشن، یعنی فار اور وائل۔"},
+    {"t": "li", "lead": "Libraries:", "en": "Libraries: Extend Python's power. Built-in (math, random) or Third-party (NumPy).", "ur": "لائبریریاں۔ یہ پائتھون کی طاقت بڑھاتی ہیں۔ بلٹ اِن، جیسے میتھ اور رینڈم، یا تھرڈ پارٹی، جیسے نمپائی۔"},
+    {"t": "li", "lead": "Errors:", "en": "Errors: Syntax (Grammar), Runtime (Crash during run), Logical (Wrong output).", "ur": "غلطیاں۔ سنٹیکس یعنی گرامر، رن ٹائم یعنی چلتے ہوئے کریش، اور لاجیکل یعنی غلط آؤٹ پٹ۔"}
+  ]
+}

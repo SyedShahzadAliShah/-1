@@ -1,0 +1,15 @@
+{
+  "page": 68,
+  "blocks": [
+    {"t": "h1", "en": "Types of Errors (Bugs)", "ur": "غلطیوں، یعنی بگز، کی اقسام۔"},
+    {"t": "h2", "en": "1. Syntax Errors", "ur": "نمبر ایک۔ سنٹیکس ایررز۔"},
+    {"t": "p", "en": "Occur when the rules (grammar) of Python are violated. The program will NOT run at all until it is fixed.", "ur": "یہ ٹائپنگ کی غلطی یا پائتھون کے گرامر کی خلاف ورزی سے ہوتی ہیں، جیسے بریکٹ بند نہ کرنا۔ جب تک اسے ٹھیک نہ کیا جائے، پروگرام بالکل نہیں چلتا۔"},
+    {"t": "code", "en": "print(\"Hello World\"  # Missing closing parenthesis!", "ur": "یہاں پرنٹ میں ہیلو ورلڈ لکھا گیا ہے لیکن بند ہونے والا بریکٹ لکھنا رہ گیا ہے۔ یہی سنٹیکس ایرر ہے۔"},
+    {"t": "h2", "en": "2. Runtime Errors (Exceptions)", "ur": "نمبر دو۔ رن ٹائم ایررز، یعنی ایکسیپشنز۔"},
+    {"t": "p", "en": "The code is written correctly, so it starts running. But an impossible operation crashes it during execution.", "ur": "کوڈ درست لکھا ہوتا ہے اس لیے پروگرام چلنا شروع ہو جاتا ہے، لیکن چلتے ہوئے کسی ناممکن کام، جیسے صفر سے تقسیم، کی وجہ سے کریش ہو جاتا ہے۔"},
+    {"t": "code", "en": "x = 10 / 0  # ZeroDivisionError: division by zero!", "ur": "یہاں ایکس برابر دس تقسیم صفر لکھا گیا ہے۔ صفر سے تقسیم ناممکن ہے، اس لیے زیرو ڈویژن ایرر آتا ہے۔"},
+    {"t": "h2", "en": "3. Logical Errors", "ur": "نمبر تین۔ لاجیکل ایررز۔"},
+    {"t": "p", "en": "The hardest to find. The program runs perfectly without crashing, but it produces the wrong output because the programmer's logic is flawed.", "ur": "انہیں تلاش کرنا سب سے مشکل ہے۔ کوئی ایرر میسج نہیں آتا اور پروگرام پورا چلتا ہے، لیکن جواب غلط آتا ہے کیونکہ پروگرامر کی منطق غلط تھی۔"},
+    {"t": "code", "en": "area = length + width  # Logical error: Should be multiplied (*), not added.", "ur": "یہاں ایریا برابر لینتھ جمع وڈتھ لکھا گیا ہے۔ یہ لاجیکل ایرر ہے، کیونکہ انہیں جمع کرنے کے بجائے ایک دوسرے سے ضرب دینا چاہیے تھا۔"}
+  ]
+}

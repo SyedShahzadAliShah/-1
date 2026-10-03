@@ -1,0 +1,10 @@
+{
+  "page": 64,
+  "blocks": [
+    {"t": "h1", "en": "Practical Activity: Shopping Bill Calculator", "ur": "عملی سرگرمی۔ شاپنگ بل کیلکولیٹر۔"},
+    {"t": "p", "en": "This program beautifully combines Sequence, Selection, and Repetition.", "ur": "یہ پروگرام سیکوئنس، سلیکشن اور ریپیٹیشن، یعنی ترتیب، انتخاب اور تکرار کو خوبصورتی سے یکجا کرتا ہے۔"},
+    {"t": "code", "en": "print(\"===== SHOPPING BILL =====\")\ntotal = 0.0\ncount = 0\nshopping = True", "ur": "سب سے پہلے شاپنگ بل کا عنوان پرنٹ کیا جاتا ہے۔ پھر ٹوٹل کو صفر اعشاریہ صفر، کاؤنٹ کو صفر، اور شاپنگ کو ٹرو پر سیٹ کیا جاتا ہے۔"},
+    {"t": "code", "en": "# REPETITION: Keep adding items\nwhile shopping:\n    item = input(\"Enter Item Name (or 'done' to stop): \")\n\n    # SELECTION: Check if user wants to stop\n    if item.lower() == \"done\":\n        shopping = False\n    else:\n        price = float(input(f\"Enter Price of {item}: \"))\n\n        # SELECTION: Validate price\n        if price <= 0:\n            print(\"Invalid price!\")\n        else:\n            total += price\n            count += 1", "ur": "جب تک شاپنگ ٹرو ہے، لوپ چلتا رہتا ہے اور صارف سے چیز کا نام پوچھا جاتا ہے۔ اگر نام چھوٹے حروف میں ڈن ہو تو شاپنگ فالس ہو جاتی ہے اور لوپ رک جاتا ہے۔ ورنہ اس چیز کی قیمت لی جاتی ہے۔ اگر قیمت صفر یا اس سے کم ہو تو غلط قیمت کا پیغام آتا ہے۔ ورنہ قیمت ٹوٹل میں جمع ہو جاتی ہے اور کاؤنٹ میں ایک کا اضافہ ہوتا ہے۔"},
+    {"t": "code", "en": "# Summary & Discount\nif total >= 5000:\n    discount = total * 0.20  # 20% off\nelse:\n    discount = 0\n\nfinal = total - discount\nprint(f\"Total Items: {count}\")\nprint(f\"Total Bill: {total}\")\nprint(f\"Final to Pay: {final}\")", "ur": "آخر میں خلاصہ اور رعایت نکالی جاتی ہے۔ اگر ٹوٹل پانچ ہزار کے برابر یا اس سے زیادہ ہو تو ٹوٹل ضرب صفر اعشاریہ دو صفر، یعنی بیس فیصد رعایت ملتی ہے۔ ورنہ رعایت صفر ہوتی ہے۔ فائنل برابر ٹوٹل منفی ڈسکاؤنٹ ہوتا ہے۔ پھر کل چیزوں کی تعداد، کل بل اور ادا کی جانے والی آخری رقم پرنٹ کی جاتی ہے۔"}
+  ]
+}

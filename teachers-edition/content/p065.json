@@ -1,0 +1,24 @@
+{
+  "page": 65,
+  "blocks": [
+    {"t": "h1", "en": "3.6 Libraries in Python", "ur": "تین اعشاریہ چھ۔ پائتھون میں لائبریریاں۔"},
+    {"t": "p", "en": "Libraries are pre-written code that offer helpful functions. Instead of writing complex code from scratch, programmers use libraries to solve common problems efficiently.", "ur": "لائبریری پہلے سے لکھا ہوا کوڈ ہوتا ہے جسے ہم اپنے پروگرام میں استعمال کر سکتے ہیں تاکہ ہمیں سب کچھ خود سے نہ لکھنا پڑے۔ پیچیدہ کوڈ شروع سے لکھنے کے بجائے پروگرامر عام مسائل کو مؤثر طریقے سے حل کرنے کے لیے لائبریریاں استعمال کرتے ہیں۔"},
+    {"t": "h2", "en": "How to Import Libraries", "ur": "لائبریریاں امپورٹ کرنے کا طریقہ۔"},
+    {"t": "p", "en": "There are mainly 5 ways to import a library:", "ur": "لائبریری امپورٹ کرنے کے بنیادی طور پر پانچ طریقے ہیں۔"},
+    {"t": "table",
+     "cols": ["Syntax", "Code Example"],
+     "rows": [
+       {"cells": ["1. Import entire module\nMust use module.func()", "import math\nres = math.sqrt(25)"],
+        "ur": "پہلا طریقہ، پورا ماڈیول امپورٹ کرنا۔ اس میں ماڈیول ڈاٹ فنکشن لکھنا ضروری ہے۔ مثال میں امپورٹ میتھ کے بعد ریس برابر میتھ ڈاٹ اسکوائر روٹ پچیس لکھا گیا ہے۔"},
+       {"cells": ["2. Import with alias (nickname)", "import math as m\nres = m.sqrt(16)"],
+        "ur": "دوسرا طریقہ، عرف یعنی مختصر نام کے ساتھ امپورٹ کرنا۔ مثال میں امپورٹ میتھ ایز ایم کے بعد ریس برابر ایم ڈاٹ اسکوائر روٹ سولہ لکھا گیا ہے۔"},
+       {"cells": ["3. Import specific function\nNo need to prefix module name.", "from math import sqrt\nres = sqrt(36)"],
+        "ur": "تیسرا طریقہ، کوئی مخصوص فنکشن امپورٹ کرنا۔ اس میں ماڈیول کا نام آگے لگانے کی ضرورت نہیں ہوتی۔ مثال میں فرام میتھ امپورٹ اسکوائر روٹ کے بعد ریس برابر اسکوائر روٹ چھتیس لکھا گیا ہے۔"},
+       {"cells": ["4. Import multiple functions", "from math import sqrt, pi"],
+        "ur": "چوتھا طریقہ، کئی فنکشن ایک ساتھ امپورٹ کرنا۔ مثال میں فرام میتھ امپورٹ اسکوائر روٹ اور پائی لکھا گیا ہے۔"},
+       {"cells": ["5. Import everything (*)", "from math import *\nres = sqrt(64)"],
+        "ur": "پانچواں طریقہ، سب کچھ امپورٹ کرنا، جس کے لیے ستارہ استعمال ہوتا ہے۔ مثال میں فرام میتھ امپورٹ ستارہ کے بعد ریس برابر اسکوائر روٹ چونسٹھ لکھا گیا ہے۔"}
+     ]},
+    {"t": "note", "label": "Best Practice", "en": "Advise students that importing specific functions (method 3) is better for memory and clarity than importing everything using the * wildcard.", "ur": "طلبہ کو بتائیں کہ مخصوص فنکشن امپورٹ کرنا، یعنی تیسرا طریقہ، میموری اور وضاحت کے لحاظ سے ستارے والی وائلڈ کارڈ کے ذریعے سب کچھ امپورٹ کرنے سے بہتر ہے۔"}
+  ]
+}

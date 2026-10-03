@@ -1,0 +1,22 @@
+{
+  "page": 67,
+  "blocks": [
+    {"t": "h1", "en": "3.6.2 Third-Party Libraries", "ur": "تین اعشاریہ چھ اعشاریہ دو۔ تھرڈ پارٹی لائبریریاں۔"},
+    {"t": "p", "en": "Third-party libraries are NOT included with Python by default. They are built by the community and must be installed via terminal using: pip install library_name.", "ur": "یہ پائتھون میں پہلے سے موجود نہیں ہوتیں۔ انہیں کمیونٹی نے بنایا ہے اور انہیں ٹرمینل میں پِپ انسٹال لائبریری نیم کمانڈ کے ذریعے انسٹال کرنا پڑتا ہے۔"},
+    {"t": "figure", "en": "pip", "ur": "یہ تصویر پِپ کا نشان دکھاتی ہے، جو پائتھون کا پیکج انسٹال کرنے والا ٹول ہے اور تھرڈ پارٹی لائبریریاں انسٹال کرنے میں مدد دیتا ہے۔"},
+    {"t": "table",
+     "cols": ["Library Name", "Primary Use"],
+     "rows": [
+       {"cells": ["NumPy", "Heavy numerical computing and large arrays."],
+        "ur": "نمپائی۔ یہ بھاری عددی حساب کتاب اور بڑے ارے کے لیے استعمال ہوتی ہے۔"},
+       {"cells": ["Pandas", "Data analysis, handling table-like data (Excel/CSV)."],
+        "ur": "پانڈاز۔ یہ ڈیٹا کے تجزیے اور جدول جیسے ڈیٹا، مثلاً ایکسل اور سی ایس وی فائلوں کو سنبھالنے کے لیے استعمال ہوتی ہے۔"},
+       {"cells": ["Matplotlib", "Data visualization, plotting graphs and charts."],
+        "ur": "میٹ پلاٹ لب۔ یہ ڈیٹا کو تصویری شکل میں دکھانے اور گراف اور چارٹ بنانے کے لیے استعمال ہوتی ہے۔"},
+       {"cells": ["TensorFlow / PyTorch", "Artificial Intelligence and Machine Learning."],
+        "ur": "ٹینسر فلو اور پائی ٹارچ۔ یہ مصنوعی ذہانت اور مشین لرننگ کے لیے استعمال ہوتی ہیں۔"}
+     ]},
+    {"t": "h1", "en": "3.7 Debugging Code in Python", "ur": "تین اعشاریہ سات۔ پائتھون میں کوڈ کی ڈیبگنگ۔"},
+    {"t": "p", "en": "Debugging is the process of identifying, tracing, and resolving issues (bugs) within a program so it works correctly.", "ur": "پروگرام میں موجود غلطیوں، یعنی بگز، کو تلاش کرنا، ان کا سراغ لگانا اور انہیں ٹھیک کرنا ڈیبگنگ کہلاتا ہے، تاکہ پروگرام درست طریقے سے کام کرے۔"}
+  ]
+}
