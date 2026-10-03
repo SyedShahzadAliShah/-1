@@ -41,7 +41,7 @@ class TopicAdapter(
             binding.chapterImage.visibility = View.GONE
             binding.chapterTitle.text = if (topic.golden) "★ ${topic.title}" else topic.title
             val preview = topic.english.lineSequence().firstOrNull { it.isNotBlank() } ?: topic.title
-            binding.chapterSummary.text = preview.take(140)
+            binding.chapterSummary.text = "Guideline: ${preview.take(120)}"
             binding.root.setOnClickListener { onTopicClick(topic) }
         }
     }

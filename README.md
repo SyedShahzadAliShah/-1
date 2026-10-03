@@ -1,10 +1,11 @@
-# CS Teacher's Edition (Bilingual APK)
+# CS Teacher Guidelines (Official Bilingual Teacher's Edition APK)
 
-Android handbook built from the **Computer Science XI & XII Bilingual Teacher's Edition** PDFs (Sindh Curriculum).
+Official **teacher guidelines** app from the **Computer Science XI & XII Bilingual Teacher's Edition** PDFs (Sindh Curriculum).
 
-- **On-screen text:** English lecture notes only
-- **Voice narration:** Urdu TTS only (Listen on home, book overview, and each topic)
-- **Content:** 73 topics (CS XI) + 94 topics (CS XII) extracted from the uploaded teacher PDFs
+- **Audience:** Teachers only (reference note + textbook PDF citation)
+- **On-screen text:** English descriptive guidelines & lecture notes
+- **Voice narration:** Urdu class guidance only
+- **★ Golden topics:** Exam-critical emphasis per Teacher's Edition
 
 ## Build
 
@@ -18,9 +19,13 @@ export ANDROID_HOME=/opt/android-sdk
 
 APK output: `app/build/outputs/apk/debug/app-debug.apk`
 
-## Download (v1.1.0 sketchnote lectures)
+```bash
+python3 scripts/apply_teacher_guidelines.py   # official teacher metadata + lecture-only topics
+```
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-teachers-edition-f1f7/releases/CSTeacherEdition-v1.1.0-sketchnote-debug.apk
+## Download (v1.2.0 official teacher guidelines)
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-teachers-edition-f1f7/releases/CSTeacherEdition-v1.2.0-teacher-guidelines-debug.apk
 
 ## Version 1.1.0
 

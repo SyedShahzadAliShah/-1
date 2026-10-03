@@ -1,62 +1,9 @@
 {
   "id": "cs_xi",
-  "title": "Computer Science XI",
-  "subtitle": "Bilingual Teacher's Edition — Sindh Curriculum",
-  "topicCount": 73,
+  "title": "Computer Science XI — Chapter 1: Computer Systems",
+  "subtitle": "Bilingual Teacher's Edition · High-Yielding Lecture Notes & Golden Topics",
+  "topicCount": 72,
   "topics": [
-    {
-      "id": "cs_xi_intro_1",
-      "title": "COMPUTER SCIENCE XI",
-      "english": "COMPUTER SCIENCE XI\nCHAPTER 1: COMPUTER SYSTEMS\nBILINGUAL TEACHER'S EDITION\nHigh-Yielding Lecture Notes & Golden Topics\nBased on New Sindh Curriculum 2026\nTABLE OF CONTENTS\n1. 1.1.1 & 1.1.2 Discrete vs Continuous & Digital Systems\n2. 1.1.3 Analog and Digital Signals ★\n3. 1.1.4 - 1.1.6 Boolean Algebra, Operations & Truth Tables\n4. 1.1.7 Basic Logic Gates (AND, OR, NOT) ★\n5. 1.1.7 Universal & Advanced Logic Gates\n6. 1.1.8 - 1.1.11 Logic Expressions, Minterms & Diagrams\n7. 1.1.13 Karnaugh Maps (K-Maps) Simplification ★\n8. LogiSim Simulation Tool Guide\n9. 1.2.1 - 1.2.3 Software Development Life Cycle (SDLC) ★\n10. 1.2.4 - 1.2.7 Waterfall vs Agile Models & Case Studies\n11. 1.3.1 - 1.3.4 Communication Models & OSI 7-Layer Model ★\n12. 1.3.5 - 1.3.6 TCP/IP Model vs OSI Model\n👨‍🏫 Reference Note /\n\"CS XI (1 & 2).pdf\"\nThese notes are prepared specifically for teachers. For reference, please\nconsult the textbook PDF file named exactly \"CS XI (1 & 2).pdf\", which has\nbeen followed verbatim. Topics marked with a ★ are highly critical for\nexaminations.",
-      "urdu_narration": "ہم‌عمروں کی تعداد :\nسوال :\nغلط‌فہمی\nاعلیٰ تعلیمی نوٹ اور سنہری ٹوپیاں\nنئی سندھی کرکٹ 2026 پر مبنی ہے۔\nعطیات کی تیاری\n1.1.1 & 1.1.2 Discrete vs Centre & Digital Systems\n2. 1.1.3 اینالوگ اور ڈیجیٹل سگنلز ★\n3۔ 1۔ 1۔4 - 1.1۔6 بوہولان الجزائر، آپریشنز اینڈ سچل ٹیبلز۔\n4۔ 1۔7 بنیادی منطقہ جات (آنند، یان، نا) ★\n5۔ 1۔7 کائناتی اور ترقیاتی منطقی گیج (Estitual)۔\n6۔ 1.1۔8 - 1.11 منطقی اصطلاحات، Minterms & ڈائیگرام\n7۔ 1.1۔13 کارناؤگ Maps (K-Maps) سادگی ★\n8۔ LogiSim Tool Guide -\n9. 1.21 - 1.2.3 سافٹ وئیر ڈویلپمنٹ لائف سیکل (SDLC) ★\n10. 1.2.4 - 1.2.7 واٹر آبشار (انگریزی: Waterfall vs Agile Middles & Cass Studies) مڈغاسکر کا ایک رہائشی علاقہ ہے۔\n11۔ 1.3 - 1.3.4 رابطہ ماڈلز & OSI 7-Layer ماڈل ★\n12۔ 1.3 - 1.3.6 ٹی سی پی/IP ماڈل وس اوسی ماڈل\n👨‍🏫 حوالہ‌جات /\n\"CSS XI (1 & 2).pdf\". اخذ شدہ بتاریخ 26 دسمبر 2018. تحقق من التاريخ في:\nیہ نوٹ خاص طور پر اساتذہ کے لیے تیار کیے جاتے ہیں۔ حوالہ جات کے لیے، براہ مہربانی\nدرسی کتاب پی ڈی ایف فائل کو مکمل طور پر \"CSS XI (1 & 2 غیرشادی شدہ)،pdf، جس کے پاس ہے۔\nفعلیات کا اطلاق کیا گیا۔ ★ کے ساتھ جن موضوعات کی نشان دہی کی گئی تھی وہ انتہائی تنقیدی ہیں۔\nتجزیات ۔",
-      "golden": true,
-      "source_page": 1,
-      "sketchnote_frames": [
-        {
-          "index": 0,
-          "english": "COMPUTER SCIENCE XI CHAPTER 1: COMPUTER SYSTEMS BILINGUAL TEACHER'S EDITION",
-          "urdu": "ہم‌عمروں کی تعداد :\nسوال :\nغلط‌فہمی\nاعلیٰ تعلیمی نوٹ اور سنہری ٹوپیاں\nنئی سندھی کرکٹ 2026 پر مبنی ہے۔",
-          "visual": "concept"
-        },
-        {
-          "index": 1,
-          "english": "High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2026 TABLE OF CONTENTS",
-          "urdu": "عطیات کی تیاری\n1.1.1 & 1.1.2 Discrete vs Centre & Digital Systems\n2. 1.1.3 اینالوگ اور ڈیجیٹل سگنلز ★\n3۔",
-          "visual": "flow"
-        },
-        {
-          "index": 2,
-          "english": "1. 1.1.1 & 1.1.2 Discrete vs Continuous & Digital Systems 2. 1.1.3 Analog and Digital Signals ★ 3. 1.1.4 - 1.1.6 Boolean Algebra, Operations & Truth Tables",
-          "urdu": "1۔",
-          "visual": "logic"
-        },
-        {
-          "index": 3,
-          "english": "4. 1.1.7 Basic Logic Gates (AND, OR, NOT) ★ 5. 1.1.7 Universal & Advanced Logic Gates 6. 1.1.8 - 1.1.11 Logic Expressions, Minterms & Diagrams",
-          "urdu": "1۔4 - 1.1۔6 بوہولان الجزائر، آپریشنز اینڈ سچل ٹیبلز۔",
-          "visual": "logic"
-        },
-        {
-          "index": 4,
-          "english": "7. 1.1.13 Karnaugh Maps (K-Maps) Simplification ★ 8. LogiSim Simulation Tool Guide 9. 1.2.1 - 1.2.3 Software Development Life Cycle (SDLC) ★",
-          "urdu": "4۔",
-          "visual": "logic"
-        },
-        {
-          "index": 5,
-          "english": "10. 1.2.4 - 1.2.7 Waterfall vs Agile Models & Case Studies 11. 1.3.1 - 1.3.4 Communication Models & OSI 7-Layer Model ★ 12. 1.3.5 - 1.3.6 TCP/IP Model vs OSI Model",
-          "urdu": "1۔7 بنیادی منطقہ جات (آنند، یان، نا) ★\n5۔",
-          "visual": "network"
-        },
-        {
-          "index": 6,
-          "english": "👨‍🏫 Reference Note / \"CS XI (1 & 2).pdf\" These notes are prepared specifically for teachers. For reference, please",
-          "urdu": "1۔7 کائناتی اور ترقیاتی منطقی گیج (Estitual)۔",
-          "visual": "idea"
-        }
-      ],
-      "page_image": "cs_teacher/pages/cs_xi/page_001.jpg"
-    },
     {
       "id": "cs_xi_1_1_1_2",
       "title": "1.1.1 Discrete and Continuous Quantities",
@@ -3867,5 +3814,14 @@
       ],
       "page_image": "cs_teacher/pages/cs_xi/page_121.jpg"
     }
-  ]
+  ],
+  "teacher_guidelines": {
+    "edition_title": "Bilingual Teacher's Edition",
+    "tagline": "High-Yielding Lecture Notes & Golden Topics",
+    "curriculum": "New Sindh Curriculum 2026",
+    "textbook_reference": "CS XI (1 & 2).pdf",
+    "english": "These notes are prepared specifically for teachers. For reference, please consult the textbook PDF file named exactly \"CS XI (1 & 2).pdf\", which has been followed verbatim. Topics marked with a ★ are highly critical for examinations.",
+    "urdu_narration": "یہ نوٹس خاص طور پر اساتذہ کے لیے تیار کیے گئے ہیں۔ حوالہ کے لیے براہِ کرم \"CS XI (1 & 2).pdf\" نامی درسی کتاب کی PDF فائل دیکھیں؛ اسی پر مکمل عمل کیا گیا ہے۔ ★ نشان والے موضوعات امتحانات کے لیے انتہائی اہم ہیں۔",
+    "golden_topic_note": "Topics marked with ★ are highly critical for examinations."
+  }
 }

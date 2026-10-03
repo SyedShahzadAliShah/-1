@@ -10,8 +10,8 @@ object NarrationBuilder {
     fun buildWelcomeNarration(context: Context): String {
         val books = CsTeacherRepository.getBooks(context)
         val intro = context.getString(R.string.welcome_narration_urdu)
-        val bookTitles = books.map { it.title }.joinToString("۔ ")
-        return "$intro $bookTitles"
+        val guidelines = books.map { it.teacherGuidelines.urduNarration }.joinToString(" ")
+        return "$intro $guidelines"
     }
 
     fun buildTopicNarration(topic: CsTopic): String {

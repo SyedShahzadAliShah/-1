@@ -8,6 +8,7 @@ data class CsBook(
     val id: String,
     val title: String,
     val subtitle: String,
+    val teacherGuidelines: TeacherGuidelines,
     val topics: List<CsTopic>
 )
 
@@ -47,6 +48,7 @@ object CsTeacherRepository {
                         id = payload.getString("id"),
                         title = payload.getString("title"),
                         subtitle = payload.getString("subtitle"),
+                        teacherGuidelines = parseGuidelines(payload.getJSONObject("teacher_guidelines")),
                         topics = parseTopics(payload)
                     )
                 )
@@ -71,6 +73,18 @@ object CsTeacherRepository {
             if (topic != null) return book to topic
         }
         return null
+    }
+
+    private fun parseGuidelines(obj: JSONObject): TeacherGuidelines {
+        return TeacherGuidelines(
+            editionTitle = obj.getString("edition_title"),
+            tagline = obj.getString("tagline"),
+            curriculum = obj.getString("curriculum"),
+            textbookReference = obj.getString("textbook_reference"),
+            english = obj.getString("english"),
+            urduNarration = obj.getString("urdu_narration"),
+            goldenTopicNote = obj.getString("golden_topic_note")
+        )
     }
 
     private fun parseTopics(payload: JSONObject): List<CsTopic> {

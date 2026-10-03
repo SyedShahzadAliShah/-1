@@ -1,62 +1,9 @@
 {
   "id": "cs_xii",
-  "title": "Computer Science XII",
-  "subtitle": "Bilingual Teacher's Edition — Sindh Curriculum",
-  "topicCount": 94,
+  "title": "Computer Science XII — Chapter 1: Computer Systems (HCI)",
+  "subtitle": "Bilingual Teacher's Edition · High-Yielding Lecture Notes & Golden Topics",
+  "topicCount": 93,
   "topics": [
-    {
-      "id": "cs_xii_intro_1",
-      "title": "COMPUTER SCIENCE",
-      "english": "COMPUTER SCIENCE\nCHAPTER 1:\nCOMPUTER SYSTEMS (HCI)\nBILINGUAL TEACHER'S EDITION\nHigh-Yielding Lecture Notes & Golden Topics\nBased on New Sindh Curriculum 2024 / 2025-27\nTABLE OF CONTENTS\n1. 1.1 Fundamentals of Human Computer Interaction (HCI)\n2. 1.1.1 - 1.1.2 Traditional vs Natural Interaction\n3. 1.2 Applications of HCI (Domains of Life) ★\n4. 1.3 Components of HCI\n5. 1.3 (Cont.) Types of User Interaction\n6. 1.3 (Cont.) Interface Types, Environment & Feedback\n7. 1.4 Importance of HCI ★\n8. 1.5 Accessibility Principles\n9. 1.6 Need Analysis for Interface Design\n10. 1.7 Human Computer Interaction Problems ★\n11. 1.8 Methods for Improving HCI\n12. 1.9 User Interface Design (UI vs UX) ★\n13. 1.9.3 - 1.9.5 Wireframing, Figma, and Prototypes\n14. 1.11 Test and Evaluate HCI (Evaluation Methods)\n15. 1.11.2 Testing Methods (Usability, A/B, Automated) ★\n👨‍🏫 Reference Note /\n\"CS XII (1 & 2).pdf\"\nThese notes are prepared specifically for teachers. For reference, please\nconsult the textbook PDF file named exactly \"CS XII (1 & 2).pdf\", which has\nbeen followed verbatim. Topics marked with a ★ are highly critical for\nexaminations.",
-      "urdu_narration": "قبرص\nاعمال ۱ :\nCOMPOR SYSTEMS (HCI)\nغلط‌فہمی\nاعلیٰ تعلیمی نوٹس اینڈ گولڈن ٹوپیاں\nنئی سندھی کرکٹ 2024 / 2025-27 پر مبنی ہے۔\nعطیات کی تیاری\n1۔1 کمپیوٹر انٹرمیڈیٹ (HCI) کے 1۔\n2. 1.1 - 1.1.2 روایتی وس طبعی انٹرشن کے ذریعے\n3۔ 1.2 اطلاقیہ آف ایچ سی آئی (انگریزی: Cons of Life) ★\n4۔1۔ ایچ سی آئی کےBREW\n5.3 (Cont.) صارفی انٹرشن کی اقسام\n6.3 (Cont. ) وائرس کی اقسام ، ماحولیاتی اور خوراک کی واپسی\n7۔ 1۔ 1۔ 1۔ 0۔ ایچ آئی ★\n8.5 اصول\n9۔ 1.6 کو روبوٹ ڈیزائن کے لیے Analysis کی ضرورت ہوتی ہے۔\n10. 1.7 انسانی کمپیوٹر انٹرمیڈیٹ مسائل ★\nایچ‌آئی‌سی‌سی‌ایس کے لئے عطیات\n12. 1.9 صارف مواجہ ڈیزائن (U effig UX) ★\n13.9.3 - 1.9.5 اُس نے کہا : ” مَیں اِس بات کو تسلیم کرتا ہوں کہ مَیں اپنے گھر والوں سے بات کر رہا ہوں ۔\n14.11 ٹیسٹ اینڈ ایوارڈز ایچ سی آئی (Evaluation Constitution)\n15.11.2 امتحانات (Usbility, A/B, Automated) ★\nاِس شمارے میں\n\"CSS XI (1 & 2.pdf\". \"CSXI (1).\nیہ نوٹ خاص طور پر اساتذہ کے لیے تیار کیے جاتے ہیں۔ حوالہ جات کے لیے، براہ مہربانی\nکتابچہ پی ڈی ایف فائل کو مکمل طور پر \"CSS XI (1 اور 2).pdf\" سے رجوع کریں، جس کے پاس موجود ہے۔\nفعلیات کا اطلاق کیا گیا۔ ★ کے ساتھ جن موضوعات کی نشان دہی کی گئی ہے وہ بہت تنقیدی ہیں۔\nتجزیات ۔",
-      "golden": true,
-      "source_page": 1,
-      "sketchnote_frames": [
-        {
-          "index": 0,
-          "english": "COMPUTER SCIENCE COMPUTER SYSTEMS (HCI) BILINGUAL TEACHER'S EDITION",
-          "urdu": "قبرص\nاعمال ۱ :\nCOMPOR SYSTEMS (HCI)\nغلط‌فہمی\nاعلیٰ تعلیمی نوٹس اینڈ گولڈن ٹوپیاں\nنئی سندھی کرکٹ 2024 / 2025-27 پر مبنی ہے۔",
-          "visual": "concept"
-        },
-        {
-          "index": 1,
-          "english": "High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2024 / 2025-27 TABLE OF CONTENTS",
-          "urdu": "عطیات کی تیاری\n1۔1 کمپیوٹر انٹرمیڈیٹ (HCI) کے 1۔",
-          "visual": "flow"
-        },
-        {
-          "index": 2,
-          "english": "1. 1.1 Fundamentals of Human Computer Interaction (HCI) 2. 1.1.1 - 1.1.2 Traditional vs Natural Interaction 3. 1.2 Applications of HCI (Domains of Life) ★",
-          "urdu": "2. 1.1 - 1.1.2 روایتی وس طبعی انٹرشن کے ذریعے\n3۔",
-          "visual": "concept"
-        },
-        {
-          "index": 3,
-          "english": "4. 1.3 Components of HCI 5. 1.3 (Cont.) Types of User Interaction 6. 1.3 (Cont.) Interface Types, Environment & Feedback",
-          "urdu": "1.2 اطلاقیہ آف ایچ سی آئی (انگریزی: Cons of Life) ★\n4۔1۔",
-          "visual": "concept"
-        },
-        {
-          "index": 4,
-          "english": "7. 1.4 Importance of HCI ★ 8. 1.5 Accessibility Principles 9. 1.6 Need Analysis for Interface Design",
-          "urdu": "ایچ سی آئی کےBREW\n5.3 (Cont.) صارفی انٹرشن کی اقسام\n6.3 (Cont. ) وائرس کی اقسام ، ماحولیاتی اور خوراک کی واپسی\n7۔",
-          "visual": "concept"
-        },
-        {
-          "index": 5,
-          "english": "10. 1.7 Human Computer Interaction Problems ★ 11. 1.8 Methods for Improving HCI 12. 1.9 User Interface Design (UI vs UX) ★",
-          "urdu": "1۔",
-          "visual": "concept"
-        },
-        {
-          "index": 6,
-          "english": "13. 1.9.3 - 1.9.5 Wireframing, Figma, and Prototypes 14. 1.11 Test and Evaluate HCI (Evaluation Methods) 15. 1.11.2 Testing Methods (Usability, A/B, Automated) ★",
-          "urdu": "1۔",
-          "visual": "concept"
-        }
-      ],
-      "page_image": "cs_teacher/pages/cs_xii/page_001.jpg"
-    },
     {
       "id": "cs_xii_1_1_2",
       "title": "1.1 Fundamentals of Human Computer",
@@ -4986,5 +4933,14 @@
       ],
       "page_image": "cs_teacher/pages/cs_xii/page_145.jpg"
     }
-  ]
+  ],
+  "teacher_guidelines": {
+    "edition_title": "Bilingual Teacher's Edition",
+    "tagline": "High-Yielding Lecture Notes & Golden Topics",
+    "curriculum": "New Sindh Curriculum 2024 / 2025–27",
+    "textbook_reference": "CS XII (1 & 2).pdf",
+    "english": "These notes are prepared specifically for teachers. For reference, please consult the textbook PDF file named exactly \"CS XII (1 & 2).pdf\", which has been followed verbatim. Topics marked with a ★ are highly critical for examinations.",
+    "urdu_narration": "یہ نوٹس خاص طور پر اساتذہ کے لیے تیار کیے گئے ہیں۔ حوالہ کے لیے براہِ کرم \"CS XII (1 & 2).pdf\" نامی درسی کتاب کی PDF فائل دیکھیں؛ اسی پر مکمل عمل کیا گیا ہے۔ ★ نشان والے موضوعات امتحانات کے لیے انتہائی اہم ہیں۔",
+    "golden_topic_note": "Topics marked with ★ are highly critical for examinations."
+  }
 }
