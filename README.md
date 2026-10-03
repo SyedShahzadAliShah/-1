@@ -18,6 +18,10 @@ export ANDROID_HOME=/opt/android-sdk
 
 APK output: `app/build/outputs/apk/debug/app-debug.apk`
 
+## Download (v1.1.0 sketchnote lectures)
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-teachers-edition-f1f7/releases/CSTeacherEdition-v1.1.0-sketchnote-debug.apk
+
 ## Version 1.1.0
 
 - **Animated sketchnote lectures** — doodle motifs + PDF page art per topic
