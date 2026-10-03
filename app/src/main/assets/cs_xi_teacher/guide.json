@@ -1,0 +1,739 @@
+{
+  "title": "Computer Science XI — Bilingual Teacher's Edition",
+  "subtitle": "High-Yielding Lecture Notes & Golden Topics",
+  "curriculum": "New Sindh Curriculum 2026",
+  "displayLanguage": "en",
+  "narrationLanguage": "ur",
+  "referenceNote": "These notes are prepared specifically for teachers. For reference, consult the textbook PDF file named exactly \"CS XI (1 & 2).pdf\". Topics marked with ★ are highly critical for examinations.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "Chapter 1: Computer Systems",
+      "topics": [
+        {
+          "id": "ch1_t01",
+          "title": "1.1.1 & 1.1.2 Discrete vs Continuous & Digital Systems",
+          "critical": false,
+          "englishText": "1.1.1 Discrete and Continuous Quantities\n\nDiscrete Quantities: Separate,\n\ncountable items with specific values.\n\nThey can be counted one by one.\n\nNumber of students in a classroom\n\nNumber of cars in a parking lot\n\nContinuous Quantities: Can take any\n\nvalue within a range. They flow\n\nsmoothly without breaks.\n\nTemperature of water\n\nSpeed of a moving car\n\n💡 Analogy: Stairs vs Ramp\n\nStairs represent discrete data (fixed steps). A ramp represents continuous\n\ndata (any point).\n\nDiscrete (Stairs)\n\nContinuous (Ramp)\n\n1.1.2 Introduction to Digital Systems\n\nA digital system is an electronic system that uses only two values: 0 and 1. These\n\ntwo values are called binary digits or bits.\n\n0 represents OFF, LOW, or FALSE.\n\n1 represents ON, HIGH, or TRUE.\n\nAdvantage\n\nEnglish Detail\n\nUrdu Translation (اردو)\n\nReliable\n\nLess affected by noise and\n\ninterference.\n\nAccurate\n\nNo loss of quality when copying\n\nEasy to Design\n\nOnly two states (0 and 1) to\n\nProgrammable\n\nCan be easily controlled by\n\nsoftware.\n\nExamples of Digital Systems\n\nComputers: Processes data as 0s and 1s.\n\nSmartphones: Stores photos and music as binary data.\n\nDigital Cameras: Captures images as binary code.\n\n1.1.3 Analog and Digital Signals\n\nAnalog Signals\n\nContinuous signals that change\n\nsmoothly over time, like a sine wave.\n\n(e.g., Human voice, traditional\n\nthermometers).\n\nDigital Signals\n\nHave only two levels: HIGH (1) and LOW\n\n(0). They jump instantly between\n\nvalues, creating a square wave. (e.g.,\n\nComputer data).\n\nAnalog Signal (Sine Wave)\n\nDigital Signal (Square Wave)\n\nAnalog Data\n\nDigital Data\n\nContinuous flow.\n\nDiscrete, separate values (Bits).\n\nReliability\n\nLow (affected by noise).\n\nHigh (resistant to noise).",
+          "urduNarration": "ںیہ مق دار یں وہ ی ہ :)Discrete( مق دار ی ں مت فرد زو یلی و مخ صوص کی نا اور ےہ سکت ا ج ا ن اگ یںہ ن ج ں۔یہ و تیہ ت عداد کی طلب اء یںم کلاس ت عداد کی یوںڑگا یںم ن گکپار کسی ی ہ :)Continuous( مق دار ی ں مسلسل اور ںیہ سک تی لے و یلی و ب ھی کو ئی اندر کے حد ب ھی وتا۔ہ یںہ ن بر یک کو ئی یںم نا تحرار در ج ہ کا پا نی تارفر کی گاڑ ی و ئیہ چ ل تی کی )Continuous( مسلسل پر ی م ۔)ق دم مخ صوص( ںیہ ث الم کی )Discrete( مت فرد ی اںھ ڑسی ۔)ںیہ ےت کس وہ کھ ڑ ے ج گہ ب ھی کسی( ےہ ث الم کو زو یلی و نا ے۔ہ کرتا ا ست عمال کا 1 اور 0 زو یلی و دو فصر ج و ےہ سس ٹم ی کٹرانکلا ا یک سس ٹم ٹ لی جی ے۔ہ ج اتا اہ ک ٹسب یا ن دسےہ نریئبا Why Use Digital Systems? / کیوں؟ استعمال کا سسٹمز ڈیجیٹل ے۔ہ وتاہ ت اثرم کم سے تمدا خ ل اور ش ور یںہ ن بخ را ٹیلکوا ت قو تے کر کاپ ی ٹ ای ڈ و تی۔ہ ے۔ہ نساآ ن الب ھانس کو ت وںلحا دو فصر ج ا ی اک ٹرولنک سے سا نیآ ےعیذر کے ئریو ٹ فسا ے۔ہ سکت ا سے نرمی سا ت ھ سا ت ھ کے ت قو ج و زسگن ل مسلسل ۔) زآ وا انسا نی ًث لم ( ر۔ہ ل ےسی ج ،ںیہ تے وہ ب د یلت ی ہ لو۔ اور ا ئیہ :ںیہ تے وہ زی و لل دو فصر یںم نا تینب و یو ا سکوائر سے ج س ،ںیہ تے وہ ب د یلت ف وری ے۔ہ",
+          "startPage": 3,
+          "endPage": 5
+        },
+        {
+          "id": "ch1_t02",
+          "title": "1.1.3 Analog and Digital Signals",
+          "critical": true,
+          "englishText": "1.1.4 Boolean Algebra\n\nBoolean algebra (developed by George Boole) deals with only two values: TRUE\n\n(1) and FALSE (0). It is the foundation of digital electronics and computer\n\nprogramming.\n\nDescription\n\nVariables\n\nLetters that hold values 0 or 1.\n\nA, B, C, X, Y\n\nOperations\n\nActions performed on variables.\n\nAND, OR, NOT\n\nExpressions\n\nCombinations of variables & operations.\n\nA AND B, Y = A + B\n\n1.1.5 Boolean Operations\n\n1. AND Operation ( · )\n\nThe AND operation gives output 1 ONLY when ALL inputs are 1.\n\nExpression: Y = A · B\n\nA door with two locks. The door opens only when BOTH locks are unlocked.\n\nBoolean Operations (Continued)\n\n2. OR Operation ( + )\n\nThe OR operation gives output 1 when ANY input is 1.\n\nExpression: Y = A + B\n\nA room with two doors. You can enter if EITHER door is open.\n\n3. NOT Operation ( ' or ¯ )\n\nThe NOT operation inverts the input. It is a unary operation (operates on only\n\none operand). If input is 1, output is 0.\n\nExpression: Y = A' or Y = A̅\n\nA room light switch. When switch is ON, room is lit. When OFF, room is dark.",
+          "urduNarration": "ٹ لی جی ڈ ی ہ ۔FALSE (0) اور TRUE (1) :ںیہ و تیہ زو یلی و دو فصر یںم )ای ج اد کی بول جج ار( براجلا نیلبو ے۔ہ ی ادنب کی ی کٹرانکسلا وں۔ہ 1 ٹسپ نا ت مام ب ج و گاہ 1 ت قو اسی فصر ٹ پ ٹ ؤآ وں۔ہ ےکھھل تالے دونوں ب ج گا ےکھھل ب ت درواز ہ ،وںہ تالے دو پر ج س درواز ہ ا یک و۔ہ 1 ب ھی ٹ پ نا ا یک کو ئی ا گر و گاہ 1 ٹ پ ٹ ؤآ ں۔یہ ےت کس وہ دا خ ل ب ھی سے ا یک کسی پ آ ،ںیہ درواز ے دو کے کمرے ا یک ے۔ہ نآ پر ی ش Unary ی ہ و گا۔ہ 0 ٹ پ ٹ ؤآ تو ےہ 1 ٹ پ نا ا گر ے۔ہ ت اید ٹ لا کو ٹ پ نا ی ہ ے۔ہ ج ا تی ب ج ھ تیب تو وہ ف آ ب ج ،ےہ ج ل تی تیب تو وہ نآ ب ج سو ئ چ ۔ کا ب ج لی",
+          "startPage": 6,
+          "endPage": 7
+        },
+        {
+          "id": "ch1_t03",
+          "title": "1.1.4 - 1.1.6 Boolean Algebra, Operations & Truth Tables",
+          "critical": false,
+          "englishText": "1.1.6 Truth Tables\n\nA truth table shows all possible input combinations and their corresponding\n\noutputs for a logic gate or circuit.\n\nHow to create a truth table:\n\n1. Count the number of inputs (n).\n\n2. Calculate total rows = 2ⁿ.\n\n3. List all input combinations in binary order.\n\n4. Calculate output for each combination.\n\n2-Input Example (n=2, Rows=4)\n\nCombinations\n\n3-Input Example (n=3, Rows=8)\n\n1.1.7 Logic Gates (Basic Gates)\n\nLogic gates are electronic circuits that perform Boolean operations. They are the\n\nbuilding blocks of all digital systems.\n\nExpression\n\nTruth Table",
+          "urduNarration": "ے۔ہ کرتا رہظ ا کو ٹسپ ٹ ؤآ کے نا اور ٹسپ نا ممکن ہ ت مام کے ٹ کسر یا ٹ یگ لا ج ک کسی ب لیٹ ٹر ت ھ ت مام ب ج 1 ٹ پ ٹ ؤآ وںہ 1 ٹ پ ناY = A · B کو ئی ا گر 1 ٹ پ ٹ ؤآ وہ 1 ٹ پ نا ا یکY = A + B ت اید ٹ لا کو ٹ پ نا",
+          "startPage": 8,
+          "endPage": 9
+        },
+        {
+          "id": "ch1_t04",
+          "title": "1.1.7 Basic Logic Gates (AND, OR, NOT)",
+          "critical": true,
+          "englishText": "Universal Logic Gates (NAND & NOR)\n\nExplain that NAND and NOR are called Universal Gates because ANY logic\n\ncircuit in the world can be built using only these gates.\n\nExpression\n\nTruth Table\n\n(NOT AND)\n\nY = (A + B)'\n\nAdvanced Logic Gates (XOR & XNOR)\n\nExpression\n\nTruth Table\n\nMemory Trick: XOR outputs 1 when inputs are \"eXclusively\" different. XNOR outputs 1 when\n\ninputs are the SAME.",
+          "urduNarration": "👨‍🏫 Teacher's Tip / مشورہ لیے کے اساتذہ فصر ٹ کسر ب ھی کو ئی کا ی اند ی ونکہک ےہ ج اتا اہ ک ٹسیگ ی ور سلنیو کو NOR اور NAND کہ یںئت اب کو طلب اء ے۔ہ سکت ا ج ا ن ا یاب سے مدد کی نا ی ہ AND ےہ ٹ لا کا ی ہ OR ےہ ٹ لا کا نا ب ج 1 ٹ پ ٹ ؤآ وںہ فتلخم ٹسپ نا ب ج 1 ٹ پ ٹ ؤآ وںہ ےسی ج ا یک ٹسپ",
+          "startPage": 10,
+          "endPage": 11
+        },
+        {
+          "id": "ch1_t05",
+          "title": "1.1.7 Universal & Advanced Logic Gates",
+          "critical": false,
+          "englishText": "1.1.8 & 1.1.10 Expressions & Minterms\n\nOrder of Precedence (Operations)\n\n1. Parentheses ( ), 2. NOT ( ' ), 3. AND ( · ), 4. OR ( + )\n\nMinterms (SOP - Sum of Products)\n\nA product (AND) of all variables that output a 1. Complemented if value is 0 (A'),\n\nuncomplemented if 1 (A).\n\nMaxterms (POS - Product of Sums)\n\nA sum (OR) of all variables that output a 0. Complemented if value is 1 (A'),\n\nuncomplemented if 0 (A).\n\nOutput (Y)\n\nMinterm (SOP)\n\nMaxterm (POS)\n\nFinal SOP Expression: Y = A'B + AB\n\n1.1.11 Logic Diagrams\n\nA logic diagram shows how logic gates are connected to create a circuit. Based\n\non precedence, the operation with highest priority is drawn first.\n\nExample: Draw Logic Diagram for Y = A · B + C\n\nAND ( · ) has higher precedence than OR ( + ). So, draw AND gate first.",
+          "urduNarration": "ےسیو تو وہ 1 ،ںیہ تے لگا )'( تو وہ 0 ٹ پ نا ے۔ہ وتاہ ا ست عمال Minterm اںہو ،وہ 1 ٹ پ ٹ ؤآ اںہ ج ں۔یہ ےت ھل ک یہ ے۔ہ وتاہ ا ست عمال Maxterm اںہو ،وہ 0 ٹ پ ٹ ؤآ اںہ ج ی حج تر ے۔ہ ج اتا ن ا یاب ےسی ک ٹ کسر ا یک کر ڑج و کو ٹسیگ لا ج ک کہ ےہ کرتا رہظ ا ی ہ ڈا یا گرام لا ج ک ں۔یہ تے ج ا ئے ن اب ٹسیگ سے ظلحا کے )Precedence(",
+          "startPage": 12,
+          "endPage": 13
+        },
+        {
+          "id": "ch1_t06",
+          "title": "1.1.8 - 1.1.11 Logic Expressions, Minterms & Diagrams",
+          "critical": false,
+          "englishText": "1.1.13 Karnaugh Maps (K-Maps)\n\nA K-map is a graphical tool used to simplify Boolean expressions. It uses a grid\n\nwhere adjacent cells differ by only ONE bit (Gray code). We group 1s in powers of\n\n2 (1, 2, 4, 8) to simplify equations without complex algebra.\n\nTwo-Variable K-Map (Variables: A, B)\n\nNeeds 2² = 4 cells.\n\nCell 0 (A'B')\n\nCell 1 (A'B)\n\nCell 2 (AB')\n\nCell 3 (AB)\n\n👨‍🏫 Grouping Rule\n\nMake as large groups as possible (of size 1, 2, 4, 8). Overlapping is allowed.\n\nVariables that change state (0 to 1) within a group are eliminated.\n\nThree-Variable K-Map (A, B, C)\n\nFor 3 variables, we need 2³ = 8 cells. The columns follow Gray Code sequence:\n\n00, 01, 11, 10. This ensures adjacent cells differ by only one variable.\n\nm₀ (A'B'C')\n\nm₁ (A'B'C)\n\nm₂ (A'BC')\n\nm₄ (AB'C')\n\nEmphasize to students that wrapping around the edges is allowed! A cell on\n\nthe far left can be grouped with a cell on the far right.",
+          "urduNarration": "فصر زی لس ت صلم یںم اس ے۔ہ ٹول ی کلفگرا کا نے ن اب نساآ کو تمساوا )K-Map( پ فکار نو ں۔یہ تے ن اب گرو پس کے 1s مہ ۔)ڈکو گرے( ںیہ تے فتلخم سے ظلحا کے ٹ ب ا یک وہ یںم ب یتتر کی )10 ,11 ,01 ,00( ڈکو گرے زکا لم ں۔یہ در کار زی لس 8 میںہ ےی ل کے زب لیا و یری نیت یں۔ہ ن یںم نریئبا ،ںیہ 👨‍🏫 Teacher's Tip / مشورہ لیے کے اساتذہ کو یںئدا ے۔ہ سکت ا ج ا ن ا یاب پگرو کر ملا یںم آ پس ب ھی کو )Edges( ن اروںک کہ کر یں وا ض ح کو طلب اء ے۔ہ سکت ا وہ پگرو سا ت ھ کے ی لس کے نے کو یںئبا ی لس کا",
+          "startPage": 14,
+          "endPage": 15
+        },
+        {
+          "id": "ch1_t07",
+          "title": "1.1.13 Karnaugh Maps (K-Maps) Simplification",
+          "critical": true,
+          "englishText": "LogiSim Evolution: Simulation Tool\n\nLogiSim Evolution is a graphical tool for designing and simulating logic circuits. It\n\nallows students to visually build the truth tables and boolean expressions they\n\nlearn in theory.\n\n1. The Interface Areas\n\nMenu Bar: Top bar for File, Edit, Project, Simulate.\n\nToolbar: Quick access to standard tools (Wiring, Poke, AND, OR, NOT gates).\n\nExplorer Panel (Left): Contains component libraries (Gates, I/O, Wiring).\n\nAttribute Table (Bottom Left): Adjust properties of selected gates (e.g.,\n\nNumber of Inputs, Facing direction).\n\nDrawing Canvas (Right): The dotted grid where you place and wire gates.\n\n💡 Wiring Colors during Simulation\n\nBright Green: Logic 1 (HIGH)\n\nDark Green: Logic 0 (LOW)\n\nBlue: Unknown / Unconnected pin\n\nRed: Error / Short circuit\n\nBuilding a Circuit in LogiSim\n\nStep-by-Step: Building Y = A · B\n\n1. Select the AND Gate from the Toolbar or Gates library and place it on the\n\n2. Select the Input Pin (square icon with a 0) and place two pins to the left of the\n\ngate (label them A and B).\n\n3. Select the Output Pin (circle icon with a 0) and place it to the right (label it Y).\n\n4. Use the Wiring Tool to click and drag wires from the Input Pins to the AND\n\ngate's input ports. Wires must be horizontal or vertical.\n\n5. Wire the gate's output to the Output Pin Y.\n\n6. Select the Poke Tool (pointing finger) to toggle input A and B between 0 and 1\n\nto test the circuit!\n\nCircuit testing with Poke Tool. Notice the bright green line (Logic 1) from Input A.",
+          "urduNarration": "",
+          "startPage": 16,
+          "endPage": 17
+        },
+        {
+          "id": "ch1_t08",
+          "title": "LogiSim Simulation Tool Guide",
+          "critical": false,
+          "englishText": "1.2 Software Development Life Cycle\n\nSDLC is a structured process that guides software development from beginning\n\nto end. It ensures clear goals, better planning, risk reduction, and high quality.\n\nThe 6 Phases of SDLC\n\n1. Requirement Analysis\n\n2. System Design\n\n3. Implementation\n\n4. Testing\n\n5. Deployment\n\n6. Maintenance\n\nDetailed SDLC Phases (1-3)\n\nActivities & Details\n\nDeliverable\n\n1. Requirement\n\nAnalysis\n\nMeet clients, understand needs, list\n\nfeatures. This is the most important\n\nSRS Document\n\n(Software\n\nRequirements\n\nSpecification)\n\n2. System Design\n\nCreate High-Level Design (architecture),\n\nLow-Level Design (database, UI screens),\n\nFlowcharts.\n\nDesign Document\n\n3. Implementation\n\nWrite actual code in programming\n\nlanguages (Python, Java, etc.) based on\n\nthe design docs.\n\nWorking Source\n\n👨‍🏫 Teacher's Tip\n\nUse the analogy of building a house: Phase 1 is asking the family what rooms\n\nthey need. Phase 2 is the architect drawing blueprints. Phase 3 is the builders\n\nlaying bricks.",
+          "urduNarration": "وا ض ح ی ہ ے۔ہ کرتا نما ئیہر کی نے ن اب ئریو ٹ فسا ج و ےہ عمل م ظنم ا یک )SDLC( سی ا یل ڈی ا یس ے۔ہ ن اتاب نیی ق ی کو معی ار ٰا عل اور فداہا ن دیب ن صو بہم کرنا۔ طے زچریف اور مج ھن ا س کو تض رور یا کی فصار ن ئڈ ی ز ا ن انا۔ب نڈ یز ائ کا نا سکر ی اور سی ب ٹ ای ڈ کو ڈ ن گ لکھن ا۔ ڈکو یںم جن گو ییل ن گمپرو گرا",
+          "startPage": 18,
+          "endPage": 19
+        },
+        {
+          "id": "ch1_t09",
+          "title": "1.2.1 - 1.2.3 Software Development Life Cycle (SDLC)",
+          "critical": true,
+          "englishText": "Detailed SDLC Phases (4-6)\n\nActivities & Details\n\nDeliverable\n\n4. Testing\n\nFind and fix bugs. (See Black Box vs White\n\nBox below).\n\nTest Reports, Bug-\n\nfree software\n\n5. Deployment\n\nRelease software to end-users (Direct,\n\nPhased, or Pilot release).\n\nLive Software\n\n6. Maintenance\n\nProvide support, updates, and fix post-\n\nrelease issues.\n\nPatches, Updated\n\nVersions\n\nTesting Methods\n\n📦 Black Box Testing\n\nTester does NOT see code.\n\nTests functionality\n\n(Inputs/Outputs).\n\nDone by dedicated testers.\n\n📄 White Box Testing\n\nTester CAN see the code.\n\nTests internal logic/structure.\n\nDone by developers.\n\n1.2.4 The Waterfall Model\n\nA linear, sequential approach. Each phase must be completed before the next\n\nbegins. There is no going back to a previous phase easily.\n\nWhen to use?\n\nRequirements are clear, fixed, and well-understood.\n\nProject is small to medium size.\n\nTechnology is stable.\n\nDisadvantages (Cons)\n\nAdvantages (Pros)\n\nNot flexible to changes.\n\nSimple to understand and manage.\n\nTesting happens very late in the process.\n\nWell-documented at every step.\n\n📚 Case Study Reference: Library System\n\nThe textbook uses the \"Al-Noor Library Management System\" as a Waterfall\n\ncase study because the requirements were 100% fixed before coding began.",
+          "urduNarration": "ن گٹی سٹ غ لطی وں (Bugs) کر نا۔ ٹ ھی ک اور کرنا شتلا کو ٹ نڈ پلا ئم کرنا۔ ش ی پ ےی ل کے ا ست عمال کے نیفصار کو ئریو ٹ فسا ب ھال د یکھ کرنا۔ حل مسائل اور ن اید ٹسی ڈ پا کی ئریو ٹ فسا یںم اس ئے۔ ج ا وہ مکمل پ چ ھلا ب ج ےہ وتاہ ش روع ب ت مر حلہ ا گلا ے۔ہ ما ڈل )Linear( ی د ھاس ا یک ی ہ ے۔ہ م ش کل ج انا وا پس",
+          "startPage": 20,
+          "endPage": 21
+        },
+        {
+          "id": "ch1_t10",
+          "title": "1.2.4 - 1.2.7 Waterfall vs Agile Models & Case Studies",
+          "critical": false,
+          "englishText": "1.2.4 The Agile Model\n\nAn iterative approach. Software is developed in small cycles called sprints\n\n(usually 2-4 weeks). Customer feedback is gathered continuously.\n\nWhen to use?\n\nRequirements are unclear or may change.\n\nCustomer wants frequent progress updates (early delivery).\n\nComplex or innovative projects.\n\nDisadvantages (Cons)\n\nAdvantages (Pros)\n\nLess documentation.\n\nHighly flexible to changes.\n\nUnpredictable end-time and cost.\n\nEarly delivery of working software.\n\n📚 Case Study Reference: Mobile App\n\nThe \"Al-Noor Student Mobile Application\" used Agile because teachers,\n\nparents, and students constantly requested new features during\n\ndevelopment.\n\nWaterfall vs Agile Comparison\n\nDimension\n\nWaterfall Model\n\nAgile Model\n\nFlexibility\n\nRigid. Hard to make\n\nchanges later.\n\nVery flexible. Adapts to\n\nchanges easily in the next\n\nCustomer\n\nInvolvement\n\nOnly at start\n\n(requirements) and end\n\n(delivery).\n\nContinuous throughout the\n\nproject (after every sprint).\n\nDelivery of\n\nSoftware\n\nSingle delivery at the very\n\nFrequent, partial deliveries\n\nafter every sprint.\n\nDone late, in a dedicated\n\ntesting phase.\n\nContinuous testing within\n\nevery sprint.\n\nDocumentation\n\nHeavy documentation\n\nrequired.\n\nLight documentation. Focus is\n\non working software.",
+          "urduNarration": "ب د یلی اںت اور ےہ وتاہ )Flexible( لچ کدار ی ہ ے۔ہ ج اتا ی اک یںم )Sprints( حصوں ٹے چ ھو کام یںم اس ں۔یہ سک تی ج ا کی سے سا نیآ ل چ ک",
+          "startPage": 22,
+          "endPage": 23
+        },
+        {
+          "id": "ch1_t11",
+          "title": "1.3.1 - 1.3.4 Communication Models & OSI 7-Layer Model",
+          "critical": true,
+          "englishText": "1.3 Communication Models (OSI)\n\nA communication model explains how data travels from one device to another\n\nthrough a network. The OSI (Open Systems Interconnection) Model was\n\ndeveloped by ISO in 1984. It divides communication into 7 layers.\n\n\"Please Do Not Throw Sausage Pizza Away\" (Bottom to Top: Physical, Data\n\nLink, Network, Transport, Session, Presentation, Application).\n\n7. Application\n\n6. Presentation\n\n5. Session\n\n4. Transport\n\n3. Network\n\n2. Data Link\n\n1. Physical\n\nOSI Model Layers (Top Layers)\n\n7. Application\n\nProvides network services directly to user\n\napplications.\n\nHTTP, HTTPS, FTP,\n\nSMTP, DNS\n\n6. Presentation\n\nData Translation, Encryption (security),\n\nand Compression.\n\nSSL/TLS, JPEG, MP3,\n\n5. Session\n\nOpens, maintains, and closes\n\ncommunication sessions.\n\nNetBIOS, RPC\n\n4. Transport\n\nReliable end-to-end delivery, Error\n\nchecking, Port numbering.\n\nTCP (reliable), UDP\n\n💡 TCP vs UDP at Transport Layer\n\nUse TCP when accuracy matters (Web browsing, Emails). Use UDP when\n\nspeed matters more than perfection (Video streaming, online gaming).",
+          "urduNarration": "ئیآ ا یس او ے۔ہ کرتا سفر ےسی ک ٹ ای ڈ تک یوائسڈ دوسری سے یوائسڈ ا یک کہ ےہ ت اتاب ما ڈل نی کی شنکمی و ں۔یہ )Layers( یںہ ت 7 کی ما ڈل )OSI( 🧠 Memory Trick / طریقہ کا رکھنے یاد ن ا۔ید زسروس کو )ی لم ای ، ب یو( سپ یا کی فصار کرنا۔ کم زسائ اور ،کاری ی ہف خ ،تر ج مہ کا ٹ ای ڈ کرنا۔ تمخ اور کرنا ق ا ئ م را ب طہ ج ا ن چ ۔ کی غ لطی وں اور ی لستر ب ھروسہ ق ا بل کی ٹ ای ڈ",
+          "startPage": 24,
+          "endPage": 25
+        },
+        {
+          "id": "ch1_t12",
+          "title": "1.3.5 - 1.3.6 TCP/IP Model vs OSI Model",
+          "critical": false,
+          "englishText": "OSI Bottom Layers & TCP/IP Model\n\nHardware\n\n3. Network\n\nLogical addressing (IP) and routing\n\npackets across networks.\n\nIP, ICMP (Ping),\n\n2. Data Link\n\nPhysical addressing (MAC) and error\n\ndetection in frames.\n\nEthernet, MAC,\n\nSwitches\n\n1. Physical\n\nTransmits raw bits (0,1) over\n\ncables/wireless mediums.\n\nCables, Hubs, Wi-Fi\n\nTCP/IP Model vs OSI Model\n\nThe TCP/IP model is the practical model used on the real Internet. It condenses\n\nthe 7 OSI layers into just 4 layers.\n\nTCP/IP Model (4 Layers)\n\nCorresponds to OSI Layers\n\n1. Application\n\nApplication, Presentation, Session (7,6,5)\n\n2. Transport\n\nTransport (4)\n\n3. Internet\n\nNetwork (3)\n\n4. Network Access\n\nData Link, Physical (2,1)\n\nCOMPUTER SCIENCE XI\n\nCHAPTER 2:\n\nCOMPUTATIONAL THINKING &\n\nALGORITHM\n\nBILINGUAL TEACHER'S EDITION\n\nHigh-Yielding Lecture Notes & Golden Topics\n\nBased on New Sindh Curriculum 2026",
+          "urduNarration": "کرنا۔ ن گٹرو اور لگانا ا ی ڈ ر یس پ ی ئیآ ی کم (MAC) لگانا۔ ا ی ڈ ر یس نا۔ج یب ھ ٹسب ےعیذر کے تاروں",
+          "startPage": 26,
+          "endPage": 27
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "Chapter 2: Computational Thinking & Algorithms",
+      "topics": [
+        {
+          "id": "ch2_t01",
+          "title": "2.1 & 2.2 Introduction to CT & Algorithms",
+          "critical": false,
+          "englishText": "2.1 Computational Thinking\n\nComputational Thinking (CT) is a systematic approach to solving problems. It\n\ninvolves breaking problems down, identifying patterns, abstracting details, and\n\ndeveloping algorithms.\n\n💡 Did you know?\n\nPseudocode is a human-readable representation of an algorithm using\n\nplain English and structured programming keywords. It's the bridge between\n\nhuman logic and machine code.\n\n2.2 Algorithm\n\nAn algorithm is a step-by-step logical procedure used to solve a problem. It is\n\nconceptual in nature and completely independent of any programming\n\nlanguage.\n\n2.2.1 Importance of Algorithms\n\nProvide a structured approach to problem-solving, making complex tasks\n\nmanageable.\n\nOptimize time and memory usage, crucial for large-scale applications.\n\nCan be reused for similar problems, saving time and effort.\n\nEnsure accuracy and consistency, reducing human error.\n\nAct as a blueprint before actual code implementation.\n\n2.2.2 Algorithm vs Pseudocode\n\nWhile both are used in problem-solving, they serve different purposes in the\n\ndesign phase.\n\nA step-by-step logical procedure to solve\n\na problem.\n\nA human-readable representation of an\n\nalgorithm using plain English & keywords.\n\nConceptual and language-independent.\n\nSemi-formal and structured but not\n\nexecutable code.\n\nTo define what needs to be done\n\nlogically.\n\nTo present how it can be implemented in\n\na readable format.\n\nUsually described in plain steps, bullets, or\n\nnumbered points.\n\nWritten using structured constructs (IF,\n\nFOR, WHILE) like programming.\n\nFocuses on the logic and steps of the\n\nproblem.\n\nFocuses on representing steps clearly\n\nbefore coding.\n\nFor anyone trying to understand the logic\n\n(including non-programmers).\n\nMainly for programmers or students\n\npreparing for coding.\n\nNo fixed format; can be informal.\n\nFollows standard pseudocode\n\nconventions for clarity.\n\nUse this analogy: An Algorithm is like a recipe (e.g., \"Bake a cake at 350\n\ndegrees\"). Pseudocode is like a structured kitchen manual using standard\n\nverbs (e.g., SET temperature TO 350; WHILE cake is not baked, WAIT).",
+          "urduNarration": "یںم حصوں کو مسائل یںم اس ے۔ہ طر ی ق ہ م ظنم ا یک کا نے کر حل کو مسائل )CT( ت ھن کن گ ن لش ی ٹی وپکم ے۔ہ ش ا مل ن اناب ا لگور ت ھم اور ،ٹ اناہ کو تت ف صی لا ض روری یرغ ،کرنا شتلا نٹری پ ،کرنا ت ق س ی م ب ھی کسی اور ےہ وتاہ ت صورا تی ی ہ ے۔ہ کار طر ی ق ہ ن طقیم وار مر حلہ کا نے کر حل کو ےئ لسم کسی ا لگور ت ھم ے۔ہ وتاہ آ ز اد مکمل سے جن گو ییل ن گمپرو گرا مق ا صد کے نا یںم ےمر حل کے ن گن ئڈ یز ا نی کل ،ںیہ تے وہ ا ست عمال یںم نے کر حل مسائل دونوں ا گر چ ہ ں۔یہ تے فتلخم",
+          "startPage": 29,
+          "endPage": 30
+        },
+        {
+          "id": "ch2_t02",
+          "title": "2.2.2 Algorithm vs Pseudocode",
+          "critical": true,
+          "englishText": "2.3 Algorithmic Strategies for Problem Solving\n\n2.3.1 Decomposition\n\nDecomposition is a problem-solving technique in which a complex task or\n\nsystem is broken down into smaller, manageable parts. By dividing a big\n\nproblem into simpler steps, it becomes easier to understand, develop, and solve.\n\nComplex Problem\n\nSub-task 1\n\nSub-task 2\n\nSub-task 3\n\nReal-Life Example: Learning a New Language\n\nDescription\n\nLearn Vocabulary\n\nLearn character sets for people, actions, things (e.g., \"I\", \"eat\",\n\n\"apple\").\n\nGrammar Rules\n\nLearn structure: Subject → Verb → Object.\n\nLearn Tenses\n\nPresent, past, future (e.g., \"I eat\" vs. \"I ate\").\n\nSentence Building\n\nCombine words using rules to create valid sentences.\n\nWhy Decomposition is Useful?\n\nReduces complexity: Focus on one piece at a time.\n\nHelps in debugging: Find exactly where the mistake is (e.g., verb tense or word order).\n\nPromotes reusability: Once you learn a small part, you can apply it elsewhere.\n\n2.3.2 Pattern Recognition\n\nPattern Recognition is the process of identifying regularities, repetitions, or rules\n\nin data. It helps in reducing overall algorithm complexity and forms the\n\nfoundation of concepts such as loops.\n\n🔍 How it works? Ask yourself:\n\nWhat is repeating?\n\nWhat changes in a predictable way?\n\nCan I generalize this?\n\nExample: Triangle of Stars\n\nIn this example, the pattern shows that each row\n\nadds 1 star to the previous row's count.\n\nRow 1 = 1 star\n\nRow 2 = 2 stars\n\nRow N = N stars\n\nRecognizing this pattern allows us to write a generic\n\nloop algorithm instead of writing 5 separate print\n\nstatements.",
+          "urduNarration": "یںم حصوں ت ظ امنا ِق ا ب اور ٹے چ ھو کو ٹا سک یا ےئ لسم دہی چ ی پ کسی )Decomposition( نکمپ وز ی ش ڈی ے۔ہ ج اتا وہ نساآ کرنا حل اور مج ھن ا س کو ےئ لسم سے اس ے۔ہ نام کا نے کر ت ق س ی م کو د گیی چ ی پ کی ا لگور ت ھم ی ہ ے۔ہ عمل کا ےن نچ اہ پ کو ا صو لوں یا )Repetition( تکرار یںم ٹ ای ڈ نی شنر یکگ نٹری پ ے۔ہ ی ادنب کی ی ز وںچ ی سیج )Loops( لو پس اور ےہ کرتا کم",
+          "startPage": 31,
+          "endPage": 32
+        },
+        {
+          "id": "ch2_t03",
+          "title": "2.3.1 Algorithmic Strategy: Decomposition",
+          "critical": true,
+          "englishText": "2.3.3 Abstraction\n\nAbstraction means hiding unnecessary features and focusing only on the\n\nessential ones needed to solve a problem. It reduces complexity by ignoring\n\nwhat is not important (noise).\n\nExample: Applying Abstraction to \"Making Tea\"\n\nTo make an algorithm for tea, we must separate the necessary steps from the situational\n\nchanges and the noise.\n\n1. Necessary Steps\n\n(Core Logic)\n\n2. Changes based on\n\nsituation (Variables)\n\n3. Abstraction Items\n\n(Ignore/Noise)\n\n1. Boil water\n\n2. Add tea leaves/bag\n\n3. Steep for a few\n\n4. Pour into cup\n\nIngredients (Black, Green,\n\nAdditions (Sugar, Lemon)\n\nTools (Stove vs Kettle)\n\nBrand of kettle\n\nCup color or design\n\nWhere tea is made\n\n(Kitchen, Office)\n\n1. Boil Water\n\nThe Core Abstracted Logic (Independent of cup color or kettle brand)\n\n2.4 Sorting and Searching Algorithms\n\nBoth are fundamental techniques of computer science. They work on lists of the\n\nsame data type.\n\nArranging a collection of items. May be Ascending (0-9, A-Z) or Descending (9-\n\n0, Z-A). Used to organize data.\n\nLocating a specific element within a list to find its position or existence.\n\n2.4.1 Bubble Sort\n\nAn elementary sorting algorithm that works by repeatedly comparing adjacent\n\nelements and swapping them if they are in the wrong order.\n\nAlgorithm\n\nStep 1: Start\n\nStep 2: Set DATA := {8,4,1,9,3}\n\nStep 3: Set N := 5\n\nStep 4: Repeat Step 5 and 6 for\n\nStep 5: Set PTR := 1\n\nStep 6: Repeat while PTR <= N-K:\n\na: If DATA[PTR] > DATA[PTR+1]:\n\n1. Set temp = DATA[PTR]\n\n2. Set DATA[PTR] =\n\nDATA[PTR+1]\n\n3. Set DATA[PTR+1] = temp\n\nb: Set PTR := PTR + 1\n\nStep 7: End\n\nPseudocode\n\nDATA = {8,4,1,9,3}\n\nFor outer = 0 to N-1\n\nFor inner = 0 to N-2-outer\n\nIF DATA[inner] > DATA[inner+1]\n\nTemp = DATA[inner]\n\nDATA[inner] = DATA[inner+1]\n\nDATA[inner+1] = Temp",
+          "urduNarration": "پر باتوں مہا نا فصر اور چ ھپ انا کو تت ف صی لا ض روری یرغ ےہ بمطل کا )Abstraction( نسٹر یک شب یا وں۔ہ ض روری ےی ل کے نے کر حل مسئ لہ ج و ن اید تو ج ہ کام پر ت وںسرہ ف کی )عمر یا نام ےسی ج ( ٹ ای ڈ کے قسم یہ ا یک ی ہ ں۔یہ ی کیںنتک ی ادینب کی سن ئسا ی وٹرپکم دونوں ی ہ ں۔یہ کر تی Sorting (دینا ترتیب) وہ ا گر اور ےہ کرتا مواز ن ہ کا سٹ نیلی م ا )Adjacent( والے سا ت ھ ج و ےہ ا لگور ت ھم ی ادینب ا یک ٹسور ب لب ے۔ہ ت اید )Swap( بدل یںم آ پس یںہ نا تو وںہ یںم ب یتتر غ لط",
+          "startPage": 33,
+          "endPage": 34
+        },
+        {
+          "id": "ch2_t04",
+          "title": "2.3.2 Algorithmic Strategy: Pattern Recognition",
+          "critical": false,
+          "englishText": "Bubble Sort Example\n\nUnsorted List: 8, 4, 1, 9, 3\n\nFirst Step (Pass)\n\n1st (8) > 2nd (4) → Swap → 4, 8, 1, 9, 3\n\n2nd (8) > 3rd (1) → Swap → 4, 1, 8, 9, 3\n\n3rd (8) NOT > 4th (9) → No Change\n\n4th (9) > 5th (3) → Swap → 4, 1, 8, 3, 9\n\n(9 is now at its correct place)\n\nSecond Step (Pass)\n\n1st (4) > 2nd (1) → Swap → 1, 4, 8, 3, 9\n\n2nd (4) NOT > 3rd (8) → No Change\n\n3rd (8) > 4th (3) → Swap → 1, 4, 3, 8, 9\n\nThird & Fourth Step (Passes)\n\n(Step 3): 2nd (4) > 3rd (3) → Swap → 1, 3, 4, 8, 9\n\n(Step 4): 1st (1) NOT > 2nd (3) → No Change. List is sorted!\n\nSorted List: 1, 3, 4, 8, 9\n\nAdvantages\n\nEasiest algorithm to visualize and\n\nexplain.\n\nDoes not need extra memory (in-place\n\nsorting).\n\nStable (equal items stay in original\n\nDisadvantages\n\nUses nested loops; time grows\n\nexponentially.\n\nPerforms a massive amount of swaps.\n\nUseless for real-world \"Big Data.\"\n\n2.4.1 Selection Sort\n\nA simple sorting algorithm that works by repeatedly selecting the smallest\n\nelement from the unsorted portion of a list and moving it to its correct position\n\nat the front.\n\nAlgorithm\n\nStep 1: Start\n\nStep 2: Set DATA := {8,4,1,9,3}\n\nStep 3: Set N := 5\n\nStep 4: Repeat Step 5 and 6 for\n\nStep 5: Set PTR := K+1\n\nStep 6: Repeat while PTR <= N:\n\na: If DATA[K] > DATA[PTR]:\n\n1. Set temp = DATA[K]\n\n2. Set DATA[K] = DATA[PTR]\n\n3. Set DATA[PTR] = temp\n\nb: Set PTR := PTR + 1\n\nStep 7: End\n\nPseudocode\n\nDATA = {8,4,1,9,3}\n\nFor outer = 0 to N-1\n\nFor inner = outer+1 to N-1\n\nIF DATA[outer] > DATA[inner]\n\nTemp = DATA[outer]\n\nDATA[outer] = DATA[inner]\n\nDATA[inner] = Temp\n\n👨‍🏫 Teacher's Tip\n\nPoint out the difference in the inner loop starting position compared to\n\nBubble Sort. Selection sort inner loop starts at outer+1, whereas Bubble Sort\n\nalways starts at 0.",
+          "urduNarration": "چ ھو سے ب س سے ےحص ش دہ ب یتتر یرغ کے ت سرہ ف ج و ےہ ا لگور ت ھم سادہ ا یک ٹسور نسلی ک ش ے۔ہ ت اید ر کھ پر ج گہ ت سدر یںم ش روع اسے اور ےہ کرتا شتلا کو ٹ نا یلی م",
+          "startPage": 35,
+          "endPage": 36
+        },
+        {
+          "id": "ch2_t05",
+          "title": "2.3.3 Algorithmic Strategy: Abstraction",
+          "critical": false,
+          "englishText": "Selection Sort Example\n\nUnsorted List: 8, 4, 1, 9, 3\n\nFirst Step (Finding smallest for Pos 1)\n\nPos1 (8) > Pos2 (4) → Swap → 4, 8, 1, 9, 3\n\nPos1 (4) > Pos3 (1) → Swap → 1, 8, 4, 9, 3\n\nPos1 (1) NOT > Pos4 (9) → No Change\n\nPos1 (1) NOT > Pos5 (3) → No Change\n\n(1 is now permanently in Pos 1)\n\nSecond Step (Finding smallest for Pos 2)\n\nPos2 (8) > Pos3 (4) → Swap → 1, 4, 8, 9, 3\n\nPos2 (4) NOT > Pos4 (9) → No Change\n\nPos2 (4) > Pos5 (3) → Swap → 1, 3, 8, 9, 4\n\nThird & Fourth Step\n\n(Step 3): Pos3 (8) > Pos5 (4) → Swap → 1, 3, 4, 9, 8\n\n(Step 4): Pos4 (9) > Pos5 (8) → Swap → 1, 3, 4, 8, 9\n\nAdvantages\n\nVery easy to code.\n\nPerforms fewer swaps overall\n\ncompared to Bubble Sort.\n\nDoes not need extra memory.\n\nDisadvantages\n\nTime grows exponentially (nested\n\nMust finish every single loop (blind to\n\nalready sorted arrays).\n\nNot stable (might swap relative\n\npositions of equal items).\n\n2.4.2 Linear Search\n\nAlso known as sequential search. It works by examining each element in the list\n\none by one until the target is found. It works on both sorted and unsorted data.\n\nAlgorithm\n\nStep 1: Start\n\nStep 2: DATA := {8,3,6,1,7,2,4,5}\n\nStep 3: N := 8\n\nStep 4: FindValue := 7\n\nStep 5: ValueFound := 0\n\nStep 6: Repeat for PTR = 1 to N\n\nStep 7: If DATA[PTR] = FindValue:\n\na. ValueFound = 1\n\nb. Goto Step 8\n\nStep 8: If ValueFound = 1:\n\nPrint DATA[PTR]\n\nPrint \"Not Found\"\n\nStep 9: End\n\nPseudocode\n\nDATA = {8, 3, 6, 1, 7, 2, 4, 5}\n\nFindValue = 7\n\nValueFound = 0\n\nFor PTR = 0 to N-1\n\nIf DATA[PTR] == FindValue then\n\nValueFound = 1\n\nExit Loop\n\nIf ValueFound == 1 then\n\nPrint DATA[PTR]\n\nPrint \"Data Not Found\"",
+          "urduNarration": "یںم ت سرہ ف کے کر ا یک ا یک ی ہ ے۔ہ ج اتا اہ ک ب ھی )Sequential Search( چسر ن ش لیی کوس اسے ے۔ہ کرتا کام پر ٹ ای ڈ دونوں ش دہ ب یتتر یرغ اور ش دہ ب یتتر ی ہ ے۔ہ کرتا شتلا ٹ گٹار",
+          "startPage": 37,
+          "endPage": 38
+        },
+        {
+          "id": "ch2_t06",
+          "title": "2.4.1 Sorting Algorithms: Bubble Sort",
+          "critical": true,
+          "englishText": "Linear Search Example\n\nData List: 8, 3, 6, 1, 7, 2, 4, 5\n\nSearching Item: 7\n\nElement Checked\n\nCondition (== 7)\n\nNot Found\n\nNot Found\n\nNot Found\n\nNot Found\n\nFound! (Exit Loop)\n\nAdvantages\n\nDoes not care if data is\n\nscrambled or sorted.\n\nExtremely simple code (one\n\nloop, one if statement).\n\nFaster for very small lists (no\n\nsetup time).\n\nDoes not require any extra\n\nDisadvantages\n\nIf target is at the end of 1 million\n\nitems, it does 1 million checks.\n\nTime grows linearly (double the\n\nlist = double the time).\n\nInefficient if you need to search\n\nthe same list thousands of",
+          "urduNarration": "",
+          "startPage": 39,
+          "endPage": 39
+        },
+        {
+          "id": "ch2_t07",
+          "title": "2.4.1 Sorting Algorithms: Selection Sort",
+          "critical": true,
+          "englishText": "2.4.2 Binary Search\n\nA highly efficient search algorithm that works by repeatedly dividing the search\n\ninterval in half. Crucial limitation: It only works on a SORTED list.\n\nAlgorithm (Summary)\n\nStep 1: Start\n\nStep 2: DATA := {1,2,3,4,5,6,7,8,9} (Sorted)\n\nStep 3: BEG = 1, END = 9\n\nStep 4: MID = INT((BEG+END)/2)\n\nStep 5: Item = 7\n\nStep 6: LOC = 0\n\nStep 7: Repeat while BEG <= END AND DATA[MID]\n\nStep 8: If Item < DATA[MID]:\n\nEND = MID - 1\n\nBEG = MID + 1\n\nStep 9: MID = INT((BEG+END)/2)\n\nStep 10: [End loop]\n\nStep 11: If DATA[MID] == Item:\n\nStep 12: Print Result based on LOC\n\nStep 13: End\n\nPseudocode\n\nDATA = {1,2,3,4,5,6,7,8,9}\n\nBEG = 1, END = 9\n\nMID = INT((BEG+END)/2)\n\nLOC = NULL\n\nWhile BEG <= END OR DATA[MID] != Item\n\nIF Item < DATA[MID] then\n\nEND = MID - 1\n\nBEG = MID + 1\n\nMID = INT((BEG+END)/2)\n\nEnd While\n\nIf DATA[MID] == Item then\n\nLOC = NULL\n\nIf LOC >= 0 then\n\nPrint DATA[MID]\n\nPrint \"Not Found\"",
+          "urduNarration": "فصر یہ :ش رط مہا ے۔ہ کرتا ت ق س ی م یںم حصوں دو کو ٹلس بار بار ج و ےہ ا لگور ت ھم چسر زیت ا ئیہ ت نا ا یک ی ہ ے۔ہ کر ت ا کام پر ت سرہ ف )Sorted( ش دہ ب ی تتر",
+          "startPage": 40,
+          "endPage": 40
+        },
+        {
+          "id": "ch2_t08",
+          "title": "2.4.2 Searching Algorithms: Linear Search",
+          "critical": false,
+          "englishText": "Binary Search Example\n\nSorted List: [1, 2, 3, 4, 5, 6, 7, 8]\n\nSearching Item: 3\n\nStep 1: MID = 8/2 = 4 (Value: 4). 3 < 4, go Left.\n\nStep 2: Sub-list [1,2,3]. MID = 3/2 = 1.5 -> 2. (Value: 2). 3 > 2, go Right.\n\nStep 3: Sub-list [3]. MID = 1/2 = 0.5 -> 1. (Value: 3). 3 == 3. FOUND!\n\nAdvantages\n\nExtremely fast for \"Big Data\". Finds an\n\nitem in 1M elements in just ~20 steps.\n\nMassive time savings for static lists\n\nsearched repeatedly.\n\nDisadvantages\n\nMust be sorted first. Fails on\n\nscrambled data.\n\nRequires random access to elements\n\n(works on Arrays, not easily on Linked\n\nMore complex code, prone to logic\n\nerrors (off-by-one).",
+          "urduNarration": "",
+          "startPage": 41,
+          "endPage": 41
+        },
+        {
+          "id": "ch2_t09",
+          "title": "2.4.2 Searching Algorithms: Binary Search",
+          "critical": true,
+          "englishText": "2.5 Evaluation Criteria of Algorithm\n\n2.5.1 Correctness\n\nAn algorithm is correct if its output matches expected outcomes, handles edge\n\ncases gracefully, and is guaranteed to finish (no infinite loops).\n\nTrace Table Example (Even/Odd Checker):\n\nOperation (Divide by 2, find remainder)\n\nRemainder == 0?\n\n3 / 2 (Quotient=1, Remainder=1)\n\n6 / 2 (Quotient=3, Remainder=0)\n\n15 / 2 (Quotient=7, Remainder=1)\n\n2.5.2 Efficiency\n\nWe measure algorithm efficiency through time (speed) and space (memory).\n\nHow fast does it run as input size grows? Does it scale well?\n\n2.5.3 Clarity (Readability)\n\nAlgorithm must be easy to read, understandable and easy to modify. It should\n\nuse clear steps, meaningful variables, and good indentation.",
+          "urduNarration": "ب ھی تمخ وہ اور وہ ق بمطا کے جت ا ئن ت وق عم ٹ پ ٹ ؤآ کا اس ب ج ےہ ج اتا مانا ت سدر ت قو اس ا لگور ت ھم ۔)وہ ن ہ پلو یہن اتملا( وہ کے ےن ھ ڑب ٹ ای ڈ ں۔یہ ےت پ نما ےعیذر کے )Space( ی موریم اور )Speed( ت قو کو کار کرد گی کی ا لگور ت ھم مہ ے؟ہ تیہر یسیک تارفر کی اس سا ت ھ تیراغ تم ےھچا اور مرا حل وا ض ح ۔ےی ہچ ا وناہ نساآ یںم نے کر ب د یلت اور ےن ھ ج مس ، ےن ھ ڑپ کو ا لگور ت ھم ے۔ہ ض روری ا ست عمال کا )Variables(",
+          "startPage": 42,
+          "endPage": 42
+        },
+        {
+          "id": "ch2_t10",
+          "title": "2.5 Evaluation Criteria of Algorithm",
+          "critical": false,
+          "englishText": "2.6 How to Decide Which Algorithm to Use\n\nBefore choosing an algorithm, ask: What is the input size? Is the data sorted? Do\n\nwe need speed or memory efficiency?\n\n🧭 Simple Decision Guide\n\nIf searching on unsorted data → use Linear Search.\n\nIf searching on sorted data → use Binary Search.\n\nIf data needs ordering → use Sorting algorithm.\n\nComputational Thinking: Systematic problem solving (Decomposition, Pattern\n\nRecognition, Abstraction, Algorithms).\n\nAlgorithm: Step-by-step logical procedure (conceptual).\n\nPseudocode: Human-readable structured code.\n\nDecomposition: Breaking big problems into smaller parts.\n\nAbstraction: Hiding noise, focusing on essentials.\n\nBubble/Selection Sort: Simple, nested-loop sorting algorithms (slow for large data).\n\nLinear Search: Checks one by one (works on unsorted data).\n\nBinary Search: Splits in half (extremely fast, but requires sorted data).\n\nEvaluation Criteria: Correctness, Efficiency (Time/Space), and Clarity.",
+          "urduNarration": "",
+          "startPage": 43,
+          "endPage": 43
+        },
+        {
+          "id": "ch2_t11",
+          "title": "2.6 How to Decide Which Algorithm to Use",
+          "critical": false,
+          "englishText": "COMPUTER SCIENCE XI\n\nCHAPTER 3:\n\nPROGRAMMING FUNDAMENTALS\n\nBILINGUAL TEACHER'S EDITION\n\nHigh-Yielding Lecture Notes & Golden Topics\n\nBased on New Sindh Curriculum 2026",
+          "urduNarration": "",
+          "startPage": 44,
+          "endPage": 44
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "Chapter 3: Python Programming",
+      "topics": [
+        {
+          "id": "ch3_t01",
+          "title": "3.1 Programming & Language Types",
+          "critical": false,
+          "englishText": "3.1 Programming\n\nComputers are dumb machines. They cannot think or do anything without\n\ninstructions. A set of instructions is called a program, and the language used to\n\ngive these instructions is a programming language.\n\n3.1.1 Programming Language Types\n\nProgramming languages are classified into three main types:\n\nDescription\n\nExamples\n\nCloser to the native language of the computer (binary\n\n0s & 1s). Very difficult for humans to understand.\n\nLanguage\n\n(Binary)\n\nBridges the gap. Has hardware access capabilities but\n\nis easier to read than low-level code. Uses mnemonics.\n\nAssembly\n\nLanguage\n\nDesigned to be easy for humans to read and write. Uses\n\nEnglish-like words.\n\nC++, Java,\n\nLow Level\n\nMid Level\n\nMOV AX, BX\n\nHigh Level\n\nprint(\"Hello\")\n\nCommon High-Level Languages\n\nPowerful, closer to\n\nhardware. Used for\n\nsystem software,\n\noperating systems, and\n\nhigh-performance\n\ncomputer games.\n\n\"Write once, run\n\nanywhere\". Used for\n\nlarge enterprise\n\napplications, Android\n\nmobile apps, and\n\nserver programming.\n\nSimple, readable\n\nsyntax. Widely used for\n\nData Science, AI, Web\n\nDevelopment, and by\n\nbeginners.\n\n3.2 Career Growth with Python\n\nSoftware Development: Build desktop and web applications.\n\nData Science and Data Analysis: Analyze data, create reports, and make\n\npredictions.\n\nArtificial Intelligence and Machine Learning: Develop intelligent systems,\n\nchatbots, and recommendation algorithms.\n\nWeb Development: Use frameworks like Django and Flask to build websites.\n\nAutomation and Scripting: Automate repetitive office or lab tasks.\n\nCybersecurity and Networking: Write security tools and analyze network\n\n💡 Why Python?\n\nRemind students that Python allows them to focus on problem-solving and\n\nlogic rather than memorizing complex syntax rules.",
+          "urduNarration": "پرو گرام کو م ج موعے کے تدا یاہ سکت ا۔ کر یںہ ن کچ ھ یرغ ب کے تدا یاہ ی ہ ے۔ہ نیشم فوق و بے ا یک ی وٹرپکم ں۔یہ ےت ہ ک جن گو ییل ن گمپرو گرا اسے ںیہ ج ا تی دی تدا یاہ ی ہ یںم نز با ج س اور ،ںیہ ےت ہ ک کے نیشم ب یقر سطح ی ا نیمدر کے نانسا ب یقر ی ہ ی ونکہک ںیہ مو ج ود )Career Opportunities( مواق ع ش اندار ئیک یںم ب لق تمس ب عد کے ےن ھکی س نت ھوئپا ے۔ہ ورت قطا ت ہ ب اور نساآ یںم ےن ھکی س",
+          "startPage": 46,
+          "endPage": 47
+        },
+        {
+          "id": "ch3_t02",
+          "title": "3.2 Career Growth with Python",
+          "critical": false,
+          "englishText": "3.3 Integrated Development Environment (IDE)\n\nAn IDE is a software tool that helps programmers write, run, and manage code in\n\none place. It is a complete workspace for programming.\n\nKey Features of an IDE:\n\nCode Editor: Where you write and edit code.\n\nSyntax Highlighting: Colors the code to make it easier to read.\n\nAuto completion: Suggests code while you type.\n\nRun/Execute Tool: Executes the program.\n\nDebugger: Helps find and fix errors.\n\n3.3.1 Visual Studio Code (VS Code)\n\nVS Code is a free, lightweight, and powerful code editor widely used for Python. It\n\nis not a full IDE by default, but it can be turned into one by installing extensions.\n\nVisual Studio Code\n\nprint ( \"Hello, World!\")\n\nVS Code Interface Elements\n\nDescription\n\n1. Top Menu Bar\n\nControl over files, editing, navigation, and workspace (File, Edit,\n\nSelection, View, Go, Run).\n\n2. Side Bar\n\nContains core tools: Explorer, Search, Source Control, Run &\n\nDebug, and Extensions.\n\n3. Explorer\n\nShows project files and folders. Helps create, open, and manage\n\nyour Python files.\n\n4. Search Bar\n\nFinds and replaces text across your currently open file or entire\n\nproject.\n\n5. Source Control\n\nConnects with Git (a version control system) to track changes,\n\nundo mistakes, and collaborate.\n\n6. Run & Debug\n\nAllows you to execute code, find errors, pause at specific lines,\n\nand inspect variables.\n\n7. Extensions\n\nLike an App Store for VS Code. Add features like the Python\n\nextension, Prettier, or Python Debugger.\n\n👨‍🏫 Teacher's Demo Setup\n\nEnsure you have the Python extension by Microsoft installed in VS Code\n\nbefore class to demonstrate syntax highlighting and the Run button.",
+          "urduNarration": "ی ہ ے۔ہ ت اید مدد یںم ےن لب ھانس اور نے چ لا ، ےن ھل ک پرو گرام ج و ےہ ئریو ٹ فسا ا یسا ا یک )IDE( ای ڈی ئیآ ے۔ہ سی پسا ورک مکمل ا یک ےی ل کے ن گمپرو گرا",
+          "startPage": 48,
+          "endPage": 49
+        },
+        {
+          "id": "ch3_t03",
+          "title": "3.3 Integrated Development Environment (IDE) & VS Code",
+          "critical": false,
+          "englishText": "3.4 Fundamentals of Python Programming\n\nThe basic structure of a Python program is simple and clear. It processes data\n\nusing statements, and finally shows output. Programs run top-to-bottom\n\nsequentially.\n\n1. Comments (#)\n\nComments are notes written in the code for humans. They start with the #\n\nsymbol. The Python interpreter completely ignores them.\n\n2. Indentation (Spaces)\n\nUnlike C++ or Java which use curly brackets {} to define blocks of code, Python\n\nuses indentation (spaces at the beginning of a line). Indentation is mandatory!\n\nThe standard is 4 spaces (or 1 tab).\n\n# This is a comment. It explains the code below.\n\nprint(\"Hello, World!\")\n\n# The space before 'print' is the Indentation\n\nprint(\"Five is greater than two!\")\n\n⚠️ Common Error\n\nIf a student gets an IndentationError, tell them to check their spaces.\n\nMixing tabs and spaces can break a Python program.\n\n3.4.1 Variables\n\nA variable is a named space in computer memory used to store data. Think of it\n\nas a container. In Python, you do not need to declare the type; Python figures it\n\nout automatically.\n\nطرح کی )Container(\n\nRules for Naming Variables:\n\nCan contain letters, numbers, and underscores ( _ ).\n\nMUST start with a letter or underscore, NOT a number. (e.g., 1name is invalid).\n\nAre case-sensitive (age and Age are completely different).\n\nCannot use Python keywords (like if, for, while).\n\nValid Names ✓\n\nname = \"Ali\"\n\nmy_height = 5.7\n\nInvalid Names ✗\n\n1name = \"Ali\"   # starts with\n\nmy height = 5.7 # contains space\n\nif = 100        # keyword used",
+          "urduNarration": "ے۔ہ چ لت ا )Top to Bottom( ےچی ن سے او پر ڈکو یںم اس ے۔ہ سادہ ت ہ ب ت خسا کی پرو گرام نت ھوئپا ے۔ہ ت اید کر زاندا ظ رن یںہ نا نت ھوئپا اور ںیہ تے ج ا ےل کھ ےی ل کے نے سمج ھا کو ڈکو )Comments( سٹ نکم ڈ ا یک ی ہ ے۔ہ ج اتا ی اک ظمحف و ٹ ای ڈ اںہ ج ےہ نام کا ج گہ ا یک یںم ی موریم )Variable( ب لیا و یری ے۔ہ",
+          "startPage": 50,
+          "endPage": 51
+        },
+        {
+          "id": "ch3_t04",
+          "title": "3.4 Fundamentals of Python Programming",
+          "critical": false,
+          "englishText": "Data Types in Python\n\nData types specify the kind of data a variable holds. Python has several built-in\n\ndata types:\n\nDescription & Example\n\nIntegers\n\nWhole numbers without decimals.\n\nFloating Point\n\nNumbers with a decimal point.\n\nheight = 5.7\n\nText data, enclosed in quotes.\n\nname = \"Sammy\" or year = \"2026\"\n\nLogical value indicating True or False (Capital T/F).\n\nis_student = True\n\nOrdered, changeable collection [brackets].\n\nmarks = [85, 90, 75]\n\nOrdered, unchangeable sequence (parentheses).\n\ncoords = (10, 20)\n\nDictionaries\n\nUnordered Key:Value pairs {curly braces}.\n\nstudent = {\"name\":\"Ahmed\", \"age\":16}\n\nUnordered collection of unique objects.\n\nvowels = {'a', 'e', 'i'}\n\n3.4.2 Input and Output Handling\n\nOutput: The print() function\n\nDisplays information on the screen.\n\n# 1. Print only a string\n\nprint(\"Hello Class!\")\n\n# 2. Print a string and a variable (comma separates them)\n\nname = \"Ali\"\n\nprint(\"Welcome,\", name)\n\n# 3. f-strings (Fastest & most readable way to format)\n\nprint(f\"My name is {name} and I am {age} years old.\")\n\nInput: The input() function\n\nPauses the program and waits for the user to type something. Whatever the\n\nuser types is always treated as a string (text) by default.\n\n# Taking text input\n\nuser_name = input(\"Enter your name: \")\n\n# Type Casting: Converting string input to an integer (int)\n\nage = int(input(\"Enter your age: \"))\n\n# Type Casting: Converting string input to a decimal (float)\n\nheight = float(input(\"Enter your height: \"))",
+          "urduNarration": "اسے تو ےی ہچ ا ن مبر ا گر ے۔ہ مج ھت ا س ) ٹی کسٹ( String می ش ہہ اسے نت ھوئپا ،ےہ کرتا پ ئٹا ب ھی ج و یوز ر ے۔ہ پڑ تا کرنا )Convert( ب د یلت",
+          "startPage": 52,
+          "endPage": 53
+        },
+        {
+          "id": "ch3_t05",
+          "title": "3.4.1 Variables and Data Types",
+          "critical": true,
+          "englishText": "3.4.3 Operators and Operands\n\nAn Operand is the value or variable. An Operator is the symbol that performs\n\nthe action.\n\n10 (Operand) + (Operator) 20 (Operand)\n\n1. Arithmetic Operators (Math)\n\nOperator\n\nAddition\n\nSubtraction\n\nMultiplication\n\nDivision (always float)\n\nFloor division (drops decimal)\n\nModulus (remainder)\n\nExponentiation (power)\n\n2. Assignment Operators\n\nUsed to assign values to variables, often updating them.\n\nOperator\n\nEquivalent To\n\nAssign 5 to x\n\nOther Important Operators\n\n3. Relational (Comparison) Operators\n\nCompare two values and return a Boolean (True or False).\n\nDescription\n\nExample (If a=10, b=5)\n\nNot equal to\n\nGreater than\n\nLess than\n\nGreater/Equal\n\n4. Logical Operators\n\nCombine multiple conditions.\n\nOperator\n\nDescription\n\nTrue ONLY if both conditions are true.\n\nTrue if at least one condition is true.\n\nReverses the result (True becomes False).\n\n5. Membership Operators\n\nCheck if a value exists inside a sequence (like a string or list).\n\nname = \"Python\"\n\nprint(\"P\" in name)     # Output: True\n\nprint(\"z\" not in name) # Output: True",
+          "urduNarration": "",
+          "startPage": 54,
+          "endPage": 55
+        },
+        {
+          "id": "ch3_t06",
+          "title": "3.4.2 Input Output Handling",
+          "critical": false,
+          "englishText": "6. Bitwise Operators\n\nBitwise operators treat numbers as binary digits (bits: 0s and 1s) and perform\n\noperations bit by bit. They act like switches turning bits ON (1) or OFF (0). Python\n\nuses the bin() function to see the binary form of a number.\n\nBitwise AND ( & )\n\nReturns 1 ONLY if BOTH corresponding bits are\n\n1. Otherwise, 0.\n\nBitwise OR ( | )\n\nReturns 1 if AT LEAST ONE of the bits is 1.\n\nExample: (a = 10, b = 6)\n\n# a = 10 (Binary: 1010)\n\n# b =  6 (Binary: 0110)\n\nprint(10 & 6)  # AND: 0010 (Decimal 2)\n\nprint(10 | 6)  # OR : 1110 (Decimal 14)\n\nBitwise Operators (Continued)\n\nBitwise XOR ( ^ )\n\nReturns 1 if bits are DIFFERENT. Returns 0 if they\n\nare the SAME.\n\nBitwise NOT ( ~ )\n\nInverts ALL bits. 0 becomes 1, 1 becomes 0.\n\nAlso adds negative sign minus 1.\n\nBitwise Shifts\n\nLeft Shift ( << ): Shifts bits left. Multiplies by 2 for each shift.\n\nRight Shift ( >> ): Shifts bits right. Divides by 2 (floor) for each shift.\n\na = 5        # Binary: 0000 0101\n\nprint(a << 1) # Left Shift 1: 0000 1010 (Decimal 10) - Adds 0 on right\n\nprint(a << 2) # Left Shift 2: 0001 0100 (Decimal 20) - Adds 00 on right\n\nb = 20       # Binary: 0001 0100\n\nprint(b >> 1) # Right Shift 1: 0000 1010 (Decimal 10) - Removes rightmost",
+          "urduNarration": "ں۔یہ تے کر کام پر نا کے کر ب د یلت یںم )1 اور 0( نریئبا کو زن مبر زٹریآ پر زٹ وائب",
+          "startPage": 56,
+          "endPage": 57
+        },
+        {
+          "id": "ch3_t07",
+          "title": "3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise)",
+          "critical": true,
+          "englishText": "3.5 Control Structures\n\nControl structures decide the order in which statements are executed in a\n\nprogram. Almost every program uses three basic structures: Sequence,\n\nSelection, and Repetition.\n\n3.5.1 Sequence\n\nSequence means that statements are executed one after another, strictly from\n\ntop to bottom, in the exact order they are written. This is the default behavior of\n\nprint(\"Enter two numbers\")\n\na = int(input(\"Enter first number: \"))  # Step 1: Input\n\nb = int(input(\"Enter second number: \")) # Step 2: Input\n\ntotal = a + b                       # Step 3: Process\n\nprint(\"Sum =\", total)               # Step 4: Output\n\nStatement 1\n\nStatement 2\n\n3.5.2 Selection Statements\n\nSelection alters the flow based on a condition (True/False). It helps programs\n\nrespond intelligently.\n\n1. The if Statement\n\nExecutes a block of code ONLY if the condition is True. If False, the block is\n\ncompletely skipped.\n\nage = int(input(\"Enter your age: \"))\n\nprint(\"You are an Adult.\")  # Runs only if >= 18\n\nprint(\"Program continues...\") # Runs every time\n\n2. The if-else Statement\n\nProvides TWO paths. IF true, do this. ELSE, do that. One of the blocks will always\n\nexecute.\n\nage = int(input(\"Enter your age: \"))\n\nprint(\"Apply for CNIC.\")\n\nprint(\"Apply for CRC (B-Form).\")\n\n👨‍🏫 Formatting Rule\n\nDon't forget the colon ( : ) after if and else, and ensure the code inside the\n\nblocks is indented!",
+          "urduNarration": "گی۔ چ لیں سے ب یتتر کس یںن ئلا کی پرو گرام کہ ںیہ تے کر طے ی ہ چرکاسٹر ٹرولنک گا۔ ئے ج ا وہ زاندا ظ رن حصہ ی ہ ورن ہ و۔ہ چس )Condition( ش رط ب ج گا ےلچ ت قو اسی فصر ڈکو ی ہ گا۔ ےلچ لاز می حصہ دوسرا )else( ورن ہ ،گا ےلچ حصہ لاہ پ تو ےہ چس ش رط ا گر ں۔یہ تے وہ ےت سرا دو یںم اس",
+          "startPage": 58,
+          "endPage": 59
+        },
+        {
+          "id": "ch3_t08",
+          "title": "3.5 Control Structures Overview",
+          "critical": false,
+          "englishText": "Selection Statements (Continued)\n\n3. The if-elif-else Statement\n\nHandles multiple conditions. It checks from top to bottom. As soon as it finds a\n\nTrue condition, it executes that block and ignores the rest.\n\nmarks = int(input(\"Enter marks: \"))\n\nif marks >= 80:\n\nprint(\"A-1 Grade\")\n\nelif marks >= 70:\n\nprint(\"A Grade\")\n\nelif marks >= 60:\n\nprint(\"B Grade\")\n\nprint(\"Fail or below B\")\n\n4. Nested if Statement\n\nAn if inside another if. Used when a decision requires passing multiple levels\n\nof checks.\n\n# Passed first check\n\nif salary >= 30000:\n\n# Passed second check\n\nprint(\"Loan APPROVED!\")\n\nprint(\"Salary too low for loan.\")\n\nprint(\"Too young for loan.\")\n\n3.5.3 Repetition Statements (Loops)\n\nA repetition statement (loop) allows a block of code to be executed repeatedly.\n\nThis drastically reduces the need to write the same code over and over.\n\n1. The for Loop & range() function\n\nUsed when the exact number of iterations is known. The range() function\n\ngenerates the sequence of numbers for the loop.\n\nHow it works\n\nCode Example & Output\n\nrange(stop)\n\nFrom 0 up to (but NOT including)\n\nthe stop value.\n\nfor i in range(3):\n\nprint(i)\n\nrange(start, stop)\n\nFrom start up to (NOT including)\n\nfor i in range(2, 5):\n\nprint(i)\n\nrange(start, stop,\n\nFrom start to stop, jumping by\n\nstep amount.\n\nfor i in range(1, 6, 2):\n\nprint(i)\n\nExample: Even & Odd Loop\n\nfor i in range(0, 6, 2):\n\nprint(\"Even:\", i)",
+          "urduNarration": "ں۔یہ تے وہ ا ست عمال ےی ل کے نے راہد بار بار کو کام کسی )Loops( لو پس",
+          "startPage": 60,
+          "endPage": 61
+        },
+        {
+          "id": "ch3_t09",
+          "title": "3.5.1 Sequence",
+          "critical": false,
+          "englishText": "Repetition Statements (Continued)\n\n2. The while Loop\n\nRepeats a block of code as long as a condition remains True. Used when the\n\nexact number of iterations is NOT known in advance.\n\nwhile count <= 3:\n\nprint(count)\n\ncount += 1   # VERY IMPORTANT: Update condition!\n\nLoop Control Statements\n\nThese statements alter the normal flow of a loop.\n\nExits/Stops the loop entirely immediately.\n\nfor i in range(5):\n\nprint(i)\n\n# Stops printing at 2\n\ncontinue\n\nSkips current iteration and jumps to the next.\n\nfor i in range(5):\n\ncontinue\n\nprint(i)\n\n# Skips 3 (Prints 0 1 2 4)\n\nNested Loops & Comparison\n\nNested Loop\n\nA loop inside another loop. The inner loop runs completely from start to finish for\n\nevery single iteration of the outer loop.\n\nfor outer in range(1, 3):       # Runs 2 times (1, 2)\n\nfor inner in range(1, 4):   # Runs 3 times per outer (1, 2, 3)\n\nprint(f\"Outer: {outer}, Inner: {inner}\")\n\nOuter: 1, Inner: 1\n\nOuter: 1, Inner: 2\n\nOuter: 1, Inner: 3\n\nOuter: 2, Inner: 1\n\nOuter: 2, Inner: 2\n\nOuter: 2, Inner: 3\n\nfor Loop vs while Loop\n\nwhile Loop\n\nUsed when the number of iterations is\n\nUsed when the number of iterations is\n\nunknown (condition-based).\n\nAutomatically updates the counter.\n\nRequires manual update of counter (risk\n\nof infinite loop).\n\nCleaner and shorter for counting tasks.\n\nBetter for dynamic scenarios (like \"keep\n\nplaying until user says Stop\").",
+          "urduNarration": "گی۔ ےہر )True( چس ش رط کی اس تک ب ج گا ےہر چ لت ا تک ت قو اس پلو ی ہ کرتا مکمل چ کر پورا ن اپا پلو وا لا اندر تو ،ےہ چ لت ا بار ا یک پلو وا لا رہبا لو پ ۔ دوسرا اندر کے پلو ا یک ے۔ہ",
+          "startPage": 62,
+          "endPage": 63
+        },
+        {
+          "id": "ch3_t10",
+          "title": "3.5.2 Selection Statements (if, if-else, if-elif-else, nested)",
+          "critical": true,
+          "englishText": "Practical Activity: Shopping Bill Calculator\n\nThis program beautifully combines Sequence, Selection, and Repetition.\n\nprint(\"===== SHOPPING BILL =====\")\n\nshopping = True\n\n# REPETITION: Keep adding items\n\nwhile shopping:\n\nitem = input(\"Enter Item Name (or 'done' to stop): \")\n\n# SELECTION: Check if user wants to stop\n\nif item.lower() == \"done\":\n\nshopping = False\n\nprice = float(input(f\"Enter Price of {item}: \"))\n\n# SELECTION: Validate price\n\nif price <= 0:\n\nprint(\"Invalid price!\")\n\ntotal += price\n\n# Summary & Discount\n\nif total >= 5000:\n\ndiscount = total * 0.20  # 20% off\n\ndiscount = 0\n\nfinal = total - discount\n\nprint(f\"Total Items: {count}\")\n\nprint(f\"Total Bill: {total}\")\n\nprint(f\"Final to Pay: {final}\")\n\n3.6 Libraries in Python\n\nLibraries are pre-written code that offer helpful functions. Instead of writing\n\ncomplex code from scratch, programmers use libraries to solve common\n\nproblems efficiently.\n\nHow to Import Libraries\n\nThere are mainly 5 ways to import a library:\n\nCode Example\n\n1. Import entire module\n\nMust use module.func()\n\nimport math\n\nres = math.sqrt(25)\n\n2. Import with alias (nickname)\n\nimport math as m\n\nres = m.sqrt(16)\n\n3. Import specific function\n\nNo need to prefix module name.\n\nfrom math import sqrt\n\nres = sqrt(36)\n\n4. Import multiple functions\n\nfrom math import sqrt, pi\n\n5. Import everything (*)\n\nfrom math import *\n\nres = sqrt(64)\n\n👨‍🏫 Best Practice\n\nAdvise students that importing specific functions (method 3) is better for\n\nmemory and clarity than importing everything using the * wildcard.",
+          "urduNarration": "خ ود کچ ھ ب س میںہ تا کہ ںیہ ےت کس کر ا ست عمال یںم پرو گرام ےن پا مہ ےسج ےہ وتاہ ڈکو واہ لکھا سے ےلہ پ بر یریئلا پڑ ے۔ لکھن ا ن ہ سے",
+          "startPage": 64,
+          "endPage": 65
+        },
+        {
+          "id": "ch3_t11",
+          "title": "3.5.3 Repetition Statements (for loop, while loop)",
+          "critical": true,
+          "englishText": "3.6.1 Built-in Libraries\n\nThese libraries come pre-installed with Python. You just need to import them to\n\nuse them.\n\n1. math Library\n\nProvides mathematical operations and\n\nconstants.\n\nimport math\n\nprint(math.pi)         # 3.14159...\n\nprint(math.ceil(4.3))  # 5 (Round UP)\n\nprint(math.floor(4.9)) # 4 (Round DOWN)\n\nprint(math.pow(2,4))   # 16.0 (2 to\n\nprint(math.sqrt(81))   # 9.0\n\n2. random Library\n\nGenerates random numbers or selections.\n\nimport random\n\n# Random int between 1 and 10\n\nnum = random.randint(1, 10)\n\nprint(num)\n\n# Random float between 0.0 to 1.0\n\nprint(random.random())\n\n3. datetime Library\n\nProvides classes for working with dates and times.\n\nimport datetime\n\n# Get exact current date and time\n\nnow = datetime.datetime.now()\n\nprint(now)  # e.g., 2026-09-27 11:59:40\n\n# Format it beautifully (Day-Month-Year)\n\nformatted = now.strftime(\"%d-%m-%Y\")\n\nprint(formatted) # e.g., 27-09-2026\n\n3.6.2 Third-Party Libraries\n\nThird-party libraries are NOT included with Python by default. They are built by\n\nthe community and must be installed via terminal using: pip install\n\nlibrary_name.\n\nLibrary Name\n\nPrimary Use\n\nHeavy numerical computing and large arrays.\n\nData analysis, handling table-like data (Excel/CSV).\n\nMatplotlib\n\nData visualization, plotting graphs and charts.\n\nTensorFlow / PyTorch\n\nArtificial Intelligence and Machine Learning.\n\n3.7 Debugging Code in Python\n\nDebugging is the process of identifying, tracing, and resolving issues (bugs)\n\nwithin a program so it works correctly.",
+          "urduNarration": "ے۔ہ پڑ تا کرنا انسٹ ال ےعیذر کے ڈکمان pip یںہ نا یں۔توہ یںہ ن مو ج ود سے ےلہ پ یںم نت ھوئپا ی ہ ے۔ہ لاتاہ ک ب گن گی ڈ کرنا ٹ ھی ک یںہ نا اور کرنا شتلا کو )Bugs( غ لطی وں مو ج ود یںم پرو گرام",
+          "startPage": 66,
+          "endPage": 67
+        },
+        {
+          "id": "ch3_t12",
+          "title": "3.6 Libraries in Python (Built-in & Third-Party)",
+          "critical": false,
+          "englishText": "Types of Errors (Bugs)\n\n1. Syntax Errors\n\nOccur when the rules (grammar) of Python are violated. The program will NOT run\n\nat all until it is fixed.\n\nprint(\"Hello World\"\n\n# Missing closing parenthesis!\n\n2. Runtime Errors (Exceptions)\n\nThe code is written correctly, so it starts running. But an impossible operation\n\ncrashes it during execution.\n\nx = 10 / 0  # ZeroDivisionError: division by zero!\n\n3. Logical Errors\n\nThe hardest to find. The program runs perfectly without crashing, but it produces the\n\nwrong output because the programmer's logic is flawed.\n\narea = length + width # Logical error: Should be multiplied (*), not added.\n\nReading Error Messages (Tracebacks)\n\nWhen Python crashes, it prints a Traceback. It is a roadmap to fix the bug. It tells\n\n1. What type of error occurred.\n\n2. Which file the error is in.\n\n3. Exactly which line number caused the crash.\n\nTraceback (most recent call last):\n\nFile \"e:\\Python Code\\debug_program.py\", line 1, in <module>\n\nx = int(\"abc\")\n\nValueError: invalid literal for int() with base 10: 'abc'\n\nDiagnosis: The traceback clearly states that on Line 1, we tried to convert letters\n\n(\"abc\") into an integer, which generated a ValueError.\n\nPython is a High-Level, readable language great for AI, Data, and Web.\n\nVS Code is a popular editor made into an IDE via Extensions.\n\nVariables do not need explicit types in Python; types change dynamically.\n\nData Types: int, float, str, bool, list, dict.\n\nInput/Output: print() outputs data; input() gets data as a string.\n\nControl Structures: Sequence (top-to-bottom), Selection (if/else), Repetition\n\n(for/while).\n\nLibraries: Extend Python's power. Built-in (math, random) or Third-party (NumPy).\n\nErrors: Syntax (Grammar), Runtime (Crash during run), Logical (Wrong output).",
+          "urduNarration": "۔)کرنا ن ہ ن دب ٹبر یک ےسی ج ( ورز ی فخ لا کی گرامر کے نت ھوئپا یا غ لطی کی ن گپئٹا ے۔ہ ج اتا وہ شکر ی سے و ج ہ کی )ت ق س ی م سے صفر ےسی ج ( کام ننا ممک کسی ئے وہ ےت ل چ نی کل ،ےہ ج اتا وہ ش روع چ لن ا پرو گرام ت ھی۔ غ لط )Logic( قن طم کی پ آ ی ونکہک ےہ آ تا غ لط بج وا نی کل ،ےہ چ لت ا پورا پرو گرام اور آ تا یںہ ن جیسم ایرر کو ئی",
+          "startPage": 68,
+          "endPage": 69
+        },
+        {
+          "id": "ch3_t13",
+          "title": "3.7 Debugging Code in Python (Syntax, Runtime, Logical Errors)",
+          "critical": false,
+          "englishText": "COMPUTER SCIENCE XI\n\nCHAPTER 4:\n\nDATA AND ANALYSIS\n\nBILINGUAL TEACHER'S EDITION\n\nHigh-Yielding Lecture Notes & Golden Topics\n\nBased on New Sindh Curriculum 2026",
+          "urduNarration": "",
+          "startPage": 70,
+          "endPage": 70
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "Chapter 4: Database Systems",
+      "topics": [
+        {
+          "id": "ch4_t01",
+          "title": "4.1.1 Data, Information and Database",
+          "critical": false,
+          "englishText": "4.1 Concepts of Database and Elements\n\n4.1.1 Data, Information and Database\n\nData are unprocessed facts, figures, or\n\nobservations collected from different\n\nsources. It can be quantitative\n\n(numerical) or qualitative\n\n(descriptive).\n\nExample: 80, 75, 90, 70, 85\n\nExample: The color of cars in a parking lot.\n\nWhen we organize, process, and\n\ninterpret data, it becomes information\n\nwhich provides meaning and supports\n\ndecision-making.\n\nExample: The average score of the class is\n\nProcessing\n\nInformation\n\nDecision\n\nInformation\n\nDefinition\n\nRaw facts and figures\n\nProcessed and Meaningful data\n\nAverage Marks = 83.3%\n\nUsefulness\n\nLess useful on its own\n\nUseful for decision making\n\nDatabase and DBMS\n\nA database is an organized collection of related data that is stored in a\n\nstructured manner so that it can be easily accessed, managed, and updated. In\n\ntraditional systems, data was stored in files or books, making it difficult to\n\nsearch. A database solves these problems.\n\n4.1.2 Database Management System (DBMS)\n\nA DBMS is software that allows users to create, manage, and interact with\n\ndatabases. It acts as a bridge between the user and the database. Instead of\n\ndirectly handling data files, users interact with DBMS.\n\n۔)MySQL, Oracle\n\nAdvantages of DBMS:\n\nThe same data is not stored multiple\n\ntimes unnecessarily. E.g., Department\n\nname is stored once, not in every student\n\nEnsures all users see the same correct\n\ndata. Updating a phone number once\n\nupdates it everywhere.\n\nAllows only authorized users to access\n\nsensitive info. (Admin sees marks, staff\n\nsees only names).\n\nEnsures stored data is accurate and\n\nreliable. (E.g., preventing duplicate Roll\n\nNumbers).",
+          "urduNarration": "اور ق ئحق ا )Unprocessed( خ ام مراد سے ٹ ای ڈ بمطل مکمل کو ئی خ ود تب ذ ا ی ہ ں۔یہ ش مار و ا عداد ۔ےت ید یںہ ن اس تا کہ ےہ ج اتا ی اک م ظنم اور ی سسپرو کو ٹ ای ڈ ب تمعلو ما وہ تو ، ےن کل بمطل کو ئی کا ے۔ہ شتلا سے سا نیآ اسے کہ ےہ ج اتا ی اک ظمحف و طرح اس ےسج ےہ م ج موعہ م ظنم ا یک کا ٹ ای ڈ مت علق ہ سی ب ٹ ای ڈ سک ے ۔ ج ا ی اک ٹ ی ڈ پا اور م ظنم ت اید مدد یںم ےن لب ھانس اور نے ن اب سی ب ٹ ای ڈ کو نیفصار ج و ےہ ئریو ٹ فسا ا یک ی ہ",
+          "startPage": 72,
+          "endPage": 73
+        },
+        {
+          "id": "ch4_t02",
+          "title": "4.1.2 Database Management System (DBMS)",
+          "critical": false,
+          "englishText": "4.2 Database Components\n\nA database is made up of several important components that help organize\n\ndata effectively. The most basic structure is a table.\n\nComponent\n\nDescription\n\nStores data in rows and columns, similar to a spreadsheet. Each\n\ntable stores information about a specific entity (e.g., Students,\n\nTeachers).\n\nRecord / Row\n\nA complete set of related data about ONE specific instance.\n\n(e.g., One entire row containing Ali's Name, Roll No, and Marks).\n\nField / Column\n\nA single piece of information or attribute. (e.g., The entire column\n\nthat holds ONLY \"Names\" or ONLY \"Marks\").\n\nRecord (Row)\n\nField (Column)\n\n4.3.1 Keys and Integrity Constraints\n\nA key field is an attribute (or set of attributes) that helps uniquely identify\n\nrecords and link tables together. Understanding keys is essential for designing\n\nefficient databases.\n\nAny field (or set of fields) that has the potential to uniquely identify a record. A table\n\nmay have multiple candidate keys, but only ONE is selected as the primary key.\n\nMust contain unique values.\n\nCannot contain NULL (empty) values.\n\nExample: In an Employee table: EmpID, EmpLicense#, and EmpPassport are all Candidate\n\nThe one specific field chosen from the Candidate Keys to uniquely identify every\n\nrecord in the table. It ensures no two records are exactly alike.\n\nMust contain unique values.\n\nCannot contain NULL values.\n\nEach table has ONLY ONE Primary Key.\n\nExample: We select EmpID as the Primary Key.\n\nIn a classroom, students have a Roll Number, a B-Form Number, and a\n\nPhone Number. All three are Candidate Keys. The school chooses Roll\n\nNumber as the main identifier, making it the Primary Key.",
+          "urduNarration": "ے۔ہ )Table( ب لیٹ حصہ ی ادینب سے ب س کا اس ے۔ہ ت ان ب کر مل سے حصوں مہا ئیک سی ب ٹ ای ڈ ا یک (قطار / ریکارڈ) (کالم / فیلڈ) اور ںیہ ےت ید )Unique ID( ت خن اش من فرد کو زر ی کار ڈ ج و ںیہ تے وہ کا لم وہ )Key Fields( زی لڈف کی ں۔یہ تے ج وڑ یںم آ پس کو زب لیٹ فتلخم",
+          "startPage": 74,
+          "endPage": 75
+        },
+        {
+          "id": "ch4_t03",
+          "title": "4.2 Database Components (Tables, Records, Fields)",
+          "critical": false,
+          "englishText": "Keys (Continued) & RDBMS\n\nThe Candidate Keys that were NOT selected as the Primary Key. They still hold unique\n\nvalues but are left as alternates.\n\nDerived from Candidate Keys.\n\nExample: Since EmpID became the Primary Key, EmpLicense# and EmpPassport become\n\nAlternate Keys.\n\nA field in one table that refers to the Primary Key of another table. It is used to create\n\nrelationships (links) between tables.\n\nCAN contain duplicate values (e.g., many employees in one department).\n\nCAN contain NULL values (in some cases).\n\nExample: DeptID in the Employee table links to the Primary Key DeptID in the\n\nDepartment table.\n\n4.3 Relational Database Management System (RDBMS)\n\nAn RDBMS stores data in multiple tables and uses keys (like Primary and Foreign\n\nkeys) to maintain relationships between those tables. It is powerful, structured,\n\nand used by banks and universities.\n\nReduces data redundancy (duplication).\n\nSupports multi-user access securely.\n\nEasy to query using SQL (Structured Query Language).\n\n4.4 Entity Relationship Model (ER-Model)\n\nThe ER Model is a conceptual tool used to design databases before they are\n\ncreated. It helps designers understand what data needs to be stored and how\n\ndifferent pieces are related. It acts like an architect's blueprint for the database.\n\nComponents of an ER Model\n\nComponent\n\nDescription & Symbol\n\n1. Entities\n\nAny real-world object or concept about which data is stored.\n\n(e.g., Student, Teacher, Course).\n\nSymbol: Rectangle\n\n2. Attributes\n\nThe properties or characteristics of an entity. (e.g., StudentID,\n\nName, Class).\n\nSymbol: Oval\n\n(Primary Key attributes have an underline)\n\n3. Relationships\n\nHow entities are connected to each other. (e.g., A Student\n\n\"Enrolls in\" a Course).\n\nSymbol: Diamond",
+          "urduNarration": "کا نا سے مدد کی )Keys( زیک اور ےہ کرتا ظمحف و یںم زب لیٹ فتلخم کو ٹ ای ڈ )RDBMS( ا یس ا ی م ب ی ڈی آ ر ے۔ہ کرتا ق ا ئ م )Relationship( قت عل یںم آ پس نکو کہ ےہ ت اتاب ی ہ ے۔ہ )Blueprint( خ ا کہ ا یک کا ےلہ پ سے نے ن اب سی ب ٹ ای ڈ )ER Model( ما ڈل آ ر ای ے۔ہ قت عل ی اک یںم آ پس کا نا اور ےہ کرنا ظمحف و ٹ ای ڈ سا (اشیاء) (خصوصیات) (تعلق)",
+          "startPage": 76,
+          "endPage": 77
+        },
+        {
+          "id": "ch4_t04",
+          "title": "4.3.1 Keys and Integrity Constraints",
+          "critical": true,
+          "englishText": "Types of Relationships in ER Model\n\nUnderstanding relationships is essential for designing efficient and accurate\n\ndatabases. There are three main types:\n\n1. One-to-One (1:1)\n\nOne record is related to ONLY ONE record in another entity. This is rare and often used for\n\nsecurity.\n\nExample: One Student has One ID Card.\n\nSTUDENT (1) — HAS — (1) ID CARD\n\n2. One-to-Many (1:M)\n\nOne record in Entity A relates to MULTIPLE records in Entity B. This is the most common\n\nrelationship.\n\nExample: One Teacher teaches Many Students.\n\nTEACHER (1) — TEACHES — (N) STUDENT\n\n3. Many-to-Many (M:N)\n\nMultiple records in Entity A relate to multiple records in Entity B.\n\nExample: Many Students enroll in Many Classes.\n\nSTUDENT (M) — ENROLLS — (N) CLASS\n\n⚠️ The M:N Database Rule\n\nRelational databases cannot directly support Many-to-Many relationships.\n\nIt causes data duplication. To fix this, we must break it into two 1:M\n\nrelationships using a Junction Table (e.g., an \"Enrollment\" table).\n\n4.5 Referential Integrity\n\nReferential integrity is a fundamental concept that ensures the accuracy and\n\nconsistency of data across related tables. It ensures that a Foreign Key in one\n\ntable always refers to an existing and valid Primary Key in another table.\n\nWhy is it Important?\n\nImagine a Student Table and a Result Table. The Result table uses StudentID as\n\na Foreign Key. If Referential Integrity is turned ON:\n\nYou cannot enter a result for StudentID \"999\" if \"999\" does not exist in the main\n\nStudent table. (Prevents orphan records).\n\nYou cannot delete a student from the Student table if they still have marks in\n\nthe Result table, unless you handle the related records first.\n\nSTUDENT (Parent)\n\nID: 101 (Ali)\n\nID: 102 (Sara)\n\nEnforces Rule\n\nRESULT (Child)\n\nID: 101 | A Grade\n\nID: 999 | FAILED!\n\n(Rejected! 999 not in Parent)",
+          "urduNarration": "میںہ ےی ل کے اس سکت ا۔ نب یںہ ن ت سرا براہ قت عل کا Many-to-Many یںم سی ب ٹ ای ڈ ن لشر یلی ے۔ہ پڑ تا ن اناب )Junction Table( ب لیٹ ی ان ا یک یںم نی امدر یںم آ پس زب لیٹ دو ا گر کہ ےہ ن ا تیب نیی ق ی کو تبا اس )Referential Integrity( ٹییی گرٹ نا ن ش لیر ی فر یہو می ش ہہ یںم )Foreign Key( کی نف ار ی ع نی ے۔ہر مست ق ل اور ت سدر ٹ ای ڈ کا نا تو ،ںیہ ئے وہ ج ڑ ے و۔ہ مو ج ود یںم )Primary Key( کی پرائ مری ج و ےی ہچ ا و نیہ و یلی و",
+          "startPage": 78,
+          "endPage": 79
+        },
+        {
+          "id": "ch4_t05",
+          "title": "4.3 Relational Database Management System (RDBMS)",
+          "critical": false,
+          "englishText": "Referential Integrity Operations\n\nTo maintain consistency automatically without manual effort, DBMS provides\n\ntwo powerful operations.\n\n1. Cascade Update\n\nIf a Primary Key value is changed in the parent table, that exact change is\n\nautomatically updated in all related child tables.\n\nExample: If Ali's StudentID changes from 101 to 201 in the Student table, his ID will\n\nautomatically change to 201 in the Enrollments table. No data is lost or disconnected.\n\n2. Cascade Delete\n\nIf a record is deleted from the parent table, all related records in child tables\n\nare also deleted automatically.\n\nExample: If student Sara (ID 102) leaves the school and is deleted from the Student table, all\n\nher records in the Enrollments and Results tables are instantly wiped out. This prevents\n\n\"ghost\" data from clogging the system.\n\nBenefits of Referential Integrity\n\nMaintains complete data consistency.\n\nSaves time and manual effort for admins.\n\nReduces errors and prevents orphan\n\nrecords.\n\nEnsures reliable and accurate reporting.\n\n4.6 Relational Schema Development\n\nA relational schema is a formal representation of the structure of a database. It\n\nacts as the design or blueprint of the database before it is actually\n\nimplemented in software like MS Access.\n\nWhat does a Schema define?\n\nHow data is organized into Tables.\n\nWhat Fields (columns) each table contains.\n\nWhich fields are Primary Keys and Foreign Keys.\n\nHow different tables are related to each other.\n\nWhy develop a Schema?\n\nDeveloping a relational schema is an important step because:\n\n1. It reduces redundancy (duplication of data).\n\n2. It improves data integrity by planning keys in advance.\n\n3. It makes the database easier to manage and scale in the future.\n\n👨‍🏫 Teacher's Tip\n\nRemind students that skipping the schema design phase is like trying to\n\nbuild a house without an architectural drawing. It leads to messy, broken\n\nstructures.",
+          "urduNarration": "زب لیٹ سے نکو کہ ےہ ت اتاب ج و ےہ ن ق ش ہ یا خ ا کہ ا یک کا سی ب ٹ ای ڈ )Relational Schema( سکی ما ن لشر یلی و گا۔ہ قت عل ی اک یںم آ پس کا نا اور گے یںن ب",
+          "startPage": 80,
+          "endPage": 81
+        },
+        {
+          "id": "ch4_t06",
+          "title": "4.4 Entity Relationship Model (ER-Model)",
+          "critical": true,
+          "englishText": "4.7 Case Study: Library Management System\n\nThis case study demonstrates the step-by-step development of an ER schema,\n\nfrom requirement analysis to the final ER diagram for a college library.\n\nStep 1: Requirement Analysis\n\nWhat does the system need to do?\n\n- A book has an ID, title, author, and publisher.\n\n- A member (student/teacher) has an ID, name, and contact info.\n\n- A member can borrow multiple books; a book can be borrowed by different members\n\nover time.\n\n- The system must record Issue Date and Return Date.\n\nStep 2: Identification of Entities\n\nFrom the requirements, we identify two main real-world objects (Entities):\n\nStep 3: Identification of Attributes\n\nBook Entity\n\nMember Entity\n\nBookID (Primary Key)\n\nPublisher\n\nMemberID (Primary Key)\n\nContactInfo\n\nLibrary Case Study (Continued)\n\nStep 4: Identification of Relationships\n\nWe need to understand how the entities interact. The primary interaction is:\n\n\"A Member borrows a Book\"\n\nStep 5: Determine Cardinality\n\nCardinality defines the nature of the relationship (1:1, 1:M, M:N).\n\nA single member can borrow many books over time.\n\nA single book can be borrowed by many different members over time.\n\nConclusion: The relationship is Many-to-Many (M:N)",
+          "urduNarration": "",
+          "startPage": 82,
+          "endPage": 83
+        },
+        {
+          "id": "ch4_t07",
+          "title": "4.5 Referential Integrity (Cascade Update & Delete)",
+          "critical": true,
+          "englishText": "Library Case Study (Continued)\n\nStep 6: Resolving Many-to-Many Relationship\n\nAs discussed earlier, relational databases cannot directly support M:N\n\nrelationships. It leads to data redundancy. We must resolve it by introducing a\n\nJunction Entity (Bridge Table).\n\nWe create a new entity called: BorrowRecord\n\nInstead of linking Member and Book directly, each borrowing activity is recorded as a\n\nseparate entry in the BorrowRecord entity. This breaks the M:N relationship into two 1:M\n\nrelationships.\n\nBorrowRecord Entity Attributes:\n\nBorrowID (Primary Key): Unique ID for this specific transaction.\n\nMemberID (Foreign Key): Links to the Member who borrowed it.\n\nBookID (Foreign Key): Links to the specific Book being borrowed.\n\nIssueDate (Standard Attribute)\n\nReturnDate (Standard Attribute)\n\nLibrary Case Study (Final ER Schema)\n\nStep 7: Final ER Diagram\n\nThe final structure shows:\n\n1. One Member → Many BorrowRecords (1:M)\n\n2. One Book → Many BorrowRecords (1:M)\n\nPK: MemberID\n\nBorrowRecord\n\nPK: BorrowID\n\nFK: MemberID\n\nFK: BookID\n\nPK: BookID",
+          "urduNarration": "نی امدر کے اس میںہ سکت ا۔ نب یںہ ن ت سرا براہ قت عل کا Many-to-Many یںم سی ب ٹ ای ڈ ن لشر یلی و گا۔ہ ن اناب ب لیٹ ی سرات ا یک",
+          "startPage": 84,
+          "endPage": 85
+        },
+        {
+          "id": "ch4_t08",
+          "title": "4.6 Relational Schema Development",
+          "critical": false,
+          "englishText": "4.8 Different Database Objects\n\nIn a DBMS, data is managed and presented using different tools known as\n\ndatabase objects. These objects help users interact with the database\n\nefficiently. The four main objects are Tables, Forms, Queries, and Reports.\n\nThe most important object; it is where data is actually stored. A table is organized into\n\nrows (records) and columns (fields). Tables are the foundation of a database\n\nbecause all other objects depend on them.\n\nA Form provides a user-friendly interface for entering and updating data. Instead of\n\ntyping directly into scary-looking tables, users use clean forms (like a web registration\n\npage) with text boxes, drop-downs, and buttons. Forms reduce data entry errors.\n\nDatabase Objects (Continued)\n\n★ KEY CONCEPT\n\n3. Queries\n\nA Query is a request to retrieve specific data from the database. Queries allow you to\n\n\"ask questions\" of your database. For example: \"Show me all students who scored\n\nabove 80%.\" Queries are incredibly powerful because they filter, sort, and calculate\n\n4. Reports\n\nA Report is used to present data in a structured, formatted, and visually appealing\n\nway, usually for printing or sharing. For example, a school generates a printed report\n\ncard or a fee summary. You do not enter data into a report; you only read it.\n\n💡 Quick Summary for Students\n\nTables: Store the data.\n\nForms: Enter the data.\n\nQueries: Search the data.\n\nReports: Print the data.",
+          "urduNarration": "ے۔ہ وتاہ ظمحف و ٹ ای ڈ ا صل اںہ ج ےہ حصہ مہا سے ب س ی ہ ں۔یہ تے وہ کم تا مکانا کے غ لطی وں سے اس ے۔ہ طر ی ق ہ نساآ ا یک کا نے کر )Enter( دا خ ل ٹ ای ڈ ی ہ کے نج ٹلس کی طلب اء نا فصر ےسی ج ( ن الن کا تمعلو ما مخ صوص ی ع نی ،پو چ ھن ا سوال سے سی ب ٹ ای ڈ ےہ بمطل کا )Query( ی وریک ۔)ںیہ ز یادہ سے ی صدف 80 ن مبر ۔)ڈکار ٹ ل زر ےسی ج ( ےہ وتاہ ا ست عمال ےی ل کے نے ش ی پ یا نے کر ٹ نپر یںم زاندا م ظنم اور تخ و ب صور کو ٹ ای ڈ ی ہ",
+          "startPage": 86,
+          "endPage": 87
+        },
+        {
+          "id": "ch4_t09",
+          "title": "4.7 Case Study - Library Management System",
+          "critical": false,
+          "englishText": "4.9 Creation of Tables in MS Access\n\nCreating tables is the fundamental step in developing a database. A carefully\n\ndesigned table ensures data accuracy, improves query speed, and saves\n\nstorage.\n\n4.9.1 Planning the Table Structure\n\nBefore touching the software, you must plan:\n\nPurpose: What will this table store?\n\nFields: What exact columns do I need?\n\nData Types: Is it Text, a Number, or a Date?\n\nPrimary Key: Which field is the unique identifier?\n\n4.9.2 Creating Table using Datasheet View\n\nDatasheet View is the fast, easy, spreadsheet-like way to create tables. It is\n\ngreat for beginners but offers limited control.\n\n1. Go to the Create tab and select Table.\n\n2. A blank grid appears (like Excel).\n\n3. Double-click the column headers (Field1, Field2) to rename them.\n\n4. Start typing data directly into the cells. MS Access tries to guess the data type\n\nautomatically.\n\n⚠️ Limitations of Datasheet View\n\nWhile fast, Datasheet view doesn't let you set strict validation rules (like\n\n\"Marks cannot be over 100\") easily. Professional developers prefer Design\n\nTable Creation (Design View)\n\n4.9.3 Creating Table using Design View\n\nDesign View provides full, structured control over your table before you enter\n\nany data. This is the professional way to build tables.\n\n1. Go to the Create tab and select Table Design.\n\n2. Enter the Field Name (e.g., StudentID, Name).\n\n3. Select the exact Data Type from the dropdown.\n\n4. Right-click the field that should be unique and select Primary Key (a small\n\nkey icon will appear).\n\n5. Save the table.\n\n4.9.4 Selecting Appropriate Data Types\n\nChoosing the right data type prevents errors and saves memory space.\n\nData Type\n\nShort Text\n\nNames, addresses, phone numbers (even though phone\n\nnumbers look like math, you don't add or subtract them). Up to\n\nNumeric values used in mathematical calculations (e.g., Age,\n\nMarks, Quantity).\n\nDate/Time\n\nDates of birth, admission dates, appointment times.\n\nCurrency\n\nFinancial values like Fees or Salary.\n\nAutoNumber\n\nAutomatically generates a new unique sequential number for\n\nevery new record. Perfect for Primary Keys.",
+          "urduNarration": "",
+          "startPage": 88,
+          "endPage": 89
+        },
+        {
+          "id": "ch4_t10",
+          "title": "4.8 Different Database Objects (Tables, Forms, Queries, Reports)",
+          "critical": false,
+          "englishText": "4.10 Designing Forms\n\nForms serve as an interface to enter, modify, and view records. They minimize\n\ninput errors and enforce validation rules visually.\n\n4.10.2 Identifying the Data Source\n\nEvery form MUST be linked to a data source (a Table or a Query). A form cannot\n\nexist without knowing where to save or retrieve its data.\n\n4.10.3 Designing forms using Form Wizard\n\nThe Form Wizard provides a guided, step-by-step approach to creating clean\n\n1. Go to the Create tab and select Form Wizard.\n\n2. Select Table: Choose your data source (e.g., Table: Student) from the\n\ndropdown.\n\n3. Select Fields: Use the > button to move fields you want on the form, or >> for\n\nall fields.\n\n4. Choose Layout: Select how the form looks. Columnar shows one record at a\n\ntime and is best for data entry.\n\n5. Name & Finish: Give the form a title (e.g., \"Student Registration\") and click\n\nStudent Registration Form\n\nStudent ID:\n\n[AutoNumber]\n\nFull Name:\n\n4.11 Creating Queries in MS Access\n\nQueries are the most powerful feature of Access. They retrieve, filter, and analyze\n\ndata without changing the original tables.\n\n4.11.2 Creating a Simple SELECT Query\n\nA SELECT query simply picks and shows data. Steps to create one:\n\n1. Go to the Create tab and click Query Design.\n\n2. The \"Show Table\" dialog box appears. Select the table you want (e.g., Student)\n\nand click Add.\n\n3. Double-click the fields you want to view (e.g., Name, Department). They will\n\ndrop down into the design grid at the bottom.\n\n4. Click the red Run (!) button in the ribbon to execute the query.\n\nCriteria:\n\nStudentName\n\nDepartment",
+          "urduNarration": "",
+          "startPage": 90,
+          "endPage": 91
+        },
+        {
+          "id": "ch4_t11",
+          "title": "4.9 Creation of Tables in Microsoft Access",
+          "critical": false,
+          "englishText": "Filtering Query Data\n\n4.11.3 Filtering Data\n\nBy default, a query shows ALL rows. To see only specific records (e.g., only\n\nstudents in \"Computer Science\"), we type rules into the Criteria row of the\n\ndesign grid.\n\nSingle Criteria\n\nType \"Computer Science\" under the Department column. Only those students\n\nwill appear.\n\nMultiple Criteria (Logical AND)\n\nIf you want students who are named \"Ali\" AND are in \"Computer Science\", you\n\nput both criteria on the SAME row in the grid.\n\nField: Name\n\nField: Department\n\nCriteria:\n\n\"Computer Science\"\n\nMultiple Criteria (Logical OR)\n\nIf you want students who are in \"IT\" OR \"Computer Science\", you put the criteria\n\non DIFFERENT rows (using the \"or:\" row).\n\nField: Department\n\nCriteria:\n\n\"Computer Science\"",
+          "urduNarration": "",
+          "startPage": 92,
+          "endPage": 92
+        },
+        {
+          "id": "ch4_t12",
+          "title": "4.10 Designing Forms for Data Manipulation",
+          "critical": false,
+          "englishText": "Data Summarization & Statistics\n\n4.11.4 Data Summarization and Grouping\n\nGrouping allows you to combine records with similar values (e.g., Grouping by\n\nDepartment) to calculate totals. In MS Access, click the Totals (Σ) button in the\n\nribbon to enable the \"Total\" row in the grid.\n\nAggregate\n\nFunction\n\nWhat it calculates\n\nCounts the number of records (e.g., How many students in IT?)\n\nAdds total values together (e.g., Total fees collected)\n\nCalculates the mathematical mean (average)\n\nMAX() / MIN()\n\nFinds the highest / lowest value in a group\n\n4.11.5 Statistical Analysis Example\n\nTo find the Average Marks of students in each Department:\n\n1. Create Query, add Student table.\n\n2. Add Department and Marks fields to the grid.\n\n3. Click the Totals (Σ) button.\n\n4. Under Department, set Total to Group By.\n\n5. Under Marks, set Total to Avg.\n\nDepartment\n\nAvg of Marks\n\nComputer Science",
+          "urduNarration": "",
+          "startPage": 93,
+          "endPage": 93
+        },
+        {
+          "id": "ch4_t13",
+          "title": "4.11 Creating Queries in MS Access",
+          "critical": true,
+          "englishText": "4.11.6 Data Visualization (Charts)\n\nData visualization transforms raw numbers into graphical representations,\n\nmaking patterns and trends instantly obvious.\n\n1. Bar Chart\n\nUses horizontal bars. Great when category\n\nnames are long.\n\n2. Column Chart\n\nUses vertical bars. Excellent for comparing\n\ncategories side-by-side.",
+          "urduNarration": "",
+          "startPage": 94,
+          "endPage": 94
+        },
+        {
+          "id": "ch4_t14",
+          "title": "4.11.4 Data Summarization & Statistical Analysis",
+          "critical": false,
+          "englishText": "Data Visualization (Continued)\n\n3. Pie Chart\n\nDivides a circle into slices to show\n\npercentages (parts of a whole). Best for\n\nshowing proportions.\n\n4. Line Chart\n\nConnects data points with lines. The absolute\n\nbest choice for showing trends over time\n\n(e.g., website visitors per month).\n\nData vs Info: Data is raw facts; Information is processed data.\n\nDBMS: Software to create and manage databases securely and efficiently.\n\nTable Components: Rows are Records; Columns are Fields.\n\nKeys: Primary Key is unique for each record. Foreign Key links tables together.\n\nER Model: Conceptual blueprint using Entities (rectangles), Attributes (ovals), Relationships\n\n(diamonds).\n\nMany-to-Many: Requires a Junction Table to resolve in relational databases.\n\nReferential Integrity: Ensures relationships stay valid via Cascade Update/Delete.\n\nAccess Objects: Tables (store), Forms (enter), Queries (search/filter), Reports (print).\n\nData Vis: Bar/Column for category comparison, Pie for parts of a whole, Line for trends.",
+          "urduNarration": "",
+          "startPage": 95,
+          "endPage": 95
+        },
+        {
+          "id": "ch4_t15",
+          "title": "4.11.6 Data Visualization in MS Access (Charts)",
+          "critical": false,
+          "englishText": "COMPUTER SCIENCE XI\n\nCHAPTER 5:\n\nAPPLICATION AND IMPACTS OF\n\nCOMPUTING\n\nBILINGUAL TEACHER'S EDITION\n\nHigh-Yielding Lecture Notes & Golden Topics\n\nBased on New Sindh Curriculum 2026",
+          "urduNarration": "",
+          "startPage": 96,
+          "endPage": 96
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "title": "Chapter 5: Impacts of Computing",
+      "topics": [
+        {
+          "id": "ch5_t01",
+          "title": "5.1 Introduction to Computing Impacts",
+          "critical": false,
+          "englishText": "5.1 Introduction to Computing\n\nComputing is now an important part of our daily lives. We use computers,\n\nmobile phones, the internet, and smart devices everywhere. In Pakistan, it is\n\nbecoming vital in schools, hospitals, banks, farms, and industries.\n\n5.1.1 Artificial Intelligence (AI)\n\nAI is called \"artificial\" because it is created by humans, and \"intelligence\" means\n\nit can perform tasks that require thinking. AI systems use data to make\n\ndecisions.\n\nExample 1: Mobile phone face recognition to unlock screens.\n\nExample 2: YouTube suggesting videos based on your interests.\n\nExample 3: Chatbots answering questions on a website.\n\nAI in Smart Systems\n\nAI often acts as the \"brain\" of a system, working together with the Internet of Things\n\n(IoT) and Data Analytics. IoT devices gather data, Analytics sorts it, and AI makes the\n\nfinal decision.\n\n(e.g., If a room is hot, AI decides to turn on the AC automatically based on sensor data).\n\nIoT (Eyes)\n\nAI (Brain)\n\n5.1.2 Internet of Things (IoT)\n\nThe Internet of Things (IoT) is a system in which physical devices are connected\n\nto the Internet and can collect and share data to perform tasks automatically.\n\nExample: A smartwatch collects heart rate data and sends it to a mobile phone to\n\ndisplay.\n\nComponents of IoT Systems\n\nIoT relies on six foundational components to work properly:\n\nDevices that collect information from the physical world. They are the \"eyes and ears\" of\n\nthe system.\n\nTemperature sensor\n\nMotion sensor\n\nFingerprint sensor\n\nSmoke / Soil moisture sensor\n\nDevices that perform physical actions in response to system commands. They convert\n\ndigital signals into physical movement.\n\nElectric Motor / Switch\n\nAutomatic door opener\n\nWater valve / Fan controller",
+          "urduNarration": "ت وںیکھ ،ن کوںی ب ،ت ا لوںپسہ ،سکو لوں یںم نپا کست ا ے۔ہ حصہ مہا ا یک کا ز ند گی روز مرہ ماریہ با ن گٹی وپکم ے۔ہ اہر بڑ ھ سے ی ز یت ا ست عمال کا اس یںم صن عت وں اور سک تی کر کام والے ےن ھ ج م س اور ےن چسو ج و ےہ ی کن ا لو ج یٹ ا یسی ا یک و ئیہ ن ا ئیب کی انسانوں )AI( ت ناہ ذ مصن و عی ے۔ہ کر تی ا ست عمال کا ٹ ای ڈ ےی ل کے نے کر ےصصلی ف ی ہ ے۔ہ ت اید ب یتتر اسے ٹ کسیلن ایا ،ںیہ تے کر ج مع ٹ ای ڈ تآ لا IoT ے۔ہ کرتا کام پر طور کے \" غد ما\" ا یک AI یںم زسس ٹم ٹا سمار ے۔ہ کرتا ی صلہف تمیح AI اور ،ےہ )گاڑ یاں ،ی مرےک ،گھ ڑ یاں ےسی ج ( تآ لا فتلخم یںم ج س ےہ ن ظ ام ا یسا ا یک )IoT( زت ھن گ ف آ ٹ ینٹرنا ں۔یہ تے کر ب ادلہت کا ٹ ای ڈ سے ےقیطر خ ود کار اور ںیہ تے وہ ج ڑ ے سے ٹ ینٹرنا ں۔یہ تے کر ج مع )د ھواں ، ت کحر ، تحرار در ج ہ ےسی ج ( تمعلو ما سے ما حول کے گرد ارد تآ لا ی ہ ں۔یہ ےت ید ا ن ج ام )ن الکھو درواز ہ ،چ لانا موٹر ےسی ج ( کام ج سما نی کو ئی ئے وہ تے کر عمل پر تدا یاہ کی زسس ٹم تآ لا ی ہ",
+          "startPage": 98,
+          "endPage": 99
+        },
+        {
+          "id": "ch5_t02",
+          "title": "5.1.1 Artificial Intelligence (AI)",
+          "critical": true,
+          "englishText": "IoT Components (Continued)\n\n3. Connectivity\n\nThe connection that allows devices to send\n\nand receive data. Without it, sensors can't\n\ntalk to the system.\n\nExamples: Wi-Fi, Bluetooth, ZigBee, 4G/5G.\n\n4. Data Processing\n\nChanging raw data into useful info. Steps\n\ninclude collecting, organizing, analyzing,\n\nand deciding.\n\nExample: Checking if room temp is too hot to\n\ntrigger the AC.\n\n5. Cloud Computing\n\nStoring data and using services over the\n\ninternet instead of local hard drives.\n\nHandles massive IoT data.\n\nExamples: Google Drive, iCloud, Online LMS.\n\n6. User Interface (UI)\n\nThe component that enables interaction\n\nbetween the user and the device. Helps\n\nusers see info and give commands.\n\nExamples: Mobile Apps, Touch screens, Voice\n\ncommands.\n\n(Collects)\n\n(Processes)\n\nActuator\n\n5.1.3 Data Analytics\n\nData Analytics is the process of collecting, organizing, cleaning, studying, and\n\npresenting data to find useful information. It helps people make better\n\ndecisions.\n\nExample: A college collects exam marks, calculates percentages, and identifies which\n\nstudents need extra help. This entire process is Data Analytics.\n\nComponents of Data Analytics\n\nIt comprises five key components:\n\n1. Data Collection\n\nGathering raw information from multiple sources (websites, surveys, sensors, hospital\n\nrecords, bank transactions).\n\n2. Data Storage\n\nStoring data safely and properly after collection. It can be stored in files, databases,\n\nspreadsheets, or the cloud.\n\n3. Data Cleaning\n\nIdentifying and correcting errors in data. Raw data may contain:\n\nDuplication of records\n\nIncorrect values (typos)\n\nMissing files or records\n\nImproper formats",
+          "urduNarration": "ج ز ی ہت کا نا اور نے فصا ،نے کر م ظنم ،نے کر ج مع کو تمعلو ما )Data Analytics( ٹ کسیلن ایا ٹ ای ڈ سکیں۔ ج ا ےی ک ےصصلی ف ترہ ب تا کہ ےہ عمل کا نے",
+          "startPage": 100,
+          "endPage": 101
+        },
+        {
+          "id": "ch5_t03",
+          "title": "5.1.2 Internet of Things (IoT) & Components",
+          "critical": true,
+          "englishText": "Data Analytics (Continued)\n\n4. Data Analysis\n\nStudying the clean data to identify patterns, trends, and relevant information for\n\nproblem-solving. (e.g., Finding out which subjects students failed the most).\n\n5. Data Visualization\n\nCreating visual representations of data (plots, charts, graphs) to provide valuable\n\ninsights at a glance. (e.g., A pie chart showing pass vs fail percentage).\n\nComparison: IoT vs AI vs Data Analytics\n\nArtificial Intelligence\n\nData Analytics\n\nDefinition\n\nNetwork of physical\n\ndevices connected to\n\ninternet.\n\nTechnology enabling\n\nmachines to think &\n\nProcess of examining\n\ndata to find patterns.\n\nMain Purpose\n\nData collection and\n\nautomation.\n\nIntelligent decision\n\nmaking and\n\npredictions.\n\nExtracting meaningful\n\ninsights.\n\nType of Work\n\nWorks with physical\n\ndevices (Hardware).\n\nWorks with smart\n\nsoftware systems.\n\nWorks with data\n\n(Numbers, records).\n\nRaw data from\n\nenvironment.\n\nSmart decisions or\n\nactions.\n\nReports, graphs,\n\ninsights.",
+          "urduNarration": "",
+          "startPage": 102,
+          "endPage": 102
+        },
+        {
+          "id": "ch5_t04",
+          "title": "5.1.3 Data Analytics & Components",
+          "critical": false,
+          "englishText": "5.2 Uses of IoT in Different Areas\n\nIoT improves efficiency, saves time, and enhances the overall quality of life. It\n\nplays a significant role in developing modern infrastructure.\n\n1. Smart Cities\n\nTraffic Management: Sensors adjust\n\ntraffic signals automatically to reduce\n\ncongestion.\n\nStreet Lighting: Lights turn ON/OFF\n\nbased on daylight or movement.\n\nParking: Sensors guide drivers to empty\n\nparking spaces.\n\nWaste Management: Smart bins send\n\nalerts when full.\n\n2. Industrial Automation\n\nSensors check machine temperature\n\nand vibration to prevent breakdowns.\n\nAutomated machines perform repeated\n\ntasks precisely.\n\nQuality control sensors check products\n\nduring manufacturing (e.g., Textile\n\nindustries in Sindh).\n\n3. Healthcare (Smart Health)\n\nSmartwatches continuously measure heart rate and vitals.\n\nRemote monitoring devices send patient data directly to doctors (vital for rural areas\n\nin Pakistan).\n\nEmergency alert devices inform hospitals instantly.",
+          "urduNarration": "ن اب ) زیٹس ٹا سمار ےسی ج ( چرکان فراسٹر ج د ید اور ،ےہ ب چ اتا ت قو ،ےہ ن اتاب ترہ ب کو کار کرد گی )IoT( ٹی او ئیآ ے۔ہ کرتا ادا کردار مہا یںم",
+          "startPage": 103,
+          "endPage": 103
+        },
+        {
+          "id": "ch5_t05",
+          "title": "Table: IoT vs AI vs Data Analytics Comparison",
+          "critical": false,
+          "englishText": "Uses of IoT (Continued)\n\n4. Education (Smart Learning)\n\nSmart Classrooms: Digital boards and\n\nconnected projectors.\n\nAttendance Systems: Biometric\n\nautomated attendance for students\n\nand teachers.\n\nResource Management: Automated\n\nclassroom lighting and AC control.\n\n5. Home Automation\n\nSmart Lighting: Controlled remotely via\n\nmobile apps.\n\nSecurity: Real-time monitoring via Wi-Fi\n\ncameras.\n\nVoice Control: Using assistants (like\n\nAlexa/Google) to control TVs and\n\nappliances.\n\n6. Smart Farming\n\nCrucial for agriculture in Pakistan (especially Sindh/Punjab) to save water and\n\nimprove yields.\n\nSoil Moisture Sensors: Check if crops actually need water.\n\nAutomated Irrigation: Turns water pumps ON/OFF based on soil data.\n\nDrones: Monitor crop health from above.\n\nSmart Farming Process\n\nSoil Sensor\n\n(Needs Water?)\n\nWater Pump",
+          "urduNarration": "",
+          "startPage": 104,
+          "endPage": 104
+        },
+        {
+          "id": "ch5_t06",
+          "title": "5.2 Uses of IoT in Different Areas (Smart Cities, Health, Farms)",
+          "critical": false,
+          "englishText": "5.2.1 AI in Education in Pakistan\n\nArtificial Intelligence is gradually becoming an important part of Pakistan's\n\neducation system, improving teaching, learning, and administration.\n\nPractical Uses\n\nLearning Management Systems (LMS).\n\nAutomated grading and digital testing.\n\nAI-based career counselling.\n\nBenefits\n\nHelps students learn at their own speed.\n\nIdentifies students who need extra help.\n\nSupports students with disabilities\n\n(Assistive AI).\n\nMajor Challenges in Pakistan\n\nLimited internet access in rural areas.\n\nLack of computers and digital devices for all students.\n\nNeed for proper teacher training to use AI tools.\n\nData privacy and security issues.\n\n5.2.2 Career Connection in IoT and AI\n\nLearning computing skills opens doors to software houses, telecom (Jazz, Telenor), banks,\n\nand government IT departments in Pakistan.\n\nIoT Engineer: Designs smart systems and connected devices.\n\nData Analyst: Analyzes data generated by IoT systems.\n\nKey Skills Needed: Programming (Python, C++), Networking (Wi-Fi, protocols), Electronics\n\n(sensors/circuits), and Problem-Solving.",
+          "urduNarration": "ےن ھکی س اور نے پڑ سے ج س ،ےہ یہر بڑ ھ ت یمہ ا کی )AI( ت ناہ ذ مصن و عی یںم ن ظ ام ت علی می کے نپا کست ا ے۔ہ یہر آ تریہ ب یںم عمل کے",
+          "startPage": 105,
+          "endPage": 105
+        },
+        {
+          "id": "ch5_t07",
+          "title": "5.2.1 Scope of AI in Education in Pakistan",
+          "critical": false,
+          "englishText": "5.3 Information Sources\n\nInformation sources are ways to find knowledge and data. While the internet\n\nhas vast information, not all of it is accurate. Sources are divided into three main\n\ncategories:\n\nGive original, firsthand information straight from people, events, or official records.\n\nThey are highly authentic.\n\nExamples: Interviews, photographs, diaries, NADRA official records.\n\nInformation that has already been collected and explained by someone else. They\n\nsummarize or analyze primary data.\n\nExamples: Textbooks, news reports, research papers, Bureau of Statistics reports.\n\nTertiary\n\nSecondary\n\nPrimary (Base Data)",
+          "urduNarration": "ج اتا ی اک ت ق س ی م یںم ا قسام بڑ ی نیت یںہ نا ں۔یہ ےقیطر کے نے شتلا ٹ ای ڈ اور علم ذرائ ع کے تمعلو ما یری۔شٹر اور ،ریڈی کنس ،پرائ مری :ےہ ۔)ڈر ی کار کا نادرا ، زٹرو یونا ےسی ج ( ںیہ تے کر مہفرا تمعلو ما ا صل اور ت سرا براہ ی ہ ۔)ر پور ٹس زی ون ،ںی بت اک ن صاب ی ےسی ج ( ںیہ کر تی ت حو ض ا کی ٹ ای ڈ پرائ مری اور ںیہ و تیہ کردہ ج مع کی اور کسی تمعلو ما ی ہ",
+          "startPage": 106,
+          "endPage": 106
+        },
+        {
+          "id": "ch5_t08",
+          "title": "5.3 Information Sources (Primary, Secondary, Tertiary)",
+          "critical": true,
+          "englishText": "Information Sources (Continued)\n\nProvide highly summarized and organized information derived from both primary\n\nand secondary sources. Used for quick reference.\n\nExamples: Encyclopedias, Wikipedia, Dictionaries, Handbooks.\n\nWhen do sources become unreliable?\n\nIn the digital age, students must check facts carefully. A source is unreliable if:\n\nSource Type\n\nReasons for Unreliability\n\nPrimary Sources\n\nInformation is incomplete, data is recorded incorrectly, or\n\nfalse information was deliberately provided.\n\nSecondary Sources\n\nThe information is outdated, lacks proper\n\nreferences/citations, or has not been verified by an expert.\n\nTertiary Sources\n\nComes from an unknown/unverified website, or the\n\ninformation is oversimplified and misses key facts.\n\n👨‍🏫 Teacher's Tip\n\nTeach students the rule of thumb: If an online article does not state the\n\nauthor's name, the date of publication, or list its references, it should not be\n\ntrusted for academic work.",
+          "urduNarration": "۔)نریش ک ڈ ،ی ڈ یاپ و کی ےسی ج ( ںیہ تے وہ ا ست عمال ےی ل کے حوالے ف وری ج و ،ںیہ تے ش ی پ خ لاصہ کا ذرائ ع ریڈی کنس اور پرائ مری ی ہ",
+          "startPage": 107,
+          "endPage": 107
+        },
+        {
+          "id": "ch5_t09",
+          "title": "5.4 Impacts of Computing in Various Fields",
+          "critical": false,
+          "englishText": "5.4 Impacts of Computing in Various Fields\n\nComputing has drastically changed society. While it makes life faster and more\n\nconnected, it also brings challenges like privacy risks and technology addiction.\n\nPositive Impact (+)\n\nNegative Impact (-)\n\nEducation\n\nOnline classes, e-books, and\n\nlearning apps make studying\n\nhighly flexible and accessible.\n\nExcessive screen time reduces\n\nattention spans and causes\n\nphysical health issues.\n\nCommunication\n\nEmails and video calls allow\n\ninstant, global communication at\n\nzero cost.\n\nPeople interact less in-person,\n\nleading to social isolation and\n\nreduced face-to-face skills.\n\nBusiness\n\nOnline shopping, digital banking,\n\nand automation dramatically\n\nimprove speed and efficiency.\n\nTraditional manual jobs are lost to\n\nmachines; risk of severe cyber-\n\nattacks on banks.\n\nHealthcare\n\nDigital patient records and\n\ntelemedicine allow doctors to treat\n\nremote patients accurately.\n\nPatient data privacy is at risk if\n\nhospital servers are hacked.\n\nAgriculture\n\nSmart irrigation and weather\n\nforecasting massively increase\n\ncrop yields.\n\nPoor internet access in rural areas\n\nmeans many farmers cannot use\n\nthese tools.\n\nSmart and Responsible Use\n\nProtect personal information and use strong passwords.\n\nDo not share fake news or unverified forwards.\n\nBalance screen time with physical sports and activities.",
+          "urduNarration": "",
+          "startPage": 108,
+          "endPage": 108
+        },
+        {
+          "id": "ch5_t10",
+          "title": "5.5 Assistive Technologies",
+          "critical": true,
+          "englishText": "5.5 Assistive Technologies\n\nAssistive technologies are devices, software, and systems that help people with\n\ndisabilities or functional limitations. They allow more people to participate\n\nequally in school, work, and society.\n\nCategories of Assistive Technologies:\n\n1. Mobility Aids\n\nHelp people move from one place to\n\nanother.\n\nExamples: Smart wheelchairs, stair lifts.\n\n2. Sensory Aids\n\nSupport vision and hearing to improve\n\ninteraction.\n\nExamples: Hearing aids, Screen readers\n\n(VoiceOver), Braille displays.\n\n3. Communication Aids\n\nAssist individuals with speech difficulties\n\nto express themselves.\n\nExamples: Speech-generating devices,\n\nText-to-speech apps.\n\n4. Cognitive / Learning Aids\n\nHelp people with memory, reading, and\n\nunderstanding.\n\nExamples: Audiobooks, spell-checkers,\n\ndigital reminder apps.\n\nMobility\n\nCommunication\n\nCognitive",
+          "urduNarration": "کر مدد کی ا فراد معذ ور ج و ںیہ ئریو ٹ فسا اور تآ لا وہ )Assistive Technologies( زیجی کن ا لوٹ نمعاو سکیں۔ لے حصہ پر ی ادنب کی برابری یںم معا ش رے اور کام ،ت عل ی م وہ تا کہ ںیہ",
+          "startPage": 109,
+          "endPage": 109
+        },
+        {
+          "id": "ch5_t11",
+          "title": "5.5.1 Importance of Assistive Technologies",
+          "critical": false,
+          "englishText": "Assistive Tech Importance & Careers\n\n5.5.1 Importance of Assistive Technologies\n\nEqual Access to Education: Screen readers allow blind students to read digital\n\ntextbooks equally with their peers.\n\nIndependence in Daily Life: Mobility aids reduce the need for constant human\n\nassistance.\n\nSocial Inclusion: Breaks down barriers, allowing individuals to work, study, and\n\nsocialize confidently.\n\n5.5.2 Career Connection\n\nDesigning assistive tech is a highly rewarding career path:\n\nAssistive Software Developer: Creates speech-to-text tools.\n\nBiomedical Engineer: Designs artificial limbs and hearing aids.\n\nUX/UI Accessibility Expert: Ensures websites are easy to navigate for visually impaired\n\nAI: Enables machines to learn, recognize patterns, and make decisions.\n\nIoT Components: Sensors (collect data), Actuators (take action), Connectivity, Data\n\nProcessing, Cloud, and UI.\n\nData Analytics: The pipeline of collecting, storing, cleaning, analyzing, and visualizing data\n\nfor insights.\n\nInformation Sources: Primary (direct/original), Secondary (analyzed by others), Tertiary\n\n(summarized lists/encyclopedias).\n\nImpacts: Computing accelerates business and education but risks privacy, job loss, and\n\nscreen addiction.\n\nAssistive Tech: Tools like screen readers and smart wheelchairs that ensure equality,\n\nindependence, and inclusion for people with disabilities.",
+          "urduNarration": "",
+          "startPage": 110,
+          "endPage": 110
+        },
+        {
+          "id": "ch5_t12",
+          "title": "5.5.2 Career Connection in Assistive Tech",
+          "critical": false,
+          "englishText": "COMPUTER SCIENCE XI\n\nCHAPTER 6:\n\nDIGITAL LITERACY\n\nBILINGUAL TEACHER'S EDITION\n\nHigh-Yielding Lecture Notes & Golden Topics\n\nBased on New Sindh Curriculum 2026",
+          "urduNarration": "",
+          "startPage": 111,
+          "endPage": 111
+        }
+      ]
+    },
+    {
+      "id": "ch6",
+      "title": "Chapter 6: Digital Literacy & Research",
+      "topics": [
+        {
+          "id": "ch6_t01",
+          "title": "6.1 & 6.2 Introduction to Digital Literacy",
+          "critical": false,
+          "englishText": "6.1 Introduction to Digital Literacy\n\nDigital literacy refers to the ability to understand and use digital devices, the\n\ninternet, and online tools in a safe, effective, and responsible manner. In our\n\nincreasingly digital world, possessing digital literacy is essential for everyone.\n\nIt enables individuals to find information, communicate, produce digital content,\n\nand solve problems through technology.\n\n💡 Did you know?\n\nDigital literacy is not only using devices; it is using digital information safely\n\nand wisely. A digitally literate student can locate information, organize it\n\nproperly, turn it into something useful, and share it responsibly.\n\n6.2 Digital Literacy in the Information Age\n\nThe Information Age is a period where vast amounts of data are produced,\n\nshared, and accessed instantly through the internet, mobile devices, and digital\n\nplatforms.\n\nSimply having access to technology is not enough.\n\nStudents and users must develop the skills to understand, manage, and use\n\ninformation wisely.\n\nDigital literacy goes beyond basic computer skills; it involves technical,\n\ncognitive, and social abilities to function successfully in a digital society.\n\n6.3 Types of Data\n\nThe data gathered through a survey, investigation, or classroom project, can be\n\ndescribed as qualitatively and quantitatively. Understanding the difference is\n\ncritical for proper analysis.\n\n6.3.1 Qualitative Data\n\nDescribes what people think, feel,\n\nnotice, or experience. It is non-\n\nnumerical and descriptive.\n\nExamples: Students' opinions about\n\nonline classes, descriptions of study\n\nhabits, observation notes.\n\n6.3.2 Quantitative Data\n\nDeals with numbers. It is useful when\n\nstudents need to count, measure,\n\ncompare, calculate averages, or\n\ndisplay results in charts.\n\nExamples: Number of students using the\n\ninternet daily, marks obtained in a test,\n\ntime spent online in hours.\n\n6.3.3 Comparing Qualitative and Quantitative Data\n\nType of data\n\nExamples\n\nBest used for\n\nQualitative\n\nDescriptive, non-\n\nnumerical\n\nOpinions, reasons,\n\nbehaviour\n\nUnderstanding why\n\nsomething\n\nQuantitative\n\nNumerical, countable or\n\nmeasurable\n\nHours, scores,\n\npercentages, totals\n\nComparing results\n\nand making\n\ngraphs/charts",
+          "urduNarration": "ےقیطر داران ہ ذمہ اور مؤ ثر ، ظمحف و کو زٹو ل نلائ نآ اور ٹ ینٹرنا ، تآ لا ٹ لی جی ڈ ےہ بمطل کا لٹر یسی ٹ لی جی یحصلا کی نے کر ا ست عمال اور ےن ھ ج مس سے ے۔ہ کرنا ا ست عمال سے سمج ھداری اور ظمحف و کو تمعلو ما بلکہ ،ےہ یںہ ن چ لانا زیوائسڈ فصر ی ہ ی اک حا صل ف وری ےعیذر کے ٹ ینٹرنا اور ئری ش ،ی داپ ٹ ای ڈ ت حا ش ا بے اںہ ج ےہ دور ا یسا ا یک ج یا نی شمان ف ار ے۔ہ ج اتا ی اک لوگ کہ ےہ ت اتاب ی ہ )Qualitative Data( ٹ ای ڈ ی وٹ ی ٹلکوا یرغ ی ہ ے۔ہ ی اک جر ب ہت کا نا یا ںیہ تے کر محسوس ،ںیہ ےت چسو ے۔ہ ا عداد )Quantitative Data( ٹ ای ڈ ی وٹ ی ٹ ی ٹ نکوا مواز ن ہ اور ےن پما ، ےن نگ ی ہ ے۔ہ ے۔ہ آ تا کام کے نے",
+          "startPage": 113,
+          "endPage": 114
+        },
+        {
+          "id": "ch6_t02",
+          "title": "6.3 Types of Data (Qualitative vs Quantitative)",
+          "critical": true,
+          "englishText": "6.4 Data-Collection Strategies\n\nDigital literacy is not limited to finding information that already exists. Students\n\nshould also learn how to gather original information. Below are the common\n\nstrategies used to collect data.\n\nInterviews\n\nPrototypes\n\nObservation\n\nSimulations\n\n6.4.1 Interviews\n\nAn interview is a planned conversation used to gather information directly from a\n\nperson. It may be one-to-one or in a small group. Questions are planned in advance,\n\nand answers are usually qualitative.\n\n6.4.2 Surveys / Questionnaires\n\nA survey is useful when the same set of questions needs to be asked to many people.\n\nIt may be on paper or created with digital tools like Google Forms or Microsoft Forms.\n\nNote: Online survey tools automatically collect responses and display basic charts,\n\nmaking data analysis much easier.",
+          "urduNarration": "Original( تمعلو ما ا صل بلکہ ،ےہ یںہ ن کرنا شتلا تمعلو ما مو ج ودہ فصر بمطل کا لٹر یسی ٹ لی جی ے۔ہ ب ھی ی کھن اس ےقیطر کے نے کر ٹ ھاکا )Data ے۔ہ ج ا تی کی ےی ل کے نے کر حا صل تمعلو ما ت سرا براہ سے ش خ ص کسی ج و ےہ ت گوفگ ش دہ طے ا یک ی ہ",
+          "startPage": 115,
+          "endPage": 115
+        },
+        {
+          "id": "ch6_t03",
+          "title": "6.4 Data-Collection Strategies",
+          "critical": true,
+          "englishText": "Data-Collection Strategies (Continued)\n\n6.4.3 Prototypes\n\nA prototype is a simple early version of a product, model, or solution. It allows an idea\n\nto be tested before time and effort are spent on the final version. Users try the\n\nprototype and give feedback, which becomes useful data for improvement.\n\n6.4.4 Observation\n\nIn observation, the researcher watches what people do or what happens in a situation\n\nand records the results carefully. No direct questions are asked. The data may be\n\nqualitative (notes) or quantitative (counts).\n\n6.4.5 Simulations\n\nA simulation is a computer-based model of a real situation. Variables can be\n\nchanged to see what happens. Simulations are highly useful when real experiments\n\nare costly, risky, or difficult to perform.\n\n👨‍🏫 Teacher's Tip\n\nAsk students which method they would use to find out \"how many cars cross\n\nan intersection at 8 AM\" vs \"how students feel about the new cafeteria food\".\n\n(Observation vs. Survey/Interview).",
+          "urduNarration": "ے۔ہ را کی لو گوں پر اس ے۔ہ نورژ سادہ اور ت دا ئیبا کا حل یا ٹ ک ڈپرو کسی پ ئپروٹوٹا ۔ےھچپو سوال کو ئی یرغ ب ،ےہ کرتا ڈر ی کار ج ئت ان اور ںیہ ےہر کر ی اک وہ کہ ےہ د یکھت ا کو لو گوں ق قمح یںم )Observation( نآ بز رو ی ش وں۔ہ خ طرناک یا ےن گہ م تجر بات ا صل ب ج ےہ کارآ مد ت قو اس ی ہ ے۔ہ ما ڈل نیبم پر ی وٹرپکم ا یک ی ہ",
+          "startPage": 116,
+          "endPage": 116
+        },
+        {
+          "id": "ch6_t04",
+          "title": "6.4.1 - 6.4.2 Interviews and Surveys",
+          "critical": false,
+          "englishText": "6.5 Primary and Secondary Data\n\nWhenever data is used, it is important to know where it came from. The source\n\naffects how much control the researcher had over collecting it and how\n\nconfidently the results can be used.\n\n6.5.1 Primary Data\n\nPrimary data is collected first-hand\n\nby the researcher for a particular\n\npurpose. It is gathered directly from\n\npeople, events, or situations rather\n\nthan taken from an already published\n\nSources: Interviews, surveys,\n\nobservations, experiments.\n\n6.5.2 Secondary Data\n\nSecondary data has already been\n\ncollected by someone else and is\n\nbeing used again for a new purpose. It\n\nis extracted from existing archives.\n\nSources: Books, research articles,\n\nofficial reports, web statistics, online\n\ndatabases.\n\nPrimary Data\n\nFresh, Direct Collection\n\n(You do the work)\n\nSecondary Data\n\nExisting Archives\n\n(Someone else did it)",
+          "urduNarration": "خ اص کسی ت سرا براہ خ ود ق قمح ج و ےہ وہ ٹ ای ڈ پرائ مری ے۔ہ کرتا ج مع ےی ل کے مق صد اور وہ ی اک ج مع نے اور کسی سے ےلہ پ ج و ےہ وہ ٹ ای ڈ ریڈی کنس ئے۔ ج ا ی اک ا ست عمال ےی ل کے مق صد ےئ ن اسے",
+          "startPage": 117,
+          "endPage": 117
+        },
+        {
+          "id": "ch6_t05",
+          "title": "6.4.3 - 6.4.5 Prototypes, Observation, and Simulations",
+          "critical": false,
+          "englishText": "Primary vs Secondary & Approach Design\n\n6.5.3 Difference Between Primary and Secondary Data\n\nPrimary Data\n\nSecondary Data\n\nCollected directly by the\n\nresearcher.\n\nAlready collected by others.\n\nExamples\n\nSurvey responses, interviews,\n\nobservations.\n\nReports, articles, websites,\n\ndatabases.\n\nPrepared for a specific study.\n\nReused for a new purpose.\n\nHigh control over questions and\n\ncollection process.\n\nLimited control because the data\n\nalready exists.\n\n6.6 Designing a Data-Collection Approach\n\nBefore collecting data, a researcher must have a plan. This ensures accurate,\n\nrelevant, and useful information is gathered.\n\n1. Define the research question clearly.\n\n2. Decide the type of data needed: quantitative, qualitative, or both.\n\n3. Select suitable methods (survey, interview, observation).\n\n4. Choose the sample or target group.\n\n5. Prepare the tools such as forms, questions, and observation sheets.\n\n6. Collect the data carefully and accurately.\n\n7. Store the data digitally in a spreadsheet and keep a backup.\n\n8. Follow ethical practice and respect privacy (Consent is mandatory).",
+          "urduNarration": "",
+          "startPage": 118,
+          "endPage": 118
+        },
+        {
+          "id": "ch6_t06",
+          "title": "6.5 Primary and Secondary Data",
+          "critical": true,
+          "englishText": "6.7 Presenting Data Using Digital Tools\n\nCollecting data is only one part of the work. Students must also present their\n\nfindings so others can understand them quickly and easily. Digital tools make\n\nthis much easier.\n\n6.7.1 Spreadsheets\n\nSpreadsheets such as MS Excel, Google Sheets, and Apple Numbers help students\n\narrange information in rows and columns.\n\nEnter data systematically.\n\nCalculate totals, averages, and percentages.\n\nSort and filter records.\n\nCreate charts and graphs automatically.\n\n6.7.2 Presentations\n\nSoftware like PowerPoint, Google Slides, and Canva helps students explain findings to\n\nan audience in an organized way.\n\nBegin with a clear title and research question.\n\nUse short bullet points instead of long paragraphs.\n\nInclude tables, charts, and key findings.\n\nKeep the design simple and readable.\n\nSpreadsheet\n\nChart/Graph",
+          "urduNarration": "اسے دوسرے کہ یںئ ہچ ا نے ش ی پ طرح اس ج ئت ان ےن پا کو طلب اء ے۔ہ حصہ ا یک فصر کرنا ج مع ٹ ای ڈ سکیں۔ سمج ھ سے سا نیآ",
+          "startPage": 119,
+          "endPage": 119
+        },
+        {
+          "id": "ch6_t07",
+          "title": "6.6 Designing a Data-Collection Approach",
+          "critical": false,
+          "englishText": "Presenting Data (Continued)\n\n6.7.3 Infographics\n\nAn infographic is a visual way of presenting information, facts, or data so that people\n\ncan understand the main idea quickly and easily. Tools such as Canva, Power BI, or\n\nTableau can be used.\n\nSimplify complex concepts.\n\nHighlight the most important findings and results.\n\nUse clear visuals, limited text, and accurate information.\n\n6.7.4 Reports\n\nReports are structured documents used to present collected data, findings, analysis,\n\nand conclusions. Tools like MS Word or Google Docs are standard.\n\nStart with a clear title, introduction, and purpose.\n\nPresent the collected data using tables or charts.\n\nExplain findings in simple language.\n\nInclude conclusions and recommendations based on the data.\n\nOptional: Use AI tools carefully to improve wording, but always review for accuracy.\n\n👨‍🏫 Visual Rule of Thumb\n\nA good chart or infographic can explain complex data faster than a long\n\nparagraph. However, visuals must always be accurate and based strictly on\n\nthe real data collected, never exaggerated.",
+          "urduNarration": "سکیں۔ سمج ھ ج لدی اسے لوگ تا کہ ،ےہ طر ی ق ہ کا نے ش ی پ یںم زاندا )Visual( ب صری کو ق ئحق ا اور تمعلو ما کفان ف و گرا",
+          "startPage": 120,
+          "endPage": 120
+        },
+        {
+          "id": "ch6_t08",
+          "title": "6.7 Presenting Data Using Digital Tools",
+          "critical": false,
+          "englishText": "6.8 Case Study: Digital Inquiry Project\n\nThis comprehensive case study demonstrates how to apply all the concepts of\n\nDigital Literacy to solve a real-world problem from start to finish.\n\nResearch Question:\n\n\"How does daily mobile phone use affect the study habits of\n\nstudents?\"\n\nScenario: Students notice classmates using phones during free periods and\n\nwhile studying. Some say it helps them learn; others say it wastes time. The\n\nclass must investigate whether phone use helps or harms study habits.\n\nThe Digital Inquiry Workflow\n\nQuestion",
+          "urduNarration": "",
+          "startPage": 121,
+          "endPage": 121
+        },
+        {
+          "id": "ch6_t09",
+          "title": "6.7.1 - 6.7.4 Spreadsheets, Presentations, Infographics, Reports",
+          "critical": false,
+          "englishText": "Methodology (Steps 1 to 3)\n\nStep 1: Perform Advanced Searches\n\nStudents first search for background information using search engines. They use\n\nadvanced search operators to narrow down results and find reliable secondary data.\n\nSuggested Advanced Search Queries\n\n\"mobile phone use\" \"study habits\" students\n\nUses quotes for exact phrases.\n\n\"academic performance\" filetype:pdf\n\nFinds only official PDF documents.\n\ndigital distraction site:.edu\n\nSearches only educational websites.\n\nSource Evaluation Checklist:\n\nIs the author/organization clearly mentioned?\n\nIs the information recent?\n\nIs the website reliable (.edu, .gov, research-based)?\n\nDoes the source provide facts/references, or is it biased?\n\nStep 2: Identify Data Types\n\nStudents must decide what kind of primary data they will collect.\n\nQuantitative: Number of hours used daily, percentage who feel distracted.\n\nQualitative: Opinions on why they get distracted, suggestions for better use.\n\nStep 3: Select Data-Collection Methods\n\nSince they need to ask the same questions to many students, a Survey/Questionnaire\n\n(via Google Forms or paper) is the most efficient method.",
+          "urduNarration": "",
+          "startPage": 122,
+          "endPage": 122
+        },
+        {
+          "id": "ch6_t10",
+          "title": "6.8 Case Study: Digital Inquiry Project",
+          "critical": true,
+          "englishText": "Methodology (Steps 4 to 6)\n\nStep 4: Prepare the Survey\n\nDesign clear, unbiased questions.\n\nQuestion\n\nType of Data\n\nHow many hours do you use your phone daily?\n\nQuantitative\n\nWhich activity do you use your phone for the most?\n\nQuantitative (Categories)\n\nHow does your phone help you in studies?\n\nQualitative\n\nSuggest one way to use phones responsibly.\n\nQualitative\n\nStep 5: Choose the Sample\n\nThe sample is the group of people providing data. The students decide to survey 40\n\nClass XI students from different sections to get a representative mix of habits.\n\nStep 6: Collect Primary Data (Ethically)\n\nWhen conducting the survey, students must follow strict ethical guidelines:\n\nAsk permission before collecting responses (Consent).\n\nAvoid collecting sensitive personal information.\n\nDo not record names unless absolutely necessary (Anonymity).\n\nKeep the responses private.\n\nUse the data only for educational purposes.",
+          "urduNarration": "ے۔ہ حصہ مہا کا لٹر یسی ٹ لی جی ڈ ر کھن ا ی الخ کا ی و یسیئپرا کی نا اور ن ایل ت زا ج ا ےلہ پ سے نے کر ج مع تمعلو ما ذا تی کی کسی",
+          "startPage": 123,
+          "endPage": 123
+        },
+        {
+          "id": "ch6_t11",
+          "title": "Step 1 - 3: Advanced Search & Methodology",
+          "critical": false,
+          "englishText": "Methodology (Steps 7 to 9)\n\nStep 7: Use Secondary Data\n\nStudents include a reliable online article stating \"excessive screen time lowers\n\nconcentration.\" They will compare this secondary data with their own primary survey\n\nresults.\n\nStep 8: Organize Data in a Spreadsheet\n\nResponses are entered into MS Excel or Google Sheets to sort, calculate totals, and find\n\naverages.\n\nStudy Use\n\nMain Activity\n\nDistracted?\n\nLectures\n\nSometimes\n\nSocial Media\n\nStep 9: Create Charts and Graphs\n\nConvert the spreadsheet data into visuals to make it easy to digest.\n\nDaily Phone Use (Hours)",
+          "urduNarration": "",
+          "startPage": 124,
+          "endPage": 124
+        },
+        {
+          "id": "ch6_t12",
+          "title": "Step 4 - 6: Survey Prep & Primary Data Collection",
+          "critical": false,
+          "englishText": "Analysis and Conclusion (Steps 10-12)\n\nStep 10: Analyze the Results\n\nBy looking at the spreadsheet and charts, the group identifies trends:\n\nMost students (majority) use phones for 3-5 hours daily.\n\nHalf use it for educational purposes (lectures/notes).\n\nA clear trend: Students using phones mostly for entertainment report much higher\n\ndistraction levels than those using them for study.\n\nStep 11: Write the Conclusion\n\n\"The research shows mobile phones have both positive and negative effects. They\n\nprovide access to learning materials. However, excessive use of social media and\n\ngaming reduces concentration. Therefore, phones should not be banned, but\n\nmanaged wisely.\"\n\nStep 12: Recommendations\n\nBased on the data, the students recommend:\n\nTurn off social media notifications while studying.\n\nSet daily screen-time limits.\n\nTake physical breaks from screens to protect health.",
+          "urduNarration": "",
+          "startPage": 125,
+          "endPage": 125
+        },
+        {
+          "id": "ch6_t13",
+          "title": "Step 7 - 9: Secondary Data & Spreadsheet Organization",
+          "critical": false,
+          "englishText": "The Final Digital Artefact\n\nA digital artefact is a final product created using digital technologies. Students\n\nmust create one final artefact that answers the original research question. It is\n\nnot just a decorated file; it must present evidence and conclusions.\n\nArtefact Option\n\nSuitable Digital Tools\n\nMain Purpose\n\nDigital Report\n\nMS Word, Google Docs\n\nExplain the full study in a\n\nstructured text document.\n\nPresentation\n\nPowerPoint, Canva, Slides\n\nShare key findings with a live\n\naudience.\n\nInfographic\n\nCanva, Adobe Express\n\nShow the main results visually\n\nand quickly on one page.\n\nDashboard\n\nPower BI, Tableau\n\nExplore data through interactive\n\ncharts and filters.\n\nStandard Artefact Structure\n\n2. Research Question\n\n3. Introduction\n\n4. Method of Data Collection\n\n5. Primary Data Findings\n\n6. Secondary Data Summary\n\n7. Charts and Graphs\n\n8. Conclusion\n\n9. Recommendations\n\n10. References",
+          "urduNarration": "ی ش ن ۔ٹ ن زپر ی یا ٹر پور ےسی ج ،ےہ ج ا تی ن ا ئیب ےعیذر کے ی کن ا لو ج یٹ ٹ لی جی ڈ ج و ےہ ٹ ک ڈپرو تمیح ی ہ",
+          "startPage": 126,
+          "endPage": 126
+        },
+        {
+          "id": "ch6_t14",
+          "title": "Step 10 - 12: Data Analysis, Conclusion & Artefact",
+          "critical": false,
+          "englishText": "Careers & Summary\n\nCareer Opportunities in Digital Research\n\nMarket Research Analyst: Designs surveys to collect primary data to guide business\n\ndecisions.\n\nUX (User Experience) Researcher: Gathers qualitative/quantitative data to improve app\n\nand website designs.\n\nData Journalist: Uses advanced search skills to research stories and presents them via\n\ninfographics.\n\nDigital Marketing Specialist: Collects audience data and presents results through\n\ndashboards and reports.\n\nDigital Literacy: Not just using devices, but finding, evaluating, and creating information\n\nsafely and responsibly.\n\nData Types: Qualitative (opinions, words) vs. Quantitative (numbers, counts).\n\nData Sources: Primary (collected first-hand by you) vs. Secondary (already collected by\n\nsomeone else).\n\nCollection Methods: Interviews, Surveys, Prototypes, Observation, and Simulations.\n\nAdvanced Search: Using operators like quotes (\" \") or filetype:pdf to find reliable sources\n\nefficiently.\n\nEthics: Always ask for permission (consent) and respect user privacy when collecting data.\n\nDigital Tools: Spreadsheets (organize/calculate), Presentations (deliver to audience),\n\nInfographics (quick visual summaries), Reports (detailed structure).\n\nDigital Artefact: The final product that effectively communicates the answer to the\n\nresearch question using evidence and visuals.",
+          "urduNarration": "",
+          "startPage": 127,
+          "endPage": 127
+        }
+      ]
+    }
+  ]
+}

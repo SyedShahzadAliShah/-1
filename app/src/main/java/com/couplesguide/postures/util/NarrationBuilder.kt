@@ -6,8 +6,32 @@ import com.couplesguide.postures.data.GenderEducationRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
 import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.TeacherGuideRepository
+import com.couplesguide.postures.data.TeacherTopic
 
 object NarrationBuilder {
+
+    fun buildTeacherOverviewNarration(context: Context): String {
+        val guide = TeacherGuideRepository.load(context)
+        val sb = StringBuilder(guide.title)
+        sb.append(". ").append(guide.subtitle)
+        sb.append(". ").append(guide.referenceNote)
+        for (chapter in guide.chapters) {
+            sb.append(" ").append(chapter.title).append(".")
+            for (topic in chapter.topics) {
+                sb.append(" ").append(topic.urduNarration)
+            }
+        }
+        return sb.toString().trim()
+    }
+
+    fun buildTeacherTopicNarration(topic: TeacherTopic): String {
+        val sb = StringBuilder(topic.title)
+        if (topic.urduNarration.isNotBlank()) {
+            sb.append(". ").append(topic.urduNarration)
+        }
+        return sb.toString().trim()
+    }
 
     fun buildWelcomeNarration(
         context: Context,
