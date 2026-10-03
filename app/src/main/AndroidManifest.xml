@@ -14,6 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntimacyGuide">
         <activity
+            android:name=".TeacherTopicDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".TeacherChapterActivity" />
+        <activity
+            android:name=".TeacherChapterActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".ChapterDetailActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

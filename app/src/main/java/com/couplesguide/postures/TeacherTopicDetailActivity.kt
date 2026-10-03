@@ -1,25 +1,25 @@
 package com.couplesguide.postures
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.couplesguide.postures.data.TeacherGuideRepository
-import com.couplesguide.postures.databinding.ActivityMainBinding
-import com.couplesguide.postures.ui.TeacherChapterAdapter
-import com.couplesguide.postures.BuildConfig
+import com.couplesguide.postures.data.TeacherTopic
+import com.couplesguide.postures.databinding.ActivityTeacherTopicDetailBinding
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
-import com.couplesguide.postures.util.RecyclerViewHelper
 import com.couplesguide.postures.util.VoiceNarrator
 
-class MainActivity : AppCompatActivity() {
+class TeacherTopicDetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var chapterAdapter: TeacherChapterAdapter
+    companion object {
+        const val EXTRA_TOPIC_ID = "teacher_topic_id"
+    }
+
+    private lateinit var binding: ActivityTeacherTopicDetailBinding
+    private lateinit var topic: TeacherTopic
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
@@ -30,18 +30,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityTeacherTopicDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = getString(R.string.app_name)
-
-        val guide = TeacherGuideRepository.load(this)
-        binding.headerTitle.text = guide.title
-        binding.headerSubtitle.text = guide.subtitle
-        binding.headerCurriculum.text = guide.curriculum
-        binding.referenceNote.text = guide.referenceNote
-        binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
+        val topicId = intent.getStringExtra(EXTRA_TOPIC_ID)
+        val found = topicId?.let { TeacherGuideRepository.getTopicById(this, it) }
+        if (found == null) {
+            finish()
+            return
+        }
+        topic = found
 
         voiceNarrator = VoiceNarrator(
             context = this,
@@ -50,41 +48,46 @@ class MainActivity : AppCompatActivity() {
                 isSpeaking = speaking
                 invalidateOptionsMenu()
             },
-            onLanguageIssue = { message -> showVoiceMessage(message) }
+            onLanguageIssue = { message ->
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
         )
 
-        chapterAdapter = TeacherChapterAdapter { chapter ->
-            startActivity(Intent(this, TeacherChapterActivity::class.java).apply {
-                putExtra(TeacherChapterActivity.EXTRA_CHAPTER_ID, chapter.id)
-            })
-        }
-        binding.chapterList.layoutManager = LinearLayoutManager(this)
-        binding.chapterList.adapter = chapterAdapter
-        RecyclerViewHelper.setupNestedList(binding.chapterList)
-        chapterAdapter.submitList(guide.chapters)
-        binding.chapterList.post { binding.chapterList.requestLayout() }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        bindContent()
+    }
+
+    private fun bindContent() {
+        supportActionBar?.title = topic.title
+        binding.topicTitle.text = if (topic.critical) "★ ${topic.title}" else topic.title
+        binding.topicMeta.text = getString(
+            R.string.topic_page_range,
+            topic.startPage,
+            topic.endPage
+        )
+        binding.topicBody.text = topic.englishText
+        binding.narrationHint.text = getString(R.string.urdu_voice_hint)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        menu.findItem(R.id.action_export)?.isVisible = false
         val listenItem = menu.findItem(R.id.action_listen)
         listenItem.title = if (isSpeaking) getString(R.string.stop) else getString(R.string.listen_urdu)
         listenItem.setIcon(
             if (isSpeaking) android.R.drawable.ic_media_pause
             else android.R.drawable.ic_media_play
         )
-        menu.findItem(R.id.action_export)?.isVisible = false
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_listen -> {
-                toggleNarration()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        if (item.itemId == R.id.action_listen) {
+            toggleNarration()
+            return true
         }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun toggleNarration() {
@@ -96,14 +99,19 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        val text = NarrationBuilder.buildTeacherOverviewNarration(this)
+        val text = NarrationBuilder.buildTeacherTopicNarration(topic)
+        if (text.isBlank()) {
+            Toast.makeText(this, R.string.urdu_narration_missing, Toast.LENGTH_LONG).show()
+            return
+        }
         if (voiceNarrator?.speak(text, LocaleHelper.NARRATION_LANG) != true) {
             Toast.makeText(this, R.string.voice_install_prompt, Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun showVoiceMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     override fun onDestroy() {
