@@ -1,0 +1,17 @@
+{
+  "page": 14,
+  "blocks": [
+    {"t": "h1", "en": "1.1.13 Karnaugh Maps (K-Maps)", "ur": "سیکشن ایک ایک تیرہ، کارنوف میپس، یعنی کے میپس۔"},
+    {"t": "badge", "en": "GOLDEN TOPIC", "ur": "یہ ایک سنہری موضوع ہے، امتحان کے لیے انتہائی اہم۔"},
+    {"t": "p", "en": "A K-map is a graphical tool used to simplify Boolean expressions. It uses a grid where adjacent cells differ by only ONE bit (Gray code). We group 1s in powers of 2 (1, 2, 4, 8) to simplify equations without complex algebra.", "ur": "کارنوف میپ، یعنی کے میپ، بولین ایکسپریشنز کو آسان بنانے کا ایک گرافیکل ٹول ہے۔ اس میں ایک گرڈ ہوتا ہے جس کے ساتھ ساتھ والے سیلز میں صرف ایک بٹ کا فرق ہوتا ہے، اسے گرے کوڈ کہتے ہیں۔ پیچیدہ الجبرا کے بغیر مساوات کو آسان بنانے کے لیے ہم 1 کے گروپس دو کی طاقتوں میں بناتے ہیں، یعنی 1، 2، 4 اور 8۔"},
+    {"t": "h2", "en": "Two-Variable K-Map (Variables: A, B)", "ur": "دو ویری ایبل کا کے میپ، ویری ایبلز اے اور بی۔"},
+    {"t": "p", "en": "Needs 2² = 4 cells.", "ur": "اس کے لیے دو کی طاقت دو، یعنی 4 سیلز درکار ہوتے ہیں۔"},
+    {"t": "table",
+     "cols": ["", "B = 0", "B = 1"],
+     "rows": [
+       {"cells": ["A = 0", "Cell 0 (A'B')", "Cell 1 (A'B)"], "ur": "جب اے صفر ہو: سیل 0 اے ناٹ بی ناٹ ہے، اور سیل 1 اے ناٹ بی ہے۔"},
+       {"cells": ["A = 1", "Cell 2 (AB')", "Cell 3 (AB)"], "ur": "جب اے ایک ہو: سیل 2 اے بی ناٹ ہے، اور سیل 3 اے بی ہے۔"}
+     ]},
+    {"t": "note", "label": "Grouping Rule", "en": "Make as large groups as possible (of size 1, 2, 4, 8). Overlapping is allowed. Variables that change state (0 to 1) within a group are eliminated.", "ur": "گروپ جتنے بڑے بن سکیں بنائیں، ان کا سائز 1، 2، 4 یا 8 ہو سکتا ہے۔ گروپس کا ایک دوسرے پر چڑھنا جائز ہے۔ جو ویری ایبلز گروپ کے اندر اپنی حالت بدلتے ہیں، یعنی 0 سے 1 ہوتے ہیں، وہ ختم کر دیے جاتے ہیں۔"}
+  ]
+}

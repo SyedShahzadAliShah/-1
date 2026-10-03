@@ -1,0 +1,16 @@
+{"page": 26, "blocks": [
+{"t": "h1", "en": "OSI Bottom Layers & TCP/IP Model", "ur": "او ایس آئی ماڈل کی نیچے والی تہیں اور ٹی سی پی آئی پی ماڈل۔"},
+{"t": "table", "cols": ["Layer", "Main Job", "Protocols / Hardware"], "rows": [
+  {"cells": ["3. Network", "Logical addressing (IP) and routing packets across networks.", "IP, ICMP (Ping), Routers"], "ur": "تہہ نمبر تین، نیٹ ورک: آئی پی ایڈریس لگانا اور نیٹ ورکس کے درمیان پیکٹس کی روٹنگ کرنا۔ پروٹوکولز: آئی پی اور آئی سی ایم پی یعنی پنگ، اور ہارڈ ویئر روٹرز۔"},
+  {"cells": ["2. Data Link", "Physical addressing (MAC) and error detection in frames.", "Ethernet, MAC, Switches"], "ur": "تہہ نمبر دو، ڈیٹا لنک: میک ایڈریس لگانا اور فریمز میں غلطیوں کی نشاندہی کرنا۔ پروٹوکولز: ایتھرنیٹ اور میک، اور ہارڈ ویئر سوئچز۔"},
+  {"cells": ["1. Physical", "Transmits raw bits (0,1) over cables/wireless mediums.", "Cables, Hubs, Wi-Fi radio"], "ur": "تہہ نمبر ایک، فزیکل: تاروں یا وائرلیس ذرائع کے ذریعے خام بٹس، یعنی صفر اور ایک، بھیجنا۔ ہارڈ ویئر: کیبلز، ہبز اور وائی فائی ریڈیو۔"}
+]},
+{"t": "h2", "en": "TCP/IP Model vs OSI Model", "ur": "ٹی سی پی آئی پی ماڈل اور او ایس آئی ماڈل کا موازنہ۔"},
+{"t": "p", "en": "The TCP/IP model is the practical model used on the real Internet. It condenses the 7 OSI layers into just 4 layers.", "ur": "ٹی سی پی آئی پی ماڈل وہ عملی ماڈل ہے جو حقیقی انٹرنیٹ پر استعمال ہوتا ہے۔ یہ او ایس آئی کی سات تہوں کو صرف چار تہوں میں سمیٹ دیتا ہے۔"},
+{"t": "table", "cols": ["TCP/IP Model (4 Layers)", "Corresponds to OSI Layers"], "rows": [
+  {"cells": ["1. Application", "Application, Presentation, Session (7,6,5)"], "ur": "ٹی سی پی آئی پی کی پہلی تہہ ایپلیکیشن، او ایس آئی کی ایپلیکیشن، پریزنٹیشن اور سیشن تہوں یعنی سات، چھ، پانچ کے برابر ہے۔"},
+  {"cells": ["2. Transport", "Transport (4)"], "ur": "دوسری تہہ ٹرانسپورٹ، او ایس آئی کی ٹرانسپورٹ تہہ یعنی چار کے برابر ہے۔"},
+  {"cells": ["3. Internet", "Network (3)"], "ur": "تیسری تہہ انٹرنیٹ، او ایس آئی کی نیٹ ورک تہہ یعنی تین کے برابر ہے۔"},
+  {"cells": ["4. Network Access", "Data Link, Physical (2,1)"], "ur": "چوتھی تہہ نیٹ ورک ایکسیس، او ایس آئی کی ڈیٹا لنک اور فزیکل تہوں یعنی دو اور ایک کے برابر ہے۔"}
+]}
+]}

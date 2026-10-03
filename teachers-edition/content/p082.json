@@ -1,0 +1,21 @@
+{"page": 82, "blocks": [
+{"t": "h1", "en": "4.7 Case Study: Library Management System", "ur": "حصہ چار اعشاریہ سات: کیس سٹڈی، لائبریری مینجمنٹ سسٹم۔"},
+{"t": "p", "en": "This case study demonstrates the step-by-step development of an ER schema, from requirement analysis to the final ER diagram for a college library.", "ur": "یہ کیس سٹڈی ایک کالج لائبریری کے لیے ای آر سکیمہ کی مرحلہ وار تیاری دکھاتی ہے، یعنی ضروریات کے تجزیے سے لے کر آخری ای آر ڈایاگرام تک۔"},
+{"t": "h2", "en": "Step 1: Requirement Analysis", "ur": "پہلا مرحلہ: ضروریات کا تجزیہ۔"},
+{"t": "p", "en": "What does the system need to do?", "ur": "سسٹم کو کیا کیا کام کرنے ہیں؟"},
+{"t": "li", "en": "A book has an ID, title, author, and publisher.", "ur": "ایک کتاب کی آئی ڈی، عنوان، مصنف اور ناشر ہوتا ہے۔"},
+{"t": "li", "en": "A member (student/teacher) has an ID, name, and contact info.", "ur": "ایک ممبر، یعنی طالب علم یا استاد، کی آئی ڈی، نام اور رابطے کی معلومات ہوتی ہیں۔"},
+{"t": "li", "en": "A member can borrow multiple books; a book can be borrowed by different members over time.", "ur": "ایک ممبر کئی کتابیں مستعار لے سکتا ہے، اور ایک کتاب وقت کے ساتھ مختلف ممبرز مستعار لے سکتے ہیں۔"},
+{"t": "li", "en": "The system must record Issue Date and Return Date.", "ur": "سسٹم کو کتاب جاری کرنے کی تاریخ اور واپسی کی تاریخ محفوظ کرنا ہوگی۔"},
+{"t": "h2", "en": "Step 2: Identification of Entities", "ur": "دوسرا مرحلہ: اینٹیٹیز کی شناخت۔"},
+{"t": "p", "en": "From the requirements, we identify two main real-world objects (Entities):", "ur": "ضروریات سے ہم حقیقی دنیا کی دو بنیادی چیزوں، یعنی اینٹیٹیز، کی نشاندہی کرتے ہیں۔"},
+{"t": "li", "en": "1. Book", "ur": "پہلی، کتاب۔"},
+{"t": "li", "en": "2. Member", "ur": "دوسری، ممبر۔"},
+{"t": "h2", "en": "Step 3: Identification of Attributes", "ur": "تیسرا مرحلہ: اٹریبیوٹس کی شناخت۔"},
+{"t": "table", "cols": ["Book Entity", "Member Entity"], "rows": [
+{"cells": ["BookID (Primary Key)", "MemberID (Primary Key)"], "ur": "کتاب کی اینٹیٹی میں بک آئی ڈی پرائمری کی ہے، اور ممبر کی اینٹیٹی میں ممبر آئی ڈی پرائمری کی ہے۔"},
+{"cells": ["Title", "Name"], "ur": "کتاب کا عنوان، اور ممبر کا نام۔"},
+{"cells": ["Author", "ContactInfo"], "ur": "کتاب کا مصنف، اور ممبر کے رابطے کی معلومات۔"},
+{"cells": ["Publisher", ""], "ur": "کتاب کا ناشر۔"}
+]}
+]}

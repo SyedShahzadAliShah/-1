@@ -1,0 +1,10 @@
+{"page": 23, "blocks": [
+{"t": "h1", "en": "Waterfall vs Agile Comparison", "ur": "واٹر فال اور ایجائل ماڈل کا موازنہ۔"},
+{"t": "table", "cols": ["Dimension", "Waterfall Model", "Agile Model"], "rows": [
+  {"cells": ["Flexibility", "Rigid. Hard to make changes later.", "Very flexible. Adapts to changes easily in the next sprint."], "ur": "لچک: واٹر فال ماڈل سخت ہے اور بعد میں تبدیلی کرنا مشکل ہے، جبکہ ایجائل ماڈل بہت لچکدار ہے اور اگلے اسپرنٹ میں تبدیلیوں کو آسانی سے اپنا لیتا ہے۔"},
+  {"cells": ["Customer Involvement", "Only at start (requirements) and end (delivery).", "Continuous throughout the project (after every sprint)."], "ur": "گاہک کی شمولیت: واٹر فال میں گاہک صرف آغاز میں، یعنی ضروریات کے وقت، اور آخر میں، یعنی ڈلیوری کے وقت شامل ہوتا ہے۔ ایجائل میں پورے پروجیکٹ میں مسلسل شامل رہتا ہے، ہر اسپرنٹ کے بعد۔"},
+  {"cells": ["Delivery of Software", "Single delivery at the very end.", "Frequent, partial deliveries after every sprint."], "ur": "سافٹ ویئر کی ڈلیوری: واٹر فال میں ایک ہی ڈلیوری بالکل آخر میں ہوتی ہے، جبکہ ایجائل میں ہر اسپرنٹ کے بعد بار بار جزوی ڈلیوری ہوتی ہے۔"},
+  {"cells": ["Testing", "Done late, in a dedicated testing phase.", "Continuous testing within every sprint."], "ur": "ٹیسٹنگ: واٹر فال میں ٹیسٹنگ دیر سے، ایک مخصوص ٹیسٹنگ مرحلے میں ہوتی ہے، جبکہ ایجائل میں ہر اسپرنٹ کے اندر مسلسل ٹیسٹنگ ہوتی ہے۔"},
+  {"cells": ["Documentation", "Heavy documentation required.", "Light documentation. Focus is on working software."], "ur": "دستاویز بندی: واٹر فال میں بہت زیادہ دستاویز بندی درکار ہوتی ہے، جبکہ ایجائل میں دستاویز بندی کم ہوتی ہے اور توجہ کام کرنے والے سافٹ ویئر پر ہوتی ہے۔"}
+]}
+]}

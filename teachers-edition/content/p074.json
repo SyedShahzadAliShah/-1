@@ -1,0 +1,10 @@
+{"page": 74, "blocks": [
+{"t": "h1", "en": "4.2 Database Components", "ur": "سیکشن چار نقطہ دو، ڈیٹا بیس کے اجزاء۔"},
+{"t": "p", "en": "A database is made up of several important components that help organize data effectively. The most basic structure is a table.", "ur": "ایک ڈیٹا بیس کئی اہم حصوں سے مل کر بنتا ہے جو ڈیٹا کو مؤثر طریقے سے منظم کرنے میں مدد دیتے ہیں۔ اس کا سب سے بنیادی حصہ ٹیبل ہے۔"},
+{"t": "table", "cols": ["Component", "Description"], "rows": [
+{"cells": ["Table", "Stores data in rows and columns, similar to a spreadsheet. Each table stores information about a specific entity (e.g., Students, Teachers)."], "ur": "ٹیبل: یہ ڈیٹا کو قطاروں اور کالموں میں محفوظ کرتا ہے، بالکل اسپریڈ شیٹ کی طرح۔ ہر ٹیبل کسی خاص اینٹیٹی کی معلومات رکھتا ہے، جیسے طلبہ یا اساتذہ۔"},
+{"cells": ["Record / Row", "A complete set of related data about ONE specific instance. (e.g., One entire row containing Ali's Name, Roll No, and Marks)."], "ur": "ریکارڈ یا قطار: کسی ایک مخصوص چیز کے بارے میں متعلقہ ڈیٹا کا مکمل سیٹ۔ مثال کے طور پر، ایک پوری قطار جس میں علی کا نام، رول نمبر اور نمبر موجود ہوں۔"},
+{"cells": ["Field / Column", "A single piece of information or attribute. (e.g., The entire column that holds ONLY \"Names\" or ONLY \"Marks\")."], "ur": "فیلڈ یا کالم: معلومات کا ایک واحد حصہ یا خصوصیت۔ مثال کے طور پر، وہ پورا کالم جس میں صرف نام ہوں یا صرف نمبر ہوں۔"}
+]},
+{"t": "figure", "en": "Field (Column) | Roll No | Name | Course | Grade | 101 | Ali | CS | A | 102 | Sara | IT | B+ | 103 | Ahmed | CS | A | Record (Row)", "ur": "یہ تصویر ایک ٹیبل کی مثال دکھاتی ہے جس میں چار کالم ہیں: رول نمبر، نام، کورس اور گریڈ۔ اس میں تین قطاریں ہیں: ایک سو ایک، علی، سی ایس، اے؛ ایک سو دو، سارہ، آئی ٹی، بی پلس؛ اور ایک سو تین، احمد، سی ایس، اے۔ ایک تیر نام والے کالم کی طرف اشارہ کرتا ہے جسے فیلڈ یا کالم کہتے ہیں، اور دوسرا تیر دوسری قطار کی طرف اشارہ کرتا ہے، جس میں سارہ کا ڈیٹا ہے، اسے ریکارڈ یا قطار کہتے ہیں۔"}
+]}

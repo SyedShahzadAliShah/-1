@@ -1,0 +1,17 @@
+{"page": 101, "blocks": [
+{"t": "h1", "en": "5.1.3 Data Analytics", "ur": "سیکشن پانچ اعشاریہ ایک اعشاریہ تین، ڈیٹا اینالیٹکس۔"},
+{"t": "p", "en": "Data Analytics is the process of collecting, organizing, cleaning, studying, and presenting data to find useful information. It helps people make better decisions.", "ur": "ڈیٹا اینالیٹکس ڈیٹا کو جمع کرنے، منظم کرنے، صاف کرنے، اس کا مطالعہ کرنے اور اسے پیش کرنے کا وہ عمل ہے جس سے مفید معلومات حاصل کی جاتی ہیں۔ یہ لوگوں کو بہتر فیصلے کرنے میں مدد دیتا ہے۔"},
+{"t": "p", "en": "Example: A college collects exam marks, calculates percentages, and identifies which students need extra help. This entire process is Data Analytics.", "ur": "مثال کے طور پر، ایک کالج امتحان کے نمبر جمع کرتا ہے، فیصد نکالتا ہے، اور یہ پہچانتا ہے کہ کن طلبہ کو اضافی مدد کی ضرورت ہے۔ یہ پورا عمل ڈیٹا اینالیٹکس ہے۔"},
+{"t": "h2", "en": "Components of Data Analytics", "ur": "ڈیٹا اینالیٹکس کے اجزاء۔"},
+{"t": "p", "en": "It comprises five key components:", "ur": "یہ پانچ بنیادی اجزاء پر مشتمل ہوتا ہے۔"},
+{"t": "h3", "en": "1. Data Collection", "ur": "نمبر ایک، ڈیٹا کلیکشن، یعنی ڈیٹا جمع کرنا۔"},
+{"t": "p", "en": "Gathering raw information from multiple sources (websites, surveys, sensors, hospital records, bank transactions).", "ur": "کئی ذرائع سے خام معلومات اکٹھی کرنا، جیسے ویب سائٹس، سروے، سینسرز، ہسپتال کا ریکارڈ اور بینک کے لین دین۔"},
+{"t": "h3", "en": "2. Data Storage", "ur": "نمبر دو، ڈیٹا اسٹوریج، یعنی ڈیٹا کو محفوظ کرنا۔"},
+{"t": "p", "en": "Storing data safely and properly after collection. It can be stored in files, databases, spreadsheets, or the cloud.", "ur": "ڈیٹا جمع ہونے کے بعد اسے محفوظ اور درست طریقے سے رکھنا۔ اسے فائلوں، ڈیٹا بیس، اسپریڈ شیٹس یا کلاؤڈ میں محفوظ کیا جا سکتا ہے۔"},
+{"t": "h3", "en": "3. Data Cleaning", "ur": "نمبر تین، ڈیٹا کلیننگ، یعنی ڈیٹا کی صفائی۔"},
+{"t": "p", "en": "Identifying and correcting errors in data. Raw data may contain:", "ur": "ڈیٹا میں موجود غلطیوں کی نشاندہی کرنا اور انہیں درست کرنا۔ خام ڈیٹا میں یہ خرابیاں ہو سکتی ہیں۔"},
+{"t": "li", "en": "Duplication of records", "ur": "ریکارڈ کا دہرایا جانا۔"},
+{"t": "li", "en": "Incorrect values (typos)", "ur": "غلط قدریں، یعنی ٹائپنگ کی غلطیاں۔"},
+{"t": "li", "en": "Missing files or records", "ur": "گمشدہ فائلیں یا ریکارڈ۔"},
+{"t": "li", "en": "Improper formats", "ur": "غلط یا نامناسب فارمیٹ۔"}
+]}

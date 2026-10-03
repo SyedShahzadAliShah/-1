@@ -1,0 +1,16 @@
+{"page": 100, "blocks": [
+{"t": "h1", "en": "IoT Components (Continued)", "ur": "آئی او ٹی کے اجزا، جاری۔"},
+{"t": "h3", "en": "3. Connectivity", "ur": "نمبر تین: کنیکٹیویٹی۔"},
+{"t": "p", "en": "The connection that allows devices to send and receive data. Without it, sensors can't talk to the system.", "ur": "یہ وہ رابطہ ہے جس کے ذریعے آلات ڈیٹا بھیجتے اور وصول کرتے ہیں۔ اس کے بغیر سینسرز سسٹم سے بات نہیں کر سکتے۔"},
+{"t": "p", "en": "Examples: Wi-Fi, Bluetooth, ZigBee, 4G/5G.", "ur": "مثالیں: وائی فائی، بلو ٹوتھ، زگ بی، اور فور جی اور فائیو جی۔"},
+{"t": "h3", "en": "4. Data Processing", "ur": "نمبر چار: ڈیٹا پراسیسنگ۔"},
+{"t": "p", "en": "Changing raw data into useful info. Steps include collecting, organizing, analyzing, and deciding.", "ur": "خام ڈیٹا کو مفید معلومات میں تبدیل کرنا۔ اس کے مراحل میں جمع کرنا، ترتیب دینا، تجزیہ کرنا اور فیصلہ کرنا شامل ہیں۔"},
+{"t": "p", "en": "Example: Checking if room temp is too hot to trigger the AC.", "ur": "مثال: یہ دیکھنا کہ کمرے کا درجہ حرارت اتنا زیادہ ہے یا نہیں کہ اے سی چلا دیا جائے۔"},
+{"t": "h3", "en": "5. Cloud Computing", "ur": "نمبر پانچ: کلاؤڈ کمپیوٹنگ۔"},
+{"t": "p", "en": "Storing data and using services over the internet instead of local hard drives. Handles massive IoT data.", "ur": "مقامی ہارڈ ڈرائیوز کی بجائے انٹرنیٹ پر ڈیٹا محفوظ کرنا اور خدمات استعمال کرنا۔ یہ آئی او ٹی کے بہت بڑے ڈیٹا کو سنبھالتی ہے۔"},
+{"t": "p", "en": "Examples: Google Drive, iCloud, Online LMS.", "ur": "مثالیں: گوگل ڈرائیو، آئی کلاؤڈ، اور آن لائن ایل ایم ایس۔"},
+{"t": "h3", "en": "6. User Interface (UI)", "ur": "نمبر چھ: یوزر انٹرفیس۔"},
+{"t": "p", "en": "The component that enables interaction between the user and the device. Helps users see info and give commands.", "ur": "یہ وہ جزو ہے جو صارف اور آلے کے درمیان تعامل ممکن بناتا ہے۔ اس سے صارفین معلومات دیکھ سکتے ہیں اور ہدایات دے سکتے ہیں۔"},
+{"t": "p", "en": "Examples: Mobile Apps, Touch screens, Voice commands.", "ur": "مثالیں: موبائل ایپس، ٹچ اسکرینز، اور آواز کے ذریعے دی جانے والی ہدایات۔"},
+{"t": "figure", "en": "Sensor | (Collects) | Wi-Fi | Cloud | (Processes) | Actuator | (Acts) | User App | (UI)", "ur": "یہ ڈایاگرام دکھاتی ہے کہ آئی او ٹی کے اجزا کیسے مل کر کام کرتے ہیں۔ سینسر ڈیٹا جمع کرتا ہے اور وائی فائی کے ذریعے کلاؤڈ کو بھیجتا ہے۔ کلاؤڈ اسے پراسیس کرتا ہے اور ایکچویٹر کو ہدایت دیتا ہے جو عمل کرتا ہے۔ نتیجہ یوزر ایپ تک بھی پہنچتا ہے، جو صارف کا انٹرفیس ہے۔"}
+]}

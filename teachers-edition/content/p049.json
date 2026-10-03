@@ -1,0 +1,13 @@
+{"page": 49, "blocks": [
+{"t": "h1", "en": "VS Code Interface Elements", "ur": "وی ایس کوڈ کے انٹرفیس کے حصے۔"},
+{"t": "table", "cols": ["Element", "Description"], "rows": [
+{"cells": ["1. Top Menu Bar", "Control over files, editing, navigation, and workspace (File, Edit, Selection, View, Go, Run)."], "ur": "ایک: ٹاپ مینیو بار۔ اس سے فائلوں، ایڈیٹنگ، نیویگیشن اور ورک اسپیس پر کنٹرول ملتا ہے، جیسے فائل، ایڈٹ، سلیکشن، ویو، گو اور رن۔"},
+{"cells": ["2. Side Bar", "Contains core tools: Explorer, Search, Source Control, Run & Debug, and Extensions."], "ur": "دو: سائیڈ بار۔ اس میں بنیادی ٹولز ہوتے ہیں: ایکسپلورر، سرچ، سورس کنٹرول، رن اینڈ ڈی بگ، اور ایکسٹینشنز۔"},
+{"cells": ["3. Explorer", "Shows project files and folders. Helps create, open, and manage your Python files."], "ur": "تین: ایکسپلورر۔ یہ پروجیکٹ کی فائلیں اور فولڈرز دکھاتا ہے، اور آپ کی پائتھون فائلیں بنانے، کھولنے اور سنبھالنے میں مدد دیتا ہے۔"},
+{"cells": ["4. Search Bar", "Finds and replaces text across your currently open file or entire project."], "ur": "چار: سرچ بار۔ یہ آپ کی کھلی ہوئی فائل یا پورے پروجیکٹ میں متن تلاش کرتا ہے اور اسے بدل بھی دیتا ہے۔"},
+{"cells": ["5. Source Control", "Connects with Git (a version control system) to track changes, undo mistakes, and collaborate."], "ur": "پانچ: سورس کنٹرول۔ یہ گٹ سے جڑتا ہے، جو ورژن کنٹرول سسٹم ہے، تاکہ تبدیلیوں کا ریکارڈ رکھا جائے، غلطیاں واپس کی جائیں اور مل کر کام کیا جائے۔"},
+{"cells": ["6. Run & Debug", "Allows you to execute code, find errors, pause at specific lines, and inspect variables."], "ur": "چھ: رن اینڈ ڈی بگ۔ اس سے آپ کوڈ چلا سکتے ہیں، غلطیاں ڈھونڈ سکتے ہیں، مخصوص لائنوں پر رک سکتے ہیں اور متغیرات کا معائنہ کر سکتے ہیں۔"},
+{"cells": ["7. Extensions", "Like an App Store for VS Code. Add features like the Python extension, Prettier, or Python Debugger."], "ur": "سات: ایکسٹینشنز۔ یہ وی ایس کوڈ کے لیے ایپ اسٹور کی طرح ہیں۔ ان سے پائتھون ایکسٹینشن، پریٹیئر یا پائتھون ڈی بگر جیسی خصوصیات شامل کی جا سکتی ہیں۔"}
+]},
+{"t": "note", "label": "Teacher's Demo Setup", "en": "Ensure you have the Python extension by Microsoft installed in VS Code before class to demonstrate syntax highlighting and the Run button.", "ur": "استاد کے لیے ڈیمو کی تیاری۔ کلاس سے پہلے یقینی بنائیں کہ وی ایس کوڈ میں مائیکروسافٹ کی پائتھون ایکسٹینشن انسٹال ہے، تاکہ آپ سنٹیکس ہائی لائٹنگ اور رن بٹن کا مظاہرہ کر سکیں۔"}
+]}

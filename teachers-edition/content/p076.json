@@ -1,0 +1,17 @@
+{"page": 76, "blocks": [
+{"t": "h1", "en": "Keys (Continued) & RDBMS", "ur": "کیز کا تسلسل اور آر ڈی بی ایم ایس۔"},
+{"t": "h3", "en": "3. Alternate Key", "ur": "نمبر 3، آلٹرنیٹ کی، یعنی متبادل کی۔"},
+{"t": "p", "en": "The Candidate Keys that were NOT selected as the Primary Key. They still hold unique values but are left as alternates.", "ur": "وہ کینڈیڈیٹ کیز جنہیں پرائمری کی کے طور پر منتخب نہیں کیا گیا۔ ان میں اب بھی منفرد ویلیوز ہوتی ہیں، لیکن انہیں متبادل کے طور پر چھوڑ دیا جاتا ہے۔"},
+{"t": "li", "en": "Derived from Candidate Keys.", "ur": "یہ کینڈیڈیٹ کیز سے حاصل ہوتی ہیں۔"},
+{"t": "li", "en": "Example: Since EmpID became the Primary Key, EmpLicense# and EmpPassport become Alternate Keys.", "ur": "مثال: چونکہ ایمپ آئی ڈی پرائمری کی بن گئی، اس لیے ایمپ لائسنس نمبر اور ایمپ پاسپورٹ آلٹرنیٹ کیز بن جاتی ہیں۔"},
+{"t": "h3", "en": "4. Foreign Key", "ur": "نمبر 4، فارن کی۔"},
+{"t": "p", "en": "A field in one table that refers to the Primary Key of another table. It is used to create relationships (links) between tables.", "ur": "ایک ٹیبل کی وہ فیلڈ جو کسی دوسرے ٹیبل کی پرائمری کی کا حوالہ دیتی ہے۔ اسے ٹیبلز کے درمیان تعلق یعنی لنک بنانے کے لیے استعمال کیا جاتا ہے۔"},
+{"t": "li", "en": "CAN contain duplicate values (e.g., many employees in one department).", "ur": "اس میں دہرائی ہوئی ویلیوز ہو سکتی ہیں، مثال کے طور پر ایک شعبے میں کئی ملازمین۔"},
+{"t": "li", "en": "CAN contain NULL values (in some cases).", "ur": "بعض صورتوں میں اس میں نل ویلیوز بھی ہو سکتی ہیں۔"},
+{"t": "li", "en": "Example: DeptID in the Employee table links to the Primary Key DeptID in the Department table.", "ur": "مثال: ایمپلائی ٹیبل کی ڈیپٹ آئی ڈی، ڈیپارٹمنٹ ٹیبل کی پرائمری کی ڈیپٹ آئی ڈی سے جڑی ہوتی ہے۔"},
+{"t": "h2", "en": "4.3 Relational Database Management System (RDBMS)", "ur": "سیکشن چار نقطہ تین، ریلیشنل ڈیٹا بیس مینجمنٹ سسٹم، یعنی آر ڈی بی ایم ایس۔"},
+{"t": "p", "en": "An RDBMS stores data in multiple tables and uses keys (like Primary and Foreign keys) to maintain relationships between those tables. It is powerful, structured, and used by banks and universities.", "ur": "آر ڈی بی ایم ایس ڈیٹا کو مختلف ٹیبلز میں محفوظ کرتا ہے اور کیز، جیسے پرائمری اور فارن کیز، کی مدد سے ان ٹیبلز کا آپس میں تعلق قائم رکھتا ہے۔ یہ طاقتور اور منظم نظام ہے اور بینکوں اور جامعات میں استعمال ہوتا ہے۔"},
+{"t": "li", "en": "Reduces data redundancy (duplication).", "ur": "یہ ڈیٹا کی تکرار کو کم کرتا ہے۔"},
+{"t": "li", "en": "Supports multi-user access securely.", "ur": "یہ ایک سے زیادہ صارفین کو محفوظ طریقے سے رسائی دیتا ہے۔"},
+{"t": "li", "en": "Easy to query using SQL (Structured Query Language).", "ur": "ایس کیو ایل، یعنی اسٹرکچرڈ کوئری لینگویج، کے ذریعے اس سے ڈیٹا نکالنا آسان ہے۔"}
+]}

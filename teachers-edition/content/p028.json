@@ -1,0 +1,15 @@
+{"page": 28, "blocks": [
+{"t": "title", "en": "TABLE OF CONTENTS", "ur": "فہرستِ مضامین۔"},
+{"t": "li", "en": "1. 2.1 & 2.2 Introduction to CT & Algorithms", "ur": "ایک: دو نقطہ ایک اور دو نقطہ دو، سی ٹی اور الگورتھمز کا تعارف۔"},
+{"t": "li", "en": "2. 2.2.2 Algorithm vs Pseudocode ★", "ur": "دو: دو نقطہ دو نقطہ دو، الگورتھم اور سوڈو کوڈ کا فرق۔ یہ موضوع امتحان کے لیے انتہائی اہم ہے۔"},
+{"t": "li", "en": "3. 2.3.1 Algorithmic Strategy: Decomposition ★", "ur": "تین: دو نقطہ تین نقطہ ایک، الگورتھمک حکمتِ عملی: ڈی کمپوزیشن۔ یہ موضوع امتحان کے لیے انتہائی اہم ہے۔"},
+{"t": "li", "en": "4. 2.3.2 Algorithmic Strategy: Pattern Recognition", "ur": "چار: دو نقطہ تین نقطہ دو، الگورتھمک حکمتِ عملی: پیٹرن ریکگنیشن۔"},
+{"t": "li", "en": "5. 2.3.3 Algorithmic Strategy: Abstraction", "ur": "پانچ: دو نقطہ تین نقطہ تین، الگورتھمک حکمتِ عملی: ایبسٹریکشن۔"},
+{"t": "li", "en": "6. 2.4.1 Sorting Algorithms: Bubble Sort ★", "ur": "چھ: دو نقطہ چار نقطہ ایک، سورٹنگ الگورتھمز: ببل سورٹ۔ یہ موضوع امتحان کے لیے انتہائی اہم ہے۔"},
+{"t": "li", "en": "7. 2.4.1 Sorting Algorithms: Selection Sort ★", "ur": "سات: دو نقطہ چار نقطہ ایک، سورٹنگ الگورتھمز: سیلیکشن سورٹ۔ یہ موضوع امتحان کے لیے انتہائی اہم ہے۔"},
+{"t": "li", "en": "8. 2.4.2 Searching Algorithms: Linear Search", "ur": "آٹھ: دو نقطہ چار نقطہ دو، سرچنگ الگورتھمز: لینئیر سرچ۔"},
+{"t": "li", "en": "9. 2.4.2 Searching Algorithms: Binary Search ★", "ur": "نو: دو نقطہ چار نقطہ دو، سرچنگ الگورتھمز: بائنری سرچ۔ یہ موضوع امتحان کے لیے انتہائی اہم ہے۔"},
+{"t": "li", "en": "10. 2.5 Evaluation Criteria of Algorithm", "ur": "دس: دو نقطہ پانچ، الگورتھم کی جانچ کے معیارات۔"},
+{"t": "li", "en": "11. 2.6 How to Decide Which Algorithm to Use", "ur": "گیارہ: دو نقطہ چھ، یہ کیسے طے کریں کہ کون سا الگورتھم استعمال کرنا ہے۔"},
+{"t": "note", "label": "Reference Note", "en": "These notes are prepared specifically for teachers. For reference, please consult the textbook PDF file named exactly \"CS XI (1 & 2).pdf\", which has been followed verbatim. Topics marked with a ★ are highly critical for examinations.", "ur": "یہ نوٹس خاص طور پر اساتذہ کے لیے تیار کیے گئے ہیں۔ حوالے کے لیے نصابی کتاب کی پی ڈی ایف فائل، جس کا نام بالکل سی ایس ایکس آئی، ایک اور دو، ہے، استعمال کریں، جس کی من و عن پیروی کی گئی ہے۔ جن موضوعات پر ستارے کا نشان ہے وہ امتحانات کے لیے انتہائی اہم ہیں۔"}
+]}

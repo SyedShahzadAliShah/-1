@@ -1,0 +1,17 @@
+{"page": 78, "blocks": [
+{"t": "h1", "en": "Types of Relationships in ER Model", "ur": "ای آر ماڈل میں تعلقات کی اقسام۔"},
+{"t": "p", "en": "Understanding relationships is essential for designing efficient and accurate databases. There are three main types:", "ur": "مؤثر اور درست ڈیٹا بیس ڈیزائن کرنے کے لیے تعلقات کو سمجھنا ضروری ہے۔ ان کی تین بڑی اقسام ہیں۔"},
+{"t": "h3", "en": "1. One-to-One (1:1)", "ur": "نمبر 1، ون ٹو ون، یعنی ایک سے ایک کا تعلق۔"},
+{"t": "p", "en": "One record is related to ONLY ONE record in another entity. This is rare and often used for security.", "ur": "ایک ریکارڈ دوسری اینٹیٹی کے صرف ایک ہی ریکارڈ سے تعلق رکھتا ہے۔ یہ تعلق کم ہی پایا جاتا ہے اور اکثر سیکیورٹی کے لیے استعمال ہوتا ہے۔"},
+{"t": "li", "en": "Example: One Student has One ID Card.", "ur": "مثال: ایک طالب علم کے پاس ایک شناختی کارڈ ہوتا ہے۔"},
+{"t": "figure", "en": "STUDENT (1) — HAS — (1) ID CARD", "ur": "خاکے میں اسٹوڈنٹ ایک کے نشان کے ساتھ ہیرے کے ذریعے آئی ڈی کارڈ سے جڑا ہے، جس پر ہیز لکھا ہے، اور آئی ڈی کارڈ کے ساتھ بھی ایک کا نشان ہے۔ یعنی ایک طالب علم کا ایک کارڈ۔"},
+{"t": "h3", "en": "2. One-to-Many (1:M)", "ur": "نمبر 2، ون ٹو مینی، یعنی ایک سے کئی کا تعلق۔"},
+{"t": "p", "en": "One record in Entity A relates to MULTIPLE records in Entity B. This is the most common relationship.", "ur": "اینٹیٹی اے کا ایک ریکارڈ اینٹیٹی بی کے کئی ریکارڈز سے تعلق رکھتا ہے۔ یہ سب سے عام پایا جانے والا تعلق ہے۔"},
+{"t": "li", "en": "Example: One Teacher teaches Many Students.", "ur": "مثال: ایک استاد کئی طلبہ کو پڑھاتا ہے۔"},
+{"t": "figure", "en": "TEACHER (1) — TEACHES — (N) STUDENT", "ur": "خاکے میں ٹیچر ایک کے نشان کے ساتھ ٹیچز کے تعلق کے ذریعے اسٹوڈنٹ سے جڑا ہے، اور اسٹوڈنٹ کے ساتھ این کا نشان ہے۔ یعنی ایک استاد اور کئی طلبہ۔"},
+{"t": "h3", "en": "3. Many-to-Many (M:N)", "ur": "نمبر 3، مینی ٹو مینی، یعنی کئی سے کئی کا تعلق۔"},
+{"t": "p", "en": "Multiple records in Entity A relate to multiple records in Entity B.", "ur": "اینٹیٹی اے کے کئی ریکارڈز اینٹیٹی بی کے کئی ریکارڈز سے تعلق رکھتے ہیں۔"},
+{"t": "li", "en": "Example: Many Students enroll in Many Classes.", "ur": "مثال: کئی طلبہ کئی کلاسوں میں داخلہ لیتے ہیں۔"},
+{"t": "figure", "en": "STUDENT (M) — ENROLLS — (N) CLASS", "ur": "خاکے میں اسٹوڈنٹ ایم کے نشان کے ساتھ انرولز کے تعلق کے ذریعے کلاس سے جڑا ہے، اور کلاس کے ساتھ این کا نشان ہے۔ یعنی کئی طلبہ اور کئی کلاسیں۔"},
+{"t": "note", "label": "The M:N Database Rule", "en": "Relational databases cannot directly support Many-to-Many relationships. It causes data duplication. To fix this, we must break it into two 1:M relationships using a Junction Table (e.g., an \"Enrollment\" table).", "ur": "ریلیشنل ڈیٹا بیس میں مینی ٹو مینی کا تعلق براہِ راست نہیں بن سکتا، کیونکہ اس سے ڈیٹا کی تکرار ہوتی ہے۔ اسے ٹھیک کرنے کے لیے ہمیں اسے ایک ٹو مینی کے دو تعلقات میں توڑنا پڑتا ہے، اور اس کے لیے درمیان میں ایک نیا ٹیبل بنایا جاتا ہے جسے جنکشن ٹیبل کہتے ہیں، جیسے انرولمنٹ ٹیبل۔"}
+]}

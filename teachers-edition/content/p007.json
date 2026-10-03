@@ -1,0 +1,11 @@
+{"page": 7, "blocks": [
+{"t": "h1", "en": "Boolean Operations (Continued)", "ur": "بولین آپریشنز، جاری ہے۔"},
+{"t": "h2", "en": "2. OR Operation ( + )", "ur": "نمبر دو: آر آپریشن، جس کی علامت جمع کا نشان ہے۔"},
+{"t": "p", "en": "The OR operation gives output 1 when ANY input is 1.", "ur": "آر آپریشن کا آؤٹ پٹ ایک ہوتا ہے اگر کوئی ایک ان پٹ بھی ایک ہو۔"},
+{"t": "p", "en": "Expression: Y = A + B", "ur": "ایکسپریشن: وائی برابر اے جمع بی۔"},
+{"t": "note", "label": "Real-life Example", "en": "A room with two doors. You can enter if EITHER door is open.", "ur": "روزمرہ کی مثال: ایک کمرے کے دو دروازے ہیں۔ آپ کسی ایک دروازے سے بھی اندر آ سکتے ہیں اگر وہ کھلا ہو۔"},
+{"t": "h2", "en": "3. NOT Operation ( ' or ¯ )", "ur": "نمبر تین: ناٹ آپریشن، جس کی علامت اپاسٹروفی یا اوپر لگی ہوئی لکیر ہے۔"},
+{"t": "p", "en": "The NOT operation inverts the input. It is a unary operation (operates on only one operand). If input is 1, output is 0.", "ur": "ناٹ آپریشن ان پٹ کو الٹ دیتا ہے۔ یہ یونیری آپریشن ہے، یعنی صرف ایک اوپرینڈ پر کام کرتا ہے۔ اگر ان پٹ ایک ہے تو آؤٹ پٹ صفر ہو گا۔"},
+{"t": "p", "en": "Expression: Y = A' or Y = A̅", "ur": "ایکسپریشن: وائی برابر اے ناٹ، یا وائی برابر اے بار۔"},
+{"t": "note", "label": "Real-life Example", "en": "A room light switch. When switch is ON, room is lit. When OFF, room is dark.", "ur": "روزمرہ کی مثال: کمرے کی بتی کا سوئچ۔ جب سوئچ آن ہو تو کمرہ روشن ہوتا ہے، اور جب آف ہو تو کمرے میں اندھیرا ہو جاتا ہے۔"}
+]}

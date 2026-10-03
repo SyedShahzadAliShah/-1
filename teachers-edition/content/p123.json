@@ -1,0 +1,20 @@
+{"page": 123, "blocks": [
+{"t": "h1", "en": "Methodology (Steps 4 to 6)", "ur": "طریقِ کار، مراحل چار سے چھ۔"},
+{"t": "h2", "en": "Step 4: Prepare the Survey", "ur": "مرحلہ چار: سروے تیار کرنا۔"},
+{"t": "p", "en": "Design clear, unbiased questions.", "ur": "واضح اور غیر جانبدار سوالات تیار کریں۔"},
+{"t": "table", "cols": ["Question", "Type of Data"], "rows": [
+{"cells": ["How many hours do you use your phone daily?", "Quantitative"], "ur": "آپ روزانہ کتنے گھنٹے فون استعمال کرتے ہیں؟ یہ مقداری ڈیٹا ہے۔"},
+{"cells": ["Which activity do you use your phone for the most?", "Quantitative (Categories)"], "ur": "آپ فون کو سب سے زیادہ کس سرگرمی کے لیے استعمال کرتے ہیں؟ یہ مقداری ڈیٹا ہے، زمروں کی صورت میں۔"},
+{"cells": ["How does your phone help you in studies?", "Qualitative"], "ur": "آپ کا فون پڑھائی میں آپ کی کیسے مدد کرتا ہے؟ یہ کیفیتی ڈیٹا ہے۔"},
+{"cells": ["Suggest one way to use phones responsibly.", "Qualitative"], "ur": "فون کو ذمہ داری سے استعمال کرنے کا ایک طریقہ بتائیں۔ یہ کیفیتی ڈیٹا ہے۔"}
+]},
+{"t": "h2", "en": "Step 5: Choose the Sample", "ur": "مرحلہ پانچ: نمونے کا انتخاب۔"},
+{"t": "p", "en": "The sample is the group of people providing data. The students decide to survey 40 Class XI students from different sections to get a representative mix of habits.", "ur": "نمونہ لوگوں کا وہ گروہ ہوتا ہے جو ڈیٹا فراہم کرتا ہے۔ طلبہ فیصلہ کرتے ہیں کہ مختلف سیکشنز سے گیارہویں جماعت کے چالیس طلبہ کا سروے کیا جائے، تاکہ عادات کی نمائندہ مثال مل سکے۔"},
+{"t": "h2", "en": "Step 6: Collect Primary Data (Ethically)", "ur": "مرحلہ چھ: بنیادی ڈیٹا اخلاقی طریقے سے جمع کرنا۔"},
+{"t": "p", "en": "When conducting the survey, students must follow strict ethical guidelines:", "ur": "سروے کرتے وقت طلبہ کو اخلاقی ہدایات کی سختی سے پابندی کرنی چاہیے۔"},
+{"t": "li", "en": "Ask permission before collecting responses (Consent).", "ur": "جوابات جمع کرنے سے پہلے اجازت لیں، یعنی رضامندی۔"},
+{"t": "li", "en": "Avoid collecting sensitive personal information.", "ur": "حساس ذاتی معلومات جمع کرنے سے گریز کریں۔"},
+{"t": "li", "en": "Do not record names unless absolutely necessary (Anonymity).", "ur": "جب تک بالکل ضروری نہ ہو نام درج نہ کریں، یعنی گمنامی۔"},
+{"t": "li", "en": "Keep the responses private.", "ur": "جوابات کو خفیہ رکھیں۔"},
+{"t": "li", "en": "Use the data only for educational purposes.", "ur": "ڈیٹا کو صرف تعلیمی مقاصد کے لیے استعمال کریں۔"}
+]}

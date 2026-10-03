@@ -1,0 +1,13 @@
+{"page": 48, "blocks": [
+{"t": "h1", "en": "3.3 Integrated Development Environment (IDE)", "ur": "3.3 انٹیگریٹڈ ڈویلپمنٹ انوائرمنٹ، یعنی آئی ڈی ای۔"},
+{"t": "p", "en": "An IDE is a software tool that helps programmers write, run, and manage code in one place. It is a complete workspace for programming.", "ur": "آئی ڈی ای ایک ایسا سافٹ ویئر ہے جو پروگرام لکھنے، چلانے اور سنبھالنے میں ایک ہی جگہ مدد دیتا ہے۔ یہ پروگرامنگ کے لیے ایک مکمل ورک اسپیس ہے۔"},
+{"t": "h2", "en": "Key Features of an IDE:", "ur": "آئی ڈی ای کی اہم خصوصیات۔"},
+{"t": "li", "lead": "Code Editor:", "en": "Code Editor: Where you write and edit code.", "ur": "کوڈ ایڈیٹر: وہ جگہ جہاں آپ کوڈ لکھتے اور اس میں ترمیم کرتے ہیں۔"},
+{"t": "li", "lead": "Syntax Highlighting:", "en": "Syntax Highlighting: Colors the code to make it easier to read.", "ur": "سنٹیکس ہائی لائٹنگ: کوڈ کو مختلف رنگوں میں دکھاتی ہے تاکہ پڑھنا آسان ہو۔"},
+{"t": "li", "lead": "Auto completion:", "en": "Auto completion: Suggests code while you type.", "ur": "آٹو کمپلیشن: ٹائپ کرتے وقت کوڈ تجویز کرتی ہے۔"},
+{"t": "li", "lead": "Run/Execute Tool:", "en": "Run/Execute Tool: Executes the program.", "ur": "رن یا ایگزیکیوٹ ٹول: پروگرام کو چلاتا ہے۔"},
+{"t": "li", "lead": "Debugger:", "en": "Debugger: Helps find and fix errors.", "ur": "ڈی بگر: غلطیاں تلاش کرنے اور انہیں درست کرنے میں مدد دیتا ہے۔"},
+{"t": "h2", "en": "3.3.1 Visual Studio Code (VS Code)", "ur": "3.3.1 ویژوئل اسٹوڈیو کوڈ، یعنی وی ایس کوڈ۔"},
+{"t": "p", "en": "VS Code is a free, lightweight, and powerful code editor widely used for Python. It is not a full IDE by default, but it can be turned into one by installing extensions.", "ur": "وی ایس کوڈ ایک مفت، ہلکا اور طاقتور کوڈ ایڈیٹر ہے جو پائتھون کے لیے بہت استعمال ہوتا ہے۔ یہ بنیادی طور پر مکمل آئی ڈی ای نہیں ہے، لیکن ایکسٹینشنز انسٹال کر کے اسے آئی ڈی ای بنایا جا سکتا ہے۔"},
+{"t": "figure", "en": "Visual Studio Code | print ( \"Hello, World!\")", "ur": "یہ ویژوئل اسٹوڈیو کوڈ کی اسکرین کی تصویر ہے جس کا پس منظر سیاہ ہے۔ اوپر درمیان میں ویژوئل اسٹوڈیو کوڈ لکھا ہے۔ بائیں طرف ایک تنگ سائیڈ بار ہے جس میں تین آئیکن ہیں۔ ایڈیٹر میں کوڈ کی ایک لائن ہے: پرنٹ، قوسین میں، ہیلو ورلڈ۔ لفظ پرنٹ ہلکے نیلے رنگ میں اور ہیلو ورلڈ نارنجی رنگ میں دکھایا گیا ہے۔"}
+]}

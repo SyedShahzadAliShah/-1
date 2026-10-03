@@ -1,0 +1,12 @@
+{"page": 46, "blocks": [
+{"t": "h1", "en": "3.1 Programming", "ur": "3.1 پروگرامنگ۔"},
+{"t": "p", "en": "Computers are dumb machines. They cannot think or do anything without instructions. A set of instructions is called a program, and the language used to give these instructions is a programming language.", "ur": "کمپیوٹر ایک بے وقوف مشین ہے۔ یہ ہدایات کے بغیر سوچ سکتا ہے اور نہ کچھ کر سکتا ہے۔ ہدایات کے مجموعے کو پروگرام کہتے ہیں، اور جس زبان میں یہ ہدایات دی جاتی ہیں اسے پروگرامنگ لینگویج کہتے ہیں۔"},
+{"t": "h2", "en": "3.1.1 Programming Language Types", "ur": "3.1.1 پروگرامنگ لینگویج کی اقسام۔"},
+{"t": "p", "en": "Programming languages are classified into three main types:", "ur": "پروگرامنگ لینگویجز کو تین بڑی اقسام میں تقسیم کیا جاتا ہے۔"},
+{"t": "table", "cols": ["Type", "Description", "Examples"], "rows": [
+{"cells": ["Low Level", "Closer to the native language of the computer (binary 0s & 1s). Very difficult for humans to understand.", "Machine Language (Binary)"], "ur": "لو لیول، یعنی مشین کے قریب۔ یہ کمپیوٹر کی اپنی زبان، یعنی بائنری صفر اور ایک کے قریب ہوتی ہے اور انسانوں کے لیے سمجھنا بہت مشکل ہوتی ہے۔ مثال: مشین لینگویج، یعنی بائنری۔"},
+{"cells": ["Mid Level", "Bridges the gap. Has hardware access capabilities but is easier to read than low-level code. Uses mnemonics.", "Assembly Language"], "ur": "مڈ لیول، یعنی درمیانی سطح۔ یہ دونوں کے درمیان فاصلہ کم کرتی ہے۔ اس میں ہارڈ ویئر تک رسائی ہوتی ہے مگر یہ لو لیول کوڈ سے پڑھنے میں آسان ہے، اور اس میں مخفف الفاظ استعمال ہوتے ہیں۔ مثال: اسمبلی لینگویج۔"},
+{"cells": ["High Level", "Designed to be easy for humans to read and write. Uses English-like words.", "C++, Java, Python"], "ur": "ہائی لیول، یعنی انسان کے قریب۔ یہ انسانوں کے لیے پڑھنے اور لکھنے میں آسان بنائی گئی ہے اور اس میں انگریزی جیسے الفاظ استعمال ہوتے ہیں۔ مثالیں: سی پلس پلس، جاوا اور پائتھون۔"}
+]},
+{"t": "figure", "en": "Low Level | 01010101 | Mid Level | MOV AX, BX | High Level | print(\"Hello\")", "ur": "یہ ڈایاگرام پروگرامنگ کی تین اقسام کو بائیں سے دائیں تیر کے ساتھ دکھاتی ہے۔ سرخ بلاک لو لیول ہے جس کے نیچے بائنری کوڈ صفر ایک صفر ایک صفر ایک صفر ایک لکھا ہے۔ نارنجی بلاک مڈ لیول ہے جس کے نیچے اسمبلی کی ہدایت ایم او وی، اے ایکس، بی ایکس لکھی ہے۔ سبز بلاک ہائی لیول ہے جس کے نیچے پرنٹ کی ہدایت ہیلو کے ساتھ لکھی ہے۔"}
+]}

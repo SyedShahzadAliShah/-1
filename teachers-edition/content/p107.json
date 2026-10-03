@@ -1,0 +1,14 @@
+{"page": 107, "blocks": [
+{"t": "h1", "en": "Information Sources (Continued)", "ur": "معلومات کے ذرائع، جاری۔"},
+{"t": "h3", "en": "3. Tertiary Sources ( )", "ur": "نمبر تین، ٹرشیری ذرائع۔"},
+{"t": "p", "en": "Provide highly summarized and organized information derived from both primary and secondary sources. Used for quick reference.", "ur": "یہ پرائمری اور سیکنڈری دونوں ذرائع سے لی گئی انتہائی خلاصہ شدہ اور منظم معلومات پیش کرتے ہیں۔ یہ فوری حوالے کے لیے استعمال ہوتے ہیں۔"},
+{"t": "p", "en": "Examples: Encyclopedias, Wikipedia, Dictionaries, Handbooks.", "ur": "مثالیں: انسائیکلوپیڈیا، ویکیپیڈیا، ڈکشنریاں اور ہینڈ بکس۔"},
+{"t": "h2", "en": "When do sources become unreliable?", "ur": "ذرائع کب ناقابلِ اعتماد ہو جاتے ہیں؟"},
+{"t": "p", "en": "In the digital age, students must check facts carefully. A source is unreliable if:", "ur": "ڈیجیٹل دور میں طلبہ کو حقائق کی احتیاط سے جانچ کرنی چاہیے۔ کوئی ذریعہ اس وقت ناقابلِ اعتماد ہوتا ہے جب:"},
+{"t": "table", "cols": ["Source Type", "Reasons for Unreliability"], "rows": [
+{"cells": ["Primary Sources", "Information is incomplete, data is recorded incorrectly, or false information was deliberately provided."], "ur": "پرائمری ذرائع: معلومات نامکمل ہوں، ڈیٹا غلط درج کیا گیا ہو، یا جان بوجھ کر جھوٹی معلومات دی گئی ہوں۔"},
+{"cells": ["Secondary Sources", "The information is outdated, lacks proper references/citations, or has not been verified by an expert."], "ur": "سیکنڈری ذرائع: معلومات پرانی ہوں، ان میں مناسب حوالے موجود نہ ہوں، یا کسی ماہر نے ان کی تصدیق نہ کی ہو۔"},
+{"cells": ["Tertiary Sources", "Comes from an unknown/unverified website, or the information is oversimplified and misses key facts."], "ur": "ٹرشیری ذرائع: معلومات کسی نامعلوم یا غیر تصدیق شدہ ویب سائٹ سے آئی ہوں، یا حد سے زیادہ سادہ کر دی گئی ہوں اور اہم حقائق چھوٹ گئے ہوں۔"}
+]},
+{"t": "note", "label": "Teacher's Tip", "en": "Teach students the rule of thumb: If an online article does not state the author's name, the date of publication, or list its references, it should not be trusted for academic work.", "ur": "طلبہ کو یہ سنہری اصول سکھائیں کہ اگر کسی آن لائن مضمون میں مصنف کا نام، اشاعت کی تاریخ یا حوالہ جات درج نہ ہوں، تو تعلیمی کام کے لیے اس پر بھروسہ نہیں کرنا چاہیے۔"}
+]}

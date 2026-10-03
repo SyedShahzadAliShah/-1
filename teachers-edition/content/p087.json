@@ -1,0 +1,9 @@
+{"page": 87, "blocks": [
+{"t": "h1", "en": "Database Objects (Continued)", "ur": "ڈیٹا بیس آبجیکٹس، جاری ہے۔"},
+{"t": "h2", "en": "3. Queries", "ur": "تیسرا: کیوریز۔"},
+{"t": "badge", "en": "★ KEY CONCEPT", "ur": "یہ ایک کلیدی تصور ہے، اسے اچھی طرح یاد رکھیں۔"},
+{"t": "p", "en": "A Query is a request to retrieve specific data from the database. Queries allow you to \"ask questions\" of your database. For example: \"Show me all students who scored above 80%.\" Queries are incredibly powerful because they filter, sort, and calculate data.", "ur": "کیوری ڈیٹا بیس سے مخصوص ڈیٹا حاصل کرنے کی درخواست ہے۔ کیوریز کے ذریعے آپ اپنے ڈیٹا بیس سے سوال پوچھ سکتے ہیں۔ مثال کے طور پر، مجھے وہ تمام طلبہ دکھاؤ جن کے نمبر 80 فیصد سے زیادہ ہیں۔ کیوریز بہت طاقتور ہوتی ہیں، کیونکہ یہ ڈیٹا کو چھانٹتی ہیں، ترتیب دیتی ہیں اور حساب بھی لگاتی ہیں۔"},
+{"t": "h2", "en": "4. Reports", "ur": "چوتھا: رپورٹس۔"},
+{"t": "p", "en": "A Report is used to present data in a structured, formatted, and visually appealing way, usually for printing or sharing. For example, a school generates a printed report card or a fee summary. You do not enter data into a report; you only read it.", "ur": "رپورٹ ڈیٹا کو منظم، فارمیٹ شدہ اور خوبصورت انداز میں پیش کرنے کے لیے استعمال ہوتی ہے، عموماً پرنٹ کرنے یا دوسروں کے ساتھ شیئر کرنے کے لیے۔ مثال کے طور پر، ایک سکول رزلٹ کارڈ یا فیس کا خلاصہ پرنٹ کرتا ہے۔ آپ رپورٹ میں ڈیٹا داخل نہیں کرتے، صرف اسے پڑھتے ہیں۔"},
+{"t": "note", "label": "Quick Summary for Students", "en": "Tables: Store the data. Forms: Enter the data. Queries: Search the data. Reports: Print the data.", "ur": "طلبہ کے لیے مختصر خلاصہ: ٹیبلز ڈیٹا محفوظ کرتے ہیں۔ فارمز ڈیٹا داخل کرتے ہیں۔ کیوریز ڈیٹا تلاش کرتی ہیں۔ رپورٹس ڈیٹا پرنٹ کرتی ہیں۔"}
+]}

@@ -1,0 +1,14 @@
+{"page": 6, "blocks": [
+{"t": "h1", "en": "1.1.4 Boolean Algebra", "ur": "ایک نقطہ ایک نقطہ چار: بولین الجبرا۔"},
+{"t": "p", "en": "Boolean algebra (developed by George Boole) deals with only two values: TRUE (1) and FALSE (0). It is the foundation of digital electronics and computer programming.", "ur": "بولین الجبرا، جو جارج بول نے ایجاد کیا، میں صرف دو ویلیوز ہوتی ہیں: ٹرو، یعنی ایک، اور فالس، یعنی صفر۔ یہ ڈیجیٹل الیکٹرانکس اور کمپیوٹر پروگرامنگ کی بنیاد ہے۔"},
+{"t": "table", "cols": ["Concept", "Description", "Example"], "rows": [
+{"cells": ["Variables", "Letters that hold values 0 or 1.", "A, B, C, X, Y"], "ur": "ویری ایبلز وہ حروف ہیں جن میں صفر یا ایک کی ویلیو ہوتی ہے۔ مثال: اے، بی، سی، ایکس، وائی۔"},
+{"cells": ["Operations", "Actions performed on variables.", "AND, OR, NOT"], "ur": "آپریشنز وہ عمل ہیں جو ویری ایبلز پر کیے جاتے ہیں۔ مثال: اینڈ، آر، ناٹ۔"},
+{"cells": ["Expressions", "Combinations of variables & operations.", "A AND B, Y = A + B"], "ur": "ایکسپریشنز ویری ایبلز اور آپریشنز کے مجموعے ہوتے ہیں۔ مثال: اے اینڈ بی، اور وائی برابر اے جمع بی۔"}
+]},
+{"t": "h1", "en": "1.1.5 Boolean Operations", "ur": "ایک نقطہ ایک نقطہ پانچ: بولین آپریشنز۔"},
+{"t": "h2", "en": "1. AND Operation ( · )", "ur": "نمبر ایک: اینڈ آپریشن، جس کی علامت ایک نقطہ ہے۔"},
+{"t": "p", "en": "The AND operation gives output 1 ONLY when ALL inputs are 1.", "ur": "اینڈ آپریشن کا آؤٹ پٹ صرف اسی وقت ایک ہوتا ہے جب تمام ان پٹس ایک ہوں۔"},
+{"t": "p", "en": "Expression: Y = A · B", "ur": "ایکسپریشن: وائی برابر اے ضرب بی۔"},
+{"t": "note", "label": "Real-life Example", "en": "A door with two locks. The door opens only when BOTH locks are unlocked.", "ur": "روزمرہ کی مثال: ایک دروازہ جس پر دو تالے ہوں۔ دروازہ تب ہی کھلے گا جب دونوں تالے کھلے ہوں۔"}
+]}

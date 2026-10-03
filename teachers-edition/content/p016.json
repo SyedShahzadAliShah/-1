@@ -1,0 +1,14 @@
+{
+  "page": 16,
+  "blocks": [
+    {"t": "h1", "en": "LogiSim Evolution: Simulation Tool", "ur": "لاجی سم ایوولیوشن: سمیولیشن ٹول۔"},
+    {"t": "p", "en": "LogiSim Evolution is a graphical tool for designing and simulating logic circuits. It allows students to visually build the truth tables and boolean expressions they learn in theory.", "ur": "لاجی سم ایوولیوشن لاجک سرکٹس ڈیزائن کرنے اور ان کی سمیولیشن کرنے کا ایک گرافیکل ٹول ہے۔ اس کی مدد سے طلبہ وہ ٹروتھ ٹیبلز اور بولین ایکسپریشنز، جو وہ تھیوری میں سیکھتے ہیں، آنکھوں کے سامنے بنا کر دیکھ سکتے ہیں۔"},
+    {"t": "h2", "en": "1. The Interface Areas", "ur": "نمبر ایک: انٹرفیس کے حصے۔"},
+    {"t": "li", "lead": "Menu Bar:", "en": "Menu Bar: Top bar for File, Edit, Project, Simulate.", "ur": "مینو بار: سب سے اوپر کی پٹی ہے جس میں فائل، ایڈٹ، پروجیکٹ اور سمیولیٹ کے مینو ہوتے ہیں۔"},
+    {"t": "li", "lead": "Toolbar:", "en": "Toolbar: Quick access to standard tools (Wiring, Poke, AND, OR, NOT gates).", "ur": "ٹول بار: عام استعمال کے ٹولز تک فوری رسائی دیتا ہے، جیسے وائرنگ، پوک، اور اینڈ، آر اور ناٹ گیٹس۔"},
+    {"t": "li", "lead": "Explorer Panel (Left):", "en": "Explorer Panel (Left): Contains component libraries (Gates, I/O, Wiring).", "ur": "ایکسپلورر پینل، جو بائیں طرف ہوتا ہے: اس میں کمپوننٹس کی لائبریریاں ہوتی ہیں، جیسے گیٹس، ان پٹ آؤٹ پٹ اور وائرنگ۔"},
+    {"t": "li", "lead": "Attribute Table (Bottom Left):", "en": "Attribute Table (Bottom Left): Adjust properties of selected gates (e.g., Number of Inputs, Facing direction).", "ur": "ایٹری بیوٹ ٹیبل، جو نیچے بائیں طرف ہوتا ہے: اس میں منتخب کیے گئے گیٹس کی خصوصیات بدلی جاتی ہیں، مثلاً ان پٹس کی تعداد اور گیٹ کا رخ۔"},
+    {"t": "li", "lead": "Drawing Canvas (Right):", "en": "Drawing Canvas (Right): The dotted grid where you place and wire gates.", "ur": "ڈرائنگ کینوس، جو دائیں طرف ہوتا ہے: یہ نقطوں والا گرڈ ہے جہاں آپ گیٹس رکھتے ہیں اور انہیں تاروں سے جوڑتے ہیں۔"},
+    {"t": "note", "label": "Wiring Colors during Simulation", "en": "Bright Green: Logic 1 (HIGH)\nDark Green: Logic 0 (LOW)\nBlue: Unknown / Unconnected pin\nRed: Error / Short circuit", "ur": "سمیولیشن کے دوران تاروں کے رنگ۔ ہلکا ہرا رنگ لاجک 1 یعنی ہائی کو ظاہر کرتا ہے۔ گہرا ہرا رنگ لاجک 0 یعنی لو کو ظاہر کرتا ہے۔ نیلا رنگ نامعلوم یا بغیر جڑے ہوئے پن کو ظاہر کرتا ہے۔ سرخ رنگ غلطی یا شارٹ سرکٹ کو ظاہر کرتا ہے۔"}
+  ]
+}

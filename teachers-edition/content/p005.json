@@ -1,0 +1,13 @@
+{"page": 5, "blocks": [
+{"t": "h1", "en": "1.1.3 Analog and Digital Signals", "ur": "ایک نقطہ ایک نقطہ تین: اینالاگ اور ڈیجیٹل سگنلز۔"},
+{"t": "badge", "en": "GOLDEN TOPIC", "ur": "یہ ایک سنہری موضوع ہے، امتحان کے لیے انتہائی اہم۔"},
+{"t": "h2", "en": "Analog Signals", "ur": "اینالاگ سگنلز۔"},
+{"t": "p", "en": "Continuous signals that change smoothly over time, like a sine wave. (e.g., Human voice, traditional thermometers).", "ur": "یہ مسلسل سگنلز ہوتے ہیں جو وقت کے ساتھ نرمی سے تبدیل ہوتے ہیں، جیسے سائن ویو، یعنی لہر۔ مثلاً انسانی آواز اور روایتی تھرمامیٹر۔"},
+{"t": "h2", "en": "Digital Signals", "ur": "ڈیجیٹل سگنلز۔"},
+{"t": "p", "en": "Have only two levels: HIGH (1) and LOW (0). They jump instantly between values, creating a square wave. (e.g., Computer data).", "ur": "ان میں صرف دو لیولز ہوتے ہیں: ہائی، یعنی ایک، اور لو، یعنی صفر۔ یہ ویلیوز کے درمیان فوراً چھلانگ لگاتے ہیں، جس سے اسکوائر ویو بنتی ہے۔ مثلاً کمپیوٹر کا ڈیٹا۔"},
+{"t": "figure", "en": "Analog Signal (Sine Wave) | V | t | Digital Signal (Square Wave) | V | t | HIGH(1) | LOW(0)", "ur": "اس خاکے میں دو گراف ہیں، جن میں عمودی محور پر وولٹیج وی اور افقی محور پر وقت ٹی ہے۔ پہلا گراف اینالاگ سگنل کا ہے، یعنی سائن ویو، جو افقی محور کے اوپر اور نیچے نرمی سے لہراتی ہوئی مسلسل لکیر ہے۔ دوسرا گراف ڈیجیٹل سگنل کا ہے، یعنی اسکوائر ویو، جس میں دو سطحیں ہیں: اوپر والی سطح ہائی، یعنی ایک، اور نیچے والی سطح لو، یعنی صفر۔ سگنل ان دونوں سطحوں کے درمیان اچانک چھلانگ لگاتا ہے۔"},
+{"t": "table", "cols": ["Feature", "Analog Data", "Digital Data"], "rows": [
+{"cells": ["Nature", "Continuous flow.", "Discrete, separate values (Bits)."], "ur": "نوعیت: اینالاگ ڈیٹا مسلسل بہاؤ ہوتا ہے، جبکہ ڈیجیٹل ڈیٹا الگ الگ ویلیوز، یعنی بٹس، پر مشتمل ہوتا ہے۔"},
+{"cells": ["Reliability", "Low (affected by noise).", "High (resistant to noise)."], "ur": "قابلِ بھروسہ ہونا: اینالاگ ڈیٹا میں کم ہوتا ہے کیونکہ شور سے متاثر ہوتا ہے، جبکہ ڈیجیٹل ڈیٹا میں زیادہ ہوتا ہے کیونکہ شور کا مقابلہ کرتا ہے۔"}
+]}
+]}

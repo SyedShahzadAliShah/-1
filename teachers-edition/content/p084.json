@@ -1,0 +1,13 @@
+{"page": 84, "blocks": [
+{"t": "h1", "en": "Library Case Study (Continued)", "ur": "لائبریری کیس سٹڈی، جاری ہے۔"},
+{"t": "h2", "en": "Step 6: Resolving Many-to-Many Relationship", "ur": "چھٹا مرحلہ: کئی سے کئی کے تعلق کا حل۔"},
+{"t": "p", "en": "As discussed earlier, relational databases cannot directly support M:N relationships. It leads to data redundancy. We must resolve it by introducing a Junction Entity (Bridge Table).", "ur": "جیسا کہ پہلے بتایا گیا، ریلیشنل ڈیٹا بیس میں کئی سے کئی کا تعلق براہِ راست نہیں بن سکتا، کیونکہ اس سے ڈیٹا کی تکرار پیدا ہوتی ہے۔ ہمیں اس کے درمیان ایک تیسرا ٹیبل بنانا ہوگا، جسے جنکشن اینٹیٹی یا برج ٹیبل کہتے ہیں۔"},
+{"t": "p", "en": "We create a new entity called: BorrowRecord", "ur": "ہم ایک نئی اینٹیٹی بناتے ہیں جس کا نام ہے بارو ریکارڈ۔"},
+{"t": "p", "en": "Instead of linking Member and Book directly, each borrowing activity is recorded as a separate entry in the BorrowRecord entity. This breaks the M:N relationship into two 1:M relationships.", "ur": "ممبر اور کتاب کو براہِ راست جوڑنے کے بجائے، کتاب لینے کی ہر کارروائی بارو ریکارڈ اینٹیٹی میں ایک الگ اندراج کے طور پر محفوظ کی جاتی ہے۔ اس طرح کئی سے کئی کا تعلق دو ایک سے کئی کے تعلقات میں تقسیم ہو جاتا ہے۔"},
+{"t": "h3", "en": "BorrowRecord Entity Attributes:", "ur": "بارو ریکارڈ اینٹیٹی کے اٹریبیوٹس۔"},
+{"t": "li", "lead": "BorrowID (Primary Key):", "en": "BorrowID (Primary Key): Unique ID for this specific transaction.", "ur": "بارو آئی ڈی، پرائمری کی: اس مخصوص لین دین کی منفرد آئی ڈی۔"},
+{"t": "li", "lead": "MemberID (Foreign Key):", "en": "MemberID (Foreign Key): Links to the Member who borrowed it.", "ur": "ممبر آئی ڈی، فارن کی: اس ممبر سے جوڑتی ہے جس نے کتاب مستعار لی۔"},
+{"t": "li", "lead": "BookID (Foreign Key):", "en": "BookID (Foreign Key): Links to the specific Book being borrowed.", "ur": "بک آئی ڈی، فارن کی: اس مخصوص کتاب سے جوڑتی ہے جو مستعار لی جا رہی ہے۔"},
+{"t": "li", "en": "IssueDate (Standard Attribute)", "ur": "ایشو ڈیٹ، ایک عام اٹریبیوٹ، یعنی کتاب جاری کرنے کی تاریخ۔"},
+{"t": "li", "en": "ReturnDate (Standard Attribute)", "ur": "ریٹرن ڈیٹ، ایک عام اٹریبیوٹ، یعنی کتاب واپس کرنے کی تاریخ۔"}
+]}

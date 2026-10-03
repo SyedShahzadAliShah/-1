@@ -1,0 +1,10 @@
+{"page": 25, "blocks": [
+{"t": "h1", "en": "OSI Model Layers (Top Layers)", "ur": "او ایس آئی ماڈل کی اوپر والی تہیں۔"},
+{"t": "table", "cols": ["Layer", "Main Job", "Protocols"], "rows": [
+  {"cells": ["7. Application", "Provides network services directly to user applications.", "HTTP, HTTPS, FTP, SMTP, DNS"], "ur": "تہہ نمبر سات، ایپلیکیشن: صارف کی ایپس، جیسے ویب اور ای میل، کو براہ راست نیٹ ورک سروس فراہم کرتی ہے۔ پروٹوکولز: ایچ ٹی ٹی پی، ایچ ٹی ٹی پی ایس، ایف ٹی پی، ایس ایم ٹی پی اور ڈی این ایس۔"},
+  {"cells": ["6. Presentation", "Data Translation, Encryption (security), and Compression.", "SSL/TLS, JPEG, MP3, ASCII"], "ur": "تہہ نمبر چھ، پریزنٹیشن: ڈیٹا کا ترجمہ، خفیہ کاری یعنی سیکیورٹی، اور سائز کم کرنا۔ پروٹوکولز: ایس ایس ایل، ٹی ایل ایس، جے پیگ، ایم پی تھری اور اسکی۔"},
+  {"cells": ["5. Session", "Opens, maintains, and closes communication sessions.", "NetBIOS, RPC"], "ur": "تہہ نمبر پانچ، سیشن: رابطے کے سیشن کھولتی ہے، قائم رکھتی ہے اور ختم کرتی ہے۔ پروٹوکولز: نیٹ بائیوس اور آر پی سی۔"},
+  {"cells": ["4. Transport", "Reliable end-to-end delivery, Error checking, Port numbering.", "TCP (reliable), UDP (fast)"], "ur": "تہہ نمبر چار، ٹرانسپورٹ: ڈیٹا کی قابل بھروسہ ابتدا سے انتہا تک ترسیل، غلطیوں کی جانچ، اور پورٹ نمبر لگانا۔ پروٹوکولز: ٹی سی پی، جو قابل بھروسہ ہے، اور یو ڈی پی، جو تیز ہے۔"}
+]},
+{"t": "note", "label": "TCP vs UDP at Transport Layer", "en": "Use TCP when accuracy matters (Web browsing, Emails). Use UDP when speed matters more than perfection (Video streaming, online gaming).", "ur": "جب درستگی اہم ہو، جیسے ویب براؤزنگ اور ای میل، تو ٹی سی پی استعمال کریں۔ جب رفتار مکمل درستگی سے زیادہ اہم ہو، جیسے ویڈیو اسٹریمنگ اور آن لائن گیمنگ، تو یو ڈی پی استعمال کریں۔"}
+]}

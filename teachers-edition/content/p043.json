@@ -1,0 +1,15 @@
+{"page": 43, "blocks": [
+{"t": "h1", "en": "2.6 How to Decide Which Algorithm to Use", "ur": "2.6 یہ فیصلہ کیسے کریں کہ کون سا الگورتھم استعمال کیا جائے۔"},
+{"t": "p", "en": "Before choosing an algorithm, ask: What is the input size? Is the data sorted? Do we need speed or memory efficiency?", "ur": "الگورتھم چننے سے پہلے یہ سوالات پوچھیں: ان پٹ کا حجم کتنا ہے؟ کیا ڈیٹا ترتیب میں ہے؟ کیا ہمیں رفتار چاہیے یا میموری کی بچت؟"},
+{"t": "note", "label": "Simple Decision Guide", "en": "If searching on unsorted data → use Linear Search. If searching on sorted data → use Binary Search. If data needs ordering → use Sorting algorithm.", "ur": "آسان رہنمائی۔ اگر بے ترتیب ڈیٹا میں تلاش کرنی ہو تو لینیئر سرچ استعمال کریں۔ اگر ترتیب شدہ ڈیٹا میں تلاش کرنی ہو تو بائنری سرچ استعمال کریں۔ اگر ڈیٹا کو ترتیب دینا ہو تو سورٹنگ الگورتھم استعمال کریں۔"},
+{"t": "h2", "en": "Summary", "ur": "خلاصہ۔"},
+{"t": "li", "lead": "Computational Thinking:", "en": "Computational Thinking: Systematic problem solving (Decomposition, Pattern Recognition, Abstraction, Algorithms).", "ur": "کمپیوٹیشنل تھنکنگ: مسائل کو منظم طریقے سے حل کرنا، جس میں ڈی کمپوزیشن، پیٹرن ریکگنیشن، ایبسٹریکشن اور الگورتھمز شامل ہیں۔"},
+{"t": "li", "lead": "Algorithm:", "en": "Algorithm: Step-by-step logical procedure (conceptual).", "ur": "الگورتھم: قدم بہ قدم منطقی طریقہ کار، جو تصوراتی ہوتا ہے۔"},
+{"t": "li", "lead": "Pseudocode:", "en": "Pseudocode: Human-readable structured code.", "ur": "سوڈو کوڈ: انسان کے پڑھنے کے قابل منظم کوڈ۔"},
+{"t": "li", "lead": "Decomposition:", "en": "Decomposition: Breaking big problems into smaller parts.", "ur": "ڈی کمپوزیشن: بڑے مسائل کو چھوٹے حصوں میں تقسیم کرنا۔"},
+{"t": "li", "lead": "Abstraction:", "en": "Abstraction: Hiding noise, focusing on essentials.", "ur": "ایبسٹریکشن: غیر ضروری باتوں کو چھپانا اور ضروری باتوں پر توجہ دینا۔"},
+{"t": "li", "lead": "Bubble/Selection Sort:", "en": "Bubble/Selection Sort: Simple, nested-loop sorting algorithms (slow for large data).", "ur": "ببل اور سلیکشن سورٹ: سادہ سورٹنگ الگورتھمز جو نیسٹڈ لوپ استعمال کرتے ہیں اور بڑے ڈیٹا کے لیے سست ہیں۔"},
+{"t": "li", "lead": "Linear Search:", "en": "Linear Search: Checks one by one (works on unsorted data).", "ur": "لینیئر سرچ: ایک ایک کر کے جانچتی ہے اور بے ترتیب ڈیٹا پر بھی کام کرتی ہے۔"},
+{"t": "li", "lead": "Binary Search:", "en": "Binary Search: Splits in half (extremely fast, but requires sorted data).", "ur": "بائنری سرچ: ڈیٹا کو ہر بار آدھا کرتی ہے، انتہائی تیز ہے، مگر ڈیٹا کا ترتیب شدہ ہونا ضروری ہے۔"},
+{"t": "li", "lead": "Evaluation Criteria:", "en": "Evaluation Criteria: Correctness, Efficiency (Time/Space), and Clarity.", "ur": "جانچ کے معیارات: درستگی، کارکردگی یعنی وقت اور جگہ، اور وضاحت۔"}
+]}

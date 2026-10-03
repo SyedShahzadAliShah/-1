@@ -1,0 +1,17 @@
+{"page": 88, "blocks": [
+{"t": "h1", "en": "4.9 Creation of Tables in MS Access", "ur": "حصہ چار اعشاریہ نو: ایم ایس ایکسس میں ٹیبلز بنانا۔"},
+{"t": "p", "en": "Creating tables is the fundamental step in developing a database. A carefully designed table ensures data accuracy, improves query speed, and saves storage.", "ur": "ٹیبلز بنانا ڈیٹا بیس تیار کرنے کا بنیادی قدم ہے۔ احتیاط سے ڈیزائن کیا گیا ٹیبل ڈیٹا کی درستگی یقینی بناتا ہے، کیوری کی رفتار بہتر کرتا ہے اور سٹوریج کی بچت کرتا ہے۔"},
+{"t": "h2", "en": "4.9.1 Planning the Table Structure", "ur": "چار اعشاریہ نو اعشاریہ ایک: ٹیبل کے ڈھانچے کی منصوبہ بندی۔"},
+{"t": "p", "en": "Before touching the software, you must plan:", "ur": "سافٹ ویئر کو ہاتھ لگانے سے پہلے آپ کو منصوبہ بندی کرنی چاہیے:"},
+{"t": "li", "lead": "Purpose:", "en": "Purpose: What will this table store?", "ur": "مقصد: یہ ٹیبل کیا کچھ محفوظ کرے گا؟"},
+{"t": "li", "lead": "Fields:", "en": "Fields: What exact columns do I need?", "ur": "فیلڈز: مجھے بالکل کون سے کالمز چاہییں؟"},
+{"t": "li", "lead": "Data Types:", "en": "Data Types: Is it Text, a Number, or a Date?", "ur": "ڈیٹا ٹائپس: کیا یہ ٹیکسٹ ہے، نمبر ہے، یا تاریخ ہے؟"},
+{"t": "li", "lead": "Primary Key:", "en": "Primary Key: Which field is the unique identifier?", "ur": "پرائمری کی: کون سی فیلڈ منفرد شناخت ہے؟"},
+{"t": "h2", "en": "4.9.2 Creating Table using Datasheet View", "ur": "چار اعشاریہ نو اعشاریہ دو: ڈیٹا شیٹ ویو کے ذریعے ٹیبل بنانا۔"},
+{"t": "p", "en": "Datasheet View is the fast, easy, spreadsheet-like way to create tables. It is great for beginners but offers limited control.", "ur": "ڈیٹا شیٹ ویو ٹیبل بنانے کا تیز اور آسان طریقہ ہے جو سپریڈ شیٹ جیسا ہوتا ہے۔ یہ نئے سیکھنے والوں کے لیے بہت اچھا ہے لیکن اس میں کنٹرول محدود ہوتا ہے۔"},
+{"t": "li", "en": "1. Go to the Create tab and select Table.", "ur": "پہلا، کری ایٹ ٹیب پر جائیں اور ٹیبل منتخب کریں۔"},
+{"t": "li", "en": "2. A blank grid appears (like Excel).", "ur": "دوسرا، ایک خالی گرڈ ظاہر ہوتا ہے، جیسے ایکسل میں ہوتا ہے۔"},
+{"t": "li", "en": "3. Double-click the column headers (Field1, Field2) to rename them.", "ur": "تیسرا، کالم کے ہیڈرز، یعنی فیلڈ ون اور فیلڈ ٹو، پر ڈبل کلک کریں تاکہ ان کے نام بدل سکیں۔"},
+{"t": "li", "en": "4. Start typing data directly into the cells. MS Access tries to guess the data type automatically.", "ur": "چوتھا، خانوں میں براہِ راست ڈیٹا ٹائپ کرنا شروع کریں۔ ایم ایس ایکسس خود بخود ڈیٹا ٹائپ کا اندازہ لگانے کی کوشش کرتا ہے۔"},
+{"t": "note", "label": "Limitations of Datasheet View", "en": "While fast, Datasheet view doesn't let you set strict validation rules (like \"Marks cannot be over 100\") easily. Professional developers prefer Design View.", "ur": "اگرچہ ڈیٹا شیٹ ویو تیز ہے، لیکن اس میں سخت ویلیڈیشن رولز لگانا آسان نہیں ہوتا، جیسے یہ کہ نمبر سو سے زیادہ نہیں ہو سکتے۔ پیشہ ور ڈیولپرز ڈیزائن ویو کو ترجیح دیتے ہیں۔"}
+]}

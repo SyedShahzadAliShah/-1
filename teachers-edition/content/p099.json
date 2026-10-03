@@ -1,0 +1,19 @@
+{"page": 99, "blocks": [
+{"t": "h1", "en": "5.1.2 Internet of Things (IoT)", "ur": "حصہ پانچ اعشاریہ ایک اعشاریہ دو: انٹرنیٹ آف تھنگز، یعنی آئی او ٹی۔"},
+{"t": "badge", "en": "GOLDEN TOPIC", "ur": "یہ ایک سنہری موضوع ہے، امتحان کے لیے انتہائی اہم۔"},
+{"t": "p", "en": "The Internet of Things (IoT) is a system in which physical devices are connected to the Internet and can collect and share data to perform tasks automatically.", "ur": "انٹرنیٹ آف تھنگز ایک ایسا نظام ہے جس میں مختلف طبعی آلات، جیسے گھڑیاں، کیمرے اور گاڑیاں، انٹرنیٹ سے جڑے ہوتے ہیں اور خودکار طریقے سے کام کرنے کے لیے ڈیٹا جمع اور شیئر کرتے ہیں۔"},
+{"t": "p", "en": "Example: A smartwatch collects heart rate data and sends it to a mobile phone to display.", "ur": "مثال: اسمارٹ واچ دل کی دھڑکن کا ڈیٹا جمع کرتی ہے اور اسے دکھانے کے لیے موبائل فون کو بھیج دیتی ہے۔"},
+{"t": "h2", "en": "Components of IoT Systems", "ur": "آئی او ٹی سسٹمز کے اجزا۔"},
+{"t": "p", "en": "IoT relies on six foundational components to work properly:", "ur": "آئی او ٹی کو درست کام کرنے کے لیے چھ بنیادی اجزا پر انحصار کرنا پڑتا ہے۔"},
+{"t": "h3", "en": "1. Sensors ()", "ur": "نمبر ایک: سینسرز۔"},
+{"t": "p", "en": "Devices that collect information from the physical world. They are the \"eyes and ears\" of the system.", "ur": "یہ وہ آلات ہیں جو اردگرد کے ماحول سے معلومات، جیسے درجہ حرارت، حرکت اور دھواں، جمع کرتے ہیں۔ یہ سسٹم کی آنکھیں اور کان ہوتے ہیں۔"},
+{"t": "li", "en": "Temperature sensor", "ur": "درجہ حرارت کا سینسر۔"},
+{"t": "li", "en": "Motion sensor", "ur": "حرکت کا سینسر۔"},
+{"t": "li", "en": "Fingerprint sensor", "ur": "فنگر پرنٹ سینسر۔"},
+{"t": "li", "en": "Smoke / Soil moisture sensor", "ur": "دھوئیں کا سینسر یا مٹی کی نمی کا سینسر۔"},
+{"t": "h3", "en": "2. Actuators ()", "ur": "نمبر دو: ایکچویٹرز۔"},
+{"t": "p", "en": "Devices that perform physical actions in response to system commands. They convert digital signals into physical movement.", "ur": "یہ وہ آلات ہیں جو سسٹم کی ہدایات پر عمل کرتے ہوئے کوئی جسمانی کام انجام دیتے ہیں، جیسے موٹر چلانا یا دروازہ کھولنا۔ یہ ڈیجیٹل سگنلز کو جسمانی حرکت میں بدل دیتے ہیں۔"},
+{"t": "li", "en": "Electric Motor / Switch", "ur": "الیکٹرک موٹر یا سوئچ۔"},
+{"t": "li", "en": "Automatic door opener", "ur": "خودکار دروازہ کھولنے والا۔"},
+{"t": "li", "en": "Water valve / Fan controller", "ur": "پانی کا والو یا پنکھے کا کنٹرولر۔"}
+]}

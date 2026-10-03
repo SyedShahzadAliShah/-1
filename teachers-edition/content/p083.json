@@ -1,0 +1,12 @@
+{"page": 83, "blocks": [
+{"t": "h1", "en": "Library Case Study (Continued)", "ur": "لائبریری کیس سٹڈی، جاری ہے۔"},
+{"t": "h2", "en": "Step 4: Identification of Relationships", "ur": "چوتھا مرحلہ: تعلقات کی شناخت۔"},
+{"t": "p", "en": "We need to understand how the entities interact. The primary interaction is:", "ur": "ہمیں یہ سمجھنا ہے کہ اینٹیٹیز آپس میں کس طرح عمل کرتی ہیں۔ بنیادی عمل یہ ہے:"},
+{"t": "p", "en": "\"A Member borrows a Book\"", "ur": "ایک ممبر ایک کتاب مستعار لیتا ہے۔"},
+{"t": "h2", "en": "Step 5: Determine Cardinality", "ur": "پانچواں مرحلہ: کارڈینیلیٹی کا تعین۔"},
+{"t": "p", "en": "Cardinality defines the nature of the relationship (1:1, 1:M, M:N).", "ur": "کارڈینیلیٹی تعلق کی نوعیت بتاتی ہے، یعنی ایک سے ایک، ایک سے کئی، یا کئی سے کئی۔"},
+{"t": "li", "en": "A single member can borrow many books over time.", "ur": "ایک ہی ممبر وقت کے ساتھ کئی کتابیں مستعار لے سکتا ہے۔"},
+{"t": "li", "en": "A single book can be borrowed by many different members over time.", "ur": "ایک ہی کتاب وقت کے ساتھ کئی مختلف ممبرز مستعار لے سکتے ہیں۔"},
+{"t": "p", "en": "Conclusion: The relationship is Many-to-Many (M:N)", "ur": "نتیجہ: یہ تعلق کئی سے کئی کا ہے، یعنی ایم سے این۔"},
+{"t": "figure", "en": "MEMBER | Borrows | BOOK | M | N", "ur": "یہ ای آر ڈایاگرام ہے۔ بائیں طرف ممبر کا مستطیل ہے اور دائیں طرف بک یعنی کتاب کا مستطیل ہے۔ ان کے درمیان ایک ہیرے کی شکل میں بارو کا تعلق دکھایا گیا ہے۔ ممبر کی طرف لکھا ہے ایم اور کتاب کی طرف لکھا ہے این، جس کا مطلب ہے کہ یہ کئی سے کئی کا تعلق ہے۔"}
+]}

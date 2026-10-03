@@ -1,0 +1,20 @@
+{"page": 118, "blocks": [
+{"t": "h1", "en": "Primary vs Secondary & Approach Design", "ur": "پرائمری بمقابلہ سیکنڈری اور طریقہ کار کی ترتیب۔"},
+{"t": "h2", "en": "6.5.3 Difference Between Primary and Secondary Data", "ur": "سیکشن 6 پوائنٹ 5 پوائنٹ 3، پرائمری اور سیکنڈری ڈیٹا میں فرق۔"},
+{"t": "table", "cols": ["Aspect", "Primary Data", "Secondary Data"], "rows": [
+{"cells": ["Source", "Collected directly by the researcher.", "Already collected by others."], "ur": "ذریعہ: پرائمری ڈیٹا محقق خود براہِ راست جمع کرتا ہے، جبکہ سیکنڈری ڈیٹا پہلے سے دوسروں کا جمع کیا ہوا ہوتا ہے۔"},
+{"cells": ["Examples", "Survey responses, interviews, observations.", "Reports, articles, websites, databases."], "ur": "مثالیں: پرائمری ڈیٹا میں سروے کے جوابات، انٹرویوز اور مشاہدات آتے ہیں، جبکہ سیکنڈری ڈیٹا میں رپورٹیں، مضامین، ویب سائٹس اور ڈیٹا بیس آتے ہیں۔"},
+{"cells": ["Purpose", "Prepared for a specific study.", "Reused for a new purpose."], "ur": "مقصد: پرائمری ڈیٹا کسی مخصوص مطالعے کے لیے تیار کیا جاتا ہے، جبکہ سیکنڈری ڈیٹا نئے مقصد کے لیے دوبارہ استعمال ہوتا ہے۔"},
+{"cells": ["Control", "High control over questions and collection process.", "Limited control because the data already exists."], "ur": "اختیار: پرائمری ڈیٹا میں سوالات اور جمع کرنے کے عمل پر زیادہ اختیار ہوتا ہے، جبکہ سیکنڈری ڈیٹا میں اختیار محدود ہوتا ہے کیونکہ ڈیٹا پہلے سے موجود ہوتا ہے۔"}
+]},
+{"t": "h1", "en": "6.6 Designing a Data-Collection Approach", "ur": "سیکشن 6 پوائنٹ 6، ڈیٹا جمع کرنے کا طریقہ کار ترتیب دینا۔"},
+{"t": "p", "en": "Before collecting data, a researcher must have a plan. This ensures accurate, relevant, and useful information is gathered.", "ur": "ڈیٹا جمع کرنے سے پہلے محقق کے پاس ایک منصوبہ ہونا چاہیے۔ اس سے یہ یقینی بنتا ہے کہ درست، متعلقہ اور مفید معلومات جمع ہوں۔"},
+{"t": "li", "en": "1. Define the research question clearly.", "lead": "1. Define", "ur": "ایک: تحقیقی سوال کو واضح طور پر متعین کریں۔"},
+{"t": "li", "en": "2. Decide the type of data needed: quantitative, qualitative, or both.", "lead": "2. Decide", "ur": "دو: طے کریں کہ کس قسم کا ڈیٹا درکار ہے، کوانٹیٹیٹیو، کوالیٹیٹیو، یا دونوں۔"},
+{"t": "li", "en": "3. Select suitable methods (survey, interview, observation).", "lead": "3. Select", "ur": "تین: مناسب طریقے منتخب کریں، جیسے سروے، انٹرویو اور آبزرویشن۔"},
+{"t": "li", "en": "4. Choose the sample or target group.", "lead": "4. Choose", "ur": "چار: نمونہ یا ہدف گروپ کا انتخاب کریں۔"},
+{"t": "li", "en": "5. Prepare the tools such as forms, questions, and observation sheets.", "lead": "5. Prepare", "ur": "پانچ: فارم، سوالات اور آبزرویشن شیٹس جیسے اوزار تیار کریں۔"},
+{"t": "li", "en": "6. Collect the data carefully and accurately.", "lead": "6. Collect", "ur": "چھ: ڈیٹا احتیاط اور درستی کے ساتھ جمع کریں۔"},
+{"t": "li", "en": "7. Store the data digitally in a spreadsheet and keep a backup.", "lead": "7. Store", "ur": "سات: ڈیٹا کو ڈیجیٹل طور پر اسپریڈ شیٹ میں محفوظ کریں اور اس کا بیک اپ رکھیں۔"},
+{"t": "li", "en": "8. Follow ethical practice and respect privacy (Consent is mandatory).", "lead": "8. Follow", "ur": "آٹھ: اخلاقی اصولوں پر عمل کریں اور رازداری کا احترام کریں، رضامندی لینا لازمی ہے۔"}
+]}

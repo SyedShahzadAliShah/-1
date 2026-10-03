@@ -1,0 +1,15 @@
+{"page": 81, "blocks": [
+{"t": "h1", "en": "4.6 Relational Schema Development", "ur": "حصہ چار اعشاریہ چھ: ریلیشنل سکیمہ کی تیاری۔"},
+{"t": "p", "en": "A relational schema is a formal representation of the structure of a database. It acts as the design or blueprint of the database before it is actually implemented in software like MS Access.", "ur": "ریلیشنل سکیمہ ڈیٹا بیس کی ساخت کی ایک باقاعدہ نمائندگی ہے۔ یہ ڈیٹا بیس کا ایک خاکہ یا نقشہ ہوتا ہے جو بتاتا ہے کہ کون سے ٹیبلز بنیں گے اور ان کا آپس میں کیا تعلق ہو گا۔ یہ نقشہ ایم ایس ایکسس جیسے سافٹ ویئر میں ڈیٹا بیس بنانے سے پہلے تیار کیا جاتا ہے۔"},
+{"t": "h2", "en": "What does a Schema define?", "ur": "سکیمہ کیا چیزیں طے کرتا ہے؟"},
+{"t": "li", "en": "How data is organized into Tables.", "ur": "ڈیٹا کو ٹیبلز میں کس طرح ترتیب دیا جاتا ہے۔"},
+{"t": "li", "en": "What Fields (columns) each table contains.", "ur": "ہر ٹیبل میں کون سی فیلڈز، یعنی کالمز، ہوتی ہیں۔"},
+{"t": "li", "en": "Which fields are Primary Keys and Foreign Keys.", "ur": "کون سی فیلڈز پرائمری کی اور فارن کی ہیں۔"},
+{"t": "li", "en": "How different tables are related to each other.", "ur": "مختلف ٹیبلز کا آپس میں کیا تعلق ہے۔"},
+{"t": "h2", "en": "Why develop a Schema?", "ur": "سکیمہ کیوں بنایا جاتا ہے؟"},
+{"t": "p", "en": "Developing a relational schema is an important step because:", "ur": "ریلیشنل سکیمہ بنانا ایک اہم قدم ہے، کیونکہ:"},
+{"t": "li", "en": "1. It reduces redundancy (duplication of data).", "ur": "پہلی بات، یہ ریڈنڈنسی یعنی ڈیٹا کی تکرار کو کم کرتا ہے۔"},
+{"t": "li", "en": "2. It improves data integrity by planning keys in advance.", "ur": "دوسری بات، یہ کیز کی پہلے سے منصوبہ بندی کر کے ڈیٹا کی درستگی اور انٹیگریٹی کو بہتر بناتا ہے۔"},
+{"t": "li", "en": "3. It makes the database easier to manage and scale in the future.", "ur": "تیسری بات، یہ مستقبل میں ڈیٹا بیس کو سنبھالنا اور بڑھانا آسان بنا دیتا ہے۔"},
+{"t": "note", "label": "Teacher's Tip", "en": "Remind students that skipping the schema design phase is like trying to build a house without an architectural drawing. It leads to messy, broken structures.", "ur": "طلبہ کو یاد دلائیں کہ سکیمہ ڈیزائن کا مرحلہ چھوڑ دینا ایسا ہی ہے جیسے نقشے کے بغیر گھر بنانے کی کوشش کرنا۔ اس سے بے ترتیب اور ٹوٹے پھوٹے ڈھانچے بنتے ہیں۔"}
+]}

@@ -1,0 +1,15 @@
+{"page": 80, "blocks": [
+{"t": "h1", "en": "Referential Integrity Operations", "ur": "ریفرینشل انٹیگریٹی کے آپریشنز۔"},
+{"t": "p", "en": "To maintain consistency automatically without manual effort, DBMS provides two powerful operations.", "ur": "ڈیٹا کی مطابقت کو خود بخود اور بغیر کسی دستی محنت کے برقرار رکھنے کے لیے ڈی بی ایم ایس دو طاقتور آپریشنز فراہم کرتا ہے۔"},
+{"t": "h2", "en": "1. Cascade Update", "ur": "نمبر 1، کیسکیڈ اپ ڈیٹ۔"},
+{"t": "p", "en": "If a Primary Key value is changed in the parent table, that exact change is automatically updated in all related child tables.", "ur": "اگر پیرنٹ ٹیبل میں پرائمری کی کی ویلیو تبدیل کی جائے تو وہی تبدیلی تمام متعلقہ چائلڈ ٹیبلز میں خود بخود اپ ڈیٹ ہو جاتی ہے۔"},
+{"t": "li", "en": "Example: If Ali's StudentID changes from 101 to 201 in the Student table, his ID will automatically change to 201 in the Enrollments table. No data is lost or disconnected.", "ur": "مثال: اگر اسٹوڈنٹ ٹیبل میں علی کی اسٹوڈنٹ آئی ڈی ایک سو ایک سے بدل کر دو سو ایک ہو جائے، تو انرولمنٹس ٹیبل میں اس کی آئی ڈی بھی خود بخود دو سو ایک ہو جائے گی۔ کوئی ڈیٹا ضائع نہیں ہوتا اور نہ ہی کٹتا ہے۔"},
+{"t": "h2", "en": "2. Cascade Delete", "ur": "نمبر 2، کیسکیڈ ڈیلیٹ۔"},
+{"t": "p", "en": "If a record is deleted from the parent table, all related records in child tables are also deleted automatically.", "ur": "اگر پیرنٹ ٹیبل سے کوئی ریکارڈ ڈیلیٹ کیا جائے تو چائلڈ ٹیبلز میں اس سے متعلق تمام ریکارڈز بھی خود بخود ڈیلیٹ ہو جاتے ہیں۔"},
+{"t": "li", "en": "Example: If student Sara (ID 102) leaves the school and is deleted from the Student table, all her records in the Enrollments and Results tables are instantly wiped out. This prevents \"ghost\" data from clogging the system.", "ur": "مثال: اگر طالبہ سارہ، جس کی آئی ڈی ایک سو دو ہے، اسکول چھوڑ دے اور اسٹوڈنٹ ٹیبل سے ڈیلیٹ ہو جائے، تو انرولمنٹس اور رزلٹس ٹیبلز میں اس کے تمام ریکارڈز فوراً مٹ جاتے ہیں۔ اس طرح بھوت ڈیٹا، یعنی بے کار ڈیٹا، نظام کو بھرنے سے بچتا ہے۔"},
+{"t": "h3", "en": "Benefits of Referential Integrity", "ur": "ریفرینشل انٹیگریٹی کے فوائد۔"},
+{"t": "li", "en": "Maintains complete data consistency.", "ur": "ڈیٹا کی مکمل مطابقت برقرار رکھتی ہے۔"},
+{"t": "li", "en": "Saves time and manual effort for admins.", "ur": "ایڈمنز کا وقت اور دستی محنت بچاتی ہے۔"},
+{"t": "li", "en": "Reduces errors and prevents orphan records.", "ur": "غلطیاں کم کرتی ہے اور آرفن ریکارڈز بننے سے روکتی ہے۔"},
+{"t": "li", "en": "Ensures reliable and accurate reporting.", "ur": "قابلِ بھروسہ اور درست رپورٹنگ کو یقینی بناتی ہے۔"}
+]}

@@ -1,0 +1,14 @@
+{"page": 33, "blocks": [
+{"t": "h1", "en": "2.3.3 Abstraction", "ur": "دو پوائنٹ تین پوائنٹ تین: ایبسٹریکشن۔"},
+{"t": "p", "en": "Abstraction means hiding unnecessary features and focusing only on the essential ones needed to solve a problem. It reduces complexity by ignoring what is not important (noise).", "ur": "ایبسٹریکشن کا مطلب ہے غیر ضروری تفصیلات کو چھپانا اور صرف ان اہم باتوں پر توجہ دینا جو مسئلہ حل کرنے کے لیے ضروری ہوں۔ یہ غیر اہم چیزوں، یعنی شور کو نظر انداز کر کے پیچیدگی کو کم کرتا ہے۔"},
+{"t": "h3", "en": "Example: Applying Abstraction to \"Making Tea\"", "ur": "مثال: چائے بنانے پر ایبسٹریکشن کا اطلاق۔"},
+{"t": "p", "en": "To make an algorithm for tea, we must separate the necessary steps from the situational changes and the noise.", "ur": "چائے بنانے کا الگورتھم تیار کرنے کے لیے ہمیں ضروری مراحل کو حالات کے مطابق بدلنے والی چیزوں اور غیر ضروری شور سے الگ کرنا ہوگا۔"},
+{"t": "table", "cols": ["1. Necessary Steps (Core Logic)", "2. Changes based on situation (Variables)", "3. Abstraction Items (Ignore/Noise)"], "rows": [
+{"cells": ["1. Boil water", "Ingredients (Black, Green, Milk)", "Brand of kettle"], "ur": "پہلا ضروری مرحلہ پانی ابالنا ہے۔ حالات کے مطابق بدلنے والی چیز اجزاء ہیں، یعنی کالی چائے، سبز چائے یا دودھ۔ نظر انداز کرنے والی چیز کیتلی کا برانڈ ہے۔"},
+{"cells": ["2. Add tea leaves/bag", "Additions (Sugar, Lemon)", "Cup color or design"], "ur": "دوسرا مرحلہ چائے کی پتی یا ٹی بیگ ڈالنا ہے۔ بدلنے والی چیز اضافی اشیاء ہیں، جیسے چینی یا لیموں۔ نظر انداز کرنے والی چیز پیالی کا رنگ یا ڈیزائن ہے۔"},
+{"cells": ["3. Steep for a few mins", "Tools (Stove vs Kettle)", "Where tea is made (Kitchen, Office)"], "ur": "تیسرا مرحلہ چند منٹ دم دینا ہے۔ بدلنے والی چیز آلات ہیں، یعنی چولہا یا کیتلی۔ نظر انداز کرنے والی چیز یہ ہے کہ چائے کہاں بن رہی ہے، باورچی خانے میں یا دفتر میں۔"},
+{"cells": ["4. Pour into cup", "", ""], "ur": "چوتھا مرحلہ چائے کو پیالی میں انڈیلنا ہے۔"},
+{"cells": ["5. Serve", "", ""], "ur": "پانچواں مرحلہ چائے پیش کرنا ہے۔"}
+]},
+{"t": "figure", "en": "The Core Abstracted Logic (Independent of cup color or kettle brand) | 1. Boil Water | 2. Add Tea | 3. Steep | 4. Pour | 5. Serve", "ur": "یہ ایک فلو چارٹ ہے جو چائے بنانے کا بنیادی منطقی عمل دکھاتا ہے، جو پیالی کے رنگ یا کیتلی کے برانڈ سے آزاد ہے۔ اس میں پانچ پیلے باکس تیر کے نشانوں سے بائیں سے دائیں جڑے ہیں: پہلے پانی ابالنا، پھر چائے ڈالنا، پھر دم دینا، پھر انڈیلنا، اور آخر میں پیش کرنا۔"}
+]}

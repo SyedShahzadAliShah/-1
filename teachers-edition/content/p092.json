@@ -1,0 +1,13 @@
+{"page": 92, "blocks": [
+{"t": "h1", "en": "Filtering Query Data", "ur": "کوئری کے ڈیٹا کی فلٹرنگ۔"},
+{"t": "h2", "en": "4.11.3 Filtering Data", "ur": "حصہ چار اعشاریہ ایک ایک اعشاریہ تین: ڈیٹا کو فلٹر کرنا۔"},
+{"t": "p", "en": "By default, a query shows ALL rows. To see only specific records (e.g., only students in \"Computer Science\"), we type rules into the Criteria row of the design grid.", "ur": "عام طور پر کوئری تمام قطاریں دکھاتی ہے۔ صرف مخصوص ریکارڈ دیکھنے کے لیے، مثلاً صرف کمپیوٹر سائنس کے طلبہ، ہم ڈیزائن گرڈ کی کرائٹیریا والی قطار میں قواعد لکھتے ہیں۔"},
+{"t": "h3", "en": "Single Criteria", "ur": "ایک شرط۔"},
+{"t": "p", "en": "Type \"Computer Science\" under the Department column. Only those students will appear.", "ur": "ڈیپارٹمنٹ کالم کے نیچے کمپیوٹر سائنس لکھیں۔ صرف وہی طلبہ ظاہر ہوں گے۔"},
+{"t": "h3", "en": "Multiple Criteria (Logical AND)", "ur": "ایک سے زیادہ شرائط، منطقی اینڈ۔"},
+{"t": "p", "en": "If you want students who are named \"Ali\" AND are in \"Computer Science\", you put both criteria on the SAME row in the grid.", "ur": "اگر آپ ایسے طلبہ چاہتے ہیں جن کا نام علی ہو اور وہ کمپیوٹر سائنس میں بھی ہوں، تو دونوں شرائط گرڈ میں ایک ہی قطار میں لکھیں۔"},
+{"t": "figure", "en": "Field: Name | Field: Department | Criteria: | \"Ali\" | \"Computer Science\" | or:", "ur": "یہ گرڈ دو کالموں پر مشتمل ہے، نیم اور ڈیپارٹمنٹ۔ کرائٹیریا کی قطار میں نیم کے نیچے علی اور ڈیپارٹمنٹ کے نیچے کمپیوٹر سائنس لکھا ہے، یعنی دونوں شرائط ایک ہی قطار میں ہیں۔ آر والی قطار خالی ہے۔"},
+{"t": "h3", "en": "Multiple Criteria (Logical OR)", "ur": "ایک سے زیادہ شرائط، منطقی آر۔"},
+{"t": "p", "en": "If you want students who are in \"IT\" OR \"Computer Science\", you put the criteria on DIFFERENT rows (using the \"or:\" row).", "ur": "اگر آپ ایسے طلبہ چاہتے ہیں جو آئی ٹی یا کمپیوٹر سائنس میں ہوں، تو شرائط الگ الگ قطاروں میں لکھیں، یعنی آر والی قطار استعمال کریں۔"},
+{"t": "figure", "en": "Field: Department | Criteria: | \"IT\" | or: | \"Computer Science\"", "ur": "یہ گرڈ صرف ڈیپارٹمنٹ کالم دکھاتا ہے۔ کرائٹیریا کی قطار میں آئی ٹی لکھا ہے اور اس کے نیچے آر والی قطار میں کمپیوٹر سائنس لکھا ہے، یعنی شرائط الگ الگ قطاروں میں ہیں۔"}
+]}

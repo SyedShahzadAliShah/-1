@@ -1,0 +1,15 @@
+{
+  "page": 17,
+  "blocks": [
+    {"t": "h1", "en": "Building a Circuit in LogiSim", "ur": "لاجی سم میں سرکٹ بنانا۔"},
+    {"t": "h2", "en": "Step-by-Step: Building Y = A · B", "ur": "قدم بہ قدم: وائی برابر اے ضرب بی کا سرکٹ بنانا۔"},
+    {"t": "li", "en": "1. Select the AND Gate from the Toolbar or Gates library and place it on the canvas.", "ur": "پہلا قدم: ٹول بار یا گیٹس لائبریری سے اینڈ گیٹ منتخب کریں اور اسے کینوس پر رکھ دیں۔"},
+    {"t": "li", "en": "2. Select the Input Pin (square icon with a 0) and place two pins to the left of the gate (label them A and B).", "ur": "دوسرا قدم: ان پٹ پن منتخب کریں، جس کا نشان صفر والا چوکور ہے، اور گیٹ کے بائیں طرف دو پن رکھیں، اور ان کے نام اے اور بی لکھ دیں۔"},
+    {"t": "li", "en": "3. Select the Output Pin (circle icon with a 0) and place it to the right (label it Y).", "ur": "تیسرا قدم: آؤٹ پٹ پن منتخب کریں، جس کا نشان صفر والا دائرہ ہے، اور اسے دائیں طرف رکھیں، اور اس کا نام وائی لکھ دیں۔"},
+    {"t": "li", "en": "4. Use the Wiring Tool to click and drag wires from the Input Pins to the AND gate's input ports. Wires must be horizontal or vertical.", "ur": "چوتھا قدم: وائرنگ ٹول سے کلک کر کے ان پٹ پنز سے اینڈ گیٹ کے ان پٹ پورٹس تک تاریں کھینچیں۔ تاریں افقی یا عمودی ہونی چاہئیں۔"},
+    {"t": "li", "en": "5. Wire the gate's output to the Output Pin Y.", "ur": "پانچواں قدم: گیٹ کے آؤٹ پٹ کو آؤٹ پٹ پن وائی کے ساتھ تار سے جوڑ دیں۔"},
+    {"t": "li", "en": "6. Select the Poke Tool (pointing finger) to toggle input A and B between 0 and 1 to test the circuit!", "ur": "چھٹا قدم: پوک ٹول منتخب کریں، جس کا نشان اشارہ کرتی انگلی ہے، اور ان پٹ اے اور بی کو صفر اور ایک کے درمیان بدل کر سرکٹ کو جانچیں۔"},
+    {"t": "figure", "en": "1 | A | 0 | B | AND | 0 | Y", "ur": "یہ لاجی سم کینوس کی تصویر ہے جس میں اینڈ گیٹ کا سرکٹ بنا ہوا ہے۔ بائیں طرف دو ان پٹ پن ہیں۔ اوپر والا پن اے ہے جس میں 1 ہے، اور نیچے والا پن بی ہے جس میں 0 ہے۔ دونوں اینڈ گیٹ میں جاتے ہیں، اور دائیں طرف آؤٹ پٹ پن وائی ہے جس میں 0 نظر آ رہا ہے، کیونکہ ایک ان پٹ صفر ہے۔ اے سے آنے والی تار ہلکے ہرے رنگ کی ہے، یعنی لاجک 1۔"},
+    {"t": "p", "en": "Circuit testing with Poke Tool. Notice the bright green line (Logic 1) from Input A.", "ur": "پوک ٹول سے سرکٹ کی جانچ۔ ان پٹ اے سے آنے والی ہلکے ہرے رنگ کی لکیر کو دیکھیں، جو لاجک 1 کو ظاہر کرتی ہے۔"}
+  ]
+}
