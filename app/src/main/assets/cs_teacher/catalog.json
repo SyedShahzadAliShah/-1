@@ -1,0 +1,16 @@
+{
+  "books": [
+    {
+      "id": "cs_xi",
+      "title": "Computer Science XI",
+      "asset": "cs_teacher/cs_xi.json",
+      "topicCount": 73
+    },
+    {
+      "id": "cs_xii",
+      "title": "Computer Science XII",
+      "asset": "cs_teacher/cs_xii.json",
+      "topicCount": 94
+    }
+  ]
+}

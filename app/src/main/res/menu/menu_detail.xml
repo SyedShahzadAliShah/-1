@@ -6,9 +6,4 @@
         android:icon="@android:drawable/ic_media_play"
         android:title="@string/listen"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_export"
-        android:icon="@android:drawable/ic_menu_save"
-        android:title="@string/export_pdf"
-        app:showAsAction="ifRoom" />
 </menu>

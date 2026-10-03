@@ -3,12 +3,12 @@ package com.couplesguide.postures
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.couplesguide.postures.data.GuideChapter
-import com.couplesguide.postures.data.GuideRepository
+import com.couplesguide.postures.data.CsTopic
+import com.couplesguide.postures.data.CsTeacherRepository
 import com.couplesguide.postures.databinding.ActivityChapterDetailBinding
-import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.VoiceNarrator
@@ -16,34 +16,27 @@ import com.couplesguide.postures.util.VoiceNarrator
 class ChapterDetailActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_CHAPTER_ID = "chapter_id"
+        const val EXTRA_TOPIC_ID = "topic_id"
     }
 
     private lateinit var binding: ActivityChapterDetailBinding
-    private lateinit var chapter: GuideChapter
-    private var language = LocaleHelper.LANG_EN
+    private lateinit var topic: CsTopic
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
-
-    override fun attachBaseContext(newBase: android.content.Context) {
-        super.attachBaseContext(LocaleHelper.wrap(newBase))
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChapterDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        language = LocaleHelper.getLanguage(this)
-        val chapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
-        val found = chapterId?.let { GuideRepository.getChapterById(it) }
-
+        val topicId = intent.getStringExtra(EXTRA_TOPIC_ID)
+        val found = topicId?.let { CsTeacherRepository.getTopic(this, it) }
         if (found == null) {
             finish()
             return
         }
-        chapter = found
+        topic = found.second
 
         voiceNarrator = VoiceNarrator(
             context = this,
@@ -62,31 +55,24 @@ class ChapterDetailActivity : AppCompatActivity() {
         bindContent()
     }
 
-    override fun onResume() {
-        super.onResume()
-        AnimatedIllustrationHelper.start(binding.illustration)
-    }
-
-    override fun onPause() {
-        AnimatedIllustrationHelper.stop(binding.illustration)
-        super.onPause()
-    }
-
     private fun bindContent() {
-        val content = chapter.content(language)
-        supportActionBar?.title = content.title
-        AnimatedIllustrationHelper.bind(binding.illustration, chapter.illustrationRes)
-        binding.chapterTitle.text = content.title
-        binding.chapterSummary.text = content.summary
-        binding.chapterBody.text = content.body
-        binding.keyPointsList.text = content.keyPoints.joinToString("\n\n") { "• $it" }
+        supportActionBar?.title = topic.title
+        binding.illustration.visibility = View.GONE
+        binding.chapterTitle.text = if (topic.golden) "★ ${topic.title}" else topic.title
+        binding.chapterSummary.text = getString(
+            R.string.topic_meta,
+            topic.sourcePage,
+            getString(if (topic.golden) R.string.golden_topic else R.string.standard_topic)
+        )
+        binding.chapterBody.text = topic.english
+        binding.keyPointsList.visibility = View.GONE
+        binding.keyPointsHeader.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
-        menu.findItem(R.id.action_export)?.isVisible = false
         val listenItem = menu.findItem(R.id.action_listen)
-        listenItem.title = if (isSpeaking) getString(R.string.stop) else getString(R.string.listen)
+        listenItem.title = if (isSpeaking) getString(R.string.stop) else getString(R.string.listen_urdu)
         listenItem.setIcon(
             if (isSpeaking) android.R.drawable.ic_media_pause
             else android.R.drawable.ic_media_play
@@ -103,20 +89,17 @@ class ChapterDetailActivity : AppCompatActivity() {
     }
 
     private fun toggleNarration() {
-        if (isSpeaking) {
-            voiceNarrator?.stop()
+        val narrator = voiceNarrator ?: return
+        if (narrator.isSpeaking()) {
+            narrator.stop()
             return
         }
         if (!voiceReady) {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        voiceNarrator?.speak(NarrationBuilder.buildChapterNarration(chapter.id, language), language)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()
-        return true
+        val text = NarrationBuilder.buildTopicNarration(topic)
+        narrator.speak(text, LocaleHelper.LANG_UR)
     }
 
     override fun onDestroy() {
