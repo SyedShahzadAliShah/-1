@@ -14,9 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntimacyGuide">
         <activity
-            android:name=".BookTopicsActivity"
+            android:name=".LectureListActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".BookTopicsActivity"
+            android:exported="false"
+            android:parentActivityName=".LectureListActivity" />
         <activity
             android:name=".ChapterDetailActivity"
             android:exported="false"

@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         bookAdapter = BookAdapter { book ->
-            startActivity(Intent(this, BookTopicsActivity::class.java).apply {
-                putExtra(BookTopicsActivity.EXTRA_BOOK_ID, book.id)
+            startActivity(Intent(this, LectureListActivity::class.java).apply {
+                putExtra(LectureListActivity.EXTRA_BOOK_ID, book.id)
             })
         }
 

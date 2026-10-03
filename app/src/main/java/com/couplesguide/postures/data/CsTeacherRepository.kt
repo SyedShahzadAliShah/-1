@@ -8,7 +8,9 @@ data class CsBook(
     val id: String,
     val title: String,
     val subtitle: String,
+    val studyGuideLabel: String,
     val teacherGuidelines: TeacherGuidelines,
+    val lectures: List<CsLecture>,
     val topics: List<CsTopic>
 )
 
@@ -43,13 +45,19 @@ object CsTeacherRepository {
                 val meta = bookArray.getJSONObject(i)
                 val asset = meta.getString("asset")
                 val payload = readAssetJson(context, asset)
+                val topics = parseTopics(payload)
                 add(
                     CsBook(
                         id = payload.getString("id"),
                         title = payload.getString("title"),
                         subtitle = payload.getString("subtitle"),
+                        studyGuideLabel = payload.optString(
+                            "study_guide_label",
+                            "Lecture-wise Bilingual Teacher's Edition Study Guide"
+                        ),
                         teacherGuidelines = parseGuidelines(payload.getJSONObject("teacher_guidelines")),
-                        topics = parseTopics(payload)
+                        lectures = parseLectures(payload.optJSONArray("lectures")),
+                        topics = topics
                     )
                 )
             }
@@ -66,6 +74,15 @@ object CsTeacherRepository {
         return books.find { it.id == bookId }
     }
 
+    fun getLecture(context: Context, lectureId: String): Pair<CsBook, CsLecture>? {
+        load(context)
+        for (book in books) {
+            val lecture = book.lectures.find { it.id == lectureId }
+            if (lecture != null) return book to lecture
+        }
+        return null
+    }
+
     fun getTopic(context: Context, topicId: String): Pair<CsBook, CsTopic>? {
         load(context)
         for (book in books) {
@@ -73,6 +90,33 @@ object CsTeacherRepository {
             if (topic != null) return book to topic
         }
         return null
+    }
+
+    private fun parseLectures(array: JSONArray?): List<CsLecture> {
+        if (array == null || array.length() == 0) return emptyList()
+        return buildList {
+            for (i in 0 until array.length()) {
+                val item = array.getJSONObject(i)
+                val idsArray = item.getJSONArray("topic_ids")
+                val ids = buildList {
+                    for (j in 0 until idsArray.length()) {
+                        add(idsArray.getString(j))
+                    }
+                }
+                add(
+                    CsLecture(
+                        id = item.getString("id"),
+                        chapter = item.getInt("chapter"),
+                        title = item.getString("title"),
+                        englishSummary = item.getString("english_summary"),
+                        urduNarration = item.optString("urdu_narration", ""),
+                        topicIds = ids,
+                        topicCount = item.optInt("topic_count", ids.size),
+                        goldenCount = item.optInt("golden_count", 0)
+                    )
+                )
+            }
+        }
     }
 
     private fun parseGuidelines(obj: JSONObject): TeacherGuidelines {

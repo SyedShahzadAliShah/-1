@@ -39,7 +39,8 @@ class BookAdapter(
         fun bind(book: CsBook) {
             binding.bookTitle.text = book.title
             val g = book.teacherGuidelines
-            binding.bookMeta.text = "${g.editionTitle}\n${g.tagline}\n${g.curriculum}\n${book.topics.size} lecture guidelines"
+            val lectureCount = book.lectures.size
+            binding.bookMeta.text = "${g.editionTitle}\n${g.tagline}\n${g.curriculum}\n$lectureCount lectures · ${book.topics.size} study units"
             binding.root.setOnClickListener { onBookClick(book) }
         }
     }

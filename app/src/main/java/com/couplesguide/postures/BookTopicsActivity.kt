@@ -17,11 +17,13 @@ class BookTopicsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_BOOK_ID = "book_id"
+        const val EXTRA_LECTURE_ID = "lecture_id"
     }
 
     private lateinit var binding: ActivityBookTopicsBinding
     private lateinit var topicAdapter: TopicAdapter
     private lateinit var book: CsBook
+    private var lectureId: String? = null
     private var guidelinesNarrator: VoiceNarrator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,7 @@ class BookTopicsActivity : AppCompatActivity() {
             return
         }
         book = loaded
+        lectureId = intent.getStringExtra(EXTRA_LECTURE_ID)
 
         guidelinesNarrator = VoiceNarrator(
             context = this,
@@ -46,8 +49,9 @@ class BookTopicsActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = book.teacherGuidelines.editionTitle
-        bindHeader()
+        val lecture = lectureId?.let { CsTeacherRepository.getLecture(this, it)?.second }
+        supportActionBar?.title = lecture?.title ?: book.teacherGuidelines.editionTitle
+        bindHeader(lecture)
 
         topicAdapter = TopicAdapter { topic ->
             startActivity(Intent(this, ChapterDetailActivity::class.java).apply {
@@ -58,22 +62,30 @@ class BookTopicsActivity : AppCompatActivity() {
         binding.topicList.layoutManager = LinearLayoutManager(this)
         binding.topicList.adapter = topicAdapter
         RecyclerViewHelper.setupNestedList(binding.topicList)
-        topicAdapter.submitList(book.topics)
+        val topics = lecture?.topics(book.topics) ?: book.topics
+        topicAdapter.submitList(topics)
 
         binding.listenGuidelinesButton.setOnClickListener {
             val narrator = guidelinesNarrator ?: return@setOnClickListener
             if (narrator.isSpeaking()) {
                 narrator.stop()
             } else {
-                narrator.speak(book.teacherGuidelines.urduNarration, LocaleHelper.LANG_UR)
+                val urdu = lecture?.urduNarration?.takeIf { it.isNotBlank() }
+                    ?: book.teacherGuidelines.urduNarration
+                narrator.speak(urdu, LocaleHelper.LANG_UR)
             }
         }
     }
 
-    private fun bindHeader() {
+    private fun bindHeader(lecture: com.couplesguide.postures.data.CsLecture?) {
         val g = book.teacherGuidelines
-        binding.bookSubtitle.text = "${book.title}\n${g.tagline}\n${getString(R.string.curriculum_label, g.curriculum)}"
-        binding.guidelinesEnglish.text = g.english
+        if (lecture != null) {
+            binding.bookSubtitle.text = lecture.englishSummary
+            binding.guidelinesEnglish.text = g.english
+        } else {
+            binding.bookSubtitle.text = "${book.title}\n${g.tagline}\n${getString(R.string.curriculum_label, g.curriculum)}"
+            binding.guidelinesEnglish.text = g.english
+        }
         binding.textbookReference.text = getString(R.string.textbook_reference_label, g.textbookReference)
         binding.goldenPolicy.text = g.goldenTopicNote
     }
