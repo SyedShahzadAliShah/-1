@@ -80,11 +80,14 @@ def build_frames(topic: dict) -> list[dict]:
     ur_parts = split_urdu_segments(topic.get("urdu_narration", ""), len(en_lines))
     frames = []
     for i, en in enumerate(en_lines):
+        ur = ur_parts[i][:600] if i < len(ur_parts) else ""
+        if not ur.strip():
+            ur = ur_parts[-1][:600] if ur_parts else ""
         frames.append(
             {
                 "index": i,
                 "english": en,
-                "urdu": ur_parts[i][:600],
+                "urdu": ur,
                 "visual": pick_visual(en, i),
             }
         )

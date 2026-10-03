@@ -25,7 +25,7 @@
     <string name="topic_meta">Study unit · PDF p.%1$d · %2$s</string>
     <string name="golden_topic">★ Golden study unit (exam-critical)</string>
     <string name="standard_topic">Lecture study unit</string>
-    <string name="version_badge">Version %1$s — Lecture-wise bilingual Teacher\'s Edition</string>
+    <string name="version_badge">Version %1$s — Sketchnote sync with Urdu narrative</string>
     <string name="sketchnote_lecture_title">Animated sketchnote · synced with Urdu narrative</string>
     <string name="play_sketchnote_lecture">Play lecture narrative (Urdu vocals)</string>
     <string name="sketchnote_frame_caption">Study step %1$d/%2$d · %3$s</string>

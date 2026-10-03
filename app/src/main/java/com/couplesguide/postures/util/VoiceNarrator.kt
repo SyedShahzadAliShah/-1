@@ -3,6 +3,8 @@ package com.couplesguide.postures.util
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.speech.tts.Voice
@@ -20,6 +22,8 @@ class VoiceNarrator(
     private val pendingSpeech = mutableListOf<PendingSpeech>()
     private var activeUtterances = 0
     private var onSegmentStart: ((Int) -> Unit)? = null
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val announcedSegments = mutableSetOf<Int>()
 
     private data class PendingSpeech(
         val segments: List<String>,
@@ -49,11 +53,10 @@ class VoiceNarrator(
     private fun attachProgressListener() {
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
-                onSpeakingChanged(true)
-                utteranceId?.let { parseSegmentIndex(it) }?.let { index ->
-                    if (utteranceId.endsWith(":0")) {
-                        onSegmentStart?.invoke(index)
-                    }
+                mainHandler.post { onSpeakingChanged(true) }
+                val segmentIndex = utteranceId?.let { parseSegmentIndex(it) }
+                if (segmentIndex != null && utteranceId.endsWith(":0")) {
+                    announceSegmentStart(segmentIndex)
                 }
             }
 
@@ -62,7 +65,7 @@ class VoiceNarrator(
                     activeUtterances = (activeUtterances - 1).coerceAtLeast(0)
                 }
                 if (activeUtterances == 0) {
-                    onSpeakingChanged(false)
+                    mainHandler.post { onSpeakingChanged(false) }
                 }
             }
 
@@ -94,11 +97,14 @@ class VoiceNarrator(
         language: String,
         onStart: ((Int) -> Unit)? = null
     ): Boolean {
-        val cleaned = segments.map { it.trim() }.filter { it.isNotEmpty() }
-        if (cleaned.isEmpty()) return false
+        val normalized = segments.mapIndexed { index, segment ->
+            val trimmed = segment.trim()
+            if (trimmed.isNotEmpty()) trimmed else "۔"
+        }
+        if (normalized.isEmpty()) return false
         val engine = tts ?: return false
         if (!isReady) {
-            pendingSpeech.add(PendingSpeech(cleaned, language, onStart))
+            pendingSpeech.add(PendingSpeech(normalized, language, onStart))
             return true
         }
 
@@ -107,9 +113,12 @@ class VoiceNarrator(
             onLanguageIssue?.invoke(appliedLocale.message)
         }
 
+        attachProgressListener()
         onSegmentStart = onStart
+        announcedSegments.clear()
+        announceSegmentStart(0)
         var totalChunks = 0
-        cleaned.forEachIndexed { index, segment ->
+        normalized.forEachIndexed { index, segment ->
             val chunks = chunkText(segment)
             totalChunks += chunks.size
             chunks.forEachIndexed { chunkIndex, chunk ->
@@ -218,12 +227,19 @@ class VoiceNarrator(
         return chunks.ifEmpty { listOf(text) }
     }
 
+    private fun announceSegmentStart(index: Int) {
+        if (!announcedSegments.add(index)) return
+        val callback = onSegmentStart ?: return
+        mainHandler.post { callback(index) }
+    }
+
     fun stop() {
         pendingSpeech.clear()
         activeUtterances = 0
+        announcedSegments.clear()
         onSegmentStart = null
         tts?.stop()
-        onSpeakingChanged(false)
+        mainHandler.post { onSpeakingChanged(false) }
     }
 
     fun isSpeaking(): Boolean = tts?.isSpeaking == true

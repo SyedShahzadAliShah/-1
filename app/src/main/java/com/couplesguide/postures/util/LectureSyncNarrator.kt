@@ -21,9 +21,28 @@ class LectureSyncNarrator(
     )
 
     fun speakLecture(frames: List<SketchnoteFrame>) {
-        val segments = frames.map { it.urdu.ifBlank { it.english } }
+        if (frames.isEmpty()) return
+        val segments = buildAlignedSegments(frames)
         narrator.speakSegments(segments, LocaleHelper.LANG_UR) { index ->
-            onFrameStart(index)
+            onFrameStart(index.coerceIn(0, frames.lastIndex))
+        }
+    }
+
+    private fun buildAlignedSegments(frames: List<SketchnoteFrame>): List<String> {
+        val fallbackPool = frames
+            .map { it.urdu.trim() }
+            .filter { it.isNotEmpty() }
+            .flatMap { it.split(Regex("(?<=[۔!؟])\\s+")) }
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+
+        return frames.mapIndexed { index, frame ->
+            when {
+                frame.urdu.isNotBlank() -> frame.urdu.trim()
+                fallbackPool.isNotEmpty() -> fallbackPool[index % fallbackPool.size]
+                frame.english.isNotBlank() -> frame.english.trim()
+                else -> "لیکچر قدم ${index + 1}"
+            }
         }
     }
 

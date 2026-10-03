@@ -12,6 +12,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import com.couplesguide.postures.R
@@ -50,6 +51,10 @@ class SketchnoteLectureView @JvmOverloads constructor(
     private var wavePhase = 0f
     private var backgroundBitmap: Bitmap? = null
     private var golden = false
+    private var frameEntrance = 1f
+    private var entranceAnimator: ValueAnimator? = null
+    private var syncPulse = 0f
+    private var syncAnimator: ValueAnimator? = null
 
     private val pulseAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
         duration = 1400L
@@ -84,13 +89,44 @@ class SketchnoteLectureView @JvmOverloads constructor(
 
     fun setActiveFrame(index: Int) {
         if (frames.isEmpty()) return
-        activeIndex = index.coerceIn(0, frames.lastIndex)
-        invalidate()
+        val target = index.coerceIn(0, frames.lastIndex)
+        if (target == activeIndex && frameEntrance >= 0.95f) {
+            triggerSyncPulse()
+            return
+        }
+        activeIndex = target
+        frameEntrance = 0f
+        entranceAnimator?.cancel()
+        entranceAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 520L
+            interpolator = DecelerateInterpolator()
+            addUpdateListener {
+                frameEntrance = it.animatedValue as Float
+                invalidate()
+            }
+            start()
+        }
+        triggerSyncPulse()
+    }
+
+    private fun triggerSyncPulse() {
+        syncAnimator?.cancel()
+        syncAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 650L
+            interpolator = DecelerateInterpolator()
+            addUpdateListener {
+                syncPulse = it.animatedValue as Float
+                invalidate()
+            }
+            start()
+        }
     }
 
     fun stopAnimations() {
         pulseAnimator.cancel()
         waveAnimator.cancel()
+        entranceAnimator?.cancel()
+        syncAnimator?.cancel()
     }
 
     private fun loadAssetBitmap(assetPath: String): Bitmap? {
@@ -125,8 +161,10 @@ class SketchnoteLectureView @JvmOverloads constructor(
         }
 
         val frame = frames[activeIndex]
-        drawVisualMotif(canvas, frame.visual, w, h)
-        drawCaptionCard(canvas, frame.english, w, h)
+        drawSyncHighlight(canvas, w, h)
+        drawVisualMotif(canvas, frame.visual, w, h, frameEntrance)
+        drawCaptionCard(canvas, frame.english, w, h, frameEntrance)
+        drawStepBadge(canvas, w, activeIndex + 1, frames.size)
 
         if (golden) {
             glowPaint.alpha = (80 + pulse * 120).toInt()
@@ -150,10 +188,33 @@ class SketchnoteLectureView @JvmOverloads constructor(
         doodlePaint.color = ContextCompat.getColor(context, R.color.primary)
     }
 
-    private fun drawCaptionCard(canvas: Canvas, caption: String, w: Float, h: Float) {
-        val card = RectF(20f, h * 0.58f, w - 20f, h - 20f)
+    private fun drawSyncHighlight(canvas: Canvas, w: Float, h: Float) {
+        if (syncPulse <= 0f) return
+        val alpha = ((1f - syncPulse) * 140f).toInt().coerceIn(0, 140)
+        fillPaint.color = ContextCompat.getColor(context, R.color.secondary)
+        fillPaint.alpha = alpha
+        val inset = 6f + syncPulse * 18f
+        canvas.drawRoundRect(RectF(inset, inset, w - inset, h - inset), 22f, 22f, fillPaint)
+        fillPaint.alpha = 255
+    }
+
+    private fun drawStepBadge(canvas: Canvas, w: Float, step: Int, total: Int) {
+        val label = "$step / $total"
+        subTextPaint.textSize = 28f
+        subTextPaint.color = Color.WHITE
+        val padding = 16f
+        val textWidth = subTextPaint.measureText(label)
+        val rect = RectF(w - textWidth - padding * 2 - 12f, 12f, w - 12f, 52f)
+        fillPaint.color = ContextCompat.getColor(context, R.color.primary)
+        canvas.drawRoundRect(rect, 14f, 14f, fillPaint)
+        canvas.drawText(label, rect.left + padding, rect.bottom - 12f, subTextPaint)
+        subTextPaint.color = ContextCompat.getColor(context, R.color.on_surface_variant)
+    }
+
+    private fun drawCaptionCard(canvas: Canvas, caption: String, w: Float, h: Float, entrance: Float) {
+        val card = RectF(20f, h * 0.58f + (1f - entrance) * 28f, w - 20f, h - 20f)
         fillPaint.color = Color.WHITE
-        fillPaint.alpha = 235
+        fillPaint.alpha = (180 + entrance * 75f).toInt().coerceIn(0, 255)
         canvas.drawRoundRect(card, 18f, 18f, fillPaint)
         fillPaint.alpha = 255
         canvas.drawRoundRect(card, 18f, 18f, doodlePaint)
@@ -189,10 +250,11 @@ class SketchnoteLectureView @JvmOverloads constructor(
         }
     }
 
-    private fun drawVisualMotif(canvas: Canvas, visual: String, w: Float, h: Float) {
+    private fun drawVisualMotif(canvas: Canvas, visual: String, w: Float, h: Float, entrance: Float) {
         val cx = w * 0.5f
-        val cy = h * 0.28f
-        val scale = 1f + pulse * 0.08f
+        val cy = h * 0.28f - (1f - entrance) * 36f
+        val scale = (0.75f + entrance * 0.25f) * (1f + pulse * 0.08f)
+        doodlePaint.alpha = (120 + entrance * 135f).toInt().coerceIn(0, 255)
         when (visual) {
             "logic" -> drawLogicGate(canvas, cx, cy, scale)
             "network" -> drawNetwork(canvas, cx, cy, scale)
@@ -201,6 +263,7 @@ class SketchnoteLectureView @JvmOverloads constructor(
             "compare" -> drawCompare(canvas, cx, cy, scale)
             else -> drawIdea(canvas, cx, cy, scale)
         }
+        doodlePaint.alpha = 255
     }
 
     private fun drawLogicGate(canvas: Canvas, cx: Float, cy: Float, scale: Float) {

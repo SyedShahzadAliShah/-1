@@ -650,37 +650,37 @@
         },
         {
           "index": 1,
-          "english": "2. Data Link OSI Model Layers (Top Layers) Main Job / Protocols 7. Application Provides network services directly to user applications. HTTP, HTTPS, FTP, 6. Presentation Data Translation, Encryption (security), and Compression. SSL/TLS, JPE",
+          "english": "4. Transport 2. Data Link OSI Model Layers (Top Layers) Main Job / Protocols 7. Application Provides network services directly to user applications. HTTP, HTTPS, FTP, 6. Presentation Data Translation, Encryption (security),",
           "urdu": "مزید نیٹ ورک OSI (Open Systems Interclude) ماڈل تھے۔",
           "visual": "network"
         },
         {
           "index": 2,
-          "english": "Opens, maintains, and closes communication sessions. NetBIOS, RPC 4. Transport Reliable end-to-end delivery, Error checking, Port numbering. TCP (reliable), UDP 💡 TCP vs UDP at Transport Layer Use TCP when accuracy matters (Web browsing, Em",
+          "english": "and Compression. SSL/TLS, JPEG, MP3, Opens, maintains, and closes communication sessions. NetBIOS, RPC 4. Transport Reliable end-to-end delivery, Error checking, Port numbering. TCP (reliable), UDP 💡 TCP vs UDP at Transport Layer",
           "urdu": "1984ء میں آئی ایس او کی طرف سے تیار کیا گیا۔",
           "visual": "network"
         },
         {
           "index": 3,
-          "english": "Main Job / Protocols / Logical addressing (IP) and routing packets across networks. IP, ICMP (Ping), 2. Data Link Physical addressing (MAC) and error detection in frames. Ethernet, MAC, Transmits raw bits (0,1) over cables/wireless mediums.",
+          "english": "Use TCP when accuracy matters (Web browsing, Emails). Use UDP when speed matters more than perfection (Video streaming, online gaming). OSI Bottom Layers & TCP/IP Model Main Job / Protocols / Logical addressing (IP) and routing packets acro",
           "urdu": "یہ رابطہ 7 سطحوں میں تقسیم ہوتا ہے۔",
           "visual": "network"
         },
         {
           "index": 4,
-          "english": "TCP/IP Model vs OSI Model The TCP/IP model is the practical model used on the real Internet. It condenses the 7 OSI layers into just 4 layers. TCP/IP Model (4 Layers) Corresponds to OSI Layers 1. Application Application, Presentation, Sessi",
+          "english": "Ethernet, MAC, Transmits raw bits (0,1) over cables/wireless mediums. Cables, Hubs, Wi-Fi TCP/IP Model vs OSI Model The TCP/IP model is the practical model used on the real Internet. It condenses the 7 OSI layers into just 4 layers. TCP/IP ",
           "urdu": ") Layers( 7 ) OSI(\nMemory میموریل ٹریک /\n\" مہربانی کرو Do Do not Sausage Paclay retown\" (بوتوم تا توپ: جسمانی، ڈیٹا)۔",
           "visual": "network"
         },
         {
           "index": 5,
-          "english": "COMPUTER SCIENCE XI COMPUTATIONAL THINKING & BILINGUAL TEACHER'S EDITION High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2026 TABLE OF CONTENTS 1. 2.1 & 2.2 Introduction to CT & Algorithms 2. 2.2.2 Algorithm vs Pse",
+          "english": "Application, Presentation, Session (7,6,5) 2. Transport Transport (4) 4. Network Access Data Link, Physical (2,1) COMPUTER SCIENCE XI COMPUTATIONAL THINKING & 1. 2.1 & 2.2 Introduction to CT & Algorithms 2. 2.2.2 Algorithm vs Pseudocode ★ 3",
           "urdu": "لنک، نیٹ ورک (انگریزی: Transport)، نقل و حمل، منظر عام پر آنے والی، اطلاقیہ (Expression)۔",
           "visual": "flow"
         },
         {
           "index": 6,
-          "english": "6. 2.4.1 Sorting Algorithms: Bubble Sort ★ 7. 2.4.1 Sorting Algorithms: Selection Sort ★ 8. 2.4.2 Searching Algorithms: Linear Search 9. 2.4.2 Searching Algorithms: Binary Search ★ 10. 2.5 Evaluation Criteria of Algorithm 11. 2.6 How to Dec",
+          "english": "4. 2.3.2 Algorithmic Strategy: Pattern Recognition 5. 2.3.3 Algorithmic Strategy: Abstraction 6. 2.4.1 Sorting Algorithms: Bubble Sort ★ 7. 2.4.1 Sorting Algorithms: Selection Sort ★ 8. 2.4.2 Searching Algorithms: Linear Search 9. 2.4.2 Sea",
           "urdu": "7۔",
           "visual": "flow"
         }
@@ -1245,27 +1245,27 @@
         },
         {
           "index": 3,
-          "english": "Evaluation Criteria: Correctness, Efficiency (Time/Space), and Clarity. COMPUTER SCIENCE XI PROGRAMMING FUNDAMENTALS BILINGUAL TEACHER'S EDITION High-Yielding Lecture Notes & Golden Topics",
+          "english": "Evaluation Criteria: Correctness, Efficiency (Time/Space), and Clarity. COMPUTER SCIENCE XI PROGRAMMING FUNDAMENTALS 1. 3.1 Programming & Language Types 2. 3.2 Career Growth with Python",
           "urdu": "Peudocode: انسانی قابلِ تلاوت کوڈ.\nDeccomption: بڑے بڑے مسائل کو چھوٹے حصوں میں توڑ دینا۔",
           "visual": "logic"
         },
         {
           "index": 4,
-          "english": "Based on New Sindh Curriculum 2026 TABLE OF CONTENTS 1. 3.1 Programming & Language Types 2. 3.2 Career Growth with Python 3. 3.3 Integrated Development Environment (IDE) & VS Code",
+          "english": "3. 3.3 Integrated Development Environment (IDE) & VS Code 4. 3.4 Fundamentals of Python Programming 5. 3.4.1 Variables and Data Types ★ 6. 3.4.2 Input Output Handling 7. 3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise) ★",
           "urdu": "اَبْشْرَجْنَاهُمْ أَنَّا مِنْهُمْ أَنَّهُمْ لَهُمْ لَا يَوْمُونَ سانچہ:قرآن-سورہ 43 آیت 36۔",
           "visual": "compare"
         },
         {
           "index": 5,
-          "english": "4. 3.4 Fundamentals of Python Programming 5. 3.4.1 Variables and Data Types ★ 6. 3.4.2 Input Output Handling 7. 3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise) ★ 8. 3.5 Control Structures Overview",
+          "english": "8. 3.5 Control Structures Overview 9. 3.5.1 Sequence 10. 3.5.2 Selection Statements (if, if-else, if-elif-else, nested) ★ 11. 3.5.3 Repetition Statements (for loop, while loop) ★ 12. 3.6 Libraries in Python (Built-in & Third-Party)",
           "urdu": "Bublil/consture foچشمے: سادہ، sound-looping Alphabeth (slow for بڑے ڈیٹا)۔",
-          "visual": "wave"
+          "visual": "flow"
         },
         {
           "index": 6,
-          "english": "9. 3.5.1 Sequence 10. 3.5.2 Selection Statements (if, if-else, if-elif-else, nested) ★ 11. 3.5.3 Repetition Statements (for loop, while loop) ★ 12. 3.6 Libraries in Python (Built-in & Third-Party) 13. 3.7 Debugging Code in Python (Syntax, R",
+          "english": "13. 3.7 Debugging Code in Python (Syntax, Runtime, Logical Errors) 👨‍🏫 Reference Note / \"CS XI (3 & 4).pdf\" These notes are prepared specifically for teachers. For reference, please consult the textbook PDF file named exactly \"CS XI (3 & 4)",
           "urdu": "لائنار تلاش: کسی ایک سے چیک کرتا ہے (بے ترتیب اعداد پر کام)۔",
-          "visual": "flow"
+          "visual": "idea"
         }
       ],
       "page_image": "cs_teacher/pages/cs_xi/page_043.jpg"
@@ -1922,37 +1922,37 @@
         },
         {
           "index": 1,
-          "english": "Debugging is the process of identifying, tracing, and resolving issues (bugs) within a program so it works correctly. Types of Errors (Bugs) 1. Syntax Errors Occur when the rules (grammar) of Python are violated. The program will NOT run at",
+          "english": "3.7 Debugging Code in Python Debugging is the process of identifying, tracing, and resolving issues (bugs) within a program so it works correctly. Types of Errors (Bugs) 1. Syntax Errors Occur when the rules (grammar) of Python are violated",
           "urdu": "یہ تعمیر شدہ ہیں۔",
           "visual": "flow"
         },
         {
           "index": 2,
-          "english": "crashes it during execution. x = 10 / 0 # ZeroDivisionError: division by zero! 3. Logical Errors The hardest to find. The program runs perfectly without crashing, but it produces the wrong output because the programmer's logic is flawed. ar",
+          "english": "2. Runtime Errors (Exceptions) The code is written correctly, so it starts running. But an impossible operation crashes it during execution. x = 10 / 0 # ZeroDivisionError: division by zero! 3. Logical Errors The hardest to find. The progra",
           "urdu": "گروپ کے ذریعے نصب کیا جائے اور اسے ٹرمینل کے ذریعے نصب کیا جائے:پ تنصیب\nکتب  نام:\nلائبریری نام\nابتدائی استعمال\nگن\nبھاری شماریاتی کمپیوٹر اور بڑی قطاروں میں۔",
           "visual": "compare"
         },
         {
           "index": 3,
-          "english": "3. Exactly which line number caused the crash. Traceback (most recent call last): File \"e:\\Python Code\\debug_program.py\", line 1, in <module> x = int(\"abc\") ValueError: invalid literal for int() with base 10: 'abc' Diagnosis: The traceback ",
+          "english": "When Python crashes, it prints a Traceback. It is a roadmap to fix the bug. It tells 1. What type of error occurred. 2. Which file the error is in. 3. Exactly which line number caused the crash. Traceback (most recent call last): File \"e:\\P",
           "urdu": "پانڈس\nاعداد و شمار، دست یاب میز کی طرح ڈیٹا (Excel/CSV)۔",
-          "visual": "network"
+          "visual": "logic"
         },
         {
           "index": 4,
-          "english": "Data Types: int, float, str, bool, list, dict. Input/Output: print() outputs data; input() gets data as a string. Control Structures: Sequence (top-to-bottom), Selection (if/else), Repetition (for/while). Libraries: Extend Python's power. B",
+          "english": "(\"abc\") into an integer, which generated a ValueError. Python is a High-Level, readable language great for AI, Data, and Web. VS Code is a popular editor made into an IDE via Extensions. Variables do not need explicit types in Python; types",
           "urdu": "خاموش\nڈیٹا ظاہریات، نقاشی گراف اور چارٹ۔",
-          "visual": "network"
+          "visual": "compare"
         },
         {
           "index": 5,
-          "english": "Based on New Sindh Curriculum 2026 TABLE OF CONTENTS 1. 4.1.1 Data, Information and Database 2. 4.1.2 Database Management System (DBMS) 3. 4.2 Database Components (Tables, Records, Fields) 4. 4.3.1 Keys and Integrity Constraints ★ 5. 4.3 Re",
+          "english": "Errors: Syntax (Grammar), Runtime (Crash during run), Logical (Wrong output). COMPUTER SCIENCE XI DATA AND ANALYSIS 1. 4.1.1 Data, Information and Database 2. 4.1.2 Database Management System (DBMS) 3. 4.2 Database Components (Tables, Recor",
           "urdu": "طنزیہ فنِ‌تعمیر / پَرَک\nذہانت اور مشین سیکھنا\n3.7 دبنگ کوڈ جو پافوس میں واقع ہے۔",
           "visual": "wave"
         },
         {
           "index": 6,
-          "english": "9. 4.7 Case Study - Library Management System 10. 4.8 Different Database Objects (Tables, Forms, Queries, Reports) 11. 4.9 Creation of Tables in Microsoft Access 12. 4.10 Designing Forms for Data Manipulation 13. 4.11 Creating Queries in MS",
+          "english": "7. 4.5 Referential Integrity (Cascade Update & Delete) ★ 8. 4.6 Relational Schema Development 9. 4.7 Case Study - Library Management System 10. 4.8 Different Database Objects (Tables, Forms, Queries, Reports) 11. 4.9 Creation of Tables in M",
           "urdu": "دقیقہ (انگریزی: Decemption) (تلفظ: /bbuggings/) شناخت، تفاعل اور حل کرنے کا عمل ہے۔",
           "visual": "idea"
         }
@@ -2817,43 +2817,43 @@
       "sketchnote_frames": [
         {
           "index": 0,
-          "english": "Data visualization transforms raw numbers into graphical representations, making patterns and trends instantly obvious. 1. Bar Chart Uses horizontal bars. Great when category names are long. 2. Column Chart Uses vertical bars. Excellent for",
+          "english": "Data visualization transforms raw numbers into graphical representations, making patterns and trends instantly obvious. 1. Bar Chart Uses horizontal bars. Great when category names are long. 2. Column Chart",
           "urdu": "اعداد و شمار کو بصری نمائندگی میں تبدیل کرتا ہے،\nنمونے اور رُجحان ظاہر کرتے ہیں ۔",
           "visual": "concept"
         },
         {
           "index": 1,
-          "english": "categories side-by-side. Data Visualization (Continued) 3. Pie Chart Divides a circle into slices to show percentages (parts of a whole). Best for showing proportions. 4. Line Chart",
+          "english": "Uses vertical bars. Excellent for comparing categories side-by-side. Data Visualization (Continued) 3. Pie Chart Divides a circle into slices to show percentages (parts of a whole). Best for",
           "urdu": "1۔",
           "visual": "flow"
         },
         {
           "index": 2,
-          "english": "Connects data points with lines. The absolute best choice for showing trends over time (e.g., website visitors per month). Data vs Info: Data is raw facts; Information is processed data. DBMS: Software to create and manage databases securel",
+          "english": "showing proportions. 4. Line Chart Connects data points with lines. The absolute best choice for showing trends over time (e.g., website visitors per month). Data vs Info: Data is raw facts; Information is processed data.",
           "urdu": "بار چارٹ\nکیپ بار استعمال کرتا ہے. جب بڑی مصیبت آئے گی\nنام لمبے ہیں۔",
           "visual": "compare"
         },
         {
           "index": 3,
-          "english": "ER Model: Conceptual blueprint using Entities (rectangles), Attributes (ovals), Relationships Many-to-Many: Requires a Junction Table to resolve in relational databases. Referential Integrity: Ensures relationships stay valid via Cascade Up",
+          "english": "DBMS: Software to create and manage databases securely and efficiently. Table Components: Rows are Records; Columns are Fields. Keys: Primary Key is unique for each record. Foreign Key links tables together. ER Model: Conceptual blueprint u",
           "urdu": "مات\n2۔",
           "visual": "logic"
         },
         {
           "index": 4,
-          "english": "BILINGUAL TEACHER'S EDITION High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2026 TABLE OF CONTENTS 1. 5.1 Introduction to Computing Impacts 2. 5.1.1 Artificial Intelligence (AI) ★ 3. 5.1.2 Internet of Things (IoT) ",
+          "english": "Access Objects: Tables (store), Forms (enter), Queries (search/filter), Reports (print). Data Vis: Bar/Column for category comparison, Pie for parts of a whole, Line for trends. COMPUTER SCIENCE XI APPLICATION AND IMPACTS OF 1. 5.1 Introduc",
           "urdu": "کولمن چارٹ۔",
           "visual": "network"
         },
         {
           "index": 5,
-          "english": "4. 5.1.3 Data Analytics & Components 5. Table: IoT vs AI vs Data Analytics Comparison 6. 5.2 Uses of IoT in Different Areas (Smart Cities, Health, Farms) 7. 5.2.1 Scope of AI in Education in Pakistan 8. 5.3 Information Sources (Primary, Sec",
+          "english": "3. 5.1.2 Internet of Things (IoT) & Components ★ 4. 5.1.3 Data Analytics & Components 5. Table: IoT vs AI vs Data Analytics Comparison 6. 5.2 Uses of IoT in Different Areas (Smart Cities, Health, Farms) 7. 5.2.1 Scope of AI in Education in ",
           "urdu": "عمودی پٹی استعمال کرتا ہے۔",
           "visual": "compare"
         },
         {
           "index": 6,
-          "english": "11. 5.5.1 Importance of Assistive Technologies 12. 5.5.2 Career Connection in Assistive Tech 👨‍🏫 Reference Note / \"CS XI (5 & 6).pdf\" These notes are prepared specifically for teachers. For reference, please consult the textbook PDF file na",
+          "english": "9. 5.4 Impacts of Computing in Various Fields 10. 5.5 Assistive Technologies ★ 11. 5.5.1 Importance of Assistive Technologies 12. 5.5.2 Career Connection in Assistive Tech 👨‍🏫 Reference Note / \"CS XI (5 & 6).pdf\"",
           "urdu": "موازنہ کرنے کا بہترین طریقہ\nپہلوؤں کی اقسام۔",
           "visual": "idea"
         }
@@ -3318,21 +3318,21 @@
         },
         {
           "index": 4,
-          "english": "BILINGUAL TEACHER'S EDITION High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2026 TABLE OF CONTENTS 1. 6.1 & 6.2 Introduction to Digital Literacy 2. 6.3 Types of Data (Qualitative vs Quantitative) ★",
+          "english": "1. 6.1 & 6.2 Introduction to Digital Literacy 2. 6.3 Types of Data (Qualitative vs Quantitative) ★ 3. 6.4 Data-Collection Strategies ★ 4. 6.4.1 - 6.4.2 Interviews and Surveys 5. 6.4.3 - 6.4.5 Prototypes, Observation, and Simulations 6. 6.5 ",
           "urdu": "Biographic Engineer: مصنوعی اعضاء اور کان کنی کے آلات ڈیزائن کرتا ہے۔",
           "visual": "wave"
         },
         {
           "index": 5,
-          "english": "3. 6.4 Data-Collection Strategies ★ 4. 6.4.1 - 6.4.2 Interviews and Surveys 5. 6.4.3 - 6.4.5 Prototypes, Observation, and Simulations 6. 6.5 Primary and Secondary Data ★ 7. 6.6 Designing a Data-Collection Approach 8. 6.7 Presenting Data Usi",
+          "english": "7. 6.6 Designing a Data-Collection Approach 8. 6.7 Presenting Data Using Digital Tools 9. 6.7.1 - 6.7.4 Spreadsheets, Presentations, Infographics, Reports 10. 6.8 Case Study: Digital Inquiry Project ★ 11. Step 1 - 3: Advanced Search & Metho",
           "urdu": "UX/UI AUI Advenual ماہرِ فلکیات: Enstructions websites settlections بصری طور پر عدم استحکام کے لیے نقل و حمل آسان ہے۔",
           "visual": "wave"
         },
         {
           "index": 6,
-          "english": "9. 6.7.1 - 6.7.4 Spreadsheets, Presentations, Infographics, Reports 10. 6.8 Case Study: Digital Inquiry Project ★ 11. Step 1 - 3: Advanced Search & Methodology 12. Step 4 - 6: Survey Prep & Primary Data Collection 13. Step 7 - 9: Secondary ",
+          "english": "13. Step 7 - 9: Secondary Data & Spreadsheet Organization 14. Step 10 - 12: Data Analysis, Conclusion & Artefact 👨‍🏫 Reference Note / \"CS XI (5 & 6).pdf\" These notes are prepared specifically for teachers. For reference, please consult the ",
           "urdu": "صارفین\nسانچہ:ابتدائی ترتیب:\nآئی اے : سیکھنے ، پہچاننے اور فیصلے کرنے میں مشینوں کی مدد کرتا ہے ۔",
-          "visual": "wave"
+          "visual": "idea"
         }
       ],
       "page_image": "cs_teacher/pages/cs_xi/page_110.jpg"

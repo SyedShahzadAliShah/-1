@@ -121,7 +121,6 @@ class ChapterDetailActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        showFrame(0)
         narrator.speakLecture(frames)
     }
 

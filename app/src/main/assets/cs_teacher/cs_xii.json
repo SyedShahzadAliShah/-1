@@ -709,37 +709,37 @@
         },
         {
           "index": 1,
-          "english": "\"Add to Cart\" Time: 12 sec Success: Yes Automated Audit Bot Scanning... 3 Broken Links Low Contrast Testing Methods (Continued) 4. A/B Testing Comparing two different versions of an interface (Version A and Version B) to see which performs ",
+          "english": "broken links, slow loading speeds, or low color contrast. \"Add to Cart\" Time: 12 sec Success: Yes Automated Audit Bot Scanning... 3 Broken Links Low Contrast Testing Methods (Continued) 4. A/B Testing",
           "urdu": "۱ ۔",
-          "visual": "concept"
+          "visual": "flow"
         },
         {
           "index": 2,
-          "english": "sign-ups wins. )A/B Testing( / 5. Compatibility Testing Verifying that a system functions correctly across different web browsers (Chrome, Safari), devices (Mobiles, Tablets, PCs), and operating systems. 6. Performance & Load Testing Simula",
+          "english": "Comparing two different versions of an interface (Version A and Version B) to see which performs better. Half the users see A, half see B. The one with more clicks or sign-ups wins. )A/B Testing( / 5. Compatibility Testing Verifying that a ",
           "urdu": "حقیقی صارفین کی نگرانی کریں جب کہ وہ ایپ پر حقیقت وار کام کرتے ہیں\nمحنت اور تسکین ۔",
-          "visual": "compare"
+          "visual": "concept"
         },
         {
           "index": 3,
-          "english": "Careers & Summary Career Opportunities in UI/UX UX Designer: Researches user needs to ensure the app is intuitive and satisfying. UI Designer: Designs the visual layout (colors, typography, buttons) using tools like Figma. Interaction Desig",
+          "english": "7. Keyboard & Screen-Reader Walkthroughs Testing system navigation using *only* the keyboard (Tab/Enter) or assistive technologies to ensure strict accessibility compliance for users with disabilities. Careers & Summary Career Opportunities",
           "urdu": "اگر صارف جم جاتا ہے تو ڈیزائنر جانتا ہے کہ کہاں ٹھیک کیا جائے۔",
           "visual": "logic"
         },
         {
           "index": 4,
-          "english": "Accessibility Principles: High contrast, readable fonts, inclusive navigation. UI vs UX: UI is the visual elements (buttons, layout); UX is the overall feeling and efficiency. Wireframing: Low-fidelity (sketch/structure) vs High-fidelity (d",
+          "english": "disabilities. HCI: The study of how people and computers interact to create human-centered Interaction Modes: Sight, Touch, Hearing, Voice, Spatial. Traditional vs Natural: Mouse/Keyboard vs Voice/Gestures. Accessibility Principles: High co",
           "urdu": "2۔",
-          "visual": "compare"
+          "visual": "concept"
         },
         {
           "index": 5,
-          "english": "TABLE OF CONTENTS 1. 2.1 Analyze algorithms for correctness 2. 2.1.1 - 2.1.3 Trace Tables vs Stepwise Reasoning ★ 3. 2.2 Evaluating the Clarity of an Algorithm 4. 2.2.1 - 2.2.2 Modularity and Readability 5. 2.3 Assess Algorithm Efficiency 6",
+          "english": "COMPUTER SCIENCE COMPUTATIONAL THINKING & 1. 2.1 Analyze algorithms for correctness 2. 2.1.1 - 2.1.3 Trace Tables vs Stepwise Reasoning ★ 3. 2.2 Evaluating the Clarity of an Algorithm 4. 2.2.1 - 2.2.2 Modularity and Readability 5. 2.3 Asses",
           "urdu": "عارضی جانچ پڑتال۔",
           "visual": "flow"
         },
         {
           "index": 6,
-          "english": "11. 2.5 Concept of Data Structure ★ 12. 2.5.1 Linear Data Structures (Array, Linked List, Stack, Queue) 13. 2.5.2 Non-Linear Data Structures (Tree, Graph) 14. 2.5.3 Operations on Data Structures 15. 2.6 Identify data structures in problem s",
+          "english": "9. 2.3.4 The Efficiency Evaluation Framework 10. 2.4 Refinements to improve clarity and efficiency 11. 2.5 Concept of Data Structure ★ 12. 2.5.1 Linear Data Structures (Array, Linked List, Stack, Queue) 13. 2.5.2 Non-Linear Data Structures ",
           "urdu": "مخصوص کام کو انجام دینا (مثلاً، \"ایک پیداوار کو بنانا اور اسے کار میں شامل کرنا\") اور اس میں شامل کرنا۔",
           "visual": "idea"
         }
@@ -1681,21 +1681,21 @@
         },
         {
           "index": 4,
-          "english": "sequentially from the Head. Queues remove data strictly from the Front. COMPUTER SCIENCE PROGRAMMING FUNDAMENTALS BILINGUAL TEACHER'S EDITION High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2025-27 TABLE OF CONTENT",
+          "english": "sequentially from the Head. Queues remove data strictly from the Front. COMPUTER SCIENCE PROGRAMMING FUNDAMENTALS 1. 3.1 Data Structures in Python 2. 3.1.1 Lists (Ordered, Mutable, Methods) ★ 3. 3.1.2 Tuples (Ordered, Immutable) ★ 4. 3.1.3 ",
           "urdu": "انک ( ڈی )\nدُنیا\nجگہ\nباز\nاُس نے کہا : ” اَے [ یہوواہ ] !",
           "visual": "network"
         },
         {
           "index": 5,
-          "english": "2. 3.1.1 Lists (Ordered, Mutable, Methods) ★ 3. 3.1.2 Tuples (Ordered, Immutable) ★ 4. 3.1.3 Sets (Unordered, Unique, Math Operations) 5. 3.1.4 Dictionaries (Key-Value pairs) ★ 6. 3.1.5 Common Built-in Functions (`min`, `max`, `len`, `sum`)",
+          "english": "6. 3.1.5 Common Built-in Functions (`min`, `max`, `len`, `sum`) 7. 3.1.6 Activity: Students Attendance Program 8. 3.1.7 Activity: Word Frequency Counter 9. 3.2 Functions in Python ★ 10. 3.2.1 Types of Functions (Built-in vs User-defined) 11",
           "urdu": "سافٹ وئیر انجینئر: ڈیٹا کی ترکیبوں پر بہت زیادہ انحصار کرتے ہیں اور سافٹ وئیر کو سنبھالتے ہیں۔",
-          "visual": "wave"
+          "visual": "compare"
         },
         {
           "index": 6,
-          "english": "10. 3.2.1 Types of Functions (Built-in vs User-defined) 11. 3.2.2 Functions with Return Values 12. 3.2.3 Activity: Arithmetic Calculator Using Functions 13. 3.2.4 Scope of Local and Global Variables 14. 3.3 & 3.4 File Handling and Operation",
+          "english": "14. 3.3 & 3.4 File Handling and Operations (Modes `r`, `w`, `a`) 15. 3.6 `with` Statement (Context Manager) ★ 16. 3.8 Errors and Exceptions (Try-Except) 17. 3.9 Mini File Handling Project: Grade Tracker 👨‍🏫 Reference Note / \"CS XII (3 - 6).",
           "urdu": "منطقی مسائل کو حل کرنے کے لئے مؤثر ال nodeات.\nپشتون ترقی پزیر: سروے سے متعلق منطق تعمیر کرو جہاں درست ڈیٹا ترکیب (اررائی،\nQueue) براہ راست ویب اداکاری پر اثر انداز ہوتا ہے۔",
-          "visual": "compare"
+          "visual": "idea"
         }
       ],
       "page_image": "cs_teacher/pages/cs_xii/page_046.jpg"
@@ -2482,13 +2482,13 @@
         },
         {
           "index": 5,
-          "english": "BILINGUAL TEACHER'S EDITION High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2025-27 TABLE OF CONTENTS 1. 4.1 Concept of Data Analysis 2. 4.1.1 Data Sources and Need for Connectivity 3. 4.1.2 Key Components of a Dat",
+          "english": "1. 4.1 Concept of Data Analysis 2. 4.1.1 Data Sources and Need for Connectivity 3. 4.1.2 Key Components of a Database Connection ★ 4. 4.2 Creating a SQLite Database in Python 5. 4.2.1 Step-by-Step Code Explanation 6. 4.3 Basic Operations on",
           "urdu": "رائٹر(\"Alice: 88+n\")۔",
           "visual": "wave"
         },
         {
           "index": 6,
-          "english": "9. 4.3.3 Handling Missing Values (NaN) ★ 10. 4.4 Data Organization and Representation 11. 4.5 Data Visualization & Types of Graphs ★ 12. 4.5.1 Bar Graphs and Column Charts 13. 4.5.2 Line Graphs 14. 4.5.3 Pie Charts 15. 4.5.4 Histograms 16. ",
+          "english": "13. 4.5.2 Line Graphs 14. 4.5.3 Pie Charts 15. 4.5.4 Histograms 16. 4.5.5 Scatter Plots 17. 4.5.6 Box Plots 18. 4.6 Descriptive Statistics ★ 19. 4.6.1 Measures of Central Tendency (Mean, Median, Mode) 20. 4.6.2 Measures of Spread (Range, Va",
           "urdu": "ایف۔",
           "visual": "idea"
         }
@@ -3359,37 +3359,37 @@
         },
         {
           "index": 1,
-          "english": "Standard deviation is simply the square root of the Variance. It is the most commonly used measure of spread because it is expressed in the same units as the original data (e.g., \"marks\" instead of \"marks-squared\"). )Square root( A low stan",
+          "english": "3. Standard Deviation (σ) Standard deviation is simply the square root of the Variance. It is the most commonly used measure of spread because it is expressed in the same units as the original data (e.g., \"marks\" instead of \"marks-squared\")",
           "urdu": "پھیلانے سے پتہ چلتا ہے کہخاتمہ اس مرکز کے ارد گرد کتنا پھیلا ہوا ہے یا منتشر ہے. ہیں.\nاُن کی قدروں کی وجہ سے اُن کے دل پر گہرا اثر ہوا ۔",
           "visual": "flow"
         },
         {
           "index": 2,
-          "english": "Example: Marks [70, 80, 90, 60, 75] → Max 🧠 Concept Connection Remind students that Box Plots (learned earlier) visually display these exact statistical measures: The whiskers show Min and Max, the box shows the middle 50% spread, and the l",
+          "english": "the entire dataset. Important for finding the upper limit. Example: Marks [70, 80, 90, 60, 75] → Max 🧠 Concept Connection Remind students that Box Plots (learned earlier) visually display these exact statistical measures: The whiskers show ",
           "urdu": "1۔",
           "visual": "compare"
         },
         {
           "index": 3,
-          "english": "Data Scientist Applies advanced statistics, programming, and modeling to extract deeper insights and AI predictions from massive datasets. Data Visualization Specialist Focuses on presenting complex data clearly through charts, graphs, and ",
+          "english": "Designs, secures, and maintains databases (e.g., MySQL, Oracle) to ensure data is organized, secure, and Data Scientist Applies advanced statistics, programming, and modeling to extract deeper insights and AI predictions from massive datase",
           "urdu": "رے\nسب کا سب سے سادہ انداز پھیلنے والا ہے ۔",
           "visual": "logic"
         },
         {
           "index": 4,
-          "english": "apps to databases. Summary of Chapter 4 Data vs Information: Data consists of raw facts; Information is processed, organized, and meaningful data. Database Connectivity: Requires a Driver, a Connection Object, a Cursor to execute commands, ",
+          "english": "make decisions. Backend Developer Writes the server code (in Python/Java) that securely connects websites and apps to databases. Summary of Chapter 4 Data vs Information: Data consists of raw facts; Information is processed, organized, and ",
           "urdu": "یہ بالکل بالکل بالکل بالکل بالکل بالکل فرق فرق ہے جب کہ ہم سب ہی سب سے بالکل بالکل بالکل بالکل بالکل بالکل فرق فرق ہے ۔",
           "visual": "compare"
         },
         {
           "index": 5,
-          "english": "Descriptive Statistics: Central Tendency: Mean (average), Median (exact middle, resistant to outliers), Mode (most frequent). Spread: Range (Max-Min), Variance (average squared deviation), Standard Deviation (square root of variance), Min, ",
+          "english": "Line Graph: Shows trends over time. Pie Chart: Shows percentage parts of a whole. Histogram: Shows distribution of continuous data in bins. Scatter Plot: Shows relationships/correlation between two variables. Box Plot: Summarizes distributi",
           "urdu": "یہ بالکل بالکل بالکل بالکل بالکل بالکل بالکل فرق فرق فرق ہے جب جب کہ ہم بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل فرق فرق فرق ہی ہی ہی بالکل بالکل بالکل فرق فرق ہے جب جب بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل سچا سچا سچا سچا سچا سچا سچا سچا سچا ہی بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل سچا سچا سچا سچا سچا سچا سچا سچا سچا سچا سچا سچا بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل بالکل ب",
           "visual": "wave"
         },
         {
           "index": 6,
-          "english": "7. 5.2 Applications of Neural Networks and Deep Learning 8. 5.3 Secure Collaboration and Data Protection ★ 9. 5.3.1 Secure Collaboration (Authentication, Access Control) 10. 5.3.2 Data Protection (Encryption, Passwords, Backup, Firewall) 11",
+          "english": "5. 5.1.4 Components of Neural Networks ★ 6. 5.1.5 Components of Deep Learning 7. 5.2 Applications of Neural Networks and Deep Learning 8. 5.3 Secure Collaboration and Data Protection ★ 9. 5.3.1 Secure Collaboration (Authentication, Access C",
           "urdu": "Rang = قدر -\nمثال: سلس 120، 150، 180۔",
           "visual": "network"
         }
@@ -4078,9 +4078,9 @@
         },
         {
           "index": 6,
-          "english": "4. 6.3 From Problem to Business Idea 5. 6.4 Prototype ★ 6. 6.5 Types of Prototypes (Low, Mid, High-Fidelity) 7. 6.6 Prototype Development Cycle (Design, Build, Test, Iterate) ★ 8. 6.7 Class Activity: Create a Prototype 9. 6.8 Minimum Viable",
+          "english": "8. 6.7 Class Activity: Create a Prototype 9. 6.8 Minimum Viable Product (MVP) ★ 10. 6.9 Difference between Prototype and MVP 11. 6.10 Identifying the Riskiest Assumption 12. 6.11 Developing an MVP 13. 6.12 Case Study: MVP for a Canteen Pre-",
           "urdu": "استعمال کرنا ضروری ہے\nجی ہاں.\nای میل\nرسمی رابطہ ، سرکاری نوٹس ، اسلام قبول کرنے کیلئے استعمال ہوتا ہے\nبڑے وابستگیاں اور پیشہ ورانہ تحریر سنبھالتے ہیں۔",
-          "visual": "idea"
+          "visual": "compare"
         }
       ],
       "page_image": "cs_teacher/pages/cs_xii/page_121.jpg"
