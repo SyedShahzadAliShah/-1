@@ -18,6 +18,17 @@ export ANDROID_HOME=/opt/android-sdk
 
 APK output: `app/build/outputs/apk/debug/app-debug.apk`
 
+## Version 1.1.0
+
+- **Animated sketchnote lectures** — doodle motifs + PDF page art per topic
+- **Vocal sync** — each sketchnote frame advances with its Urdu TTS segment
+- English on-screen notes; Urdu vocals only
+
+```bash
+python3 scripts/extract_cs_teacher_pdfs.py      # text + Urdu narration JSON
+python3 scripts/build_sketchnote_lectures.py    # frames + page images
+```
+
 ## Version 1.0.0
 
 - CS XI & CS XII class picker

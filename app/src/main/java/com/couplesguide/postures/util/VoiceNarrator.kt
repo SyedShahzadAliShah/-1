@@ -17,8 +17,15 @@ class VoiceNarrator(
 
     private var tts: TextToSpeech? = null
     private var isReady = false
-    private val pendingSpeech = mutableListOf<Pair<String, String>>()
+    private val pendingSpeech = mutableListOf<PendingSpeech>()
     private var activeUtterances = 0
+    private var onSegmentStart: ((Int) -> Unit)? = null
+
+    private data class PendingSpeech(
+        val segments: List<String>,
+        val language: String,
+        val onStart: ((Int) -> Unit)?
+    )
 
     init {
         tts = TextToSpeech(context.applicationContext, this)
@@ -35,7 +42,7 @@ class VoiceNarrator(
         if (isReady && pendingSpeech.isNotEmpty()) {
             val queued = pendingSpeech.toList()
             pendingSpeech.clear()
-            queued.forEach { (text, lang) -> speak(text, lang) }
+            queued.forEach { speakSegments(it.segments, it.language, it.onStart) }
         }
     }
 
@@ -43,6 +50,11 @@ class VoiceNarrator(
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
                 onSpeakingChanged(true)
+                utteranceId?.let { parseSegmentIndex(it) }?.let { index ->
+                    if (utteranceId.endsWith(":0")) {
+                        onSegmentStart?.invoke(index)
+                    }
+                }
             }
 
             override fun onDone(utteranceId: String?) {
@@ -74,9 +86,19 @@ class VoiceNarrator(
 
     fun speak(text: String, language: String): Boolean {
         if (text.isBlank()) return false
+        return speakSegments(listOf(text), language, null)
+    }
+
+    fun speakSegments(
+        segments: List<String>,
+        language: String,
+        onStart: ((Int) -> Unit)? = null
+    ): Boolean {
+        val cleaned = segments.map { it.trim() }.filter { it.isNotEmpty() }
+        if (cleaned.isEmpty()) return false
         val engine = tts ?: return false
         if (!isReady) {
-            pendingSpeech.add(text to language)
+            pendingSpeech.add(PendingSpeech(cleaned, language, onStart))
             return true
         }
 
@@ -85,17 +107,37 @@ class VoiceNarrator(
             onLanguageIssue?.invoke(appliedLocale.message)
         }
 
-        val chunks = chunkText(text)
-        activeUtterances = chunks.size
-        chunks.forEachIndexed { index, chunk ->
-            val utteranceId = "$UTTERANCE_PREFIX$index"
-            val params = Bundle().apply {
-                putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
+        onSegmentStart = onStart
+        var totalChunks = 0
+        cleaned.forEachIndexed { index, segment ->
+            val chunks = chunkText(segment)
+            totalChunks += chunks.size
+            chunks.forEachIndexed { chunkIndex, chunk ->
+                val utteranceId = segmentUtteranceId(index, chunkIndex)
+                val params = Bundle().apply {
+                    putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
+                }
+                val queueMode = if (index == 0 && chunkIndex == 0) {
+                    TextToSpeech.QUEUE_FLUSH
+                } else {
+                    TextToSpeech.QUEUE_ADD
+                }
+                engine.speak(chunk, queueMode, params, utteranceId)
             }
-            val queueMode = if (index == 0) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
-            engine.speak(chunk, queueMode, params, utteranceId)
         }
+        activeUtterances = totalChunks
         return true
+    }
+
+    private fun segmentUtteranceId(segmentIndex: Int, chunkIndex: Int): String {
+        return "$UTTERANCE_PREFIX$segmentIndex:$chunkIndex"
+    }
+
+    private fun parseSegmentIndex(utteranceId: String): Int? {
+        if (!utteranceId.startsWith(UTTERANCE_PREFIX)) return null
+        val body = utteranceId.removePrefix(UTTERANCE_PREFIX)
+        val segment = body.substringBefore(":")
+        return segment.toIntOrNull()
     }
 
     private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean, val message: String)
@@ -179,6 +221,7 @@ class VoiceNarrator(
     fun stop() {
         pendingSpeech.clear()
         activeUtterances = 0
+        onSegmentStart = null
         tts?.stop()
         onSpeakingChanged(false)
     }

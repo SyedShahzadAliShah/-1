@@ -31,28 +31,50 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sketchnote_lecture_title"
+                android:textColor="@color/primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
 
-                <ImageView
-                    android:id="@+id/illustration"
+                <com.couplesguide.postures.ui.SketchnoteLectureView
+                    android:id="@+id/sketchnoteView"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@color/illustration_bg"
-                    android:contentDescription="@string/chapter_illustration"
-                    android:padding="20dp"
-                    android:scaleType="fitCenter" />
+                    android:layout_height="320dp"
+                    android:padding="4dp" />
 
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/playLectureButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/play_sketchnote_lecture" />
+
+            <TextView
+                android:id="@+id/frameCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/on_surface"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/chapterTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textColor="@color/on_surface"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -67,33 +89,42 @@
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/chapterBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:lineSpacingExtra="4dp"
+                android:text="@string/full_english_notes"
                 android:textColor="@color/on_surface"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/key_points_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/key_points"
-                android:textColor="@color/on_surface"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/keyPointsList"
+                android:id="@+id/chapterBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
-                android:lineSpacingExtra="6dp"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@color/on_surface"
                 android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/illustration"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/key_points_header"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/keyPointsList"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

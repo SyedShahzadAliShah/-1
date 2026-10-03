@@ -1,6 +1,7 @@
 package com.couplesguide.postures.data
 
 import android.content.Context
+import org.json.JSONArray
 import org.json.JSONObject
 
 data class CsBook(
@@ -10,13 +11,22 @@ data class CsBook(
     val topics: List<CsTopic>
 )
 
+data class SketchnoteFrame(
+    val index: Int,
+    val english: String,
+    val urdu: String,
+    val visual: String
+)
+
 data class CsTopic(
     val id: String,
     val title: String,
     val english: String,
     val urduNarration: String,
     val golden: Boolean,
-    val sourcePage: Int
+    val sourcePage: Int,
+    val pageImage: String?,
+    val sketchnoteFrames: List<SketchnoteFrame>
 )
 
 object CsTeacherRepository {
@@ -75,7 +85,26 @@ object CsTeacherRepository {
                         english = item.getString("english"),
                         urduNarration = item.getString("urdu_narration"),
                         golden = item.optBoolean("golden", false),
-                        sourcePage = item.optInt("source_page", 0)
+                        sourcePage = item.optInt("source_page", 0),
+                        pageImage = item.optString("page_image").takeIf { it.isNotBlank() },
+                        sketchnoteFrames = parseFrames(item.optJSONArray("sketchnote_frames"))
+                    )
+                )
+            }
+        }
+    }
+
+    private fun parseFrames(array: JSONArray?): List<SketchnoteFrame> {
+        if (array == null || array.length() == 0) return emptyList()
+        return buildList {
+            for (i in 0 until array.length()) {
+                val item = array.getJSONObject(i)
+                add(
+                    SketchnoteFrame(
+                        index = item.optInt("index", i),
+                        english = item.getString("english"),
+                        urdu = item.optString("urdu", ""),
+                        visual = item.optString("visual", "concept")
                     )
                 )
             }

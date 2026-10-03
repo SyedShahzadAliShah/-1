@@ -3,15 +3,13 @@ package com.couplesguide.postures
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.couplesguide.postures.data.CsTopic
 import com.couplesguide.postures.data.CsTeacherRepository
+import com.couplesguide.postures.data.SketchnoteFrame
 import com.couplesguide.postures.databinding.ActivityChapterDetailBinding
-import com.couplesguide.postures.util.LocaleHelper
-import com.couplesguide.postures.util.NarrationBuilder
-import com.couplesguide.postures.util.VoiceNarrator
+import com.couplesguide.postures.util.LectureSyncNarrator
 
 class ChapterDetailActivity : AppCompatActivity() {
 
@@ -21,7 +19,8 @@ class ChapterDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChapterDetailBinding
     private lateinit var topic: CsTopic
-    private var voiceNarrator: VoiceNarrator? = null
+    private lateinit var frames: List<SketchnoteFrame>
+    private var lectureNarrator: LectureSyncNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
 
@@ -37,14 +36,21 @@ class ChapterDetailActivity : AppCompatActivity() {
             return
         }
         topic = found.second
+        frames = topic.sketchnoteFrames.ifEmpty { fallbackFrames(topic) }
 
-        voiceNarrator = VoiceNarrator(
+        lectureNarrator = LectureSyncNarrator(
             context = this,
             onReadyChanged = { ready -> voiceReady = ready },
             onSpeakingChanged = { speaking ->
                 isSpeaking = speaking
                 invalidateOptionsMenu()
+                binding.playLectureButton.text = if (speaking) {
+                    getString(R.string.stop)
+                } else {
+                    getString(R.string.play_sketchnote_lecture)
+                }
             },
+            onFrameStart = { index -> showFrame(index) },
             onLanguageIssue = { message ->
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
@@ -53,11 +59,22 @@ class ChapterDetailActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         bindContent()
+        binding.playLectureButton.setOnClickListener { toggleLecture() }
+    }
+
+    private fun fallbackFrames(topic: CsTopic): List<SketchnoteFrame> {
+        return listOf(
+            SketchnoteFrame(
+                index = 0,
+                english = topic.english.lineSequence().firstOrNull { it.isNotBlank() } ?: topic.title,
+                urdu = topic.urduNarration,
+                visual = "concept"
+            )
+        )
     }
 
     private fun bindContent() {
         supportActionBar?.title = topic.title
-        binding.illustration.visibility = View.GONE
         binding.chapterTitle.text = if (topic.golden) "★ ${topic.title}" else topic.title
         binding.chapterSummary.text = getString(
             R.string.topic_meta,
@@ -65,8 +82,14 @@ class ChapterDetailActivity : AppCompatActivity() {
             getString(if (topic.golden) R.string.golden_topic else R.string.standard_topic)
         )
         binding.chapterBody.text = topic.english
-        binding.keyPointsList.visibility = View.GONE
-        binding.keyPointsHeader.visibility = View.GONE
+        binding.sketchnoteView.setLecture(frames, topic.golden, topic.pageImage)
+        showFrame(0)
+    }
+
+    private fun showFrame(index: Int) {
+        val frame = frames.getOrNull(index) ?: return
+        binding.sketchnoteView.setActiveFrame(index)
+        binding.frameCaption.text = getString(R.string.sketchnote_frame_caption, index + 1, frames.size, frame.english)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -82,14 +105,14 @@ class ChapterDetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_listen) {
-            toggleNarration()
+            toggleLecture()
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun toggleNarration() {
-        val narrator = voiceNarrator ?: return
+    private fun toggleLecture() {
+        val narrator = lectureNarrator ?: return
         if (narrator.isSpeaking()) {
             narrator.stop()
             return
@@ -98,13 +121,14 @@ class ChapterDetailActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        val text = NarrationBuilder.buildTopicNarration(topic)
-        narrator.speak(text, LocaleHelper.LANG_UR)
+        showFrame(0)
+        narrator.speakLecture(frames)
     }
 
     override fun onDestroy() {
-        voiceNarrator?.shutdown()
-        voiceNarrator = null
+        binding.sketchnoteView.stopAnimations()
+        lectureNarrator?.shutdown()
+        lectureNarrator = null
         super.onDestroy()
     }
 }

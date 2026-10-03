@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">CS Teacher\'s Edition</string>
     <string name="app_subtitle">Bilingual Teacher\'s Edition — Sindh Curriculum</string>
-    <string name="welcome_message">High-yield lecture notes for Computer Science XI and XII. On-screen explanations are in English for clarity; tap Listen for Urdu voice narration of each topic.</string>
+    <string name="welcome_message">Lecture-wise animated sketchnotes for CS XI and XII. English notes on screen; Urdu vocals drive frame-by-frame sketchnote animations in each lecture.</string>
     <string name="welcome_narration_urdu">اساتذہ کے لیے کمپیوٹر سائنس کے لیکچر نوٹس۔ انگریزی میں تفصیل پڑھیں اور سنیں اردو میں۔ کتابیں:</string>
     <string name="select_book">Select Class</string>
     <string name="listen_urdu">Listen (Urdu)</string>
@@ -16,6 +16,11 @@
     <string name="topic_meta">Source PDF page %1$d • %2$s</string>
     <string name="golden_topic">Golden / exam-critical topic</string>
     <string name="standard_topic">Lecture topic</string>
-    <string name="version_badge">Version %1$s — English text, Urdu narration</string>
+    <string name="version_badge">Version %1$s — Animated sketchnote lectures (EN + Urdu vocals)</string>
+    <string name="sketchnote_lecture_title">Lecture sketchnote (animated · synced with Urdu vocals)</string>
+    <string name="play_sketchnote_lecture">Play lecture (Urdu vocals + animated sketchnote)</string>
+    <string name="sketchnote_frame_caption">Frame %1$d/%2$d · %3$s</string>
+    <string name="sketchnote_urdu_sync_hint">Urdu vocals synced to this frame</string>
+    <string name="full_english_notes">Full English lecture notes</string>
     <string name="posture_illustration">Illustration</string>
 </resources>
