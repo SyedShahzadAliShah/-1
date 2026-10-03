@@ -1,0 +1,30 @@
+PAGE 104
+[y=54 x=57 B19.2] Uses of IoT (Continued)
+[y=102 x=57 B14.4] 4. Education (Smart Learning)
+[y=130 x=72 B10.8] Smart Classrooms: Digital boards and
+[y=146 x=72 R10.8] connected projectors.
+[y=162 x=72 B10.8] Attendance Systems: Biometric
+[y=179 x=72 R10.8] automated attendance for students
+[y=195 x=72 R10.8] and teachers.
+[y=211 x=72 B10.8] Resource Management: Automated
+[y=228 x=72 R10.8] classroom lighting and AC control.
+[y=102 x=305 B14.4] 5. Home Automation
+[y=130 x=320 B10.8] Smart Lighting: Controlled remotely via
+[y=146 x=320 R10.8] mobile apps.
+[y=162 x=320 B10.8] Security: Real-time monitoring via Wi-Fi
+[y=179 x=320 R10.8] cameras.
+[y=195 x=320 B10.8] Voice Control: Using assistants (like
+[y=211 x=320 R10.8] Alexa/Google) to control TVs and
+[y=228 x=320 R10.8] appliances.
+[y=271 x=65 B14.4] 6. Smart Farming
+[y=300 x=65 R10.8] Crucial for agriculture in Pakistan (especially Sindh/Punjab) to save water and
+[y=316 x=65 R10.8] improve yields.
+[y=339 x=80 B10.8] Soil Moisture Sensors: Check if crops actually need water.
+[y=356 x=80 B10.8] Automated Irrigation: Turns water pumps ON/OFF based on soil data.
+[y=372 x=80 B10.8] Drones: Monitor crop health from above.
+[y=442 x=243 R10.5] Smart Farming Process
+[y=477 x=178 R9.0] Soil Sensor
+[y=471 x=284 R7.5] Cloud AI
+[y=482 x=272 R7.5] (Needs Water?)
+[y=477 x=371 R9.0] Water Pump
+[y=782 x=280 R10.2] Page 9

@@ -1,0 +1,21 @@
+PAGE 115
+[y=54 x=57 B19.2] 6.4 Data-Collection Strategies
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Digital literacy is not limited to finding information that already exists. Students
+[y=148 x=57 R12.0] should also learn how to gather original information. Below are the common
+[y=166 x=57 R12.0] strategies used to collect data.
+[y=332 x=97 R9.0] Interviews
+[y=332 x=192 R9.0] Surveys
+[y=332 x=276 R9.0] Prototypes
+[y=332 x=363 R9.0] Observation
+[y=332 x=454 R9.0] Simulations
+[y=419 x=65 B14.4] 6.4.1 Interviews
+[y=447 x=65 R10.8] An interview is a planned conversation used to gather information directly from a
+[y=463 x=65 R10.8] person. It may be one-to-one or in a small group. Questions are planned in advance,
+[y=480 x=65 R10.8] and answers are usually qualitative.
+[y=563 x=65 B14.4] 6.4.2 Surveys / Questionnaires
+[y=591 x=65 R10.8] A survey is useful when the same set of questions needs to be asked to many people.
+[y=607 x=65 R10.8] It may be on paper or created with digital tools like Google Forms or Microsoft Forms.
+[y=631 x=64 R10.8] Note: Online survey tools automatically collect responses and display basic charts,
+[y=648 x=64 R10.8] making data analysis much easier.
+[y=782 x=280 R10.2] Page 5

@@ -1,0 +1,24 @@
+PAGE 88
+[y=54 x=57 B19.2] 4.9 Creation of Tables in MS Access
+[y=94 x=57 R12.0] Creating tables is the fundamental step in developing a database. A carefully
+[y=112 x=57 R12.0] designed table ensures data accuracy, improves query speed, and saves
+[y=130 x=57 R12.0] storage.
+[y=163 x=57 B14.4] 4.9.1 Planning the Table Structure
+[y=193 x=57 R12.0] Before touching the software, you must plan:
+[y=218 x=72 B12.0] Purpose: What will this table store?
+[y=236 x=72 B12.0] Fields: What exact columns do I need?
+[y=254 x=72 B12.0] Data Types: Is it Text, a Number, or a Date?
+[y=272 x=72 B12.0] Primary Key: Which field is the unique identifier?
+[y=329 x=57 B14.4] 4.9.2 Creating Table using Datasheet View
+[y=358 x=57 R12.0] Datasheet View is the fast, easy, spreadsheet-like way to create tables. It is
+[y=376 x=57 R12.0] great for beginners but offers limited control.
+[y=402 x=62 R12.0] 1. Go to the Create tab and select Table.
+[y=420 x=59 R12.0] 2. A blank grid appears (like Excel).
+[y=438 x=59 R12.0] 3. Double-click the column headers (Field1, Field2) to rename them.
+[y=456 x=58 R12.0] 4. Start typing data directly into the cells. MS Access tries to guess the data type
+[y=474 x=72 R12.0] automatically.
+[y=519 x=69 B10.8] ⚠️ Limitations of Datasheet View
+[y=539 x=69 R12.0] While fast, Datasheet view doesn't let you set strict validation rules (like
+[y=557 x=69 R12.0] "Marks cannot be over 100") easily. Professional developers prefer Design
+[y=575 x=69 R12.0] View.
+[y=782 x=278 R10.2] Page 19

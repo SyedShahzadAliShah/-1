@@ -1,0 +1,22 @@
+PAGE 120
+[y=54 x=57 B19.2] Presenting Data (Continued)
+[y=102 x=65 B14.4] 6.7.3 Infographics
+[y=131 x=65 R10.8] An infographic is a visual way of presenting information, facts, or data so that people
+[y=147 x=65 R10.8] can understand the main idea quickly and easily. Tools such as Canva, Power BI, or
+[y=163 x=65 R10.8] Tableau can be used.
+[y=219 x=80 R10.2] Simplify complex concepts.
+[y=234 x=80 R10.2] Highlight the most important findings and results.
+[y=249 x=80 R10.2] Use clear visuals, limited text, and accurate information.
+[y=300 x=65 B14.4] 6.7.4 Reports
+[y=328 x=65 R10.8] Reports are structured documents used to present collected data, findings, analysis,
+[y=345 x=65 R10.8] and conclusions. Tools like MS Word or Google Docs are standard.
+[y=369 x=80 R10.2] Start with a clear title, introduction, and purpose.
+[y=384 x=80 R10.2] Present the collected data using tables or charts.
+[y=399 x=80 R10.2] Explain findings in simple language.
+[y=415 x=80 R10.2] Include conclusions and recommendations based on the data.
+[y=430 x=79 R10.2] Optional: Use AI tools carefully to improve wording, but always review for accuracy.
+[y=492 x=69 B10.8] 👨‍🏫 Visual Rule of Thumb
+[y=513 x=69 R12.0] A good chart or infographic can explain complex data faster than a long
+[y=531 x=69 R12.0] paragraph. However, visuals must always be accurate and based strictly on
+[y=549 x=69 R12.0] the real data collected, never exaggerated.
+[y=782 x=278 R10.2] Page 10

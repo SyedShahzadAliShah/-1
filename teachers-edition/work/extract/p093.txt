@@ -1,0 +1,32 @@
+PAGE 93
+[y=54 x=57 B19.2] Data Summarization & Statistics
+[y=102 x=57 B14.4] 4.11.4 Data Summarization and Grouping
+[y=131 x=57 R12.0] Grouping allows you to combine records with similar values (e.g., Grouping by
+[y=149 x=57 R12.0] Department) to calculate totals. In MS Access, click the Totals (Σ) button in the
+[y=167 x=57 R12.0] ribbon to enable the "Total" row in the grid.
+[y=210 x=87 B10.8] Aggregate
+[y=225 x=93 B10.8] Function
+[y=210 x=307 B10.8] What it calculates
+[y=255 x=63 B10.8] COUNT()
+[y=255 x=184 R10.8] Counts the number of records (e.g., How many students in IT?)
+[y=284 x=63 B10.8] SUM()
+[y=284 x=184 R10.8] Adds total values together (e.g., Total fees collected)
+[y=312 x=63 B10.8] AVG()
+[y=312 x=184 R10.8] Calculates the mathematical mean (average)
+[y=342 x=63 B10.8] MAX() / MIN()
+[y=342 x=184 R10.8] Finds the highest / lowest value in a group
+[y=384 x=57 B14.4] 4.11.5 Statistical Analysis Example
+[y=413 x=57 R12.0] To find the Average Marks of students in each Department:
+[y=438 x=63 R10.8] 1. Create Query, add Student table.
+[y=454 x=60 R10.8] 2. Add Department and Marks fields to the grid.
+[y=471 x=60 R10.8] 3. Click the Totals (Σ) button.
+[y=486 x=60 R10.8] 4. Under Department, set Total to Group By.
+[y=503 x=60 R10.8] 5. Under Marks, set Total to Avg.
+[y=519 x=60 R10.8] 6. Run!
+[y=557 x=202 B10.8] Department
+[y=557 x=344 B10.8] Avg of Marks
+[y=586 x=160 R10.8] Computer Science
+[y=586 x=325 R10.8] 82.5
+[y=615 x=160 R10.8] IT
+[y=615 x=325 R10.8] 76.0
+[y=782 x=277 R10.2] Page 24

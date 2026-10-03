@@ -1,0 +1,24 @@
+PAGE 32
+[y=54 x=57 B19.2] 2.3.2 Pattern Recognition
+[y=94 x=57 R12.0] Pattern Recognition is the process of identifying regularities, repetitions, or rules
+[y=112 x=57 R12.0] in data. It helps in reducing overall algorithm complexity and forms the
+[y=130 x=57 R12.0] foundation of concepts such as loops.
+[y=243 x=69 B10.8] 🔍 How it works? Ask yourself:
+[y=265 x=84 R12.0] What is repeating?
+[y=283 x=84 R12.0] What changes in a predictable way?
+[y=301 x=84 R12.0] Can I generalize this?
+[y=339 x=57 B12.0] Example: Triangle of Stars
+[y=391 x=129 R14.4] *
+[y=414 x=124 R14.4] **
+[y=437 x=119 R14.4] ***
+[y=460 x=114 R14.4] ****
+[y=483 x=109 R14.4] *****
+[y=357 x=227 R12.0] In this example, the pattern shows that each row
+[y=375 x=227 R12.0] adds 1 star to the previous row's count.
+[y=399 x=242 R10.8] Row 1 = 1 star
+[y=415 x=242 R10.8] Row 2 = 2 stars
+[y=432 x=242 R10.8] Row N = N stars
+[y=456 x=227 R12.0] Recognizing this pattern allows us to write a generic
+[y=474 x=227 R12.0] loop algorithm instead of writing 5 separate print
+[y=492 x=227 R12.0] statements.
+[y=782 x=280 R10.2] Page 6

@@ -1,0 +1,54 @@
+PAGE 8
+[y=54 x=57 B19.2] 1.1.6 Truth Tables
+[y=94 x=57 R12.0] A truth table shows all possible input combinations and their corresponding
+[y=112 x=57 R12.0] outputs for a logic gate or circuit.
+[y=183 x=57 B14.4] How to create a truth table:
+[y=212 x=62 R12.0] 1. Count the number of inputs (n).
+[y=230 x=59 R12.0] 2. Calculate total rows = 2ⁿ.
+[y=248 x=59 R12.0] 3. List all input combinations in binary order.
+[y=266 x=58 R12.0] 4. Calculate output for each combination.
+[y=292 x=57 B12.0] 2-Input Example (n=2, Rows=4)
+[y=323 x=71 B10.8] A
+[y=323 x=107 B10.8] B
+[y=323 x=169 B10.8] Combinations
+[y=352 x=63 R10.8] 0
+[y=352 x=100 R10.8] 0
+[y=352 x=135 R10.8] Row 1
+[y=381 x=63 R10.8] 0
+[y=381 x=100 R10.8] 1
+[y=381 x=135 R10.8] Row 2
+[y=410 x=63 R10.8] 1
+[y=410 x=100 R10.8] 0
+[y=410 x=135 R10.8] Row 3
+[y=439 x=63 R10.8] 1
+[y=439 x=100 R10.8] 1
+[y=439 x=135 R10.8] Row 4
+[y=292 x=305 B12.0] 3-Input Example (n=3, Rows=8)
+[y=323 x=341 B9.6] A
+[y=323 x=418 B9.6] B
+[y=323 x=495 B9.6] C
+[y=351 x=312 R9.6] 0
+[y=351 x=390 R9.6] 0
+[y=351 x=465 R9.6] 0
+[y=378 x=312 R9.6] 0
+[y=378 x=390 R9.6] 0
+[y=378 x=465 R9.6] 1
+[y=405 x=312 R9.6] 0
+[y=405 x=390 R9.6] 1
+[y=405 x=465 R9.6] 0
+[y=432 x=312 R9.6] 0
+[y=432 x=390 R9.6] 1
+[y=432 x=465 R9.6] 1
+[y=459 x=312 R9.6] 1
+[y=459 x=390 R9.6] 0
+[y=459 x=465 R9.6] 0
+[y=486 x=312 R9.6] 1
+[y=486 x=390 R9.6] 0
+[y=486 x=465 R9.6] 1
+[y=514 x=312 R9.6] 1
+[y=514 x=390 R9.6] 1
+[y=514 x=465 R9.6] 0
+[y=541 x=312 R9.6] 1
+[y=541 x=390 R9.6] 1
+[y=541 x=465 R9.6] 1
+[y=782 x=280 R10.2] Page 8

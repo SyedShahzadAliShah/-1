@@ -1,0 +1,18 @@
+PAGE 3
+[y=54 x=57 B19.2] 1.1.1 Discrete and Continuous Quantities
+[y=102 x=57 B12.0] Discrete Quantities: Separate,
+[y=120 x=57 R12.0] countable items with specific values.
+[y=138 x=57 R12.0] They can be counted one by one.
+[y=163 x=72 R12.0] Number of students in a classroom
+[y=181 x=72 R12.0] Number of cars in a parking lot
+[y=272 x=57 B12.0] Continuous Quantities: Can take any
+[y=290 x=57 R12.0] value within a range. They flow
+[y=308 x=57 R12.0] smoothly without breaks.
+[y=334 x=72 R12.0] Temperature of water
+[y=352 x=72 R12.0] Speed of a moving car
+[y=462 x=69 B10.8] 💡 Analogy: Stairs vs Ramp
+[y=482 x=69 R12.0] Stairs represent discrete data (fixed steps). A ramp represents continuous
+[y=500 x=69 R12.0] data (any point).
+[y=740 x=155 R12.0] Discrete (Stairs)
+[y=740 x=380 R12.0] Continuous (Ramp)
+[y=782 x=280 R10.2] Page 3

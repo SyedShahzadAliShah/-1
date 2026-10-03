@@ -1,0 +1,29 @@
+PAGE 65
+[y=54 x=57 B19.2] 3.6 Libraries in Python
+[y=94 x=57 R12.0] Libraries are pre-written code that offer helpful functions. Instead of writing
+[y=112 x=57 R12.0] complex code from scratch, programmers use libraries to solve common
+[y=130 x=57 R12.0] problems efficiently.
+[y=231 x=57 B14.4] How to Import Libraries
+[y=261 x=57 R12.0] There are mainly 5 ways to import a library:
+[y=304 x=163 B10.2] Syntax
+[y=304 x=384 B10.2] Code Example
+[y=332 x=63 B10.2] 1. Import entire module
+[y=348 x=63 R10.2] Must use module.func()
+[y=333 x=312 RM10.2] import math
+[y=349 x=312 RM10.2] res = math.sqrt(25)
+[y=375 x=63 B10.2] 2. Import with alias (nickname)
+[y=377 x=312 RM10.2] import math as m
+[y=392 x=312 RM10.2] res = m.sqrt(16)
+[y=419 x=63 B10.2] 3. Import specific function
+[y=434 x=63 R10.2] No need to prefix module name.
+[y=420 x=312 RM10.2] from math import sqrt
+[y=435 x=312 RM10.2] res = sqrt(36)
+[y=462 x=63 B10.2] 4. Import multiple functions
+[y=464 x=312 RM10.2] from math import sqrt, pi
+[y=490 x=63 B10.2] 5. Import everything (*)
+[y=491 x=312 RM10.2] from math import *
+[y=506 x=312 RM10.2] res = sqrt(64)
+[y=558 x=69 B10.8] 👨‍🏫 Best Practice
+[y=579 x=69 R12.0] Advise students that importing specific functions (method 3) is better for
+[y=597 x=69 R12.0] memory and clarity than importing everything using the * wildcard.
+[y=782 x=277 R10.2] Page 22

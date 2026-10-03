@@ -1,0 +1,35 @@
+PAGE 41
+[y=54 x=57 B19.2] Binary Search Example
+[y=94 x=57 B12.0] Sorted List: [1, 2, 3, 4, 5, 6, 7, 8]
+[y=112 x=57 B12.0] Searching Item: 3
+[y=162 x=99 R12.0] Step 1: MID = 8/2 = 4 (Value: 4). 3 < 4, go Left.
+[y=182 x=138 R12.0] 1
+[y=182 x=159 R12.0] 2
+[y=182 x=182 R12.0] 3
+[y=182 x=204 B12.0] 4
+[y=206 x=201 R7.5] MID
+[y=182 x=226 R12.0] 5
+[y=182 x=249 R12.0] 6
+[y=182 x=272 R12.0] 7
+[y=182 x=294 R12.0] 8
+[y=222 x=99 R12.0] Step 2: Sub-list [1,2,3]. MID = 3/2 = 1.5 -> 2. (Value: 2). 3 > 2, go Right.
+[y=242 x=138 R12.0] 1
+[y=242 x=159 B12.0] 2
+[y=266 x=156 R7.5] MID
+[y=242 x=182 R12.0] 3
+[y=282 x=99 R12.0] Step 3: Sub-list [3]. MID = 1/2 = 0.5 -> 1. (Value: 3). 3 == 3. FOUND!
+[y=302 x=182 B12.0] 3
+[y=349 x=68 B12.0] Advantages
+[y=367 x=83 R10.2] Extremely fast for "Big Data". Finds an
+[y=382 x=83 R10.2] item in 1M elements in just ~20 steps.
+[y=398 x=83 R10.2] Massive time savings for static lists
+[y=413 x=83 R10.2] searched repeatedly.
+[y=349 x=316 B12.0] Disadvantages
+[y=367 x=331 B10.2] Must be sorted first. Fails on
+[y=382 x=331 R10.2] scrambled data.
+[y=398 x=331 R10.2] Requires random access to elements
+[y=413 x=331 R10.2] (works on Arrays, not easily on Linked
+[y=429 x=331 R10.2] Lists).
+[y=444 x=331 R10.2] More complex code, prone to logic
+[y=459 x=331 R10.2] errors (off-by-one).
+[y=782 x=278 R10.2] Page 15

@@ -1,0 +1,39 @@
+PAGE 57
+[y=54 x=57 B19.2] Bitwise Operators (Continued)
+[y=102 x=57 B14.4] Bitwise XOR ( ^ )
+[y=131 x=57 R10.2] Returns 1 if bits are DIFFERENT. Returns 0 if they
+[y=146 x=57 R10.2] are the SAME.
+[y=179 x=84 B9.6] Bit A
+[y=179 x=160 B9.6] Bit B
+[y=179 x=237 B9.6] A ^ B
+[y=206 x=63 R9.6] 0
+[y=206 x=140 R9.6] 0
+[y=206 x=215 R9.6] 0
+[y=233 x=63 R9.6] 0
+[y=233 x=140 R9.6] 1
+[y=233 x=215 R9.6] 1
+[y=260 x=63 R9.6] 1
+[y=260 x=140 R9.6] 0
+[y=260 x=215 R9.6] 1
+[y=287 x=63 R9.6] 1
+[y=287 x=140 R9.6] 1
+[y=287 x=215 R9.6] 0
+[y=102 x=305 B14.4] Bitwise NOT ( ~ )
+[y=131 x=305 R10.2] Inverts ALL bits. 0 becomes 1, 1 becomes 0.
+[y=146 x=305 R10.2] Also adds negative sign minus 1.
+[y=179 x=361 B9.6] Bit A
+[y=179 x=482 B9.6] ~A
+[y=206 x=312 R9.6] 0
+[y=206 x=445 R9.6] 1
+[y=233 x=312 R9.6] 1
+[y=233 x=445 R9.6] 0
+[y=266 x=305 RM9.6] ~10 gives -11
+[y=339 x=57 B14.4] Bitwise Shifts
+[y=368 x=57 B12.0] Left Shift ( << ): Shifts bits left. Multiplies by 2 for each shift.
+[y=386 x=57 B12.0] Right Shift ( >> ): Shifts bits right. Divides by 2 (floor) for each shift.
+[y=438 x=69 R10.2] a = 5#Binary:00000101
+[y=471 x=69 R10.2] print(a << 1)#LeftShift1:00001010(Decimal10)-Adds0onright
+[y=487 x=69 R10.2] print(a << 2)#LeftShift2:00010100(Decimal20)-Adds00onright
+[y=520 x=69 R10.2] b = 20#Binary:00010100
+[y=537 x=69 R10.2] print(b >> 1)#RightShift1:00001010(Decimal10)-Removesrightmost
+[y=782 x=278 R10.2] Page 14

@@ -1,0 +1,30 @@
+PAGE 19
+[y=54 x=57 B19.2] Detailed SDLC Phases (1-3)
+[y=111 x=100 B10.8] Phase
+[y=111 x=246 B10.8] Activities & Details
+[y=111 x=446 B10.8] Deliverable
+[y=141 x=63 B10.8] 1. Requirement
+[y=156 x=63 B10.8] Analysis
+[y=141 x=184 R10.8] Meet clients, understand needs, list
+[y=156 x=184 R10.8] features. This is the most important
+[y=173 x=184 R10.8] phase.
+[y=141 x=424 B10.8] SRS Document
+[y=158 x=424 R9.6] (Software
+[y=174 x=424 R9.6] Requirements
+[y=191 x=424 R9.6] Specification)
+[y=225 x=63 B10.8] 2. System Design
+[y=225 x=184 R10.8] Create High-Level Design (architecture),
+[y=242 x=184 R10.8] Low-Level Design (database, UI screens),
+[y=258 x=184 R10.8] Flowcharts.
+[y=225 x=424 B10.8] Design Document
+[y=309 x=63 B10.8] 3. Implementation
+[y=309 x=184 R10.8] Write actual code in programming
+[y=325 x=184 R10.8] languages (Python, Java, etc.) based on
+[y=342 x=184 R10.8] the design docs.
+[y=309 x=424 B10.8] Working Source
+[y=325 x=424 B10.8] Code
+[y=418 x=69 B10.8] 👨‍🏫 Teacher's Tip
+[y=439 x=69 R12.0] Use the analogy of building a house: Phase 1 is asking the family what rooms
+[y=457 x=69 R12.0] they need. Phase 2 is the architect drawing blueprints. Phase 3 is the builders
+[y=475 x=69 R12.0] laying bricks.
+[y=782 x=278 R10.2] Page 19

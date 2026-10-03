@@ -1,0 +1,30 @@
+PAGE 89
+[y=54 x=57 B19.2] Table Creation (Design View)
+[y=102 x=57 B14.4] 4.9.3 Creating Table using Design View
+[y=131 x=57 R12.0] Design View provides full, structured control over your table before you enter
+[y=149 x=57 R12.0] any data. This is the professional way to build tables.
+[y=175 x=62 R12.0] 1. Go to the Create tab and select Table Design.
+[y=193 x=59 R12.0] 2. Enter the Field Name (e.g., StudentID, Name).
+[y=211 x=59 R12.0] 3. Select the exact Data Type from the dropdown.
+[y=229 x=58 R12.0] 4. Right-click the field that should be unique and select Primary Key (a small
+[y=247 x=72 R12.0] key icon will appear).
+[y=265 x=58 R12.0] 5. Save the table.
+[y=297 x=57 B14.4] 4.9.4 Selecting Appropriate Data Types
+[y=327 x=57 R12.0] Choosing the right data type prevents errors and saves memory space.
+[y=369 x=89 B10.8] Data Type
+[y=369 x=334 B10.8] Used For
+[y=398 x=63 B10.8] Short Text
+[y=398 x=184 R10.8] Names, addresses, phone numbers (even though phone
+[y=414 x=184 R10.8] numbers look like math, you don't add or subtract them). Up to
+[y=431 x=184 R10.8] 255 chars.
+[y=459 x=63 B10.8] Number
+[y=459 x=184 R10.8] Numeric values used in mathematical calculations (e.g., Age,
+[y=476 x=184 R10.8] Marks, Quantity).
+[y=504 x=63 B10.8] Date/Time
+[y=504 x=184 R10.8] Dates of birth, admission dates, appointment times.
+[y=534 x=63 B10.8] Currency
+[y=534 x=184 R10.8] Financial values like Fees or Salary.
+[y=563 x=63 B10.8] AutoNumber
+[y=563 x=184 R10.8] Automatically generates a new unique sequential number for
+[y=579 x=184 R10.8] every new record. Perfect for Primary Keys.
+[y=782 x=277 R10.2] Page 20

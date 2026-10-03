@@ -1,0 +1,21 @@
+PAGE 45
+[y=42 x=164 B26.4] TABLE OF CONTENTS
+[y=121 x=63 R11.4] 1. 3.1 Programming & Language Types
+[y=147 x=60 R11.4] 2. 3.2 Career Growth with Python
+[y=173 x=60 R11.4] 3. 3.3 Integrated Development Environment (IDE) & VS Code
+[y=199 x=59 R11.4] 4. 3.4 Fundamentals of Python Programming
+[y=225 x=59 R11.4] 5. 3.4.1 Variables and Data Types ★
+[y=252 x=59 R11.4] 6. 3.4.2 Input Output Handling
+[y=278 x=60 R11.4] 7. 3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise) ★
+[y=304 x=59 R11.4] 8. 3.5 Control Structures Overview
+[y=331 x=59 R11.4] 9. 3.5.1 Sequence
+[y=357 x=55 R11.4] 10. 3.5.2 Selection Statements (if, if-else, if-elif-else, nested) ★
+[y=383 x=59 R11.4] 11. 3.5.3 Repetition Statements (for loop, while loop) ★
+[y=409 x=56 R11.4] 12. 3.6 Libraries in Python (Built-in & Third-Party)
+[y=436 x=56 R11.4] 13. 3.7 Debugging Code in Python (Syntax, Runtime, Logical Errors)
+[y=575 x=69 B10.8] Reference Note /
+[y=695 x=69 R12.0] These notes are prepared specifically for teachers. For reference, please
+[y=713 x=69 R12.0] consult the textbook PDF file named exactly "CS XI (3 & 4).pdf", which has
+[y=731 x=69 R12.0] been followed verbatim. Topics marked with a ★ are highly critical for
+[y=749 x=69 R12.0] examinations.
+[y=782 x=280 R10.2] Page 2

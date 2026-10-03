@@ -1,0 +1,25 @@
+PAGE 123
+[y=54 x=57 B19.2] Methodology (Steps 4 to 6)
+[y=102 x=57 B14.4] Step 4: Prepare the Survey
+[y=130 x=57 R10.8] Design clear, unbiased questions.
+[y=172 x=191 B10.2] Question
+[y=172 x=422 B10.2] Type of Data
+[y=201 x=63 R10.2] How many hours do you use your phone daily?
+[y=201 x=378 R10.2] Quantitative
+[y=228 x=63 R10.2] Which activity do you use your phone for the most?
+[y=228 x=378 R10.2] Quantitative (Categories)
+[y=257 x=63 R10.2] How does your phone help you in studies?
+[y=257 x=378 R10.2] Qualitative
+[y=285 x=63 R10.2] Suggest one way to use phones responsibly.
+[y=285 x=378 R10.2] Qualitative
+[y=325 x=57 B14.4] Step 5: Choose the Sample
+[y=354 x=57 R10.8] The sample is the group of people providing data. The students decide to survey 40
+[y=370 x=57 R10.8] Class XI students from different sections to get a representative mix of habits.
+[y=402 x=57 B14.4] Step 6: Collect Primary Data (Ethically)
+[y=430 x=57 R10.8] When conducting the survey, students must follow strict ethical guidelines:
+[y=455 x=72 R10.2] Ask permission before collecting responses (Consent).
+[y=470 x=72 R10.2] Avoid collecting sensitive personal information.
+[y=486 x=72 R10.2] Do not record names unless absolutely necessary (Anonymity).
+[y=501 x=72 R10.2] Keep the responses private.
+[y=516 x=72 R10.2] Use the data only for educational purposes.
+[y=782 x=279 R10.2] Page 13

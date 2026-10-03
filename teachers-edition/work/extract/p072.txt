@@ -1,0 +1,37 @@
+PAGE 72
+[y=54 x=57 B19.2] 4.1 Concepts of Database and Elements
+[y=102 x=57 B14.4] 4.1.1 Data, Information and Database
+[y=131 x=57 B12.0] Data ()
+[y=149 x=57 R12.0] Data are unprocessed facts, figures, or
+[y=167 x=57 R12.0] observations collected from different
+[y=185 x=57 R12.0] sources. It can be quantitative
+[y=203 x=57 R12.0] (numerical) or qualitative
+[y=221 x=57 R12.0] (descriptive).
+[y=345 x=71 R10.2] Example: 80, 75, 90, 70, 85
+[y=360 x=71 R10.2] Example: The color of cars in a parking lot.
+[y=131 x=305 B12.0] Information ()
+[y=149 x=305 R12.0] When we organize, process, and
+[y=167 x=305 R12.0] interpret data, it becomes information
+[y=185 x=305 R12.0] which provides meaning and supports
+[y=203 x=305 R12.0] decision-making.
+[y=327 x=319 R10.2] Example: The average score of the class is
+[y=342 x=320 R10.2] 80%.
+[y=445 x=188 R12.0] Data
+[y=436 x=240 R7.5] Processing
+[y=445 x=289 R12.0] Information
+[y=436 x=365 R7.5] Used for
+[y=441 x=403 R7.5] Decision
+[y=449 x=405 R7.5] Making
+[y=525 x=86 B10.8] Aspect
+[y=525 x=236 B10.8] Data
+[y=525 x=409 B10.8] Information
+[y=555 x=63 B10.8] Definition
+[y=555 x=160 R10.8] Raw facts and figures
+[y=555 x=352 R10.8] Processed and Meaningful data
+[y=583 x=63 B10.8] Example
+[y=583 x=160 R10.8] 85, 90, 75
+[y=583 x=352 R10.8] Average Marks = 83.3%
+[y=612 x=63 B10.8] Usefulness
+[y=612 x=160 R10.8] Less useful on its own
+[y=612 x=352 R10.8] Useful for decision making
+[y=782 x=280 R10.2] Page 3

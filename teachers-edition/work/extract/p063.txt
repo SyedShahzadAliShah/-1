@@ -1,0 +1,29 @@
+PAGE 63
+[y=54 x=57 B19.2] Nested Loops & Comparison
+[y=102 x=57 B14.4] Nested Loop
+[y=131 x=57 R12.0] A loop inside another loop. The inner loop runs completely from start to finish for
+[y=149 x=56 R12.0] every single iteration of the outer loop.
+[y=269 x=69 R10.2] forouterinrange(1,3):#Runs2times(1,2)
+[y=285 x=93 R10.2] forinnerinrange(1,4):#Runs3timesperouter(1,2,3)
+[y=302 x=118 R10.2] print(f"Outer:{outer},Inner:{inner}")
+[y=364 x=65 R9.6] Output:
+[y=377 x=65 R9.6] Outer:1,Inner:1
+[y=391 x=65 R9.6] Outer:1,Inner:2
+[y=406 x=65 R9.6] Outer:1,Inner:3
+[y=420 x=65 R9.6] Outer:2,Inner:1
+[y=435 x=65 R9.6] Outer:2,Inner:2
+[y=449 x=65 R9.6] Outer:2,Inner:3
+[y=489 x=57 R14.4] for Loop vs while Loop
+[y=537 x=153 R10.8] for Loop
+[y=537 x=387 R10.8] while Loop
+[y=565 x=63 R10.8] Used when the number of iterations is
+[y=582 x=63 B10.8] known.
+[y=565 x=304 R10.8] Used when the number of iterations is
+[y=582 x=304 B10.8] unknown (condition-based).
+[y=611 x=63 R10.8] Automatically updates the counter.
+[y=611 x=304 R10.8] Requires manual update of counter (risk
+[y=627 x=304 R10.8] of infinite loop).
+[y=656 x=63 R10.8] Cleaner and shorter for counting tasks.
+[y=656 x=304 R10.8] Better for dynamic scenarios (like "keep
+[y=672 x=304 R10.8] playing until user says Stop").
+[y=782 x=277 R10.2] Page 20

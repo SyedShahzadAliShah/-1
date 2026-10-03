@@ -1,0 +1,22 @@
+PAGE 112
+[y=42 x=164 B26.4] TABLE OF CONTENTS
+[y=121 x=63 R11.4] 1. 6.1 & 6.2 Introduction to Digital Literacy
+[y=146 x=60 R11.4] 2. 6.3 Types of Data (Qualitative vs Quantitative) ★
+[y=171 x=60 R11.4] 3. 6.4 Data-Collection Strategies ★
+[y=196 x=59 R11.4] 4. 6.4.1 - 6.4.2 Interviews and Surveys
+[y=221 x=59 R11.4] 5. 6.4.3 - 6.4.5 Prototypes, Observation, and Simulations
+[y=246 x=59 R11.4] 6. 6.5 Primary and Secondary Data ★
+[y=271 x=60 R11.4] 7. 6.6 Designing a Data-Collection Approach
+[y=297 x=59 R11.4] 8. 6.7 Presenting Data Using Digital Tools
+[y=322 x=59 R11.4] 9. 6.7.1 - 6.7.4 Spreadsheets, Presentations, Infographics, Reports
+[y=346 x=55 R11.4] 10. 6.8 Case Study: Digital Inquiry Project ★
+[y=372 x=59 R11.4] 11. Step 1 - 3: Advanced Search & Methodology
+[y=397 x=56 R11.4] 12. Step 4 - 6: Survey Prep & Primary Data Collection
+[y=422 x=56 R11.4] 13. Step 7 - 9: Secondary Data & Spreadsheet Organization
+[y=447 x=55 R11.4] 14. Step 10 - 12: Data Analysis, Conclusion & Artefact
+[y=575 x=69 B10.8] Reference Note /
+[y=695 x=69 R12.0] These notes are prepared specifically for teachers. For reference, please
+[y=713 x=69 R12.0] consult the textbook PDF file named exactly "CS XI (5 & 6).pdf", which has
+[y=731 x=69 R12.0] been followed verbatim. Topics marked with a ★ are highly critical for
+[y=749 x=69 R12.0] examinations.
+[y=782 x=280 R10.2] Page 2

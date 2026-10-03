@@ -1,0 +1,46 @@
+PAGE 108
+[y=54 x=57 B19.2] 5.4 Impacts of Computing in Various Fields
+[y=94 x=57 R12.0] Computing has drastically changed society. While it makes life faster and more
+[y=112 x=57 R12.0] connected, it also brings challenges like privacy risks and technology addiction.
+[y=156 x=94 B10.2] Field
+[y=156 x=202 B10.2] Positive Impact (+)
+[y=156 x=390 B10.2] Negative Impact (-)
+[y=183 x=63 B10.2] Education
+[y=183 x=162 R10.2] Online classes, e-books, and
+[y=199 x=162 R10.2] learning apps make studying
+[y=214 x=162 R10.2] highly flexible and accessible.
+[y=183 x=354 R10.2] Excessive screen time reduces
+[y=199 x=354 R10.2] attention spans and causes
+[y=214 x=354 R10.2] physical health issues.
+[y=243 x=63 B10.2] Communication
+[y=243 x=162 R10.2] Emails and video calls allow
+[y=258 x=162 R10.2] instant, global communication at
+[y=273 x=162 R10.2] zero cost.
+[y=243 x=354 R10.2] People interact less in-person,
+[y=258 x=354 R10.2] leading to social isolation and
+[y=273 x=354 R10.2] reduced face-to-face skills.
+[y=301 x=63 B10.2] Business
+[y=301 x=162 R10.2] Online shopping, digital banking,
+[y=316 x=162 R10.2] and automation dramatically
+[y=332 x=162 R10.2] improve speed and efficiency.
+[y=301 x=354 R10.2] Traditional manual jobs are lost to
+[y=316 x=354 R10.2] machines; risk of severe cyber-
+[y=332 x=354 R10.2] attacks on banks.
+[y=360 x=63 B10.2] Healthcare
+[y=360 x=162 R10.2] Digital patient records and
+[y=375 x=162 R10.2] telemedicine allow doctors to treat
+[y=390 x=162 R10.2] remote patients accurately.
+[y=360 x=354 R10.2] Patient data privacy is at risk if
+[y=375 x=354 R10.2] hospital servers are hacked.
+[y=418 x=63 B10.2] Agriculture
+[y=418 x=162 R10.2] Smart irrigation and weather
+[y=434 x=162 R10.2] forecasting massively increase
+[y=449 x=162 R10.2] crop yields.
+[y=418 x=354 R10.2] Poor internet access in rural areas
+[y=434 x=354 R10.2] means many farmers cannot use
+[y=449 x=354 R10.2] these tools.
+[y=493 x=57 B14.4] Smart and Responsible Use
+[y=522 x=72 R10.8] Protect personal information and use strong passwords.
+[y=538 x=72 R10.8] Do not share fake news or unverified forwards.
+[y=554 x=72 R10.8] Balance screen time with physical sports and activities.
+[y=782 x=279 R10.2] Page 13

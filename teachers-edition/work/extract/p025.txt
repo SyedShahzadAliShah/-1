@@ -1,0 +1,27 @@
+PAGE 25
+[y=54 x=57 B19.2] OSI Model Layers (Top Layers)
+[y=111 x=102 B10.8] Layer
+[y=111 x=248 B10.8] Main Job /  Protocols
+[y=141 x=63 B10.8] 7. Application
+[y=141 x=184 R10.8] Provides network services directly to user
+[y=156 x=184 R10.8] applications.
+[y=141 x=425 R10.8] HTTP, HTTPS, FTP,
+[y=156 x=425 R10.8] SMTP, DNS
+[y=210 x=63 B10.8] 6. Presentation
+[y=210 x=184 R10.8] Data Translation, Encryption (security),
+[y=225 x=184 R10.8] and Compression.
+[y=210 x=425 R10.8] SSL/TLS, JPEG, MP3,
+[y=225 x=425 R10.8] ASCII
+[y=279 x=63 B10.8] 5. Session
+[y=279 x=184 R10.8] Opens, maintains, and closes
+[y=294 x=184 R10.8] communication sessions.
+[y=279 x=425 R10.8] NetBIOS, RPC
+[y=347 x=63 B10.8] 4. Transport
+[y=347 x=184 R10.8] Reliable end-to-end delivery, Error
+[y=363 x=184 R10.8] checking, Port numbering.
+[y=347 x=425 R10.8] TCP (reliable), UDP
+[y=363 x=425 R10.8] (fast)
+[y=441 x=69 B10.8] 💡 TCP vs UDP at Transport Layer
+[y=463 x=69 R12.0] Use TCP when accuracy matters (Web browsing, Emails). Use UDP when
+[y=481 x=69 R12.0] speed matters more than perfection (Video streaming, online gaming).
+[y=782 x=277 R10.2] Page 25

@@ -1,0 +1,28 @@
+PAGE 31
+[y=54 x=57 B19.2] 2.3 Algorithmic Strategies for Problem Solving
+[y=102 x=57 B14.4] 2.3.1 Decomposition
+[y=134 x=68 B10.8] ★ GOLDEN TOPIC
+[y=166 x=57 R12.0] Decomposition is a problem-solving technique in which a complex task or
+[y=184 x=57 R12.0] system is broken down into smaller, manageable parts. By dividing a big
+[y=202 x=57 R12.0] problem into simpler steps, it becomes easier to understand, develop, and solve.
+[y=331 x=250 R12.0] Complex Problem
+[y=392 x=183 R10.5] Sub-task 1
+[y=392 x=273 R10.5] Sub-task 2
+[y=392 x=363 R10.5] Sub-task 3
+[y=447 x=57 B12.0] Real-Life Example: Learning a New Language
+[y=482 x=106 B10.8] Subtask
+[y=482 x=338 B10.8] Description
+[y=511 x=63 B10.8] Learn Vocabulary
+[y=511 x=208 R10.8] Learn character sets for people, actions, things (e.g., "I", "eat",
+[y=528 x=208 R10.8] "apple").
+[y=556 x=63 B10.8] Grammar Rules
+[y=556 x=208 R10.8] Learn structure: Subject → Verb → Object.
+[y=585 x=63 B10.8] Learn Tenses
+[y=585 x=208 R10.8] Present, past, future (e.g., "I eat" vs. "I ate").
+[y=615 x=63 B10.8] Sentence Building
+[y=615 x=208 R10.8] Combine words using rules to create valid sentences.
+[y=649 x=57 B12.0] Why Decomposition is Useful?
+[y=666 x=72 B10.8] Reduces complexity: Focus on one piece at a time.
+[y=683 x=72 B10.8] Helps in debugging: Find exactly where the mistake is (e.g., verb tense or word order).
+[y=699 x=72 B10.8] Promotes reusability: Once you learn a small part, you can apply it elsewhere.
+[y=782 x=280 R10.2] Page 5

@@ -1,0 +1,29 @@
+PAGE 42
+[y=54 x=57 B19.2] 2.5 Evaluation Criteria of Algorithm
+[y=102 x=57 B14.4] 2.5.1 Correctness
+[y=131 x=57 R12.0] An algorithm is correct if its output matches expected outcomes, handles edge
+[y=149 x=57 R12.0] cases gracefully, and is guaranteed to finish (no infinite loops).
+[y=243 x=57 B12.0] Trace Table Example (Even/Odd Checker):
+[y=286 x=67 B10.2] Input
+[y=286 x=132 B10.2] Operation (Divide by 2, find remainder)
+[y=286 x=380 B10.2] Remainder == 0?
+[y=286 x=495 B10.2] Result
+[y=314 x=63 R10.2] 3
+[y=314 x=112 R10.2] 3 / 2 (Quotient=1, Remainder=1)
+[y=314 x=370 R10.2] No
+[y=314 x=491 R10.2] Odd
+[y=342 x=63 R10.2] 6
+[y=342 x=112 R10.2] 6 / 2 (Quotient=3, Remainder=0)
+[y=342 x=370 R10.2] Yes
+[y=342 x=491 R10.2] Even
+[y=370 x=63 R10.2] 15
+[y=370 x=112 R10.2] 15 / 2 (Quotient=7, Remainder=1)
+[y=370 x=370 R10.2] No
+[y=370 x=491 R10.2] Odd
+[y=411 x=57 B14.4] 2.5.2 Efficiency
+[y=440 x=57 R12.0] We measure algorithm efficiency through time (speed) and space (memory).
+[y=458 x=57 R12.0] How fast does it run as input size grows? Does it scale well?
+[y=559 x=57 B14.4] 2.5.3 Clarity (Readability)
+[y=589 x=57 R12.0] Algorithm must be easy to read, understandable and easy to modify. It should
+[y=607 x=57 R12.0] use clear steps, meaningful variables, and good indentation.
+[y=782 x=278 R10.2] Page 16

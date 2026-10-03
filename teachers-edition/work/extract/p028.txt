@@ -1,0 +1,19 @@
+PAGE 28
+[y=42 x=164 B26.4] TABLE OF CONTENTS
+[y=122 x=63 R11.4] 1. 2.1 & 2.2 Introduction to CT & Algorithms
+[y=150 x=60 R11.4] 2. 2.2.2 Algorithm vs Pseudocode ★
+[y=179 x=60 R11.4] 3. 2.3.1 Algorithmic Strategy: Decomposition ★
+[y=208 x=59 R11.4] 4. 2.3.2 Algorithmic Strategy: Pattern Recognition
+[y=236 x=59 R11.4] 5. 2.3.3 Algorithmic Strategy: Abstraction
+[y=264 x=59 R11.4] 6. 2.4.1 Sorting Algorithms: Bubble Sort ★
+[y=293 x=60 R11.4] 7. 2.4.1 Sorting Algorithms: Selection Sort ★
+[y=322 x=59 R11.4] 8. 2.4.2 Searching Algorithms: Linear Search
+[y=350 x=59 R11.4] 9. 2.4.2 Searching Algorithms: Binary Search ★
+[y=379 x=55 R11.4] 10. 2.5 Evaluation Criteria of Algorithm
+[y=407 x=59 R11.4] 11. 2.6 How to Decide Which Algorithm to Use
+[y=575 x=69 B10.8] Reference Note /
+[y=695 x=69 R12.0] These notes are prepared specifically for teachers. For reference, please
+[y=713 x=69 R12.0] consult the textbook PDF file named exactly "CS XI (1 & 2).pdf", which has
+[y=731 x=69 R12.0] been followed verbatim. Topics marked with a ★ are highly critical for
+[y=749 x=69 R12.0] examinations.
+[y=782 x=280 R10.2] Page 2

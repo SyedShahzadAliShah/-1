@@ -1,0 +1,7 @@
+PAGE 1
+[y=170 x=61 B42.0] COMPUTER SCIENCE XI
+[y=247 x=105 B24.0] CHAPTER 1: COMPUTER SYSTEMS
+[y=545 x=163 B18.0] BILINGUAL TEACHER'S EDITION
+[y=617 x=125 R15.6] High-Yielding Lecture Notes & Golden Topics
+[y=640 x=152 R15.6] Based on New Sindh Curriculum 2026
+[y=782 x=282 R10.2] Page 1

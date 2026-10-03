@@ -1,0 +1,23 @@
+PAGE 76
+[y=54 x=57 B19.2] Keys (Continued) & RDBMS
+[y=102 x=65 B12.0] 3. Alternate Key ( )
+[y=123 x=65 R10.8] The Candidate Keys that were NOT selected as the Primary Key. They still hold unique
+[y=140 x=65 R10.8] values but are left as alternates.
+[y=164 x=80 R10.2] Derived from Candidate Keys.
+[y=180 x=79 R10.2] Example: Since EmpID became the Primary Key, EmpLicense# and EmpPassport become
+[y=195 x=80 R10.2] Alternate Keys.
+[y=245 x=65 B12.0] 4. Foreign Key ( )
+[y=266 x=65 R10.8] A field in one table that refers to the Primary Key of another table. It is used to create
+[y=282 x=65 R10.8] relationships (links) between tables.
+[y=307 x=80 R10.2] CAN contain duplicate values (e.g., many employees in one department).
+[y=322 x=80 R10.2] CAN contain NULL values (in some cases).
+[y=337 x=79 R10.2] Example: DeptID in the Employee table links to the Primary Key DeptID in the
+[y=353 x=80 R10.2] Department table.
+[y=434 x=57 B14.4] 4.3 Relational Database Management System (RDBMS)
+[y=463 x=57 R12.0] An RDBMS stores data in multiple tables and uses keys (like Primary and Foreign
+[y=481 x=57 R12.0] keys) to maintain relationships between those tables. It is powerful, structured,
+[y=499 x=57 R12.0] and used by banks and universities.
+[y=592 x=72 R10.8] Reduces data redundancy (duplication).
+[y=609 x=72 R10.8] Supports multi-user access securely.
+[y=624 x=72 R10.8] Easy to query using SQL (Structured Query Language).
+[y=782 x=280 R10.2] Page 7

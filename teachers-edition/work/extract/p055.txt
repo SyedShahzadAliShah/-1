@@ -1,0 +1,44 @@
+PAGE 55
+[y=54 x=57 B19.2] Other Important Operators
+[y=102 x=57 B14.4] 3. Relational (Comparison) Operators
+[y=131 x=57 R12.0] Compare two values and return a Boolean (True or False).
+[y=174 x=72 B10.8] Op
+[y=174 x=142 B10.8] Description
+[y=174 x=292 B10.8] Example (If a=10, b=5)
+[y=174 x=483 B10.8] Result
+[y=204 x=63 RM10.8] ==
+[y=202 x=109 R10.8] Equal to
+[y=204 x=251 RM10.8] a == b
+[y=202 x=469 R10.8] False
+[y=234 x=63 RM10.8] !=
+[y=232 x=109 R10.8] Not equal to
+[y=234 x=251 RM10.8] a != b
+[y=232 x=469 R10.8] True
+[y=264 x=63 RM10.8] >
+[y=262 x=109 R10.8] Greater than
+[y=264 x=251 RM10.8] a > b
+[y=262 x=469 R10.8] True
+[y=294 x=63 RM10.8] <
+[y=291 x=109 R10.8] Less than
+[y=294 x=251 RM10.8] a < b
+[y=291 x=469 R10.8] False
+[y=324 x=63 RM10.8] >=
+[y=321 x=109 R10.8] Greater/Equal
+[y=324 x=251 RM10.8] a >= 10
+[y=321 x=469 R10.8] True
+[y=365 x=57 B14.4] 4. Logical Operators
+[y=394 x=57 R12.0] Combine multiple conditions.
+[y=436 x=82 B10.8] Operator
+[y=436 x=316 B10.8] Description
+[y=467 x=63 RM10.8] and
+[y=465 x=165 R10.8] True ONLY if both conditions are true.
+[y=497 x=63 RM10.8] or
+[y=495 x=165 R10.8] True if at least one condition is true.
+[y=527 x=63 RM10.8] not
+[y=525 x=165 R10.8] Reverses the result (True becomes False).
+[y=568 x=57 B14.4] 5. Membership Operators
+[y=598 x=57 R12.0] Check if a value exists inside a sequence (like a string or list).
+[y=649 x=69 R10.2] name = "Python"
+[y=666 x=69 R10.2] print("P"inname)#Output:True
+[y=682 x=69 R10.2] print("z"notinname)#Output:True
+[y=782 x=279 R10.2] Page 12

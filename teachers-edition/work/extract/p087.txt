@@ -1,0 +1,18 @@
+PAGE 87
+[y=54 x=57 B19.2] Database Objects (Continued)
+[y=105 x=432 B10.8] ★ KEY CONCEPT
+[y=102 x=65 B14.4] 3. Queries
+[y=131 x=65 R10.8] A Query is a request to retrieve specific data from the database. Queries allow you to
+[y=147 x=65 R10.8] "ask questions" of your database. For example: "Show me all students who scored
+[y=163 x=65 R10.8] above 80%." Queries are incredibly powerful because they filter, sort, and calculate
+[y=180 x=65 R10.8] data.
+[y=287 x=65 B14.4] 4. Reports
+[y=315 x=65 R10.8] A Report is used to present data in a structured, formatted, and visually appealing
+[y=331 x=65 R10.8] way, usually for printing or sharing. For example, a school generates a printed report
+[y=348 x=65 R10.8] card or a fee summary. You do not enter data into a report; you only read it.
+[y=442 x=69 B10.8] 💡 Quick Summary for Students
+[y=462 x=84 B10.8] Tables: Store the data.
+[y=478 x=84 B10.8] Forms: Enter the data.
+[y=495 x=84 B10.8] Queries: Search the data.
+[y=510 x=84 B10.8] Reports: Print the data.
+[y=782 x=278 R10.2] Page 18

@@ -1,0 +1,17 @@
+PAGE 84
+[y=54 x=57 B19.2] Library Case Study (Continued)
+[y=102 x=57 B14.4] Step 6: Resolving Many-to-Many Relationship
+[y=131 x=57 R12.0] As discussed earlier, relational databases cannot directly support M:N
+[y=149 x=57 R12.0] relationships. It leads to data redundancy. We must resolve it by introducing a
+[y=167 x=57 B12.0] Junction Entity (Bridge Table).
+[y=261 x=57 R12.0] We create a new entity called: BorrowRecord
+[y=285 x=57 R10.8] Instead of linking Member and Book directly, each borrowing activity is recorded as a
+[y=301 x=57 R10.8] separate entry in the BorrowRecord entity. This breaks the M:N relationship into two 1:M
+[y=318 x=57 R10.8] relationships.
+[y=354 x=57 B12.0] BorrowRecord Entity Attributes:
+[y=372 x=72 B12.0] BorrowID (Primary Key): Unique ID for this specific transaction.
+[y=390 x=72 B12.0] MemberID (Foreign Key): Links to the Member who borrowed it.
+[y=408 x=72 B12.0] BookID (Foreign Key): Links to the specific Book being borrowed.
+[y=426 x=71 R12.0] IssueDate (Standard Attribute)
+[y=444 x=71 R12.0] ReturnDate (Standard Attribute)
+[y=782 x=278 R10.2] Page 15

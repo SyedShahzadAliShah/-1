@@ -1,0 +1,36 @@
+PAGE 124
+[y=54 x=57 B19.2] Methodology (Steps 7 to 9)
+[y=102 x=57 B14.4] Step 7: Use Secondary Data
+[y=130 x=57 R10.8] Students include a reliable online article stating "excessive screen time lowers
+[y=146 x=57 R10.8] concentration." They will compare this secondary data with their own primary survey
+[y=162 x=57 R10.8] results.
+[y=195 x=57 B14.4] Step 8: Organize Data in a Spreadsheet
+[y=223 x=57 R10.8] Responses are entered into MS Excel or Google Sheets to sort, calculate totals, and find
+[y=239 x=57 R10.8] averages.
+[y=281 x=79 B9.6] Student
+[y=281 x=158 B9.6] Hours
+[y=281 x=230 B9.6] Study Use
+[y=281 x=333 B9.6] Main Activity
+[y=281 x=454 B9.6] Distracted?
+[y=308 x=63 R9.6] 1
+[y=308 x=146 R9.6] 3
+[y=308 x=212 R9.6] Yes
+[y=308 x=310 R9.6] Lectures
+[y=308 x=434 R9.6] Sometimes
+[y=335 x=63 R9.6] 2
+[y=335 x=146 R9.6] 5
+[y=335 x=212 R9.6] No
+[y=335 x=310 R9.6] Social Media
+[y=335 x=434 R9.6] Yes
+[y=362 x=63 R9.6] 3
+[y=362 x=146 R9.6] 2
+[y=362 x=212 R9.6] Yes
+[y=362 x=310 R9.6] Notes
+[y=362 x=434 R9.6] No
+[y=402 x=57 B14.4] Step 9: Create Charts and Graphs
+[y=431 x=57 R10.8] Convert the spreadsheet data into visuals to make it easy to digest.
+[y=483 x=249 R9.0] Daily Phone Use (Hours)
+[y=525 x=234 R7.5] 1-3 hrs
+[y=495 x=286 R7.5] 3-5 hrs
+[y=540 x=340 R7.5] 5+ hrs
+[y=782 x=278 R10.2] Page 14

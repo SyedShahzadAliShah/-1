@@ -1,0 +1,53 @@
+PAGE 40
+[y=54 x=57 B19.2] 2.4.2 Binary Search
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A highly efficient search algorithm that works by repeatedly dividing the search
+[y=148 x=57 R12.0] interval in half. Crucial limitation: It only works on a SORTED list.
+[y=241 x=57 B12.0] Algorithm (Summary)
+[y=273 x=66 R7.8] Step1:Start
+[y=285 x=66 R7.8] Step2:DATA:={1,2,3,4,5,6,7,8,9}(Sorted)
+[y=298 x=66 R7.8] Step3:BEG = 1,END = 9
+[y=311 x=66 R7.8] Step4:MID = INT((BEG+END)/2)
+[y=323 x=66 R7.8] Step5:Item = 7
+[y=336 x=66 R7.8] Step6:LOC = 0
+[y=348 x=66 R7.8] Step7:RepeatwhileBEG <= ENDANDDATA[MID]
+[y=360 x=66 R7.8] !=Item
+[y=373 x=66 R7.8] Step8:IfItem < DATA[MID]:
+[y=385 x=113 R7.8] END = MID-1
+[y=398 x=104 R7.8] Else:
+[y=411 x=113 R7.8] BEG = MID + 1
+[y=423 x=66 R7.8] Step9:MID = INT((BEG+END)/2)
+[y=435 x=66 R7.8] Step10:[Endloop]
+[y=448 x=66 R7.8] Step11:IfDATA[MID] == Item:
+[y=460 x=118 R7.8] LOC = MID
+[y=473 x=109 R7.8] Else:
+[y=486 x=118 R7.8] LOC = 0
+[y=498 x=66 R7.8] Step12:PrintResultbasedonLOC
+[y=510 x=66 R7.8] Step13:End
+[y=241 x=305 B12.0] Pseudocode
+[y=273 x=317 R7.8] Start
+[y=285 x=317 R7.8] DATA = {1,2,3,4,5,6,7,8,9}
+[y=297 x=317 R7.8] BEG = 1,END = 9
+[y=310 x=317 R7.8] MID = INT((BEG+END)/2)
+[y=322 x=317 R7.8] Item = 7
+[y=335 x=317 R7.8] LOC = NULL
+[y=360 x=317 R7.8] WhileBEG <= ENDORDATA[MID]!=Item
+[y=372 x=326 R7.8] IFItem < DATA[MID]then
+[y=384 x=336 R7.8] END = MID-1
+[y=397 x=326 R7.8] Else
+[y=410 x=336 R7.8] BEG = MID + 1
+[y=422 x=326 R7.8] EndIf
+[y=435 x=326 R7.8] MID = INT((BEG+END)/2)
+[y=447 x=317 R7.8] EndWhile
+[y=472 x=317 R7.8] IfDATA[MID] == Itemthen
+[y=485 x=326 R7.8] LOC = MID
+[y=497 x=317 R7.8] Else
+[y=510 x=326 R7.8] LOC = NULL
+[y=522 x=317 R7.8] EndIf
+[y=547 x=317 R7.8] IfLOC >= 0then
+[y=559 x=326 R7.8] PrintDATA[MID]
+[y=572 x=317 R7.8] Else
+[y=585 x=326 R7.8] Print"NotFound"
+[y=597 x=317 R7.8] EndIf
+[y=610 x=317 R7.8] End
+[y=782 x=278 R10.2] Page 14

@@ -1,0 +1,57 @@
+PAGE 54
+[y=54 x=57 B19.2] 3.4.3 Operators and Operands
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] An Operand is the value or variable. An Operator is the symbol that performs
+[y=148 x=57 R12.0] the action.
+[y=182 x=134 RM14.4] 10 (Operand) + (Operator) 20 (Operand)
+[y=224 x=57 B14.4] 1. Arithmetic Operators (Math)
+[y=270 x=76 B10.8] Operator
+[y=270 x=243 B10.8] Purpose
+[y=270 x=405 B10.8] Example
+[y=270 x=488 B10.8] Result
+[y=302 x=63 RM10.8] +
+[y=300 x=151 R10.8] Addition
+[y=302 x=393 RM10.8] 5 + 3
+[y=300 x=478 R10.8] 8
+[y=332 x=63 RM10.8] -
+[y=330 x=151 R10.8] Subtraction
+[y=332 x=393 RM10.8] 10 - 4
+[y=330 x=478 R10.8] 6
+[y=361 x=63 RM10.8] *
+[y=359 x=151 R10.8] Multiplication
+[y=361 x=393 RM10.8] 4 * 2
+[y=359 x=478 R10.8] 8
+[y=391 x=63 RM10.8] /
+[y=389 x=151 R10.8] Division (always float)
+[y=391 x=393 RM10.8] 9 / 2
+[y=389 x=478 R10.8] 4.5
+[y=420 x=63 RM10.8] //
+[y=418 x=151 R10.8] Floor division (drops decimal)
+[y=420 x=393 RM10.8] 9 // 2
+[y=418 x=478 R10.8] 4
+[y=450 x=63 RM10.8] %
+[y=448 x=151 R10.8] Modulus (remainder)
+[y=450 x=393 RM10.8] 9 % 2
+[y=448 x=478 R10.8] 1
+[y=480 x=63 RM10.8] **
+[y=478 x=151 R10.8] Exponentiation (power)
+[y=480 x=393 RM10.8] 2 ** 3
+[y=478 x=478 R10.8] 8
+[y=521 x=57 B14.4] 2. Assignment Operators
+[y=550 x=57 R12.0] Used to assign values to variables, often updating them.
+[y=593 x=104 B10.8] Operator
+[y=593 x=246 B10.8] Example
+[y=593 x=401 B10.8] Equivalent To
+[y=624 x=63 RM10.8] =
+[y=624 x=207 RM10.8] x = 5
+[y=622 x=345 R10.8] Assign 5 to x
+[y=653 x=63 RM10.8] +=
+[y=653 x=207 RM10.8] x += 2
+[y=653 x=345 RM10.8] x = x + 2
+[y=683 x=63 RM10.8] -=
+[y=683 x=207 RM10.8] x -= 1
+[y=683 x=345 RM10.8] x = x - 1
+[y=713 x=63 RM10.8] *=
+[y=713 x=207 RM10.8] x *= 3
+[y=713 x=345 RM10.8] x = x * 3
+[y=782 x=280 R10.2] Page 11

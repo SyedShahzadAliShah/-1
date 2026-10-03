@@ -1,0 +1,16 @@
+PAGE 68
+[y=54 x=57 B19.2] Types of Errors (Bugs)
+[y=105 x=72 B14.4] 1. Syntax Errors
+[y=134 x=72 R10.8] Occur when the rules (grammar) of Python are violated. The program will NOT run
+[y=150 x=72 R10.8] at all until it is fixed.
+[y=231 x=84 R9.0] print("HelloWorld"
+[y=231 x=197 R9.0] #Missingclosingparenthesis!
+[y=297 x=72 B14.4] 2. Runtime Errors (Exceptions)
+[y=325 x=72 R10.8] The code is written correctly, so it starts running. But an impossible operation
+[y=342 x=72 R10.8] crashes it during execution.
+[y=422 x=84 R9.0] x = 10/0#ZeroDivisionError:divisionbyzero!
+[y=489 x=72 B14.4] 3. Logical Errors
+[y=516 x=72 R10.8] The hardest to find. The program runs perfectly without crashing, but it produces the
+[y=533 x=72 B10.8] wrong output because the programmer's logic is flawed.
+[y=614 x=84 R9.0] area = length + width#Logicalerror:Shouldbemultiplied(*),notadded.
+[y=782 x=277 R10.2] Page 25

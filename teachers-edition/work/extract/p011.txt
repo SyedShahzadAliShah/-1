@@ -1,0 +1,43 @@
+PAGE 11
+[y=54 x=57 B19.2] Advanced Logic Gates (XOR & XNOR)
+[y=111 x=92 B10.8] Gate
+[y=111 x=192 B10.8] Symbol
+[y=111 x=304 B10.8] Expression
+[y=111 x=434 B10.8] Truth Table
+[y=141 x=63 B10.8] XOR
+[y=200 x=310 R10.8] Y = A ⊕ B
+[y=148 x=407 R9.6] A
+[y=148 x=451 R9.6] B
+[y=148 x=494 R9.6] Y
+[y=175 x=407 R9.6] 0
+[y=175 x=451 R9.6] 0
+[y=175 x=494 R9.6] 0
+[y=202 x=407 R9.6] 0
+[y=202 x=451 R9.6] 1
+[y=202 x=494 R9.6] 1
+[y=229 x=407 R9.6] 1
+[y=229 x=451 R9.6] 0
+[y=229 x=494 R9.6] 1
+[y=256 x=407 R9.6] 1
+[y=256 x=451 R9.6] 1
+[y=256 x=494 R9.6] 0
+[y=290 x=63 B10.8] XNOR
+[y=350 x=304 R10.8] Y = (A ⊕ B)'
+[y=297 x=407 R9.6] A
+[y=297 x=451 R9.6] B
+[y=297 x=494 R9.6] Y
+[y=324 x=407 R9.6] 0
+[y=324 x=451 R9.6] 0
+[y=324 x=494 R9.6] 1
+[y=351 x=407 R9.6] 0
+[y=351 x=451 R9.6] 1
+[y=351 x=494 R9.6] 0
+[y=378 x=407 R9.6] 1
+[y=378 x=451 R9.6] 0
+[y=378 x=494 R9.6] 0
+[y=405 x=407 R9.6] 1
+[y=405 x=451 R9.6] 1
+[y=405 x=494 R9.6] 1
+[y=444 x=56 R10.8] Memory Trick: XOR outputs 1 when inputs are "eXclusively" different. XNOR outputs 1 when
+[y=460 x=56 R10.8] inputs are the SAME.
+[y=782 x=280 R10.2] Page 11

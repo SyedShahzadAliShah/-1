@@ -1,0 +1,14 @@
+PAGE 86
+[y=54 x=57 B19.2] 4.8 Different Database Objects
+[y=94 x=57 R12.0] In a DBMS, data is managed and presented using different tools known as
+[y=112 x=57 R12.0] database objects. These objects help users interact with the database
+[y=130 x=57 R12.0] efficiently. The four main objects are Tables, Forms, Queries, and Reports.
+[y=164 x=65 B14.4] 1. Tables
+[y=192 x=65 R10.8] The most important object; it is where data is actually stored. A table is organized into
+[y=208 x=65 R10.8] rows (records) and columns (fields). Tables are the foundation of a database
+[y=225 x=65 R10.8] because all other objects depend on them.
+[y=308 x=65 B14.4] 2. Forms
+[y=336 x=65 R10.8] A Form provides a user-friendly interface for entering and updating data. Instead of
+[y=353 x=65 R10.8] typing directly into scary-looking tables, users use clean forms (like a web registration
+[y=369 x=65 R10.8] page) with text boxes, drop-downs, and buttons. Forms reduce data entry errors.
+[y=782 x=279 R10.2] Page 17

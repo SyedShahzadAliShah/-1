@@ -1,0 +1,27 @@
+PAGE 62
+[y=54 x=57 B19.2] Repetition Statements (Continued)
+[y=102 x=57 B14.4] 2. The while Loop
+[y=131 x=57 R12.0] Repeats a block of code as long as a condition remains True. Used when the
+[y=149 x=57 R12.0] exact number of iterations is NOT known in advance.
+[y=239 x=69 R10.2] count = 1
+[y=255 x=69 R10.2] whilecount <= 3:
+[y=272 x=93 R10.2] print(count)
+[y=288 x=93 R10.2] count += 1#VERYIMPORTANT:Updatecondition!
+[y=321 x=68 R10.2] #Output:123
+[y=379 x=57 B14.4] Loop Control Statements
+[y=409 x=57 R12.0] These statements alter the normal flow of a loop.
+[y=439 x=57 R9.7] break
+[y=452 x=57 R10.2] Exits/Stops the loop entirely immediately.
+[y=501 x=69 R10.2] foriinrange(5):
+[y=518 x=93 R10.2] ifi == 3:
+[y=535 x=118 R10.2] break
+[y=551 x=93 R10.2] print(i)
+[y=567 x=68 R10.2] #Stopsprintingat2
+[y=439 x=305 R9.7] continue
+[y=452 x=305 R10.2] Skips current iteration and jumps to the next.
+[y=501 x=317 R10.2] foriinrange(5):
+[y=518 x=342 R10.2] ifi == 3:
+[y=535 x=366 R10.2] continue
+[y=551 x=342 R10.2] print(i)
+[y=567 x=317 R10.2] #Skips3(Prints0124)
+[y=782 x=278 R10.2] Page 19

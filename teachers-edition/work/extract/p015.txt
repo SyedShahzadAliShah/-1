@@ -1,0 +1,22 @@
+PAGE 15
+[y=54 x=57 B19.2] Three-Variable K-Map (A, B, C)
+[y=94 x=57 R12.0] For 3 variables, we need 2³ = 8 cells. The columns follow Gray Code sequence:
+[y=112 x=57 B12.0] 00, 01, 11, 10. This ensures adjacent cells differ by only one variable.
+[y=227 x=165 B10.8] BC = 00
+[y=227 x=262 B10.8] BC = 01
+[y=227 x=356 B10.8] BC = 11
+[y=227 x=448 B10.8] BC = 10
+[y=256 x=96 B10.8] A = 0
+[y=256 x=144 R10.8] m₀ (A'B'C')
+[y=256 x=241 R10.8] m₁ (A'B'C)
+[y=256 x=335 R10.8] m₃ (A'BC)
+[y=256 x=426 R10.8] m₂ (A'BC')
+[y=285 x=97 B10.8] A = 1
+[y=285 x=144 R10.8] m₄ (AB'C')
+[y=285 x=241 R10.8] m₅ (AB'C)
+[y=285 x=335 R10.8] m₇ (ABC)
+[y=285 x=426 R10.8] m₆ (ABC')
+[y=343 x=69 B10.8] Teacher's Tip /
+[y=364 x=69 R12.0] Emphasize to students that wrapping around the edges is allowed! A cell on
+[y=382 x=69 R12.0] the far left can be grouped with a cell on the far right.
+[y=782 x=278 R10.2] Page 15

@@ -1,0 +1,22 @@
+PAGE 17
+[y=54 x=57 B19.2] Building a Circuit in LogiSim
+[y=102 x=57 B14.4] Step-by-Step: Building Y = A · B
+[y=131 x=62 R12.0] 1. Select the AND Gate from the Toolbar or Gates library and place it on the
+[y=149 x=72 R12.0] canvas.
+[y=167 x=59 R12.0] 2. Select the Input Pin (square icon with a 0) and place two pins to the left of the
+[y=185 x=72 R12.0] gate (label them A and B).
+[y=203 x=59 R12.0] 3. Select the Output Pin (circle icon with a 0) and place it to the right (label it Y).
+[y=221 x=58 R12.0] 4. Use the Wiring Tool to click and drag wires from the Input Pins to the AND
+[y=239 x=72 R12.0] gate's input ports. Wires must be horizontal or vertical.
+[y=257 x=58 R12.0] 5. Wire the gate's output to the Output Pin Y.
+[y=275 x=58 R12.0] 6. Select the Poke Tool (pointing finger) to toggle input A and B between 0 and 1
+[y=293 x=72 R12.0] to test the circuit!
+[y=370 x=190 RM9.7] 1
+[y=370 x=170 R12.0] A
+[y=415 x=190 RM9.7] 0
+[y=415 x=170 R12.0] B
+[y=392 x=275 R9.0] AND
+[y=393 x=377 RM9.7] 0
+[y=392 x=395 R12.0] Y
+[y=484 x=85 R10.8] Circuit testing with Poke Tool. Notice the bright green line (Logic 1) from Input A.
+[y=782 x=279 R10.2] Page 17

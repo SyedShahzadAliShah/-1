@@ -1,0 +1,22 @@
+PAGE 79
+[y=54 x=57 B19.2] 4.5 Referential Integrity
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Referential integrity is a fundamental concept that ensures the accuracy and
+[y=148 x=57 R12.0] consistency of data across related tables. It ensures that a Foreign Key in one
+[y=166 x=57 R12.0] table always refers to an existing and valid Primary Key in another table.
+[y=297 x=57 B14.4] Why is it Important?
+[y=326 x=57 R12.0] Imagine a Student Table and a Result Table. The Result table uses StudentID as
+[y=344 x=57 R12.0] a Foreign Key. If Referential Integrity is turned ON:
+[y=370 x=72 R12.0] You cannot enter a result for StudentID "999" if "999" does not exist in the main
+[y=388 x=72 R12.0] Student table. (Prevents orphan records).
+[y=406 x=72 R12.0] You cannot delete a student from the Student table if they still have marks in
+[y=424 x=72 R12.0] the Result table, unless you handle the related records first.
+[y=490 x=144 R9.0] STUDENT (Parent)
+[y=509 x=133 RM9.0] ID: 101 (Ali)
+[y=524 x=133 RM9.0] ID: 102 (Sara)
+[y=510 x=266 R9.0] Enforces Rule
+[y=490 x=384 R9.0] RESULT (Child)
+[y=509 x=365 RM9.0] ID: 101 | A Grade
+[y=524 x=365 RM9.0] ID: 999 | FAILED!
+[y=545 x=366 R7.5] (Rejected! 999 not in Parent)
+[y=782 x=278 R10.2] Page 10

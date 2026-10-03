@@ -1,0 +1,16 @@
+PAGE 83
+[y=54 x=57 B19.2] Library Case Study (Continued)
+[y=102 x=57 B14.4] Step 4: Identification of Relationships
+[y=131 x=57 R12.0] We need to understand how the entities interact. The primary interaction is:
+[y=149 x=57 B12.0] "A Member borrows a Book"
+[y=182 x=57 B14.4] Step 5: Determine Cardinality
+[y=211 x=57 R12.0] Cardinality defines the nature of the relationship (1:1, 1:M, M:N).
+[y=237 x=72 R12.0] A single member can borrow many books over time.
+[y=255 x=72 R12.0] A single book can be borrowed by many different members over time.
+[y=287 x=119 B13.2] Conclusion: The relationship is Many-to-Many (M:N)
+[y=373 x=175 R12.0] MEMBER
+[y=373 x=379 R12.0] BOOK
+[y=376 x=281 R9.0] Borrows
+[y=366 x=249 R12.0] M
+[y=366 x=346 R12.0] N
+[y=782 x=278 R10.2] Page 14

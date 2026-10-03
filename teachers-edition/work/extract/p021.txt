@@ -1,0 +1,19 @@
+PAGE 21
+[y=54 x=57 B19.2] 1.2.4 The Waterfall Model
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A linear, sequential approach. Each phase must be completed before the next
+[y=148 x=57 R12.0] begins. There is no going back to a previous phase easily.
+[y=249 x=57 B14.4] When to use?
+[y=277 x=72 R12.0] Requirements are clear, fixed, and well-understood.
+[y=295 x=72 R12.0] Project is small to medium size.
+[y=313 x=72 R12.0] Technology is stable.
+[y=356 x=122 B10.8] Disadvantages (Cons)
+[y=356 x=373 B10.8] Advantages (Pros)
+[y=385 x=63 R10.8] Not flexible to changes.
+[y=385 x=319 R10.8] Simple to understand and manage.
+[y=414 x=63 R10.8] Testing happens very late in the process.
+[y=414 x=319 R10.8] Well-documented at every step.
+[y=468 x=69 B10.8] 📚 Case Study Reference: Library System
+[y=490 x=69 R12.0] The textbook uses the "Al-Noor Library Management System" as a Waterfall
+[y=508 x=69 R12.0] case study because the requirements were 100% fixed before coding began.
+[y=782 x=279 R10.2] Page 21

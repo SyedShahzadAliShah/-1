@@ -1,0 +1,17 @@
+PAGE 24
+[y=54 x=57 B19.2] 1.3 Communication Models (OSI)
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A communication model explains how data travels from one device to another
+[y=148 x=57 R12.0] through a network. The OSI (Open Systems Interconnection) Model was
+[y=166 x=57 R12.0] developed by ISO in 1984. It divides communication into 7 layers.
+[y=278 x=69 B10.8] Memory Trick /
+[y=299 x=69 R12.0] "Please Do Not Throw Sausage Pizza Away" (Bottom to Top: Physical, Data
+[y=317 x=69 R12.0] Link, Network, Transport, Session, Presentation, Application).
+[y=403 x=256 B12.0] 7. Application
+[y=437 x=251 B12.0] 6. Presentation
+[y=471 x=267 B12.0] 5. Session
+[y=505 x=260 B12.0] 4. Transport
+[y=538 x=265 B12.0] 3. Network
+[y=572 x=263 B12.0] 2. Data Link
+[y=606 x=266 B12.0] 1. Physical
+[y=782 x=277 R10.2] Page 24

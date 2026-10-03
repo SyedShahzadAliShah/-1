@@ -1,0 +1,22 @@
+PAGE 29
+[y=54 x=57 B19.2] 2.1 Computational Thinking
+[y=94 x=57 B12.0] Computational Thinking (CT) is a systematic approach to solving problems. It
+[y=112 x=57 R12.0] involves breaking problems down, identifying patterns, abstracting details, and
+[y=130 x=57 R12.0] developing algorithms.
+[y=243 x=69 B10.8] 💡 Did you know?
+[y=265 x=69 B12.0] Pseudocode is a human-readable representation of an algorithm using
+[y=283 x=69 R12.0] plain English and structured programming keywords. It's the bridge between
+[y=301 x=69 R12.0] human logic and machine code.
+[y=358 x=57 B19.2] 2.2 Algorithm
+[y=402 x=68 B10.8] ★ GOLDEN TOPIC
+[y=434 x=57 R12.0] An algorithm is a step-by-step logical procedure used to solve a problem. It is
+[y=452 x=57 R12.0] conceptual in nature and completely independent of any programming
+[y=470 x=57 R12.0] language.
+[y=571 x=57 B14.4] 2.2.1 Importance of Algorithms
+[y=600 x=72 R12.0] Provide a structured approach to problem-solving, making complex tasks
+[y=618 x=72 R12.0] manageable.
+[y=636 x=72 R12.0] Optimize time and memory usage, crucial for large-scale applications.
+[y=654 x=72 R12.0] Can be reused for similar problems, saving time and effort.
+[y=672 x=72 R12.0] Ensure accuracy and consistency, reducing human error.
+[y=690 x=72 R12.0] Act as a blueprint before actual code implementation.
+[y=782 x=280 R10.2] Page 3

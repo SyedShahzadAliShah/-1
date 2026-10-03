@@ -1,0 +1,38 @@
+PAGE 38
+[y=54 x=57 B19.2] 2.4.2 Linear Search
+[y=94 x=57 R12.0] Also known as sequential search. It works by examining each element in the list
+[y=112 x=57 R12.0] one by one until the target is found. It works on both sorted and unsorted data.
+[y=206 x=57 B12.0] Algorithm
+[y=239 x=66 R9.0] Step1:Start
+[y=253 x=66 R9.0] Step2:DATA:={8,3,6,1,7,2,4,5}
+[y=267 x=66 R9.0] Step3:N:=8
+[y=282 x=66 R9.0] Step4:FindValue:=7
+[y=297 x=66 R9.0] Step5:ValueFound:=0
+[y=311 x=66 R9.0] Step6:RepeatforPTR = 1toN
+[y=325 x=66 R9.0] Step7:IfDATA[PTR] = FindValue:
+[y=339 x=110 R9.0] a.ValueFound = 1
+[y=354 x=110 R9.0] b.GotoStep8
+[y=369 x=66 R9.0] Step8:IfValueFound = 1:
+[y=383 x=110 R9.0] PrintDATA[PTR]
+[y=398 x=110 R9.0] Else:
+[y=411 x=110 R9.0] Print"NotFound"
+[y=426 x=66 R9.0] Step9:End
+[y=206 x=282 B12.0] Pseudocode
+[y=239 x=294 R9.0] Start
+[y=252 x=294 R9.0] DATA = {8,3,6,1,7,2,4,5}
+[y=267 x=294 R9.0] N = 8
+[y=282 x=294 R9.0] FindValue = 7
+[y=296 x=294 R9.0] ValueFound = 0
+[y=324 x=294 R9.0] ForPTR = 0toN-1
+[y=339 x=305 R9.0] IfDATA[PTR] == FindValuethen
+[y=354 x=315 R9.0] ValueFound = 1
+[y=368 x=315 R9.0] ExitLoop
+[y=382 x=305 R9.0] EndIf
+[y=396 x=294 R9.0] EndFor
+[y=425 x=294 R9.0] IfValueFound == 1then
+[y=440 x=305 R9.0] PrintDATA[PTR]
+[y=455 x=294 R9.0] Else
+[y=468 x=305 R9.0] Print"DataNotFound"
+[y=483 x=294 R9.0] EndIf
+[y=498 x=294 R9.0] End
+[y=782 x=279 R10.2] Page 12

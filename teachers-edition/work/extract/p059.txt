@@ -1,0 +1,23 @@
+PAGE 59
+[y=54 x=57 B19.2] 3.5.2 Selection Statements
+[y=94 x=57 R12.0] Selection alters the flow based on a condition (True/False). It helps programs
+[y=112 x=57 R12.0] respond intelligently.
+[y=145 x=57 B14.4] 1. The if Statement
+[y=175 x=57 R12.0] Executes a block of code ONLY if the condition is True. If False, the block is
+[y=193 x=57 R12.0] completely skipped.
+[y=282 x=69 R10.2] age = int(input("Enteryourage:"))
+[y=315 x=69 R10.2] ifage >= 18:
+[y=331 x=93 R10.2] print("YouareanAdult.")#Runsonlyif >= 18
+[y=364 x=69 R10.2] print("Programcontinues...")#Runseverytime
+[y=447 x=57 B14.4] 2. The if-else Statement
+[y=476 x=57 R12.0] Provides TWO paths. IF true, do this. ELSE, do that. One of the blocks will always
+[y=494 x=57 R12.0] execute.
+[y=584 x=69 R10.2] age = int(input("Enteryourage:"))
+[y=617 x=69 R10.2] ifage >= 18:
+[y=633 x=93 R10.2] print("ApplyforCNIC.")
+[y=650 x=69 R10.2] else:
+[y=666 x=93 R10.2] print("ApplyforCRC(B-Form).")
+[y=737 x=69 B10.8] 👨‍🏫 Formatting Rule
+[y=757 x=69 R12.0] Don't forget the colon ( : ) after if and else, and ensure the code inside the
+[y=775 x=69 R12.0] blocks is indented!
+[y=782 x=278 R10.2] Page 16

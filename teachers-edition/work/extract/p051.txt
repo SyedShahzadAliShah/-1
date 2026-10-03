@@ -1,0 +1,22 @@
+PAGE 51
+[y=54 x=57 B19.2] 3.4.1 Variables
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A variable is a named space in computer memory used to store data. Think of it
+[y=148 x=57 R12.0] as a container. In Python, you do not need to declare the type; Python figures it
+[y=166 x=57 R12.0] out automatically.
+[y=267 x=57 B14.4] Rules for Naming Variables:
+[y=295 x=72 R12.0] Can contain letters, numbers, and underscores ( _ ).
+[y=313 x=72 B12.0] MUST start with a letter or underscore, NOT a number. (e.g., 1name is invalid).
+[y=331 x=72 R12.0] Are case-sensitive (age and Age are completely different).
+[y=349 x=72 R12.0] Cannot use Python keywords (like if, for, while).
+[y=375 x=57 B12.0] Valid Names ✓
+[y=420 x=69 R10.2] name = "Ali"
+[y=436 x=69 R10.2] age = 16
+[y=453 x=69 R10.2] my_height = 5.7
+[y=468 x=69 R10.2] score1 = 100
+[y=375 x=305 B12.0] Invalid Names ✗
+[y=420 x=317 R10.2] 1name = "Ali"#startswith
+[y=437 x=317 R10.2] number
+[y=453 x=317 R10.2] myheight = 5.7#containsspace
+[y=468 x=317 R10.2] if = 100#keywordused
+[y=782 x=280 R10.2] Page 8

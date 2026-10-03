@@ -1,0 +1,20 @@
+PAGE 22
+[y=54 x=57 B19.2] 1.2.4 The Agile Model
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] An iterative approach. Software is developed in small cycles called sprints
+[y=148 x=57 R12.0] (usually 2-4 weeks). Customer feedback is gathered continuously.
+[y=249 x=57 B14.4] When to use?
+[y=277 x=72 R12.0] Requirements are unclear or may change.
+[y=295 x=72 R12.0] Customer wants frequent progress updates (early delivery).
+[y=313 x=72 R12.0] Complex or innovative projects.
+[y=356 x=115 B10.8] Disadvantages (Cons)
+[y=356 x=366 B10.8] Advantages (Pros)
+[y=385 x=63 R10.8] Less documentation.
+[y=385 x=305 R10.8] Highly flexible to changes.
+[y=414 x=63 R10.8] Unpredictable end-time and cost.
+[y=414 x=305 R10.8] Early delivery of working software.
+[y=468 x=69 B10.8] 📚 Case Study Reference: Mobile App
+[y=490 x=69 R12.0] The "Al-Noor Student Mobile Application" used Agile because teachers,
+[y=508 x=69 R12.0] parents, and students constantly requested new features during
+[y=526 x=69 R12.0] development.
+[y=782 x=277 R10.2] Page 22

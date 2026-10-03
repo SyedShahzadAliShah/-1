@@ -1,0 +1,29 @@
+PAGE 60
+[y=54 x=57 B19.2] Selection Statements (Continued)
+[y=102 x=57 B14.4] 3. The if-elif-else Statement
+[y=131 x=57 R12.0] Handles multiple conditions. It checks from top to bottom. As soon as it finds a
+[y=149 x=57 R12.0] True condition, it executes that block and ignores the rest.
+[y=201 x=69 R10.2] marks = int(input("Entermarks:"))
+[y=234 x=69 R10.2] ifmarks >= 80:
+[y=250 x=93 R10.2] print("A-1Grade")
+[y=267 x=69 R10.2] elifmarks >= 70:
+[y=282 x=93 R10.2] print("AGrade")
+[y=299 x=69 R10.2] elifmarks >= 60:
+[y=315 x=93 R10.2] print("BGrade")
+[y=332 x=69 R10.2] else:
+[y=348 x=93 R10.2] print("FailorbelowB")
+[y=407 x=57 B14.4] 4. Nested if Statement
+[y=436 x=57 R12.0] An if inside another if. Used when a decision requires passing multiple levels
+[y=454 x=57 R12.0] of checks.
+[y=506 x=69 R10.2] age = 20
+[y=522 x=69 R10.2] salary = 35000
+[y=555 x=69 R10.2] ifage >= 18:
+[y=571 x=93 R10.2] #Passedfirstcheck
+[y=588 x=93 R10.2] ifsalary >= 30000:
+[y=604 x=117 R10.2] #Passedsecondcheck
+[y=621 x=118 R10.2] print("LoanAPPROVED!")
+[y=637 x=93 R10.2] else:
+[y=653 x=118 R10.2] print("Salarytoolowforloan.")
+[y=670 x=69 R10.2] else:
+[y=686 x=93 R10.2] print("Tooyoungforloan.")
+[y=782 x=279 R10.2] Page 17

@@ -1,0 +1,23 @@
+PAGE 95
+[y=54 x=57 B19.2] Data Visualization (Continued)
+[y=102 x=57 B14.4] 3. Pie Chart
+[y=131 x=57 R10.2] Divides a circle into slices to show
+[y=146 x=57 R10.2] percentages (parts of a whole). Best for
+[y=162 x=57 R10.2] showing proportions.
+[y=222 x=196 B7.5] 25%
+[y=102 x=305 B14.4] 4. Line Chart
+[y=131 x=305 R10.2] Connects data points with lines. The absolute
+[y=146 x=305 R10.2] best choice for showing trends over time
+[y=162 x=305 R10.2] (e.g., website visitors per month).
+[y=364 x=57 B16.8] Summary
+[y=400 x=72 B10.2] Data vs Info: Data is raw facts; Information is processed data.
+[y=415 x=72 B10.2] DBMS: Software to create and manage databases securely and efficiently.
+[y=430 x=72 B10.2] Table Components: Rows are Records; Columns are Fields.
+[y=446 x=72 B10.2] Keys: Primary Key is unique for each record. Foreign Key links tables together.
+[y=461 x=72 B10.2] ER Model: Conceptual blueprint using Entities (rectangles), Attributes (ovals), Relationships
+[y=477 x=72 R10.2] (diamonds).
+[y=492 x=72 B10.2] Many-to-Many: Requires a Junction Table to resolve in relational databases.
+[y=507 x=72 B10.2] Referential Integrity: Ensures relationships stay valid via Cascade Update/Delete.
+[y=522 x=72 B10.2] Access Objects: Tables (store), Forms (enter), Queries (search/filter), Reports (print).
+[y=537 x=72 B10.2] Data Vis: Bar/Column for category comparison, Pie for parts of a whole, Line for trends.
+[y=782 x=277 R10.2] Page 26

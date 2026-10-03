@@ -1,0 +1,46 @@
+PAGE 10
+[y=54 x=57 B19.2] Universal Logic Gates (NAND & NOR)
+[y=114 x=69 B10.8] Teacher's Tip /
+[y=135 x=69 R12.0] Explain that NAND and NOR are called Universal Gates because ANY logic
+[y=153 x=69 R12.0] circuit in the world can be built using only these gates.
+[y=284 x=92 B10.8] Gate
+[y=284 x=192 B10.8] Symbol
+[y=284 x=304 B10.8] Expression
+[y=284 x=434 B10.8] Truth Table
+[y=312 x=63 B10.8] NAND
+[y=375 x=63 R10.8] (NOT AND)
+[y=372 x=307 R10.8] Y = (A · B)'
+[y=320 x=407 R9.6] A
+[y=320 x=451 R9.6] B
+[y=320 x=494 R9.6] Y
+[y=347 x=407 R9.6] 0
+[y=347 x=451 R9.6] 0
+[y=347 x=494 R9.6] 1
+[y=374 x=407 R9.6] 0
+[y=374 x=451 R9.6] 1
+[y=374 x=494 R9.6] 1
+[y=401 x=407 R9.6] 1
+[y=401 x=451 R9.6] 0
+[y=401 x=494 R9.6] 1
+[y=428 x=407 R9.6] 1
+[y=428 x=451 R9.6] 1
+[y=428 x=494 R9.6] 0
+[y=462 x=63 B10.8] NOR
+[y=524 x=63 R10.8] (NOT OR)
+[y=522 x=304 R10.8] Y = (A + B)'
+[y=469 x=407 R9.6] A
+[y=469 x=451 R9.6] B
+[y=469 x=494 R9.6] Y
+[y=496 x=407 R9.6] 0
+[y=496 x=451 R9.6] 0
+[y=496 x=494 R9.6] 1
+[y=524 x=407 R9.6] 0
+[y=524 x=451 R9.6] 1
+[y=524 x=494 R9.6] 0
+[y=551 x=407 R9.6] 1
+[y=551 x=451 R9.6] 0
+[y=551 x=494 R9.6] 0
+[y=578 x=407 R9.6] 1
+[y=578 x=451 R9.6] 1
+[y=578 x=494 R9.6] 0
+[y=782 x=278 R10.2] Page 10

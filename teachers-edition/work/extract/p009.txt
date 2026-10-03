@@ -1,0 +1,52 @@
+PAGE 9
+[y=54 x=57 B19.2] 1.1.7 Logic Gates (Basic Gates)
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Logic gates are electronic circuits that perform Boolean operations. They are the
+[y=148 x=57 R12.0] building blocks of all digital systems.
+[y=190 x=92 B10.8] Gate
+[y=190 x=192 B10.8] Symbol
+[y=190 x=304 B10.8] Expression
+[y=190 x=434 B10.8] Truth Table
+[y=219 x=63 B10.8] AND
+[y=276 x=63 R10.8] Y = A · B
+[y=226 x=407 R9.6] A
+[y=226 x=451 R9.6] B
+[y=226 x=494 R9.6] Y
+[y=253 x=407 R9.6] 0
+[y=253 x=451 R9.6] 0
+[y=253 x=494 R9.6] 0
+[y=281 x=407 R9.6] 0
+[y=281 x=451 R9.6] 1
+[y=281 x=494 R9.6] 0
+[y=308 x=407 R9.6] 1
+[y=308 x=451 R9.6] 0
+[y=308 x=494 R9.6] 0
+[y=335 x=407 R9.6] 1
+[y=335 x=451 R9.6] 1
+[y=335 x=494 R9.6] 1
+[y=368 x=63 B10.8] OR
+[y=425 x=63 R10.8] Y = A + B
+[y=375 x=407 R9.6] A
+[y=375 x=451 R9.6] B
+[y=375 x=494 R9.6] Y
+[y=402 x=407 R9.6] 0
+[y=402 x=451 R9.6] 0
+[y=402 x=494 R9.6] 0
+[y=430 x=407 R9.6] 0
+[y=430 x=451 R9.6] 1
+[y=430 x=494 R9.6] 1
+[y=457 x=407 R9.6] 1
+[y=457 x=451 R9.6] 0
+[y=457 x=494 R9.6] 1
+[y=484 x=407 R9.6] 1
+[y=484 x=451 R9.6] 1
+[y=484 x=494 R9.6] 1
+[y=517 x=63 B10.8] NOT
+[y=550 x=319 R10.8] Y = A'
+[y=524 x=407 R9.6] A
+[y=524 x=473 R9.6] Y
+[y=551 x=407 R9.6] 0
+[y=551 x=473 R9.6] 1
+[y=579 x=407 R9.6] 1
+[y=579 x=473 R9.6] 0
+[y=782 x=280 R10.2] Page 9

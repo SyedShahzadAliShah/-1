@@ -1,0 +1,30 @@
+PAGE 117
+[y=54 x=57 B19.2] 6.5 Primary and Secondary Data
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Whenever data is used, it is important to know where it came from. The source
+[y=148 x=57 R12.0] affects how much control the researcher had over collecting it and how
+[y=166 x=57 R12.0] confidently the results can be used.
+[y=203 x=69 B14.4] 6.5.1 Primary Data
+[y=231 x=69 R10.8] Primary data is collected first-hand
+[y=247 x=69 B10.8] by the researcher for a particular
+[y=264 x=69 R10.8] purpose. It is gathered directly from
+[y=279 x=69 R10.8] people, events, or situations rather
+[y=296 x=69 R10.8] than taken from an already published
+[y=312 x=69 R10.8] source.
+[y=392 x=69 B10.2] Sources: Interviews, surveys,
+[y=407 x=69 B10.2] observations, experiments.
+[y=203 x=317 B14.4] 6.5.2 Secondary Data
+[y=231 x=317 R10.8] Secondary data has already been
+[y=247 x=317 B10.8] collected by someone else and is
+[y=264 x=317 R10.8] being used again for a new purpose. It
+[y=279 x=317 R10.8] is extracted from existing archives.
+[y=359 x=317 B10.2] Sources: Books, research articles,
+[y=375 x=317 B10.2] official reports, web statistics, online
+[y=390 x=317 B10.2] databases.
+[y=496 x=188 R12.0] Primary Data
+[y=515 x=185 R7.5] Fresh, Direct Collection
+[y=526 x=194 R7.5] (You do the work)
+[y=496 x=330 R12.0] Secondary Data
+[y=515 x=345 R7.5] Existing Archives
+[y=526 x=338 R7.5] (Someone else did it)
+[y=782 x=280 R10.2] Page 7

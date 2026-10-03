@@ -1,0 +1,23 @@
+PAGE 99
+[y=54 x=57 B19.2] 5.1.2 Internet of Things (IoT)
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] The Internet of Things (IoT) is a system in which physical devices are connected
+[y=148 x=57 R12.0] to the Internet and can collect and share data to perform tasks automatically.
+[y=240 x=56 R10.8] Example: A smartwatch collects heart rate data and sends it to a mobile phone to
+[y=256 x=56 R10.8] display.
+[y=288 x=57 B14.4] Components of IoT Systems
+[y=318 x=57 R12.0] IoT relies on six foundational components to work properly:
+[y=351 x=67 B12.0] 1. Sensors ()
+[y=373 x=67 R10.2] Devices that collect information from the physical world. They are the "eyes and ears" of
+[y=388 x=67 R10.2] the system.
+[y=442 x=82 R10.2] Temperature sensor
+[y=458 x=82 R10.2] Motion sensor
+[y=473 x=82 R10.2] Fingerprint sensor
+[y=488 x=82 R10.2] Smoke / Soil moisture sensor
+[y=539 x=67 B12.0] 2. Actuators ()
+[y=560 x=67 R10.2] Devices that perform physical actions in response to system commands. They convert
+[y=575 x=67 R10.2] digital signals into physical movement.
+[y=629 x=82 R10.2] Electric Motor / Switch
+[y=645 x=82 R10.2] Automatic door opener
+[y=660 x=82 R10.2] Water valve / Fan controller
+[y=782 x=280 R10.2] Page 4

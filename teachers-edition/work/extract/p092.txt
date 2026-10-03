@@ -1,0 +1,27 @@
+PAGE 92
+[y=54 x=57 B19.2] Filtering Query Data
+[y=102 x=57 B14.4] 4.11.3 Filtering Data
+[y=131 x=57 R12.0] By default, a query shows ALL rows. To see only specific records (e.g., only
+[y=149 x=57 R12.0] students in "Computer Science"), we type rules into the Criteria row of the
+[y=167 x=57 R12.0] design grid.
+[y=204 x=57 B12.0] Single Criteria
+[y=222 x=57 R12.0] Type "Computer Science" under the Department column. Only those students
+[y=240 x=57 R12.0] will appear.
+[y=277 x=57 B12.0] Multiple Criteria (Logical AND)
+[y=295 x=57 R12.0] If you want students who are named "Ali" AND are in "Computer Science", you
+[y=313 x=57 R12.0] put both criteria on the SAME row in the grid.
+[y=348 x=201 B9.6] Field: Name
+[y=348 x=378 B9.6] Field: Department
+[y=375 x=63 B9.6] Criteria:
+[y=375 x=160 R9.6] "Ali"
+[y=375 x=312 R9.6] "Computer Science"
+[y=402 x=63 B9.6] or:
+[y=446 x=57 B12.0] Multiple Criteria (Logical OR)
+[y=464 x=57 R12.0] If you want students who are in "IT" OR "Computer Science", you put the criteria
+[y=482 x=57 R12.0] on DIFFERENT rows (using the "or:" row).
+[y=518 x=301 B9.6] Field: Department
+[y=545 x=63 B9.6] Criteria:
+[y=545 x=160 R9.6] "IT"
+[y=572 x=63 B9.6] or:
+[y=572 x=160 R9.6] "Computer Science"
+[y=782 x=277 R10.2] Page 23

@@ -1,0 +1,26 @@
+PAGE 82
+[y=54 x=57 B19.2] 4.7 Case Study: Library Management System
+[y=94 x=57 R12.0] This case study demonstrates the step-by-step development of an ER schema,
+[y=112 x=57 R12.0] from requirement analysis to the final ER diagram for a college library.
+[y=145 x=57 B14.4] Step 1: Requirement Analysis
+[y=174 x=57 R10.8] What does the system need to do?
+[y=189 x=57 R10.8] - A book has an ID, title, author, and publisher.
+[y=206 x=57 R10.8] - A member (student/teacher) has an ID, name, and contact info.
+[y=222 x=57 R10.8] - A member can borrow multiple books; a book can be borrowed by different members
+[y=238 x=57 R10.8] over time.
+[y=255 x=57 R10.8] - The system must record Issue Date and Return Date.
+[y=287 x=57 B14.4] Step 2: Identification of Entities
+[y=315 x=57 R10.8] From the requirements, we identify two main real-world objects (Entities):
+[y=331 x=57 R10.8] 1. Book
+[y=348 x=57 R10.8] 2. Member
+[y=379 x=57 B14.4] Step 3: Identification of Attributes
+[y=426 x=146 B10.8] Book Entity
+[y=426 x=377 B10.8] Member Entity
+[y=455 x=78 B11.4] BookID (Primary Key)
+[y=472 x=78 R11.4] Title
+[y=489 x=78 R11.4] Author
+[y=506 x=78 R11.4] Publisher
+[y=455 x=319 B11.4] MemberID (Primary Key)
+[y=472 x=319 R11.4] Name
+[y=489 x=319 R11.4] ContactInfo
+[y=782 x=279 R10.2] Page 13

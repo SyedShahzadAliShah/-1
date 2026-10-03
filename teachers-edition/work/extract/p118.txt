@@ -1,0 +1,35 @@
+PAGE 118
+[y=54 x=57 B19.2] Primary vs Secondary & Approach Design
+[y=102 x=57 B14.4] 6.5.3 Difference Between Primary and Secondary Data
+[y=148 x=86 B10.8] Aspect
+[y=148 x=212 B10.8] Primary Data
+[y=148 x=397 B10.8] Secondary Data
+[y=177 x=63 B10.8] Source
+[y=177 x=160 R10.8] Collected directly by the
+[y=193 x=160 R10.8] researcher.
+[y=177 x=352 R10.8] Already collected by others.
+[y=222 x=63 B10.8] Examples
+[y=222 x=160 R10.8] Survey responses, interviews,
+[y=238 x=160 R10.8] observations.
+[y=222 x=352 R10.8] Reports, articles, websites,
+[y=238 x=352 R10.8] databases.
+[y=267 x=63 B10.8] Purpose
+[y=267 x=160 R10.8] Prepared for a specific study.
+[y=267 x=352 R10.8] Reused for a new purpose.
+[y=297 x=63 B10.8] Control
+[y=297 x=160 R10.8] High control over questions and
+[y=312 x=160 R10.8] collection process.
+[y=297 x=352 R10.8] Limited control because the data
+[y=312 x=352 R10.8] already exists.
+[y=384 x=57 B19.2] 6.6 Designing a Data-Collection Approach
+[y=424 x=57 R12.0] Before collecting data, a researcher must have a plan. This ensures accurate,
+[y=442 x=57 R12.0] relevant, and useful information is gathered.
+[y=469 x=63 R11.4] 1. Define the research question clearly.
+[y=490 x=60 R11.4] 2. Decide the type of data needed: quantitative, qualitative, or both.
+[y=510 x=60 R11.4] 3. Select suitable methods (survey, interview, observation).
+[y=531 x=59 R11.4] 4. Choose the sample or target group.
+[y=552 x=59 R11.4] 5. Prepare the tools such as forms, questions, and observation sheets.
+[y=572 x=59 R11.4] 6. Collect the data carefully and accurately.
+[y=592 x=60 R11.4] 7. Store the data digitally in a spreadsheet and keep a backup.
+[y=613 x=59 R11.4] 8. Follow ethical practice and respect privacy (Consent is mandatory).
+[y=782 x=280 R10.2] Page 8

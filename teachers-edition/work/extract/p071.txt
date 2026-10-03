@@ -1,0 +1,23 @@
+PAGE 71
+[y=42 x=164 B26.4] TABLE OF CONTENTS
+[y=121 x=63 R11.4] 1. 4.1.1 Data, Information and Database
+[y=146 x=60 R11.4] 2. 4.1.2 Database Management System (DBMS)
+[y=171 x=60 R11.4] 3. 4.2 Database Components (Tables, Records, Fields)
+[y=196 x=59 R11.4] 4. 4.3.1 Keys and Integrity Constraints ★
+[y=221 x=59 R11.4] 5. 4.3 Relational Database Management System (RDBMS)
+[y=246 x=59 R11.4] 6. 4.4 Entity Relationship Model (ER-Model) ★
+[y=271 x=60 R11.4] 7. 4.5 Referential Integrity (Cascade Update & Delete) ★
+[y=297 x=59 R11.4] 8. 4.6 Relational Schema Development
+[y=322 x=59 R11.4] 9. 4.7 Case Study - Library Management System
+[y=346 x=55 R11.4] 10. 4.8 Different Database Objects (Tables, Forms, Queries, Reports)
+[y=372 x=59 R11.4] 11. 4.9 Creation of Tables in Microsoft Access
+[y=397 x=56 R11.4] 12. 4.10 Designing Forms for Data Manipulation
+[y=422 x=56 R11.4] 13. 4.11 Creating Queries in MS Access ★
+[y=447 x=55 R11.4] 14. 4.11.4 Data Summarization & Statistical Analysis
+[y=472 x=55 R11.4] 15. 4.11.6 Data Visualization in MS Access (Charts)
+[y=575 x=69 B10.8] Reference Note /
+[y=695 x=69 R12.0] These notes are prepared specifically for teachers. For reference, please
+[y=713 x=69 R12.0] consult the textbook PDF file named exactly "CS XI (3 & 4).pdf", which has
+[y=731 x=69 R12.0] been followed verbatim. Topics marked with a ★ are highly critical for
+[y=749 x=69 R12.0] examinations.
+[y=782 x=280 R10.2] Page 2

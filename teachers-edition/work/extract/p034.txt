@@ -1,0 +1,43 @@
+PAGE 34
+[y=54 x=57 B19.2] 2.4 Sorting and Searching Algorithms
+[y=94 x=57 R12.0] Both are fundamental techniques of computer science. They work on lists of the
+[y=112 x=57 R12.0] same data type.
+[y=213 x=57 B14.4] Sorting ( )
+[y=243 x=57 R12.0] Arranging a collection of items. May be Ascending (0-9, A-Z) or Descending (9-
+[y=261 x=57 R12.0] 0, Z-A). Used to organize data.
+[y=293 x=57 B14.4] Searching ( )
+[y=323 x=57 R12.0] Locating a specific element within a list to find its position or existence.
+[y=392 x=57 B19.2] 2.4.1 Bubble Sort
+[y=435 x=68 B10.8] ★ GOLDEN TOPIC
+[y=468 x=57 R12.0] An elementary sorting algorithm that works by repeatedly comparing adjacent
+[y=486 x=57 R12.0] elements and swapping them if they are in the wrong order.
+[y=580 x=57 B12.0] Algorithm
+[y=612 x=66 R10.2] Step1:Start
+[y=628 x=66 R10.2] Step2:SetDATA:={8,4,1,9,3}
+[y=645 x=66 R10.2] Step3:SetN:=5
+[y=661 x=66 R10.2] Step4:RepeatStep5and6for
+[y=678 x=66 R10.2] K=1toN-1
+[y=693 x=66 R10.2] Step5:SetPTR:=1
+[y=710 x=66 R10.2] Step6:RepeatwhilePTR <= N-K:
+[y=726 x=79 R10.2] a:IfDATA[PTR] > DATA[PTR+1]:
+[y=743 x=97 R10.2] 1.Settemp = DATA[PTR]
+[y=759 x=97 R10.2] 2.SetDATA[PTR] =
+[y=775 x=66 R10.2] DATA[PTR+1]
+[y=792 x=97 R10.2] 3.SetDATA[PTR+1] = temp
+[y=808 x=79 R10.2] b:SetPTR:=PTR + 1
+[y=824 x=66 R10.2] Step7:End
+[y=580 x=305 B12.0] Pseudocode
+[y=612 x=317 R10.2] Start
+[y=627 x=317 R10.2] DATA = {8,4,1,9,3}
+[y=644 x=317 R10.2] N = 5
+[y=660 x=317 R10.2] Forouter = 0toN-1
+[y=677 x=329 R10.2] Forinner = 0toN-2-outer
+[y=693 x=342 R10.2] IFDATA[inner] > DATA[inner+1]
+[y=709 x=360 R10.2] Temp = DATA[inner]
+[y=726 x=360 R10.2] DATA[inner] = DATA[inner+1]
+[y=742 x=360 R10.2] DATA[inner+1] = Temp
+[y=758 x=342 R10.2] EndIf
+[y=774 x=329 R10.2] EndFor
+[y=791 x=317 R10.2] EndFor
+[y=808 x=317 R10.2] End
+[y=782 x=280 R10.2] Page 8

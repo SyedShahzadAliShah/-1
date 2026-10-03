@@ -1,0 +1,8 @@
+PAGE 44
+[y=152 x=61 B42.0] COMPUTER SCIENCE XI
+[y=229 x=229 B24.0] CHAPTER 3:
+[y=265 x=104 B24.0] PROGRAMMING FUNDAMENTALS
+[y=563 x=163 B18.0] BILINGUAL TEACHER'S EDITION
+[y=635 x=125 R15.6] High-Yielding Lecture Notes & Golden Topics
+[y=658 x=152 R15.6] Based on New Sindh Curriculum 2026
+[y=782 x=282 R10.2] Page 1

@@ -1,0 +1,13 @@
+PAGE 18
+[y=54 x=57 B19.2] 1.2 Software Development Life Cycle
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] SDLC is a structured process that guides software development from beginning
+[y=148 x=57 R12.0] to end. It ensures clear goals, better planning, risk reduction, and high quality.
+[y=249 x=57 B14.4] The 6 Phases of SDLC
+[y=325 x=112 B12.0] 1. Requirement Analysis
+[y=385 x=193 B12.0] 2. System Design
+[y=445 x=248 B12.0] 3. Implementation
+[y=505 x=335 B12.0] 4. Testing
+[y=385 x=403 B12.0] 5. Deployment
+[y=445 x=400 B12.0] 6. Maintenance
+[y=782 x=278 R10.2] Page 18

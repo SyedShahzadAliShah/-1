@@ -1,0 +1,28 @@
+PAGE 110
+[y=54 x=57 B19.2] Assistive Tech Importance & Careers
+[y=102 x=57 B14.4] 5.5.1 Importance of Assistive Technologies
+[y=130 x=72 B10.8] Equal Access to Education: Screen readers allow blind students to read digital
+[y=146 x=72 R10.8] textbooks equally with their peers.
+[y=162 x=72 B10.8] Independence in Daily Life: Mobility aids reduce the need for constant human
+[y=179 x=72 R10.8] assistance.
+[y=195 x=72 B10.8] Social Inclusion: Breaks down barriers, allowing individuals to work, study, and
+[y=211 x=72 R10.8] socialize confidently.
+[y=243 x=57 B14.4] 5.5.2 Career Connection
+[y=271 x=57 R10.8] Designing assistive tech is a highly rewarding career path:
+[y=296 x=72 B10.2] Assistive Software Developer: Creates speech-to-text tools.
+[y=311 x=72 B10.2] Biomedical Engineer: Designs artificial limbs and hearing aids.
+[y=327 x=72 B10.2] UX/UI Accessibility Expert: Ensures websites are easy to navigate for visually impaired
+[y=342 x=72 R10.2] users.
+[y=389 x=57 B16.8] Summary
+[y=425 x=72 B10.2] AI: Enables machines to learn, recognize patterns, and make decisions.
+[y=441 x=72 B10.2] IoT Components: Sensors (collect data), Actuators (take action), Connectivity, Data
+[y=456 x=72 R10.2] Processing, Cloud, and UI.
+[y=471 x=72 B10.2] Data Analytics: The pipeline of collecting, storing, cleaning, analyzing, and visualizing data
+[y=486 x=72 R10.2] for insights.
+[y=501 x=72 B10.2] Information Sources: Primary (direct/original), Secondary (analyzed by others), Tertiary
+[y=516 x=72 R10.2] (summarized lists/encyclopedias).
+[y=532 x=72 B10.2] Impacts: Computing accelerates business and education but risks privacy, job loss, and
+[y=547 x=72 R10.2] screen addiction.
+[y=563 x=72 B10.2] Assistive Tech: Tools like screen readers and smart wheelchairs that ensure equality,
+[y=578 x=72 R10.2] independence, and inclusion for people with disabilities.
+[y=782 x=278 R10.2] Page 15

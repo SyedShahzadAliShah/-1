@@ -1,0 +1,18 @@
+PAGE 106
+[y=54 x=57 B19.2] 5.3 Information Sources
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Information sources are ways to find knowledge and data. While the internet
+[y=148 x=57 R12.0] has vast information, not all of it is accurate. Sources are divided into three main
+[y=166 x=57 R12.0] categories:
+[y=267 x=65 B12.0] 1. Primary Sources ( )
+[y=288 x=65 R10.8] Give original, firsthand information straight from people, events, or official records.
+[y=304 x=65 R10.8] They are highly authentic.
+[y=329 x=64 R10.2] Examples: Interviews, photographs, diaries, NADRA official records.
+[y=409 x=65 B12.0] 2. Secondary Sources ( )
+[y=430 x=65 R10.8] Information that has already been collected and explained by someone else. They
+[y=447 x=65 R10.8] summarize or analyze primary data.
+[y=471 x=64 R10.2] Examples: Textbooks, news reports, research papers, Bureau of Statistics reports.
+[y=591 x=285 R7.5] Tertiary
+[y=623 x=276 R9.0] Secondary
+[y=652 x=251 R10.5] Primary (Base Data)
+[y=782 x=280 R10.2] Page 11

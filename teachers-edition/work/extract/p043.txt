@@ -1,0 +1,20 @@
+PAGE 43
+[y=54 x=57 B19.2] 2.6 How to Decide Which Algorithm to Use
+[y=94 x=57 R12.0] Before choosing an algorithm, ask: What is the input size? Is the data sorted? Do
+[y=112 x=57 R12.0] we need speed or memory efficiency?
+[y=157 x=69 B10.8] 🧭 Simple Decision Guide
+[y=178 x=84 R12.0] If searching on unsorted data → use Linear Search.
+[y=196 x=84 R12.0] If searching on sorted data → use Binary Search.
+[y=214 x=84 R12.0] If data needs ordering → use Sorting algorithm.
+[y=284 x=57 B16.8] Summary
+[y=319 x=72 B10.8] Computational Thinking: Systematic problem solving (Decomposition, Pattern
+[y=336 x=72 R10.8] Recognition, Abstraction, Algorithms).
+[y=352 x=72 B10.8] Algorithm: Step-by-step logical procedure (conceptual).
+[y=368 x=72 B10.8] Pseudocode: Human-readable structured code.
+[y=384 x=72 B10.8] Decomposition: Breaking big problems into smaller parts.
+[y=400 x=72 B10.8] Abstraction: Hiding noise, focusing on essentials.
+[y=417 x=72 B10.8] Bubble/Selection Sort: Simple, nested-loop sorting algorithms (slow for large data).
+[y=433 x=72 B10.8] Linear Search: Checks one by one (works on unsorted data).
+[y=449 x=72 B10.8] Binary Search: Splits in half (extremely fast, but requires sorted data).
+[y=465 x=72 B10.8] Evaluation Criteria: Correctness, Efficiency (Time/Space), and Clarity.
+[y=782 x=279 R10.2] Page 17

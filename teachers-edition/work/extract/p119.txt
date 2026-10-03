@@ -1,0 +1,25 @@
+PAGE 119
+[y=54 x=57 B19.2] 6.7 Presenting Data Using Digital Tools
+[y=94 x=57 R12.0] Collecting data is only one part of the work. Students must also present their
+[y=112 x=57 R12.0] findings so others can understand them quickly and easily. Digital tools make
+[y=130 x=57 R12.0] this much easier.
+[y=232 x=65 B14.4] 6.7.1 Spreadsheets
+[y=261 x=65 R10.8] Spreadsheets such as MS Excel, Google Sheets, and Apple Numbers help students
+[y=276 x=65 R10.8] arrange information in rows and columns.
+[y=301 x=80 R10.2] Enter data systematically.
+[y=316 x=80 R10.2] Calculate totals, averages, and percentages.
+[y=332 x=80 R10.2] Sort and filter records.
+[y=347 x=80 R10.2] Create charts and graphs automatically.
+[y=398 x=65 B14.4] 6.7.2 Presentations
+[y=426 x=65 R10.8] Software like PowerPoint, Google Slides, and Canva helps students explain findings to
+[y=442 x=65 R10.8] an audience in an organized way.
+[y=467 x=80 R10.2] Begin with a clear title and research question.
+[y=482 x=80 R10.2] Use short bullet points instead of long paragraphs.
+[y=497 x=80 R10.2] Include tables, charts, and key findings.
+[y=512 x=80 R10.2] Keep the design simple and readable.
+[y=608 x=175 R9.0] Spreadsheet
+[y=598 x=249 R7.5] Data
+[y=608 x=288 R9.0] Chart/Graph
+[y=598 x=359 R7.5] Insert
+[y=609 x=400 R7.5] Slides
+[y=782 x=280 R10.2] Page 9

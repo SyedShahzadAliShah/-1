@@ -1,0 +1,24 @@
+PAGE 90
+[y=54 x=57 B19.2] 4.10 Designing Forms
+[y=94 x=57 R12.0] Forms serve as an interface to enter, modify, and view records. They minimize
+[y=112 x=57 R12.0] input errors and enforce validation rules visually.
+[y=145 x=57 B14.4] 4.10.2 Identifying the Data Source
+[y=175 x=57 R12.0] Every form MUST be linked to a data source (a Table or a Query). A form cannot
+[y=193 x=57 R12.0] exist without knowing where to save or retrieve its data.
+[y=225 x=57 B14.4] 4.10.3 Designing forms using Form Wizard
+[y=255 x=57 R12.0] The Form Wizard provides a guided, step-by-step approach to creating clean
+[y=273 x=57 R12.0] forms.
+[y=298 x=62 R12.0] 1. Go to the Create tab and select Form Wizard.
+[y=316 x=59 R12.0] 2. Select Table: Choose your data source (e.g., Table: Student) from the
+[y=334 x=72 R12.0] dropdown.
+[y=352 x=59 R12.0] 3. Select Fields: Use the > button to move fields you want on the form, or >> for
+[y=370 x=72 R12.0] all fields.
+[y=388 x=58 R12.0] 4. Choose Layout: Select how the form looks. Columnar shows one record at a
+[y=406 x=72 R12.0] time and is best for data entry.
+[y=424 x=58 R12.0] 5. Name & Finish: Give the form a title (e.g., "Student Registration") and click
+[y=442 x=72 R12.0] Finish.
+[y=506 x=228 R12.0] Student Registration Form
+[y=533 x=185 R9.0] Student ID:
+[y=531 x=264 RM9.0] [AutoNumber]
+[y=555 x=185 R9.0] Full Name:
+[y=782 x=279 R10.2] Page 21

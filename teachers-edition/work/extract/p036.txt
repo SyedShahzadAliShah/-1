@@ -1,0 +1,39 @@
+PAGE 36
+[y=54 x=57 B19.2] 2.4.1 Selection Sort
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A simple sorting algorithm that works by repeatedly selecting the smallest
+[y=148 x=57 R12.0] element from the unsorted portion of a list and moving it to its correct position
+[y=166 x=57 R12.0] at the front.
+[y=259 x=57 B12.0] Algorithm
+[y=292 x=66 R10.2] Step1:Start
+[y=308 x=66 R10.2] Step2:SetDATA:={8,4,1,9,3}
+[y=324 x=66 R10.2] Step3:SetN:=5
+[y=341 x=66 R10.2] Step4:RepeatStep5and6for
+[y=357 x=66 R10.2] K=1toN
+[y=373 x=66 R10.2] Step5:SetPTR:=K+1
+[y=390 x=66 R10.2] Step6:RepeatwhilePTR <= N:
+[y=406 x=79 R10.2] a:IfDATA[K] > DATA[PTR]:
+[y=423 x=97 R10.2] 1.Settemp = DATA[K]
+[y=438 x=97 R10.2] 2.SetDATA[K] = DATA[PTR]
+[y=455 x=97 R10.2] 3.SetDATA[PTR] = temp
+[y=471 x=79 R10.2] b:SetPTR:=PTR + 1
+[y=488 x=66 R10.2] Step7:End
+[y=259 x=305 B12.0] Pseudocode
+[y=292 x=317 R10.2] Start
+[y=307 x=317 R10.2] DATA = {8,4,1,9,3}
+[y=324 x=317 R10.2] N = 5
+[y=340 x=317 R10.2] Forouter = 0toN-1
+[y=357 x=329 R10.2] Forinner = outer+1toN-1
+[y=372 x=342 R10.2] IFDATA[outer] > DATA[inner]
+[y=389 x=360 R10.2] Temp = DATA[outer]
+[y=405 x=360 R10.2] DATA[outer] = DATA[inner]
+[y=422 x=360 R10.2] DATA[inner] = Temp
+[y=438 x=342 R10.2] EndIf
+[y=454 x=329 R10.2] EndFor
+[y=471 x=317 R10.2] EndFor
+[y=488 x=317 R10.2] End
+[y=554 x=69 B10.8] 👨‍🏫 Teacher's Tip
+[y=575 x=69 R12.0] Point out the difference in the inner loop starting position compared to
+[y=593 x=69 R12.0] Bubble Sort. Selection sort inner loop starts at outer+1, whereas Bubble Sort
+[y=611 x=69 R12.0] always starts at 0.
+[y=782 x=278 R10.2] Page 10

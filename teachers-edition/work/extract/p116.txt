@@ -1,0 +1,19 @@
+PAGE 116
+[y=54 x=57 B19.2] Data-Collection Strategies (Continued)
+[y=102 x=65 B14.4] 6.4.3 Prototypes
+[y=131 x=65 R10.8] A prototype is a simple early version of a product, model, or solution. It allows an idea
+[y=147 x=65 R10.8] to be tested before time and effort are spent on the final version. Users try the
+[y=163 x=65 R10.8] prototype and give feedback, which becomes useful data for improvement.
+[y=246 x=65 B14.4] 6.4.4 Observation
+[y=275 x=65 R10.8] In observation, the researcher watches what people do or what happens in a situation
+[y=291 x=65 R10.8] and records the results carefully. No direct questions are asked. The data may be
+[y=307 x=65 R10.8] qualitative (notes) or quantitative (counts).
+[y=391 x=65 B14.4] 6.4.5 Simulations
+[y=420 x=65 R10.8] A simulation is a computer-based model of a real situation. Variables can be
+[y=435 x=65 R10.8] changed to see what happens. Simulations are highly useful when real experiments
+[y=452 x=65 R10.8] are costly, risky, or difficult to perform.
+[y=546 x=69 B10.8] 👨‍🏫 Teacher's Tip
+[y=568 x=69 R12.0] Ask students which method they would use to find out "how many cars cross
+[y=586 x=69 R12.0] an intersection at 8 AM" vs "how students feel about the new cafeteria food".
+[y=604 x=69 R12.0] (Observation vs. Survey/Interview).
+[y=782 x=280 R10.2] Page 6

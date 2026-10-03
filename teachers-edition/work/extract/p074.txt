@@ -1,0 +1,37 @@
+PAGE 74
+[y=54 x=57 B19.2] 4.2 Database Components
+[y=94 x=57 R12.0] A database is made up of several important components that help organize
+[y=112 x=57 R12.0] data effectively. The most basic structure is a table.
+[y=193 x=84 B10.8] Component
+[y=193 x=326 B10.8] Description
+[y=221 x=63 B10.8] Table ()
+[y=222 x=184 R10.8] Stores data in rows and columns, similar to a spreadsheet. Each
+[y=238 x=184 R10.8] table stores information about a specific entity (e.g., Students,
+[y=254 x=184 R10.8] Teachers).
+[y=283 x=63 B10.8] Record / Row
+[y=299 x=63 B10.8] ( / )
+[y=283 x=184 R10.8] A complete set of related data about ONE specific instance.
+[y=300 x=184 R10.8] (e.g., One entire row containing Ali's Name, Roll No, and Marks).
+[y=328 x=63 B10.8] Field / Column
+[y=344 x=63 B10.8] ( / )
+[y=328 x=184 R10.8] A single piece of information or attribute. (e.g., The entire column
+[y=345 x=184 R10.8] that holds ONLY "Names" or ONLY "Marks").
+[y=444 x=241 R9.0] Roll No
+[y=444 x=286 R9.0] Name
+[y=444 x=335 R9.0] Course
+[y=444 x=380 R9.0] Grade
+[y=467 x=245 R9.0] 101
+[y=467 x=290 R9.0] Ali
+[y=467 x=343 R9.0] CS
+[y=467 x=388 R9.0] A
+[y=489 x=245 R9.0] 102
+[y=489 x=290 R9.0] Sara
+[y=489 x=343 R9.0] IT
+[y=489 x=388 R9.0] B+
+[y=512 x=245 R9.0] 103
+[y=512 x=290 R9.0] Ahmed
+[y=512 x=343 R9.0] CS
+[y=512 x=388 R9.0] A
+[y=478 x=154 R9.0] Record (Row)
+[y=403 x=268 R9.0] Field (Column)
+[y=782 x=280 R10.2] Page 5

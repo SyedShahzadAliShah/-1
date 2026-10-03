@@ -1,0 +1,20 @@
+PAGE 81
+[y=54 x=57 B19.2] 4.6 Relational Schema Development
+[y=94 x=57 R12.0] A relational schema is a formal representation of the structure of a database. It
+[y=112 x=57 R12.0] acts as the design or blueprint of the database before it is actually
+[y=130 x=57 R12.0] implemented in software like MS Access.
+[y=231 x=57 B14.4] What does a Schema define?
+[y=261 x=72 R12.0] How data is organized into Tables.
+[y=279 x=72 R12.0] What Fields (columns) each table contains.
+[y=297 x=72 R12.0] Which fields are Primary Keys and Foreign Keys.
+[y=315 x=72 R12.0] How different tables are related to each other.
+[y=348 x=57 B14.4] Why develop a Schema?
+[y=377 x=57 R12.0] Developing a relational schema is an important step because:
+[y=403 x=62 R12.0] 1. It reduces redundancy (duplication of data).
+[y=421 x=59 R12.0] 2. It improves data integrity by planning keys in advance.
+[y=439 x=59 R12.0] 3. It makes the database easier to manage and scale in the future.
+[y=483 x=69 B10.8] 👨‍🏫 Teacher's Tip
+[y=504 x=69 R12.0] Remind students that skipping the schema design phase is like trying to
+[y=522 x=69 R12.0] build a house without an architectural drawing. It leads to messy, broken
+[y=540 x=69 R12.0] structures.
+[y=782 x=279 R10.2] Page 12

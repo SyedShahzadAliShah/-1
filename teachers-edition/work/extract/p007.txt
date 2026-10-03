@@ -1,0 +1,14 @@
+PAGE 7
+[y=54 x=57 B19.2] Boolean Operations (Continued)
+[y=102 x=57 B14.4] 2. OR Operation ( + )
+[y=131 x=57 R12.0] The OR operation gives output 1 when ANY input is 1.
+[y=149 x=56 R12.0] Expression: Y = A + B
+[y=231 x=69 B10.8] Real-life Example /
+[y=253 x=69 R12.0] A room with two doors. You can enter if EITHER door is open.
+[y=375 x=57 B14.4] 3. NOT Operation ( ' or ¯ )
+[y=404 x=57 R12.0] The NOT operation inverts the input. It is a unary operation (operates on only
+[y=422 x=57 R12.0] one operand). If input is 1, output is 0.
+[y=440 x=56 R12.0] Expression: Y = A' or Y = A̅
+[y=523 x=69 B10.8] Real-life Example /
+[y=544 x=69 R12.0] A room light switch. When switch is ON, room is lit. When OFF, room is dark.
+[y=782 x=280 R10.2] Page 7

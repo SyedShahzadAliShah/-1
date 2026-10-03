@@ -1,0 +1,20 @@
+PAGE 67
+[y=54 x=57 B19.2] 3.6.2 Third-Party Libraries
+[y=94 x=57 R12.0] Third-party libraries are NOT included with Python by default. They are built by
+[y=112 x=57 R12.0] the community and must be installed via terminal using: pip install
+[y=130 x=57 RM12.0] library_name.
+[y=154 x=144 RM13.8] pip
+[y=216 x=92 B10.8] Library Name
+[y=216 x=336 B10.8] Primary Use
+[y=245 x=63 B10.8] NumPy
+[y=245 x=208 R10.8] Heavy numerical computing and large arrays.
+[y=274 x=63 B10.8] Pandas
+[y=274 x=208 R10.8] Data analysis, handling table-like data (Excel/CSV).
+[y=303 x=63 B10.8] Matplotlib
+[y=303 x=208 R10.8] Data visualization, plotting graphs and charts.
+[y=332 x=63 B10.8] TensorFlow / PyTorch
+[y=332 x=208 R10.8] Artificial Intelligence and Machine Learning.
+[y=411 x=57 B19.2] 3.7 Debugging Code in Python
+[y=451 x=57 R12.0] Debugging is the process of identifying, tracing, and resolving issues (bugs)
+[y=469 x=57 R12.0] within a program so it works correctly.
+[y=782 x=277 R10.2] Page 24

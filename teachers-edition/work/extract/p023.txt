@@ -1,0 +1,35 @@
+PAGE 23
+[y=54 x=57 B19.2] Waterfall vs Agile Comparison
+[y=112 x=86 B11.4] Dimension
+[y=112 x=216 B11.4] Waterfall Model
+[y=112 x=409 B11.4] Agile Model
+[y=142 x=63 B11.4] Flexibility
+[y=142 x=184 R11.4] Rigid. Hard to make
+[y=159 x=184 R11.4] changes later.
+[y=142 x=355 R11.4] Very flexible. Adapts to
+[y=159 x=355 R11.4] changes easily in the next
+[y=175 x=355 R11.4] sprint.
+[y=205 x=63 B11.4] Customer
+[y=223 x=63 B11.4] Involvement
+[y=205 x=184 R11.4] Only at start
+[y=223 x=184 R11.4] (requirements) and end
+[y=240 x=184 R11.4] (delivery).
+[y=205 x=355 R11.4] Continuous throughout the
+[y=223 x=355 R11.4] project (after every sprint).
+[y=270 x=63 B11.4] Delivery of
+[y=286 x=63 B11.4] Software
+[y=270 x=184 R11.4] Single delivery at the very
+[y=286 x=184 R11.4] end.
+[y=270 x=355 R11.4] Frequent, partial deliveries
+[y=286 x=355 R11.4] after every sprint.
+[y=316 x=63 B11.4] Testing
+[y=316 x=184 R11.4] Done late, in a dedicated
+[y=334 x=184 R11.4] testing phase.
+[y=316 x=355 R11.4] Continuous testing within
+[y=334 x=355 R11.4] every sprint.
+[y=364 x=63 B11.4] Documentation
+[y=364 x=184 R11.4] Heavy documentation
+[y=381 x=184 R11.4] required.
+[y=364 x=355 R11.4] Light documentation. Focus is
+[y=381 x=355 R11.4] on working software.
+[y=782 x=277 R10.2] Page 23

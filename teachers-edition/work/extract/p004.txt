@@ -1,0 +1,27 @@
+PAGE 4
+[y=54 x=57 B19.2] 1.1.2 Introduction to Digital Systems
+[y=94 x=57 R12.0] A digital system is an electronic system that uses only two values: 0 and 1. These
+[y=112 x=57 R12.0] two values are called binary digits or bits.
+[y=206 x=72 B12.0] 0 represents OFF, LOW, or FALSE.
+[y=224 x=72 B12.0] 1 represents ON, HIGH, or TRUE.
+[y=257 x=57 B14.4] Why Use Digital Systems? /
+[y=303 x=75 B10.8] Advantage
+[y=303 x=211 B10.8] English Detail
+[y=303 x=379 B10.8] Urdu Translation ()
+[y=332 x=63 B10.8] Reliable
+[y=332 x=161 R10.8] Less affected by noise and
+[y=348 x=161 R10.8] interference.
+[y=378 x=63 B10.8] Accurate
+[y=378 x=161 R10.8] No loss of quality when copying
+[y=393 x=161 R10.8] data.
+[y=426 x=63 B10.8] Easy to Design
+[y=426 x=161 R10.8] Only two states (0 and 1) to
+[y=442 x=161 R10.8] handle.
+[y=471 x=63 B10.8] Programmable
+[y=471 x=161 R10.8] Can be easily controlled by
+[y=488 x=161 R10.8] software.
+[y=534 x=57 B14.4] Examples of Digital Systems
+[y=563 x=72 B12.0] Computers: Processes data as 0s and 1s.
+[y=581 x=72 B12.0] Smartphones: Stores photos and music as binary data.
+[y=599 x=72 B12.0] Digital Cameras: Captures images as binary code.
+[y=782 x=280 R10.2] Page 4

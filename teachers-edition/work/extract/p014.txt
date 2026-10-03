@@ -1,0 +1,20 @@
+PAGE 14
+[y=54 x=57 B19.2] 1.1.13 Karnaugh Maps (K-Maps)
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A K-map is a graphical tool used to simplify Boolean expressions. It uses a grid
+[y=148 x=57 R12.0] where adjacent cells differ by only ONE bit (Gray code). We group 1s in powers of
+[y=166 x=57 R12.0] 2 (1, 2, 4, 8) to simplify equations without complex algebra.
+[y=267 x=57 B14.4] Two-Variable K-Map (Variables: A, B)
+[y=295 x=57 R12.0] Needs 2² = 4 cells.
+[y=338 x=261 B10.8] B = 0
+[y=338 x=375 B10.8] B = 1
+[y=367 x=171 B10.8] A = 0
+[y=367 x=223 R10.8] Cell 0 (A'B')
+[y=367 x=339 R10.8] Cell 1 (A'B)
+[y=396 x=173 B10.8] A = 1
+[y=396 x=223 R10.8] Cell 2 (AB')
+[y=396 x=339 R10.8] Cell 3 (AB)
+[y=450 x=69 B10.8] 👨‍🏫 Grouping Rule
+[y=472 x=69 R12.0] Make as large groups as possible (of size 1, 2, 4, 8). Overlapping is allowed.
+[y=490 x=69 R12.0] Variables that change state (0 to 1) within a group are eliminated.
+[y=782 x=278 R10.2] Page 14

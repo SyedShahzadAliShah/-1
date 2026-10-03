@@ -1,0 +1,26 @@
+PAGE 127
+[y=54 x=57 B19.2] Careers & Summary
+[y=102 x=57 B14.4] Career Opportunities in Digital Research
+[y=131 x=72 B10.2] Market Research Analyst: Designs surveys to collect primary data to guide business
+[y=146 x=72 R10.2] decisions.
+[y=162 x=72 B10.2] UX (User Experience) Researcher: Gathers qualitative/quantitative data to improve app
+[y=177 x=72 R10.2] and website designs.
+[y=192 x=72 B10.2] Data Journalist: Uses advanced search skills to research stories and presents them via
+[y=207 x=72 R10.2] infographics.
+[y=222 x=72 B10.2] Digital Marketing Specialist: Collects audience data and presents results through
+[y=238 x=72 R10.2] dashboards and reports.
+[y=285 x=57 B16.8] Summary
+[y=322 x=72 B10.2] Digital Literacy: Not just using devices, but finding, evaluating, and creating information
+[y=338 x=72 R10.2] safely and responsibly.
+[y=354 x=72 B10.2] Data Types: Qualitative (opinions, words) vs. Quantitative (numbers, counts).
+[y=371 x=72 B10.2] Data Sources: Primary (collected first-hand by you) vs. Secondary (already collected by
+[y=387 x=72 R10.2] someone else).
+[y=403 x=72 B10.2] Collection Methods: Interviews, Surveys, Prototypes, Observation, and Simulations.
+[y=420 x=72 B10.2] Advanced Search: Using operators like quotes (" ") or filetype:pdf to find reliable sources
+[y=437 x=72 R10.2] efficiently.
+[y=453 x=72 B10.2] Ethics: Always ask for permission (consent) and respect user privacy when collecting data.
+[y=469 x=72 B10.2] Digital Tools: Spreadsheets (organize/calculate), Presentations (deliver to audience),
+[y=486 x=72 R10.2] Infographics (quick visual summaries), Reports (detailed structure).
+[y=502 x=72 B10.2] Digital Artefact: The final product that effectively communicates the answer to the
+[y=519 x=72 R10.2] research question using evidence and visuals.
+[y=782 x=279 R10.2] Page 17

@@ -1,0 +1,20 @@
+PAGE 58
+[y=54 x=57 B19.2] 3.5 Control Structures
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Control structures decide the order in which statements are executed in a
+[y=148 x=57 R12.0] program. Almost every program uses three basic structures: Sequence,
+[y=166 x=57 B12.0] Selection, and Repetition.
+[y=236 x=57 B14.4] 3.5.1 Sequence
+[y=265 x=57 R12.0] Sequence means that statements are executed one after another, strictly from
+[y=283 x=57 R12.0] top to bottom, in the exact order they are written. This is the default behavior of
+[y=301 x=57 R12.0] Python.
+[y=354 x=69 R10.2] print("Entertwonumbers")
+[y=369 x=69 R10.2] a = int(input("Enterfirstnumber:"))#Step1:Input
+[y=386 x=69 R10.2] b = int(input("Entersecondnumber:"))#Step2:Input
+[y=402 x=69 R10.2] total = a + b#Step3:Process
+[y=419 x=69 R10.2] print("Sum =",total)#Step4:Output
+[y=506 x=285 R12.0] Start
+[y=551 x=265 R12.0] Statement 1
+[y=596 x=265 R12.0] Statement 2
+[y=641 x=288 R12.0] End
+[y=782 x=278 R10.2] Page 15

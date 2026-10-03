@@ -1,0 +1,31 @@
+PAGE 109
+[y=54 x=57 B19.2] 5.5 Assistive Technologies
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Assistive technologies are devices, software, and systems that help people with
+[y=148 x=57 R12.0] disabilities or functional limitations. They allow more people to participate
+[y=166 x=57 R12.0] equally in school, work, and society.
+[y=267 x=57 B14.4] Categories of Assistive Technologies:
+[y=304 x=65 B12.0] 1. Mobility Aids
+[y=321 x=65 R10.2] Help people move from one place to
+[y=337 x=65 R10.2] another.
+[y=360 x=64 R10.2] Examples: Smart wheelchairs, stair lifts.
+[y=304 x=313 B12.0] 2. Sensory Aids
+[y=321 x=313 R10.2] Support vision and hearing to improve
+[y=337 x=313 R10.2] interaction.
+[y=360 x=312 R10.2] Examples: Hearing aids, Screen readers
+[y=375 x=313 R10.2] (VoiceOver), Braille displays.
+[y=426 x=65 B12.0] 3. Communication Aids
+[y=444 x=65 R10.2] Assist individuals with speech difficulties
+[y=459 x=65 R10.2] to express themselves.
+[y=482 x=64 R10.2] Examples: Speech-generating devices,
+[y=497 x=65 R10.2] Text-to-speech apps.
+[y=426 x=313 B12.0] 4. Cognitive / Learning Aids
+[y=444 x=313 R10.2] Help people with memory, reading, and
+[y=459 x=313 R10.2] understanding.
+[y=482 x=312 R10.2] Examples: Audiobooks, spell-checkers,
+[y=497 x=313 R10.2] digital reminder apps.
+[y=609 x=176 R7.5] Mobility
+[y=609 x=247 R7.5] Sensory
+[y=609 x=309 R7.5] Communication
+[y=609 x=395 R7.5] Cognitive
+[y=782 x=278 R10.2] Page 14

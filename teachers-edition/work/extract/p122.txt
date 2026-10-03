@@ -1,0 +1,25 @@
+PAGE 122
+[y=54 x=57 B19.2] Methodology (Steps 1 to 3)
+[y=102 x=57 B14.4] Step 1: Perform Advanced Searches
+[y=130 x=57 R10.8] Students first search for background information using search engines. They use
+[y=146 x=57 B10.8] advanced search operators to narrow down results and find reliable secondary data.
+[y=189 x=200 B10.2] Suggested Advanced Search Queries
+[y=218 x=63 RM10.2] "mobile phone use" "study habits" students
+[y=216 x=341 R10.2] Uses quotes for exact phrases.
+[y=246 x=63 RM10.2] "academic performance" filetype:pdf
+[y=245 x=341 R10.2] Finds only official PDF documents.
+[y=274 x=63 RM10.2] digital distraction site:.edu
+[y=273 x=341 R10.2] Searches only educational websites.
+[y=315 x=65 B12.0] Source Evaluation Checklist:
+[y=333 x=80 R10.2] Is the author/organization clearly mentioned?
+[y=348 x=80 R10.2] Is the information recent?
+[y=363 x=80 R10.2] Is the website reliable (.edu, .gov, research-based)?
+[y=378 x=80 R10.2] Does the source provide facts/references, or is it biased?
+[y=420 x=57 B14.4] Step 2: Identify Data Types
+[y=449 x=57 R10.8] Students must decide what kind of primary data they will collect.
+[y=474 x=72 B10.2] Quantitative: Number of hours used daily, percentage who feel distracted.
+[y=489 x=72 B10.2] Qualitative: Opinions on why they get distracted, suggestions for better use.
+[y=519 x=57 B14.4] Step 3: Select Data-Collection Methods
+[y=547 x=57 R10.8] Since they need to ask the same questions to many students, a Survey/Questionnaire
+[y=564 x=57 R10.8] (via Google Forms or paper) is the most efficient method.
+[y=782 x=279 R10.2] Page 12

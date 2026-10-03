@@ -1,0 +1,31 @@
+PAGE 64
+[y=54 x=57 B19.2] Practical Activity: Shopping Bill Calculator
+[y=94 x=57 R12.0] This program beautifully combines Sequence, Selection, and Repetition.
+[y=145 x=69 R9.0] print("===== SHOPPINGBILL =====")
+[y=159 x=69 R9.0] total = 0.0
+[y=174 x=69 R9.0] count = 0
+[y=188 x=69 R9.0] shopping = True
+[y=216 x=68 R9.0] #REPETITION:Keepaddingitems
+[y=231 x=69 R9.0] whileshopping:
+[y=246 x=90 R9.0] item = input("EnterItemName(or'done'tostop):")
+[y=274 x=90 R9.0] #SELECTION:Checkifuserwantstostop
+[y=289 x=90 R9.0] ifitem.lower() == "done":
+[y=303 x=112 R9.0] shopping = False
+[y=318 x=90 R9.0] else:
+[y=332 x=112 R9.0] price = float(input(f"EnterPriceof{item}:"))
+[y=360 x=111 R9.0] #SELECTION:Validateprice
+[y=375 x=112 R9.0] ifprice <= 0:
+[y=389 x=133 R9.0] print("Invalidprice!")
+[y=405 x=112 R9.0] else:
+[y=419 x=133 R9.0] total += price
+[y=433 x=133 R9.0] count += 1
+[y=461 x=68 R9.0] #Summary & Discount
+[y=476 x=69 R9.0] iftotal >= 5000:
+[y=490 x=90 R9.0] discount = total*0.20#20% off
+[y=505 x=69 R9.0] else:
+[y=519 x=90 R9.0] discount = 0
+[y=548 x=69 R9.0] final = total-discount
+[y=562 x=69 R9.0] print(f"TotalItems:{count}")
+[y=577 x=69 R9.0] print(f"TotalBill:{total}")
+[y=591 x=69 R9.0] print(f"FinaltoPay:{final}")
+[y=782 x=279 R10.2] Page 21

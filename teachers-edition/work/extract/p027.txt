@@ -1,0 +1,9 @@
+PAGE 27
+[y=134 x=61 B42.0] COMPUTER SCIENCE XI
+[y=211 x=229 B24.0] CHAPTER 2:
+[y=247 x=119 B24.0] COMPUTATIONAL THINKING &
+[y=283 x=226 B24.0] ALGORITHM
+[y=581 x=163 B18.0] BILINGUAL TEACHER'S EDITION
+[y=653 x=125 R15.6] High-Yielding Lecture Notes & Golden Topics
+[y=676 x=152 R15.6] Based on New Sindh Curriculum 2026
+[y=782 x=282 R10.2] Page 1

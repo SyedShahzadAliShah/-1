@@ -1,0 +1,23 @@
+PAGE 121
+[y=54 x=57 B19.2] 6.8 Case Study: Digital Inquiry Project
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] This comprehensive case study demonstrates how to apply all the concepts of
+[y=148 x=57 R12.0] Digital Literacy to solve a real-world problem from start to finish.
+[y=180 x=57 B14.4] Research Question:
+[y=216 x=78 B14.4] "How does daily mobile phone use affect the study habits of
+[y=238 x=258 B14.4] students?"
+[y=275 x=57 B12.0] Scenario: Students notice classmates using phones during free periods and
+[y=293 x=57 R12.0] while studying. Some say it helps them learn; others say it wastes time. The
+[y=311 x=57 R12.0] class must investigate whether phone use helps or harms study habits.
+[y=344 x=57 B14.4] The Digital Inquiry Workflow
+[y=422 x=143 R15.0] 1
+[y=461 x=130 R9.0] Question
+[y=422 x=218 R15.0] 2
+[y=461 x=209 R9.0] Search
+[y=422 x=293 R15.0] 3
+[y=461 x=284 R9.0] Collect
+[y=422 x=368 R15.0] 4
+[y=461 x=357 R9.0] Analyze
+[y=422 x=443 R15.0] 5
+[y=461 x=434 R9.0] Create
+[y=782 x=280 R10.2] Page 11

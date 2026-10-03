@@ -1,0 +1,36 @@
+PAGE 47
+[y=54 x=57 B19.2] Common High-Level Languages
+[y=105 x=68 B14.4] C++
+[y=134 x=68 R10.8] Powerful, closer to
+[y=150 x=68 R10.8] hardware. Used for
+[y=166 x=68 R10.8] system software,
+[y=183 x=68 R10.8] operating systems, and
+[y=198 x=68 R10.8] high-performance
+[y=215 x=68 R10.8] computer games.
+[y=105 x=233 B14.4] Java
+[y=134 x=233 R10.8] "Write once, run
+[y=150 x=233 R10.8] anywhere". Used for
+[y=166 x=233 R10.8] large enterprise
+[y=183 x=233 R10.8] applications, Android
+[y=198 x=233 R10.8] mobile apps, and
+[y=215 x=233 R10.8] server programming.
+[y=107 x=399 B14.4] Python
+[y=135 x=399 R10.8] Simple, readable
+[y=151 x=399 R10.8] syntax. Widely used for
+[y=168 x=399 R10.8] Data Science, AI, Web
+[y=184 x=399 R10.8] Development, and by
+[y=200 x=399 R10.8] beginners.
+[y=274 x=57 B19.2] 3.2 Career Growth with Python
+[y=383 x=72 B12.0] Software Development: Build desktop and web applications.
+[y=401 x=72 B12.0] Data Science and Data Analysis: Analyze data, create reports, and make
+[y=419 x=72 R12.0] predictions.
+[y=437 x=72 B12.0] Artificial Intelligence and Machine Learning: Develop intelligent systems,
+[y=455 x=72 R12.0] chatbots, and recommendation algorithms.
+[y=473 x=72 B12.0] Web Development: Use frameworks like Django and Flask to build websites.
+[y=491 x=72 B12.0] Automation and Scripting: Automate repetitive office or lab tasks.
+[y=509 x=72 B12.0] Cybersecurity and Networking: Write security tools and analyze network
+[y=527 x=72 R12.0] data.
+[y=572 x=69 B10.8] 💡 Why Python?
+[y=593 x=69 R12.0] Remind students that Python allows them to focus on problem-solving and
+[y=611 x=69 B12.0] logic rather than memorizing complex syntax rules.
+[y=782 x=280 R10.2] Page 4

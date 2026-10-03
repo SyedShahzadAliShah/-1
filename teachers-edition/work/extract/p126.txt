@@ -1,0 +1,36 @@
+PAGE 126
+[y=54 x=57 B19.2] The Final Digital Artefact
+[y=94 x=57 R12.0] A digital artefact is a final product created using digital technologies. Students
+[y=112 x=57 R12.0] must create one final artefact that answers the original research question. It is
+[y=130 x=56 R12.0] not just a decorated file; it must present evidence and conclusions.
+[y=211 x=74 B10.8] Artefact Option
+[y=211 x=203 B10.8] Suitable Digital Tools
+[y=211 x=404 B10.8] Main Purpose
+[y=240 x=63 B10.8] Digital Report
+[y=240 x=184 R10.8] MS Word, Google Docs
+[y=240 x=352 R10.8] Explain the full study in a
+[y=256 x=352 R10.8] structured text document.
+[y=285 x=63 B10.8] Presentation
+[y=285 x=184 R10.8] PowerPoint, Canva, Slides
+[y=285 x=352 R10.8] Share key findings with a live
+[y=301 x=352 R10.8] audience.
+[y=330 x=63 B10.8] Infographic
+[y=330 x=184 R10.8] Canva, Adobe Express
+[y=330 x=352 R10.8] Show the main results visually
+[y=346 x=352 R10.8] and quickly on one page.
+[y=375 x=63 B10.8] Dashboard
+[y=375 x=184 R10.8] Power BI, Tableau
+[y=375 x=352 R10.8] Explore data through interactive
+[y=391 x=352 R10.8] charts and filters.
+[y=438 x=57 B14.4] Standard Artefact Structure
+[y=467 x=57 R10.2] 1. Title
+[y=482 x=57 R10.2] 2. Research Question
+[y=498 x=57 R10.2] 3. Introduction
+[y=513 x=57 R10.2] 4. Method of Data Collection
+[y=467 x=222 R10.2] 5. Primary Data Findings
+[y=482 x=222 R10.2] 6. Secondary Data Summary
+[y=498 x=222 R10.2] 7. Charts and Graphs
+[y=467 x=388 R10.2] 8. Conclusion
+[y=482 x=388 R10.2] 9. Recommendations
+[y=498 x=388 R10.2] 10. References
+[y=782 x=278 R10.2] Page 16

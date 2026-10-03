@@ -1,0 +1,38 @@
+PAGE 30
+[y=54 x=57 B19.2] 2.2.2 Algorithm vs Pseudocode
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] While both are used in problem-solving, they serve different purposes in the
+[y=148 x=57 R12.0] design phase.
+[y=258 x=125 B10.8] Algorithm ()
+[y=258 x=357 B10.8] Pseudocode ( )
+[y=287 x=63 R10.8] A step-by-step logical procedure to solve
+[y=303 x=63 R10.8] a problem.
+[y=287 x=304 R10.8] A human-readable representation of an
+[y=303 x=304 R10.8] algorithm using plain English & keywords.
+[y=332 x=63 R10.8] Conceptual and language-independent.
+[y=332 x=304 R10.8] Semi-formal and structured but not
+[y=348 x=304 R10.8] executable code.
+[y=378 x=63 R10.8] To define what needs to be done
+[y=393 x=63 R10.8] logically.
+[y=378 x=304 R10.8] To present how it can be implemented in
+[y=393 x=304 R10.8] a readable format.
+[y=423 x=63 R10.8] Usually described in plain steps, bullets, or
+[y=439 x=63 R10.8] numbered points.
+[y=423 x=304 R10.8] Written using structured constructs (IF,
+[y=439 x=304 R10.8] FOR, WHILE) like programming.
+[y=468 x=63 R10.8] Focuses on the logic and steps of the
+[y=484 x=63 R10.8] problem.
+[y=468 x=304 R10.8] Focuses on representing steps clearly
+[y=484 x=304 R10.8] before coding.
+[y=513 x=63 R10.8] For anyone trying to understand the logic
+[y=529 x=63 R10.8] (including non-programmers).
+[y=513 x=304 R10.8] Mainly for programmers or students
+[y=529 x=304 R10.8] preparing for coding.
+[y=558 x=63 R10.8] No fixed format; can be informal.
+[y=558 x=304 R10.8] Follows standard pseudocode
+[y=574 x=304 R10.8] conventions for clarity.
+[y=629 x=69 B10.8] Teacher's Explanation /
+[y=649 x=69 R12.0] Use this analogy: An Algorithm is like a recipe (e.g., "Bake a cake at 350
+[y=667 x=69 R12.0] degrees"). Pseudocode is like a structured kitchen manual using standard
+[y=685 x=69 R12.0] verbs (e.g., SET temperature TO 350; WHILE cake is not baked, WAIT).
+[y=782 x=280 R10.2] Page 4

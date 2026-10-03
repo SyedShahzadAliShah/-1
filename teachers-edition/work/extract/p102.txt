@@ -1,0 +1,46 @@
+PAGE 102
+[y=54 x=57 B19.2] Data Analytics (Continued)
+[y=103 x=65 B12.0] 4. Data Analysis
+[y=123 x=65 R10.8] Studying the clean data to identify patterns, trends, and relevant information for
+[y=140 x=65 R10.8] problem-solving. (e.g., Finding out which subjects students failed the most).
+[y=192 x=65 B12.0] 5. Data Visualization
+[y=213 x=65 R10.8] Creating visual representations of data (plots, charts, graphs) to provide valuable
+[y=229 x=65 R10.8] insights at a glance. (e.g., A pie chart showing pass vs fail percentage).
+[y=312 x=57 B14.4] Comparison: IoT vs AI vs Data Analytics
+[y=359 x=87 B10.2] Aspect
+[y=359 x=208 B10.2] IoT
+[y=359 x=286 B10.2] Artificial Intelligence
+[y=375 x=331 B10.2] (AI)
+[y=359 x=432 B10.2] Data Analytics
+[y=402 x=63 B10.2] Definition
+[y=402 x=160 R10.2] Network of physical
+[y=417 x=160 R10.2] devices connected to
+[y=433 x=160 R10.2] internet.
+[y=402 x=285 R10.2] Technology enabling
+[y=417 x=285 R10.2] machines to think &
+[y=433 x=285 R10.2] decide.
+[y=402 x=410 R10.2] Process of examining
+[y=417 x=410 R10.2] data to find patterns.
+[y=461 x=63 B10.2] Main Purpose
+[y=461 x=160 R10.2] Data collection and
+[y=476 x=160 R10.2] automation.
+[y=461 x=285 R10.2] Intelligent decision
+[y=476 x=285 R10.2] making and
+[y=491 x=285 R10.2] predictions.
+[y=461 x=410 R10.2] Extracting meaningful
+[y=476 x=410 R10.2] insights.
+[y=519 x=63 B10.2] Type of Work
+[y=519 x=160 R10.2] Works with physical
+[y=535 x=160 R10.2] devices (Hardware).
+[y=519 x=285 R10.2] Works with smart
+[y=535 x=285 R10.2] software systems.
+[y=519 x=410 R10.2] Works with data
+[y=535 x=410 R10.2] (Numbers, records).
+[y=563 x=63 B10.2] Output
+[y=563 x=160 R10.2] Raw data from
+[y=578 x=160 R10.2] environment.
+[y=563 x=285 R10.2] Smart decisions or
+[y=578 x=285 R10.2] actions.
+[y=563 x=410 R10.2] Reports, graphs,
+[y=578 x=410 R10.2] insights.
+[y=782 x=280 R10.2] Page 7

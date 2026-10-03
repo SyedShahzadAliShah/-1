@@ -1,0 +1,22 @@
+PAGE 98
+[y=54 x=57 B19.2] 5.1 Introduction to Computing
+[y=94 x=57 R12.0] Computing is now an important part of our daily lives. We use computers,
+[y=112 x=57 R12.0] mobile phones, the internet, and smart devices everywhere. In Pakistan, it is
+[y=130 x=57 R12.0] becoming vital in schools, hospitals, banks, farms, and industries.
+[y=231 x=57 B14.4] 5.1.1 Artificial Intelligence (AI)
+[y=264 x=68 B10.8] ★ GOLDEN TOPIC
+[y=295 x=57 R12.0] AI is called "artificial" because it is created by humans, and "intelligence" means
+[y=313 x=57 R12.0] it can perform tasks that require thinking. AI systems use data to make
+[y=331 x=57 R12.0] decisions.
+[y=425 x=71 R12.0] Example 1: Mobile phone face recognition to unlock screens.
+[y=443 x=71 R12.0] Example 2: YouTube suggesting videos based on your interests.
+[y=461 x=71 R12.0] Example 3: Chatbots answering questions on a website.
+[y=495 x=65 B12.0] AI in Smart Systems
+[y=516 x=65 R10.8] AI often acts as the "brain" of a system, working together with the Internet of Things
+[y=532 x=65 R10.8] (IoT) and Data Analytics. IoT devices gather data, Analytics sorts it, and AI makes the
+[y=549 x=65 R10.8] final decision.
+[y=630 x=64 R10.2] (e.g., If a room is hot, AI decides to turn on the AC automatically based on sensor data).
+[y=727 x=203 R9.0] IoT (Eyes)
+[y=726 x=276 R10.5] AI (Brain)
+[y=727 x=360 R9.0] Action
+[y=782 x=280 R10.2] Page 3

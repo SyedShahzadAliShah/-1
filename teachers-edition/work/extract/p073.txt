@@ -1,0 +1,30 @@
+PAGE 73
+[y=54 x=57 B19.2] Database and DBMS
+[y=101 x=57 B14.4] Database ( )
+[y=131 x=57 R12.0] A database is an organized collection of related data that is stored in a
+[y=149 x=57 R12.0] structured manner so that it can be easily accessed, managed, and updated. In
+[y=167 x=57 R12.0] traditional systems, data was stored in files or books, making it difficult to
+[y=185 x=57 R12.0] search. A database solves these problems.
+[y=286 x=57 B14.4] 4.1.2 Database Management System (DBMS)
+[y=316 x=57 R12.0] A DBMS is software that allows users to create, manage, and interact with
+[y=334 x=57 R12.0] databases. It acts as a bridge between the user and the database. Instead of
+[y=352 x=57 R12.0] directly handling data files, users interact with DBMS.
+[y=457 x=57 B12.0] Advantages of DBMS:
+[y=482 x=67 B10.0] 1. Less Redundancy ( )
+[y=497 x=67 R10.2] The same data is not stored multiple
+[y=512 x=67 R10.2] times unnecessarily. E.g., Department
+[y=527 x=67 R10.2] name is stored once, not in every student
+[y=542 x=67 R10.2] record.
+[y=482 x=316 B10.0] 2. Improved Consistency ( )
+[y=497 x=316 R10.2] Ensures all users see the same correct
+[y=512 x=316 R10.2] data. Updating a phone number once
+[y=527 x=316 R10.2] updates it everywhere.
+[y=599 x=67 B10.0] 3. Improved Security ( )
+[y=614 x=67 R10.2] Allows only authorized users to access
+[y=629 x=67 R10.2] sensitive info. (Admin sees marks, staff
+[y=644 x=67 R10.2] sees only names).
+[y=599 x=316 B10.0] 4. Data Integrity (  )
+[y=614 x=316 R10.2] Ensures stored data is accurate and
+[y=629 x=316 R10.2] reliable. (E.g., preventing duplicate Roll
+[y=644 x=316 R10.2] Numbers).
+[y=782 x=280 R10.2] Page 4

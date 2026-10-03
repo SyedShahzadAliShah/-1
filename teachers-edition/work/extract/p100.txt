@@ -1,0 +1,34 @@
+PAGE 100
+[y=54 x=57 B19.2] IoT Components (Continued)
+[y=94 x=57 B12.0] 3. Connectivity
+[y=111 x=57 R10.8] The connection that allows devices to send
+[y=128 x=57 R10.8] and receive data. Without it, sensors can't
+[y=144 x=57 R10.8] talk to the system.
+[y=168 x=56 R10.2] Examples: Wi-Fi, Bluetooth, ZigBee, 4G/5G.
+[y=94 x=305 B12.0] 4. Data Processing
+[y=111 x=305 R10.8] Changing raw data into useful info. Steps
+[y=128 x=305 R10.8] include collecting, organizing, analyzing,
+[y=144 x=305 R10.8] and deciding.
+[y=168 x=304 R10.2] Example: Checking if room temp is too hot to
+[y=183 x=305 R10.2] trigger the AC.
+[y=218 x=57 B12.0] 5. Cloud Computing
+[y=235 x=57 R10.8] Storing data and using services over the
+[y=251 x=57 R10.8] internet instead of local hard drives.
+[y=267 x=57 R10.8] Handles massive IoT data.
+[y=292 x=56 R10.2] Examples: Google Drive, iCloud, Online LMS.
+[y=218 x=305 B12.0] 6. User Interface (UI)
+[y=235 x=305 R10.8] The component that enables interaction
+[y=251 x=305 R10.8] between the user and the device. Helps
+[y=267 x=305 R10.8] users see info and give commands.
+[y=292 x=304 R10.2] Examples: Mobile Apps, Touch screens, Voice
+[y=307 x=305 R10.2] commands.
+[y=406 x=141 R9.0] Sensor
+[y=418 x=139 R7.5] (Collects)
+[y=403 x=192 R7.5] Wi-Fi
+[y=406 x=249 R9.0] Cloud
+[y=418 x=240 R7.5] (Processes)
+[y=406 x=340 R9.0] Actuator
+[y=418 x=348 R7.5] (Acts)
+[y=406 x=407 R9.0] User App
+[y=418 x=419 R7.5] (UI)
+[y=782 x=280 R10.2] Page 5

@@ -1,0 +1,22 @@
+PAGE 50
+[y=54 x=57 B19.2] 3.4 Fundamentals of Python Programming
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] The basic structure of a Python program is simple and clear. It processes data
+[y=148 x=57 R12.0] using statements, and finally shows output. Programs run top-to-bottom
+[y=166 x=57 R12.0] sequentially.
+[y=236 x=57 B14.4] 1. Comments (#)
+[y=265 x=57 R12.0] Comments are notes written in the code for humans. They start with the #
+[y=283 x=57 R12.0] symbol. The Python interpreter completely ignores them.
+[y=354 x=57 B14.4] 2. Indentation (Spaces)
+[y=383 x=57 R12.0] Unlike C++ or Java which use curly brackets {} to define blocks of code, Python
+[y=401 x=57 R12.0] uses indentation (spaces at the beginning of a line). Indentation is mandatory!
+[y=419 x=57 R12.0] The standard is 4 spaces (or 1 tab).
+[y=471 x=68 R10.2] #Thisisacomment.Itexplainsthecodebelow.
+[y=488 x=69 R10.2] print("Hello,World!")
+[y=520 x=69 R10.2] if5 > 2:
+[y=537 x=93 R10.2] #Thespacebefore'print'istheIndentation
+[y=553 x=93 R10.2] print("Fiveisgreaterthantwo!")
+[y=624 x=69 B10.8] ⚠️ Common Error
+[y=645 x=69 R12.0] If a student gets an IndentationError, tell them to check their spaces.
+[y=663 x=69 R12.0] Mixing tabs and spaces can break a Python program.
+[y=782 x=280 R10.2] Page 7

@@ -1,0 +1,18 @@
+PAGE 16
+[y=54 x=57 B19.2] LogiSim Evolution: Simulation Tool
+[y=94 x=57 R12.0] LogiSim Evolution is a graphical tool for designing and simulating logic circuits. It
+[y=112 x=57 R12.0] allows students to visually build the truth tables and boolean expressions they
+[y=130 x=57 R12.0] learn in theory.
+[y=163 x=57 B14.4] 1. The Interface Areas
+[y=193 x=72 B12.0] Menu Bar: Top bar for File, Edit, Project, Simulate.
+[y=211 x=72 B12.0] Toolbar: Quick access to standard tools (Wiring, Poke, AND, OR, NOT gates).
+[y=229 x=72 B12.0] Explorer Panel (Left): Contains component libraries (Gates, I/O, Wiring).
+[y=247 x=72 B12.0] Attribute Table (Bottom Left): Adjust properties of selected gates (e.g.,
+[y=265 x=72 R12.0] Number of Inputs, Facing direction).
+[y=283 x=72 B12.0] Drawing Canvas (Right): The dotted grid where you place and wire gates.
+[y=327 x=69 B10.8] 💡 Wiring Colors during Simulation
+[y=348 x=84 B12.0] Bright Green: Logic 1 (HIGH)
+[y=366 x=84 B12.0] Dark Green: Logic 0 (LOW)
+[y=384 x=84 B12.0] Blue: Unknown / Unconnected pin
+[y=402 x=84 B12.0] Red: Error / Short circuit
+[y=782 x=278 R10.2] Page 16

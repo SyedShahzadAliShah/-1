@@ -1,0 +1,23 @@
+PAGE 78
+[y=54 x=57 B19.2] Types of Relationships in ER Model
+[y=94 x=57 R12.0] Understanding relationships is essential for designing efficient and accurate
+[y=112 x=57 R12.0] databases. There are three main types:
+[y=150 x=69 B12.0] 1. One-to-One (1:1)
+[y=168 x=69 R10.2] One record is related to ONLY ONE record in another entity. This is rare and often used for
+[y=183 x=69 R10.2] security.
+[y=206 x=68 R10.2] Example: One Student has One ID Card.
+[y=229 x=199 B12.0] STUDENT (1) — HAS — (1) ID CARD
+[y=289 x=69 B12.0] 2. One-to-Many (1:M)
+[y=307 x=69 R10.2] One record in Entity A relates to MULTIPLE records in Entity B. This is the most common
+[y=323 x=69 R10.2] relationship.
+[y=345 x=68 R10.2] Example: One Teacher teaches Many Students.
+[y=368 x=179 B12.0] TEACHER (1) — TEACHES — (N) STUDENT
+[y=429 x=69 B12.0] 3. Many-to-Many (M:N)
+[y=447 x=69 R10.2] Multiple records in Entity A relate to multiple records in Entity B.
+[y=470 x=68 R10.2] Example: Many Students enroll in Many Classes.
+[y=493 x=185 B12.0] STUDENT (M) — ENROLLS — (N) CLASS
+[y=561 x=69 B10.8] ⚠️ The M:N Database Rule
+[y=582 x=69 R12.0] Relational databases cannot directly support Many-to-Many relationships.
+[y=600 x=69 R12.0] It causes data duplication. To fix this, we must break it into two 1:M
+[y=618 x=69 R12.0] relationships using a Junction Table (e.g., an "Enrollment" table).
+[y=782 x=280 R10.2] Page 9

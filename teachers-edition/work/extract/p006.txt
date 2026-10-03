@@ -1,0 +1,24 @@
+PAGE 6
+[y=54 x=57 B19.2] 1.1.4 Boolean Algebra
+[y=94 x=57 R12.0] Boolean algebra (developed by George Boole) deals with only two values: TRUE
+[y=112 x=57 B12.0] (1) and FALSE (0). It is the foundation of digital electronics and computer
+[y=130 x=57 R12.0] programming.
+[y=241 x=79 B10.8] Concept
+[y=241 x=249 B10.8] Description
+[y=241 x=452 B10.8] Example
+[y=270 x=63 B10.8] Variables
+[y=270 x=155 R10.8] Letters that hold values 0 or 1.
+[y=270 x=421 R10.8] A, B, C, X, Y
+[y=299 x=63 B10.8] Operations
+[y=299 x=155 R10.8] Actions performed on variables.
+[y=299 x=421 R10.8] AND, OR, NOT
+[y=328 x=63 B10.8] Expressions
+[y=328 x=155 R10.8] Combinations of variables & operations.
+[y=328 x=421 R10.8] A AND B, Y = A + B
+[y=375 x=57 B19.2] 1.1.5 Boolean Operations
+[y=423 x=57 B14.4] 1. AND Operation ( · )
+[y=453 x=57 R12.0] The AND operation gives output 1 ONLY when ALL inputs are 1.
+[y=471 x=56 R12.0] Expression: Y = A · B
+[y=553 x=69 B10.8] Real-life Example /
+[y=574 x=69 R12.0] A door with two locks. The door opens only when BOTH locks are unlocked.
+[y=782 x=280 R10.2] Page 6

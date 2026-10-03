@@ -1,0 +1,35 @@
+PAGE 33
+[y=54 x=57 B19.2] 2.3.3 Abstraction
+[y=94 x=57 R12.0] Abstraction means hiding unnecessary features and focusing only on the
+[y=112 x=57 R12.0] essential ones needed to solve a problem. It reduces complexity by ignoring
+[y=130 x=57 R12.0] what is not important (noise).
+[y=224 x=57 B12.0] Example: Applying Abstraction to "Making Tea"
+[y=241 x=57 R10.8] To make an algorithm for tea, we must separate the necessary steps from the situational
+[y=258 x=57 R10.8] changes and the noise.
+[y=299 x=77 B10.8] 1. Necessary Steps
+[y=315 x=94 B10.8] (Core Logic)
+[y=299 x=228 B10.8] 2. Changes based on
+[y=315 x=227 B10.8] situation (Variables)
+[y=299 x=399 B10.8] 3. Abstraction Items
+[y=315 x=414 B10.8] (Ignore/Noise)
+[y=344 x=69 R11.4] 1. Boil water
+[y=361 x=66 R11.4] 2. Add tea leaves/bag
+[y=379 x=66 R11.4] 3. Steep for a few
+[y=396 x=78 R11.4] mins
+[y=413 x=66 R11.4] 4. Pour into cup
+[y=430 x=66 R11.4] 5. Serve
+[y=344 x=220 R11.4] Ingredients (Black, Green,
+[y=361 x=220 R11.4] Milk)
+[y=379 x=220 R11.4] Additions (Sugar, Lemon)
+[y=396 x=220 R11.4] Tools (Stove vs Kettle)
+[y=344 x=393 R11.4] Brand of kettle
+[y=361 x=393 R11.4] Cup color or design
+[y=379 x=393 R11.4] Where tea is made
+[y=396 x=393 R11.4] (Kitchen, Office)
+[y=534 x=92 R9.0] 1. Boil Water
+[y=534 x=190 R9.0] 2. Add Tea
+[y=534 x=289 R9.0] 3. Steep
+[y=534 x=385 R9.0] 4. Pour
+[y=534 x=469 R9.0] 5. Serve
+[y=500 x=162 R9.0] The Core Abstracted Logic (Independent of cup color or kettle brand)
+[y=782 x=280 R10.2] Page 7

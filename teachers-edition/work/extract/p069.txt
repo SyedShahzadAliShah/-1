@@ -1,0 +1,24 @@
+PAGE 69
+[y=54 x=57 B19.2] Reading Error Messages (Tracebacks)
+[y=94 x=57 R12.0] When Python crashes, it prints a Traceback. It is a roadmap to fix the bug. It tells
+[y=112 x=57 R12.0] you:
+[y=138 x=62 R12.0] 1. What type of error occurred.
+[y=156 x=59 R12.0] 2. Which file the error is in.
+[y=174 x=59 R12.0] 3. Exactly which line number caused the crash.
+[y=208 x=67 R9.6] Traceback(mostrecentcalllast):
+[y=223 x=67 R9.6] File"e:\PythonCode\debug_program.py",line1,in <module>
+[y=237 x=67 R9.6] x = int("abc")
+[y=252 x=67 R9.6] ValueError:invalidliteralforint()withbase10:'abc'
+[y=285 x=56 R12.0] Diagnosis: The traceback clearly states that on Line 1, we tried to convert letters
+[y=303 x=56 R12.0] ("abc") into an integer, which generated a ValueError.
+[y=353 x=57 B16.8] Summary
+[y=387 x=72 B10.8] Python is a High-Level, readable language great for AI, Data, and Web.
+[y=404 x=72 B10.8] VS Code is a popular editor made into an IDE via Extensions.
+[y=420 x=72 B10.8] Variables do not need explicit types in Python; types change dynamically.
+[y=437 x=72 B10.8] Data Types: int, float, str, bool, list, dict.
+[y=454 x=72 B10.8] Input/Output: print() outputs data; input() gets data as a string.
+[y=470 x=72 B10.8] Control Structures: Sequence (top-to-bottom), Selection (if/else), Repetition
+[y=486 x=72 R10.8] (for/while).
+[y=503 x=72 B10.8] Libraries: Extend Python's power. Built-in (math, random) or Third-party (NumPy).
+[y=519 x=72 B10.8] Errors: Syntax (Grammar), Runtime (Crash during run), Logical (Wrong output).
+[y=782 x=277 R10.2] Page 26

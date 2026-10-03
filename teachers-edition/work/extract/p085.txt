@@ -1,0 +1,19 @@
+PAGE 85
+[y=54 x=57 B19.2] Library Case Study (Final ER Schema)
+[y=102 x=57 B14.4] Step 7: Final ER Diagram
+[y=131 x=57 R12.0] The final structure shows:
+[y=149 x=57 R12.0] 1. One Member → Many BorrowRecords (1:M)
+[y=167 x=57 R12.0] 2. One Book → Many BorrowRecords (1:M)
+[y=486 x=108 R12.0] MEMBER
+[y=516 x=109 R7.5] PK: MemberID
+[y=486 x=260 R12.0] BorrowRecord
+[y=516 x=276 R7.5] PK: BorrowID
+[y=527 x=274 R7.5] FK: MemberID
+[y=538 x=280 R7.5] FK: BookID
+[y=486 x=447 R12.0] BOOK
+[y=516 x=444 R7.5] PK: BookID
+[y=478 x=185 R12.0] 1
+[y=478 x=245 R12.0] M
+[y=478 x=350 R12.0] M
+[y=478 x=410 R12.0] 1
+[y=782 x=278 R10.2] Page 16

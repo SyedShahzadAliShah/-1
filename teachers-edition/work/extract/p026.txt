@@ -1,0 +1,34 @@
+PAGE 26
+[y=54 x=57 B19.2] OSI Bottom Layers & TCP/IP Model
+[y=111 x=102 B10.8] Layer
+[y=111 x=250 B10.8] Main Job /  Protocols /
+[y=128 x=453 B10.8] Hardware
+[y=156 x=63 B10.8] 3. Network
+[y=156 x=184 R10.8] Logical addressing (IP) and routing
+[y=173 x=184 R10.8] packets across networks.
+[y=156 x=429 R10.8] IP, ICMP (Ping),
+[y=173 x=429 B10.8] Routers
+[y=225 x=63 B10.8] 2. Data Link
+[y=225 x=184 R10.8] Physical addressing (MAC) and error
+[y=242 x=184 R10.8] detection in frames.
+[y=225 x=429 R10.8] Ethernet, MAC,
+[y=242 x=429 B10.8] Switches
+[y=294 x=63 B10.8] 1. Physical
+[y=294 x=184 R10.8] Transmits raw bits (0,1) over
+[y=311 x=184 R10.8] cables/wireless mediums.
+[y=294 x=429 R10.8] Cables, Hubs, Wi-Fi
+[y=311 x=429 R10.8] radio
+[y=377 x=57 B14.4] TCP/IP Model vs OSI Model
+[y=406 x=57 R12.0] The TCP/IP model is the practical model used on the real Internet. It condenses
+[y=424 x=57 R12.0] the 7 OSI layers into just 4 layers.
+[y=456 x=99 B10.8] TCP/IP Model (4 Layers)
+[y=456 x=309 B10.8] Corresponds to OSI Layers
+[y=484 x=88 R10.8] 1. Application
+[y=484 x=254 R10.8] Application, Presentation, Session (7,6,5)
+[y=513 x=88 R10.8] 2. Transport
+[y=513 x=254 R10.8] Transport (4)
+[y=543 x=88 R10.8] 3. Internet
+[y=543 x=254 R10.8] Network (3)
+[y=571 x=88 R10.8] 4. Network Access
+[y=571 x=254 R10.8] Data Link, Physical (2,1)
+[y=782 x=277 R10.2] Page 26

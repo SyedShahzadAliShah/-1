@@ -1,0 +1,20 @@
+PAGE 2
+[y=42 x=164 B26.4] TABLE OF CONTENTS
+[y=122 x=63 R11.4] 1. 1.1.1 & 1.1.2 Discrete vs Continuous & Digital Systems
+[y=150 x=60 R11.4] 2. 1.1.3 Analog and Digital Signals ★
+[y=179 x=60 R11.4] 3. 1.1.4 - 1.1.6 Boolean Algebra, Operations & Truth Tables
+[y=207 x=59 R11.4] 4. 1.1.7 Basic Logic Gates (AND, OR, NOT) ★
+[y=236 x=59 R11.4] 5. 1.1.7 Universal & Advanced Logic Gates
+[y=265 x=59 R11.4] 6. 1.1.8 - 1.1.11 Logic Expressions, Minterms & Diagrams
+[y=293 x=60 R11.4] 7. 1.1.13 Karnaugh Maps (K-Maps) Simplification ★
+[y=322 x=59 R11.4] 8. LogiSim Simulation Tool Guide
+[y=350 x=59 R11.4] 9. 1.2.1 - 1.2.3 Software Development Life Cycle (SDLC) ★
+[y=379 x=55 R11.4] 10. 1.2.4 - 1.2.7 Waterfall vs Agile Models & Case Studies
+[y=407 x=59 R11.4] 11. 1.3.1 - 1.3.4 Communication Models & OSI 7-Layer Model ★
+[y=436 x=56 R11.4] 12. 1.3.5 - 1.3.6 TCP/IP Model vs OSI Model
+[y=575 x=69 B10.8] Reference Note /
+[y=695 x=69 R12.0] These notes are prepared specifically for teachers. For reference, please
+[y=713 x=69 R12.0] consult the textbook PDF file named exactly "CS XI (1 & 2).pdf", which has
+[y=731 x=69 R12.0] been followed verbatim. Topics marked with a ★ are highly critical for
+[y=749 x=69 R12.0] examinations.
+[y=782 x=280 R10.2] Page 2

@@ -1,0 +1,40 @@
+PAGE 52
+[y=54 x=57 B19.2] Data Types in Python
+[y=94 x=57 R12.0] Data types specify the kind of data a variable holds. Python has several built-in
+[y=112 x=57 R12.0] data types:
+[y=155 x=100 B10.8] Name
+[y=155 x=200 B10.8] Type
+[y=155 x=331 B10.8] Description & Example
+[y=184 x=63 B10.8] Integers
+[y=186 x=184 RM10.8] int
+[y=184 x=256 R10.8] Whole numbers without decimals.
+[y=202 x=256 RM10.8] age = 16
+[y=230 x=63 B10.8] Floating Point
+[y=232 x=184 RM10.8] float
+[y=230 x=256 R10.8] Numbers with a decimal point.
+[y=248 x=256 RM10.8] height = 5.7
+[y=276 x=63 B10.8] Strings
+[y=278 x=184 RM10.8] str
+[y=276 x=256 R10.8] Text data, enclosed in quotes.
+[y=293 x=256 RM10.8] name = "Sammy" or year = "2026"
+[y=321 x=63 B10.8] Boolean
+[y=323 x=184 RM10.8] bool
+[y=321 x=256 R10.8] Logical value indicating True or False (Capital T/F).
+[y=340 x=256 RM10.8] is_student = True
+[y=368 x=63 B10.8] Lists
+[y=370 x=184 RM10.8] list
+[y=368 x=256 R10.8] Ordered, changeable collection [brackets].
+[y=386 x=256 RM10.8] marks = [85, 90, 75]
+[y=414 x=63 B10.8] Tuples
+[y=416 x=184 RM10.8] tup
+[y=414 x=256 R10.8] Ordered, unchangeable sequence (parentheses).
+[y=431 x=256 RM10.8] coords = (10, 20)
+[y=459 x=63 B10.8] Dictionaries
+[y=461 x=184 RM10.8] dict
+[y=459 x=256 R10.8] Unordered Key:Value pairs {curly braces}.
+[y=478 x=256 RM10.8] student = {"name":"Ahmed", "age":16}
+[y=505 x=63 B10.8] Sets
+[y=507 x=184 RM10.8] set
+[y=505 x=256 R10.8] Unordered collection of unique objects.
+[y=524 x=256 RM10.8] vowels = {'a', 'e', 'i'}
+[y=782 x=280 R10.2] Page 9

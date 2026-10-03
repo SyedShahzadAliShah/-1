@@ -1,0 +1,28 @@
+PAGE 103
+[y=54 x=57 B19.2] 5.2 Uses of IoT in Different Areas
+[y=94 x=57 R12.0] IoT improves efficiency, saves time, and enhances the overall quality of life. It
+[y=112 x=57 R12.0] plays a significant role in developing modern infrastructure.
+[y=213 x=57 B14.4] 1. Smart Cities
+[y=242 x=72 B10.8] Traffic Management: Sensors adjust
+[y=258 x=72 R10.8] traffic signals automatically to reduce
+[y=274 x=72 R10.8] congestion.
+[y=291 x=72 B10.8] Street Lighting: Lights turn ON/OFF
+[y=306 x=72 R10.8] based on daylight or movement.
+[y=323 x=72 B10.8] Parking: Sensors guide drivers to empty
+[y=339 x=72 R10.8] parking spaces.
+[y=355 x=72 B10.8] Waste Management: Smart bins send
+[y=372 x=72 R10.8] alerts when full.
+[y=213 x=305 B14.4] 2. Industrial Automation
+[y=242 x=320 R10.8] Sensors check machine temperature
+[y=258 x=320 R10.8] and vibration to prevent breakdowns.
+[y=274 x=320 R10.8] Automated machines perform repeated
+[y=291 x=320 R10.8] tasks precisely.
+[y=306 x=320 R10.8] Quality control sensors check products
+[y=323 x=320 R10.8] during manufacturing (e.g., Textile
+[y=339 x=320 R10.8] industries in Sindh).
+[y=414 x=57 B14.4] 3. Healthcare (Smart Health)
+[y=443 x=72 R10.8] Smartwatches continuously measure heart rate and vitals.
+[y=459 x=72 R10.8] Remote monitoring devices send patient data directly to doctors (vital for rural areas
+[y=475 x=72 R10.8] in Pakistan).
+[y=492 x=72 R10.8] Emergency alert devices inform hospitals instantly.
+[y=782 x=280 R10.2] Page 8

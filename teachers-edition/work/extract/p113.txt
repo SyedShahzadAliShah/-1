@@ -1,0 +1,21 @@
+PAGE 113
+[y=54 x=57 B19.2] 6.1 Introduction to Digital Literacy
+[y=94 x=57 R12.0] Digital literacy refers to the ability to understand and use digital devices, the
+[y=112 x=57 R12.0] internet, and online tools in a safe, effective, and responsible manner. In our
+[y=130 x=57 R12.0] increasingly digital world, possessing digital literacy is essential for everyone.
+[y=224 x=57 R12.0] It enables individuals to find information, communicate, produce digital content,
+[y=242 x=57 R12.0] and solve problems through technology.
+[y=287 x=69 B10.8] 💡 Did you know?
+[y=308 x=69 R12.0] Digital literacy is not only using devices; it is using digital information safely
+[y=326 x=69 R12.0] and wisely. A digitally literate student can locate information, organize it
+[y=344 x=69 R12.0] properly, turn it into something useful, and share it responsibly.
+[y=463 x=57 B19.2] 6.2 Digital Literacy in the Information Age
+[y=505 x=57 R12.0] The Information Age is a period where vast amounts of data are produced,
+[y=523 x=57 R12.0] shared, and accessed instantly through the internet, mobile devices, and digital
+[y=541 x=57 R12.0] platforms.
+[y=634 x=72 R12.0] Simply having access to technology is not enough.
+[y=652 x=72 R12.0] Students and users must develop the skills to understand, manage, and use
+[y=670 x=72 R12.0] information wisely.
+[y=688 x=72 R12.0] Digital literacy goes beyond basic computer skills; it involves technical,
+[y=706 x=72 R12.0] cognitive, and social abilities to function successfully in a digital society.
+[y=782 x=280 R10.2] Page 3

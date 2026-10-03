@@ -1,0 +1,11 @@
+/local.properties
+/.gradle/
+/build/
+/app/build/
+/keystore/
+*.jks
+/work/orig/
+/work/audio_cache/
+/work/tmp_page.png
+.DS_Store
+/work/*.log

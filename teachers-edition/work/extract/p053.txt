@@ -1,0 +1,22 @@
+PAGE 53
+[y=54 x=57 B19.2] 3.4.2 Input and Output Handling
+[y=102 x=57 B14.4] Output: The print() function
+[y=131 x=57 R12.0] Displays information on the screen.
+[y=184 x=68 R10.2] #1.Printonlyastring
+[y=199 x=69 R10.2] print("HelloClass!")
+[y=232 x=68 R10.2] #2.Printastringandavariable(commaseparatesthem)
+[y=249 x=69 R10.2] name = "Ali"
+[y=264 x=69 R10.2] print("Welcome,",name)
+[y=297 x=68 R10.2] #3.f-strings(Fastest & mostreadablewaytoformat)
+[y=314 x=69 R10.2] age = 16
+[y=330 x=69 R10.2] print(f"Mynameis{name}andIam{age}yearsold.")
+[y=389 x=57 B14.4] Input: The input() function
+[y=418 x=57 R12.0] Pauses the program and waits for the user to type something. Whatever the
+[y=436 x=57 B12.0] user types is always treated as a string (text) by default.
+[y=556 x=68 R10.2] #Takingtextinput
+[y=573 x=69 R10.2] user_name = input("Enteryourname:")
+[y=606 x=68 R10.2] #TypeCasting:Convertingstringinputtoaninteger(int)
+[y=621 x=69 R10.2] age = int(input("Enteryourage:"))
+[y=654 x=68 R10.2] #TypeCasting:Convertingstringinputtoadecimal(float)
+[y=671 x=69 R10.2] height = float(input("Enteryourheight:"))
+[y=782 x=278 R10.2] Page 10

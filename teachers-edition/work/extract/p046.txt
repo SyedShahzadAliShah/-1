@@ -1,0 +1,36 @@
+PAGE 46
+[y=54 x=57 B19.2] 3.1 Programming
+[y=94 x=57 R12.0] Computers are dumb machines. They cannot think or do anything without
+[y=112 x=57 R12.0] instructions. A set of instructions is called a program, and the language used to
+[y=130 x=57 R12.0] give these instructions is a programming language.
+[y=231 x=57 B14.4] 3.1.1 Programming Language Types
+[y=261 x=57 R12.0] Programming languages are classified into three main types:
+[y=303 x=71 B10.8] Type
+[y=303 x=238 B10.8] Description
+[y=303 x=456 B10.8] Examples
+[y=332 x=63 B10.8] Low
+[y=348 x=63 B10.8] Level
+[y=332 x=118 R10.8] Closer to the native language of the computer (binary
+[y=348 x=118 R10.8] 0s & 1s). Very difficult for humans to understand.
+[y=332 x=434 R10.8] Machine
+[y=348 x=434 R10.8] Language
+[y=365 x=434 R10.8] (Binary)
+[y=422 x=63 B10.8] Mid
+[y=438 x=63 B10.8] Level
+[y=422 x=118 R10.8] Bridges the gap. Has hardware access capabilities but
+[y=438 x=118 R10.8] is easier to read than low-level code. Uses mnemonics.
+[y=422 x=434 R10.8] Assembly
+[y=438 x=434 R10.8] Language
+[y=489 x=63 B10.8] High
+[y=505 x=63 B10.8] Level
+[y=489 x=118 R10.8] Designed to be easy for humans to read and write. Uses
+[y=505 x=118 R10.8] English-like words.
+[y=489 x=434 R10.8] C++, Java,
+[y=505 x=434 B10.8] Python
+[y=651 x=144 R12.0] Low Level
+[y=668 x=150 R9.0] 01010101
+[y=651 x=272 R12.0] Mid Level
+[y=668 x=274 R9.0] MOV AX, BX
+[y=651 x=397 R12.0] High Level
+[y=668 x=401 R9.0] print("Hello")
+[y=782 x=280 R10.2] Page 3

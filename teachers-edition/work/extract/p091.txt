@@ -1,0 +1,21 @@
+PAGE 91
+[y=54 x=57 B19.2] 4.11 Creating Queries in MS Access
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] Queries are the most powerful feature of Access. They retrieve, filter, and analyze
+[y=148 x=57 R12.0] data without changing the original tables.
+[y=180 x=57 B14.4] 4.11.2 Creating a Simple SELECT Query
+[y=209 x=57 R12.0] A SELECT query simply picks and shows data. Steps to create one:
+[y=235 x=62 R12.0] 1. Go to the Create tab and click Query Design.
+[y=253 x=59 R12.0] 2. The "Show Table" dialog box appears. Select the table you want (e.g., Student)
+[y=271 x=72 R12.0] and click Add.
+[y=289 x=59 R12.0] 3. Double-click the fields you want to view (e.g., Name, Department). They will
+[y=307 x=72 R12.0] drop down into the design grid at the bottom.
+[y=325 x=58 R12.0] 4. Click the red Run (!) button in the ribbon to execute the query.
+[y=383 x=121 R9.0] Field:
+[y=401 x=121 R9.0] Table:
+[y=439 x=121 R9.0] Criteria:
+[y=383 x=196 R9.0] StudentName
+[y=401 x=196 R9.0] Student
+[y=383 x=309 R9.0] Department
+[y=401 x=309 R9.0] Student
+[y=782 x=277 R10.2] Page 22

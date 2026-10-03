@@ -1,0 +1,29 @@
+PAGE 77
+[y=54 x=57 B19.2] 4.4 Entity Relationship Model (ER-Model)
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] The ER Model is a conceptual tool used to design databases before they are
+[y=148 x=57 R12.0] created. It helps designers understand what data needs to be stored and how
+[y=166 x=57 R12.0] different pieces are related. It acts like an architect's blueprint for the database.
+[y=267 x=57 B14.4] Components of an ER Model
+[y=312 x=84 B10.8] Component
+[y=312 x=298 B10.8] Description & Symbol
+[y=342 x=63 B10.8] 1. Entities
+[y=358 x=63 B10.8] ()
+[y=342 x=184 R10.8] Any real-world object or concept about which data is stored.
+[y=358 x=184 R10.8] (e.g., Student, Teacher, Course).
+[y=383 x=184 B10.8] Symbol: Rectangle
+[y=383 x=302 B10.8] STUDENT
+[y=417 x=63 B10.8] 2. Attributes
+[y=434 x=63 B10.8] ()
+[y=417 x=184 R10.8] The properties or characteristics of an entity. (e.g., StudentID,
+[y=434 x=184 R10.8] Name, Class).
+[y=459 x=184 B10.8] Symbol: Oval
+[y=459 x=280 R10.8] Name
+[y=482 x=184 R9.6] (Primary Key attributes have an underline)
+[y=509 x=63 B10.8] 3. Relationships
+[y=525 x=63 B10.8] ()
+[y=509 x=184 R10.8] How entities are connected to each other. (e.g., A Student
+[y=525 x=184 R10.8] "Enrolls in" a Course).
+[y=573 x=184 B10.8] Symbol: Diamond
+[y=569 x=328 B10.8] Enrolls
+[y=782 x=280 R10.2] Page 8

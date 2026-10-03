@@ -1,0 +1,24 @@
+PAGE 107
+[y=54 x=57 B19.2] Information Sources (Continued)
+[y=103 x=65 B12.0] 3. Tertiary Sources ( )
+[y=123 x=65 R10.8] Provide highly summarized and organized information derived from both primary
+[y=140 x=65 R10.8] and secondary sources. Used for quick reference.
+[y=164 x=64 R10.2] Examples: Encyclopedias, Wikipedia, Dictionaries, Handbooks.
+[y=252 x=57 B14.4] When do sources become unreliable?
+[y=279 x=57 R10.8] In the digital age, students must check facts carefully. A source is unreliable if:
+[y=321 x=95 B10.8] Source Type
+[y=321 x=302 B10.8] Reasons for Unreliability
+[y=351 x=63 B10.8] Primary Sources
+[y=351 x=208 R10.8] Information is incomplete, data is recorded incorrectly, or
+[y=366 x=208 R10.8] false information was deliberately provided.
+[y=396 x=63 B10.8] Secondary Sources
+[y=396 x=208 R10.8] The information is outdated, lacks proper
+[y=411 x=208 R10.8] references/citations, or has not been verified by an expert.
+[y=441 x=63 B10.8] Tertiary Sources
+[y=441 x=208 R10.8] Comes from an unknown/unverified website, or the
+[y=457 x=208 R10.8] information is oversimplified and misses key facts.
+[y=511 x=69 B10.8] 👨‍🏫 Teacher's Tip
+[y=532 x=69 R12.0] Teach students the rule of thumb: If an online article does not state the
+[y=550 x=69 R12.0] author's name, the date of publication, or list its references, it should not be
+[y=568 x=69 R12.0] trusted for academic work.
+[y=782 x=279 R10.2] Page 12

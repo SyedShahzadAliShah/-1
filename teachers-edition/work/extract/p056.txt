@@ -1,0 +1,46 @@
+PAGE 56
+[y=54 x=57 B19.2] 6. Bitwise Operators
+[y=94 x=57 R12.0] Bitwise operators treat numbers as binary digits (bits: 0s and 1s) and perform
+[y=112 x=57 R12.0] operations bit by bit. They act like switches turning bits ON (1) or OFF (0). Python
+[y=130 x=57 R12.0] uses the bin() function to see the binary form of a number.
+[y=201 x=57 B14.4] Bitwise AND ( & )
+[y=230 x=57 R10.2] Returns 1 ONLY if BOTH corresponding bits are
+[y=246 x=57 R10.2] 1. Otherwise, 0.
+[y=278 x=84 B9.6] Bit A
+[y=278 x=159 B9.6] Bit B
+[y=278 x=236 B9.6] A & B
+[y=305 x=63 R9.6] 0
+[y=305 x=139 R9.6] 0
+[y=305 x=214 R9.6] 0
+[y=333 x=63 R9.6] 0
+[y=333 x=139 R9.6] 1
+[y=333 x=214 R9.6] 0
+[y=360 x=63 R9.6] 1
+[y=360 x=139 R9.6] 0
+[y=360 x=214 R9.6] 0
+[y=387 x=63 R9.6] 1
+[y=387 x=139 R9.6] 1
+[y=387 x=214 R9.6] 1
+[y=201 x=305 B14.4] Bitwise OR ( | )
+[y=230 x=305 R10.2] Returns 1 if AT LEAST ONE of the bits is 1.
+[y=263 x=334 B9.6] Bit A
+[y=263 x=413 B9.6] Bit B
+[y=263 x=490 B9.6] A | B
+[y=290 x=312 R9.6] 0
+[y=290 x=391 R9.6] 0
+[y=290 x=469 R9.6] 0
+[y=317 x=312 R9.6] 0
+[y=317 x=391 R9.6] 1
+[y=317 x=469 R9.6] 1
+[y=344 x=312 R9.6] 1
+[y=344 x=391 R9.6] 0
+[y=344 x=469 R9.6] 1
+[y=372 x=312 R9.6] 1
+[y=372 x=391 R9.6] 1
+[y=372 x=469 R9.6] 1
+[y=439 x=57 B12.0] Example: (a = 10, b = 6)
+[y=483 x=68 R10.2] #a = 10(Binary:1010)
+[y=500 x=68 R10.2] #b =  6(Binary:0110)
+[y=532 x=69 R10.2] print(10 & 6)#AND:0010(Decimal2)
+[y=549 x=69 R10.2] print(10 | 6)#OR:1110(Decimal14)
+[y=782 x=279 R10.2] Page 13

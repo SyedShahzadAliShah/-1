@@ -1,0 +1,29 @@
+PAGE 49
+[y=54 x=57 B19.2] VS Code Interface Elements
+[y=111 x=94 B10.8] Element
+[y=111 x=326 B10.8] Description
+[y=141 x=63 B10.8] 1. Top Menu Bar
+[y=141 x=184 R10.8] Control over files, editing, navigation, and workspace (File, Edit,
+[y=156 x=184 R10.8] Selection, View, Go, Run).
+[y=186 x=63 B10.8] 2. Side Bar
+[y=186 x=184 R10.8] Contains core tools: Explorer, Search, Source Control, Run &
+[y=202 x=184 R10.8] Debug, and Extensions.
+[y=231 x=63 B10.8] 3. Explorer
+[y=231 x=184 R10.8] Shows project files and folders. Helps create, open, and manage
+[y=247 x=184 R10.8] your Python files.
+[y=276 x=63 B10.8] 4. Search Bar
+[y=276 x=184 R10.8] Finds and replaces text across your currently open file or entire
+[y=292 x=184 R10.8] project.
+[y=321 x=63 B10.8] 5. Source Control
+[y=321 x=184 R10.8] Connects with Git (a version control system) to track changes,
+[y=337 x=184 R10.8] undo mistakes, and collaborate.
+[y=366 x=63 B10.8] 6. Run & Debug
+[y=366 x=184 R10.8] Allows you to execute code, find errors, pause at specific lines,
+[y=382 x=184 R10.8] and inspect variables.
+[y=411 x=63 B10.8] 7. Extensions
+[y=411 x=184 R10.8] Like an App Store for VS Code. Add features like the Python
+[y=428 x=184 R10.8] extension, Prettier, or Python Debugger.
+[y=482 x=69 B10.8] 👨‍🏫 Teacher's Demo Setup
+[y=503 x=69 R12.0] Ensure you have the Python extension by Microsoft installed in VS Code
+[y=521 x=69 R12.0] before class to demonstrate syntax highlighting and the Run button.
+[y=782 x=280 R10.2] Page 6

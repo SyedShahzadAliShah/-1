@@ -1,0 +1,46 @@
+PAGE 39
+[y=54 x=57 B19.2] Linear Search Example
+[y=94 x=57 B12.0] Data List: 8, 3, 6, 1, 7, 2, 4, 5
+[y=112 x=57 B12.0] Searching Item: 7
+[y=155 x=70 B10.8] Step
+[y=155 x=131 B10.8] Element Checked
+[y=155 x=276 B10.8] Condition (== 7)
+[y=155 x=446 B10.8] Result
+[y=184 x=63 R10.8] 1
+[y=184 x=113 R10.8] 8
+[y=184 x=259 R10.8] 8 == 7 ?
+[y=184 x=395 B10.8] Not Found
+[y=213 x=63 R10.8] 2
+[y=213 x=113 R10.8] 3
+[y=213 x=259 R10.8] 3 == 7 ?
+[y=213 x=395 B10.8] Not Found
+[y=242 x=63 R10.8] 3
+[y=242 x=113 R10.8] 6
+[y=242 x=259 R10.8] 6 == 7 ?
+[y=242 x=395 B10.8] Not Found
+[y=271 x=63 R10.8] 4
+[y=271 x=113 R10.8] 1
+[y=271 x=259 R10.8] 1 == 7 ?
+[y=271 x=395 B10.8] Not Found
+[y=300 x=63 R10.8] 5
+[y=300 x=113 R10.8] 7
+[y=300 x=259 R10.8] 7 == 7 ?
+[y=300 x=395 B10.8] Found! (Exit Loop)
+[y=358 x=68 B12.0] Advantages
+[y=376 x=83 R12.0] Does not care if data is
+[y=394 x=83 R12.0] scrambled or sorted.
+[y=412 x=83 R12.0] Extremely simple code (one
+[y=430 x=83 R12.0] loop, one if statement).
+[y=448 x=83 R12.0] Faster for very small lists (no
+[y=466 x=83 R12.0] setup time).
+[y=484 x=83 R12.0] Does not require any extra
+[y=502 x=83 R12.0] space.
+[y=358 x=316 B12.0] Disadvantages
+[y=376 x=331 R12.0] If target is at the end of 1 million
+[y=394 x=331 R12.0] items, it does 1 million checks.
+[y=412 x=331 R12.0] Time grows linearly (double the
+[y=430 x=331 R12.0] list = double the time).
+[y=448 x=331 R12.0] Inefficient if you need to search
+[y=466 x=331 R12.0] the same list thousands of
+[y=484 x=331 R12.0] times.
+[y=782 x=279 R10.2] Page 13

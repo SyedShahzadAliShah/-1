@@ -1,0 +1,16 @@
+PAGE 48
+[y=54 x=57 B19.2] 3.3 Integrated Development Environment (IDE)
+[y=94 x=57 R12.0] An IDE is a software tool that helps programmers write, run, and manage code in
+[y=112 x=57 R12.0] one place. It is a complete workspace for programming.
+[y=213 x=57 B14.4] Key Features of an IDE:
+[y=243 x=72 B12.0] Code Editor: Where you write and edit code.
+[y=261 x=72 B12.0] Syntax Highlighting: Colors the code to make it easier to read.
+[y=279 x=72 B12.0] Auto completion: Suggests code while you type.
+[y=297 x=72 B12.0] Run/Execute Tool: Executes the program.
+[y=315 x=72 B12.0] Debugger: Helps find and fix errors.
+[y=348 x=57 B14.4] 3.3.1 Visual Studio Code (VS Code)
+[y=377 x=57 R12.0] VS Code is a free, lightweight, and powerful code editor widely used for Python. It
+[y=395 x=57 R12.0] is not a full IDE by default, but it can be turned into one by installing extensions.
+[y=451 x=267 R7.5] Visual Studio Code
+[y=473 x=155 RM9.0] print ( "Hello, World!")
+[y=782 x=280 R10.2] Page 5

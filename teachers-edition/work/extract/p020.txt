@@ -1,0 +1,30 @@
+PAGE 20
+[y=54 x=57 B19.2] Detailed SDLC Phases (4-6)
+[y=111 x=100 B10.8] Phase
+[y=111 x=246 B10.8] Activities & Details
+[y=111 x=446 B10.8] Deliverable
+[y=141 x=63 B10.8] 4. Testing
+[y=141 x=184 R10.8] Find and fix bugs. (See Black Box vs White
+[y=156 x=184 R10.8] Box below).
+[y=141 x=424 B10.8] Test Reports, Bug-
+[y=156 x=424 B10.8] free software
+[y=210 x=63 B10.8] 5. Deployment
+[y=210 x=184 R10.8] Release software to end-users (Direct,
+[y=225 x=184 R10.8] Phased, or Pilot release).
+[y=210 x=424 B10.8] Live Software
+[y=279 x=63 B10.8] 6. Maintenance
+[y=279 x=184 R10.8] Provide support, updates, and fix post-
+[y=294 x=184 R10.8] release issues.
+[y=279 x=424 B10.8] Patches, Updated
+[y=294 x=424 B10.8] Versions
+[y=360 x=57 B14.4] Testing Methods
+[y=402 x=69 B12.0] 📦 Black Box Testing
+[y=427 x=84 R12.0] Tester does NOT see code.
+[y=445 x=84 R12.0] Tests functionality
+[y=463 x=84 R12.0] (Inputs/Outputs).
+[y=481 x=84 R12.0] Done by dedicated testers.
+[y=402 x=317 B12.0] 📄 White Box Testing
+[y=427 x=332 R12.0] Tester CAN see the code.
+[y=445 x=332 R12.0] Tests internal logic/structure.
+[y=463 x=332 R12.0] Done by developers.
+[y=782 x=277 R10.2] Page 20

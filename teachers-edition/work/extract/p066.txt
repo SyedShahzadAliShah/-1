@@ -1,0 +1,32 @@
+PAGE 66
+[y=54 x=57 B19.2] 3.6.1 Built-in Libraries
+[y=94 x=57 R12.0] These libraries come pre-installed with Python. You just need to import them to
+[y=112 x=57 R12.0] use them.
+[y=145 x=57 B14.4] 1. math Library
+[y=174 x=57 R10.2] Provides mathematical operations and
+[y=189 x=57 R10.2] constants.
+[y=238 x=69 R9.0] importmath
+[y=266 x=69 R9.0] print(math.pi)#3.14159...
+[y=280 x=69 R9.0] print(math.ceil(4.3))#5(RoundUP)
+[y=295 x=69 R9.0] print(math.floor(4.9))#4(RoundDOWN)
+[y=309 x=69 R9.0] print(math.pow(2,4))#16.0(2to
+[y=324 x=68 R9.0] power4)
+[y=338 x=69 R9.0] print(math.sqrt(81))#9.0
+[y=145 x=305 B14.4] 2. random Library
+[y=174 x=305 R10.2] Generates random numbers or selections.
+[y=222 x=317 R9.0] importrandom
+[y=251 x=317 R9.0] #Randomintbetween1and10
+[y=266 x=317 R9.0] num = random.randint(1,10)
+[y=280 x=317 R9.0] print(num)
+[y=309 x=317 R9.0] #Randomfloatbetween0.0to1.0
+[y=324 x=317 R9.0] print(random.random())
+[y=393 x=57 B14.4] 3. datetime Library
+[y=422 x=57 R12.0] Provides classes for working with dates and times.
+[y=474 x=69 R10.2] importdatetime
+[y=507 x=68 R10.2] #Getexactcurrentdateandtime
+[y=523 x=69 R10.2] now = datetime.datetime.now()
+[y=540 x=69 R10.2] print(now)#e.g.,2026-09-2711:59:40
+[y=573 x=68 R10.2] #Formatitbeautifully(Day-Month-Year)
+[y=588 x=69 R10.2] formatted = now.strftime("%d-%m-%Y")
+[y=605 x=69 R10.2] print(formatted)#e.g.,27-09-2026
+[y=782 x=277 R10.2] Page 23

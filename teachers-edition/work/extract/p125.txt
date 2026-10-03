@@ -1,0 +1,19 @@
+PAGE 125
+[y=54 x=57 B19.2] Analysis and Conclusion (Steps 10-12)
+[y=102 x=57 B14.4] Step 10: Analyze the Results
+[y=130 x=57 R10.8] By looking at the spreadsheet and charts, the group identifies trends:
+[y=154 x=72 R10.2] Most students (majority) use phones for 3-5 hours daily.
+[y=170 x=72 R10.2] Half use it for educational purposes (lectures/notes).
+[y=185 x=72 R10.2] A clear trend: Students using phones mostly for entertainment report much higher
+[y=201 x=72 R10.2] distraction levels than those using them for study.
+[y=231 x=57 B14.4] Step 11: Write the Conclusion
+[y=267 x=67 R10.8] "The research shows mobile phones have both positive and negative effects. They
+[y=282 x=67 R10.8] provide access to learning materials. However, excessive use of social media and
+[y=299 x=67 R10.8] gaming reduces concentration. Therefore, phones should not be banned, but
+[y=315 x=67 R10.8] managed wisely."
+[y=354 x=57 B14.4] Step 12: Recommendations
+[y=383 x=57 R10.8] Based on the data, the students recommend:
+[y=408 x=72 R10.2] Turn off social media notifications while studying.
+[y=423 x=72 R10.2] Set daily screen-time limits.
+[y=438 x=72 R10.2] Take physical breaks from screens to protect health.
+[y=782 x=278 R10.2] Page 15

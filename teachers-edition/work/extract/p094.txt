@@ -1,0 +1,17 @@
+PAGE 94
+[y=54 x=57 B19.2] 4.11.6 Data Visualization (Charts)
+[y=94 x=57 R12.0] Data visualization transforms raw numbers into graphical representations,
+[y=112 x=57 R12.0] making patterns and trends instantly obvious.
+[y=145 x=57 B14.4] 1. Bar Chart
+[y=174 x=57 R10.2] Uses horizontal bars. Great when category
+[y=189 x=57 R10.2] names are long.
+[y=247 x=111 R7.5] Eng
+[y=269 x=105 R7.5] Math
+[y=292 x=114 R7.5] Sci
+[y=145 x=305 B14.4] 2. Column Chart
+[y=174 x=305 R10.2] Uses vertical bars. Excellent for comparing
+[y=189 x=305 R10.2] categories side-by-side.
+[y=318 x=386 R7.5] 2024
+[y=318 x=424 R7.5] 2025
+[y=318 x=461 R7.5] 2026
+[y=782 x=277 R10.2] Page 25

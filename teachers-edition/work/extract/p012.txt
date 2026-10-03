@@ -1,0 +1,37 @@
+PAGE 12
+[y=54 x=57 B19.2] 1.1.8 & 1.1.10 Expressions & Minterms
+[y=102 x=57 B14.4] Order of Precedence (Operations)
+[y=131 x=57 R12.0] 1. Parentheses ( ), 2. NOT ( ' ), 3. AND ( · ), 4. OR ( + )
+[y=164 x=57 B14.4] Minterms (SOP - Sum of Products)
+[y=193 x=57 R12.0] A product (AND) of all variables that output a 1. Complemented if value is 0 (A'),
+[y=211 x=57 R12.0] uncomplemented if 1 (A).
+[y=312 x=57 B14.4] Maxterms (POS - Product of Sums)
+[y=341 x=57 R12.0] A sum (OR) of all variables that output a 0. Complemented if value is 1 (A'),
+[y=359 x=57 R12.0] uncomplemented if 0 (A).
+[y=444 x=114 B10.8] A
+[y=444 x=140 B10.8] B
+[y=444 x=172 B10.8] Output (Y)
+[y=444 x=266 B10.8] Minterm (SOP)
+[y=444 x=386 B10.8] Maxterm (POS)
+[y=473 x=112 R10.8] 0
+[y=473 x=138 R10.8] 0
+[y=473 x=163 R10.8] 0
+[y=473 x=253 R10.8] -
+[y=473 x=373 R10.8] A + B
+[y=501 x=112 R10.8] 0
+[y=501 x=138 R10.8] 1
+[y=501 x=163 R10.8] 1
+[y=501 x=253 R10.8] A'B
+[y=501 x=373 R10.8] -
+[y=531 x=112 R10.8] 1
+[y=531 x=138 R10.8] 0
+[y=531 x=163 R10.8] 0
+[y=531 x=253 R10.8] -
+[y=531 x=373 R10.8] A' + B
+[y=559 x=112 R10.8] 1
+[y=559 x=138 R10.8] 1
+[y=559 x=163 R10.8] 1
+[y=559 x=253 R10.8] AB
+[y=559 x=373 R10.8] -
+[y=598 x=196 B12.0] Final SOP Expression: Y = A'B + AB
+[y=782 x=279 R10.2] Page 12

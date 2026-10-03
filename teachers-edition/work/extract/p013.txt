@@ -1,0 +1,15 @@
+PAGE 13
+[y=54 x=57 B19.2] 1.1.11 Logic Diagrams
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] A logic diagram shows how logic gates are connected to create a circuit. Based
+[y=148 x=57 R12.0] on precedence, the operation with highest priority is drawn first.
+[y=249 x=57 B14.4] Example: Draw Logic Diagram for Y = A · B + C
+[y=276 x=57 R10.8] AND ( · ) has higher precedence than OR ( + ). So, draw AND gate first.
+[y=342 x=155 B12.0] A
+[y=372 x=155 B12.0] B
+[y=409 x=155 B12.0] C
+[y=360 x=230 R9.0] AND
+[y=353 x=279 R9.0] A · B
+[y=386 x=324 R9.0] OR
+[y=383 x=403 B12.0] Y
+[y=782 x=279 R10.2] Page 13

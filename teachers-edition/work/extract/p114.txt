@@ -1,0 +1,44 @@
+PAGE 114
+[y=54 x=57 B19.2] 6.3 Types of Data
+[y=97 x=68 B10.8] ★ GOLDEN TOPIC
+[y=130 x=57 R12.0] The data gathered through a survey, investigation, or classroom project, can be
+[y=148 x=57 R12.0] described as qualitatively and quantitatively. Understanding the difference is
+[y=166 x=57 R12.0] critical for proper analysis.
+[y=205 x=69 B14.4] 6.3.1 Qualitative Data
+[y=233 x=69 R10.8] Describes what people think, feel,
+[y=249 x=69 R10.8] notice, or experience. It is non-
+[y=266 x=69 R10.8] numerical and descriptive.
+[y=369 x=68 R10.2] Examples: Students' opinions about
+[y=384 x=69 R10.2] online classes, descriptions of study
+[y=399 x=69 R10.2] habits, observation notes.
+[y=205 x=317 B14.4] 6.3.2 Quantitative Data
+[y=233 x=317 R10.8] Deals with numbers. It is useful when
+[y=249 x=317 R10.8] students need to count, measure,
+[y=266 x=317 R10.8] compare, calculate averages, or
+[y=282 x=317 R10.8] display results in charts.
+[y=385 x=316 R10.2] Examples: Number of students using the
+[y=400 x=317 R10.2] internet daily, marks obtained in a test,
+[y=416 x=317 R10.2] time spent online in hours.
+[y=469 x=57 B14.4] 6.3.3 Comparing Qualitative and Quantitative Data
+[y=516 x=71 B10.8] Type of data
+[y=516 x=206 B10.8] Nature
+[y=516 x=331 B10.8] Examples
+[y=516 x=442 B10.8] Best used for
+[y=545 x=63 B10.8] Qualitative
+[y=545 x=160 R10.8] Descriptive, non-
+[y=561 x=160 R10.8] numerical
+[y=545 x=304 R10.8] Opinions, reasons,
+[y=561 x=304 R10.8] behaviour
+[y=545 x=424 R10.8] Understanding why
+[y=561 x=424 R10.8] and how
+[y=577 x=424 R10.8] something
+[y=593 x=424 R10.8] happens
+[y=622 x=63 B10.8] Quantitative
+[y=622 x=160 R10.8] Numerical, countable or
+[y=639 x=160 R10.8] measurable
+[y=622 x=304 R10.8] Hours, scores,
+[y=639 x=304 R10.8] percentages, totals
+[y=622 x=424 R10.8] Comparing results
+[y=639 x=424 R10.8] and making
+[y=654 x=424 R10.8] graphs/charts
+[y=782 x=280 R10.2] Page 4
