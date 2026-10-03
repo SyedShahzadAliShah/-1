@@ -1,0 +1,22 @@
+{"page": 55, "blocks": [
+{"t": "h1", "en": "Other Important Operators", "ur": "دیگر اہم آپریٹرز۔"},
+{"t": "h2", "en": "3. Relational (Comparison) Operators", "ur": "نمبر تین: ریلیشنل یعنی موازنہ کرنے والے آپریٹرز۔"},
+{"t": "p", "en": "Compare two values and return a Boolean (True or False).", "ur": "یہ آپریٹرز دو ویلیوز کا موازنہ کرتے ہیں اور بولین نتیجہ یعنی ٹرو یا فالس دیتے ہیں۔"},
+{"t": "table", "cols": ["Op", "Description", "Example (If a=10, b=5)", "Result"], "rows": [
+{"cells": ["==", "Equal to", "a == b", "False"], "ur": "ڈبل برابر کا مطلب ہے برابر ہونا۔ اے ڈبل برابر بی کا نتیجہ فالس ہے۔"},
+{"cells": ["!=", "Not equal to", "a != b", "True"], "ur": "نہ برابر ہونا۔ اے نہ برابر بی کا نتیجہ ٹرو ہے۔"},
+{"cells": [">", "Greater than", "a > b", "True"], "ur": "سے بڑا ہونا۔ اے بڑا بی کا نتیجہ ٹرو ہے۔"},
+{"cells": ["<", "Less than", "a < b", "False"], "ur": "سے چھوٹا ہونا۔ اے چھوٹا بی کا نتیجہ فالس ہے۔"},
+{"cells": [">=", "Greater/Equal", "a >= 10", "True"], "ur": "بڑا یا برابر ہونا۔ اے بڑا یا برابر 10 کا نتیجہ ٹرو ہے۔"}
+]},
+{"t": "h2", "en": "4. Logical Operators", "ur": "نمبر چار: لاجیکل آپریٹرز۔"},
+{"t": "p", "en": "Combine multiple conditions.", "ur": "یہ آپریٹرز کئی شرائط کو آپس میں ملاتے ہیں۔"},
+{"t": "table", "cols": ["Operator", "Description"], "rows": [
+{"cells": ["and", "True ONLY if both conditions are true."], "ur": "اینڈ: نتیجہ صرف اسی صورت میں ٹرو ہوتا ہے جب دونوں شرائط درست ہوں۔"},
+{"cells": ["or", "True if at least one condition is true."], "ur": "آر: نتیجہ ٹرو ہوتا ہے اگر کم از کم ایک شرط درست ہو۔"},
+{"cells": ["not", "Reverses the result (True becomes False)."], "ur": "ناٹ: نتیجے کو الٹ دیتا ہے، یعنی ٹرو فالس بن جاتا ہے۔"}
+]},
+{"t": "h2", "en": "5. Membership Operators", "ur": "نمبر پانچ: میمبرشپ آپریٹرز۔"},
+{"t": "p", "en": "Check if a value exists inside a sequence (like a string or list).", "ur": "یہ آپریٹرز جانچتے ہیں کہ کوئی ویلیو کسی ترتیب، جیسے اسٹرنگ یا لسٹ، کے اندر موجود ہے یا نہیں۔"},
+{"t": "code", "en": "name = \"Python\"\nprint(\"P\" in name)  # Output: True\nprint(\"z\" not in name)  # Output: True", "ur": "نیم میں لفظ پائتھون محفوظ ہے۔ پہلی لائن میں پوچھا گیا ہے کہ کیا پی نیم کے اندر موجود ہے، جواب ٹرو ہے۔ دوسری لائن میں پوچھا گیا ہے کہ کیا زیڈ نیم میں موجود نہیں ہے، جواب بھی ٹرو ہے۔"}
+]}

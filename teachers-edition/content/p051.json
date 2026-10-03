@@ -1,0 +1,14 @@
+{"page": 51, "blocks": [
+{"t": "h1", "en": "3.4.1 Variables", "ur": "سیکشن تین نقطہ چار نقطہ ایک: ویری ایبلز۔"},
+{"t": "badge", "en": "GOLDEN TOPIC", "ur": "یہ ایک سنہری موضوع ہے، امتحان کے لیے انتہائی اہم۔"},
+{"t": "p", "en": "A variable is a named space in computer memory used to store data. Think of it as a container. In Python, you do not need to declare the type; Python figures it out automatically.", "ur": "ویری ایبل کمپیوٹر کی میموری میں ایک نام والی جگہ ہوتی ہے جہاں ڈیٹا محفوظ کیا جاتا ہے۔ اسے ایک ڈبے یعنی کنٹینر کی طرح سمجھیں۔ پائتھون میں آپ کو ڈیٹا کی قسم بتانے کی ضرورت نہیں ہوتی، پائتھون خود بخود اس کا اندازہ لگا لیتا ہے۔"},
+{"t": "h2", "en": "Rules for Naming Variables:", "ur": "ویری ایبلز کے نام رکھنے کے اصول۔"},
+{"t": "li", "en": "Can contain letters, numbers, and underscores ( _ ).", "ur": "نام میں حروف، ہندسے اور انڈر اسکور شامل ہو سکتے ہیں۔"},
+{"t": "li", "en": "MUST start with a letter or underscore, NOT a number. (e.g., 1name is invalid).", "ur": "نام لازماً کسی حرف یا انڈر اسکور سے شروع ہونا چاہیے، ہندسے سے نہیں۔ مثال کے طور پر ون نیم درست نہیں ہے۔"},
+{"t": "li", "en": "Are case-sensitive (age and Age are completely different).", "ur": "نام چھوٹے اور بڑے حروف میں فرق کرتے ہیں۔ ایج چھوٹے حروف میں اور ایج بڑے حرف سے شروع ہونے والا، دونوں بالکل مختلف نام ہیں۔"},
+{"t": "li", "en": "Cannot use Python keywords (like if, for, while).", "ur": "پائتھون کے مخصوص الفاظ یعنی کی ورڈز، جیسے اف، فار اور وائل، نام کے طور پر استعمال نہیں کیے جا سکتے۔"},
+{"t": "h3", "en": "Valid Names ✓", "ur": "درست نام۔"},
+{"t": "code", "en": "name = \"Ali\"\nage = 16\nmy_height = 5.7\nscore1 = 100", "ur": "درست ناموں کی مثالیں۔ نیم برابر علی۔ ایج برابر 16۔ مائی انڈر اسکور ہائٹ برابر پانچ اعشاریہ سات۔ اور اسکور ون برابر 100۔"},
+{"t": "h3", "en": "Invalid Names ✗", "ur": "غلط نام۔"},
+{"t": "code", "en": "1name = \"Ali\"  # starts with number\nmy height = 5.7  # contains space\nif = 100  # keyword used", "ur": "غلط ناموں کی مثالیں۔ ون نیم غلط ہے کیونکہ یہ ہندسے سے شروع ہوتا ہے۔ مائی ہائٹ غلط ہے کیونکہ اس میں خالی جگہ ہے۔ اور اف غلط ہے کیونکہ یہ پائتھون کا مخصوص لفظ ہے۔"}
+]}

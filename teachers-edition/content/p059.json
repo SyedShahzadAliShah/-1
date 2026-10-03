@@ -1,0 +1,11 @@
+{"page": 59, "blocks": [
+{"t": "h1", "en": "3.5.2 Selection Statements", "ur": "سیکشن تین نقطہ پانچ نقطہ دو: سلیکشن اسٹیٹمنٹس۔"},
+{"t": "p", "en": "Selection alters the flow based on a condition (True/False). It helps programs respond intelligently.", "ur": "سلیکشن کسی شرط کے ٹرو یا فالس ہونے کی بنیاد پر پروگرام کے بہاؤ کو بدل دیتا ہے۔ اس سے پروگرام سمجھداری سے جواب دینے کے قابل ہوتے ہیں۔"},
+{"t": "h2", "en": "1. The if Statement", "ur": "نمبر ایک: اف اسٹیٹمنٹ۔"},
+{"t": "p", "en": "Executes a block of code ONLY if the condition is True. If False, the block is completely skipped.", "ur": "یہ کوڈ صرف اسی وقت چلے گا جب شرط سچ یعنی ٹرو ہو۔ ورنہ یہ حصہ نظر انداز ہو جائے گا۔"},
+{"t": "code", "en": "age = int(input(\"Enter your age: \"))\n\nif age >= 18:\n    print(\"You are an Adult.\")  # Runs only if >= 18\n\nprint(\"Program continues...\")  # Runs every time", "ur": "پہلے یوزر سے عمر ان پٹ لے کر انٹیجر میں بدلی جاتی ہے۔ اگر عمر 18 کے برابر یا اس سے زیادہ ہو تو آپ بالغ ہیں کا پیغام چھپے گا۔ آخری لائن، پروگرام جاری رہتا ہے، ہر صورت میں چلتی ہے۔"},
+{"t": "h2", "en": "2. The if-else Statement", "ur": "نمبر دو: اف ایلس اسٹیٹمنٹ۔"},
+{"t": "p", "en": "Provides TWO paths. IF true, do this. ELSE, do that. One of the blocks will always execute.", "ur": "اس میں دو راستے ہوتے ہیں۔ اگر شرط سچ ہے تو پہلا حصہ چلے گا، ورنہ دوسرا حصہ لازمی چلے گا۔ دونوں میں سے ایک بلاک ہر صورت میں چلتا ہے۔"},
+{"t": "code", "en": "age = int(input(\"Enter your age: \"))\n\nif age >= 18:\n    print(\"Apply for CNIC.\")\nelse:\n    print(\"Apply for CRC (B-Form).\")", "ur": "یوزر سے عمر لی جاتی ہے۔ اگر عمر 18 یا اس سے زیادہ ہو تو پیغام آتا ہے کہ شناختی کارڈ کے لیے درخواست دیں، ورنہ پیغام آتا ہے کہ سی آر سی، یعنی بے فارم، کے لیے درخواست دیں۔"},
+{"t": "note", "label": "Formatting Rule", "en": "Don't forget the colon ( : ) after if and else, and ensure the code inside the blocks is indented!", "ur": "فارمیٹنگ کا اصول: اف اور ایلس کے بعد کولن لگانا نہ بھولیں، اور بلاکس کے اندر کا کوڈ اندر کی طرف ہٹا کر لکھیں، یعنی انڈینٹ کریں۔"}
+]}

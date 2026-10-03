@@ -1,0 +1,14 @@
+{"page": 52, "blocks": [
+{"t": "h1", "en": "Data Types in Python", "ur": "پائتھون میں ڈیٹا ٹائپس۔"},
+{"t": "p", "en": "Data types specify the kind of data a variable holds. Python has several built-in data types:", "ur": "ڈیٹا ٹائپ بتاتی ہے کہ ویری ایبل میں کس قسم کا ڈیٹا محفوظ ہے۔ پائتھون میں کئی بلٹ اِن ڈیٹا ٹائپس موجود ہیں۔"},
+{"t": "table", "cols": ["Name", "Type", "Description & Example"], "rows": [
+{"cells": ["Integers", "int", "Whole numbers without decimals.\nage = 16"], "ur": "انٹیجرز، جن کی ٹائپ انٹ ہے، اعشاریے کے بغیر پورے اعداد ہوتے ہیں۔ مثال: ایج برابر 16۔"},
+{"cells": ["Floating Point", "float", "Numbers with a decimal point.\nheight = 5.7"], "ur": "فلوٹنگ پوائنٹ، جس کی ٹائپ فلوٹ ہے، اعشاریہ والے اعداد ہوتے ہیں۔ مثال: ہائٹ برابر پانچ اعشاریہ سات۔"},
+{"cells": ["Strings", "str", "Text data, enclosed in quotes.\nname = \"Sammy\" or year = \"2026\""], "ur": "اسٹرنگز، جن کی ٹائپ اسٹر ہے، حوالے کے نشانات میں بند تحریری ڈیٹا ہوتے ہیں۔ مثال: نیم برابر سیمی، یا ایئر برابر 2026۔"},
+{"cells": ["Boolean", "bool", "Logical value indicating True or False (Capital T/F).\nis_student = True"], "ur": "بولین، جس کی ٹائپ بول ہے، ایسی منطقی ویلیو ہے جو ٹرو یا فالس بتاتی ہے۔ ٹی اور ایف بڑے حروف میں لکھے جاتے ہیں۔ مثال: اِز انڈر اسکور اسٹوڈنٹ برابر ٹرو۔"},
+{"cells": ["Lists", "list", "Ordered, changeable collection [brackets].\nmarks = [85, 90, 75]"], "ur": "لسٹس، جن کی ٹائپ لسٹ ہے، ترتیب والا اور تبدیل ہو سکنے والا مجموعہ ہوتی ہیں جو چوکور قوسین میں لکھا جاتا ہے۔ مثال: مارکس برابر 85، 90، 75۔"},
+{"cells": ["Tuples", "tup", "Ordered, unchangeable sequence (parentheses).\ncoords = (10, 20)"], "ur": "ٹپلز، ٹائپ ٹپ، ترتیب والی مگر نہ بدلی جا سکنے والی ترتیب ہوتی ہیں جو گول قوسین میں لکھی جاتی ہیں۔ مثال: کوآرڈز برابر 10، 20۔"},
+{"cells": ["Dictionaries", "dict", "Unordered Key:Value pairs {curly braces}.\nstudent = {\"name\":\"Ahmed\", \"age\":16}"], "ur": "ڈکشنریز، ٹائپ ڈکٹ، بغیر ترتیب کے کی اور ویلیو کے جوڑے ہوتے ہیں جو کرلی بریسز میں لکھے جاتے ہیں۔ مثال: اسٹوڈنٹ میں نیم کی ویلیو احمد اور ایج کی ویلیو 16 ہے۔"},
+{"cells": ["Sets", "set", "Unordered collection of unique objects.\nvowels = {'a', 'e', 'i'}"], "ur": "سیٹس، ٹائپ سیٹ، منفرد اشیا کا بغیر ترتیب مجموعہ ہوتے ہیں۔ مثال: ووولز برابر اے، ای، آئی۔"}
+]}
+]}

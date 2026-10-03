@@ -1,0 +1,9 @@
+{"page": 53, "blocks": [
+{"t": "h1", "en": "3.4.2 Input and Output Handling", "ur": "سیکشن تین نقطہ چار نقطہ دو: ان پٹ اور آؤٹ پٹ کا انتظام۔"},
+{"t": "h2", "en": "Output: The print() function", "ur": "آؤٹ پٹ: پرنٹ فنکشن۔"},
+{"t": "p", "en": "Displays information on the screen.", "ur": "یہ فنکشن معلومات کو اسکرین پر دکھاتا ہے۔"},
+{"t": "code", "en": "# 1. Print only a string\nprint(\"Hello Class!\")\n\n# 2. Print a string and a variable (comma separates them)\nname = \"Ali\"\nprint(\"Welcome,\", name)\n\n# 3. f-strings (Fastest & most readable way to format)\nage = 16\nprint(f\"My name is {name} and I am {age} years old.\")", "ur": "پہلی مثال میں صرف ایک اسٹرنگ پرنٹ کی گئی ہے۔ دوسری مثال میں اسٹرنگ اور ویری ایبل کو کوما سے الگ کر کے ایک ساتھ پرنٹ کیا گیا ہے۔ تیسری مثال میں ایف اسٹرنگ استعمال ہوئی ہے، جو فارمیٹ کرنے کا سب سے تیز اور آسانی سے پڑھا جانے والا طریقہ ہے۔ اس میں نیم اور ایج کی ویلیوز سیدھی جملے کے اندر شامل ہو جاتی ہیں۔"},
+{"t": "h2", "en": "Input: The input() function", "ur": "ان پٹ: ان پٹ فنکشن۔"},
+{"t": "p", "en": "Pauses the program and waits for the user to type something. Whatever the user types is always treated as a string (text) by default.", "ur": "یہ فنکشن پروگرام کو روک دیتا ہے اور انتظار کرتا ہے کہ یوزر کچھ ٹائپ کرے۔ یوزر جو بھی ٹائپ کرتا ہے، پائتھون اسے ہمیشہ اسٹرنگ یعنی ٹیکسٹ سمجھتا ہے۔ اگر نمبر چاہیے تو اسے تبدیل کرنا پڑتا ہے۔"},
+{"t": "code", "en": "# Taking text input\nuser_name = input(\"Enter your name: \")\n\n# Type Casting: Converting string input to an integer (int)\nage = int(input(\"Enter your age: \"))\n\n# Type Casting: Converting string input to a decimal (float)\nheight = float(input(\"Enter your height: \"))", "ur": "پہلی مثال میں یوزر سے متن کی صورت میں نام لیا گیا ہے۔ دوسری مثال ٹائپ کاسٹنگ کی ہے، جس میں اسٹرنگ کی صورت میں ملنے والی ان پٹ کو انٹیجر میں بدلا گیا ہے۔ تیسری مثال میں اسٹرنگ ان پٹ کو اعشاریہ والے عدد یعنی فلوٹ میں بدلا گیا ہے۔"}
+]}
