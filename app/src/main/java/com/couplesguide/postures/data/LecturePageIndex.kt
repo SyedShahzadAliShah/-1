@@ -71,10 +71,6 @@ object LecturePageIndex {
         val ur = page.urduTts.ifBlank { page.urdu }.trim().ifBlank { en }
         return when (mode) {
             NarrativeLanguageHelper.MODE_UR -> listOf(ur to LocaleHelper.LANG_UR)
-            NarrativeLanguageHelper.MODE_BOTH -> buildList {
-                if (en.isNotBlank()) add(en to LocaleHelper.LANG_EN)
-                if (ur.isNotBlank() && ur != en) add(ur to LocaleHelper.LANG_UR)
-            }
             else -> listOf(en to LocaleHelper.LANG_EN)
         }.filter { it.first.isNotBlank() }
     }
@@ -90,7 +86,6 @@ object LecturePageIndex {
         val ur = urdu.trim()
         return when (mode) {
             NarrativeLanguageHelper.MODE_UR -> ur.ifBlank { en }
-            NarrativeLanguageHelper.MODE_BOTH -> listOf(en, ur).filter { it.isNotBlank() }.distinct().joinToString("\n\n")
             else -> en
         }
     }

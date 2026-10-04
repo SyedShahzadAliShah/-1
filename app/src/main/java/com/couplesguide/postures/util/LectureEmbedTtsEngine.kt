@@ -7,12 +7,18 @@ import com.couplesguide.postures.data.StudyChapter
 
 /**
  * Embedded lecture reader: plays TTS from bundled per-page [en_tts] / [ur_tts] assets.
- * English only, Urdu only, or **both** (English then Urdu per page).
+ * One language at a time — English only or Urdu only.
  */
 object LectureEmbedTtsEngine {
 
-    fun ttsLanguageMode(context: Context): String =
-        NarrativeLanguageHelper.getMode(context)
+    fun ttsLanguageMode(context: Context): String {
+        val stored = NarrativeLanguageHelper.getMode(context)
+        return if (stored == NarrativeLanguageHelper.MODE_UR) {
+            NarrativeLanguageHelper.MODE_UR
+        } else {
+            NarrativeLanguageHelper.MODE_EN
+        }
+    }
 
     fun captionForPage(context: Context, indexAsset: String, pageNumber: Int): String =
         LecturePageIndex.narrationForPageWithMode(

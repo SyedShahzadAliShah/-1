@@ -14,39 +14,24 @@ object NarrativeLanguageHelper {
     /** English narration / caption only */
     const val MODE_EN = "en"
 
-    /** Urdu narration only */
+    /** Urdu narration / caption only */
     const val MODE_UR = "ur"
 
-    /** English then Urdu narration (per page / segment) */
-    const val MODE_BOTH = "both"
-
-    /** Legacy alias for [MODE_BOTH] */
+    /** @deprecated Use English or Urdu only; legacy value maps to English TTS. */
     const val MODE_EMBED = "embed"
 
     fun getMode(context: Context): String {
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        val stored = prefs.getString(KEY_NARRATIVE_MODE, MODE_BOTH) ?: MODE_BOTH
-        return when (stored) {
-            MODE_EMBED -> MODE_BOTH
-            MODE_EN, MODE_UR, MODE_BOTH -> stored
-            else -> MODE_BOTH
-        }
+        val stored = prefs.getString(KEY_NARRATIVE_MODE, MODE_EN) ?: MODE_EN
+        return if (stored == MODE_EMBED) MODE_EN else stored
     }
 
     fun setMode(context: Context, mode: String) {
-        val normalized = when (mode) {
-            MODE_EMBED -> MODE_BOTH
-            MODE_EN, MODE_UR, MODE_BOTH -> mode
-            else -> MODE_BOTH
-        }
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
-            .putString(KEY_NARRATIVE_MODE, normalized)
+            .putString(KEY_NARRATIVE_MODE, mode)
             .apply()
     }
-
-    fun usesBothLanguages(mode: String): Boolean =
-        mode == MODE_BOTH || mode == MODE_EMBED
 
     fun ttsLanguageForMode(mode: String): String =
         if (mode == MODE_UR) LocaleHelper.LANG_UR else LocaleHelper.LANG_EN

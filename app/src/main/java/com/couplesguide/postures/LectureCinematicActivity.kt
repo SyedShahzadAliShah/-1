@@ -14,7 +14,6 @@ import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.LectureEmbedTtsEngine
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrativeLanguageUi
-import com.couplesguide.postures.util.NarrativeTtsInstallHelper
 import com.couplesguide.postures.util.PdfAssetRenderer
 import com.couplesguide.postures.util.VoiceNarrator
 
@@ -104,8 +103,7 @@ class LectureCinematicActivity : AppCompatActivity() {
         NarrativeLanguageUi.bindToggleGroup(
             binding.narrativeToggleGroup,
             binding.btnNarrativeEn,
-            binding.btnNarrativeUr,
-            binding.btnNarrativeBoth
+            binding.btnNarrativeUr
         ) {
             voiceNarrator?.stop()
             showPage(currentPdfPage, animate = false)
@@ -191,14 +189,6 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     private fun startAutoPlay() {
-        if (!voiceReady) {
-            NarrativeTtsInstallHelper.probeVoicePacks(this) { status ->
-                NarrativeTtsInstallHelper.promptIfMissing(this, status) {
-                    if (voiceReady) startAutoPlay()
-                }
-            }
-            return
-        }
         isAutoPlaying = true
         updatePlayPauseLabel()
         autoHandler.removeCallbacks(autoAdvanceRunnable)
@@ -231,10 +221,6 @@ class LectureCinematicActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_install_tts -> {
-                NarrativeTtsInstallHelper.showInstallDialog(this)
-                return true
-            }
             R.id.action_narrative_language -> {
                 NarrativeLanguageDialog.show(this) {
                     showPage(currentPdfPage, animate = false)

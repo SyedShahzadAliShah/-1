@@ -23,7 +23,6 @@ import com.couplesguide.postures.util.RecyclerViewHelper
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrativeLanguageHelper
 import com.couplesguide.postures.util.NarrativeLanguageUi
-import com.couplesguide.postures.util.NarrativeTtsInstallHelper
 import com.couplesguide.postures.util.VoiceNarrator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -94,31 +93,11 @@ class MainActivity : AppCompatActivity() {
         NarrativeLanguageUi.bindToggleGroup(
             binding.narrativeToggleGroup,
             binding.btnNarrativeEn,
-            binding.btnNarrativeUr,
-            binding.btnNarrativeBoth
+            binding.btnNarrativeUr
         ) {
             NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
         }
         NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
-
-        binding.btnInstallGoogleTts.setOnClickListener {
-            NarrativeTtsInstallHelper.showInstallDialog(this, lastVoicePackStatus)
-        }
-        refreshTtsVoicePackStatus()
-    }
-
-    private var lastVoicePackStatus: NarrativeTtsInstallHelper.VoicePackStatus? = null
-
-    private fun refreshTtsVoicePackStatus() {
-        binding.ttsVoiceStatus.text = getString(R.string.tts_status_checking)
-        NarrativeTtsInstallHelper.probeVoicePacks(this) { status ->
-            lastVoicePackStatus = status
-            binding.ttsVoiceStatus.text = NarrativeTtsInstallHelper.formatStatusLine(this, status)
-            if (!status.allReady && !status.usingGoogleEngine && !NarrativeTtsInstallHelper.isGoogleTtsInstalled(this)) {
-                binding.ttsVoiceStatus.append("\n")
-                binding.ttsVoiceStatus.append(getString(R.string.tts_install_unavailable))
-            }
-        }
     }
 
     private fun openChapter(chapterId: String) {
@@ -135,7 +114,6 @@ class MainActivity : AppCompatActivity() {
         }
         if (!voiceReady) {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
-            NarrativeTtsInstallHelper.showInstallDialog(this, lastVoicePackStatus)
             return
         }
         Toast.makeText(this, R.string.full_pdf_tts_stop_hint, Toast.LENGTH_LONG).show()
@@ -168,7 +146,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         AnimatedIllustrationHelper.start(binding.guideCoverImage)
-        refreshTtsVoicePackStatus()
     }
 
     override fun onPause() {
@@ -189,18 +166,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_install_tts -> {
-                NarrativeTtsInstallHelper.showInstallDialog(this, lastVoicePackStatus)
-                true
-            }
             R.id.action_narrative_language -> {
                 NarrativeLanguageDialog.show(this) {
                     NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
                     binding.narrativeToggleGroup.check(
-                        when (NarrativeLanguageHelper.getMode(this)) {
-                            NarrativeLanguageHelper.MODE_UR -> binding.btnNarrativeUr.id
-                            NarrativeLanguageHelper.MODE_BOTH -> binding.btnNarrativeBoth.id
-                            else -> binding.btnNarrativeEn.id
+                        if (NarrativeLanguageHelper.getMode(this) == NarrativeLanguageHelper.MODE_UR) {
+                            binding.btnNarrativeUr.id
+                        } else {
+                            binding.btnNarrativeEn.id
                         }
                     )
                 }
@@ -246,12 +219,11 @@ class MainActivity : AppCompatActivity() {
         }
         if (!voiceReady) {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
-            NarrativeTtsInstallHelper.showInstallDialog(this, lastVoicePackStatus)
             return
         }
         val segments = NarrationBuilder.buildMainGuideNarrationSegments(this)
         if (voiceNarrator?.speakSegments(segments) != true) {
-            NarrativeTtsInstallHelper.showInstallDialog(this, lastVoicePackStatus)
+            Toast.makeText(this, R.string.voice_install_prompt, Toast.LENGTH_LONG).show()
         }
     }
 

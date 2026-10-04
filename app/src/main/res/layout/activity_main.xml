@@ -130,16 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/narrative_urdu"
-                            android:textSize="11sp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnNarrativeBoth"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/narrative_embed_both"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
 
                     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -151,39 +142,6 @@
                         android:gravity="center"
                         android:textColor="@color/secondary"
                         android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="@string/tts_install_section_title"
-                        android:textColor="@color/on_surface"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/tts_install_section_hint"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/ttsVoiceStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnInstallGoogleTts"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/tts_install_open_google" />
 
                 </LinearLayout>
 

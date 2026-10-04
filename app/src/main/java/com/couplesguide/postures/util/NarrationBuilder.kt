@@ -15,13 +15,14 @@ object NarrationBuilder {
         return "$title. $message"
     }
 
-    private fun buildMainGuideNarration(context: Context, useUrdu: Boolean): String {
+    fun buildMainGuideNarration(context: Context): String {
         LectureNotesRepository.ensureLoaded(context)
+        val lang = LectureEmbedTtsEngine.ttsLanguageMode(context)
         val sb = StringBuilder(buildWelcomeNarration(context))
         for (studyClass in LectureNotesRepository.getClasses(context)) {
             sb.append(" ").append(context.getString(R.string.class_section_label, studyClass.gradeLabel))
             for (chapter in studyClass.chapters) {
-                val content = if (useUrdu) chapter.urdu else chapter.english
+                val content = if (lang == NarrativeLanguageHelper.MODE_UR) chapter.urdu else chapter.english
                 sb.append(" ").append(content.title).append(". ").append(content.summary)
             }
         }
@@ -29,22 +30,13 @@ object NarrationBuilder {
     }
 
     fun buildMainGuideNarrationSegments(context: Context): List<Pair<String, String>> {
-        return segmentsForMode(context) { mode ->
-            when (mode) {
-                NarrativeLanguageHelper.MODE_UR ->
-                    listOf(buildMainGuideNarration(context, useUrdu = true) to LocaleHelper.LANG_UR)
-                NarrativeLanguageHelper.MODE_BOTH -> listOf(
-                    buildMainGuideNarration(context, useUrdu = false) to LocaleHelper.LANG_EN,
-                    buildMainGuideNarration(context, useUrdu = true) to LocaleHelper.LANG_UR
-                )
-                else ->
-                    listOf(buildMainGuideNarration(context, useUrdu = false) to LocaleHelper.LANG_EN)
-            }
-        }
+        val lang = NarrativeLanguageHelper.ttsLanguageForMode(LectureEmbedTtsEngine.ttsLanguageMode(context))
+        return listOf(buildMainGuideNarration(context) to lang)
     }
 
-    private fun buildStudyChapterNarration(context: Context, chapter: StudyChapter, useUrdu: Boolean): String {
-        val content = if (useUrdu) chapter.urdu else chapter.english
+    fun buildStudyChapterNarration(context: Context, chapter: StudyChapter): String {
+        val lang = LectureEmbedTtsEngine.ttsLanguageMode(context)
+        val content = if (lang == NarrativeLanguageHelper.MODE_UR) chapter.urdu else chapter.english
         val points = content.keyPoints.joinToString(". ")
         return "${content.title}. ${content.summary}. ${content.body}. $points"
     }
@@ -53,18 +45,8 @@ object NarrationBuilder {
         context: Context,
         chapter: StudyChapter
     ): List<Pair<String, String>> {
-        return segmentsForMode(context) { mode ->
-            when (mode) {
-                NarrativeLanguageHelper.MODE_UR ->
-                    listOf(buildStudyChapterNarration(context, chapter, useUrdu = true) to LocaleHelper.LANG_UR)
-                NarrativeLanguageHelper.MODE_BOTH -> listOf(
-                    buildStudyChapterNarration(context, chapter, useUrdu = false) to LocaleHelper.LANG_EN,
-                    buildStudyChapterNarration(context, chapter, useUrdu = true) to LocaleHelper.LANG_UR
-                )
-                else ->
-                    listOf(buildStudyChapterNarration(context, chapter, useUrdu = false) to LocaleHelper.LANG_EN)
-            }
-        }
+        val lang = NarrativeLanguageHelper.ttsLanguageForMode(LectureEmbedTtsEngine.ttsLanguageMode(context))
+        return listOf(buildStudyChapterNarration(context, chapter) to lang)
     }
 
     fun buildChapterNarration(chapterId: String, language: String): String {
@@ -92,13 +74,5 @@ object NarrationBuilder {
         }.joinToString(". ")
         val tips = content.tips.joinToString(". ")
         return "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
-    }
-
-    private inline fun segmentsForMode(
-        context: Context,
-        block: (mode: String) -> List<Pair<String, String>>
-    ): List<Pair<String, String>> {
-        val mode = NarrativeLanguageHelper.getMode(context)
-        return block(mode).filter { it.first.isNotBlank() }
     }
 }

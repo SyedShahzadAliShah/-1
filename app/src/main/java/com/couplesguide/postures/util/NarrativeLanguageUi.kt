@@ -12,17 +12,12 @@ object NarrativeLanguageUi {
         group: MaterialButtonToggleGroup,
         btnEnglish: MaterialButton,
         btnUrdu: MaterialButton,
-        btnBoth: MaterialButton,
         onChanged: () -> Unit
     ) {
         val context = group.context
         val mode = NarrativeLanguageHelper.getMode(context)
         group.check(
-            when (mode) {
-                NarrativeLanguageHelper.MODE_UR -> btnUrdu.id
-                NarrativeLanguageHelper.MODE_BOTH -> btnBoth.id
-                else -> btnEnglish.id
-            }
+            if (mode == NarrativeLanguageHelper.MODE_UR) btnUrdu.id else btnEnglish.id
         )
 
         group.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -30,7 +25,6 @@ object NarrativeLanguageUi {
             val newMode = when (checkedId) {
                 btnEnglish.id -> NarrativeLanguageHelper.MODE_EN
                 btnUrdu.id -> NarrativeLanguageHelper.MODE_UR
-                btnBoth.id -> NarrativeLanguageHelper.MODE_BOTH
                 else -> return@addOnButtonCheckedListener
             }
             if (newMode != NarrativeLanguageHelper.getMode(context)) {
@@ -40,13 +34,13 @@ object NarrativeLanguageUi {
         }
     }
 
-    fun updateBadge(badgeView: View?, context: android.content.Context) {
+    fun updateBadge(badgeView: View, context: android.content.Context) {
         if (badgeView !is TextView) return
         val mode = NarrativeLanguageHelper.getMode(context)
-        val label = when (mode) {
-            NarrativeLanguageHelper.MODE_UR -> context.getString(R.string.narrative_urdu)
-            NarrativeLanguageHelper.MODE_BOTH -> context.getString(R.string.narrative_embed_both)
-            else -> context.getString(R.string.narrative_english)
+        val label = if (mode == NarrativeLanguageHelper.MODE_UR) {
+            context.getString(R.string.narrative_urdu)
+        } else {
+            context.getString(R.string.narrative_english)
         }
         badgeView.text = context.getString(R.string.embed_tts_engine_badge, label)
     }
