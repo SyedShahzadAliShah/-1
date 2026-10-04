@@ -214,12 +214,17 @@ def build_page_index(
 ) -> list[dict]:
     reader = PdfReader(str(pdf_path))
     total = len(reader.pages)
-    pages: list[dict] = []
+    pages: list[dict | None] = [None] * total
+
+    for page_num, row in existing.items():
+        if 1 <= page_num <= total:
+            pages[page_num - 1] = row
+
     for i in range(1, total + 1):
-        cached = existing.get(i)
-        if cached and cached.get("en_tts") and cached.get("ur_tts"):
-            pages.append(cached)
-            continue
+        cached = pages[i - 1]
+        if cached and cached.get("en_tts") and (cached.get("ur_tts") or not translate):
+            if cached.get("en_tts") and cached.get("ur_tts"):
+                continue
         if cached and cached.get("en_tts"):
             row = enrich_page_tts(
                 {"page": i, "_raw": cached.get("en_tts", ""), "ur_tts": cached.get("ur_tts", "")},
@@ -228,12 +233,15 @@ def build_page_index(
         else:
             raw = extract_page_raw(pdf_path, i)
             row = enrich_page_tts({"page": i, "_raw": raw, "ur_tts": ""}, translate=translate)
-        pages.append(row)
-        if index_path is not None and (i % 2 == 0 or i == total):
-            index_path.write_text(json.dumps(pages, ensure_ascii=False, indent=0), encoding="utf-8")
-        if i % 5 == 0 or i == total:
+        pages[i - 1] = row
+
+        if index_path is not None and (i % 5 == 0 or i == total):
+            snapshot = [p for p in pages if p is not None]
+            index_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=0), encoding="utf-8")
+        if i % 10 == 0 or i == total:
             print(f"  page {i}/{total}", flush=True)
-    return pages
+
+    return [p for p in pages if p is not None]
 
 
 def write_chapter_covers(prefix: str, titles_en: list[str]) -> None:

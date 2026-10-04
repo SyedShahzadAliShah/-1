@@ -5,6 +5,7 @@
       "gradeLabel": "XI",
       "pdfAsset": "lecture_notes/cs_xi_lecture_notes.pdf",
       "pageIndexAsset": "lecture_notes/cs_xi_pages.json",
+      "ttsIndexAsset": "lecture_notes/cs_xi_pages.json",
       "totalPages": 127,
       "chapters": [
         {
@@ -56,6 +57,7 @@
       "gradeLabel": "XII",
       "pdfAsset": "lecture_notes/cs_xii_lecture_notes.pdf",
       "pageIndexAsset": "lecture_notes/cs_xii_pages.json",
+      "ttsIndexAsset": "lecture_notes/cs_xii_pages.json",
       "totalPages": 147,
       "chapters": [
         {
