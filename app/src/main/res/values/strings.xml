@@ -9,8 +9,14 @@
     <string name="class_xi_hint">Sindh Curriculum 2026 • 6 chapters • embedded lecture PDF</string>
     <string name="class_xii_title">Class XII — Computer Science</string>
     <string name="class_xii_hint">Sindh Curriculum 2025–27 • 6 chapters • HCI to entrepreneurship</string>
-    <string name="narrative_language_title">Narrative language</string>
-    <string name="narrative_language_hint">Choose embedded captions and voice: English only, Urdu only, or both (Embed).</string>
+    <string name="embed_tts_language_title">Embed TTS language</string>
+    <string name="embed_tts_engine_badge">Embed lecture TTS: %1$s</string>
+    <string name="narrative_language_hint">Embedded engine reads each PDF page from bundled text — English or Urdu only (pick one).</string>
+    <string name="listen_full_pdf_xi">🔊 Embed TTS — entire XI PDF</string>
+    <string name="listen_full_pdf_xii">🔊 Embed TTS — entire XII PDF</string>
+    <string name="full_pdf_tts_progress">Embed TTS — page %1$d of %2$d…</string>
+    <string name="full_pdf_tts_done">Finished embedded PDF lecture.</string>
+    <string name="full_pdf_tts_stop_hint">Tap Stop in the toolbar to cancel full-PDF narration.</string>
     <string name="narrative_english">English</string>
     <string name="narrative_urdu">Urdu</string>
     <string name="narrative_embed_both">Embed English + Urdu</string>

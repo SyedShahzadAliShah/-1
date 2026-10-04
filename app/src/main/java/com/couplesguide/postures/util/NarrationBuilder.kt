@@ -17,80 +17,36 @@ object NarrationBuilder {
 
     fun buildMainGuideNarration(context: Context): String {
         LectureNotesRepository.ensureLoaded(context)
-        val mode = NarrativeLanguageHelper.getMode(context)
+        val lang = LectureEmbedTtsEngine.ttsLanguageMode(context)
         val sb = StringBuilder(buildWelcomeNarration(context))
         for (studyClass in LectureNotesRepository.getClasses(context)) {
             sb.append(" ").append(context.getString(R.string.class_section_label, studyClass.gradeLabel))
             for (chapter in studyClass.chapters) {
-                sb.append(" ").append(chapterNarrationText(context, chapter.english, chapter.urdu, mode))
+                val content = if (lang == NarrativeLanguageHelper.MODE_UR) chapter.urdu else chapter.english
+                sb.append(" ").append(content.title).append(". ").append(content.summary)
             }
         }
         return sb.toString()
     }
 
     fun buildMainGuideNarrationSegments(context: Context): List<Pair<String, String>> {
-        val mode = NarrativeLanguageHelper.getMode(context)
-        if (mode != NarrativeLanguageHelper.MODE_EMBED) {
-            val lang = NarrativeLanguageHelper.ttsLanguageForMode(mode)
-            return listOf(buildMainGuideNarration(context) to lang)
-        }
-        LectureNotesRepository.ensureLoaded(context)
-        val segments = mutableListOf<Pair<String, String>>()
-        segments.add(buildWelcomeNarration(context) to LocaleHelper.LANG_EN)
-        for (studyClass in LectureNotesRepository.getClasses(context)) {
-            for (chapter in studyClass.chapters) {
-                val en = chapter.english
-                val enText = "${en.title}. ${en.summary}. ${en.body}. ${en.keyPoints.joinToString(". ")}"
-                segments.add(enText to LocaleHelper.LANG_EN)
-                val ur = chapter.urdu
-                val urText = "${ur.title}. ${ur.summary}. ${ur.body}. ${ur.keyPoints.joinToString(". ")}"
-                segments.add(urText to LocaleHelper.LANG_UR)
-            }
-        }
-        return segments
+        val lang = NarrativeLanguageHelper.ttsLanguageForMode(LectureEmbedTtsEngine.ttsLanguageMode(context))
+        return listOf(buildMainGuideNarration(context) to lang)
     }
 
     fun buildStudyChapterNarration(context: Context, chapter: StudyChapter): String {
-        val mode = NarrativeLanguageHelper.getMode(context)
-        return chapterNarrationText(context, chapter.english, chapter.urdu, mode)
+        val lang = LectureEmbedTtsEngine.ttsLanguageMode(context)
+        val content = if (lang == NarrativeLanguageHelper.MODE_UR) chapter.urdu else chapter.english
+        val points = content.keyPoints.joinToString(". ")
+        return "${content.title}. ${content.summary}. ${content.body}. $points"
     }
 
     fun buildStudyChapterNarrationSegments(
         context: Context,
         chapter: StudyChapter
     ): List<Pair<String, String>> {
-        val mode = NarrativeLanguageHelper.getMode(context)
-        val en = chapter.english
-        val ur = chapter.urdu
-        val enText = "${en.title}. ${en.summary}. ${en.body}. ${en.keyPoints.joinToString(". ")}"
-        val urText = "${ur.title}. ${ur.summary}. ${ur.body}. ${ur.keyPoints.joinToString(". ")}"
-        return when (mode) {
-            NarrativeLanguageHelper.MODE_UR -> listOf(urText to LocaleHelper.LANG_UR)
-            NarrativeLanguageHelper.MODE_EMBED -> listOf(
-                enText to LocaleHelper.LANG_EN,
-                urText to LocaleHelper.LANG_UR
-            )
-            else -> listOf(enText to LocaleHelper.LANG_EN)
-        }
-    }
-
-    private fun chapterNarrationText(
-        context: Context,
-        english: com.couplesguide.postures.data.ChapterContent,
-        urdu: com.couplesguide.postures.data.ChapterContent,
-        mode: String
-    ): String {
-        val enText = "${english.title}. ${english.summary}. ${english.body}. ${english.keyPoints.joinToString(". ")}"
-        val urText = "${urdu.title}. ${urdu.summary}. ${urdu.body}. ${urdu.keyPoints.joinToString(". ")}"
-        return when (mode) {
-            NarrativeLanguageHelper.MODE_UR -> urText
-            NarrativeLanguageHelper.MODE_EMBED -> {
-                val enLabel = context.getString(R.string.narrative_embed_en_label)
-                val urLabel = context.getString(R.string.narrative_embed_ur_label)
-                "$enLabel $enText $urLabel $urText"
-            }
-            else -> enText
-        }
+        val lang = NarrativeLanguageHelper.ttsLanguageForMode(LectureEmbedTtsEngine.ttsLanguageMode(context))
+        return listOf(buildStudyChapterNarration(context, chapter) to lang)
     }
 
     fun buildChapterNarration(chapterId: String, language: String): String {

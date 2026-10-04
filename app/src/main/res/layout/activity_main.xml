@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@string/narrative_language_title"
+                        android:text="@string/embed_tts_language_title"
                         android:textColor="@color/on_surface"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -130,15 +130,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/narrative_urdu"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnNarrativeEmbed"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/narrative_embed_short"
                             android:textSize="12sp" />
 
                     </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -178,8 +169,16 @@
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/cinematic_full_book_xi" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnListenXiPdf"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/listen_full_pdf_xi" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/xiChapterList"
@@ -211,8 +210,16 @@
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/cinematic_full_book_xii" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnListenXiiPdf"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/listen_full_pdf_xii" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/xiiChapterList"

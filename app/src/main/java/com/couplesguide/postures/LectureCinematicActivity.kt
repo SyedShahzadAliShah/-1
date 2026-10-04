@@ -8,11 +8,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.couplesguide.postures.data.LectureNotesRepository
-import com.couplesguide.postures.data.LecturePageIndex
 import com.couplesguide.postures.databinding.ActivityLectureCinematicBinding
 import com.couplesguide.postures.util.CinematicAnimationHelper
 import com.couplesguide.postures.util.LocaleHelper
-import com.couplesguide.postures.util.NarrativeLanguageHelper
+import com.couplesguide.postures.util.LectureEmbedTtsEngine
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrativeLanguageUi
 import com.couplesguide.postures.util.PdfAssetRenderer
@@ -26,6 +25,7 @@ class LectureCinematicActivity : AppCompatActivity() {
         const val EXTRA_END_PAGE = "end_page"
         const val EXTRA_AUTO_PLAY = "auto_play"
         private const val AUTO_ADVANCE_DELAY_MS = 14000L
+        private const val AUTO_ADVANCE_EMBED_MS = 26000L
     }
 
     private lateinit var binding: ActivityLectureCinematicBinding
@@ -35,7 +35,7 @@ class LectureCinematicActivity : AppCompatActivity() {
     private var endPage = 1
     private var classId = "xi"
     private var pageIndexAsset = "lecture_notes/cs_xi_pages.json"
-    private var narrativeMode = NarrativeLanguageHelper.MODE_EMBED
+    private var embedTtsSession: LectureEmbedTtsEngine.Session? = null
     private var isAutoPlaying = false
     private var isSpeaking = false
     private var voiceReady = false
@@ -52,7 +52,6 @@ class LectureCinematicActivity : AppCompatActivity() {
         binding = ActivityLectureCinematicBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        narrativeMode = NarrativeLanguageHelper.getMode(this)
         classId = intent.getStringExtra(EXTRA_CLASS_ID) ?: "xi"
         val studyClass = LectureNotesRepository.getClassById(this, classId)
         if (studyClass == null) {
@@ -89,6 +88,7 @@ class LectureCinematicActivity : AppCompatActivity() {
             },
             onLanguageIssue = { message -> Toast.makeText(this, message, Toast.LENGTH_LONG).show() }
         )
+        voiceNarrator?.let { embedTtsSession = LectureEmbedTtsEngine.Session(it) }
 
         binding.btnPrev.setOnClickListener {
             stopAutoPlay()
@@ -103,10 +103,8 @@ class LectureCinematicActivity : AppCompatActivity() {
         NarrativeLanguageUi.bindToggleGroup(
             binding.narrativeToggleGroup,
             binding.btnNarrativeEn,
-            binding.btnNarrativeUr,
-            binding.btnNarrativeEmbed
+            binding.btnNarrativeUr
         ) {
-            narrativeMode = NarrativeLanguageHelper.getMode(this)
             voiceNarrator?.stop()
             showPage(currentPdfPage, animate = false)
         }
@@ -123,13 +121,11 @@ class LectureCinematicActivity : AppCompatActivity() {
         autoHandler.removeCallbacks(autoAdvanceRunnable)
 
         val bindPage = {
-            val pageText = LecturePageIndex.getPage(this, pageIndexAsset, currentPdfPage)
             binding.pageTitle.text = getString(R.string.cinematic_page_title_en, currentPdfPage)
-            binding.pageNarration.text = LecturePageIndex.narrationForPageWithMode(
+            binding.pageNarration.text = LectureEmbedTtsEngine.captionForPage(
                 this,
                 pageIndexAsset,
-                currentPdfPage,
-                narrativeMode
+                currentPdfPage
             ).ifBlank { getString(R.string.cinematic_page_fallback_narration) }
 
             binding.pageIndicator.text = getString(
@@ -147,8 +143,8 @@ class LectureCinematicActivity : AppCompatActivity() {
             binding.btnPrev.isEnabled = currentPdfPage > startPage
             binding.btnNext.isEnabled = currentPdfPage < endPage
 
-            if (isAutoPlaying && voiceReady) speakCurrentPage()
-            scheduleAutoAdvance()
+            if (isAutoPlaying && voiceReady) speakCurrentPageForAutoPlay()
+            else if (isAutoPlaying) scheduleAutoAdvanceFallback()
         }
 
         if (animate) {
@@ -163,21 +159,27 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     private fun speakCurrentPage() {
-        val segments = LecturePageIndex.ttsSegmentsForPage(
-            this,
-            pageIndexAsset,
-            currentPdfPage,
-            narrativeMode
-        )
-        if (segments.isNotEmpty()) {
-            voiceNarrator?.speakSegments(segments)
-        }
+        speakCurrentPageInternal(onComplete = null)
     }
 
-    private fun scheduleAutoAdvance() {
+    private fun speakCurrentPageForAutoPlay() {
+        speakCurrentPageInternal(onComplete = {
+            if (isAutoPlaying) {
+                autoHandler.postDelayed({ advanceAutoPlay() }, 600L)
+            }
+        })
+    }
+
+    private fun speakCurrentPageInternal(onComplete: (() -> Unit)?) {
+        embedTtsSession?.speakSinglePage(this, pageIndexAsset, currentPdfPage, onComplete)
+            ?: onComplete?.invoke()
+    }
+
+    /** Fallback if TTS is not ready yet during auto-play. */
+    private fun scheduleAutoAdvanceFallback() {
         if (!isAutoPlaying) return
         autoHandler.removeCallbacks(autoAdvanceRunnable)
-        autoHandler.postDelayed(autoAdvanceRunnable, AUTO_ADVANCE_DELAY_MS)
+        autoHandler.postDelayed(autoAdvanceRunnable, AUTO_ADVANCE_EMBED_MS)
     }
 
     private fun advanceAutoPlay() {
@@ -196,8 +198,9 @@ class LectureCinematicActivity : AppCompatActivity() {
     private fun startAutoPlay() {
         isAutoPlaying = true
         updatePlayPauseLabel()
-        if (voiceReady) speakCurrentPage()
-        scheduleAutoAdvance()
+        autoHandler.removeCallbacks(autoAdvanceRunnable)
+        if (voiceReady) speakCurrentPageForAutoPlay()
+        else scheduleAutoAdvanceFallback()
     }
 
     private fun stopAutoPlay() {
@@ -227,7 +230,6 @@ class LectureCinematicActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_narrative_language -> {
                 NarrativeLanguageDialog.show(this) {
-                    narrativeMode = NarrativeLanguageHelper.getMode(this)
                     showPage(currentPdfPage, animate = false)
                 }
                 return true

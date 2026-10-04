@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:gravity="center"
-                android:text="@string/narrative_language_title"
+                android:text="@string/embed_tts_language_title"
                 android:textColor="@color/cinematic_caption"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -133,15 +133,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/narrative_urdu"
-                    android:textSize="11sp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnNarrativeEmbed"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/narrative_embed_short"
                     android:textSize="11sp" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>

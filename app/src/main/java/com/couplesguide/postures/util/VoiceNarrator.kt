@@ -19,6 +19,7 @@ class VoiceNarrator(
     private var isReady = false
     private val pendingSpeech = mutableListOf<Pair<String, String>>()
     private var activeUtterances = 0
+    private var onSegmentsComplete: (() -> Unit)? = null
 
     init {
         tts = TextToSpeech(context.applicationContext, this)
@@ -49,9 +50,7 @@ class VoiceNarrator(
                 if (utteranceId?.startsWith(UTTERANCE_PREFIX) == true) {
                     activeUtterances = (activeUtterances - 1).coerceAtLeast(0)
                 }
-                if (activeUtterances == 0) {
-                    onSpeakingChanged(false)
-                }
+                notifyIfIdle()
             }
 
             @Deprecated("Deprecated in Java")
@@ -69,7 +68,16 @@ class VoiceNarrator(
         if (utteranceId?.startsWith(UTTERANCE_PREFIX) == true) {
             activeUtterances = 0
         }
-        onSpeakingChanged(false)
+        notifyIfIdle()
+    }
+
+    private fun notifyIfIdle() {
+        if (activeUtterances == 0) {
+            onSpeakingChanged(false)
+            val complete = onSegmentsComplete
+            onSegmentsComplete = null
+            complete?.invoke()
+        }
     }
 
     fun speak(text: String, language: String): Boolean {
@@ -77,18 +85,23 @@ class VoiceNarrator(
     }
 
     /** Queue narration in multiple languages (e.g. embedded English then Urdu). */
-    fun speakSegments(segments: List<Pair<String, String>>): Boolean {
+    fun speakSegments(segments: List<Pair<String, String>>, onComplete: (() -> Unit)? = null): Boolean {
         val cleaned = segments.mapNotNull { (text, lang) ->
             val t = text.trim()
             if (t.isEmpty()) null else t to lang
         }
-        if (cleaned.isEmpty()) return false
+        if (cleaned.isEmpty()) {
+            onComplete?.invoke()
+            return false
+        }
         val engine = tts ?: return false
         if (!isReady) {
             pendingSpeech.addAll(cleaned)
+            onSegmentsComplete = onComplete
             return true
         }
 
+        onSegmentsComplete = onComplete
         activeUtterances = 0
         cleaned.forEachIndexed { segmentIndex, (text, language) ->
             val appliedLocale = applyLanguage(engine, language) ?: return@forEachIndexed
@@ -107,7 +120,11 @@ class VoiceNarrator(
                 engine.speak(chunk, queueMode, params, utteranceId)
             }
         }
-        return activeUtterances > 0
+        if (activeUtterances == 0) {
+            onComplete?.invoke()
+            return false
+        }
+        return true
     }
 
     private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean, val message: String)
@@ -191,6 +208,7 @@ class VoiceNarrator(
     fun stop() {
         pendingSpeech.clear()
         activeUtterances = 0
+        onSegmentsComplete = null
         tts?.stop()
         onSpeakingChanged(false)
     }

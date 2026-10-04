@@ -17,12 +17,13 @@ object NarrativeLanguageHelper {
     /** Urdu narration / caption only */
     const val MODE_UR = "ur"
 
-    /** Embedded bilingual: English + Urdu together (caption and sequential TTS) */
+    /** @deprecated Use English or Urdu only; legacy value maps to English TTS. */
     const val MODE_EMBED = "embed"
 
     fun getMode(context: Context): String {
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        return prefs.getString(KEY_NARRATIVE_MODE, MODE_EMBED) ?: MODE_EMBED
+        val stored = prefs.getString(KEY_NARRATIVE_MODE, MODE_EN) ?: MODE_EN
+        return if (stored == MODE_EMBED) MODE_EN else stored
     }
 
     fun setMode(context: Context, mode: String) {

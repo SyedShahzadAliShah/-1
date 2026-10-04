@@ -14,6 +14,7 @@ import com.couplesguide.postures.data.LectureNotesRepository
 import com.couplesguide.postures.databinding.ActivityMainBinding
 import com.couplesguide.postures.ui.StudyChapterAdapter
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
+import com.couplesguide.postures.util.LectureEmbedTtsEngine
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.PdfExporter
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
+    private var embedTtsSession: LectureEmbedTtsEngine.Session? = null
 
     override fun attachBaseContext(newBase: android.content.Context) {
         super.attachBaseContext(LocaleHelper.wrap(newBase))
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             },
             onLanguageIssue = { message -> showVoiceMessage(message) }
         )
+        voiceNarrator?.let { embedTtsSession = LectureEmbedTtsEngine.Session(it) }
 
         xiAdapter = StudyChapterAdapter(language) { chapter ->
             openChapter(chapter.id)
@@ -81,6 +84,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnXiCinematic.setOnClickListener { openFullCinematic("xi") }
         binding.btnXiiCinematic.setOnClickListener { openFullCinematic("xii") }
+        binding.btnListenXiPdf.setOnClickListener { startFullPdfTts("xi") }
+        binding.btnListenXiiPdf.setOnClickListener { startFullPdfTts("xii") }
 
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(binding.guideCoverImage, R.drawable.pic_cs_xi_ch1)
@@ -88,8 +93,7 @@ class MainActivity : AppCompatActivity() {
         NarrativeLanguageUi.bindToggleGroup(
             binding.narrativeToggleGroup,
             binding.btnNarrativeEn,
-            binding.btnNarrativeUr,
-            binding.btnNarrativeEmbed
+            binding.btnNarrativeUr
         ) {
             NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
         }
@@ -100,6 +104,33 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, StudyChapterDetailActivity::class.java).apply {
             putExtra(StudyChapterDetailActivity.EXTRA_CHAPTER_ID, chapterId)
         })
+    }
+
+    private fun startFullPdfTts(classId: String) {
+        if (isSpeaking) {
+            embedTtsSession?.stop()
+            voiceNarrator?.stop()
+            return
+        }
+        if (!voiceReady) {
+            Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
+            return
+        }
+        Toast.makeText(this, R.string.full_pdf_tts_stop_hint, Toast.LENGTH_LONG).show()
+        embedTtsSession?.readEntireClass(
+            context = this,
+            classId = classId,
+            onPageStarted = { page, total ->
+                Toast.makeText(
+                    this,
+                    getString(R.string.full_pdf_tts_progress, page, total),
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onFinished = {
+                Toast.makeText(this, R.string.full_pdf_tts_done, Toast.LENGTH_LONG).show()
+            }
+        )
     }
 
     private fun openFullCinematic(classId: String) {
@@ -139,10 +170,10 @@ class MainActivity : AppCompatActivity() {
                 NarrativeLanguageDialog.show(this) {
                     NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
                     binding.narrativeToggleGroup.check(
-                        when (NarrativeLanguageHelper.getMode(this)) {
-                            NarrativeLanguageHelper.MODE_UR -> binding.btnNarrativeUr.id
-                            NarrativeLanguageHelper.MODE_EN -> binding.btnNarrativeEn.id
-                            else -> binding.btnNarrativeEmbed.id
+                        if (NarrativeLanguageHelper.getMode(this) == NarrativeLanguageHelper.MODE_UR) {
+                            binding.btnNarrativeUr.id
+                        } else {
+                            binding.btnNarrativeEn.id
                         }
                     )
                 }
@@ -182,6 +213,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleNarration() {
         if (isSpeaking) {
+            embedTtsSession?.stop()
             voiceNarrator?.stop()
             return
         }
@@ -214,6 +246,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        embedTtsSession?.stop()
         voiceNarrator?.shutdown()
         voiceNarrator = null
         super.onDestroy()

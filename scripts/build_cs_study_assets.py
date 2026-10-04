@@ -7,14 +7,24 @@ import json
 import re
 import shutil
 import sys
+import time
 from pathlib import Path
 
 from pypdf import PdfReader
+
+try:
+    import pymupdf as fitz
+except ImportError:
+    fitz = None  # type: ignore
 
 ROOT = Path(__file__).resolve().parents[1]
 UPLOADS = Path("/home/ubuntu/.cursor/projects/workspace/uploads")
 ASSETS = ROOT / "app/src/main/assets/lecture_notes"
 DRAWABLE = ROOT / "app/src/main/res/drawable-nodpi"
+
+MAX_EN_TTS_CHARS = 4500
+TRANSLATE_CHUNK = 3500
+TRANSLATE_SLEEP_SEC = 0.65
 
 CHAPTER_SPECS = {
     "xi": {
@@ -61,6 +71,8 @@ CHAPTER_SPECS = {
     },
 }
 
+ARABIC_RE = re.compile(r"[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+")
+
 
 def clean_page_text(text: str) -> str:
     text = re.sub(r"\s+", " ", text or "").strip()
@@ -69,35 +81,158 @@ def clean_page_text(text: str) -> str:
     return text
 
 
+def clean_english_for_tts(text: str) -> str:
+    text = clean_page_text(text)
+    text = ARABIC_RE.sub(" ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    if len(text) > MAX_EN_TTS_CHARS:
+        cut = text[:MAX_EN_TTS_CHARS]
+        last = cut.rfind(". ")
+        if last > 400:
+            text = cut[: last + 1]
+        else:
+            text = cut + "…"
+    return text
+
+
 def extract_urdu_fragments(text: str) -> str:
-    """Pull Arabic-script runs from noisy PDF extraction."""
-    parts = re.findall(r"[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+(?:\s+[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+)*", text or "")
+    parts = ARABIC_RE.findall(text or "")
     joined = " ".join(p.strip() for p in parts if len(p.strip()) > 3)
     return re.sub(r"\s+", " ", joined).strip()
 
 
-def summarize_en(text: str, max_len: int = 900) -> str:
-    text = clean_page_text(text)
-    if len(text) <= max_len:
-        return text
-    cut = text[:max_len]
-    last = cut.rfind(". ")
-    if last > 200:
-        return cut[: last + 1]
-    return cut + "…"
+_translator = None
 
 
-def build_page_index(reader: PdfReader) -> list[dict]:
-    pages = []
-    for i, page in enumerate(reader.pages, start=1):
-        raw = page.extract_text() or ""
-        pages.append(
-            {
-                "page": i,
-                "en": summarize_en(raw),
-                "ur": extract_urdu_fragments(raw),
-            }
-        )
+def get_translator():
+    global _translator
+    if _translator is None:
+        from deep_translator import GoogleTranslator
+
+        _translator = GoogleTranslator(source="en", target="ur")
+    return _translator
+
+
+def translate_en_to_ur(text: str) -> str:
+    text = text.strip()
+    if not text:
+        return ""
+    translator = get_translator()
+    chunks: list[str] = []
+    remaining = text
+    while remaining:
+        piece = remaining[:TRANSLATE_CHUNK]
+        if len(remaining) > TRANSLATE_CHUNK:
+            split = piece.rfind(". ")
+            if split > TRANSLATE_CHUNK // 2:
+                piece = remaining[: split + 1]
+        translated = ""
+        for attempt in range(6):
+            try:
+                translated = translator.translate(piece)
+                break
+            except Exception as exc:
+                msg = str(exc).lower()
+                if attempt < 5 and ("too many" in msg or "429" in msg or "server error" in msg):
+                    time.sleep(1.5 * (attempt + 1))
+                    continue
+                print(f"  translate warning: {exc}", file=sys.stderr)
+                translated = piece
+                break
+        chunks.append(translated)
+        remaining = remaining[len(piece) :].strip()
+        if remaining:
+            time.sleep(TRANSLATE_SLEEP_SEC)
+    return " ".join(chunks).strip()
+
+
+def split_bilingual_lines(raw: str) -> tuple[str, str]:
+    en_parts: list[str] = []
+    ur_parts: list[str] = []
+    for line in (raw or "").splitlines():
+        line = line.strip()
+        if not line or re.match(r"^Page \d+$", line) or "--" in line and " of " in line:
+            continue
+        arabic = len(ARABIC_RE.findall(line))
+        latin = len(re.findall(r"[A-Za-z]", line))
+        if arabic > latin and arabic >= 4:
+            ur_parts.append(ARABIC_RE.sub(" ", line))
+        elif latin >= 3:
+            en_parts.append(line)
+    en_raw = " ".join(en_parts)
+    ur_raw = re.sub(r"\s+", " ", " ".join(ur_parts)).strip()
+    return en_raw, ur_raw
+
+
+def extract_page_raw(pdf_path: Path, page_number: int) -> str:
+    if fitz is not None:
+        doc = fitz.open(str(pdf_path))
+        try:
+            return doc[page_number - 1].get_text("text") or ""
+        finally:
+            doc.close()
+    reader = PdfReader(str(pdf_path))
+    return reader.pages[page_number - 1].extract_text() or ""
+
+
+def enrich_page_tts(page: dict, translate: bool) -> dict:
+    raw = page.get("_raw", "") or ""
+    if not raw and page.get("en_tts"):
+        raw = page["en_tts"]
+    en_lines, ur_pdf = split_bilingual_lines(raw)
+    en_tts = clean_english_for_tts(en_lines or raw)
+    ur_tts = page.get("ur_tts", "").strip()
+    if translate and en_tts and not ur_tts:
+        ur_tts = translate_en_to_ur(en_tts)
+    elif not ur_tts:
+        ur_tts = ur_pdf
+    ur_display = ur_tts if ur_tts else ur_pdf
+    return {
+        "page": page["page"],
+        "en": en_tts,
+        "ur": ur_display,
+        "en_tts": en_tts,
+        "ur_tts": ur_tts,
+    }
+
+
+def load_existing_index(path: Path) -> dict[int, dict]:
+    if not path.exists():
+        return {}
+    try:
+        rows = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    return {int(row["page"]): row for row in rows}
+
+
+def build_page_index(
+    pdf_path: Path,
+    translate: bool,
+    existing: dict[int, dict],
+    index_path: Path | None = None,
+) -> list[dict]:
+    reader = PdfReader(str(pdf_path))
+    total = len(reader.pages)
+    pages: list[dict] = []
+    for i in range(1, total + 1):
+        cached = existing.get(i)
+        if cached and cached.get("en_tts") and cached.get("ur_tts"):
+            pages.append(cached)
+            continue
+        if cached and cached.get("en_tts"):
+            row = enrich_page_tts(
+                {"page": i, "_raw": cached.get("en_tts", ""), "ur_tts": cached.get("ur_tts", "")},
+                translate=translate,
+            )
+        else:
+            raw = extract_page_raw(pdf_path, i)
+            row = enrich_page_tts({"page": i, "_raw": raw, "ur_tts": ""}, translate=translate)
+        pages.append(row)
+        if index_path is not None and (i % 2 == 0 or i == total):
+            index_path.write_text(json.dumps(pages, ensure_ascii=False, indent=0), encoding="utf-8")
+        if i % 5 == 0 or i == total:
+            print(f"  page {i}/{total}", flush=True)
     return pages
 
 
@@ -136,6 +271,7 @@ def write_chapter_covers(prefix: str, titles_en: list[str]) -> None:
 
 
 def main() -> None:
+    translate = "--no-translate" not in sys.argv
     ASSETS.mkdir(parents=True, exist_ok=True)
     meta = {"classes": []}
 
@@ -152,9 +288,15 @@ def main() -> None:
         shutil.copy2(src, dest_pdf)
         print("Copied", dest_pdf)
 
-        page_index = build_page_index(reader)
         index_path = ASSETS / f"cs_{key}_pages.json"
-        index_path.write_text(json.dumps(page_index, ensure_ascii=False, indent=0), encoding="utf-8")
+        existing = load_existing_index(index_path) if translate else {}
+
+        page_index = build_page_index(
+            dest_pdf,
+            translate=translate,
+            existing=existing,
+            index_path=index_path,
+        )
         print("Wrote", index_path, "entries", len(page_index))
 
         chapters = []
@@ -177,6 +319,7 @@ def main() -> None:
                 "gradeLabel": key.upper(),
                 "pdfAsset": f"lecture_notes/{spec['asset_pdf']}",
                 "pageIndexAsset": f"lecture_notes/cs_{key}_pages.json",
+                "ttsIndexAsset": f"lecture_notes/cs_{key}_pages.json",
                 "totalPages": total,
                 "chapters": chapters,
             }

@@ -12,19 +12,17 @@ object NarrativeLanguageDialog {
     ) {
         val options = arrayOf(
             activity.getString(R.string.narrative_english),
-            activity.getString(R.string.narrative_urdu),
-            activity.getString(R.string.narrative_embed_both)
+            activity.getString(R.string.narrative_urdu)
         )
         val modes = arrayOf(
             NarrativeLanguageHelper.MODE_EN,
-            NarrativeLanguageHelper.MODE_UR,
-            NarrativeLanguageHelper.MODE_EMBED
+            NarrativeLanguageHelper.MODE_UR
         )
         val currentMode = NarrativeLanguageHelper.getMode(activity)
-        val currentIndex = modes.indexOf(currentMode).coerceAtLeast(0)
+        val currentIndex = if (currentMode == NarrativeLanguageHelper.MODE_UR) 1 else 0
 
         AlertDialog.Builder(activity)
-            .setTitle(R.string.narrative_language_title)
+            .setTitle(R.string.embed_tts_language_title)
             .setSingleChoiceItems(options, currentIndex) { dialog, which ->
                 val newMode = modes[which]
                 if (newMode != currentMode) {
