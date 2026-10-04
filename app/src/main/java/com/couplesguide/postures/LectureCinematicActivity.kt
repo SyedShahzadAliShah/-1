@@ -27,6 +27,7 @@ class LectureCinematicActivity : AppCompatActivity() {
         const val EXTRA_AUTO_PLAY = "auto_play"
         private const val AUTO_ADVANCE_DELAY_MS = 14000L
         private const val AUTO_ADVANCE_EMBED_MS = 26000L
+        private const val AUTO_ADVANCE_NO_NARRATION_MS = 9000L
     }
 
     private lateinit var binding: ActivityLectureCinematicBinding
@@ -174,18 +175,27 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     private fun speakCurrentPageInternal(onComplete: (() -> Unit)?) {
-        val session = embedTtsSession
-        if (session == null) {
-            onComplete?.invoke()
-            return
-        }
-        if (!LectureEmbedTtsEngine.isPageSpeakable(this, pageIndexAsset, currentPdfPage)) {
-            onComplete?.invoke()
+        val narrator = voiceNarrator
+        if (narrator == null) {
+            scheduleAdvanceIfAutoPlay(onComplete)
             return
         }
         val segments = LectureEmbedTtsEngine.segmentsForPage(this, pageIndexAsset, currentPdfPage)
-        if (voiceNarrator?.speakSegments(segments) { onComplete?.invoke() } != true) {
+        if (segments.isEmpty()) {
+            scheduleAdvanceIfAutoPlay(onComplete)
+            return
+        }
+        if (narrator.speakSegments(segments, onComplete) != true) {
             TtsPlaybackHelper.showPlaybackFailedDialog(this)
+            scheduleAdvanceIfAutoPlay(onComplete)
+        }
+    }
+
+    /** When a page has no TTS, still give time to read the PDF before auto-advance. */
+    private fun scheduleAdvanceIfAutoPlay(onComplete: (() -> Unit)?) {
+        if (isAutoPlaying) {
+            autoHandler.postDelayed({ onComplete?.invoke() }, AUTO_ADVANCE_NO_NARRATION_MS)
+        } else {
             onComplete?.invoke()
         }
     }
