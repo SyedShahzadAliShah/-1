@@ -9,8 +9,4 @@
         android:id="@+id/action_tts_settings"
         android:title="@string/mt331_tts_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_legacy_app"
-        android:title="@string/mt331_open_legacy"
-        app:showAsAction="never" />
 </menu>

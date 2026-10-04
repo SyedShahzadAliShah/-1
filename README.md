@@ -1,64 +1,23 @@
-# Intimacy Guide + MT-331 Lecture Notes
+# MT-331 Lecture Notes
 
-## MT-331 (v4.0.0) — Cinematic bilingual lecture notes
+NED UET **Probability & Statistics (MT-331)** — cinematic bilingual teacher lecture notes (Walpole sketchnotes).
 
-NED UET **Probability & Statistics (MT-331)** teacher sketchnotes as swipeable **lecture beats** with **Text-to-Speech** in:
+- Swipeable **lecture beats** per syllabus chapter
+- **Text-to-speech:** English, Urdu, or **EN + UR** (sequential bilingual narration)
+- Teacher PDF bundled in the app: `app/src/main/assets/mt331_teachers_cheatsheet.pdf`
+- Browser preview: `tools/mt331-lecture-preview.html`
 
-- English only
-- Urdu only
-- **Bilingual** (English then Urdu, auto-advance optional)
-
-The app launcher opens **MT-331 Lecture Notes**. The original intimacy handbook remains available from the overflow menu (MT-331) or **Open intimacy handbook** (handbook → MT-331 lecture notes).
-
-Teacher PDF booklet is bundled at `app/src/main/assets/mt331_teachers_cheatsheet.pdf`.
-
-Browser preview (same beat/TTS idea): open `tools/mt331-lecture-preview.html` in Chrome.
-
-### Download MT-331 APK (v4.0.0)
-
-**Direct link (this branch):**
+## Download (v4.0.0)
 
 https://github.com/SyedShahzadAliShah/-1/raw/cursor/mt331-cinematic-lecture-notes-8c89/releases/MT331-LectureNotes-v4.0.0-debug.apk
 
-On Android: open the link, download, allow installs from your browser if prompted, then install. Enable **Urdu** voice data in system **Text-to-speech** settings for Urdu narration.
-
----
-
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
-
-## Download
-
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
-
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+On Android: download the APK, allow install from your browser if prompted, then open **MT-331 Lecture Notes**. For Urdu voice, install Urdu TTS data in system **Text-to-speech** settings.
 
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+Output: `app/build/outputs/apk/debug/app-debug.apk` (copy to `releases/` if you publish a tagged build).

@@ -70,7 +70,6 @@ class Mt331MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_mt331_main, menu)
         menu.findItem(R.id.action_language)?.title =
             if (language == LocaleHelper.LANG_UR) "EN" else "اردو"
-        menu.findItem(R.id.action_legacy_app)?.title = getString(R.string.mt331_open_legacy)
         return true
     }
 
@@ -79,10 +78,6 @@ class Mt331MainActivity : AppCompatActivity() {
             R.id.action_language -> {
                 language = LocaleHelper.toggleLanguage(this)
                 recreate()
-                true
-            }
-            R.id.action_legacy_app -> {
-                startActivity(Intent(this, MainActivity::class.java))
                 true
             }
             R.id.action_tts_settings -> {
