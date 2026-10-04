@@ -1,5 +1,17 @@
 # Download Self-Taught Bootcamp APK
 
+## DDL v1.3.0 (direct link)
+
+After you push branch `cursor/cinematic-self-taught-bootcamp-9c6c`:
+
+**https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.3.0-debug.apk**
+
+CDN mirror: **https://cdn.jsdelivr.net/gh/SyedShahzadAliShah/-1@cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.3.0-debug.apk**
+
+Details: [releases/DDL-v1.3.0.md](releases/DDL-v1.3.0.md)
+
+---
+
 ## Works now (on GitHub)
 
 **v1.2.2** — TTS reliability fix (use this if newer links fail):
