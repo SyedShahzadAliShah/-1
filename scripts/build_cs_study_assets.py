@@ -22,7 +22,7 @@ UPLOADS = Path("/home/ubuntu/.cursor/projects/workspace/uploads")
 ASSETS = ROOT / "app/src/main/assets/lecture_notes"
 DRAWABLE = ROOT / "app/src/main/res/drawable-nodpi"
 
-MAX_EN_TTS_CHARS = 4500
+MAX_EN_TTS_CHARS = 120_000
 TRANSLATE_CHUNK = 3500
 TRANSLATE_SLEEP_SEC = 0.15
 
@@ -84,17 +84,15 @@ def clean_page_text(text: str) -> str:
 
 
 def clean_english_for_tts(text: str) -> str:
-    text = clean_page_text(text)
+    """Legacy helper; prefer [english_embed_tts] for bundled embed narration."""
+    return english_embed_tts(text)
+
+
+def english_embed_tts(raw: str) -> str:
+    """Full-page English embed text from PDF extract (no line filtering, no truncation)."""
+    text = clean_page_text(raw)
     text = ARABIC_RE.sub(" ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    if len(text) > MAX_EN_TTS_CHARS:
-        cut = text[:MAX_EN_TTS_CHARS]
-        last = cut.rfind(". ")
-        if last > 400:
-            text = cut[: last + 1]
-        else:
-            text = cut + "…"
-    return text
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def split_bilingual_lines(raw: str) -> tuple[str, str]:
@@ -205,8 +203,8 @@ def enrich_page_tts(page: dict, translate: bool, class_key: str | None = None) -
     raw = page.get("_raw", "") or ""
     if not raw and page.get("en_tts"):
         raw = page["en_tts"]
-    en_lines, ur_pdf = split_bilingual_lines(raw)
-    en_tts = clean_english_for_tts(en_lines or raw)
+    en_tts = english_embed_tts(raw)
+    _, ur_pdf = split_bilingual_lines(raw)
     ur_tts = (page.get("ur_tts") or "").strip()
     if class_key and is_chapter_divider(en_tts):
         ur_tts = synthetic_chapter_ur(class_key, en_tts)
@@ -230,6 +228,17 @@ def enrich_page_tts(page: dict, translate: bool, class_key: str | None = None) -
     }
 
 
+def embed_index_up_to_date(cached: dict | None, raw: str, translate: bool) -> bool:
+    if not cached or not cached.get("en_tts"):
+        return False
+    new_en = english_embed_tts(raw)
+    if cached.get("en_tts", "").strip() != new_en:
+        return False
+    if not translate:
+        return True
+    return is_valid_ur_tts(cached.get("ur_tts", ""), new_en)
+
+
 def load_existing_index(path: Path) -> dict[int, dict]:
     if not path.exists():
         return {}
@@ -247,6 +256,7 @@ def build_page_index(
     index_path: Path | None = None,
     checkpoint: bool = False,
     class_key: str | None = None,
+    force_reextract: bool = False,
 ) -> list[dict]:
     reader = PdfReader(str(pdf_path))
     total = len(reader.pages)
@@ -257,31 +267,20 @@ def build_page_index(
             pages[page_num - 1] = row
 
     for i in range(1, total + 1):
+        raw = extract_page_raw(pdf_path, i)
         cached = pages[i - 1]
-        if cached and cached.get("en_tts"):
-            if translate:
-                if is_valid_ur_tts(cached.get("ur_tts", ""), cached.get("en_tts", "")):
-                    continue
-            else:
-                continue
+        if not force_reextract and embed_index_up_to_date(cached, raw, translate):
+            continue
 
-        if cached and cached.get("en_tts"):
-            row = enrich_page_tts(
-                {
-                    "page": i,
-                    "_raw": cached.get("en_tts", ""),
-                    "ur_tts": cached.get("ur_tts", ""),
-                },
-                translate=translate,
-                class_key=class_key,
-            )
-        else:
-            raw = extract_page_raw(pdf_path, i)
-            row = enrich_page_tts(
-                {"page": i, "_raw": raw, "ur_tts": ""},
-                translate=translate,
-                class_key=class_key,
-            )
+        row = enrich_page_tts(
+            {
+                "page": i,
+                "_raw": raw,
+                "ur_tts": (cached or {}).get("ur_tts", ""),
+            },
+            translate=translate,
+            class_key=class_key,
+        )
         pages[i - 1] = row
 
         if checkpoint and index_path is not None and (i % 5 == 0 or i == total):
@@ -331,6 +330,49 @@ def write_chapter_covers(prefix: str, titles_en: list[str]) -> None:
         print("Wrote", out)
 
 
+def embed_full_page() -> None:
+    translate = True
+    only_class = None
+    for arg in sys.argv[1:]:
+        if arg.startswith("--class="):
+            only_class = arg.split("=", 1)[1].strip().lower()
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    for key, spec in CHAPTER_SPECS.items():
+        if only_class and key != only_class:
+            continue
+        dest_pdf = ASSETS / spec["asset_pdf"]
+        if not dest_pdf.exists():
+            src = spec["pdf_src"]
+            if not src.exists():
+                raise SystemExit(f"Missing PDF: {src}")
+            shutil.copy2(src, dest_pdf)
+        index_path = ASSETS / f"cs_{key}_pages.json"
+        existing = load_existing_index(index_path)
+        total = len(PdfReader(str(dest_pdf)).pages)
+        if len(existing) != total:
+            print(
+                f"Embed rebuild {key.upper()}: index {len(existing)}/{total} pages — rebuilding all from PDF",
+                flush=True,
+            )
+            existing = {}
+        else:
+            print(f"Embed rebuild {key.upper()} ({total} pages)", flush=True)
+        page_index = build_page_index(
+            dest_pdf,
+            translate=translate,
+            existing=existing,
+            index_path=index_path,
+            checkpoint=False,
+            class_key=key,
+            force_reextract=True,
+        )
+        valid = sum(1 for p in page_index if is_valid_ur_tts(p.get("ur_tts", ""), p.get("en_tts", "")))
+        print(
+            f"Wrote {index_path} entries {len(page_index)} valid ur_tts {valid}/{len(page_index)}",
+            flush=True,
+        )
+
+
 def ur_fill_only() -> None:
     translate = True
     only_class = None
@@ -349,9 +391,15 @@ def ur_fill_only() -> None:
             shutil.copy2(src, dest_pdf)
         index_path = ASSETS / f"cs_{key}_pages.json"
         existing = load_existing_index(index_path)
-        if len(existing) < 10:
-            raise SystemExit(f"Index too small or missing: {index_path} ({len(existing)} pages)")
-        print(f"Urdu TTS fill: {key.upper()} ({len(existing)} cached pages)", flush=True)
+        total = len(PdfReader(str(dest_pdf)).pages)
+        if len(existing) != total:
+            print(
+                f"Urdu TTS fill {key.upper()}: index {len(existing)}/{total} pages — rebuilding embed from PDF",
+                flush=True,
+            )
+            existing = {}
+        else:
+            print(f"Urdu TTS fill: {key.upper()} ({len(existing)} cached pages)", flush=True)
         page_index = build_page_index(
             dest_pdf,
             translate=translate,
@@ -359,12 +407,16 @@ def ur_fill_only() -> None:
             index_path=index_path,
             checkpoint=False,
             class_key=key,
+            force_reextract=True,
         )
         valid = sum(1 for p in page_index if is_valid_ur_tts(p.get("ur_tts", ""), p.get("en_tts", "")))
         print(f"Wrote {index_path} entries {len(page_index)} valid ur_tts {valid}/{len(page_index)}", flush=True)
 
 
 def main() -> None:
+    if "--embed-full-page" in sys.argv:
+        embed_full_page()
+        return
     if "--ur-fill-only" in sys.argv:
         ur_fill_only()
         return
@@ -396,6 +448,7 @@ def main() -> None:
             index_path=index_path,
             checkpoint=False,
             class_key=key,
+            force_reextract=True,
         )
         print("Wrote", index_path, "entries", len(page_index))
 

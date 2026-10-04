@@ -55,16 +55,22 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/pageNarration"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:lineSpacingExtra="4dp"
-                android:maxLines="8"
-                android:textColor="@color/cinematic_caption"
-                android:textSize="14sp" />
+                android:maxHeight="220dp"
+                android:fillViewport="false">
+
+                <TextView
+                    android:id="@+id/pageNarration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/cinematic_caption"
+                    android:textSize="14sp" />
+
+            </ScrollView>
 
         </LinearLayout>
 
