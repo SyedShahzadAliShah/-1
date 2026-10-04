@@ -47,6 +47,7 @@ CHAPTER_SPECS = {
             "Computing کے اطلاقات و اثرات",
             "ڈیجیٹل literacy",
         ],
+        "grade_label": "گیارہویں",
     },
     "xii": {
         "pdf_src": UPLOADS / "XII-compressed_6812.pdf",
@@ -68,6 +69,7 @@ CHAPTER_SPECS = {
             "Computing کے اطلاقات و اثرات",
             "ڈیجیٹل دور میں کاروباریت",
         ],
+        "grade_label": "بارہویں",
     },
 }
 
@@ -182,17 +184,42 @@ def extract_page_raw(pdf_path: Path, page_number: int) -> str:
     return reader.pages[page_number - 1].extract_text() or ""
 
 
-def enrich_page_tts(page: dict, translate: bool) -> dict:
+def is_chapter_divider(en_tts: str) -> bool:
+    return bool(re.search(r"CHAPTER\s+\d+:", en_tts, re.I)) and len(en_tts) < 280
+
+
+def synthetic_chapter_ur(class_key: str, en_tts: str) -> str:
+    match = re.search(r"CHAPTER\s+(\d+):", en_tts, re.I)
+    chapter_num = int(match.group(1)) if match else 1
+    spec = CHAPTER_SPECS[class_key]
+    title_ur = spec["titles_ur"][chapter_num - 1]
+    grade = spec["grade_label"]
+    return (
+        f"کمپیوٹر سائنس جماعت {grade}، باب {chapter_num}: {title_ur}. "
+        "یہ دو لسانی ٹیچر ایڈیشن کے اعلیٰ پیداوار لیکچر نوٹس اور امتحانی گولڈن ٹاپکس ہیں، "
+        "جو نئے سندھ نصاب دو ہزار چھ بیس کے مطابق تیار کیے گئے ہیں۔"
+    )
+
+
+def enrich_page_tts(page: dict, translate: bool, class_key: str | None = None) -> dict:
     raw = page.get("_raw", "") or ""
     if not raw and page.get("en_tts"):
         raw = page["en_tts"]
     en_lines, ur_pdf = split_bilingual_lines(raw)
     en_tts = clean_english_for_tts(en_lines or raw)
     ur_tts = (page.get("ur_tts") or "").strip()
-    if translate and en_tts and not is_valid_ur_tts(ur_tts, en_tts):
-        ur_tts = translate_en_to_ur(en_tts)
+    if class_key and is_chapter_divider(en_tts):
+        ur_tts = synthetic_chapter_ur(class_key, en_tts)
+    elif translate and en_tts and not is_valid_ur_tts(ur_tts, en_tts):
+        for attempt in range(3):
+            candidate = translate_en_to_ur(en_tts)
+            if is_valid_ur_tts(candidate, en_tts):
+                ur_tts = candidate
+                break
+            if attempt < 2:
+                time.sleep(0.75 * (attempt + 1))
     elif not ur_tts:
-        ur_tts = ur_pdf
+        ur_tts = ur_pdf if is_valid_ur_tts(ur_pdf, en_tts) else ""
     ur_display = ur_tts if ur_tts else ur_pdf
     return {
         "page": page["page"],
@@ -218,6 +245,8 @@ def build_page_index(
     translate: bool,
     existing: dict[int, dict],
     index_path: Path | None = None,
+    checkpoint: bool = False,
+    class_key: str | None = None,
 ) -> list[dict]:
     reader = PdfReader(str(pdf_path))
     total = len(reader.pages)
@@ -244,13 +273,18 @@ def build_page_index(
                     "ur_tts": cached.get("ur_tts", ""),
                 },
                 translate=translate,
+                class_key=class_key,
             )
         else:
             raw = extract_page_raw(pdf_path, i)
-            row = enrich_page_tts({"page": i, "_raw": raw, "ur_tts": ""}, translate=translate)
+            row = enrich_page_tts(
+                {"page": i, "_raw": raw, "ur_tts": ""},
+                translate=translate,
+                class_key=class_key,
+            )
         pages[i - 1] = row
 
-        if index_path is not None and (i % 5 == 0 or i == total):
+        if checkpoint and index_path is not None and (i % 5 == 0 or i == total):
             snapshot = [p for p in pages if p is not None]
             if len(snapshot) == total:
                 index_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=0), encoding="utf-8")
@@ -299,8 +333,14 @@ def write_chapter_covers(prefix: str, titles_en: list[str]) -> None:
 
 def ur_fill_only() -> None:
     translate = True
+    only_class = None
+    for arg in sys.argv[1:]:
+        if arg.startswith("--class="):
+            only_class = arg.split("=", 1)[1].strip().lower()
     ASSETS.mkdir(parents=True, exist_ok=True)
     for key, spec in CHAPTER_SPECS.items():
+        if only_class and key != only_class:
+            continue
         dest_pdf = ASSETS / spec["asset_pdf"]
         if not dest_pdf.exists():
             src = spec["pdf_src"]
@@ -317,6 +357,8 @@ def ur_fill_only() -> None:
             translate=translate,
             existing=existing,
             index_path=index_path,
+            checkpoint=False,
+            class_key=key,
         )
         valid = sum(1 for p in page_index if is_valid_ur_tts(p.get("ur_tts", ""), p.get("en_tts", "")))
         print(f"Wrote {index_path} entries {len(page_index)} valid ur_tts {valid}/{len(page_index)}", flush=True)
@@ -352,6 +394,8 @@ def main() -> None:
             translate=translate,
             existing=existing,
             index_path=index_path,
+            checkpoint=False,
+            class_key=key,
         )
         print("Wrote", index_path, "entries", len(page_index))
 
