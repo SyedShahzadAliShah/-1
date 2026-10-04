@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_ai_tutor"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/ai_tutor_title"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_narrative_language"
         android:title="@string/embed_tts_language_title"
         app:showAsAction="never" />

@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnXiiCinematic.setOnClickListener { openFullCinematic("xii") }
         binding.btnListenXiPdf.setOnClickListener { startFullPdfTts("xi") }
         binding.btnListenXiiPdf.setOnClickListener { startFullPdfTts("xii") }
+        binding.btnAiTutor.setOnClickListener { openAiTutor() }
 
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(binding.guideCoverImage, R.drawable.pic_cs_xi_ch1)
@@ -131,6 +132,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.full_pdf_tts_done, Toast.LENGTH_LONG).show()
             }
         )
+    }
+
+    private fun openAiTutor() {
+        startActivity(Intent(this, AiTutorActivity::class.java))
     }
 
     private fun openFullCinematic(classId: String) {
@@ -189,6 +194,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_export -> {
                 exportStudyGuidePdf()
+                true
+            }
+            R.id.action_ai_tutor -> {
+                openAiTutor()
                 true
             }
             else -> super.onOptionsItemSelected(item)

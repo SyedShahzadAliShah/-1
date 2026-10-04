@@ -12,5 +12,8 @@
     <string name="class_xii_title">جماعت XII — کمپیوٹر سائنس</string>
     <string name="export_full_guide">خلاصہ PDF برآمد</string>
     <string name="pdf_saved_downloads">ڈاؤن لوڈز/SelfTaughtBootcamp/%1$s میں محفوظ</string>
-    <string name="version_badge">ورژن %1$s — سینمائی Self-Taught Bootcamp</string>
+    <string name="version_badge">ورژن %1$s — Bootcamp + AI Tutor</string>
+    <string name="ai_tutor_title">Embedded AI Tutor</string>
+    <string name="open_ai_tutor">🤖 AI Tutor کھولیں</string>
+    <string name="ask_ai_tutor_chapter">🤖 اس باب کے لیے AI Tutor</string>
 </resources>

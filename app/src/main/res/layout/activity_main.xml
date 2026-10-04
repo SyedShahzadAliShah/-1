@@ -143,6 +143,14 @@
                         android:textColor="@color/secondary"
                         android:textSize="12sp" />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAiTutor"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="@string/open_ai_tutor" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

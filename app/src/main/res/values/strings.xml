@@ -89,5 +89,23 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Cinematic Self-Taught Bootcamp</string>
+    <string name="version_badge">Version %1$s — Cinematic Self-Taught Bootcamp + AI Tutor</string>
+    <string name="ai_tutor_title">Embedded AI Tutor</string>
+    <string name="open_ai_tutor">🤖 Open Embedded AI Tutor</string>
+    <string name="ask_ai_tutor_chapter">🤖 Ask AI Tutor about this chapter</string>
+    <string name="tutor_input_hint">Ask about CS XI/XII…</string>
+    <string name="tutor_send">Send</string>
+    <string name="tutor_chip_golden">★ Golden topics</string>
+    <string name="tutor_chip_quiz_xi">Quiz XI</string>
+    <string name="tutor_chip_quiz_xii">Quiz XII</string>
+    <string name="tutor_chip_osi">OSI model</string>
+    <string name="tutor_context_chapter">Chapter focus: %1$s</string>
+    <string name="tutor_settings">Tutor settings</string>
+    <string name="tutor_clear_chat">Clear chat</string>
+    <string name="tutor_settings_title">AI Tutor settings</string>
+    <string name="tutor_settings_message">Embedded tutoring works offline from your lecture notes. Optionally paste a Google Gemini API key for richer answers (still grounded in your PDF text).</string>
+    <string name="tutor_api_key_hint">Gemini API key (optional)</string>
+    <string name="tutor_save">Save</string>
+    <string name="tutor_cloud_footer">Enhanced with Gemini using your notes as context.</string>
+    <string name="tutor_cloud_fallback">(Cloud tutor unavailable — showing embedded answer.)</string>
 </resources>

@@ -9,6 +9,7 @@ Android bootcamp for **Sindh Curriculum Computer Science Class XI & XII**, built
 - **Self-paced bootcamp** — chapter notes in English and Urdu, golden ★ key points
 - **Full PDF embedded** — XI (127 pp) and XII (147 pp) teacher notes in `assets/lecture_notes/`
 - **Embed TTS** — English or Urdu male-voice narration per page or full PDF
+- **Embedded AI Tutor** — offline Q&amp;A grounded in lecture notes; quiz &amp; ★ golden topics; optional Gemini API key
 - **PDF export** — printable chapter summary study guide
 
 ## Build assets (after updating source PDFs in uploads)
@@ -21,9 +22,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.1.0)** — Cinematic Self-Taught Bootcamp:
+**Latest (v1.2.0)** — Cinematic Self-Taught Bootcamp + **Embedded AI Tutor**:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.1.0-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.0-debug.apk
 
 > Install on Android 7+ (minSdk 24). Uninstall older CS Lecture Notes builds if you had them — this app uses package `com.sindhcs.selftaughtbootcamp`. Allow “Install unknown apps” for your browser or file manager if prompted.
 
@@ -34,6 +35,11 @@ export ANDROID_HOME=/opt/android-sdk
 ./gradlew assembleDebug
 cp app/build/outputs/apk/debug/app-debug.apk releases/Self-Taught-Bootcamp-v1.1.0-debug.apk
 ```
+
+## Version 1.2.0
+
+- **Embedded AI Tutor** chat (offline retrieval from XI/XII notes + PDF page index)
+- Optional Gemini boost via API key in tutor settings
 
 ## Version 1.1.0
 

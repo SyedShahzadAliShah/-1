@@ -72,6 +72,15 @@ class StudyChapterDetailActivity : AppCompatActivity() {
                 }
             )
         }
+        binding.btnAiTutor.setOnClickListener {
+            startActivity(
+                Intent(this, AiTutorActivity::class.java).apply {
+                    putExtra(AiTutorActivity.EXTRA_CHAPTER_ID, chapter.id)
+                    putExtra(AiTutorActivity.EXTRA_CLASS_ID, chapter.id.substringBefore("_ch"))
+                    putExtra(AiTutorActivity.EXTRA_PAGE, chapter.pdfPageStart)
+                }
+            )
+        }
     }
 
     private fun bindContent() {
