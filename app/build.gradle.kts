@@ -11,8 +11,8 @@ android {
         applicationId = "com.sindhcs.selftaughtbootcamp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 120
-        versionName = "1.2.0"
+        versionCode = 121
+        versionName = "1.2.1"
     }
 
     buildTypes {
@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")

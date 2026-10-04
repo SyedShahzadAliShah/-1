@@ -60,6 +60,7 @@ object UrduTtsPronunciation {
         text = text.replace("%", " فیصد ")
 
         text = text.replace("!", "۔ ")
+        text = expandLatinTermsForUrduSpeech(text)
         text = NEEDS_SPACE_AFTER.replace(text, "$1 $2")
         text = text.replace(Regex("([۔،؟؛])\\1+"), "$1")
         text = MULTISPACE.replace(text, " ").trim()
@@ -69,5 +70,32 @@ object UrduTtsPronunciation {
         }
 
         return text.trim()
+    }
+
+    /** Latin syllabus terms spoken slowly so Urdu voices do not robot-spell them. */
+    private fun expandLatinTermsForUrduSpeech(text: String): String {
+        var t = text
+        val replacements = listOf(
+            "TCP/IP" to "ٹی سی پی آئی پی",
+            "SDLC" to "ایس ڈی ایل سی",
+            "OSI" to "او ایس آئی",
+            "HCI" to "اچ سی آئی",
+            "NLP" to "این ایل پی",
+            "IDE" to "آئی ڈی ای",
+            "API" to "اے پی آئی",
+            "UI" to "یو آئی",
+            "UX" to "یو ایکس",
+            "K-Map" to "کرناو میپ",
+            "K Maps" to "کرناو میپس",
+            "Boolean" to "بولین",
+            "Python" to "پائتھن",
+            "e.g." to "مثال کے طور پر",
+            "vs" to "بمقابلہ",
+        ).sortedByDescending { it.first.length }
+        for ((latin, spoken) in replacements) {
+            t = t.replace(latin, spoken, ignoreCase = true)
+        }
+        t = t.replace(Regex("\\be\\.g\\.", RegexOption.IGNORE_CASE), "مثال کے طور پر")
+        return t
     }
 }

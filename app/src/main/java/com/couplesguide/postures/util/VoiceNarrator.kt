@@ -28,8 +28,7 @@ class VoiceNarrator(
     override fun onInit(status: Int) {
         isReady = status == TextToSpeech.SUCCESS
         if (isReady) {
-            tts?.setSpeechRate(0.92f)
-            tts?.setPitch(1.0f)
+            preferGoogleEngineIfAvailable()
             attachProgressListener()
         }
         onReadyChanged(isReady)
@@ -37,6 +36,14 @@ class VoiceNarrator(
             val queued = pendingSpeech.toList()
             pendingSpeech.clear()
             speakSegments(queued)
+        }
+    }
+
+    private fun preferGoogleEngineIfAvailable() {
+        val engine = tts ?: return
+        val google = "com.google.android.tts"
+        if (engine.engines.any { it.name == google }) {
+            engine.setEngineByPackageName(google)
         }
     }
 
@@ -104,21 +111,22 @@ class VoiceNarrator(
         onSegmentsComplete = onComplete
         activeUtterances = 0
         cleaned.forEachIndexed { segmentIndex, (rawText, language) ->
-            val text = if (language == LocaleHelper.LANG_UR) {
-                UrduTtsPronunciation.prepare(rawText)
-            } else {
-                rawText
-            }
+            val prepared = NaturalLanguageTtsPreparer.prepare(rawText, language)
             val appliedLocale = applyLanguage(engine, language) ?: return@forEachIndexed
+            applyNaturalProsody(engine, language)
             if (appliedLocale.fallbackUsed) {
                 onLanguageIssue?.invoke(appliedLocale.message)
             }
-            val chunks = chunkText(text)
+            val speakText = formatForEngine(engine, prepared)
+            val chunks = chunkText(speakText)
             activeUtterances += chunks.size
             chunks.forEachIndexed { chunkIndex, chunk ->
                 val utteranceId = "${UTTERANCE_PREFIX}${segmentIndex}_${chunkIndex}"
                 val params = Bundle().apply {
                     putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
+                    if (engine.voice?.isNetworkConnectionRequired == true) {
+                        putString(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true")
+                    }
                 }
                 val isFirst = segmentIndex == 0 && chunkIndex == 0
                 val queueMode = if (isFirst) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
@@ -130,6 +138,29 @@ class VoiceNarrator(
             return false
         }
         return true
+    }
+
+    private fun formatForEngine(engine: TextToSpeech, prepared: String): String {
+        return if (supportsSsml(engine)) {
+            TtsSsmlBuilder.addNaturalPauses(prepared)
+        } else {
+            prepared
+        }
+    }
+
+    private fun supportsSsml(engine: TextToSpeech): Boolean {
+        val pkg = engine.defaultEngine ?: return false
+        return pkg.contains("google", ignoreCase = true)
+    }
+
+    private fun applyNaturalProsody(engine: TextToSpeech, language: String) {
+        if (language == LocaleHelper.LANG_UR) {
+            engine.setSpeechRate(0.88f)
+            engine.setPitch(1.03f)
+        } else {
+            engine.setSpeechRate(0.93f)
+            engine.setPitch(1.0f)
+        }
     }
 
     private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean, val message: String)
@@ -147,7 +178,7 @@ class VoiceNarrator(
                 TextToSpeech.LANG_COUNTRY_AVAILABLE,
                 TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
                     engine.language = locale
-                    selectBestVoice(engine, locale)
+                    selectNaturalVoice(engine, locale)
                     return LocaleResult(locale, false, "")
                 }
             }
@@ -159,7 +190,7 @@ class VoiceNarrator(
                 TextToSpeech.LANG_COUNTRY_AVAILABLE,
                 TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
                     engine.language = Locale.US
-                    selectBestVoice(engine, Locale.US)
+                    selectNaturalVoice(engine, Locale.US)
                     return LocaleResult(
                         Locale.US,
                         true,
@@ -173,39 +204,19 @@ class VoiceNarrator(
         return null
     }
 
-    private fun selectBestVoice(engine: TextToSpeech, locale: Locale) {
+    /** Prefer neural / high-quality voices (including network) for human-like lecture delivery. */
+    private fun selectNaturalVoice(engine: TextToSpeech, locale: Locale) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) return
         val voices = engine.voices ?: return
         val candidates = voices.filter { voice ->
-            voice.locale.language.equals(locale.language, ignoreCase = true) &&
-                !voice.isNetworkConnectionRequired
+            voice.locale.language.equals(locale.language, ignoreCase = true)
         }
         if (candidates.isEmpty()) return
 
-        val maleCandidates = candidates.filter { isMaleVoice(it) && !isFemaleVoice(it) }
-        val nonFemale = candidates.filter { !isFemaleVoice(it) }
-        val pool = when {
-            maleCandidates.isNotEmpty() -> maleCandidates
-            nonFemale.isNotEmpty() -> nonFemale
-            else -> candidates
-        }
-
-        val match = pool.maxByOrNull { voiceScore(it, locale) }
+        val match = candidates.maxByOrNull { voiceScoreNatural(it, locale) }
         if (match != null) {
             engine.voice = match
         }
-    }
-
-    /** Prefer embedded male voices for teacher-style English / Urdu narration. */
-    private fun isMaleVoice(voice: Voice): Boolean {
-        val blob = voiceMetadataBlob(voice)
-        if (isFemaleVoice(voice)) return false
-        return MALE_VOICE_HINTS.any { hint -> blob.contains(hint) }
-    }
-
-    private fun isFemaleVoice(voice: Voice): Boolean {
-        val blob = voiceMetadataBlob(voice)
-        return FEMALE_VOICE_HINTS.any { hint -> blob.contains(hint) }
     }
 
     private fun voiceMetadataBlob(voice: Voice): String {
@@ -213,15 +224,18 @@ class VoiceNarrator(
         return "${voice.name.lowercase()} $features"
     }
 
-    private fun voiceScore(voice: Voice, preferredLocale: Locale): Int {
+    private fun voiceScoreNatural(voice: Voice, preferredLocale: Locale): Int {
         var score = 0
         val blob = voiceMetadataBlob(voice)
-        if (MALE_VOICE_HINTS.any { blob.contains(it) }) score += 24
-        if (voice.quality >= Voice.QUALITY_HIGH) score += 4
-        else if (voice.quality >= Voice.QUALITY_NORMAL) score += 2
-        if (voice.locale.country.equals(preferredLocale.country, ignoreCase = true)) score += 3
-        if (blob.contains("local")) score += 2
-        if (blob.contains("network")) score -= 6
+        if (NATURAL_VOICE_HINTS.any { blob.contains(it) }) score += 40
+        if (blob.contains("network")) score += 12
+        if (voice.isNetworkConnectionRequired) score += 8
+        if (voice.quality >= Voice.QUALITY_VERY_HIGH) score += 20
+        else if (voice.quality >= Voice.QUALITY_HIGH) score += 14
+        else if (voice.quality >= Voice.QUALITY_NORMAL) score += 6
+        if (voice.locale.country.equals(preferredLocale.country, ignoreCase = true)) score += 5
+        if (blob.contains("local") && voice.quality >= Voice.QUALITY_HIGH) score += 4
+        if (ROBOTIC_VOICE_HINTS.any { blob.contains(it) }) score -= 18
         return score
     }
 
@@ -268,35 +282,23 @@ class VoiceNarrator(
         private const val MAX_CHUNK = 3200
         private const val UTTERANCE_PREFIX = "narration_"
 
-        /** Substrings common in Android TTS voice ids (especially Google) for male voices. */
-        private val MALE_VOICE_HINTS = listOf(
-            "male",
-            "masculine",
-            "-male",
-            "_male",
-            "-m-",
-            "_m_",
-            " man",
-            "gbb",
-            "iob",
-            "iom",
-            "iol",
-            "aed",
-            "afg",
+        private val NATURAL_VOICE_HINTS = listOf(
+            "neural",
+            "wavenet",
+            "premium",
+            "enhanced",
+            "natural",
+            "studio",
+            "journey",
+            "news",
+            "casual",
         )
 
-        private val FEMALE_VOICE_HINTS = listOf(
-            "female",
-            "feminine",
-            "-female",
-            "_female",
-            "-f-",
-            "_f_",
-            " woman",
-            " girl",
-            "gba",
-            "tpc",
-            "iob-f",
+        private val ROBOTIC_VOICE_HINTS = listOf(
+            "synthetic",
+            "espeak",
+            "pico",
+            "legacy",
         )
 
         fun openTtsSettings(context: Context) {

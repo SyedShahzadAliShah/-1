@@ -22,9 +22,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.2.0)** — Cinematic Self-Taught Bootcamp + **Embedded AI Tutor**:
+**Latest (v1.2.1)** — Natural English/Urdu TTS + AI Tutor:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.0-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.1-debug.apk
 
 > Install on Android 7+ (minSdk 24). Uninstall older CS Lecture Notes builds if you had them — this app uses package `com.sindhcs.selftaughtbootcamp`. Allow “Install unknown apps” for your browser or file manager if prompted.
 
