@@ -14,6 +14,14 @@ Teacher PDF booklet is bundled at `app/src/main/assets/mt331_teachers_cheatsheet
 
 Browser preview (same beat/TTS idea): open `tools/mt331-lecture-preview.html` in Chrome.
 
+### Download MT-331 APK (v4.0.0)
+
+**Direct link (this branch):**
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/mt331-cinematic-lecture-notes-8c89/releases/MT331-LectureNotes-v4.0.0-debug.apk
+
+On Android: open the link, download, allow installs from your browser if prompted, then install. Enable **Urdu** voice data in system **Text-to-speech** settings for Urdu narration.
+
 ---
 
 Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
