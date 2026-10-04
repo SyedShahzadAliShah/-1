@@ -19,9 +19,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.0.3)** — Embed TTS engine (English **or** Urdu per PDF):
+**Latest (v1.0.4)** — Full-page Urdu `ur_tts` for all **127 + 147** PDF pages (Embed TTS — English **or** Urdu):
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.3-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.4-debug.apk
 
 > Install on Android 7+ (minSdk 24). Allow “Install unknown apps” for your browser or file manager if prompted.
 
