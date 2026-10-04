@@ -6,7 +6,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 
 /**
- * In-app narrative TTS: **English or Urdu only**, always using [NarrativeMaleVoiceSelector].
+ * In-app narrative TTS: **English or Urdu only**, using built-in India Voice 1 packs.
  */
 class VoiceNarrator(
     private val context: Context,
@@ -29,8 +29,8 @@ class VoiceNarrator(
         isReady = status == TextToSpeech.SUCCESS
         if (isReady) {
             tts?.let { engine ->
-                NarrativeMaleVoiceSelector.configureBaseline(engine)
-                NarrativeMaleVoiceSelector.applyForLanguage(engine, LocaleHelper.LANG_EN)
+                NarrativeBuiltInVoiceSelector.configureBaseline(engine)
+                NarrativeBuiltInVoiceSelector.applyForLanguage(engine, LocaleHelper.LANG_EN)
             }
             attachProgressListener()
         }
@@ -89,7 +89,7 @@ class VoiceNarrator(
     fun speakSegments(segments: List<Pair<String, String>>, onComplete: (() -> Unit)? = null): Boolean {
         val cleaned = segments.mapNotNull { (text, lang) ->
             val t = text.trim()
-            if (t.isEmpty()) null else t to NarrativeMaleVoiceSelector.narrativeLanguage(lang)
+            if (t.isEmpty()) null else t to NarrativeBuiltInVoiceSelector.narrativeLanguage(lang)
         }
         if (cleaned.isEmpty()) {
             onComplete?.invoke()
@@ -110,13 +110,16 @@ class VoiceNarrator(
             } else {
                 rawText
             }
-            val applied = NarrativeMaleVoiceSelector.applyForLanguage(engine, language)
+            val applied = NarrativeBuiltInVoiceSelector.applyForLanguage(engine, language)
             if (applied == null) {
                 onLanguageIssue?.invoke("Voice language not available on this device.")
                 return@forEachIndexed
             }
-            if (applied.fallbackUsed) {
+            if (applied.message.isNotBlank()) {
                 onLanguageIssue?.invoke(applied.message)
+            }
+            if (!applied.voiceApplied) {
+                return@forEachIndexed
             }
             val chunks = chunkText(text)
             activeUtterances += chunks.size

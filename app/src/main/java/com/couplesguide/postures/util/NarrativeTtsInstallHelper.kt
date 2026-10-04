@@ -10,7 +10,7 @@ import com.couplesguide.postures.R
 import java.util.Locale
 
 /**
- * Guides users to install **Google Text-to-speech** voice packs (English + Urdu Pakistan)
+ * Guides users to install **Google Text-to-speech** built-in India Voice 1 packs.
  * from inside the app. Voice binaries cannot be bundled in the APK; Android installs them
  * via the Google TTS engine.
  */
@@ -49,8 +49,18 @@ object NarrativeTtsInstallHelper {
                 tts?.shutdown()
                 return@OnInitListener
             }
-            val englishReady = isLocaleReady(engine, Locale.US)
-            val urduReady = isLocaleReady(engine, Locale("ur", "PK"))
+            val englishReady =
+                NarrativeBuiltInVoiceSelector.isLocaleReady(engine, NarrativeBuiltInVoiceSelector.LOCALE_ENGLISH_INDIA) &&
+                    NarrativeBuiltInVoiceSelector.hasBuiltInVoice1(
+                        engine,
+                        NarrativeBuiltInVoiceSelector.LOCALE_ENGLISH_INDIA
+                    )
+            val urduReady =
+                NarrativeBuiltInVoiceSelector.isLocaleReady(engine, NarrativeBuiltInVoiceSelector.LOCALE_URDU_INDIA) &&
+                    NarrativeBuiltInVoiceSelector.hasBuiltInVoice1(
+                        engine,
+                        NarrativeBuiltInVoiceSelector.LOCALE_URDU_INDIA
+                    )
             val pkg = engine.defaultEngine
             onResult(
                 VoicePackStatus(
@@ -87,7 +97,7 @@ object NarrativeTtsInstallHelper {
         }
     }
 
-    /** Opens Google TTS voice-data installer (English / Urdu PK packs). */
+    /** Opens Google TTS voice-data installer (English India + Urdu India Voice 1). */
     fun launchGoogleTtsInstaller(context: Context): Boolean {
         val installIntent = Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA).apply {
             if (isGoogleTtsInstalled(context)) {
