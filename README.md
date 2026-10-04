@@ -29,6 +29,16 @@ Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture
 - **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
 - **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
 
+## CS XI Ultimate Lecture Cinema (web)
+
+Self-taught bilingual lecture notes with English/Urdu TTS, MathJax, and SVG diagrams:
+
+```bash
+cd cs-xi-ultimate-lectures && python3 -m http.server 8765
+```
+
+See [cs-xi-ultimate-lectures/README.md](cs-xi-ultimate-lectures/README.md).
+
 ## Build
 
 ```bash
