@@ -53,7 +53,7 @@ object PdfExporter {
     private const val BOTTOM_MARGIN = 54f
     private const val CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2
     private const val IMAGE_HEIGHT = 150f
-    private const val DOWNLOADS_FOLDER = "IntimacyGuide"
+    private const val DOWNLOADS_FOLDER = "CSStudyGuide"
 
     data class ExportResult(
         val file: File,

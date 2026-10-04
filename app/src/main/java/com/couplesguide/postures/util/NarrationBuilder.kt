@@ -2,10 +2,10 @@ package com.couplesguide.postures.util
 
 import android.content.Context
 import com.couplesguide.postures.R
-import com.couplesguide.postures.data.GenderEducationRepository
+import com.couplesguide.postures.data.LectureNotesRepository
 import com.couplesguide.postures.data.GuideRepository
 import com.couplesguide.postures.data.Posture
-import com.couplesguide.postures.data.PostureRepository
+import com.couplesguide.postures.data.StudyChapter
 
 object NarrationBuilder {
 
@@ -19,33 +19,22 @@ object NarrationBuilder {
     }
 
     fun buildMainGuideNarration(context: Context, language: String): String {
+        LectureNotesRepository.ensureLoaded(context)
         val sb = StringBuilder(buildWelcomeNarration(context, language))
-        sb.append(" ").append(sectionLabel(context, R.string.guide_chapters, language)).append(".")
-        for (chapter in GuideRepository.getChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.sex_education_for_him, language)).append(".")
-        for (chapter in GenderEducationRepository.getForHimChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.sex_education_for_her, language)).append(".")
-        for (chapter in GenderEducationRepository.getForHerChapters()) {
-            val c = chapter.content(language)
-            sb.append(" ").append(c.title).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.imagination_postures, language)).append(".")
-        for (posture in PostureRepository.getImaginationPostures()) {
-            val c = posture.content(language)
-            sb.append(" ").append(c.name).append(". ").append(c.summary)
-        }
-        sb.append(" ").append(sectionLabel(context, R.string.all_postures, language)).append(".")
-        for (posture in PostureRepository.getPhysicalPostures()) {
-            val c = posture.content(language)
-            sb.append(" ").append(c.name).append(". ").append(c.summary)
+        for (studyClass in LectureNotesRepository.getClasses(context)) {
+            sb.append(" ").append(context.getString(R.string.class_section_label, studyClass.gradeLabel))
+            for (chapter in studyClass.chapters) {
+                val c = chapter.content(language)
+                sb.append(" ").append(c.title).append(". ").append(c.summary)
+            }
         }
         return sb.toString()
+    }
+
+    fun buildStudyChapterNarration(chapter: StudyChapter, language: String): String {
+        val content = chapter.content(language)
+        val points = content.keyPoints.joinToString(". ")
+        return "${content.title}. ${content.summary}. ${content.body}. $points"
     }
 
     fun buildChapterNarration(chapterId: String, language: String): String {
@@ -64,35 +53,14 @@ object NarrationBuilder {
         }
         val tipsLabel = context.getString(R.string.tips)
         val steps = content.steps.mapIndexed { i, s ->
-            "${stepLabel(context, i + 1, language)} $s"
+            val label = if (language == LocaleHelper.LANG_UR) {
+                context.getString(R.string.step_label_ur, i + 1)
+            } else {
+                context.getString(R.string.step_label_en, i + 1)
+            }
+            "$label $s"
         }.joinToString(". ")
         val tips = content.tips.joinToString(". ")
-        val sb = StringBuilder(
-            "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
-        )
-        if (!posture.isImagination) {
-            val manLabel = context.getString(R.string.mans_role)
-            val womanLabel = context.getString(R.string.womans_role)
-            content.forMan?.let { man ->
-                val guidance = man.guidance.joinToString(". ")
-                sb.append(" $manLabel. ${man.position}. $guidance")
-            }
-            content.forWoman?.let { woman ->
-                val guidance = woman.guidance.joinToString(". ")
-                sb.append(" $womanLabel. ${woman.position}. $guidance")
-            }
-        }
-        return sb.toString()
-    }
-
-    private fun sectionLabel(context: Context, resId: Int, @Suppress("UNUSED_PARAMETER") language: String): String =
-        context.getString(resId)
-
-    private fun stepLabel(context: Context, number: Int, language: String): String {
-        return if (language == LocaleHelper.LANG_UR) {
-            context.getString(R.string.step_label_ur, number)
-        } else {
-            context.getString(R.string.step_label_en, number)
-        }
+        return "${content.name}. ${content.summary}. ${content.description}. $stepsPrefix. $steps. $tipsLabel. $tips"
     }
 }

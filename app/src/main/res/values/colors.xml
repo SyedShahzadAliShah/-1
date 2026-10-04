@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#7B4B6A</color>
-    <color name="primary_dark">#5C3650</color>
-    <color name="primary_light">#E8D5E3</color>
-    <color name="secondary">#B8860B</color>
-    <color name="background">#FFF8F5</color>
+    <color name="primary">#1B3A6B</color>
+    <color name="primary_dark">#122847</color>
+    <color name="primary_light">#D6E4F7</color>
+    <color name="secondary">#C9A227</color>
+    <color name="background">#F4F7FB</color>
     <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#F5EDE8</color>
+    <color name="surface_variant">#E8EEF5</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="on_surface">#2D1F2B</color>
-    <color name="on_surface_variant">#5C4F58</color>
-    <color name="illustration_bg">#F0E6EF</color>
-    <color name="figure_primary">#7B4B6A</color>
-    <color name="figure_secondary">#C49A6C</color>
+    <color name="on_surface">#1A2332</color>
+    <color name="on_surface_variant">#4A5568</color>
+    <color name="illustration_bg">#E3ECF8</color>
+    <color name="figure_primary">#1B3A6B</color>
+    <color name="figure_secondary">#C9A227</color>
     <color name="chip_bg_default">#FFFFFF</color>
+    <color name="cinematic_bg">#0D1520</color>
+    <color name="cinematic_toolbar">#152238</color>
+    <color name="cinematic_caption">#E8F0FF</color>
 </resources>
