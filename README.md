@@ -19,9 +19,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.0.6)** — Cinematic mode shows the PDF unobstructed during embed TTS (no caption overlay). Full-page **`en_tts` / `ur_tts`** narration:
+**Latest (v1.0.7)** — Embed TTS prefers **male voices** for English or Urdu (device TTS engine). Unobstructed PDF in cinematic mode:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.6-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.7-debug.apk
 
 > Install on Android 7+ (minSdk 24). Allow “Install unknown apps” for your browser or file manager if prompted.
 

@@ -154,6 +154,7 @@ class VoiceNarrator(
                 TextToSpeech.LANG_COUNTRY_AVAILABLE,
                 TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
                     engine.language = Locale.US
+                    selectBestVoice(engine, Locale.US)
                     return LocaleResult(
                         Locale.US,
                         true,
@@ -170,18 +171,52 @@ class VoiceNarrator(
     private fun selectBestVoice(engine: TextToSpeech, locale: Locale) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) return
         val voices = engine.voices ?: return
-        val match = voices
-            .filter { it.locale.language == locale.language && !it.isNetworkConnectionRequired }
-            .maxByOrNull { voiceScore(it) }
+        val candidates = voices.filter { voice ->
+            voice.locale.language.equals(locale.language, ignoreCase = true) &&
+                !voice.isNetworkConnectionRequired
+        }
+        if (candidates.isEmpty()) return
+
+        val maleCandidates = candidates.filter { isMaleVoice(it) && !isFemaleVoice(it) }
+        val nonFemale = candidates.filter { !isFemaleVoice(it) }
+        val pool = when {
+            maleCandidates.isNotEmpty() -> maleCandidates
+            nonFemale.isNotEmpty() -> nonFemale
+            else -> candidates
+        }
+
+        val match = pool.maxByOrNull { voiceScore(it, locale) }
         if (match != null) {
             engine.voice = match
         }
     }
 
-    private fun voiceScore(voice: Voice): Int {
+    /** Prefer embedded male voices for teacher-style English / Urdu narration. */
+    private fun isMaleVoice(voice: Voice): Boolean {
+        val blob = voiceMetadataBlob(voice)
+        if (isFemaleVoice(voice)) return false
+        return MALE_VOICE_HINTS.any { hint -> blob.contains(hint) }
+    }
+
+    private fun isFemaleVoice(voice: Voice): Boolean {
+        val blob = voiceMetadataBlob(voice)
+        return FEMALE_VOICE_HINTS.any { hint -> blob.contains(hint) }
+    }
+
+    private fun voiceMetadataBlob(voice: Voice): String {
+        val features = voice.features?.joinToString(" ")?.lowercase().orEmpty()
+        return "${voice.name.lowercase()} $features"
+    }
+
+    private fun voiceScore(voice: Voice, preferredLocale: Locale): Int {
         var score = 0
-        if (voice.quality >= Voice.QUALITY_HIGH) score += 2
-        if (!voice.name.contains("network", ignoreCase = true)) score += 1
+        val blob = voiceMetadataBlob(voice)
+        if (MALE_VOICE_HINTS.any { blob.contains(it) }) score += 24
+        if (voice.quality >= Voice.QUALITY_HIGH) score += 4
+        else if (voice.quality >= Voice.QUALITY_NORMAL) score += 2
+        if (voice.locale.country.equals(preferredLocale.country, ignoreCase = true)) score += 3
+        if (blob.contains("local")) score += 2
+        if (blob.contains("network")) score -= 6
         return score
     }
 
@@ -227,6 +262,37 @@ class VoiceNarrator(
     companion object {
         private const val MAX_CHUNK = 3200
         private const val UTTERANCE_PREFIX = "narration_"
+
+        /** Substrings common in Android TTS voice ids (especially Google) for male voices. */
+        private val MALE_VOICE_HINTS = listOf(
+            "male",
+            "masculine",
+            "-male",
+            "_male",
+            "-m-",
+            "_m_",
+            " man",
+            "gbb",
+            "iob",
+            "iom",
+            "iol",
+            "aed",
+            "afg",
+        )
+
+        private val FEMALE_VOICE_HINTS = listOf(
+            "female",
+            "feminine",
+            "-female",
+            "_female",
+            "-f-",
+            "_f_",
+            " woman",
+            " girl",
+            "gba",
+            "tpc",
+            "iob-f",
+        )
 
         fun openTtsSettings(context: Context) {
             val intents = listOf(
