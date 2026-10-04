@@ -29,9 +29,13 @@ Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture
 - **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
 - **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
 
-## CS XI Ultimate Lecture Cinema (web)
+## CS XI Ultimate Lecture Cinema (APK + web)
 
-Self-taught bilingual lecture notes with English/Urdu TTS, MathJax, and SVG diagrams:
+**APK (v4.0.0-csxi)** — installs **CS XI Lecture Cinema** launcher (WebView + native English/Urdu TTS):
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-xi-cinematic-lectures-c73b/releases/CSXI-LectureCinema-v4.0.0-csxi-debug.apk
+
+Web preview:
 
 ```bash
 cd cs-xi-ultimate-lectures && python3 -m http.server 8765

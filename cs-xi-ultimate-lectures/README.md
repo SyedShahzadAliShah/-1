@@ -10,7 +10,18 @@ Bilingual **English & Urdu** lecture cinema for Computer Science XI (Sindh Curri
 - **2-minute wins mode** — first two slides per topic for low-friction sessions
 - Chapters **1–6** with examination **★ golden** topics highlighted
 
-## Run locally
+## Android APK
+
+Build from repo root (copies web assets into the APK automatically):
+
+```bash
+export ANDROID_HOME=/path/to/android-sdk
+./gradlew assembleDebug
+```
+
+Output: `app/build/outputs/apk/debug/app-debug.apk` (launcher: **CS XI Lecture Cinema**). Native Android TTS is used for English and Urdu narration inside the WebView.
+
+## Run locally (web)
 
 ```bash
 cd cs-xi-ultimate-lectures

@@ -51,4 +51,7 @@
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
     <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="cs_xi_title">CS XI Lecture Cinema</string>
+    <string name="cs_xi_tts_settings">Text-to-speech settings</string>
+    <string name="cs_xi_open_handbook">Open Intimacy Handbook</string>
 </resources>

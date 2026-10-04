@@ -11,8 +11,8 @@ android {
         applicationId = "com.couplesguide.postures"
         minSdk = 24
         targetSdk = 34
-        versionCode = 15
-        versionName = "3.2.1"
+        versionCode = 16
+        versionName = "4.0.0-csxi"
     }
 
     buildTypes {
@@ -38,6 +38,26 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    sourceSets {
+        getByName("main") {
+            assets.srcDir("src/main/assets")
+        }
+    }
+}
+
+val lectureWebRoot = rootProject.file("cs-xi-ultimate-lectures")
+val lectureAssetsDir = file("src/main/assets/cs-xi-lectures")
+
+tasks.register<Copy>("copyCsXiLectureAssets") {
+    from(lectureWebRoot) {
+        include("index.html", "css/**", "js/**")
+    }
+    into(lectureAssetsDir)
+}
+
+tasks.named("preBuild") {
+    dependsOn("copyCsXiLectureAssets")
 }
 
 dependencies {
