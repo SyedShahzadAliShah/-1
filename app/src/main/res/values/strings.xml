@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CS Lecture Notes</string>
-    <string name="app_subtitle">Bilingual Teacher\'s Edition Study Guide</string>
-    <string name="welcome_title">Cinematic Sindh CS Study Guide</string>
-    <string name="welcome_message">High-yield lecture notes for Class XI &amp; XII Computer Science — English and Urdu side-by-side, voice narration, PDF export, and Ken Burns cinematic walkthrough of the full teacher PDFs. Topics marked ★ in the source notes are golden for board exams.</string>
+    <string name="app_name">Self-Taught Bootcamp</string>
+    <string name="app_subtitle">Cinematic CS XI &amp; XII — learn at your own pace</string>
+    <string name="welcome_title">Cinematic Self-Taught Bootcamp</string>
+    <string name="welcome_message">Your bilingual bootcamp for Sindh Curriculum Computer Science — Class XI &amp; XII. Watch Ken Burns cinematic lectures over the full teacher PDFs, listen with embedded TTS, study chapter notes in English and Urdu, and export summaries. ★ topics are golden for board exams.</string>
     <string name="study_cover">Study guide cover</string>
     <string name="class_xi_title">Class XI — Computer Science</string>
     <string name="class_xi_hint">Sindh Curriculum 2026 • 6 chapters • embedded lecture PDF</string>
     <string name="class_xii_title">Class XII — Computer Science</string>
     <string name="class_xii_hint">Sindh Curriculum 2025–27 • 6 chapters • HCI to entrepreneurship</string>
     <string name="embed_tts_language_title">Embed TTS language</string>
+    <string name="narrative_language_title">Narration language</string>
     <string name="embed_tts_engine_badge">Embed male voice TTS: %1$s</string>
     <string name="narrative_language_hint">Embedded engine reads each PDF page from bundled text — English or Urdu only (pick one).</string>
     <string name="listen_full_pdf_xi">🔊 Embed TTS — entire XI PDF</string>
@@ -65,7 +66,7 @@
     <string name="pdf_open">Open PDF</string>
     <string name="pdf_save_downloads">Save to Downloads</string>
     <string name="pdf_print">Print</string>
-    <string name="pdf_saved_downloads">Saved to Downloads/CSStudyGuide/%1$s</string>
+    <string name="pdf_saved_downloads">Saved to Downloads/SelfTaughtBootcamp/%1$s</string>
     <string name="pdf_save_failed">Could not save PDF to Downloads</string>
     <string name="pdf_failed">Could not create PDF</string>
     <string name="voice_not_ready">Voice engine not ready</string>
@@ -88,5 +89,5 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — CS Lecture Notes + Narrative Embed</string>
+    <string name="version_badge">Version %1$s — Cinematic Self-Taught Bootcamp</string>
 </resources>

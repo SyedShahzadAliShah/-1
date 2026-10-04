@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build CS Lecture-Notes Study Guide assets from teacher PDFs."""
+"""Build Cinematic Self-Taught Bootcamp assets from teacher PDFs."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ TRANSLATE_SLEEP_SEC = 0.15
 
 CHAPTER_SPECS = {
     "xi": {
-        "pdf_src": UPLOADS / "XI-compressed_7487.pdf",
+        "pdf_src": UPLOADS / "XI-compressed_6562.pdf",
         "asset_pdf": "cs_xi_lecture_notes.pdf",
         "starts": [1, 27, 44, 70, 96, 111],
         "titles_en": [
@@ -50,7 +50,7 @@ CHAPTER_SPECS = {
         "grade_label": "گیارہویں",
     },
     "xii": {
-        "pdf_src": UPLOADS / "XII-compressed_6812.pdf",
+        "pdf_src": UPLOADS / "XII-compressed_c673.pdf",
         "asset_pdf": "cs_xii_lecture_notes.pdf",
         "starts": [1, 22, 48, 76, 103, 124],
         "titles_en": [

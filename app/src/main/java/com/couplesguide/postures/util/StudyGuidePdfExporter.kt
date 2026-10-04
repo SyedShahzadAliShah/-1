@@ -22,9 +22,9 @@ object StudyGuidePdfExporter {
 
     fun exportSummary(context: Context, language: String): PdfExporter.ExportResult {
         val displayName = if (language == LocaleHelper.LANG_UR) {
-            "cs_lecture_notes_summary_urdu.pdf"
+            "self_taught_bootcamp_summary_urdu.pdf"
         } else {
-            "cs_lecture_notes_summary_english.pdf"
+            "self_taught_bootcamp_summary_english.pdf"
         }
         val file = File(context.cacheDir, displayName)
         if (file.exists()) file.delete()
@@ -54,9 +54,9 @@ object StudyGuidePdfExporter {
     ): Int {
         val isUr = language == LocaleHelper.LANG_UR
         val title = if (isUr) {
-            "CS Lecture Notes — اساتذہ کا دو لسانی مطالعہ"
+            "Self-Taught Bootcamp — سینمائی CS مطالعہ"
         } else {
-            "Computer Science — Bilingual Teacher's Lecture Notes"
+            "Cinematic Self-Taught Bootcamp — Computer Science"
         }
         val subtitle = if (isUr) {
             "جماعت XI و XII • سندھ نصاب • ★ Golden Topics"
