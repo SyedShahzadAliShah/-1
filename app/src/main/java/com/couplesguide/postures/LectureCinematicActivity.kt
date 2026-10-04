@@ -121,13 +121,6 @@ class LectureCinematicActivity : AppCompatActivity() {
         autoHandler.removeCallbacks(autoAdvanceRunnable)
 
         val bindPage = {
-            binding.pageTitle.text = getString(R.string.cinematic_page_title_en, currentPdfPage)
-            binding.pageNarration.text = LectureEmbedTtsEngine.captionForPage(
-                this,
-                pageIndexAsset,
-                currentPdfPage
-            ).ifBlank { getString(R.string.cinematic_page_fallback_narration) }
-
             binding.pageIndicator.text = getString(
                 R.string.cinematic_page_indicator,
                 currentPdfPage - startPage + 1,

@@ -19,9 +19,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.0.5)** — Embed TTS reads the **full text of each PDF page** (`en_tts` / `ur_tts`, not truncated excerpts). English **or** Urdu per PDF:
+**Latest (v1.0.6)** — Cinematic mode shows the PDF unobstructed during embed TTS (no caption overlay). Full-page **`en_tts` / `ur_tts`** narration:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.5-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.6-debug.apk
 
 > Install on Android 7+ (minSdk 24). Allow “Install unknown apps” for your browser or file manager if prompted.
 
