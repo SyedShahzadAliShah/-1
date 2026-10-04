@@ -11,8 +11,8 @@ android {
         applicationId = "com.sindhcs.studyguide"
         minSdk = 24
         targetSdk = 34
-        versionCode = 109
-        versionName = "1.0.9"
+        versionCode = 110
+        versionName = "1.1.0"
     }
 
     buildTypes {

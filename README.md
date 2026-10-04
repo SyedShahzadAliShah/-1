@@ -19,9 +19,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.0.9)** — **Male narrative voice** for English or Urdu only (embed TTS, cinematic, chapter listen):
+**Latest (v1.1.0)** — In-app **Google TTS voice installer** (English US + Urdu Pakistan male packs) plus male narrative for English or Urdu only:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.9-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.1.0-debug.apk
 
 > Install on Android 7+ (minSdk 24). Allow “Install unknown apps” for your browser or file manager if prompted.
 

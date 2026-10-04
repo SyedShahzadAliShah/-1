@@ -1,7 +1,6 @@
 package com.couplesguide.postures.util
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
@@ -182,17 +181,8 @@ class VoiceNarrator(
         private const val UTTERANCE_PREFIX = "narration_"
 
         fun openTtsSettings(context: Context) {
-            val intents = listOf(
-                Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA),
-                Intent("com.android.settings.TTS_SETTINGS"),
-                Intent(android.provider.Settings.ACTION_SETTINGS)
-            )
-            for (intent in intents) {
-                if (intent.resolveActivity(context.packageManager) != null) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
-                    return
-                }
+            if (!NarrativeTtsInstallHelper.launchGoogleTtsInstaller(context)) {
+                NarrativeTtsInstallHelper.launchTtsSettings(context)
             }
         }
     }
