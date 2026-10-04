@@ -8,7 +8,7 @@
 
     <string name="mt331_app_title">MT-331 Lecture Notes</string>
     <string name="mt331_hero_title">Probability &amp; Statistics — Cinematic Lecture Notes</string>
-    <string name="mt331_hero_subtitle">NED UET teacher sketchnotes (Walpole). Swipe through beats; TTS in English or Urdu only.</string>
+    <string name="mt331_hero_subtitle">NED UET sketchnotes with embedded MathJax formulas and SVG diagrams. TTS in English or Urdu.</string>
     <string name="mt331_version_badge">Build %1$s — English or Urdu TTS</string>
     <string name="mt331_listen_overview">Listen to syllabus overview</string>
     <string name="mt331_chapter_list_heading">Lecture chapters</string>
@@ -19,4 +19,5 @@
     <string name="mt331_next">Next</string>
     <string name="mt331_beat_progress">Beat %1$d of %2$d</string>
     <string name="mt331_tts_settings">Text-to-speech settings</string>
+    <string name="mt331_math_embed">Formula diagram and MathJax rendering</string>
 </resources>

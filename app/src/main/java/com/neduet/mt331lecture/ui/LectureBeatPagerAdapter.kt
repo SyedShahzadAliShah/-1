@@ -1,19 +1,30 @@
 package com.neduet.mt331lecture.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.neduet.mt331lecture.R
 import com.neduet.mt331lecture.data.mt331.LectureBeat
+import com.neduet.mt331lecture.data.mt331.Mt331BeatDiagrams
+import com.neduet.mt331lecture.data.mt331.Mt331LatexCatalog
 import com.neduet.mt331lecture.databinding.ItemLectureBeatBinding
 
-class LectureBeatPagerAdapter : RecyclerView.Adapter<LectureBeatPagerAdapter.BeatViewHolder>() {
+class LectureBeatPagerAdapter(
+    private var displayLanguage: String = "en"
+) : RecyclerView.Adapter<LectureBeatPagerAdapter.BeatViewHolder>() {
 
     private var beats: List<LectureBeat> = emptyList()
 
     fun submitBeats(items: List<LectureBeat>) {
         beats = items
+        notifyDataSetChanged()
+    }
+
+    fun setDisplayLanguage(language: String) {
+        if (displayLanguage == language) return
+        displayLanguage = language
         notifyDataSetChanged()
     }
 
@@ -27,7 +38,7 @@ class LectureBeatPagerAdapter : RecyclerView.Adapter<LectureBeatPagerAdapter.Bea
     }
 
     override fun onBindViewHolder(holder: BeatViewHolder, position: Int) {
-        holder.bind(beats[position])
+        holder.bind(beats[position], displayLanguage)
     }
 
     override fun getItemCount(): Int = beats.size
@@ -36,25 +47,22 @@ class LectureBeatPagerAdapter : RecyclerView.Adapter<LectureBeatPagerAdapter.Bea
         private val binding: ItemLectureBeatBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(beat: LectureBeat) {
+        fun bind(beat: LectureBeat, displayLanguage: String) {
             binding.beatGlyph.text = beat.glyph
             binding.beatTitleEn.text = beat.titleEn
             binding.beatTitleUr.text = beat.titleUr
             binding.beatBodyEn.text = beat.narrationEn
             binding.beatBodyUr.text = beat.narrationUr
-            val formulaBlock = buildString {
-                if (beat.formulaEn.isNotBlank()) append(beat.formulaEn)
-                if (beat.formulaUr.isNotBlank()) {
-                    if (isNotEmpty()) append("\n\n")
-                    append(beat.formulaUr)
-                }
-            }
-            binding.beatFormula.text = formulaBlock
-            binding.beatFormula.visibility = if (formulaBlock.isBlank()) {
-                android.view.View.GONE
+
+            val hasMath = Mt331LatexCatalog.latexForBeat(beat, displayLanguage).isNotBlank() ||
+                Mt331BeatDiagrams.svgForBeat(beat.id) != null
+            if (hasMath) {
+                binding.beatMathCard.visibility = View.VISIBLE
+                LectureMathEmbedView.bind(binding.beatMathWebView, beat, displayLanguage)
             } else {
-                android.view.View.VISIBLE
+                binding.beatMathCard.visibility = View.GONE
             }
+
             val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.fade_in_cinema)
             binding.beatRoot.startAnimation(anim)
         }

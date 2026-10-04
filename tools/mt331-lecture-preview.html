@@ -54,7 +54,14 @@
     }
     .bar button.primary { background: var(--primary); border-color: var(--primary); }
     .progress { color: var(--muted); font-size: 0.85rem; margin-bottom: 8px; }
+    .embed { margin-top: 18px; padding: 14px; border-radius: 12px; background: #0d1220; }
+    .embed svg { width: 100%; max-width: 360px; display: block; margin: 0 auto 12px; }
+    .mathjax { text-align: center; color: var(--formula); }
   </style>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
   <div class="shell">

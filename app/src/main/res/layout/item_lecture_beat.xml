@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -59,15 +60,21 @@
             android:textDirection="rtl"
             android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/beatFormula"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/beatMathCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@color/cinema_surface"
-            android:fontFamily="monospace"
-            android:padding="14dp"
-            android:textColor="@color/cinema_formula"
-            android:textSize="14sp" />
+            app:cardBackgroundColor="@color/cinema_surface"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp">
+
+            <WebView
+                android:id="@+id/beatMathWebView"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/mt331_math_embed" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -64,7 +64,7 @@ class LectureCinemaActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = chapter.title(ttsLanguage)
 
-        beatAdapter = LectureBeatPagerAdapter()
+        beatAdapter = LectureBeatPagerAdapter(ttsLanguage)
         binding.beatPager.adapter = beatAdapter
         beatAdapter.submitBeats(chapter.beats)
         binding.beatPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -79,11 +79,13 @@ class LectureCinemaActivity : AppCompatActivity() {
         binding.chipEnglish.setOnClickListener {
             ttsLanguage = LocaleHelper.LANG_EN
             syncTtsChips()
+            beatAdapter.setDisplayLanguage(ttsLanguage)
             voiceNarrator?.stop()
         }
         binding.chipUrdu.setOnClickListener {
             ttsLanguage = LocaleHelper.LANG_UR
             syncTtsChips()
+            beatAdapter.setDisplayLanguage(ttsLanguage)
             voiceNarrator?.stop()
         }
 

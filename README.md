@@ -3,6 +3,7 @@
 NED UET **Probability & Statistics (MT-331)** — cinematic bilingual teacher lecture notes (Walpole sketchnotes).
 
 - Swipeable **lecture beats** per syllabus chapter
+- **MathJax** (TeX) formulas + **SVG sketchnote diagrams** on each beat (network required first load for MathJax CDN)
 - **Text-to-speech:** **English** or **Urdu** only (pick one per lecture; matches app language by default)
 - Teacher PDF bundled in the app: `app/src/main/assets/mt331_teachers_cheatsheet.pdf`
 - Browser preview: `tools/mt331-lecture-preview.html`

@@ -8,7 +8,10 @@ data class LectureBeat(
     val narrationEn: String,
     val narrationUr: String,
     val formulaEn: String = "",
-    val formulaUr: String = ""
+    val formulaUr: String = "",
+    /** LaTeX display math (optional; falls back to catalog / plain formula). */
+    val latexEn: String = "",
+    val latexUr: String = ""
 )
 
 data class LectureChapter(
