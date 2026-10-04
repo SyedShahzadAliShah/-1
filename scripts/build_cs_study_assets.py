@@ -24,7 +24,7 @@ DRAWABLE = ROOT / "app/src/main/res/drawable-nodpi"
 
 MAX_EN_TTS_CHARS = 4500
 TRANSLATE_CHUNK = 3500
-TRANSLATE_SLEEP_SEC = 0.65
+TRANSLATE_SLEEP_SEC = 0.15
 
 CHAPTER_SPECS = {
     "xi": {
@@ -95,57 +95,6 @@ def clean_english_for_tts(text: str) -> str:
     return text
 
 
-def extract_urdu_fragments(text: str) -> str:
-    parts = ARABIC_RE.findall(text or "")
-    joined = " ".join(p.strip() for p in parts if len(p.strip()) > 3)
-    return re.sub(r"\s+", " ", joined).strip()
-
-
-_translator = None
-
-
-def get_translator():
-    global _translator
-    if _translator is None:
-        from deep_translator import GoogleTranslator
-
-        _translator = GoogleTranslator(source="en", target="ur")
-    return _translator
-
-
-def translate_en_to_ur(text: str) -> str:
-    text = text.strip()
-    if not text:
-        return ""
-    translator = get_translator()
-    chunks: list[str] = []
-    remaining = text
-    while remaining:
-        piece = remaining[:TRANSLATE_CHUNK]
-        if len(remaining) > TRANSLATE_CHUNK:
-            split = piece.rfind(". ")
-            if split > TRANSLATE_CHUNK // 2:
-                piece = remaining[: split + 1]
-        translated = ""
-        for attempt in range(6):
-            try:
-                translated = translator.translate(piece)
-                break
-            except Exception as exc:
-                msg = str(exc).lower()
-                if attempt < 5 and ("too many" in msg or "429" in msg or "server error" in msg):
-                    time.sleep(1.5 * (attempt + 1))
-                    continue
-                print(f"  translate warning: {exc}", file=sys.stderr)
-                translated = piece
-                break
-        chunks.append(translated)
-        remaining = remaining[len(piece) :].strip()
-        if remaining:
-            time.sleep(TRANSLATE_SLEEP_SEC)
-    return " ".join(chunks).strip()
-
-
 def split_bilingual_lines(raw: str) -> tuple[str, str]:
     en_parts: list[str] = []
     ur_parts: list[str] = []
@@ -162,6 +111,64 @@ def split_bilingual_lines(raw: str) -> tuple[str, str]:
     en_raw = " ".join(en_parts)
     ur_raw = re.sub(r"\s+", " ", " ".join(ur_parts)).strip()
     return en_raw, ur_raw
+
+
+_argos_en_ur = None
+
+
+def get_argos_en_ur():
+    global _argos_en_ur
+    if _argos_en_ur is None:
+        import argostranslate.translate
+
+        installed = argostranslate.translate.get_installed_languages()
+        from_lang = next((lang for lang in installed if lang.code == "en"), None)
+        to_lang = next((lang for lang in installed if lang.code == "ur"), None)
+        if not from_lang or not to_lang:
+            raise SystemExit("Argos en→ur package not installed")
+        _argos_en_ur = from_lang.get_translation(to_lang)
+    return _argos_en_ur
+
+
+def is_valid_ur_tts(ur: str, en: str) -> bool:
+    ur = (ur or "").strip()
+    en = (en or "").strip()
+    if not ur or not en or ur == en:
+        return False
+    min_len = min(80, max(40, int(len(en) * 0.25)))
+    if len(ur) < min_len:
+        return False
+    arabic = sum(len(m) for m in ARABIC_RE.findall(ur))
+    if arabic < 24:
+        return False
+    return True
+
+
+def translate_en_to_ur(text: str) -> str:
+    text = text.strip()
+    if not text:
+        return ""
+    translation = get_argos_en_ur()
+    chunks: list[str] = []
+    remaining = text
+    while remaining:
+        piece = remaining[:TRANSLATE_CHUNK]
+        if len(remaining) > TRANSLATE_CHUNK:
+            split = piece.rfind(". ")
+            if split > TRANSLATE_CHUNK // 2:
+                piece = remaining[: split + 1]
+        try:
+            translated = translation.translate(piece).strip()
+        except Exception as exc:
+            print(f"  argos translate warning: {exc}", file=sys.stderr)
+            return ""
+        if not translated:
+            return ""
+        chunks.append(translated)
+        remaining = remaining[len(piece) :].strip()
+        if remaining:
+            time.sleep(TRANSLATE_SLEEP_SEC)
+    return " ".join(chunks).strip()
 
 
 def extract_page_raw(pdf_path: Path, page_number: int) -> str:
@@ -181,8 +188,8 @@ def enrich_page_tts(page: dict, translate: bool) -> dict:
         raw = page["en_tts"]
     en_lines, ur_pdf = split_bilingual_lines(raw)
     en_tts = clean_english_for_tts(en_lines or raw)
-    ur_tts = page.get("ur_tts", "").strip()
-    if translate and en_tts and not ur_tts:
+    ur_tts = (page.get("ur_tts") or "").strip()
+    if translate and en_tts and not is_valid_ur_tts(ur_tts, en_tts):
         ur_tts = translate_en_to_ur(en_tts)
     elif not ur_tts:
         ur_tts = ur_pdf
@@ -222,12 +229,20 @@ def build_page_index(
 
     for i in range(1, total + 1):
         cached = pages[i - 1]
-        if cached and cached.get("en_tts") and (cached.get("ur_tts") or not translate):
-            if cached.get("en_tts") and cached.get("ur_tts"):
+        if cached and cached.get("en_tts"):
+            if translate:
+                if is_valid_ur_tts(cached.get("ur_tts", ""), cached.get("en_tts", "")):
+                    continue
+            else:
                 continue
+
         if cached and cached.get("en_tts"):
             row = enrich_page_tts(
-                {"page": i, "_raw": cached.get("en_tts", ""), "ur_tts": cached.get("ur_tts", "")},
+                {
+                    "page": i,
+                    "_raw": cached.get("en_tts", ""),
+                    "ur_tts": cached.get("ur_tts", ""),
+                },
                 translate=translate,
             )
         else:
@@ -237,11 +252,15 @@ def build_page_index(
 
         if index_path is not None and (i % 5 == 0 or i == total):
             snapshot = [p for p in pages if p is not None]
-            index_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=0), encoding="utf-8")
+            if len(snapshot) == total:
+                index_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=0), encoding="utf-8")
         if i % 10 == 0 or i == total:
             print(f"  page {i}/{total}", flush=True)
 
-    return [p for p in pages if p is not None]
+    result = [p for p in pages if p is not None]
+    if index_path is not None and len(result) == total:
+        index_path.write_text(json.dumps(result, ensure_ascii=False, indent=0), encoding="utf-8")
+    return result
 
 
 def write_chapter_covers(prefix: str, titles_en: list[str]) -> None:
@@ -278,7 +297,36 @@ def write_chapter_covers(prefix: str, titles_en: list[str]) -> None:
         print("Wrote", out)
 
 
+def ur_fill_only() -> None:
+    translate = True
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    for key, spec in CHAPTER_SPECS.items():
+        dest_pdf = ASSETS / spec["asset_pdf"]
+        if not dest_pdf.exists():
+            src = spec["pdf_src"]
+            if not src.exists():
+                raise SystemExit(f"Missing PDF: {src}")
+            shutil.copy2(src, dest_pdf)
+        index_path = ASSETS / f"cs_{key}_pages.json"
+        existing = load_existing_index(index_path)
+        if len(existing) < 10:
+            raise SystemExit(f"Index too small or missing: {index_path} ({len(existing)} pages)")
+        print(f"Urdu TTS fill: {key.upper()} ({len(existing)} cached pages)", flush=True)
+        page_index = build_page_index(
+            dest_pdf,
+            translate=translate,
+            existing=existing,
+            index_path=index_path,
+        )
+        valid = sum(1 for p in page_index if is_valid_ur_tts(p.get("ur_tts", ""), p.get("en_tts", "")))
+        print(f"Wrote {index_path} entries {len(page_index)} valid ur_tts {valid}/{len(page_index)}", flush=True)
+
+
 def main() -> None:
+    if "--ur-fill-only" in sys.argv:
+        ur_fill_only()
+        return
+
     translate = "--no-translate" not in sys.argv
     ASSETS.mkdir(parents=True, exist_ok=True)
     meta = {"classes": []}
@@ -297,7 +345,7 @@ def main() -> None:
         print("Copied", dest_pdf)
 
         index_path = ASSETS / f"cs_{key}_pages.json"
-        existing = load_existing_index(index_path) if translate else {}
+        existing = load_existing_index(index_path)
 
         page_index = build_page_index(
             dest_pdf,
