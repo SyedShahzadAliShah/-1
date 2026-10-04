@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.couplesguide.postures"
+    namespace = "com.neduet.mt331lecture"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.couplesguide.postures"
+        applicationId = "com.neduet.mt331lecture"
         minSdk = 24
         targetSdk = 34
-        versionCode = 16
-        versionName = "4.0.0-mt331"
+        versionCode = 17
+        versionName = "4.1.0-mt331"
     }
 
     buildTypes {

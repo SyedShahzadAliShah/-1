@@ -1,1 +1,1 @@
-# Default ProGuard rules for Intimacy Guide
+# ProGuard rules for MT-331 Lecture Notes

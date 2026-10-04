@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "IntimacyGuide"
+rootProject.name = "Mt331LectureNotes"
 include(":app")
