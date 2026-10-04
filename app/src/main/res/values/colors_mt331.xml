@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cinema_background">#FF0A0E1A</color>
+    <color name="cinema_surface">#FF141B2D</color>
+    <color name="cinema_primary">#FF5B8DEF</color>
+    <color name="cinema_primary_glow">#335B8DEF</color>
+    <color name="cinema_accent">#FFFFB347</color>
+    <color name="cinema_on_dark">#FFF4F7FF</color>
+    <color name="cinema_muted">#FF9AA8C7</color>
+    <color name="cinema_formula">#FF7EE787</color>
+</resources>

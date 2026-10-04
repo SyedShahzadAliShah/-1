@@ -35,4 +35,10 @@ object LocaleHelper {
     }
 
     fun isUrdu(context: Context): Boolean = getLanguage(context) == LANG_UR
+
+    fun toggleLanguage(context: Context): String {
+        val next = if (getLanguage(context) == LANG_UR) LANG_EN else LANG_UR
+        setLanguage(context, next)
+        return next
+    }
 }

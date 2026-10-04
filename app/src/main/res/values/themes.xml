@@ -8,4 +8,13 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
         <item name="android:navigationBarColor">@color/background</item>
     </style>
+
+    <style name="Theme.Mt331Cinema" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/cinema_primary</item>
+        <item name="colorSecondary">@color/cinema_accent</item>
+        <item name="android:colorBackground">@color/cinema_background</item>
+        <item name="android:statusBarColor">@color/cinema_background</item>
+        <item name="android:navigationBarColor">@color/cinema_background</item>
+        <item name="android:windowBackground">@drawable/bg_cinema_gradient</item>
+    </style>
 </resources>

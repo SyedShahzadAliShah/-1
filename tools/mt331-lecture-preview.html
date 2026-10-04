@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MT-331 Cinematic Lecture Preview</title>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #141b2d;
+      --primary: #5b8def;
+      --accent: #ffb347;
+      --text: #f4f7ff;
+      --muted: #9aa8c7;
+      --formula: #7ee787;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #1b2748, #141b2d 45%, #0a0e1a);
+    }
+    .shell { max-width: 720px; margin: 0 auto; padding: 24px 20px 120px; }
+    h1 { font-size: 1.5rem; margin: 0 0 8px; }
+    .sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      border: 1px solid rgba(91,141,239,.25);
+      animation: fadeIn .65s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .glyph { font-size: 2.6rem; text-align: center; }
+    .title-en { font-size: 1.45rem; font-weight: 700; text-align: center; margin-top: 12px; }
+    .title-ur { font-size: 1.2rem; color: var(--accent); text-align: center; direction: rtl; margin-top: 6px; }
+    .body-en { color: var(--muted); line-height: 1.55; margin-top: 18px; }
+    .body-ur { direction: rtl; line-height: 1.7; margin-top: 14px; }
+    .formula {
+      margin-top: 18px; padding: 14px; border-radius: 12px;
+      background: #0d1220; color: var(--formula); font-family: ui-monospace, monospace; font-size: 0.9rem;
+    }
+    .bar {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      background: rgba(10,14,26,.92); backdrop-filter: blur(8px);
+      padding: 14px 16px 20px; border-top: 1px solid rgba(91,141,239,.2);
+    }
+    .bar button, .bar select {
+      font: inherit; border-radius: 10px; border: 1px solid rgba(91,141,239,.4);
+      background: var(--surface); color: var(--text); padding: 10px 14px; margin: 4px;
+    }
+    .bar button.primary { background: var(--primary); border-color: var(--primary); }
+    .progress { color: var(--muted); font-size: 0.85rem; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>MT-331 Lecture Notes</h1>
+    <p class="sub">Browser preview of cinematic beats + Web Speech TTS (mirrors Android lecture mode).</p>
+    <div class="card" id="beatCard"></div>
+  </div>
+  <div class="bar">
+    <div class="progress" id="progress"></div>
+    <select id="ttsMode" aria-label="TTS mode">
+      <option value="en">English</option>
+      <option value="ur">Urdu (romanized for browser)</option>
+      <option value="both" selected>EN + UR</option>
+    </select>
+    <button type="button" id="prevBtn">Previous</button>
+    <button type="button" class="primary" id="playBtn">Listen</button>
+    <button type="button" id="nextBtn">Next</button>
+  </div>
+  <script>
+    const beats = [
+      {
+        glyph: "📊",
+        titleEn: "Population versus sample",
+        titleUr: "آبادی بمقابلہ نمونہ",
+        narrationEn: "The population is the entire group we study. A sample is a subset summarized by statistics like x-bar.",
+        narrationUr: "Aabadi woh mukammal goroh hai. Namoona aabadi ka zaeefi hissa hai.",
+        formulaEn: "N, μ, σ² | n, x̄, s²",
+        formulaUr: "N، μ، σ² | n، x̄، s²"
+      },
+      {
+        glyph: "🎲",
+        titleEn: "Sample space and events",
+        titleUr: "نمونہ فضا اور واقعات",
+        narrationEn: "Sample space S lists all outcomes. Events are subsets. Mutually exclusive events do not overlap.",
+        narrationUr: "Namoona faza S tamam natayij ki fehrist hai. Waqiyat S ke zaeefi majmooay hain.",
+        formulaEn: "0 ≤ P(A) ≤ 1",
+        formulaUr: "0 ≤ P(A) ≤ 1"
+      },
+      {
+        glyph: "🔔",
+        titleEn: "Normal distribution",
+        titleUr: "نارمل تقسیم",
+        narrationEn: "The Gaussian curve is symmetric with empirical rule 68, 95, and 99.7 percent within one, two, and three sigma.",
+        narrationUr: "Gaussian manhni mayan ke gird mutanasib hai aur empirical rule se andaza lagaya jata hai.",
+        formulaEn: "Z = (X − μ) / σ",
+        formulaUr: "Z = (X − μ) / σ"
+      }
+    ];
+    let index = 0;
+    let speaking = false;
+    const card = document.getElementById("beatCard");
+    const progress = document.getElementById("progress");
+    const playBtn = document.getElementById("playBtn");
+
+    function render() {
+      const b = beats[index];
+      progress.textContent = `Beat ${index + 1} of ${beats.length}`;
+      card.innerHTML = `
+        <div class="glyph">${b.glyph}</div>
+        <div class="title-en">${b.titleEn}</div>
+        <div class="title-ur">${b.titleUr}</div>
+        <div class="body-en">${b.narrationEn}</div>
+        <div class="body-ur">${b.narrationUr}</div>
+        <div class="formula">${b.formulaEn}<br><br>${b.formulaUr}</div>`;
+      card.style.animation = "none";
+      void card.offsetWidth;
+      card.style.animation = "";
+    }
+
+    function speakText(text, lang) {
+      return new Promise((resolve) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = lang === "ur" ? "ur-PK" : "en-US";
+        u.onend = () => resolve();
+        u.onerror = () => resolve();
+        speechSynthesis.speak(u);
+      });
+    }
+
+    async function playBeat() {
+      if (speaking) {
+        speechSynthesis.cancel();
+        speaking = false;
+        playBtn.textContent = "Listen";
+        return;
+      }
+      const b = beats[index];
+      const mode = document.getElementById("ttsMode").value;
+      speaking = true;
+      playBtn.textContent = "Stop";
+      const scriptEn = `${b.titleEn}. ${b.narrationEn}`;
+      const scriptUr = `${b.titleUr}. ${b.narrationUr}`;
+      if (mode === "en" || mode === "both") await speakText(scriptEn, "en");
+      if (mode === "ur" || mode === "both") await speakText(scriptUr, "ur");
+      speaking = false;
+      playBtn.textContent = "Listen";
+    }
+
+    document.getElementById("prevBtn").onclick = () => { index = Math.max(0, index - 1); render(); };
+    document.getElementById("nextBtn").onclick = () => { index = Math.min(beats.length - 1, index + 1); render(); };
+    playBtn.onclick = playBeat;
+    render();
+  </script>
+</body>
+</html>

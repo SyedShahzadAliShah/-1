@@ -1,4 +1,20 @@
-# Intimacy Guide
+# Intimacy Guide + MT-331 Lecture Notes
+
+## MT-331 (v4.0.0) — Cinematic bilingual lecture notes
+
+NED UET **Probability & Statistics (MT-331)** teacher sketchnotes as swipeable **lecture beats** with **Text-to-Speech** in:
+
+- English only
+- Urdu only
+- **Bilingual** (English then Urdu, auto-advance optional)
+
+The app launcher opens **MT-331 Lecture Notes**. The original intimacy handbook remains available from the overflow menu (MT-331) or **Open intimacy handbook** (handbook → MT-331 lecture notes).
+
+Teacher PDF booklet is bundled at `app/src/main/assets/mt331_teachers_cheatsheet.pdf`.
+
+Browser preview (same beat/TTS idea): open `tools/mt331-lecture-preview.html` in Chrome.
+
+---
 
 Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
 

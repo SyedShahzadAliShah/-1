@@ -19,6 +19,7 @@ class VoiceNarrator(
     private var isReady = false
     private val pendingSpeech = mutableListOf<Pair<String, String>>()
     private var activeUtterances = 0
+    private var onQueueComplete: (() -> Unit)? = null
 
     init {
         tts = TextToSpeech(context.applicationContext, this)
@@ -51,6 +52,7 @@ class VoiceNarrator(
                 }
                 if (activeUtterances == 0) {
                     onSpeakingChanged(false)
+                    onQueueComplete?.invoke()
                 }
             }
 
@@ -70,6 +72,10 @@ class VoiceNarrator(
             activeUtterances = 0
         }
         onSpeakingChanged(false)
+    }
+
+    fun setOnQueueCompleteListener(listener: (() -> Unit)?) {
+        onQueueComplete = listener
     }
 
     fun speak(text: String, language: String): Boolean {
