@@ -22,11 +22,11 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Download (verified link)** — **v1.2.2** TTS fix:
+**Download (recommended)** — **v1.2.3** stable (same narration as v1.2.2):
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.2-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.3-debug.apk
 
-See [DOWNLOAD.md](DOWNLOAD.md) for install steps. Newer v1.3.x APKs are in `releases/` on the branch after push.
+Also: [v1.2.2](https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.2-debug.apk). Avoid v1.3.0 if you preferred 1.2.2 — see [DOWNLOAD.md](DOWNLOAD.md).
 
 > Install on Android 7+ (minSdk 24). Uninstall older CS Lecture Notes builds if you had them — this app uses package `com.sindhcs.selftaughtbootcamp`. Allow “Install unknown apps” for your browser or file manager if prompted.
 

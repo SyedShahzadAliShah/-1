@@ -92,7 +92,7 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Smart TTS + Captions + AI Tutor</string>
+    <string name="version_badge">Version %1$s — Stable narration (1.2.2 line) + AI Tutor</string>
     <string name="ai_tutor_title">Embedded AI Tutor</string>
     <string name="open_ai_tutor">🤖 Open Embedded AI Tutor</string>
     <string name="ask_ai_tutor_chapter">🤖 Ask AI Tutor about this chapter</string>

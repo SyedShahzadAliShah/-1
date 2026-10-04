@@ -36,20 +36,6 @@ object LectureEmbedTtsEngine {
             ttsLanguageMode(context)
         )
 
-    fun isPageSpeakable(context: Context, indexAsset: String, pageNumber: Int): Boolean {
-        val segments = segmentsForPage(context, indexAsset, pageNumber)
-        if (segments.isEmpty()) return false
-        val (text, lang) = segments.first()
-        return EmbedTtsQuality.isMeaningfulForTts(text, lang)
-    }
-
-    fun captionExcerptForPage(context: Context, indexAsset: String, pageNumber: Int): String {
-        val segments = segmentsForPage(context, indexAsset, pageNumber)
-        if (segments.isEmpty()) return ""
-        val (text, lang) = segments.first()
-        return EmbedTtsQuality.excerptForCaption(text, lang)
-    }
-
     class Session(private val narrator: VoiceNarrator) {
         private var cancelled = false
 
@@ -125,13 +111,11 @@ object LectureEmbedTtsEngine {
             onComplete: (() -> Unit)? = null
         ) {
             val segments = segmentsForPage(context, indexAsset, pageNumber)
-            if (segments.isEmpty() || !isPageSpeakable(context, indexAsset, pageNumber)) {
+            if (segments.isEmpty()) {
                 onComplete?.invoke()
                 return
             }
-            if (narrator.speakSegments(segments, onComplete) != true) {
-                onComplete?.invoke()
-            }
+            narrator.speakSegments(segments, onComplete)
         }
 
         private fun readPageAt(
@@ -153,10 +137,6 @@ object LectureEmbedTtsEngine {
             }
             onPageStarted(page, progressTotal)
 
-            if (!isPageSpeakable(context, indexAsset, page)) {
-                readPageAt(context, indexAsset, page + 1, endPage, progressTotal, onPageStarted, onFinished)
-                return
-            }
             val segments = segmentsForPage(context, indexAsset, page)
             if (segments.isEmpty()) {
                 readPageAt(context, indexAsset, page + 1, endPage, progressTotal, onPageStarted, onFinished)

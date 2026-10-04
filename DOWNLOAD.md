@@ -1,41 +1,24 @@
 # Download Self-Taught Bootcamp APK
 
-## DDL v1.3.0 (direct link)
+## Recommended — stable narration (same behavior as v1.2.2)
 
-After you push branch `cursor/cinematic-self-taught-bootcamp-9c6c`:
+**v1.2.3** (restores 1.2.2 embed/cinematic TTS; keeps AI Tutor + natural voice prep):
 
-**https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.3.0-debug.apk**
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.3-debug.apk
 
-CDN mirror: **https://cdn.jsdelivr.net/gh/SyedShahzadAliShah/-1@cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.3.0-debug.apk**
-
-Details: [releases/DDL-v1.3.0.md](releases/DDL-v1.3.0.md)
-
----
-
-## Works now (on GitHub)
-
-**v1.2.2** — TTS reliability fix (use this if newer links fail):
+**v1.2.2** (original stable build):
 
 https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.2-debug.apk
 
-Tap the link on your **phone** (Chrome), download the file, then open it to install.
+> **Note:** v1.3.0 skipped pages and changed cinematic flow — use **1.2.2 / 1.2.3** instead.
 
-Package: `com.sindhcs.selftaughtbootcamp`  
-Android 7+ (API 24).
+## Install
 
-## After install
+1. Uninstall older builds.
+2. Open the APK link on your phone (Chrome) → install.
+3. Package: `com.sindhcs.selftaughtbootcamp`
+4. **Settings → Text-to-speech** → Google TTS → English + Urdu (Pakistan) voices.
 
-1. Uninstall any older CS Lecture / Bootcamp app.
-2. Open the app → wait for **“Narration engine ready”**.
-3. **Settings → Text-to-speech** → **Google Text-to-speech** → download **English** and **Urdu (Pakistan)** voices.
-4. In the app, pick **Embed TTS: English** or **Urdu**, then **Listen** or **Cinematic Lecture**.
+## v1.3.0 (not recommended)
 
-## Newer builds (v1.3.x)
-
-Newer APKs are committed on branch `cursor/cinematic-self-taught-bootcamp-9c6c` but may not appear on GitHub until that branch is pushed from your account. Ask the agent to push, or build locally:
-
-```bash
-./gradlew assembleDebug
-```
-
-APK: `app/build/outputs/apk/debug/app-debug.apk`
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.3.0-debug.apk

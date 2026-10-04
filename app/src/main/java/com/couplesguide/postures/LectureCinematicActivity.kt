@@ -15,7 +15,6 @@ import com.couplesguide.postures.util.LectureEmbedTtsEngine
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrativeLanguageUi
 import com.couplesguide.postures.util.PdfAssetRenderer
-import com.couplesguide.postures.util.TtsPlaybackHelper
 import com.couplesguide.postures.util.VoiceNarrator
 
 class LectureCinematicActivity : AppCompatActivity() {
@@ -27,7 +26,6 @@ class LectureCinematicActivity : AppCompatActivity() {
         const val EXTRA_AUTO_PLAY = "auto_play"
         private const val AUTO_ADVANCE_DELAY_MS = 14000L
         private const val AUTO_ADVANCE_EMBED_MS = 26000L
-        private const val AUTO_ADVANCE_NO_NARRATION_MS = 9000L
     }
 
     private lateinit var binding: ActivityLectureCinematicBinding
@@ -138,15 +136,6 @@ class LectureCinematicActivity : AppCompatActivity() {
             binding.btnPrev.isEnabled = currentPdfPage > startPage
             binding.btnNext.isEnabled = currentPdfPage < endPage
 
-            val caption = LectureEmbedTtsEngine.captionExcerptForPage(
-                this,
-                pageIndexAsset,
-                currentPdfPage
-            )
-            binding.pageCaption.text = caption.ifBlank {
-                getString(R.string.cinematic_page_fallback_narration)
-            }
-
             if (isAutoPlaying && voiceReady) speakCurrentPageForAutoPlay()
             else if (isAutoPlaying) scheduleAutoAdvanceFallback()
         }
@@ -175,29 +164,8 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     private fun speakCurrentPageInternal(onComplete: (() -> Unit)?) {
-        val narrator = voiceNarrator
-        if (narrator == null) {
-            scheduleAdvanceIfAutoPlay(onComplete)
-            return
-        }
-        val segments = LectureEmbedTtsEngine.segmentsForPage(this, pageIndexAsset, currentPdfPage)
-        if (segments.isEmpty()) {
-            scheduleAdvanceIfAutoPlay(onComplete)
-            return
-        }
-        if (narrator.speakSegments(segments, onComplete) != true) {
-            TtsPlaybackHelper.showPlaybackFailedDialog(this)
-            scheduleAdvanceIfAutoPlay(onComplete)
-        }
-    }
-
-    /** When a page has no TTS, still give time to read the PDF before auto-advance. */
-    private fun scheduleAdvanceIfAutoPlay(onComplete: (() -> Unit)?) {
-        if (isAutoPlaying) {
-            autoHandler.postDelayed({ onComplete?.invoke() }, AUTO_ADVANCE_NO_NARRATION_MS)
-        } else {
-            onComplete?.invoke()
-        }
+        embedTtsSession?.speakSinglePage(this, pageIndexAsset, currentPdfPage, onComplete)
+            ?: onComplete?.invoke()
     }
 
     /** Fallback if TTS is not ready yet during auto-play. */
