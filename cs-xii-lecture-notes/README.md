@@ -39,7 +39,13 @@ python3 scripts/build_lecture_data.py
 
 Module **`cs-xii-app`** wraps the web lecture notes in a WebView (offline scenes + diagrams; **MathJax** loads from CDN when online).
 
-**Download (debug build):** `releases/CS-XII-Lecture-Cinema-v1.0.1-debug.apk` (fixes WebView load + native TTS)
+**Download (debug build):** `releases/CS-XII-Lecture-Cinema-v1.0.2-debug.apk`
+
+Direct link (use this if GitHub shows “Page not found”):
+
+https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/cs-xii-lecture-notes-1978/releases/CS-XII-Lecture-Cinema-v1.0.2-debug.apk
+
+**Important:** Uninstall any older CS XII Lecture Cinema APK, then install **v1.0.2** (fixes WebView “Page not found”).
 
 ```bash
 export ANDROID_HOME=$HOME/android-sdk   # or your SDK path

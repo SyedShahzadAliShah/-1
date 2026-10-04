@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(webView)
 
         val assetLoader = WebViewAssetLoader.Builder()
-            .addPathHandler("/www/", WebViewAssetLoader.AssetsPathHandler(this))
+            .setDomain("appassets.androidplatform.net")
+            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
             .build()
 
         webView.settings.apply {
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val START_URL = "https://appassets.androidplatform.net/www/index.html"
+        private const val START_URL =
+            "https://appassets.androidplatform.net/assets/www/index.html"
     }
 }
