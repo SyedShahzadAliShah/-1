@@ -17,6 +17,14 @@ Android study guide for **Sindh Curriculum Computer Science Class XI & XII**, bu
 python3 scripts/build_cs_study_assets.py
 ```
 
+## Download
+
+**Latest (v1.0.0)** — CS XI/XII bilingual lecture notes + cinematic PDF lectures:
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.0-debug.apk
+
+> Install on Android 7+ (minSdk 24). Allow “Install unknown apps” for your browser or file manager if prompted.
+
 ## Build APK
 
 ```bash
@@ -24,7 +32,7 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-APK: `app/build/outputs/apk/debug/app-debug.apk`
+APK: `app/build/outputs/apk/debug/app-debug.apk` (same as `releases/CS-Lecture-Notes-StudyGuide-v1.0.0-debug.apk`)
 
 ## Version 1.0.0
 
