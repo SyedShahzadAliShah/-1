@@ -1,0 +1,106 @@
+{
+  "classes": [
+    {
+      "id": "xi",
+      "gradeLabel": "XI",
+      "pdfAsset": "lecture_notes/cs_xi_lecture_notes.pdf",
+      "pageIndexAsset": "lecture_notes/cs_xi_pages.json",
+      "totalPages": 127,
+      "chapters": [
+        {
+          "number": 1,
+          "titleEn": "Computer Systems",
+          "titleUr": "کمپیوٹر سسٹمز",
+          "pdfPageStart": 1,
+          "pdfPageEnd": 26
+        },
+        {
+          "number": 2,
+          "titleEn": "Computational Thinking & Algorithms",
+          "titleUr": "Computational Thinking اور الگورتھم",
+          "pdfPageStart": 27,
+          "pdfPageEnd": 43
+        },
+        {
+          "number": 3,
+          "titleEn": "Programming Fundamentals",
+          "titleUr": "پروگرامنگ کی بنیادیں",
+          "pdfPageStart": 44,
+          "pdfPageEnd": 69
+        },
+        {
+          "number": 4,
+          "titleEn": "Data and Analysis",
+          "titleUr": "ڈیٹا اور تجزیہ",
+          "pdfPageStart": 70,
+          "pdfPageEnd": 95
+        },
+        {
+          "number": 5,
+          "titleEn": "Application and Impacts of Computing",
+          "titleUr": "Computing کے اطلاقات و اثرات",
+          "pdfPageStart": 96,
+          "pdfPageEnd": 110
+        },
+        {
+          "number": 6,
+          "titleEn": "Digital Literacy",
+          "titleUr": "ڈیجیٹل literacy",
+          "pdfPageStart": 111,
+          "pdfPageEnd": 127
+        }
+      ]
+    },
+    {
+      "id": "xii",
+      "gradeLabel": "XII",
+      "pdfAsset": "lecture_notes/cs_xii_lecture_notes.pdf",
+      "pageIndexAsset": "lecture_notes/cs_xii_pages.json",
+      "totalPages": 147,
+      "chapters": [
+        {
+          "number": 1,
+          "titleEn": "Computer Systems (HCI)",
+          "titleUr": "کمپیوٹر سسٹمز (HCI)",
+          "pdfPageStart": 1,
+          "pdfPageEnd": 21
+        },
+        {
+          "number": 2,
+          "titleEn": "Computational Thinking & Algorithms",
+          "titleUr": "Computational Thinking اور الگورتھم",
+          "pdfPageStart": 22,
+          "pdfPageEnd": 47
+        },
+        {
+          "number": 3,
+          "titleEn": "Programming Fundamentals",
+          "titleUr": "Programming کی بنیادیں",
+          "pdfPageStart": 48,
+          "pdfPageEnd": 75
+        },
+        {
+          "number": 4,
+          "titleEn": "Data and Analysis",
+          "titleUr": "ڈیٹا اور تجزیہ",
+          "pdfPageStart": 76,
+          "pdfPageEnd": 102
+        },
+        {
+          "number": 5,
+          "titleEn": "Application and Impacts of Computing",
+          "titleUr": "Computing کے اطلاقات و اثرات",
+          "pdfPageStart": 103,
+          "pdfPageEnd": 123
+        },
+        {
+          "number": 6,
+          "titleEn": "Entrepreneurship in the Digital Age",
+          "titleUr": "ڈیجیٹل دور میں کاروباریت",
+          "pdfPageStart": 124,
+          "pdfPageEnd": 147
+        }
+      ]
+    }
+  ]
+}

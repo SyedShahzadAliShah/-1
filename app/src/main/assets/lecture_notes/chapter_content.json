@@ -1,0 +1,314 @@
+[
+  {
+    "id": "xi_ch1",
+    "grade": "XI",
+    "chapterNumber": 1,
+    "titleEn": "Computer Systems",
+    "titleUr": "کمپیوٹر سسٹمز",
+    "pdfPageStart": 1,
+    "pdfPageEnd": 26,
+    "summaryEn": "Teacher's lecture notes for CS XI — Computer Systems. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XI — کمپیوٹر سسٹمز کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 1. 1.1.1 & 1.1.2 Discrete vs Continuous & Digital Systems 3. 1.1.4 - 1.1.6 Boolean Algebra, Operations & Truth Tables 4. 1.1.7 Basic Logic Gates (AND, OR, NOT) ★ 5. 1.1.7 Universal & Advanced Logic Gates 6. 1.1.8 - 1.1.11 Logic Expressions, Minterms & Diagrams 7. 1.1.13 Karnaugh Maps (K-Maps) Simplification ★ 9. 1.2.1 - 1.2.3 Software Development Life Cycle (SDLC) ★",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 1.1.3 Analog and Digital Signals",
+      "4. 1.1.7 Basic Logic Gates (AND, OR, NOT)",
+      "7. 1.1.13 Karnaugh Maps (K-Maps) Simplification",
+      "9. 1.2.1 - 1.2.3 Software Development Life Cycle (SDLC)",
+      "11. 1.3.1 - 1.3.4 Communication Models & OSI 7-Layer Model",
+      "\u0000ں۔\u0000\u0000\u0000\u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xi_ch2",
+    "grade": "XI",
+    "chapterNumber": 2,
+    "titleEn": "Computational Thinking & Algorithms",
+    "titleUr": "Computational Thinking اور الگورتھم",
+    "pdfPageStart": 27,
+    "pdfPageEnd": 43,
+    "summaryEn": "Teacher's lecture notes for CS XI — Computational Thinking & Algorithms. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XI — Computational Thinking اور الگورتھم کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 1. 2.1 & 2.2 Introduction to CT & Algorithms 3. 2.3.1 Algorithmic Strategy: Decomposition ★ 4. 2.3.2 Algorithmic Strategy: Pattern Recognition 5. 2.3.3 Algorithmic Strategy: Abstraction 6. 2.4.1 Sorting Algorithms: Bubble Sort ★ 7. 2.4.1 Sorting Algorithms: Selection Sort ★ 8. 2.4.2 Searching Algorithms: Linear Search",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 2.2.2 Algorithm vs Pseudocode",
+      "3. 2.3.1 Algorithmic Strategy: Decomposition",
+      "6. 2.4.1 Sorting Algorithms: Bubble Sort",
+      "7. 2.4.1 Sorting Algorithms: Selection Sort",
+      "9. 2.4.2 Searching Algorithms: Binary Search",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xi_ch3",
+    "grade": "XI",
+    "chapterNumber": 3,
+    "titleEn": "Programming Fundamentals",
+    "titleUr": "پروگرامنگ کی بنیادیں",
+    "pdfPageStart": 44,
+    "pdfPageEnd": 69,
+    "summaryEn": "Teacher's lecture notes for CS XI — Programming Fundamentals. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XI — پروگرامنگ کی بنیادیں کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 3. 3.3 Integrated Development Environment (IDE) & VS Code 4. 3.4 Fundamentals of Python Programming 7. 3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise) ★ 10. 3.5.2 Selection Statements (if, if-else, if-elif-else, nested) ★ 11. 3.5.3 Repetition Statements (for loop, while loop) ★ 12. 3.6 Libraries in Python (Built-in & Third-Party) 13. 3.7 Debugging Code in Python (Syntax, Runtime, Logical Errors)",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "5. 3.4.1 Variables and Data Types",
+      "7. 3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise)",
+      "10. 3.5.2 Selection Statements (if, if-else, if-elif-else, nested)",
+      "11. 3.5.3 Repetition Statements (for loop, while loop)",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000",
+      "been followed verbatim. Topics marked with a  are highly critical for"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xi_ch4",
+    "grade": "XI",
+    "chapterNumber": 4,
+    "titleEn": "Data and Analysis",
+    "titleUr": "ڈیٹا اور تجزیہ",
+    "pdfPageStart": 70,
+    "pdfPageEnd": 95,
+    "summaryEn": "Teacher's lecture notes for CS XI — Data and Analysis. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XI — ڈیٹا اور تجزیہ کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 2. 4.1.2 Database Management System (DBMS) 3. 4.2 Database Components (Tables, Records, Fields) 4. 4.3.1 Keys and Integrity Constraints ★ 5. 4.3 Relational Database Management System (RDBMS) 6. 4.4 Entity Relationship Model (ER-Model) ★ 7. 4.5 Referential Integrity (Cascade Update & Delete) ★ 9. 4.7 Case Study - Library Management System",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "4. 4.3.1 Keys and Integrity Constraints",
+      "6. 4.4 Entity Relationship Model (ER-Model)",
+      "7. 4.5 Referential Integrity (Cascade Update & Delete)",
+      "13. 4.11 Creating Queries in MS Access",
+      "\u0000ں۔\u0000\u0000\u0000\u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 \u0000\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000",
+      "been followed verbatim. Topics marked with a  are highly critical for"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xi_ch5",
+    "grade": "XI",
+    "chapterNumber": 5,
+    "titleEn": "Application and Impacts of Computing",
+    "titleUr": "Computing کے اطلاقات و اثرات",
+    "pdfPageStart": 96,
+    "pdfPageEnd": 110,
+    "summaryEn": "Teacher's lecture notes for CS XI — Application and Impacts of Computing. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XI — Computing کے اطلاقات و اثرات کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 3. 5.1.2 Internet of Things (IoT) & Components ★ 5. Table: IoT vs AI vs Data Analytics Comparison 6. 5.2 Uses of IoT in Different Areas (Smart Cities, Health, Farms) 7. 5.2.1 Scope of AI in Education in Pakistan 8. 5.3 Information Sources (Primary, Secondary, Tertiary) ★ 9. 5.4 Impacts of Computing in Various Fields 11. 5.5.1 Importance of Assistive Technologies",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 5.1.1 Artificial Intelligence (AI)",
+      "3. 5.1.2 Internet of Things (IoT) & Components",
+      "8. 5.3 Information Sources (Primary, Secondary, Tertiary)",
+      "10. 5.5 Assistive Technologies",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000",
+      "been followed verbatim. Topics marked with a  are highly critical for"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xi_ch6",
+    "grade": "XI",
+    "chapterNumber": 6,
+    "titleEn": "Digital Literacy",
+    "titleUr": "ڈیجیٹل literacy",
+    "pdfPageStart": 111,
+    "pdfPageEnd": 127,
+    "summaryEn": "Teacher's lecture notes for CS XI — Digital Literacy. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XI — ڈیجیٹل literacy کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 1. 6.1 & 6.2 Introduction to Digital Literacy 2. 6.3 Types of Data (Qualitative vs Quantitative) ★ 5. 6.4.3 - 6.4.5 Prototypes, Observation, and Simulations 7. 6.6 Designing a Data-Collection Approach 8. 6.7 Presenting Data Using Digital Tools 9. 6.7.1 - 6.7.4 Spreadsheets, Presentations, Infographics, Reports 10. 6.8 Case Study: Digital Inquiry Project ★",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 6.3 Types of Data (Qualitative vs Quantitative)",
+      "3. 6.4 Data-Collection Strategies",
+      "6. 6.5 Primary and Secondary Data",
+      "10. 6.8 Case Study: Digital Inquiry Project",
+      "\u0000ں۔\u0000\u0000\u0000\u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000",
+      "been followed verbatim. Topics marked with a  are highly critical for"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xii_ch1",
+    "grade": "XII",
+    "chapterNumber": 1,
+    "titleEn": "Computer Systems (HCI)",
+    "titleUr": "کمپیوٹر سسٹمز (HCI)",
+    "pdfPageStart": 1,
+    "pdfPageEnd": 21,
+    "summaryEn": "Teacher's lecture notes for CS XII — Computer Systems (HCI). Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XII — کمپیوٹر سسٹمز (HCI) کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2024 / 2025-27 1. 1.1 Fundamentals of Human Computer Interaction (HCI) 2. 1.1.1 - 1.1.2 Traditional vs Natural Interaction 3. 1.2 Applications of HCI (Domains of Life) ★ 6. 1.3 (Cont.) Interface Types, Environment & Feedback 9. 1.6 Need Analysis for Interface Design 10. 1.7 Human Computer Interaction Problems ★",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "3. 1.2 Applications of HCI (Domains of Life)",
+      "7. 1.4 Importance of HCI",
+      "10. 1.7 Human Computer Interaction Problems",
+      "12. 1.9 User Interface Design (UI vs UX)",
+      "15. 1.11.2 Testing Methods (Usability, A/B, Automated)",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xii_ch2",
+    "grade": "XII",
+    "chapterNumber": 2,
+    "titleEn": "Computational Thinking & Algorithms",
+    "titleUr": "Computational Thinking اور الگورتھم",
+    "pdfPageStart": 22,
+    "pdfPageEnd": 47,
+    "summaryEn": "Teacher's lecture notes for CS XII — Computational Thinking & Algorithms. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XII — Computational Thinking اور الگورتھم کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2024 / 2025-27 1. 2.1 Analyze algorithms for correctness 2. 2.1.1 - 2.1.3 Trace Tables vs Stepwise Reasoning ★ 3. 2.2 Evaluating the Clarity of an Algorithm 4. 2.2.1 - 2.2.2 Modularity and Readability 6. 2.3.1 Number of Steps (Big O Notation) ★ 9. 2.3.4 The Efficiency Evaluation Framework",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 2.1.1 - 2.1.3 Trace Tables vs Stepwise Reasoning",
+      "6. 2.3.1 Number of Steps (Big O Notation)",
+      "11. 2.5 Concept of Data Structure",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000",
+      "been followed verbatim. Topics marked with a  are highly critical for",
+      "GOLDEN TOPIC"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xii_ch3",
+    "grade": "XII",
+    "chapterNumber": 3,
+    "titleEn": "Programming Fundamentals",
+    "titleUr": "Programming کی بنیادیں",
+    "pdfPageStart": 48,
+    "pdfPageEnd": 75,
+    "summaryEn": "Teacher's lecture notes for CS XII — Programming Fundamentals. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XII — Programming کی بنیادیں کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 2. 3.1.1 Lists (Ordered, Mutable, Methods) ★ 4. 3.1.3 Sets (Unordered, Unique, Math Operations) 5. 3.1.4 Dictionaries (Key-Value pairs) ★ 6. 3.1.5 Common Built-in Functions (`min`, `max`, `len`, `sum`) 7. 3.1.6 Activity: Students Attendance Program 8. 3.1.7 Activity: Word Frequency Counter 10. 3.2.1 Types of Functions (Built-in vs User-defined)",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 3.1.1 Lists (Ordered, Mutable, Methods)",
+      "3. 3.1.2 Tuples (Ordered, Immutable)",
+      "5. 3.1.4 Dictionaries (Key-Value pairs)",
+      "9. 3.2 Functions in Python",
+      "15. 3.6 `with` Statement (Context Manager)",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xii_ch4",
+    "grade": "XII",
+    "chapterNumber": 4,
+    "titleEn": "Data and Analysis",
+    "titleUr": "ڈیٹا اور تجزیہ",
+    "pdfPageStart": 76,
+    "pdfPageEnd": 102,
+    "summaryEn": "Teacher's lecture notes for CS XII — Data and Analysis. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XII — ڈیٹا اور تجزیہ کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 2. 4.1.1 Data Sources and Need for Connectivity 3. 4.1.2 Key Components of a Database Connection ★ 4. 4.2 Creating a SQLite Database in Python 6. 4.3 Basic Operations on Data using Pandas ★ 8. 4.3.2 Creating and Loading Data (CSV, Excel) 10. 4.4 Data Organization and Representation 11. 4.5 Data Visualization & Types of Graphs ★",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "3. 4.1.2 Key Components of a Database Connection",
+      "6. 4.3 Basic Operations on Data using Pandas",
+      "9. 4.3.3 Handling Missing Values (NaN)",
+      "11. 4.5 Data Visualization & Types of Graphs",
+      "18. 4.6 Descriptive Statistics",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xii_ch5",
+    "grade": "XII",
+    "chapterNumber": 5,
+    "titleEn": "Application and Impacts of Computing",
+    "titleUr": "Computing کے اطلاقات و اثرات",
+    "pdfPageStart": 103,
+    "pdfPageEnd": 123,
+    "summaryEn": "Teacher's lecture notes for CS XII — Application and Impacts of Computing. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XII — Computing کے اطلاقات و اثرات کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics 1. 5.1 Machine Learning, Neural Networks & Deep Learning 7. 5.2 Applications of Neural Networks and Deep Learning 8. 5.3 Secure Collaboration and Data Protection ★ 9. 5.3.1 Secure Collaboration (Authentication, Access Control) 10. 5.3.2 Data Protection (Encryption, Passwords, Backup, Firewall) 11. 5.4 Security Threats and Mitigation Techniques ★ 12. 5.4.1 Common Security Threats (Malware, Phishing, DoS)",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "3. 5.1.2 Neural Networks (NN)",
+      "5. 5.1.4 Components of Neural Networks",
+      "8. 5.3 Secure Collaboration and Data Protection",
+      "11. 5.4 Security Threats and Mitigation Techniques",
+      "16. 5.5.1 Functions of Equity and Equal Access",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  },
+  {
+    "id": "xii_ch6",
+    "grade": "XII",
+    "chapterNumber": 6,
+    "titleEn": "Entrepreneurship in the Digital Age",
+    "titleUr": "ڈیجیٹل دور میں کاروباریت",
+    "pdfPageStart": 124,
+    "pdfPageEnd": 147,
+    "summaryEn": "Teacher's lecture notes for CS XII — Entrepreneurship in the Digital Age. Topics marked ★ are golden / high-yield for Sindh board exams.",
+    "summaryUr": "CS XII — ڈیجیٹل دور میں کاروباریت کے اساتذہ لیکچر نوٹس۔ ★ والے موضوعات امتحان کے لیے نہایت اہم ہیں۔",
+    "bodyEn": "High-Yielding Lecture Notes & Golden Topics Based on New Sindh Curriculum 2024 / 2025-27 2. 6.2 Entrepreneurship in the Digital Age ★ 3. Table 6.1 Local examples of digital entrepreneurship 6. 6.5 Types of Prototypes (Low, Mid, High-Fidelity) 7. 6.6 Prototype Development Cycle (Design, Build, Test, Iterate) ★ 8. 6.7 Class Activity: Create a Prototype 10. 6.9 Difference between Prototype and MVP",
+    "bodyUr": "مکمل دو لسانی نوٹس PDF میں موجود ہیں۔ سینمائی لیکچر موڈ سے صفحہ بہ صفحہ پڑھیں اور سنیں۔",
+    "keyPointsEn": [
+      "2. 6.2 Entrepreneurship in the Digital Age",
+      "5. 6.4 Prototype",
+      "7. 6.6 Prototype Development Cycle (Design, Build, Test, Iterate)",
+      "9. 6.8 Minimum Viable Product (MVP)",
+      "15. 6.14 Beachhead Market",
+      "\u0000ں۔\u0000\u0000\u0000 \u0000 \u0000م \u0000ا یٔ\u0000\u0000\u0000ا \u0000\u0000\u0000\u0000 \u0000\u0000ا \u0000\u0000\u0000\u0000\u0000\u0000\u0000 ےک \u0000ا\u0000\u0000 \u0000ا\u0000ح\u0000 \u0000\u0000\u0000ا وہ \u0000ے\u0000 \u0000اں\u0000 س\u0000 \u0000\u0000 ا\u0000\u0000  ر\u0000\u0000\u0000 ا\u0000\u0000\u0000\u0000و\u0000 \u0000و\u0000\u0000\u0000"
+    ],
+    "keyPointsUr": [
+      "منسلک PDF میں مکمل نوٹس",
+      "سندھ نصاب 2025–27",
+      "★ موضوعات امتحانی ترجیح"
+    ]
+  }
+]
