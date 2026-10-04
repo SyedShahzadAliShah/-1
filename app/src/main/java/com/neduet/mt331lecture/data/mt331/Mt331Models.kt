@@ -24,9 +24,3 @@ data class LectureChapter(
 
     fun tagline(language: String): String = if (language == "ur") taglineUr else taglineEn
 }
-
-enum class LectureTtsMode {
-    ENGLISH,
-    URDU,
-    BILINGUAL
-}

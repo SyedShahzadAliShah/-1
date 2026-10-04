@@ -8,13 +8,12 @@
 
     <string name="mt331_app_title">MT-331 Lecture Notes</string>
     <string name="mt331_hero_title">Probability &amp; Statistics — Cinematic Lecture Notes</string>
-    <string name="mt331_hero_subtitle">NED UET bilingual teacher sketchnotes (Walpole). Swipe through beats, listen in English, Urdu, or both.</string>
-    <string name="mt331_version_badge">Build %1$s — Bilingual TTS lecture mode</string>
+    <string name="mt331_hero_subtitle">NED UET teacher sketchnotes (Walpole). Swipe through beats; TTS in English or Urdu only.</string>
+    <string name="mt331_version_badge">Build %1$s — English or Urdu TTS</string>
     <string name="mt331_listen_overview">Listen to syllabus overview</string>
     <string name="mt331_chapter_list_heading">Lecture chapters</string>
     <string name="mt331_tts_english">English</string>
     <string name="mt331_tts_urdu">Urdu</string>
-    <string name="mt331_tts_bilingual">EN + UR</string>
     <string name="mt331_auto_advance">Auto-advance after narration</string>
     <string name="mt331_previous">Previous</string>
     <string name="mt331_next">Next</string>

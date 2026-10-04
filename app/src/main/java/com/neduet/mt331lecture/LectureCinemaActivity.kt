@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.neduet.mt331lecture.data.mt331.LectureBeat
 import com.neduet.mt331lecture.data.mt331.LectureChapter
-import com.neduet.mt331lecture.data.mt331.LectureTtsMode
 import com.neduet.mt331lecture.data.mt331.Mt331LectureRepository
 import com.neduet.mt331lecture.databinding.ActivityLectureCinemaBinding
 import com.neduet.mt331lecture.ui.LectureBeatPagerAdapter
@@ -29,10 +28,7 @@ class LectureCinemaActivity : AppCompatActivity() {
     private var voiceNarrator: VoiceNarrator? = null
     private var voiceReady = false
     private var isSpeaking = false
-    private var ttsMode = LectureTtsMode.BILINGUAL
-    private var narrationLangIndex = 0
-    private var narrationLanguages: List<String> = emptyList()
-    private var currentBeatForNarration: LectureBeat? = null
+    private var ttsLanguage = LocaleHelper.LANG_EN
 
     override fun attachBaseContext(newBase: android.content.Context) {
         super.attachBaseContext(LocaleHelper.wrap(newBase))
@@ -50,6 +46,7 @@ class LectureCinemaActivity : AppCompatActivity() {
             return
         }
         chapter = found
+        ttsLanguage = LocaleHelper.getLanguage(this)
 
         voiceNarrator = VoiceNarrator(
             context = this,
@@ -65,7 +62,7 @@ class LectureCinemaActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = chapter.titleEn
+        supportActionBar?.title = chapter.title(ttsLanguage)
 
         beatAdapter = LectureBeatPagerAdapter()
         binding.beatPager.adapter = beatAdapter
@@ -73,14 +70,22 @@ class LectureCinemaActivity : AppCompatActivity() {
         binding.beatPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateProgressLabel(position)
+                voiceNarrator?.setOnQueueCompleteListener(null)
                 voiceNarrator?.stop()
             }
         })
 
-        binding.chipEnglish.setOnClickListener { ttsMode = LectureTtsMode.ENGLISH }
-        binding.chipUrdu.setOnClickListener { ttsMode = LectureTtsMode.URDU }
-        binding.chipBilingual.setOnClickListener { ttsMode = LectureTtsMode.BILINGUAL }
-        binding.chipBilingual.isChecked = true
+        syncTtsChips()
+        binding.chipEnglish.setOnClickListener {
+            ttsLanguage = LocaleHelper.LANG_EN
+            syncTtsChips()
+            voiceNarrator?.stop()
+        }
+        binding.chipUrdu.setOnClickListener {
+            ttsLanguage = LocaleHelper.LANG_UR
+            syncTtsChips()
+            voiceNarrator?.stop()
+        }
 
         binding.btnPrevious.setOnClickListener { goToBeat(binding.beatPager.currentItem - 1) }
         binding.btnNext.setOnClickListener { goToBeat(binding.beatPager.currentItem + 1) }
@@ -89,6 +94,11 @@ class LectureCinemaActivity : AppCompatActivity() {
         updateProgressLabel(0)
         updatePlayButton()
         startGlowAnimation()
+    }
+
+    private fun syncTtsChips() {
+        binding.chipEnglish.isChecked = ttsLanguage == LocaleHelper.LANG_EN
+        binding.chipUrdu.isChecked = ttsLanguage == LocaleHelper.LANG_UR
     }
 
     private fun startGlowAnimation() {
@@ -122,7 +132,6 @@ class LectureCinemaActivity : AppCompatActivity() {
         if (isSpeaking) {
             voiceNarrator?.setOnQueueCompleteListener(null)
             voiceNarrator?.stop()
-            narrationLangIndex = 0
             return
         }
         if (!voiceReady) {
@@ -134,36 +143,22 @@ class LectureCinemaActivity : AppCompatActivity() {
     }
 
     private fun startBeatNarration(beat: LectureBeat) {
-        currentBeatForNarration = beat
-        narrationLanguages = Mt331Narration.languagesForMode(ttsMode)
-        narrationLangIndex = 0
-        voiceNarrator?.setOnQueueCompleteListener { onNarrationLanguageFinished() }
-        speakLanguageForCurrentBeat()
-    }
-
-    private fun speakLanguageForCurrentBeat() {
-        val beat = currentBeatForNarration ?: return
-        if (narrationLangIndex >= narrationLanguages.size) {
+        voiceNarrator?.setOnQueueCompleteListener {
             voiceNarrator?.setOnQueueCompleteListener(null)
-            if (binding.switchAutoAdvance.isChecked) {
-                val next = binding.beatPager.currentItem + 1
-                if (next < chapter.beats.size) {
-                    binding.beatPager.setCurrentItem(next, true)
-                    binding.beatPager.post { startBeatNarration(chapter.beats[next]) }
-                }
+            if (!binding.switchAutoAdvance.isChecked) return@setOnQueueCompleteListener
+            val next = binding.beatPager.currentItem + 1
+            if (next < chapter.beats.size) {
+                binding.beatPager.setCurrentItem(next, true)
+                binding.beatPager.post { startBeatNarration(chapter.beats[next]) }
             }
-            return
         }
-        val lang = narrationLanguages[narrationLangIndex]
-        val spoken = voiceNarrator?.speak(Mt331Narration.buildBeatNarration(beat, lang), lang) ?: false
+        val spoken = voiceNarrator?.speak(
+            Mt331Narration.buildBeatNarration(beat, ttsLanguage),
+            ttsLanguage
+        ) ?: false
         if (!spoken) {
             voiceNarrator?.setOnQueueCompleteListener(null)
         }
-    }
-
-    private fun onNarrationLanguageFinished() {
-        narrationLangIndex++
-        speakLanguageForCurrentBeat()
     }
 
     private fun updatePlayButton() {

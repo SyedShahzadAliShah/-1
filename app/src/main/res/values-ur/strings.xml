@@ -8,13 +8,12 @@
 
     <string name="mt331_app_title">MT-331 لیکچر نوٹس</string>
     <string name="mt331_hero_title">احتمال و شماریات — سینمائی لیکچر نوٹس</string>
-    <string name="mt331_hero_subtitle">NED UET دو لسانی اساتذہ اسکیچ نوٹس (Walpole)۔ بیٹس دیکھیں، انگریزی، اردو، یا دونوں میں سنیں۔</string>
-    <string name="mt331_version_badge">بلڈ %1$s — دو لسانی TTS لیکچر موڈ</string>
+    <string name="mt331_hero_subtitle">NED UET اساتذہ اسکیچ نوٹس (Walpole)۔ بیٹس دیکھیں؛ TTS صرف انگریزی یا اردو میں۔</string>
+    <string name="mt331_version_badge">بلڈ %1$s — انگریزی یا اردو TTS</string>
     <string name="mt331_listen_overview">نصاب کا جائزہ سنیں</string>
     <string name="mt331_chapter_list_heading">لیکچر کے باب</string>
     <string name="mt331_tts_english">English</string>
     <string name="mt331_tts_urdu">اردو</string>
-    <string name="mt331_tts_bilingual">انگریزی + اردو</string>
     <string name="mt331_auto_advance">بولنے کے بعد خود اگلا بیٹ</string>
     <string name="mt331_previous">پچھلا</string>
     <string name="mt331_next">اگلا</string>

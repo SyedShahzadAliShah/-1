@@ -2,14 +2,18 @@ package com.neduet.mt331lecture.util
 
 import com.neduet.mt331lecture.data.mt331.LectureBeat
 import com.neduet.mt331lecture.data.mt331.LectureChapter
-import com.neduet.mt331lecture.data.mt331.LectureTtsMode
 import com.neduet.mt331lecture.data.mt331.Mt331LectureRepository
 
 object Mt331Narration {
 
     fun buildOverviewNarration(language: String): String {
         val sb = StringBuilder()
-        sb.append("MT-331 Probability and Statistics. NED University bilingual lecture notes. ")
+        val intro = if (language == LocaleHelper.LANG_UR) {
+            "ایم ٹی تین تین ایک احتمال و شماریات۔ این ای ڈی یونیورسٹی لیکچر نوٹس۔ "
+        } else {
+            "MT-331 Probability and Statistics. NED University lecture notes. "
+        }
+        sb.append(intro)
         for (chapter in Mt331LectureRepository.getChapters()) {
             val title = chapter.title(language)
             val tag = chapter.tagline(language)
@@ -41,9 +45,4 @@ object Mt331Narration {
         }
     }
 
-    fun languagesForMode(mode: LectureTtsMode): List<String> = when (mode) {
-        LectureTtsMode.ENGLISH -> listOf(LocaleHelper.LANG_EN)
-        LectureTtsMode.URDU -> listOf(LocaleHelper.LANG_UR)
-        LectureTtsMode.BILINGUAL -> listOf(LocaleHelper.LANG_EN, LocaleHelper.LANG_UR)
-    }
 }

@@ -11,8 +11,8 @@ android {
         applicationId = "com.neduet.mt331lecture"
         minSdk = 24
         targetSdk = 34
-        versionCode = 17
-        versionName = "4.1.0-mt331"
+        versionCode = 18
+        versionName = "4.1.1-mt331"
     }
 
     buildTypes {

@@ -65,9 +65,8 @@
   <div class="bar">
     <div class="progress" id="progress"></div>
     <select id="ttsMode" aria-label="TTS mode">
-      <option value="en">English</option>
+      <option value="en" selected>English</option>
       <option value="ur">Urdu (romanized for browser)</option>
-      <option value="both" selected>EN + UR</option>
     </select>
     <button type="button" id="prevBtn">Previous</button>
     <button type="button" class="primary" id="playBtn">Listen</button>
@@ -147,8 +146,8 @@
       playBtn.textContent = "Stop";
       const scriptEn = `${b.titleEn}. ${b.narrationEn}`;
       const scriptUr = `${b.titleUr}. ${b.narrationUr}`;
-      if (mode === "en" || mode === "both") await speakText(scriptEn, "en");
-      if (mode === "ur" || mode === "both") await speakText(scriptUr, "ur");
+      if (mode === "ur") await speakText(scriptUr, "ur");
+      else await speakText(scriptEn, "en");
       speaking = false;
       playBtn.textContent = "Listen";
     }
