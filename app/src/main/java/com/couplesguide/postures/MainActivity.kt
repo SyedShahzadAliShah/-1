@@ -19,6 +19,9 @@ import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.PdfExporter
 import com.couplesguide.postures.util.StudyGuidePdfExporter
 import com.couplesguide.postures.util.RecyclerViewHelper
+import com.couplesguide.postures.util.NarrativeLanguageDialog
+import com.couplesguide.postures.util.NarrativeLanguageHelper
+import com.couplesguide.postures.util.NarrativeLanguageUi
 import com.couplesguide.postures.util.VoiceNarrator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -81,6 +84,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(binding.guideCoverImage, R.drawable.pic_cs_xi_ch1)
+
+        NarrativeLanguageUi.bindToggleGroup(
+            binding.narrativeToggleGroup,
+            binding.btnNarrativeEn,
+            binding.btnNarrativeUr,
+            binding.btnNarrativeEmbed
+        ) {
+            NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
+        }
+        NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
     }
 
     private fun openChapter(chapterId: String) {
@@ -122,6 +135,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_narrative_language -> {
+                NarrativeLanguageDialog.show(this) {
+                    NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
+                    binding.narrativeToggleGroup.check(
+                        when (NarrativeLanguageHelper.getMode(this)) {
+                            NarrativeLanguageHelper.MODE_UR -> binding.btnNarrativeUr.id
+                            NarrativeLanguageHelper.MODE_EN -> binding.btnNarrativeEn.id
+                            else -> binding.btnNarrativeEmbed.id
+                        }
+                    )
+                }
+                true
+            }
             R.id.action_language -> {
                 showLanguageDialog()
                 true
@@ -163,8 +189,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        val text = NarrationBuilder.buildMainGuideNarration(this, language)
-        if (voiceNarrator?.speak(text, language) != true) {
+        val segments = NarrationBuilder.buildMainGuideNarrationSegments(this)
+        if (voiceNarrator?.speakSegments(segments) != true) {
             Toast.makeText(this, R.string.voice_install_prompt, Toast.LENGTH_LONG).show()
         }
     }

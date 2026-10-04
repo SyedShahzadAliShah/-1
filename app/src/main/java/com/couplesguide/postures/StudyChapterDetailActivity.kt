@@ -11,6 +11,7 @@ import com.couplesguide.postures.data.StudyChapter
 import com.couplesguide.postures.databinding.ActivityStudyChapterDetailBinding
 import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
+import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.VoiceNarrator
 
@@ -109,9 +110,15 @@ class StudyChapterDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_listen) {
-            toggleNarration()
-            return true
+        when (item.itemId) {
+            R.id.action_narrative_language -> {
+                NarrativeLanguageDialog.show(this)
+                return true
+            }
+            R.id.action_listen -> {
+                toggleNarration()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -125,7 +132,9 @@ class StudyChapterDetailActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        voiceNarrator?.speak(NarrationBuilder.buildStudyChapterNarration(chapter, language), language)
+        voiceNarrator?.speakSegments(
+            NarrationBuilder.buildStudyChapterNarrationSegments(this, chapter)
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

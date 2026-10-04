@@ -35,7 +35,7 @@ class VoiceNarrator(
         if (isReady && pendingSpeech.isNotEmpty()) {
             val queued = pendingSpeech.toList()
             pendingSpeech.clear()
-            queued.forEach { (text, lang) -> speak(text, lang) }
+            speakSegments(queued)
         }
     }
 
@@ -73,29 +73,41 @@ class VoiceNarrator(
     }
 
     fun speak(text: String, language: String): Boolean {
-        if (text.isBlank()) return false
+        return speakSegments(listOf(text to language))
+    }
+
+    /** Queue narration in multiple languages (e.g. embedded English then Urdu). */
+    fun speakSegments(segments: List<Pair<String, String>>): Boolean {
+        val cleaned = segments.mapNotNull { (text, lang) ->
+            val t = text.trim()
+            if (t.isEmpty()) null else t to lang
+        }
+        if (cleaned.isEmpty()) return false
         val engine = tts ?: return false
         if (!isReady) {
-            pendingSpeech.add(text to language)
+            pendingSpeech.addAll(cleaned)
             return true
         }
 
-        val appliedLocale = applyLanguage(engine, language) ?: return false
-        if (appliedLocale.fallbackUsed) {
-            onLanguageIssue?.invoke(appliedLocale.message)
-        }
-
-        val chunks = chunkText(text)
-        activeUtterances = chunks.size
-        chunks.forEachIndexed { index, chunk ->
-            val utteranceId = "$UTTERANCE_PREFIX$index"
-            val params = Bundle().apply {
-                putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
+        activeUtterances = 0
+        cleaned.forEachIndexed { segmentIndex, (text, language) ->
+            val appliedLocale = applyLanguage(engine, language) ?: return@forEachIndexed
+            if (appliedLocale.fallbackUsed) {
+                onLanguageIssue?.invoke(appliedLocale.message)
             }
-            val queueMode = if (index == 0) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
-            engine.speak(chunk, queueMode, params, utteranceId)
+            val chunks = chunkText(text)
+            activeUtterances += chunks.size
+            chunks.forEachIndexed { chunkIndex, chunk ->
+                val utteranceId = "${UTTERANCE_PREFIX}${segmentIndex}_${chunkIndex}"
+                val params = Bundle().apply {
+                    putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
+                }
+                val isFirst = segmentIndex == 0 && chunkIndex == 0
+                val queueMode = if (isFirst) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
+                engine.speak(chunk, queueMode, params, utteranceId)
+            }
         }
-        return true
+        return activeUtterances > 0
     }
 
     private data class LocaleResult(val locale: Locale, val fallbackUsed: Boolean, val message: String)

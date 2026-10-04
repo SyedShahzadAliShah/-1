@@ -9,6 +9,15 @@
     <string name="class_xi_hint">Sindh Curriculum 2026 • 6 chapters • embedded lecture PDF</string>
     <string name="class_xii_title">Class XII — Computer Science</string>
     <string name="class_xii_hint">Sindh Curriculum 2025–27 • 6 chapters • HCI to entrepreneurship</string>
+    <string name="narrative_language_title">Narrative language</string>
+    <string name="narrative_language_hint">Choose embedded captions and voice: English only, Urdu only, or both (Embed).</string>
+    <string name="narrative_english">English</string>
+    <string name="narrative_urdu">Urdu</string>
+    <string name="narrative_embed_both">Embed English + Urdu</string>
+    <string name="narrative_embed_short">Embed</string>
+    <string name="narrative_embed_en_label">English:</string>
+    <string name="narrative_embed_ur_label">اردو:</string>
+    <string name="narrative_mode_badge">Narration: %1$s</string>
     <string name="class_section_label">Class %1$s</string>
     <string name="cinematic_full_book_xi">▶ Cinematic Lecture — Full XI PDF (127 pages)</string>
     <string name="cinematic_full_book_xii">▶ Cinematic Lecture — Full XII PDF (147 pages)</string>
@@ -73,5 +82,5 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — CS XI/XII Lecture Notes Study Guide</string>
+    <string name="version_badge">Version %1$s — CS Lecture Notes + Narrative Embed</string>
 </resources>

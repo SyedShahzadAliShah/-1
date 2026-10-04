@@ -1,6 +1,5 @@
 package com.couplesguide.postures
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +12,9 @@ import com.couplesguide.postures.data.LecturePageIndex
 import com.couplesguide.postures.databinding.ActivityLectureCinematicBinding
 import com.couplesguide.postures.util.CinematicAnimationHelper
 import com.couplesguide.postures.util.LocaleHelper
+import com.couplesguide.postures.util.NarrativeLanguageHelper
+import com.couplesguide.postures.util.NarrativeLanguageDialog
+import com.couplesguide.postures.util.NarrativeLanguageUi
 import com.couplesguide.postures.util.PdfAssetRenderer
 import com.couplesguide.postures.util.VoiceNarrator
 
@@ -33,7 +35,7 @@ class LectureCinematicActivity : AppCompatActivity() {
     private var endPage = 1
     private var classId = "xi"
     private var pageIndexAsset = "lecture_notes/cs_xi_pages.json"
-    private var language = LocaleHelper.LANG_EN
+    private var narrativeMode = NarrativeLanguageHelper.MODE_EMBED
     private var isAutoPlaying = false
     private var isSpeaking = false
     private var voiceReady = false
@@ -50,7 +52,7 @@ class LectureCinematicActivity : AppCompatActivity() {
         binding = ActivityLectureCinematicBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        language = LocaleHelper.getLanguage(this)
+        narrativeMode = NarrativeLanguageHelper.getMode(this)
         classId = intent.getStringExtra(EXTRA_CLASS_ID) ?: "xi"
         val studyClass = LectureNotesRepository.getClassById(this, classId)
         if (studyClass == null) {
@@ -98,6 +100,17 @@ class LectureCinematicActivity : AppCompatActivity() {
         }
         binding.btnPlayPause.setOnClickListener { toggleAutoPlay() }
 
+        NarrativeLanguageUi.bindToggleGroup(
+            binding.narrativeToggleGroup,
+            binding.btnNarrativeEn,
+            binding.btnNarrativeUr,
+            binding.btnNarrativeEmbed
+        ) {
+            narrativeMode = NarrativeLanguageHelper.getMode(this)
+            voiceNarrator?.stop()
+            showPage(currentPdfPage, animate = false)
+        }
+
         showPage(currentPdfPage, animate = false)
         if (isAutoPlaying) startAutoPlay()
     }
@@ -111,18 +124,12 @@ class LectureCinematicActivity : AppCompatActivity() {
 
         val bindPage = {
             val pageText = LecturePageIndex.getPage(this, pageIndexAsset, currentPdfPage)
-            val title = if (language == LocaleHelper.LANG_UR) {
-                pageText?.urdu?.take(80)?.ifBlank { getString(R.string.cinematic_page_fallback_title) }
-                    ?: getString(R.string.cinematic_page_fallback_title)
-            } else {
-                getString(R.string.cinematic_page_title_en, currentPdfPage)
-            }
-            binding.pageTitle.text = title
-            binding.pageNarration.text = LecturePageIndex.narrationForPage(
+            binding.pageTitle.text = getString(R.string.cinematic_page_title_en, currentPdfPage)
+            binding.pageNarration.text = LecturePageIndex.narrationForPageWithMode(
                 this,
                 pageIndexAsset,
                 currentPdfPage,
-                language
+                narrativeMode
             ).ifBlank { getString(R.string.cinematic_page_fallback_narration) }
 
             binding.pageIndicator.text = getString(
@@ -156,9 +163,14 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     private fun speakCurrentPage() {
-        val text = LecturePageIndex.narrationForPage(this, pageIndexAsset, currentPdfPage, language)
-        if (text.isNotBlank()) {
-            voiceNarrator?.speak(text, language)
+        val segments = LecturePageIndex.ttsSegmentsForPage(
+            this,
+            pageIndexAsset,
+            currentPdfPage,
+            narrativeMode
+        )
+        if (segments.isNotEmpty()) {
+            voiceNarrator?.speakSegments(segments)
         }
     }
 
@@ -212,10 +224,19 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_listen) {
-            if (isSpeaking) voiceNarrator?.stop()
-            else speakCurrentPage()
-            return true
+        when (item.itemId) {
+            R.id.action_narrative_language -> {
+                NarrativeLanguageDialog.show(this) {
+                    narrativeMode = NarrativeLanguageHelper.getMode(this)
+                    showPage(currentPdfPage, animate = false)
+                }
+                return true
+            }
+            R.id.action_listen -> {
+                if (isSpeaking) voiceNarrator?.stop()
+                else speakCurrentPage()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
