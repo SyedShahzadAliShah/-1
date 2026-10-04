@@ -144,6 +144,61 @@ def is_valid_ur_tts(ur: str, en: str) -> bool:
     return True
 
 
+def urdu_tts_pronunciation(raw: str) -> str:
+    """Match app [UrduTtsPronunciation] for bundled ur_tts assets."""
+    text = (raw or "").strip()
+    if not text:
+        return text
+
+    decimals: list[str] = []
+
+    def _dec_sub(match: re.Match[str]) -> str:
+        token = f"§DEC{len(decimals)}§"
+        decimals.append(match.group(0))
+        return token
+
+    text = re.sub(r"\d+\.\d+", _dec_sub, text)
+    text = re.sub(r"\s+", " ", text.replace("\n", " "))
+    text = text.replace("?", "؟").replace(",", "،").replace(";", "؛")
+    text = re.sub(r"\.(?=\s|$)", "۔", text)
+    text = re.sub(r"\.(?=[\u0600-\u06FF])", "۔", text)
+    for a, b in (
+        ("(", "، "),
+        (")", "، "),
+        ("[", "، "),
+        ("]", "، "),
+        ("{", "، "),
+        ("}", "، "),
+        ("=", "، "),
+        ("/", "، "),
+        ("&", " اور "),
+        ("-", " "),
+        (":", "، "),
+        ("|", "، "),
+        ('"', " "),
+        ("'", " "),
+        ("«", " "),
+        ("»", " "),
+        ("★", " "),
+        ("*", " "),
+        ("#", " "),
+        ("@", " "),
+        ("^", " "),
+        ("`", " "),
+        ("~", " "),
+    ):
+        text = text.replace(a, b)
+    text = re.sub(r"(\d)\s*%", r"\1 فیصد", text)
+    text = text.replace("%", " فیصد ")
+    text = text.replace("!", "۔ ")
+    text = re.sub(r"([۔،؟؛:!])(\S)", r"\1 \2", text)
+    text = re.sub(r"([۔،؟؛])\1+", r"\1", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    for index, value in enumerate(decimals):
+        text = text.replace(f"§DEC{index}§", value)
+    return text.strip()
+
+
 def translate_en_to_ur(text: str) -> str:
     text = text.strip()
     if not text:
@@ -218,7 +273,10 @@ def enrich_page_tts(page: dict, translate: bool, class_key: str | None = None) -
                 time.sleep(0.75 * (attempt + 1))
     elif not ur_tts:
         ur_tts = ur_pdf if is_valid_ur_tts(ur_pdf, en_tts) else ""
+    ur_tts = urdu_tts_pronunciation(ur_tts)
     ur_display = ur_tts if ur_tts else ur_pdf
+    if ur_display:
+        ur_display = urdu_tts_pronunciation(ur_display)
     return {
         "page": page["page"],
         "en": en_tts,
@@ -413,7 +471,26 @@ def ur_fill_only() -> None:
         print(f"Wrote {index_path} entries {len(page_index)} valid ur_tts {valid}/{len(page_index)}", flush=True)
 
 
+def urdu_punct_normalize_assets() -> None:
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    for key in CHAPTER_SPECS:
+        index_path = ASSETS / f"cs_{key}_pages.json"
+        if not index_path.exists():
+            continue
+        rows = json.loads(index_path.read_text(encoding="utf-8"))
+        for row in rows:
+            if row.get("ur_tts"):
+                row["ur_tts"] = urdu_tts_pronunciation(row["ur_tts"])
+            if row.get("ur"):
+                row["ur"] = urdu_tts_pronunciation(row["ur"])
+        index_path.write_text(json.dumps(rows, ensure_ascii=False, indent=0), encoding="utf-8")
+        print(f"Normalized Urdu punctuation in {index_path} ({len(rows)} pages)", flush=True)
+
+
 def main() -> None:
+    if "--urdu-punct-only" in sys.argv:
+        urdu_punct_normalize_assets()
+        return
     if "--embed-full-page" in sys.argv:
         embed_full_page()
         return

@@ -19,9 +19,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.0.7)** — Embed TTS prefers **male voices** for English or Urdu (device TTS engine). Unobstructed PDF in cinematic mode:
+**Latest (v1.0.8)** — Urdu embed TTS uses normalized **Urdu punctuation** (۔ ، ؟) for natural pauses; male English/Urdu voices:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.7-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-lecture-notes-studyguide-7efe/releases/CS-Lecture-Notes-StudyGuide-v1.0.8-debug.apk
 
 > Install on Android 7+ (minSdk 24). Allow “Install unknown apps” for your browser or file manager if prompted.
 

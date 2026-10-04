@@ -103,7 +103,12 @@ class VoiceNarrator(
 
         onSegmentsComplete = onComplete
         activeUtterances = 0
-        cleaned.forEachIndexed { segmentIndex, (text, language) ->
+        cleaned.forEachIndexed { segmentIndex, (rawText, language) ->
+            val text = if (language == LocaleHelper.LANG_UR) {
+                UrduTtsPronunciation.prepare(rawText)
+            } else {
+                rawText
+            }
             val appliedLocale = applyLanguage(engine, language) ?: return@forEachIndexed
             if (appliedLocale.fallbackUsed) {
                 onLanguageIssue?.invoke(appliedLocale.message)
