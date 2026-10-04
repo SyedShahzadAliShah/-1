@@ -151,6 +151,22 @@
                         android:layout_marginTop="14dp"
                         android:text="@string/open_ai_tutor" />
 
+                    <TextView
+                        android:id="@+id/voiceStatusBadge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTtsSettings"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/voice_open_settings" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

@@ -60,10 +60,22 @@
                 android:id="@+id/pageIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:gravity="center"
                 android:textColor="@color/cinematic_caption"
                 android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/pageCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:maxLines="4"
+                android:textColor="@color/cinematic_caption"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="match_parent"

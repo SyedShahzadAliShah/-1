@@ -78,7 +78,9 @@
     <string name="step_label_ur">قدم %1$d۔</string>
     <string name="voice_language_fallback">Urdu voice unavailable — using English.</string>
     <string name="voice_install_prompt">For natural lecture voice: install Google Text-to-speech and download English + Urdu (Pakistan) high-quality voices in system TTS settings.</string>
-    <string name="voice_open_settings">TTS Settings</string>
+    <string name="voice_open_settings">Open voice settings (Google TTS)</string>
+    <string name="voice_status_ready">🔊 Narration engine ready — natural lecture voice enabled</string>
+    <string name="voice_status_loading">⏳ Loading narration engine…</string>
     <string name="chapter_illustration">Chapter illustration</string>
     <string name="sex_education">Sex Education</string>
     <string name="sex_education_illustration">Education illustration</string>
@@ -90,7 +92,7 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Natural EN/UR TTS + AI Tutor</string>
+    <string name="version_badge">Version %1$s — Smart TTS + Captions + AI Tutor</string>
     <string name="ai_tutor_title">Embedded AI Tutor</string>
     <string name="open_ai_tutor">🤖 Open Embedded AI Tutor</string>
     <string name="ask_ai_tutor_chapter">🤖 Ask AI Tutor about this chapter</string>
@@ -109,4 +111,5 @@
     <string name="tutor_save">Save</string>
     <string name="tutor_cloud_footer">Enhanced with Gemini using your notes as context.</string>
     <string name="tutor_cloud_fallback">(Cloud tutor unavailable — showing embedded answer.)</string>
+    <string name="tutor_read_aloud">Read reply aloud</string>
 </resources>

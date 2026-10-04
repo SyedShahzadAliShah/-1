@@ -23,27 +23,37 @@ class VoiceNarrator(
     private var activeUtterances = 0
     private var onSegmentsComplete: (() -> Unit)? = null
     private var useSsml = true
+    private var usedGoogleEngine = false
+    private var retriedDefaultEngine = false
 
     init {
-        tts = createEngine(context.applicationContext)
-    }
-
-    private fun createEngine(appContext: Context): TextToSpeech {
-        val google = GOOGLE_TTS_PACKAGE
-        val hasGoogle = try {
-            appContext.packageManager.getPackageInfo(google, 0)
-            true
-        } catch (_: PackageManager.NameNotFoundException) {
-            false
-        }
-        return if (hasGoogle) {
-            TextToSpeech(appContext, this, google)
+        val appContext = context.applicationContext
+        usedGoogleEngine = hasGoogleTts(appContext)
+        tts = if (usedGoogleEngine) {
+            TextToSpeech(appContext, this, GOOGLE_TTS_PACKAGE)
         } else {
             TextToSpeech(appContext, this)
         }
     }
 
+    private fun hasGoogleTts(appContext: Context): Boolean {
+        return try {
+            appContext.packageManager.getPackageInfo(GOOGLE_TTS_PACKAGE, 0)
+            true
+        } catch (_: PackageManager.NameNotFoundException) {
+            false
+        }
+    }
+
     override fun onInit(status: Int) {
+        if (status != TextToSpeech.SUCCESS && usedGoogleEngine && !retriedDefaultEngine) {
+            Log.w(TAG, "Google TTS init failed; falling back to default engine")
+            retriedDefaultEngine = true
+            usedGoogleEngine = false
+            tts?.shutdown()
+            tts = TextToSpeech(context.applicationContext, this)
+            return
+        }
         isReady = status == TextToSpeech.SUCCESS
         if (!isReady) {
             Log.w(TAG, "TTS onInit failed status=$status")

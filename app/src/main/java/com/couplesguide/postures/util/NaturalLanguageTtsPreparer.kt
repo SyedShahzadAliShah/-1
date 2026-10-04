@@ -42,6 +42,9 @@ object NaturalLanguageTtsPreparer {
             .replace(Regex("Class Discussion.*?(?=\\d+\\.\\d|$)", RegexOption.IGNORE_CASE), " ")
             .replace(Regex("Reference Note.*", RegexOption.IGNORE_CASE), " ")
             .replace(Regex("TABLE OF CONTENTS.*?(?=\\d+\\.\\d|$)", RegexOption.IGNORE_CASE), " ")
+            .replace(Regex("-- \\d+ of \\d+ --"), " ")
+            .replace(Regex("Page \\d+\\s+of \\d+", RegexOption.IGNORE_CASE), " ")
+            .replace(Regex("\\bHUMAN\\s+Sight\\s+Touch\\s+Hearing\\s+Voice\\b", RegexOption.IGNORE_CASE), " ")
     }
 
     /** PDF extracts often contain ")HCI(" instead of "HCI". */

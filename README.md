@@ -22,9 +22,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.2.2)** — TTS reliability fix + natural EN/UR narration:
+**Latest (v1.3.0)** — Smarter embed TTS + cinematic captions + tutor read-aloud:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.2-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.3.0-debug.apk
 
 > Install on Android 7+ (minSdk 24). Uninstall older CS Lecture Notes builds if you had them — this app uses package `com.sindhcs.selftaughtbootcamp`. Allow “Install unknown apps” for your browser or file manager if prompted.
 
@@ -35,6 +35,11 @@ export ANDROID_HOME=/opt/android-sdk
 ./gradlew assembleDebug
 cp app/build/outputs/apk/debug/app-debug.apk releases/Self-Taught-Bootcamp-v1.1.0-debug.apk
 ```
+
+## Version 1.3.0
+
+- Skips blank/title PDF pages during embed TTS; live **cinematic captions**; voice status on home screen
+- AI Tutor **read reply aloud**; stronger lecture text cleanup; Google TTS fallback engine
 
 ## Version 1.2.2
 

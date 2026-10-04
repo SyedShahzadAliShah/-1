@@ -15,6 +15,7 @@ import com.couplesguide.postures.util.LectureEmbedTtsEngine
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrativeLanguageUi
 import com.couplesguide.postures.util.PdfAssetRenderer
+import com.couplesguide.postures.util.TtsPlaybackHelper
 import com.couplesguide.postures.util.VoiceNarrator
 
 class LectureCinematicActivity : AppCompatActivity() {
@@ -136,6 +137,15 @@ class LectureCinematicActivity : AppCompatActivity() {
             binding.btnPrev.isEnabled = currentPdfPage > startPage
             binding.btnNext.isEnabled = currentPdfPage < endPage
 
+            val caption = LectureEmbedTtsEngine.captionExcerptForPage(
+                this,
+                pageIndexAsset,
+                currentPdfPage
+            )
+            binding.pageCaption.text = caption.ifBlank {
+                getString(R.string.cinematic_page_fallback_narration)
+            }
+
             if (isAutoPlaying && voiceReady) speakCurrentPageForAutoPlay()
             else if (isAutoPlaying) scheduleAutoAdvanceFallback()
         }
@@ -164,8 +174,20 @@ class LectureCinematicActivity : AppCompatActivity() {
     }
 
     private fun speakCurrentPageInternal(onComplete: (() -> Unit)?) {
-        embedTtsSession?.speakSinglePage(this, pageIndexAsset, currentPdfPage, onComplete)
-            ?: onComplete?.invoke()
+        val session = embedTtsSession
+        if (session == null) {
+            onComplete?.invoke()
+            return
+        }
+        if (!LectureEmbedTtsEngine.isPageSpeakable(this, pageIndexAsset, currentPdfPage)) {
+            onComplete?.invoke()
+            return
+        }
+        val segments = LectureEmbedTtsEngine.segmentsForPage(this, pageIndexAsset, currentPdfPage)
+        if (voiceNarrator?.speakSegments(segments) { onComplete?.invoke() } != true) {
+            TtsPlaybackHelper.showPlaybackFailedDialog(this)
+            onComplete?.invoke()
+        }
     }
 
     /** Fallback if TTS is not ready yet during auto-play. */

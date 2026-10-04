@@ -20,6 +20,8 @@ import com.couplesguide.postures.tutor.TutorContext
 import com.couplesguide.postures.tutor.TutorCorpus
 import com.couplesguide.postures.ui.TutorChatAdapter
 import com.couplesguide.postures.util.LocaleHelper
+import com.couplesguide.postures.util.TtsPlaybackHelper
+import com.couplesguide.postures.util.VoiceNarrator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,6 +41,8 @@ class AiTutorActivity : AppCompatActivity() {
     private var language = LocaleHelper.LANG_EN
     private lateinit var tutorContext: TutorContext
     private var corpusReady = false
+    private var voiceNarrator: VoiceNarrator? = null
+    private var voiceReady = false
 
     override fun attachBaseContext(newBase: android.content.Context) {
         super.attachBaseContext(LocaleHelper.wrap(newBase))
@@ -65,6 +69,13 @@ class AiTutorActivity : AppCompatActivity() {
 
         showContextBanner()
         bindChips()
+        voiceNarrator = VoiceNarrator(
+            context = this,
+            onReadyChanged = { ready -> voiceReady = ready },
+            onSpeakingChanged = { },
+            onLanguageIssue = null
+        )
+
         binding.btnSend.setOnClickListener { sendFromInput() }
         binding.inputMessage.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -175,6 +186,10 @@ class AiTutorActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.action_tutor_listen -> {
+                readLatestTutorReplyAloud()
+                return true
+            }
             R.id.action_tutor_settings -> {
                 showSettingsDialog()
                 return true
@@ -187,6 +202,25 @@ class AiTutorActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun readLatestTutorReplyAloud() {
+        val last = messages.lastOrNull { it.role == TutorChatMessage.Role.TUTOR }?.text
+        if (last.isNullOrBlank()) return
+        if (!voiceReady) {
+            TtsPlaybackHelper.showPlaybackFailedDialog(this)
+            return
+        }
+        val lang = if (useUrdu()) LocaleHelper.LANG_UR else LocaleHelper.LANG_EN
+        if (voiceNarrator?.speak(last, lang) != true) {
+            TtsPlaybackHelper.showPlaybackFailedDialog(this)
+        }
+    }
+
+    override fun onDestroy() {
+        voiceNarrator?.shutdown()
+        voiceNarrator = null
+        super.onDestroy()
     }
 
     private fun showSettingsDialog() {

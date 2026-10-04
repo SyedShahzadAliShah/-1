@@ -13,6 +13,7 @@ import com.couplesguide.postures.util.AnimatedIllustrationHelper
 import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrationBuilder
+import com.couplesguide.postures.util.TtsPlaybackHelper
 import com.couplesguide.postures.util.VoiceNarrator
 
 class StudyChapterDetailActivity : AppCompatActivity() {
@@ -141,9 +142,12 @@ class StudyChapterDetailActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.voice_not_ready, Toast.LENGTH_SHORT).show()
             return
         }
-        voiceNarrator?.speakSegments(
-            NarrationBuilder.buildStudyChapterNarrationSegments(this, chapter)
-        )
+        if (voiceNarrator?.speakSegments(
+                NarrationBuilder.buildStudyChapterNarrationSegments(this, chapter)
+            ) != true
+        ) {
+            TtsPlaybackHelper.showPlaybackFailedDialog(this)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -57,7 +57,10 @@ class MainActivity : AppCompatActivity() {
 
         voiceNarrator = VoiceNarrator(
             context = this,
-            onReadyChanged = { ready -> voiceReady = ready },
+            onReadyChanged = { ready ->
+                voiceReady = ready
+                updateVoiceStatusBadge()
+            },
             onSpeakingChanged = { speaking ->
                 isSpeaking = speaking
                 invalidateOptionsMenu()
@@ -88,6 +91,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnListenXiPdf.setOnClickListener { startFullPdfTts("xi") }
         binding.btnListenXiiPdf.setOnClickListener { startFullPdfTts("xii") }
         binding.btnAiTutor.setOnClickListener { openAiTutor() }
+        binding.btnTtsSettings.setOnClickListener { VoiceNarrator.openTtsSettings(this) }
+        updateVoiceStatusBadge()
 
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
         AnimatedIllustrationHelper.bind(binding.guideCoverImage, R.drawable.pic_cs_xi_ch1)
@@ -137,6 +142,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun openAiTutor() {
         startActivity(Intent(this, AiTutorActivity::class.java))
+    }
+
+    private fun updateVoiceStatusBadge() {
+        binding.voiceStatusBadge.text = if (voiceReady) {
+            getString(R.string.voice_status_ready)
+        } else {
+            getString(R.string.voice_status_loading)
+        }
     }
 
     private fun openFullCinematic(classId: String) {
