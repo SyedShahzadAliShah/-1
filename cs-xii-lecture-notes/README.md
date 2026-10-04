@@ -34,3 +34,16 @@ python3 scripts/build_lecture_data.py
 - `js/diagrams.js` — inline SVG library
 - `js/tts.js` — English/Urdu narration
 - `js/app.js` — UI, progress, MathJax typeset
+
+## Android APK
+
+Module **`cs-xii-app`** wraps the web lecture notes in a WebView (offline scenes + diagrams; **MathJax** loads from CDN when online).
+
+**Download (debug build):** `releases/CS-XII-Lecture-Cinema-v1.0.0-debug.apk`
+
+```bash
+export ANDROID_HOME=$HOME/android-sdk   # or your SDK path
+./gradlew :cs-xii-app:assembleDebug
+```
+
+Install on device: enable “Install unknown apps”, open the APK. Use **English / Urdu** TTS buttons inside the app (device TTS engines).

@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "IntimacyGuide"
 include(":app")
+include(":cs-xii-app")
