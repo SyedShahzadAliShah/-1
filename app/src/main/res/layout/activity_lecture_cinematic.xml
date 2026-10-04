@@ -99,7 +99,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/narrative_urdu"
-                    android:textSize="11sp" />
+                    android:textSize="10sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNarrativeBoth"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/narrative_embed_both"
+                    android:textSize="9sp" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 

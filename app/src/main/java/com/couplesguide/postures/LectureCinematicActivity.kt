@@ -104,7 +104,8 @@ class LectureCinematicActivity : AppCompatActivity() {
         NarrativeLanguageUi.bindToggleGroup(
             binding.narrativeToggleGroup,
             binding.btnNarrativeEn,
-            binding.btnNarrativeUr
+            binding.btnNarrativeUr,
+            binding.btnNarrativeBoth
         ) {
             voiceNarrator?.stop()
             showPage(currentPdfPage, animate = false)

@@ -11,7 +11,7 @@
     <string name="class_xii_hint">Sindh Curriculum 2025–27 • 6 chapters • HCI to entrepreneurship</string>
     <string name="embed_tts_language_title">Narrative voice (India V1)</string>
     <string name="embed_tts_engine_badge">Built-in India Voice 1: %1$s</string>
-    <string name="narrative_language_hint">Built-in Google TTS — English (India) Voice 1 or Urdu (India) Voice 1 only (pick one).</string>
+    <string name="narrative_language_hint">Built-in Google TTS — English (India) V1, Urdu (India) V1, or both (English then Urdu on each page).</string>
     <string name="listen_full_pdf_xi">🔊 Embed TTS — entire XI PDF</string>
     <string name="listen_full_pdf_xii">🔊 Embed TTS — entire XII PDF</string>
     <string name="full_pdf_tts_progress">Embed TTS — page %1$d of %2$d…</string>
@@ -19,7 +19,7 @@
     <string name="full_pdf_tts_stop_hint">Tap Stop in the toolbar to cancel full-PDF narration.</string>
     <string name="narrative_english">English (India) V1</string>
     <string name="narrative_urdu">Urdu (India) V1</string>
-    <string name="narrative_embed_both">Embed English + Urdu</string>
+    <string name="narrative_embed_both">English + Urdu</string>
     <string name="narrative_embed_short">Embed</string>
     <string name="narrative_embed_en_label">English:</string>
     <string name="narrative_embed_ur_label">اردو:</string>

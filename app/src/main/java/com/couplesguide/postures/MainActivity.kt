@@ -94,7 +94,8 @@ class MainActivity : AppCompatActivity() {
         NarrativeLanguageUi.bindToggleGroup(
             binding.narrativeToggleGroup,
             binding.btnNarrativeEn,
-            binding.btnNarrativeUr
+            binding.btnNarrativeUr,
+            binding.btnNarrativeBoth
         ) {
             NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
         }
@@ -196,10 +197,10 @@ class MainActivity : AppCompatActivity() {
                 NarrativeLanguageDialog.show(this) {
                     NarrativeLanguageUi.updateBadge(binding.narrativeModeBadge, this)
                     binding.narrativeToggleGroup.check(
-                        if (NarrativeLanguageHelper.getMode(this) == NarrativeLanguageHelper.MODE_UR) {
-                            binding.btnNarrativeUr.id
-                        } else {
-                            binding.btnNarrativeEn.id
+                        when (NarrativeLanguageHelper.getMode(this)) {
+                            NarrativeLanguageHelper.MODE_UR -> binding.btnNarrativeUr.id
+                            NarrativeLanguageHelper.MODE_BOTH -> binding.btnNarrativeBoth.id
+                            else -> binding.btnNarrativeEn.id
                         }
                     )
                 }
