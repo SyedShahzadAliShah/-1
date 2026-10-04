@@ -1,5 +1,5 @@
 /** Embedded SVG lecture diagrams — MathJax handles formulas in text. */
-export const DIAGRAMS = {
+const DIAGRAMS = {
   courseMap: `<svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CS XII chapter map">
   <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5eead4"/><stop offset="100%" stop-color="#ffd166"/></linearGradient></defs>
   <rect width="640" height="320" fill="#0f172a" rx="12"/>
@@ -244,6 +244,8 @@ export const DIAGRAMS = {
 </svg>`,
 };
 
-export function renderDiagram(key) {
+function renderDiagram(key) {
   return DIAGRAMS[key] || "";
 }
+
+window.LectureDiagrams = { DIAGRAMS, renderDiagram };

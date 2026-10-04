@@ -39,7 +39,7 @@ python3 scripts/build_lecture_data.py
 
 Module **`cs-xii-app`** wraps the web lecture notes in a WebView (offline scenes + diagrams; **MathJax** loads from CDN when online).
 
-**Download (debug build):** `releases/CS-XII-Lecture-Cinema-v1.0.0-debug.apk`
+**Download (debug build):** `releases/CS-XII-Lecture-Cinema-v1.0.1-debug.apk` (fixes WebView load + native TTS)
 
 ```bash
 export ANDROID_HOME=$HOME/android-sdk   # or your SDK path

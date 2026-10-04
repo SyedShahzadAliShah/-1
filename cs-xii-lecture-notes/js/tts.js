@@ -1,4 +1,4 @@
-/** Text-to-speech: English and Urdu only (Web Speech API). */
+/** Text-to-speech: English and Urdu only. Uses native Android bridge when available. */
 
 let voicesCache = [];
 let voicesReady = false;
@@ -27,13 +27,26 @@ function pickVoice(langPrefix) {
   return voicesCache.find((v) => v.lang.toLowerCase().startsWith("en"));
 }
 
-export class LectureTTS {
+function nativeBridgeReady() {
+  try {
+    return (
+      window.AndroidLecture &&
+      typeof window.AndroidLecture.isTtsReady === "function" &&
+      window.AndroidLecture.isTtsReady()
+    );
+  } catch {
+    return false;
+  }
+}
+
+class LectureTTS {
   constructor({ onStart, onEnd, onStatus }) {
     this.onStart = onStart || (() => {});
     this.onEnd = onEnd || (() => {});
     this.onStatus = onStatus || (() => {});
     this.running = false;
     this.currentLang = "en";
+    this._nativePendingEnd = null;
   }
 
   setLanguage(lang) {
@@ -41,10 +54,19 @@ export class LectureTTS {
   }
 
   stop() {
+    if (nativeBridgeReady()) {
+      try {
+        window.AndroidLecture.stopSpeak();
+      } catch {
+        /* ignore */
+      }
+    }
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
     this.running = false;
+    this._nativePendingEnd = null;
+    window.__lectureNativeTtsDone = null;
     this.onEnd();
     this.onStatus("Ready");
   }
@@ -54,23 +76,41 @@ export class LectureTTS {
       this.onStatus("No narration text for this language.");
       return false;
     }
+
+    const lang = langOverride || this.currentLang;
+    const prefix = lang === "ur" ? "ur" : "en";
+
+    if (nativeBridgeReady()) {
+      try {
+        window.__lectureNativeTtsDone = (hadError) => {
+          this.running = false;
+          this.onEnd();
+          this.onStatus(hadError ? "Speech error — try again." : "Ready");
+          window.__lectureNativeTtsDone = null;
+        };
+        this.running = true;
+        this.onStart(lang);
+        this.onStatus(`Speaking (${lang === "ur" ? "Urdu" : "English"})…`);
+        window.AndroidLecture.speak(text.trim(), prefix);
+        return true;
+      } catch (e) {
+        this.onStatus("Native TTS failed: " + String(e));
+      }
+    }
+
     if (!window.speechSynthesis) {
-      this.onStatus("Speech synthesis not supported in this browser.");
+      this.onStatus("Speech not supported. Use the Android app build with TTS installed.");
       return false;
     }
     if (!voicesReady) loadVoices();
 
-    const lang = langOverride || this.currentLang;
-    const prefix = lang === "ur" ? "ur" : "en";
     const voice = pickVoice(prefix);
     if (!voice && prefix === "ur") {
       this.onStatus("Urdu voice not installed — try English or add Urdu TTS on your device.");
       return false;
     }
 
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-    }
+    window.speechSynthesis.cancel();
     this.running = false;
     const utter = new SpeechSynthesisUtterance(text.trim());
     utter.voice = voice || null;
@@ -107,3 +147,5 @@ export class LectureTTS {
     return this.speak(text, l);
   }
 }
+
+window.LectureTTS = LectureTTS;

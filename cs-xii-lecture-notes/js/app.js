@@ -1,5 +1,5 @@
-import { renderDiagram } from "./diagrams.js";
-import { LectureTTS } from "./tts.js";
+const { renderDiagram } = window.LectureDiagrams;
+const LectureTTS = window.LectureTTS;
 
 const STORAGE_KEY = "cs-xii-cinema-progress-v1";
 
@@ -248,13 +248,21 @@ function bindGlobalControls() {
 }
 
 async function init() {
-  const res = await fetch("./data/chapters.json");
+  const jsonUrl = new URL("./data/chapters.json", window.location.href).href;
+  const res = await fetch(jsonUrl, { cache: "no-cache" });
+  if (!res.ok) {
+    throw new Error(`Could not load chapters (${res.status})`);
+  }
   state.chapters = await res.json();
+  if (!Array.isArray(state.chapters) || state.chapters.length === 0) {
+    throw new Error("Lecture data is empty");
+  }
   bindGlobalControls();
   renderChapterNav();
   renderScenes();
 }
 
 init().catch((err) => {
-  els.sceneList.innerHTML = `<p>Failed to load lecture data: ${escapeHtml(String(err))}</p>`;
+  console.error(err);
+  els.sceneList.innerHTML = `<p><strong>Failed to load lecture data.</strong><br>${escapeHtml(String(err))}<br><br>If you are on Android, reinstall CS XII Lecture Cinema v1.0.1+.</p>`;
 });

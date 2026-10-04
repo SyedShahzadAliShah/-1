@@ -10,7 +10,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.CsXiiLecture"
-        android:usesCleartextTraffic="false">
+        android:usesCleartextTraffic="false"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
