@@ -23,6 +23,7 @@ import com.couplesguide.postures.util.RecyclerViewHelper
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrativeLanguageHelper
 import com.couplesguide.postures.util.NarrativeLanguageUi
+import com.couplesguide.postures.util.TtsPlaybackHelper
 import com.couplesguide.postures.util.VoiceNarrator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -232,7 +233,7 @@ class MainActivity : AppCompatActivity() {
         }
         val segments = NarrationBuilder.buildMainGuideNarrationSegments(this)
         if (voiceNarrator?.speakSegments(segments) != true) {
-            Toast.makeText(this, R.string.voice_install_prompt, Toast.LENGTH_LONG).show()
+            TtsPlaybackHelper.showPlaybackFailedDialog(this)
         }
     }
 

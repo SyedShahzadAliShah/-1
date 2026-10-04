@@ -22,9 +22,9 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Latest (v1.2.1)** — Natural English/Urdu TTS + AI Tutor:
+**Latest (v1.2.2)** — TTS reliability fix + natural EN/UR narration:
 
-https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.1-debug.apk
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.2-debug.apk
 
 > Install on Android 7+ (minSdk 24). Uninstall older CS Lecture Notes builds if you had them — this app uses package `com.sindhcs.selftaughtbootcamp`. Allow “Install unknown apps” for your browser or file manager if prompted.
 
@@ -35,6 +35,15 @@ export ANDROID_HOME=/opt/android-sdk
 ./gradlew assembleDebug
 cp app/build/outputs/apk/debug/app-debug.apk releases/Self-Taught-Bootcamp-v1.1.0-debug.apk
 ```
+
+## Version 1.2.2
+
+- **TTS fix** — Google engine init corrected; SSML no longer split mid-tag; offline voices preferred; auto-fallback to plain text if SSML fails
+
+## Version 1.2.1
+
+- **Natural-language TTS** — lecture text cleanup, Google neural voice preference, SSML pauses, Urdu punctuation & term expansion
+- Install **Google Text-to-speech** + high-quality English & Urdu (Pakistan) voices for best results
 
 ## Version 1.2.0
 

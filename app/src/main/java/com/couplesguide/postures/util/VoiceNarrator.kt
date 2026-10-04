@@ -2,10 +2,12 @@ package com.couplesguide.postures.util
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.speech.tts.Voice
+import android.util.Log
 import java.util.Locale
 
 class VoiceNarrator(
@@ -20,15 +22,32 @@ class VoiceNarrator(
     private val pendingSpeech = mutableListOf<Pair<String, String>>()
     private var activeUtterances = 0
     private var onSegmentsComplete: (() -> Unit)? = null
+    private var useSsml = true
 
     init {
-        tts = TextToSpeech(context.applicationContext, this)
+        tts = createEngine(context.applicationContext)
+    }
+
+    private fun createEngine(appContext: Context): TextToSpeech {
+        val google = GOOGLE_TTS_PACKAGE
+        val hasGoogle = try {
+            appContext.packageManager.getPackageInfo(google, 0)
+            true
+        } catch (_: PackageManager.NameNotFoundException) {
+            false
+        }
+        return if (hasGoogle) {
+            TextToSpeech(appContext, this, google)
+        } else {
+            TextToSpeech(appContext, this)
+        }
     }
 
     override fun onInit(status: Int) {
         isReady = status == TextToSpeech.SUCCESS
-        if (isReady) {
-            preferGoogleEngineIfAvailable()
+        if (!isReady) {
+            Log.w(TAG, "TTS onInit failed status=$status")
+        } else {
             attachProgressListener()
         }
         onReadyChanged(isReady)
@@ -36,14 +55,6 @@ class VoiceNarrator(
             val queued = pendingSpeech.toList()
             pendingSpeech.clear()
             speakSegments(queued)
-        }
-    }
-
-    private fun preferGoogleEngineIfAvailable() {
-        val engine = tts ?: return
-        val google = "com.google.android.tts"
-        if (engine.engines.any { it.name == google }) {
-            engine.setEngineByPackageName(google)
         }
     }
 
@@ -66,6 +77,7 @@ class VoiceNarrator(
             }
 
             override fun onError(utteranceId: String?, errorCode: Int) {
+                Log.w(TAG, "TTS utterance error id=$utteranceId code=$errorCode")
                 handleError(utteranceId)
             }
         })
@@ -73,7 +85,11 @@ class VoiceNarrator(
 
     private fun handleError(utteranceId: String?) {
         if (utteranceId?.startsWith(UTTERANCE_PREFIX) == true) {
-            activeUtterances = 0
+            activeUtterances = (activeUtterances - 1).coerceAtLeast(0)
+            if (useSsml) {
+                useSsml = false
+                Log.w(TAG, "Disabling SSML after TTS error; retry with plain text on next speak")
+            }
         }
         notifyIfIdle()
     }
@@ -91,7 +107,6 @@ class VoiceNarrator(
         return speakSegments(listOf(text to language))
     }
 
-    /** Queue narration in multiple languages (e.g. embedded English then Urdu). */
     fun speakSegments(segments: List<Pair<String, String>>, onComplete: (() -> Unit)? = null): Boolean {
         val cleaned = segments.mapNotNull { (text, lang) ->
             val t = text.trim()
@@ -101,7 +116,8 @@ class VoiceNarrator(
             onComplete?.invoke()
             return false
         }
-        val engine = tts ?: return false
+        val engine = tts
+        if (engine == null) return false
         if (!isReady) {
             pendingSpeech.addAll(cleaned)
             onSegmentsComplete = onComplete
@@ -110,41 +126,74 @@ class VoiceNarrator(
 
         onSegmentsComplete = onComplete
         activeUtterances = 0
+        var queuedAny = false
+
         cleaned.forEachIndexed { segmentIndex, (rawText, language) ->
             val prepared = NaturalLanguageTtsPreparer.prepare(rawText, language)
-            val appliedLocale = applyLanguage(engine, language) ?: return@forEachIndexed
+            if (prepared.isBlank()) return@forEachIndexed
+
+            val appliedLocale = applyLanguage(engine, language)
+            if (appliedLocale == null) return@forEachIndexed
+
             applyNaturalProsody(engine, language)
             if (appliedLocale.fallbackUsed) {
                 onLanguageIssue?.invoke(appliedLocale.message)
             }
-            val speakText = formatForEngine(engine, prepared)
-            val chunks = chunkText(speakText)
-            activeUtterances += chunks.size
+
+            val chunks = chunksForSpeech(engine, prepared)
             chunks.forEachIndexed { chunkIndex, chunk ->
                 val utteranceId = "${UTTERANCE_PREFIX}${segmentIndex}_${chunkIndex}"
                 val params = Bundle().apply {
                     putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
-                    if (engine.voice?.isNetworkConnectionRequired == true) {
-                        putString(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true")
-                    }
                 }
-                val isFirst = segmentIndex == 0 && chunkIndex == 0
+                val isFirst = !queuedAny
                 val queueMode = if (isFirst) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
-                engine.speak(chunk, queueMode, params, utteranceId)
+                val spoken = speakChunk(engine, chunk.spoken, chunk.plain, queueMode, params, utteranceId)
+                if (spoken) {
+                    activeUtterances++
+                    queuedAny = true
+                }
             }
         }
-        if (activeUtterances == 0) {
+
+        if (!queuedAny || activeUtterances == 0) {
+            onSegmentsComplete = null
             onComplete?.invoke()
             return false
         }
         return true
     }
 
-    private fun formatForEngine(engine: TextToSpeech, prepared: String): String {
-        return if (supportsSsml(engine)) {
-            TtsSsmlBuilder.addNaturalPauses(prepared)
-        } else {
-            prepared
+    private fun speakChunk(
+        engine: TextToSpeech,
+        spoken: String,
+        plainChunk: String,
+        queueMode: Int,
+        params: Bundle,
+        utteranceId: String
+    ): Boolean {
+        var code = engine.speak(spoken, queueMode, params, utteranceId)
+        if (code != TextToSpeech.ERROR) return true
+
+        if (spoken != plainChunk) {
+            useSsml = false
+            code = engine.speak(plainChunk, queueMode, params, utteranceId)
+            if (code != TextToSpeech.ERROR) return true
+        }
+
+        Log.e(TAG, "speak() ERROR for utterance $utteranceId")
+        return false
+    }
+
+    private data class SpeechChunk(val plain: String, val spoken: String)
+
+    /** Chunk plain text first, then optionally wrap each chunk in SSML (never split SSML tags). */
+    private fun chunksForSpeech(engine: TextToSpeech, prepared: String): List<SpeechChunk> {
+        val plainChunks = chunkText(prepared)
+        val ssmlOk = useSsml && supportsSsml(engine)
+        return plainChunks.map { plain ->
+            val spoken = if (ssmlOk) TtsSsmlBuilder.addNaturalPauses(plain) else plain
+            SpeechChunk(plain, spoken)
         }
     }
 
@@ -155,10 +204,10 @@ class VoiceNarrator(
 
     private fun applyNaturalProsody(engine: TextToSpeech, language: String) {
         if (language == LocaleHelper.LANG_UR) {
-            engine.setSpeechRate(0.88f)
-            engine.setPitch(1.03f)
+            engine.setSpeechRate(0.90f)
+            engine.setPitch(1.02f)
         } else {
-            engine.setSpeechRate(0.93f)
+            engine.setSpeechRate(0.94f)
             engine.setPitch(1.0f)
         }
     }
@@ -178,7 +227,7 @@ class VoiceNarrator(
                 TextToSpeech.LANG_COUNTRY_AVAILABLE,
                 TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
                     engine.language = locale
-                    selectNaturalVoice(engine, locale)
+                    selectReliableNaturalVoice(engine, locale)
                     return LocaleResult(locale, false, "")
                 }
             }
@@ -190,7 +239,7 @@ class VoiceNarrator(
                 TextToSpeech.LANG_COUNTRY_AVAILABLE,
                 TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE -> {
                     engine.language = Locale.US
-                    selectNaturalVoice(engine, Locale.US)
+                    selectReliableNaturalVoice(engine, Locale.US)
                     return LocaleResult(
                         Locale.US,
                         true,
@@ -204,8 +253,11 @@ class VoiceNarrator(
         return null
     }
 
-    /** Prefer neural / high-quality voices (including network) for human-like lecture delivery. */
-    private fun selectNaturalVoice(engine: TextToSpeech, locale: Locale) {
+    /**
+     * Prefer high-quality voices but keep offline-capable voices ahead of network-only
+     * so narration works without connectivity.
+     */
+    private fun selectReliableNaturalVoice(engine: TextToSpeech, locale: Locale) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) return
         val voices = engine.voices ?: return
         val candidates = voices.filter { voice ->
@@ -213,9 +265,14 @@ class VoiceNarrator(
         }
         if (candidates.isEmpty()) return
 
-        val match = candidates.maxByOrNull { voiceScoreNatural(it, locale) }
-        if (match != null) {
-            engine.voice = match
+        val ranked = candidates
+            .map { it to voiceScoreReliable(it, locale) }
+            .sortedByDescending { it.second }
+
+        for ((voice, _) in ranked) {
+            if (engine.setVoice(voice) != TextToSpeech.ERROR) {
+                return
+            }
         }
     }
 
@@ -224,18 +281,17 @@ class VoiceNarrator(
         return "${voice.name.lowercase()} $features"
     }
 
-    private fun voiceScoreNatural(voice: Voice, preferredLocale: Locale): Int {
+    private fun voiceScoreReliable(voice: Voice, preferredLocale: Locale): Int {
         var score = 0
         val blob = voiceMetadataBlob(voice)
-        if (NATURAL_VOICE_HINTS.any { blob.contains(it) }) score += 40
-        if (blob.contains("network")) score += 12
-        if (voice.isNetworkConnectionRequired) score += 8
-        if (voice.quality >= Voice.QUALITY_VERY_HIGH) score += 20
-        else if (voice.quality >= Voice.QUALITY_HIGH) score += 14
+        if (!voice.isNetworkConnectionRequired) score += 28
+        if (NATURAL_VOICE_HINTS.any { blob.contains(it) }) score += 22
+        if (voice.quality >= Voice.QUALITY_VERY_HIGH) score += 16
+        else if (voice.quality >= Voice.QUALITY_HIGH) score += 12
         else if (voice.quality >= Voice.QUALITY_NORMAL) score += 6
         if (voice.locale.country.equals(preferredLocale.country, ignoreCase = true)) score += 5
-        if (blob.contains("local") && voice.quality >= Voice.QUALITY_HIGH) score += 4
-        if (ROBOTIC_VOICE_HINTS.any { blob.contains(it) }) score -= 18
+        if (voice.isNetworkConnectionRequired) score += 4
+        if (ROBOTIC_VOICE_HINTS.any { blob.contains(it) }) score -= 20
         return score
     }
 
@@ -279,6 +335,8 @@ class VoiceNarrator(
     }
 
     companion object {
+        private const val TAG = "VoiceNarrator"
+        private const val GOOGLE_TTS_PACKAGE = "com.google.android.tts"
         private const val MAX_CHUNK = 3200
         private const val UTTERANCE_PREFIX = "narration_"
 
@@ -288,10 +346,7 @@ class VoiceNarrator(
             "premium",
             "enhanced",
             "natural",
-            "studio",
-            "journey",
-            "news",
-            "casual",
+            "local",
         )
 
         private val ROBOTIC_VOICE_HINTS = listOf(

@@ -105,8 +105,8 @@ object NaturalLanguageTtsPreparer {
         "Wi-Fi" to "Wi Fi",
         "WiFi" to "Wi Fi",
         "Boolean" to "boolean",
-        "AND" to "and gate",
-        "OR" to "or gate",
-        "NOT" to "not gate",
+        "AND gate" to "and gate",
+        "OR gate" to "or gate",
+        "NOT gate" to "not gate",
     ).sortedByDescending { it.first.length }
 }
