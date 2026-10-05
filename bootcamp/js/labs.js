@@ -1,4 +1,15 @@
 import { esc } from "./scenes.js";
+import { rich, typeset } from "./mathtext.js";
+
+const GATE_EXPR = {
+  AND: "$Y = A \\cdot B$",
+  OR: "$Y = A + B$",
+  NOT: "$Y = \\overline{A}$",
+  NAND: "$Y = \\overline{A \\cdot B}$",
+  NOR: "$Y = \\overline{A + B}$",
+  XOR: "$Y = A \\oplus B$",
+  XNOR: "$Y = \\overline{A \\oplus B}$",
+};
 
 const GATES = {
   AND: (a, b) => (a && b ? 1 : 0),
@@ -64,6 +75,7 @@ function gateView(state) {
       ${unary ? "" : `<div><span>B ${state.b}</span><button class="switch" data-input="b" aria-pressed="${state.b ? "true" : "false"}" aria-label="Toggle input B"><i></i></button></div>`}
     </div>
     <div class="out-row"><div class="lamp ${y ? "lit" : ""}"><span>Y</span><b>${y}</b></div><p>${esc(hint)}</p></div>
+    <p class="expr">${rich(GATE_EXPR[state.gate] || "")}</p>
     <table class="truth"><thead><tr><th>A</th>${unary ? "" : "<th>B</th>"}<th>Y</th></tr></thead><tbody>${rows}</tbody></table>
   </div>`;
 }
@@ -134,6 +146,7 @@ export function bindLab(root, labId, narrator, getSpeech) {
   const paint = () => {
     const html = labId === "gates" ? gateView(state) : labId === "search" ? searchView(state) : structuresView(state);
     root.innerHTML = html;
+    typeset(root);
   };
 
   const onClick = (event) => {

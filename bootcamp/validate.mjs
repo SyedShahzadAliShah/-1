@@ -2,6 +2,8 @@ import { lectures, tracks, flatIds, lectureById } from "./js/curriculum.js";
 import { SCENE_TYPES } from "./js/scenes.js";
 import { beatDurationMs, speechChunks } from "./js/narrator.js";
 import { gradeQuiz } from "./js/progress.js";
+import { rich } from "./js/mathtext.js";
+import { DIAGRAM_NAMES, chartMarkup, renderDiagram } from "./js/diagrams.js";
 
 const errors = [];
 const fail = (message) => errors.push(message);
@@ -50,6 +52,36 @@ const two = gradeQuiz(quiz, [quiz[0].answer, quiz[1].answer, quiz[2].answer === 
 if (!two.passed || two.correct !== 2) fail("two of three should pass");
 
 if (tracks.length !== 2) fail("expected two tracks");
+
+function walkStrings(value, visit) {
+  if (typeof value === "string") visit(value);
+  else if (Array.isArray(value)) value.forEach((item) => walkStrings(item, visit));
+  else if (value && typeof value === "object") Object.values(value).forEach((item) => walkStrings(item, visit));
+}
+
+for (const lecture of lectures) {
+  lecture.beats.forEach((beat, index) => {
+    if (beat.scene?.type === "diagram" && !DIAGRAM_NAMES.includes(beat.scene.diagram)) {
+      fail(`${lecture.id} beat ${index} unknown diagram ${beat.scene?.diagram}`);
+    }
+    walkStrings(beat.scene, (text) => {
+      const marks = text.match(/\$/g);
+      if (marks && marks.length % 2 !== 0) fail(`${lecture.id} beat ${index} has unbalanced $`);
+    });
+  });
+}
+
+const rendered = rich("See $E = mc^2$ and $$\\bar{x} = \\sum x / n$$");
+if (!rendered.includes("\\(E = mc^2\\)") || !rendered.includes("\\[\\bar{x} = \\sum x / n\\]")) fail("rich math");
+if (rich("a < b").includes("<")) fail("rich escapes html");
+if (rich("plain").includes("math-inline")) fail("rich plain");
+for (const name of DIAGRAM_NAMES) {
+  if (!renderDiagram(name).includes("<svg")) fail(`diagram ${name} missing svg`);
+}
+for (const kind of ["bar", "line", "pie", "box", "scatter", "hist"]) {
+  const markup = chartMarkup({ kind, values: [1, 2], labels: ["a", "b"], points: [{ x: 10, y: 20 }], min: 0, q1: 1, median: 2, q3: 3, max: 4 });
+  if (!markup.includes("<svg")) fail(`chart ${kind} missing svg`);
+}
 
 if (errors.length) {
   console.error(errors.join("\n"));

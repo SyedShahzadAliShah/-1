@@ -155,6 +155,43 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 0.95; margin: 0 0 12px;
 .scene { position: relative; z-index: 1; padding: 22px 22px 16px; min-height: 300px; }
 .scene-title, .scene h3 { margin: 0 0 12px; font-size: 1.35rem; }
 .scene-note, .frame-note, .expr, .range-label { color: #d9d0c3; margin: 8px 0 0; }
+.math-display { display: flex; justify-content: center; overflow-x: auto; margin: 8px 0 2px; }
+.math-inline { white-space: nowrap; }
+.stage mjx-container, .bench mjx-container { color: var(--chalk); }
+.formula-row { display: grid; gap: 2px; margin-top: 4px; }
+.diagram-frame { display: grid; gap: 8px; }
+.diagram-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.diagram-svg.kmap-svg { width: min(100%, 440px); }
+mjx-assistive-mml { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(1px, 1px, 1px, 1px); }
+.table-wrap { overflow-x: auto; overflow-y: hidden; }
+th mjx-container, td mjx-container { vertical-align: middle; }
+.diagram-svg text { fill: #f6f1e7; font-size: 14px; font-family: var(--sans); }
+.diagram-svg .dim { fill: #d9d0c3; font-size: 12px; }
+.diagram-svg line, .diagram-svg path.wire { stroke: #f2c48a; stroke-width: 2.4; fill: none; }
+.diagram-svg .axis { stroke: rgba(246, 241, 231, 0.35); stroke-width: 1.4; }
+.diagram-svg .stroke { fill: none; stroke: #f2c48a; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.diagram-svg .stroke-teal { fill: none; stroke: #2dd4bf; stroke-width: 2.6; stroke-linecap: round; }
+.diagram-svg .stroke-rose { fill: none; stroke: #fb7185; stroke-width: 2.6; stroke-linecap: round; }
+.diagram-svg .stroke-blue { fill: none; stroke: #93c5fd; stroke-width: 2.6; stroke-linecap: round; }
+.diagram-svg .fill-lamp { fill: rgba(242, 196, 138, 0.14); stroke: #f2c48a; stroke-width: 2.4; }
+.diagram-svg .fill-soft { fill: rgba(45, 212, 191, 0.22); stroke: #2dd4bf; stroke-width: 2; }
+.diagram-svg .bubble { fill: #121820; stroke: #2dd4bf; stroke-width: 2.4; }
+.diagram-svg .sample-dot { fill: #f2c48a; }
+.diagram-svg .stem { stroke: rgba(45, 212, 191, 0.55); stroke-width: 1.4; }
+.diagram-svg .digital-step { fill: none; stroke: #2dd4bf; stroke-width: 3; }
+.diagram-svg .mean-line { stroke: #f2c48a; stroke-dasharray: 4 4; stroke-width: 1.6; }
+.diagram-svg .k-one { fill: rgba(45, 212, 191, 0.22); stroke: #2dd4bf; }
+.diagram-svg .k-zero { fill: rgba(255, 255, 255, 0.04); stroke: rgba(255, 255, 255, 0.16); }
+.diagram-svg .k-group { fill: none; stroke-width: 2.4; }
+.diagram-svg .k-group.g0 { stroke: #f2c48a; }
+.diagram-svg .k-group.g1 { stroke: #93c5fd; }
+.diagram-svg .entity-box { fill: rgba(255, 255, 255, 0.04); stroke: #f2c48a; stroke-width: 1.6; }
+.diagram-svg .rel-diamond { fill: rgba(45, 212, 191, 0.18); stroke: #2dd4bf; }
+.diagram-svg .bar-fill { fill: #e07a2f; }
+.diagram-svg .hist-bar { fill: #0f766e; }
+.diagram-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0; padding: 0; list-style: none; color: #d9d0c3; }
+.diagram-legend i { display: inline-block; width: 18px; height: 4px; margin-right: 6px; vertical-align: middle; border-radius: 99px; }
+.sample-svg .stroke { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.2s ease forwards; }
 .scene-body { min-height: 220px; }
 
 .section-head { display: flex; justify-content: space-between; gap: 12px; align-items: end; margin: 36px 0 14px; }
@@ -395,5 +432,5 @@ th { color: var(--lamp-2); font-weight: 560; }
     animation: none !important;
     transition: none !important;
   }
-  .wave-svg path, .line-chart path { stroke-dashoffset: 0; }
+  .wave-svg path, .line-chart path, .sample-svg .stroke { stroke-dashoffset: 0; }
 }

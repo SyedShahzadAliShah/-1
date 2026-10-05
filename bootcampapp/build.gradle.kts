@@ -7,7 +7,7 @@ val bootcampAssets = layout.buildDirectory.dir("generated/bootcampAssets")
 
 val copyBootcampWeb = tasks.register<Copy>("copyBootcampWeb") {
     from(rootProject.file("bootcamp")) {
-        include("index.html", "css/**", "js/**")
+        include("index.html", "css/**", "js/**", "vendor/**")
     }
     into(bootcampAssets.map { it.dir("www") })
 }
@@ -20,8 +20,8 @@ android {
         applicationId = "com.selftaught.csbootcamp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     buildTypes {
