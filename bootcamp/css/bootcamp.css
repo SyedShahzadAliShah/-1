@@ -244,7 +244,7 @@ th mjx-container, td mjx-container { vertical-align: middle; }
 }
 .track-card, .lab-card { padding: 18px; text-decoration: none; display: block; }
 .track-card p, .lab-card p, .panel p { color: var(--ink-soft); }
-.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+.how { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 8px; }
 .how article { padding: 16px; border-top: 3px solid var(--lamp); background: white; border-radius: 16px; }
 .how h3 { margin: 0 0 6px; }
 .how p { margin: 0; color: var(--ink-soft); }
@@ -273,6 +273,91 @@ th mjx-container, td mjx-container { vertical-align: middle; }
 }
 .done-mark { color: var(--ok); font-weight: 650; }
 .filters { display: flex; gap: 8px; align-items: center; }
+
+.beat-list button.role-depth { border-color: #d4a017; }
+.beat-list button.role-example { border-color: var(--teal); }
+.beat-list button.role-trap { border-color: var(--rose); }
+.beat-list button.role-recap { border-color: var(--lamp); }
+.beat-phase {
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 650;
+  min-width: 7.5rem;
+}
+.lesson-arc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+}
+.lesson-arc li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: white;
+}
+.lesson-arc li[aria-current="true"] {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+.work-problem {
+  margin: 0 0 10px;
+  color: #f2c48a;
+  font-family: var(--serif);
+}
+.work-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.work-steps li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+}
+.work-steps li.hot { outline: 1px solid var(--teal-2); background: rgba(45, 212, 191, 0.12); }
+.work-steps b {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: #f2c48a;
+}
+.work-steps span { display: block; color: #d9d0c3; font-size: 0.92rem; margin-top: 2px; }
+.trap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.trap-card { border-radius: 14px; padding: 12px; min-height: 140px; }
+.trap-wrong { background: rgba(251, 113, 133, 0.12); outline: 1px solid rgba(251, 113, 133, 0.45); }
+.trap-right { background: rgba(45, 212, 191, 0.12); outline: 1px solid rgba(45, 212, 191, 0.45); }
+.trap-card .kicker { letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.7rem; margin: 0 0 8px; }
+.exam-sheet { align-content: start; }
+.sheet-lines { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+.sheet-lines li { animation: rise 0.45s ease both; animation-delay: calc(var(--i) * 80ms); }
+.sheet-formula, .study-sheet .sheet-formula {
+  margin-top: 12px;
+  font-family: var(--serif);
+  color: #f2c48a;
+}
+.say-this {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--lamp);
+  background: rgba(224, 122, 47, 0.12);
+  border-radius: 0 12px 12px 0;
+}
+.study-sheet, .drill { margin: 18px 0 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+.study-sheet ol { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+.study-sheet .say-this { background: #fff4df; color: var(--ink); }
+.drill-out { color: var(--ok); font-weight: 560; }
+.trap-why { color: var(--rose); margin: 4px 0 0; font-size: 0.92rem; }
 
 .player-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
 .player-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr); gap: 16px; }
@@ -475,7 +560,7 @@ th { color: var(--lamp-2); font-weight: 560; }
   .section-head { flex-direction: column; align-items: flex-start; }
   .lecture-row { grid-template-columns: 1fr; }
   .hero, .player-grid, .track-grid, .how, .lab-layout, .lab-grid { grid-template-columns: 1fr; }
-  .split, .osi-row, .gate-bench { grid-template-columns: 1fr; }
+  .split, .osi-row, .gate-bench, .trap-grid { grid-template-columns: 1fr; }
   .nav-links { order: 3; width: 100%; }
   h1 { font-size: 2.4rem; }
   .scene, .stage .scene { min-height: 280px; }

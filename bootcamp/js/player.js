@@ -1,5 +1,6 @@
 import { mountScene } from "./scenes.js";
 import { beatDurationMs } from "./narrator.js";
+import { ROLE_LABEL } from "./lectures/mastery.js";
 
 export function captionOf(beat, lang) {
   if (lang === "ur") return beat.captionUr || beat.sayUr || beat.caption || beat.say;
@@ -40,6 +41,11 @@ export function createPlayer(root, lecture, options) {
     });
     const counter = root.querySelector(".beat-count");
     if (counter) counter.textContent = `${beat + 1} / ${beats.length}`;
+    const phase = root.querySelector(".beat-phase");
+    if (phase) phase.textContent = ROLE_LABEL[current.role] || current.title || "Idea";
+    root.querySelectorAll("[data-phase]").forEach((item) => {
+      item.setAttribute("aria-current", item.dataset.phase === (current.role || "idea") ? "true" : "false");
+    });
     options.onBeat?.(beat);
   }
 

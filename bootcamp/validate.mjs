@@ -6,6 +6,7 @@ import { rich } from "./js/mathtext.js";
 import { DIAGRAM_NAMES, chartMarkup, renderDiagram } from "./js/diagrams.js";
 import { whiteboardSvg } from "./js/whiteboard.js";
 import { depthIds } from "./js/lectures/depth.js";
+import { masteryIds, ROLE_ORDER } from "./js/lectures/mastery.js";
 import { citationHaystack, formatSupport, supportIds, SLO } from "./js/citations.js";
 
 const errors = [];
@@ -82,11 +83,25 @@ for (const name of DIAGRAM_NAMES) {
   if (!renderDiagram(name).includes("<svg")) fail(`diagram ${name} missing svg`);
 }
 if (depthIds.length !== lectures.length) fail(`depth beats ${depthIds.length}, lectures ${lectures.length}`);
+if (masteryIds.length !== lectures.length) fail(`mastery packs ${masteryIds.length}, lectures ${lectures.length}`);
 for (const lecture of lectures) {
   const boards = lecture.beats.filter((beat) => beat.scene?.type === "whiteboard");
   if (boards.length !== 1) fail(`${lecture.id} should have one whiteboard`);
   if (!boards[0]?.scene.ink?.length) fail(`${lecture.id} whiteboard has no ink`);
-  if ((lecture.outcomes || []).length < 4) fail(`${lecture.id} missing deeper outcome`);
+  if ((lecture.outcomes || []).length < 5) fail(`${lecture.id} missing mastery outcome`);
+  const roles = new Set(lecture.beats.map((beat) => beat.role));
+  for (const role of ROLE_ORDER) {
+    if (!roles.has(role)) fail(`${lecture.id} missing role ${role}`);
+  }
+  const example = lecture.beats.find((beat) => beat.role === "example");
+  if ((example?.scene.steps || []).length < 3) fail(`${lecture.id} worked example needs 3 steps`);
+  const trap = lecture.beats.find((beat) => beat.role === "trap");
+  if (!trap?.scene.wrong || !trap?.scene.right) fail(`${lecture.id} trap incomplete`);
+  if ((lecture.sheet?.lines || []).length < 3) fail(`${lecture.id} exam sheet thin`);
+  if (!lecture.drill?.q || !lecture.drill.reveal) fail(`${lecture.id} missing drill`);
+  lecture.quiz.forEach((question, index) => {
+    if (!question.trap) fail(`${lecture.id} quiz ${index} missing trap note`);
+  });
 }
 const board = whiteboardSvg([{ t: "box", x: 10, y: 10, w: 40, h: 20, label: "A" }, { t: "arrow", x1: 0, y1: 0, x2: 10, y2: 10 }]);
 if (!board.includes("<svg") || !board.includes("pathLength")) fail("whiteboard svg");

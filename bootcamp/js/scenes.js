@@ -33,6 +33,9 @@ export const SCENE_TYPES = [
   "compare",
   "diagram",
   "whiteboard",
+  "steps",
+  "trap",
+  "sheet",
 ];
 
 function reducedMotion() {
@@ -385,6 +388,49 @@ const builders = {
   },
   whiteboard(spec) {
     return { html: shell(spec.title, whiteboardSvg(spec.ink || []), spec.note) };
+  },
+  steps(spec) {
+    const items = spec.steps || [];
+    const frames = items.map((_, index) => items.slice(0, index + 1));
+    return {
+      html: shell(
+        spec.title,
+        `${spec.problem ? `<p class="work-problem">${rich(spec.problem)}</p>` : ""}<div data-frames></div>`,
+        spec.note,
+      ),
+      start: playFrames(frames, { loop: false, ms: 1050 }, (shown) =>
+        `<ol class="work-steps">${shown.map((step, index) => {
+          const hot = index === shown.length - 1 ? "hot" : "";
+          return `<li class="${hot}" style="--i:${index}"><b>${step.n || index + 1}</b><div><strong>${rich(step.do || "")}</strong>${step.why ? `<span>${rich(step.why)}</span>` : ""}</div></li>`;
+        }).join("")}</ol>`,
+      ),
+    };
+  },
+  trap(spec) {
+    return {
+      html: shell(
+        spec.title,
+        `<div class="trap-grid">
+          <article class="trap-card trap-wrong"><p class="kicker">${rich(spec.wrongTitle || "The trap")}</p><p>${rich(spec.wrong || "")}</p></article>
+          <article class="trap-card trap-right"><p class="kicker">${rich(spec.rightTitle || "The truth")}</p><p>${rich(spec.right || "")}</p></article>
+        </div>`,
+        spec.note,
+      ),
+    };
+  },
+  sheet(spec) {
+    const lines = (spec.lines || []).map((line, index) =>
+      `<li style="--i:${index}">${rich(line)}</li>`
+    ).join("");
+    return {
+      html: `<div class="scene exam-sheet">
+        <p class="kicker">${rich(spec.eyebrow || "Exam sheet")}</p>
+        <h3 class="scene-title">${rich(spec.title || "")}</h3>
+        <ol class="sheet-lines">${lines}</ol>
+        ${spec.formula ? `<div class="sheet-formula">${rich(spec.formula)}</div>` : ""}
+        ${spec.sayThis ? `<p class="say-this"><b>Say it back.</b> ${rich(spec.sayThis)}</p>` : ""}
+      </div>`,
+    };
   },
   compare(spec) {
     const headers = spec.headers || [];

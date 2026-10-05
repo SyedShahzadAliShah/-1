@@ -5,6 +5,8 @@ import { createPlayer, captionOf } from "./player.js";
 import { gradeQuiz, loadProgress, saveProgress } from "./progress.js";
 import { esc, mountScene } from "./scenes.js";
 import { citationHaystack, formatSupport } from "./citations.js";
+import { ROLE_LABEL, ROLE_ORDER } from "./lectures/mastery.js";
+import { rich, typeset } from "./mathtext.js";
 
 const narrator = new Narrator();
 const progress = loadProgress();
@@ -14,6 +16,11 @@ let heroStop = () => {};
 const session = { lectureId: "", beat: 0, playing: false, autoplay: false };
 
 const previewScenes = [
+  { type: "steps", title: "Worked while you listen", problem: "$Y = (A \\cdot B) + \\overline{A}$, with $A=0$, $B=1$.", steps: [
+    { do: "$A \\cdot B = 0$", why: "AND needs both 1." },
+    { do: "$\\overline{A} = 1$", why: "NOT flips 0." },
+    { do: "$Y = 1$", why: "0 OR 1 is 1." },
+  ], note: "Each lecture now works an example, then names the trap." },
   { type: "whiteboard", title: "Drawn while you listen", ink: [
     { t: "line", x1: 36, y1: 130, x2: 470, y2: 130 },
     { t: "dot", x: 80, y: 130 },
@@ -21,15 +28,18 @@ const previewScenes = [
     { t: "dot", x: 180, y: 72, pen: "gold" },
     { t: "arrow", x1: 180, y1: 84, x2: 96, y2: 118, pen: "gold" },
     { t: "text", x: 150, y: 44, label: "snap to the nearer level", pen: "gold" },
-  ], note: "Each lecture ends on a board that draws the deeper rule." },
+  ], note: "A deeper rule is still drawn on the board." },
   { type: "wave", title: "Analog and digital", mode: "both", note: "A voice is a smooth wave. A file stores jumps between 0 and 1." },
   { type: "gate", gate: "AND", title: "AND gate", steps: [{ a: 0, b: 0, y: 0, note: "Both off. The lamp stays dark." }, { a: 1, b: 1, y: 1, note: "Both on. AND lights the lamp." }] },
-  { type: "bars", title: "Selection sort", frames: [{ values: [8, 4, 1, 9, 3], hi: [2], note: "Find the smallest." }, { values: [1, 4, 8, 9, 3], hi: [0], placed: [0], note: "Swap it into place." }] },
 ];
 
 function percent() {
   const passed = lectures.filter((lecture) => progress.done[lecture.id]).length;
   return { passed, total: lectures.length, pct: Math.round((passed / lectures.length) * 100) };
+}
+
+function beatTotal() {
+  return lectures.reduce((count, lecture) => count + (lecture.beats || []).length, 0);
 }
 
 function ring(pct) {
@@ -72,16 +82,16 @@ function homeView() {
   return `<section class="hero">
     <div>
       <p class="eyebrow">Sindh curriculum · spoken lectures</p>
-      <h1>Learn computer science by watching the board draw, then hearing the idea.</h1>
-      <p class="lede">A self-taught path through Classes XI and XII. Each lecture animates the idea, reads it aloud, names the syllabus SLO and one supporting source, then locks it in with a short checkpoint.</p>
+      <h1>Learn computer science by watching a worked example, then hearing the trap.</h1>
+      <p class="lede">A self-taught path through Classes XI and XII. Each lecture teaches the idea, draws a deeper rule, works an exam-style example, names the trap, and leaves a one-page sheet. Then you try a drill and a checkpoint.</p>
       <div class="hero-actions">
         <a class="solid-btn" href="#/lecture/${next.id}">${passed ? "Continue" : "Start the first lecture"}</a>
         <a class="ghost-btn" href="#/labs">Open a practice bench</a>
       </div>
       <ul class="stats">
         <li><strong>${total}</strong><span>lectures</span></li>
+        <li><strong>${beatTotal()}</strong><span>teaching beats</span></li>
         <li><strong>${passed}</strong><span>passed</span></li>
-        <li><strong>2</strong><span>languages</span></li>
       </ul>
     </div>
     <div class="hero-stage"><div class="scene-host"></div></div>
@@ -90,9 +100,11 @@ function homeView() {
   <div class="track-grid">${cards}</div>
   <div class="section-head"><h2>How a lecture works</h2></div>
   <div class="how">
-    <article><h3>1. The board draws</h3><p>Signals, gates, sorts, stacks, and charts move while the idea is explained.</p></article>
-    <article><h3>2. A voice reads it</h3><p>Press play for English or Urdu. If this device has no voice, captions still advance.</p></article>
-    <article><h3>3. You check it</h3><p>Three questions close the lecture. The sidebar cites the Sindh SLO and the source of the extra board. Two correct marks it complete on this device.</p></article>
+    <article><h3>1. Ideas</h3><p>The board animates the syllabus idea while a voice reads it in English or Urdu.</p></article>
+    <article><h3>2. Deeper rule</h3><p>A whiteboard draws one extra rule, with the Sindh SLO and a supporting source named beside it.</p></article>
+    <article><h3>3. Worked example</h3><p>A short exam-style problem is solved step by step, so you see the moves, not only the definition.</p></article>
+    <article><h3>4. Trap and sheet</h3><p>The common mistake is named, then a one-page exam sheet. Try a drill before the checkpoint.</p></article>
+    <article><h3>5. Checkpoint</h3><p>Three questions. Two correct marks the lecture complete on this device. Wrong picks explain the trap.</p></article>
   </div>
   <div class="section-head"><h2>Find a topic</h2></div>
   <input class="search" data-search placeholder="Search, for example K-map, Fitts, or 1.1.7" aria-label="Search lectures" />
@@ -151,15 +163,42 @@ function citesHtml(lecture) {
   </section>`;
 }
 
+function sheetHtml(lecture) {
+  const sheet = lecture.sheet;
+  if (!sheet?.lines?.length) return "";
+  const lines = sheet.lines.map((line) => `<li>${rich(line)}</li>`).join("");
+  return `<section class="study-sheet">
+    <h2>Exam sheet</h2>
+    <ol>${lines}</ol>
+    ${sheet.formula ? `<p class="sheet-formula">${rich(sheet.formula)}</p>` : ""}
+    ${sheet.sayThis ? `<p class="say-this"><b>Say it back.</b> ${rich(sheet.sayThis)}</p>` : ""}
+  </section>`;
+}
+
+function drillHtml(lecture, revealed) {
+  const drill = lecture.drill;
+  if (!drill?.q) return "";
+  return `<section class="drill">
+    <h2>Try this first</h2>
+    <p>${esc(drill.q)}</p>
+    ${revealed
+      ? `<p class="drill-out">${esc(drill.reveal)}</p>`
+      : `<button class="ghost-btn" type="button" data-drill>Reveal the answer</button>`}
+  </section>`;
+}
+
 function lectureView(id) {
   const lecture = lectureById(id);
   if (!lecture) return `<p>That lecture is not in the bootcamp. <a href="#/">Back home</a></p>`;
   const near = neighbors(id);
   const dots = lecture.beats.map((beat, index) =>
-    `<li><button type="button" data-act="beat" data-beat="${index}" aria-label="${esc(beat.title || `Beat ${index + 1}`)}">${index + 1}</button></li>`
+    `<li><button type="button" class="role-${esc(beat.role || "idea")}" data-act="beat" data-beat="${index}" title="${esc(ROLE_LABEL[beat.role] || beat.title || `Beat ${index + 1}`)}" aria-label="${esc(beat.title || `Beat ${index + 1}`)}">${index + 1}</button></li>`
+  ).join("");
+  const arc = ROLE_ORDER.map((role) =>
+    `<li data-phase="${role}"><span>${esc(ROLE_LABEL[role])}</span></li>`
   ).join("");
   const transcript = lecture.beats.map((beat) =>
-    `<li><strong>${esc(beat.title || "Beat")}</strong><br />${esc(captionOf(beat, progress.lang))}</li>`
+    `<li><strong>${esc(ROLE_LABEL[beat.role] || "Idea")} · ${esc(beat.title || "Beat")}</strong><br />${esc(captionOf(beat, progress.lang))}</li>`
   ).join("");
   const outcomes = (lecture.outcomes || []).map((item) => `<li>${esc(item)}</li>`).join("");
   const prev = near.prev ? `<a class="ghost-btn" href="#/lecture/${near.prev}">Previous lecture</a>` : "";
@@ -168,6 +207,7 @@ function lectureView(id) {
       <a href="#/track/${lecture.track}">← Class ${esc(lecture.level)}</a>
       <span class="meta">${esc(lecture.chapter)} ${lecture.golden ? "· Golden topic" : ""} · ${minutesFor(lecture)} min</span>
     </div>
+    <ol class="lesson-arc">${arc}</ol>
     <div class="player-grid">
       <section>
         <h1 style="font-size:2rem">${esc(lecture.title)}</h1>
@@ -178,13 +218,14 @@ function lectureView(id) {
           <button class="solid-btn" type="button" data-act="play" aria-pressed="false">Play lecture</button>
           <button class="ghost-btn" type="button" data-act="next">Next beat</button>
           <span class="beat-count"></span>
+          <span class="beat-phase"></span>
           <span class="speed" role="group" aria-label="Speaking speed">
             ${[0.85, 1, 1.2].map((rate) => `<button type="button" data-rate="${rate}" aria-pressed="${progress.rate === rate ? "true" : "false"}">${rate === 1 ? "1×" : `${rate}×`}</button>`).join("")}
           </span>
         </div>
         <p class="voice-note"></p>
         <ol class="beat-list">${dots}</ol>
-        <p class="meta">Space plays and pauses. Arrow keys move between beats.</p>
+        <p class="meta">Space plays and pauses. Arrow keys move between beats. Gold is the deeper rule, teal the example, rose the trap.</p>
         <div class="row-actions">${prev}${next}</div>
         <details class="transcript"><summary>Read the lecture</summary><ol>${transcript}</ol></details>
       </section>
@@ -192,6 +233,8 @@ function lectureView(id) {
         <p class="kicker">${esc(lecture.citations?.curriculum?.short || `Class ${lecture.level}`)} · ${esc((lecture.covers || []).join(" · "))}</p>
         <h2>You will be able to</h2>
         <ul class="outcomes">${outcomes}</ul>
+        ${sheetHtml(lecture)}
+        <div data-drill></div>
         ${citesHtml(lecture)}
         <div data-quiz></div>
       </aside>
@@ -210,7 +253,8 @@ function quizHtml(lecture, picks, submitted) {
       return `<button type="button" class="${classes}" data-q="${qIndex}" data-c="${cIndex}" ${submitted ? "disabled" : ""}>${esc(choice)}</button>`;
     }).join("");
     const why = submitted ? `<p class="why">${esc(question.why)}</p>` : "";
-    return `<fieldset class="quiz-q"><legend>${esc(question.q)}</legend><div class="choices">${buttons}</div>${why}</fieldset>`;
+    const trap = submitted && question.trap ? `<p class="trap-why">Tempting mistake: ${esc(question.trap)}</p>` : "";
+    return `<fieldset class="quiz-q"><legend>${esc(question.q)}</legend><div class="choices">${buttons}</div>${why}${trap}</fieldset>`;
   }).join("");
   const result = score
     ? `<p class="${score.passed ? "score-ok" : "score-no"}">${score.correct} / ${score.total}. ${score.passed ? "Checkpoint passed." : "Two correct answers mark this lecture complete. Try again."}</p>`
@@ -218,7 +262,7 @@ function quizHtml(lecture, picks, submitted) {
   const action = submitted
     ? `<button class="ghost-btn" type="button" data-retry>Try again</button>`
     : `<button class="solid-btn" type="button" data-submit>Check answers</button>`;
-  return `<h2>Checkpoint</h2><p>Answer from the lecture. Two of three passes it.</p>${questions}${result}<div class="row-actions">${action}</div>`;
+  return `<h2>Checkpoint</h2><p>Answer from the lecture. Two of three passes it. After you check, the tempting mistake is named.</p>${questions}${result}<div class="row-actions">${action}</div>`;
 }
 
 function labsView() {
@@ -283,7 +327,7 @@ function bind(route) {
         return;
       }
       const found = lectures.filter((lecture) =>
-        [lecture.title, lecture.chapter, lecture.summary, ...(lecture.covers || []), ...(lecture.outcomes || []), citationHaystack(lecture)]
+        [lecture.title, lecture.chapter, lecture.summary, ...(lecture.covers || []), ...(lecture.outcomes || []), ...(lecture.sheet?.lines || []), lecture.drill?.q, citationHaystack(lecture)]
           .join(" ")
           .toLowerCase()
           .includes(query)
@@ -329,12 +373,25 @@ function bind(route) {
       });
       session.autoplay = false;
       const quiz = app.querySelector("[data-quiz]");
+      const drillHost = app.querySelector("[data-drill]");
       let picks = [];
       let submitted = false;
+      let drillOpen = false;
       const paintQuiz = () => {
         quiz.innerHTML = quizHtml(lecture, picks, submitted);
       };
+      const paintDrill = () => {
+        if (drillHost) drillHost.innerHTML = drillHtml(lecture, drillOpen);
+      };
       paintQuiz();
+      paintDrill();
+      typeset(app.querySelector(".study-sheet"));
+      drillHost?.addEventListener("click", (event) => {
+        if (event.target.closest("[data-drill]")) {
+          drillOpen = true;
+          paintDrill();
+        }
+      });
       quiz.addEventListener("click", (event) => {
         const choice = event.target.closest("[data-q]");
         if (choice && !submitted) {

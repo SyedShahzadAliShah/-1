@@ -1,10 +1,12 @@
 import { xiLectures } from "./lectures/xi.js";
 import { xiiLectures } from "./lectures/xii.js";
 import { applyDepth } from "./lectures/depth.js";
+import { applyMastery } from "./lectures/mastery.js";
 import { applyCitations } from "./citations.js";
 
 export const lectures = [...xiLectures, ...xiiLectures];
 applyDepth(lectures);
+applyMastery(lectures);
 applyCitations(lectures);
 
 export const tracks = [
