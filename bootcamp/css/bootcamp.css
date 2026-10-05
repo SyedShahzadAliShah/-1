@@ -481,7 +481,9 @@ th mjx-container, td mjx-container { vertical-align: middle; }
   a { color: inherit; text-decoration: none; }
 }
 
-.player-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
+.player-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+.player-top .row-actions { margin-top: 0; }
+.solid-btn:disabled { opacity: 0.6; cursor: progress; }
 .player-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr); gap: 16px; }
 .stage { min-height: 420px; }
 .stage .scene { min-height: 390px; }

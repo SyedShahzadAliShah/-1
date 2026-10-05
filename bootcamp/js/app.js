@@ -7,6 +7,7 @@ import { esc, mountScene } from "./scenes.js";
 import { citationHaystack, formatSupport } from "./citations.js";
 import { ROLE_LABEL, ROLE_ORDER } from "./lectures/mastery.js";
 import { rich, typeset } from "./mathtext.js";
+import { printBook, saveBook } from "./book.js";
 import {
   aheadCards, buildCards, buildPlan, coverage, dayKey, deckStats, dueCards,
   hoursUntil, labTitle, rate, sessionState, streak,
@@ -473,8 +474,10 @@ function bookView() {
     }).join("");
     return `<section class="book-track"><h2>Computer Science ${esc(track.grade)}</h2><p class="meta">${esc(track.edition)}</p>${parts}</section>`;
   }).join("");
-  return `<div class="player-top no-print"><div><p class="eyebrow">Teach Yourself edition · book</p><h1>The study book</h1></div><button class="solid-btn" type="button" data-print>Print or save as PDF</button></div>
+  return `<div class="player-top no-print"><div><p class="eyebrow">Teach Yourself edition · book</p><h1>The study book</h1></div>
+      <div class="row-actions"><button class="solid-btn" type="button" data-save-book>Download the book</button><button class="ghost-btn" type="button" data-print>Print or save as PDF</button></div></div>
     <p class="lede no-print">Every exam sheet, trap, drill, and checkpoint answer, in syllabus order. Teach-back notes you have written appear under their lecture.</p>
+    <p class="meta no-print" data-book-status aria-live="polite">Download gives you one HTML file that opens in any browser, offline. Print or save as PDF uses your device's print sheet.</p>
     <div class="book">${chapters}</div>`;
 }
 
@@ -775,7 +778,34 @@ function bind(route) {
   }
 
   if (route.name === "book") {
-    app.querySelector("[data-print]")?.addEventListener("click", () => window.print());
+    const status = app.querySelector("[data-book-status]");
+    const say = (text) => { if (status) status.textContent = text; };
+    const bookEl = app.querySelector(".book");
+    const fileOptions = () => {
+      const stats = percent();
+      return { title: "The study book", subtitle: `${stats.passed} of ${stats.total} checkpoints passed` };
+    };
+    app.querySelector("[data-print]")?.addEventListener("click", () => {
+      const how = printBook("Self-taught Bootcamp study book");
+      say(how === "native" ? "Opening the print sheet. Choose Save as PDF to keep a copy." : "Opening the print dialog. Choose Save as PDF as the destination to keep a copy.");
+    });
+    app.querySelector("[data-save-book]")?.addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      button.disabled = true;
+      say("Preparing the book…");
+      try {
+        const how = await saveBook(bookEl, fileOptions());
+        say(how === "native" ? "Choose where to save the book. It opens in any browser, offline." : "The book is downloading as one HTML file. Open it in any browser, offline.");
+      } catch {
+        say("The book could not be saved. Try Print or save as PDF instead.");
+      } finally {
+        button.disabled = false;
+      }
+    });
+    if (typeof window !== "undefined") {
+      window.__bootcampBookSaved = (ok) => say(ok ? "Saved. The book is in the folder you chose." : "Saving was cancelled.");
+      stops.push(() => { delete window.__bootcampBookSaved; });
+    }
   }
 
   return () => {

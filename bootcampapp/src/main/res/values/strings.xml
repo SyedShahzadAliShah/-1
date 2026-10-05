@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Self-taught Bootcamp</string>
+    <string name="book_saved">Study book saved. Open it from your Files app.</string>
+    <string name="book_save_failed">The study book could not be saved.</string>
 </resources>

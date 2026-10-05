@@ -7,6 +7,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.WebViewAssetLoader
 import android.content.Context
@@ -15,6 +17,23 @@ class BootcampActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var webView: WebView
     private var tts: TextToSpeech? = null
     private var bridge: VoiceBridge? = null
+    private var book: BookBridge? = null
+    private var pendingBookHtml: String? = null
+
+    private val saveBook = registerForActivityResult(ActivityResultContracts.CreateDocument("text/html")) { uri ->
+        val html = pendingBookHtml
+        pendingBookHtml = null
+        if (uri == null || html == null) {
+            book?.notifySaved(false)
+            return@registerForActivityResult
+        }
+        val ok = runCatching {
+            contentResolver.openOutputStream(uri, "wt")?.use { it.write(html.toByteArray(Charsets.UTF_8)) }
+                ?: error("no stream")
+        }.isSuccess
+        Toast.makeText(this, if (ok) R.string.book_saved else R.string.book_save_failed, Toast.LENGTH_LONG).show()
+        book?.notifySaved(ok)
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +64,16 @@ class BootcampActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val voice = VoiceBridge(webView, engine)
         bridge = voice
         webView.addJavascriptInterface(voice, "BootcampVoice")
+        val bookBridge = BookBridge(webView) { fileName, html ->
+            pendingBookHtml = html
+            runCatching { saveBook.launch(fileName) }.onFailure {
+                pendingBookHtml = null
+                Toast.makeText(this, R.string.book_save_failed, Toast.LENGTH_LONG).show()
+                book?.notifySaved(false)
+            }
+        }
+        book = bookBridge
+        webView.addJavascriptInterface(bookBridge, "BootcampBook")
         webView.loadUrl("https://appassets.androidplatform.net/assets/www/index.html")
 
         onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
@@ -60,6 +89,7 @@ class BootcampActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     override fun onDestroy() {
         webView.removeJavascriptInterface("BootcampVoice")
+        webView.removeJavascriptInterface("BootcampBook")
         tts?.stop()
         tts?.shutdown()
         tts = null
