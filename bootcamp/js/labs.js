@@ -46,15 +46,24 @@ function gateView(state) {
     const hot = a === state.a && (unary || b === state.b);
     return `<tr class="${hot ? "hot" : ""}"><td>${a}</td>${unary ? "" : `<td>${b}</td>`}<td>${out}</td></tr>`;
   }).join("");
+  const hint = {
+    AND: "Y is 1 only when A and B are both 1.",
+    OR: "Y is 1 when A or B is 1.",
+    NOT: "Y is the opposite of A.",
+    NAND: "Y is 0 only when A and B are both 1.",
+    NOR: "Y is 1 only when A and B are both 0.",
+    XOR: "Y is 1 when A and B differ.",
+    XNOR: "Y is 1 when A and B match.",
+  }[state.gate];
   return `<div class="bench" data-lab="gates">
     <p class="kicker">Class XI bench</p>
     <h2>Logic gate bench</h2>
     <label>Gate <select data-gate>${Object.keys(GATES).map((name) => `<option ${name === state.gate ? "selected" : ""}>${name}</option>`).join("")}</select></label>
     <div class="switch-row">
-      <div><span>A ${state.a}</span><button class="switch" data-input="a" aria-pressed="${state.a ? "true" : "false"}"><i></i></button></div>
-      ${unary ? "" : `<div><span>B ${state.b}</span><button class="switch" data-input="b" aria-pressed="${state.b ? "true" : "false"}"><i></i></button></div>`}
-      <div class="lamp ${y ? "lit" : ""}"><span>Y</span><b>${y}</b></div>
+      <div><span>A ${state.a}</span><button class="switch" data-input="a" aria-pressed="${state.a ? "true" : "false"}" aria-label="Toggle input A"><i></i></button></div>
+      ${unary ? "" : `<div><span>B ${state.b}</span><button class="switch" data-input="b" aria-pressed="${state.b ? "true" : "false"}" aria-label="Toggle input B"><i></i></button></div>`}
     </div>
+    <div class="out-row"><div class="lamp ${y ? "lit" : ""}"><span>Y</span><b>${y}</b></div><p>${esc(hint)}</p></div>
     <table class="truth"><thead><tr><th>A</th>${unary ? "" : "<th>B</th>"}<th>Y</th></tr></thead><tbody>${rows}</tbody></table>
   </div>`;
 }
@@ -207,6 +216,7 @@ export function bindLab(root, labId, narrator, getSpeech) {
     narrator.speak(lab.say, { lang: speech.lang === "ur" ? "en" : "en", rate: speech.rate, fallbackText: lab.say });
   };
 
+  paint();
   root.addEventListener("click", onClick);
   root.addEventListener("change", onChange);
   explain?.addEventListener("click", onExplain);
