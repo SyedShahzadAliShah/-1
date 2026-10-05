@@ -15,6 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntimacyGuide">
         <activity
+            android:name=".TeachingStudioActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".GuidedLessonActivity"
+            android:exported="false"
+            android:parentActivityName=".TeachingStudioActivity" />
+        <activity
+            android:name=".FlashcardStudyActivity"
+            android:exported="false"
+            android:parentActivityName=".GuidedLessonActivity" />
+        <activity
+            android:name=".ChapterQuizActivity"
+            android:exported="false"
+            android:parentActivityName=".GuidedLessonActivity" />
+        <activity
             android:name=".AiTutorActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"

@@ -10,6 +10,7 @@ Android bootcamp for **Sindh Curriculum Computer Science Class XI & XII**, built
 - **Full PDF embedded** — XI (127 pp) and XII (147 pp) teacher notes in `assets/lecture_notes/`
 - **Embed TTS** — English or Urdu male-voice narration per page or full PDF
 - **Embedded AI Tutor** — offline Q&amp;A grounded in lecture notes; quiz &amp; ★ golden topics; optional Gemini API key
+- **Teaching Studio** — six-step guided lessons per chapter (objectives → cinematic → notes → flashcards → quiz → AI reflect) with offline progress
 - **Bootcamp citations** — every tutor answer lists required sources (class, chapter, teacher PDF page, syllabus §)
 - **PDF export** — printable chapter summary study guide (includes citation line per chapter)
 
@@ -23,7 +24,11 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Download (recommended)** — **v1.2.4** (Bootcamp citations + stable narration):
+**Download (recommended)** — **v1.5.0** Teaching Studio:
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.5.0-debug.apk
+
+**v1.2.4** (Bootcamp citations + stable narration):
 
 https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.4-debug.apk
 
@@ -42,6 +47,18 @@ export ANDROID_HOME=/opt/android-sdk
 ./gradlew assembleDebug
 cp app/build/outputs/apk/debug/app-debug.apk releases/Self-Taught-Bootcamp-v1.1.0-debug.apk
 ```
+
+## Version 1.5.0
+
+- **Teaching Studio** hub with course progress, curriculum list, and continue-lesson shortcut
+- **Guided lesson** wizard per chapter linking cinematic, notes, flashcards, MCQ quiz, and AI Tutor reflect step
+- Offline **progress tracking** (SharedPreferences) — quiz pass ≥ 60% auto-completes quiz step
+
+## Version 1.2.4
+
+- **Bootcamp citations** on AI Tutor replies, chapter detail screen, and exported PDF summaries
+- Citation chip + Gemini prompt asks to preserve `[n]` reference lines from bundled notes
+- Same stable embed/cinematic TTS as v1.2.2 / v1.2.3
 
 ## Version 1.3.0
 

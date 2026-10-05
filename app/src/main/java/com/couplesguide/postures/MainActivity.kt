@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnXiiCinematic.setOnClickListener { openFullCinematic("xii") }
         binding.btnListenXiPdf.setOnClickListener { startFullPdfTts("xi") }
         binding.btnListenXiiPdf.setOnClickListener { startFullPdfTts("xii") }
+        binding.btnTeachingStudio.setOnClickListener { openTeachingStudio() }
         binding.btnAiTutor.setOnClickListener { openAiTutor() }
 
         binding.versionBadge.text = getString(R.string.version_badge, BuildConfig.VERSION_NAME)
@@ -133,6 +134,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.full_pdf_tts_done, Toast.LENGTH_LONG).show()
             }
         )
+    }
+
+    private fun openTeachingStudio() {
+        startActivity(Intent(this, TeachingStudioActivity::class.java))
     }
 
     private fun openAiTutor() {
@@ -195,6 +200,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_export -> {
                 exportStudyGuidePdf()
+                true
+            }
+            R.id.action_teaching_studio -> {
+                openTeachingStudio()
                 true
             }
             R.id.action_ai_tutor -> {

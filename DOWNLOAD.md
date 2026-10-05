@@ -1,6 +1,12 @@
 # Download Self-Taught Bootcamp APK
 
-## Recommended — stable narration + Bootcamp citations
+## Recommended — Teaching Studio (ultimate self-taught guide)
+
+**v1.5.0** — guided lessons, flashcards, chapter quizzes, progress tracking + Bootcamp citations + stable TTS:
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.5.0-debug.apk
+
+## Also available — stable narration + Bootcamp citations
 
 **v1.2.4** (required source citations on tutor answers, chapter screen, PDF export; same TTS as 1.2.2/1.2.3):
 

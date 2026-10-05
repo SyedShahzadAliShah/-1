@@ -11,8 +11,8 @@ android {
         applicationId = "com.sindhcs.selftaughtbootcamp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 124
-        versionName = "1.2.4"
+        versionCode = 150
+        versionName = "1.5.0"
     }
 
     buildTypes {

@@ -64,6 +64,13 @@ class StudyChapterDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         bindContent()
 
+        binding.btnGuidedLesson.setOnClickListener {
+            startActivity(
+                Intent(this, GuidedLessonActivity::class.java).apply {
+                    putExtra(GuidedLessonActivity.EXTRA_CHAPTER_ID, chapter.id)
+                }
+            )
+        }
         binding.btnCinematic.setOnClickListener {
             startActivity(
                 Intent(this, LectureCinematicActivity::class.java).apply {

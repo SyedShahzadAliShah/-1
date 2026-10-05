@@ -144,11 +144,19 @@
                         android:textSize="12sp" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnAiTutor"
+                        android:id="@+id/btnTeachingStudio"
                         style="@style/Widget.Material3.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
+                        android:text="@string/open_teaching_studio" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAiTutor"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="@string/open_ai_tutor" />
 
                 </LinearLayout>
