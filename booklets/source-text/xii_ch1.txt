@@ -1,0 +1,556 @@
+##P1
+COMPUTER SCIENCE
+XII
+CHAPTER 1:
+COMPUTER SYSTEMS (HCI)
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2024 / 2025-27
+Page 1
+
+##P2
+TABLE OF CONTENTS
+1. 1.1 Fundamentals of Human Computer Interaction (HCI)
+2. 1.1.1 - 1.1.2 Traditional vs Natural Interaction
+3. 1.2 Applications of HCI (Domains of Life) ★
+4. 1.3 Components of HCI
+5. 1.3 (Cont.) Types of User Interaction
+6. 1.3 (Cont.) Interface Types, Environment & Feedback
+7. 1.4 Importance of HCI ★
+8. 1.5 Accessibility Principles
+9. 1.6 Need Analysis for Interface Design
+10. 1.7 Human Computer Interaction Problems ★
+11. 1.8 Methods for Improving HCI
+12. 1.9 User Interface Design (UI vs UX) ★
+13. 1.9.3 - 1.9.5 Wireframing, Figma, and Prototypes
+14. 1.11 Test and Evaluate HCI (Evaluation Methods)
+15. 1.11.2 Testing Methods (Usability, A/B, Automated) ★
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XII (1 & 2).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P3
+1.1 Fundamentals of Human Computer
+Interaction
+Human-Computer Interaction (HCI) defines the fundamental design of
+technology to serve people. It refers to systems that are easy to use, efficient,
+and responsive to human needs. HCI is also known as CHI (Computer-Human
+Interface) or MMI (Man-Machine Interaction).
+Sensory Channels of Interaction
+Humans and computers communicate by using the following sensory channels:
+Channel
+How Humans Use It
+How Computers Respond
+Look at screens, graphics, or
+videos.
+Displays visuals on
+monitors/screens.
+Tap, type, or swipe.
+Responds with clicks or vibrations
+(Haptics).
+Listen to sounds or voices.
+Provides audio feedback via
+speakers.
+Speak commands (e.g.,
+"Alexa").
+Processes speech and replies.
+Move in physical space.
+Tracks position or body movement
+(e.g., VR).
+HUMAN
+Sight
+Touch
+Hearing
+Voice
+Page 3
+
+##P4
+Traditional vs Natural Interaction
+1.1.1 Traditional Interaction
+Refers to the basic way people use
+everyday devices. It relies on standard
+input and output methods.
+Computer: Moving a mouse and
+typing on a keyboard. Output via
+monitor and speakers.
+Smartphone: Tapping and swiping on
+a touchscreen. Output via screen
+lighting and vibrations.
+1.1.2 Natural Interaction
+Refers to advanced, smart technology
+that allows people to interact without
+a mouse or keyboard. It feels more
+human.
+Voice: Speaking commands into a
+device (e.g., "Alexa, play a song").
+Body & Gesture: Facial recognition to
+unlock a phone, or playing VR games
+by waving hands.
+👨‍🏫 Class Discussion
+Ask students to list 3 traditional interfaces they used today (e.g., TV remote,
+ATM keypad) and 3 natural interfaces (e.g., FaceID, Siri, Kinect Games).
+Page 4
+
+##P5
+1.2 Applications of HCI
+★ GOLDEN TOPIC
+The applications of HCI extend to the design and development of interactive
+systems such as desktop applications, websites, and mobile apps. These are
+human-centered solutions built to meet user needs across diverse domains.
+Domain
+Application Examples
+User Benefit
+Health Care
+Patient portals, telemedicine
+apps, assistive technologies.
+Improves access to medical
+services remotely.
+Banking
+Mobile banking apps, secure
+ATM interfaces.
+Enables quick transactions and
+secure financial management.
+Education
+E-learning platforms (LMS),
+online exam portals.
+Enhances teaching, learning,
+and student engagement.
+Networking &
+Communication
+Social media platforms,
+messaging apps (WhatsApp),
+Zoom.
+Connects people globally
+through collaboration tools.
+HCI
+Networking
+Education
+Healthcare
+Banking
+Page 5
+
+##P6
+1.3 Components of HCI
+Human-Computer Interaction relies on several primary components that work
+together.
+Any individual or group that interacts with a computer system to achieve defined
+goals. Classified into two categories:
+1. End Users: Individuals who directly operate the system (from beginners to experts).
+2. Stakeholders: People/groups with an interest in the system's outcome (managers,
+clients).
+The platform where humans and computers communicate through input, output, and
+feedback using an interface. It connects human actions with machine responses.
+The process through which a user communicates with a system by performing
+actions (clicking, tapping, typing, speaking). It transforms user intent into system
+responses. (Types detailed on next page).
+The specific action users perform (e.g., booking a ticket). Characteristics include:
+Task Complexity: Difficulty level (filling a form vs designing a 3D model).
+User Knowledge: Skills required (basic typing vs advanced programming).
+Time Requirement: Duration needed (ATM withdrawal vs online passport application).
+Page 6
+
+##P7
+Types of User Interaction
+User interaction can happen in many different ways depending on the
+technology used.
+Interaction Type
+Description
+Examples
+Direct
+Manipulation
+Handling digital objects on a screen
+exactly like physical objects.
+Dragging files, zooming
+images with fingers.
+Command-Based
+Giving precise instructions through
+typed text commands.
+MS-DOS, Linux Terminal
+(dir, cd..).
+Menu-Driven
+Selecting from predefined lists or
+options instead of typing.
+Clicking "Start Test" or
+"Download" on a portal.
+Form Fill
+Entering structured data into blank
+text fields.
+Sign-up forms, ticket
+booking screens.
+Conversational
+Communicating with systems using
+natural human language
+(text/voice).
+Chatbots, ChatGPT,
+Google Assistant.
+Page 7
+
+##P8
+Types of User Interaction (Continued)
+Interaction Type
+Description
+Examples
+Gesture-Based
+Using body or hand movements to
+control systems.
+Swiping touchscreens,
+VR hand gestures.
+Voice Interaction
+Speaking commands directly to the
+system.
+"Call Aslam" on a
+smartphone.
+Context-Aware
+Systems sense the environment and
+act automatically without prompt.
+Smart lighting turning
+on when entering a
+room.
+Biometric
+Using biological features for
+interaction and authentication.
+Fingerprint unlock,
+Facial recognition
+(FaceID).
+Haptic & Tactile
+Providing physical feedback to
+confirm actions.
+Phone vibration when
+typing.
+Multimodal
+Combining two or more interaction
+types together.
+Voice + touch (speaking
+a search, then tapping).
+Page 8
+
+##P9
+Interfaces, Environment & Feedback
+v) User Interface (UI)
+The medium through which humans interact with computer systems.
+Graphical User Interface (GUI): Uses visual elements like windows, icons, and menus (e.g.,
+Windows OS, Android).
+Command-Line Interface (CLI): Uses text-based typing (e.g., MS-DOS, Linux Terminal).
+Touch Interface: Interaction via gestures like tapping, swiping, pinching (e.g., Smartphones,
+Tablets).
+Voice User Interface (VUI): Interacting through spoken commands (e.g., Smart Speakers).
+Natural User Interface (NUI): Relies on gestures, body movements, or immersive
+environments (e.g., VR Headsets, Microsoft Kinect).
+vi) Environment
+The real-world setting where a person uses a computer system. It is shaped by physical
+conditions (e.g., an ATM outdoors in sunlight), social conditions (e.g., a quiet classroom),
+and technical hardware.
+vii) Feedback
+The signal or response given to confirm or guide actions.
+System Feedback
+Response from the computer (e.g., "Loading..."
+bar, "Message Sent!" tick mark, or an Error
+sound).
+User Feedback
+Input from the user to the system (e.g.,
+tapping a "Submit" button, giving a 5-star
+rating).
+Page 9
+
+##P10
+1.4 Importance of HCI
+★ GOLDEN TOPIC
+HCI ensures that machines are approachable and usable, turning complex
+technology into everyday tools. Good design makes technology simple and
+enjoyable (e.g., touchscreens). Poor design causes confusion and risks (e.g.,
+unclear buttons on medical devices).
+Important Implications of HCI:
+Implication
+Description
+1. Enhance
+Productivity
+Well-designed interfaces help users work faster, make fewer
+mistakes, and achieve goals efficiently.
+2. Promotes
+Inclusivity
+Accessibility features (screen readers, voice commands)
+empower marginalized groups and ensure equal use of
+technology for everyone.
+3. Drives
+Innovation
+Emerging tech like AR/VR, AI, and IoT rely strictly on solid HCI
+principles for people to actually adopt and use them.
+4. Economic
+Impact
+User-friendly products gain higher adoption rates, customer
+loyalty, and market success, driving profits.
+5. Ethical
+Responsibility
+Responsible design ensures technology respects user privacy,
+reduces bias, and supports human well-being.
+Page 10
+
+##P11
+1.5 Accessibility Principles
+Accessibility principles are HCI guidelines that ensure digital systems are usable
+by ALL individuals, including people with diverse physical, sensory, and cognitive
+abilities. They remove barriers to create equal access.
+Making text and pictures stand out clearly against the background. Example: Black text on
+a white background in a railway app helps passengers read easily under bright sunlight.
+Using clear, simple fonts with proper size and spacing. Example: A school website using
+large "Calibri" font makes homework instructions easy to read.
+Not depending *only* on colours to show information, but also using symbols or text labels.
+Example: A traffic app showing a red circle with a "STOP" text label, not just a red color.
+Giving users different ways to move around a system. Example: A website that lets you use
+the "Tab" key to jump between buttons for people who cannot use a mouse.
+Presenting info in different formats (sight, sound, touch). Example: A video with text
+captions, or a phone vibrating to alert a user.
+Page 11
+
+##P12
+1.6 Need Analysis for Interface Design
+Need Analysis is the process of identifying the gap between the existing
+situation and the desired outcome. In HCI, it is done *before* designing a UI to
+understand users' goals, tasks, abilities, and expectations.
+Steps in Need Analysis:
+1. Identify the users: Who exactly will use the system? (e.g., elderly people,
+teenagers).
+2. Information Collection: Gather data using interviews, questionnaires, or
+observations.
+3. Analyze user needs: Identify the core problems, goals, and requirements.
+4. Prioritize needs: Decide which features are the most critical to build first.
+5. Develop solutions: Design a system that meets those verified needs.
+📚 Case Study Example: Mobile Banking App
+Before building a bank app, the team interviews customers and discovers:
+Users want secure login via Fingerprint/FaceID.
+Elderly users need large buttons and simple navigation.
+Users want support for both English and local languages.
+Result: The UI is designed specifically around these proven needs, ensuring
+success.
+Page 12
+
+##P13
+1.7 Human Computer Interaction Problems
+★ GOLDEN TOPIC
+HCI problems are common difficulties that stop users from using technology
+smoothly. These happen when systems fail to meet human needs or cognitive
+limits.
+Problem
+Explanation & Example
+Interface
+Complexity
+Too many options or a confusing layout.
+Example: A shopping app with so many menus you can't find the
+checkout button.
+Poor Feedback
+The system doesn't show if an action worked or failed.
+Example: Clicking "Submit" on a form and the screen just freezes
+without a confirmation message.
+Inconsistency
+Different parts of the app look or act differently.
+Example: Using a magnifying glass icon for "Search" on one
+page, but a binocular icon on another.
+Accessibility Gaps
+Design ignores people with disabilities.
+Example: A video tutorial platform without text captions for deaf
+users.
+Compatibility
+Issues
+Interface fails on different devices or browsers.
+Example: A website that works perfectly on a laptop but crashes
+on a mobile browser.
+Page 13
+
+##P14
+HCI Problems & 1.8 Improving HCI
+Problem
+Explanation & Example
+Contextual Neglect
+System doesn't adjust to the user's situation.
+Example: A map app that lacks a "dark mode," blinding the
+driver at night.
+High Cognitive
+Load
+Users must memorize too much or follow overly complex steps.
+Example: A registration system forcing you to remember three
+different SMS codes simultaneously.
+Trust Deficiency
+System feels unsafe or hides security cues.
+Example: An online store asking for credit cards but lacking an
+SSL/HTTPS lock icon.
+1.8 Methods for Improving HCI
+Enhance Usability: Simplify navigation. (e.g., A clear "Buy Now" button).
+Strengthen Accessibility: Support disabilities. (e.g., Captions on videos).
+Ensure Consistency: Keep layouts uniform. (e.g., Same "Save" button everywhere).
+Provide Clear Feedback: Show action results. (e.g., "Payment Successful" popup).
+Improve Adaptability: Responsive design. (e.g., Website scales to mobile screens).
+Apply User-Centered Design (UCD): Focus on real user goals and pilot test.
+Use Multimodal Interaction: Allow touch, voice, or gesture inputs combined.
+Continuous Testing: Regularly update based on user feedback.
+Page 14
+
+##P15
+1.9 User Interface Design (UI)
+★ GOLDEN TOPIC
+UI Design is the process of creating and organizing the visual elements of a
+software application so users can interact with it easily and efficiently.
+1.9.1 Components of User Interface (UI)
+Buttons: Clickable elements to perform
+actions (Submit, Cancel).
+Menus: Lists of options for navigating the
+system.
+Icons: Small symbols representing tools
+or actions.
+Text Fields: Boxes where users type info
+(Passwords, Search).
+Checkboxes/Radio: Selecting options in a
+form.
+Sliders: Adjusting values along a bar
+(Volume, Brightness).
+1.9.2 User Experience (UX)
+UX refers to the overall experience a user has while interacting with a system—
+how smooth, comfortable, and satisfying it feels.
+UI is what you see; UX is how it feels.
+Example: In a Food Delivery App, the UI is the nice pictures of burgers and red buttons. The UX is
+the fact that the app loads fast, tracking works perfectly, and the food arrives without the user
+getting frustrated.
+Page 15
+
+##P16
+1.9.3 Wireframing
+Wireframing is creating a basic visual outline or blueprint of a user interface
+*before* the final design is developed. It plans the structure without focusing on
+colors or detailed graphics.
+Low-Fidelity Wireframes
+(Lo-Fi)
+A simple black-and-white sketch
+showing basic layout (boxes and lines).
+Used early to quickly test and share
+ideas. Focuses purely on structure and
+flow.
+High-Fidelity Prototypes
+(Hi-Fi)
+A detailed version that looks almost
+exactly like the final product. Includes
+real colors, fonts, images, and interactive
+clickable buttons. Used for final user
+testing.
+Lo-Fi Sketch
+Add Details
+LOGO
+Username
+Password
+LOGIN
+Hi-Fi Prototype
+Page 16
+
+##P17
+1.10 Figma & 1.9.5 Prototypes
+What is Figma?
+Figma is a popular, free, web-based tool used to design and collaborate on UI
+and prototypes. It works directly in a web browser.
+Creating a Low-Fidelity Design in Figma
+1. Sign Up: Access Figma workspace online.
+2. Create Frames: Select the Frame tool (e.g., iPhone 17 size) to act as your screen
+canvas.
+3. Add Shapes: Draw basic rectangles for buttons and circles for avatars.
+4. Add Text: Use the text tool to label buttons (e.g., "Sign Up").
+5. Duplicate & Edit: Copy the frame to create the next screen (e.g., the Home Screen).
+1.9.5 Prototype Design
+A prototype is an early interactive model used to test design ideas before
+writing actual code. In Figma, you use the "Prototype" tab to link screens
+together.
+You can set a Trigger (e.g., "On Tap").
+You can set an Action (e.g., "Navigate to Home Screen").
+This allows real users to click through the fake app to see if the navigation makes
+sense.
+Page 17
+
+##P18
+1.11 Test and Evaluate HCI
+Testing checks if the product works properly (finding bugs), while evaluation
+determines whether it meets users' needs (usability). Together, they improve the
+product before release.
+1.11.1 Evaluation Methods
+Method
+Description
+SUS (System
+Usability Scale)
+A standard 10-item questionnaire used to calculate a score for
+how usable a system is.
+NPS (Net Promoter
+Score)
+Asks users: "How likely are you to recommend this app to a
+friend?" Measures user loyalty.
+Formative
+Evaluation
+Done during development to collect early feedback and
+improve the design continuously.
+Summative
+Evaluation
+Done at the end of development to measure overall success
+against the original goals.
+Expert Reviews
+Usability specialists review the app against established design
+standards (Heuristics).
+Page 18
+
+##P19
+1.11.2 Testing Methods
+★ GOLDEN TOPIC
+Testing involves observing how the system behaves under specific conditions.
+1. Usability Testing
+Observing real users while they perform realistic tasks on the app to measure
+efficiency and satisfaction. If the user gets stuck, the designers know where to fix the
+UI.
+2. Task-Based Testing
+Assigning specific tasks (e.g., "Find a product and add it to cart") and strictly
+measuring the Completion Time, Success Rate, and Number of Errors.
+3. Automated Audits
+Using software bots to automatically scan websites to detect technical issues like
+broken links, slow loading speeds, or low color contrast.
+Task-Based
+"Add to Cart"
+Time: 12 sec
+Success: Yes
+Automated Audit
+Bot Scanning...
+3 Broken Links
+Low Contrast
+Page 19
+
+##P20
+Testing Methods (Continued)
+4. A/B Testing
+Comparing two different versions of an interface (Version A and Version B) to see
+which performs better. Half the users see A, half see B. The one with more clicks or
+sign-ups wins.
+5. Compatibility Testing
+Verifying that a system functions correctly across different web browsers (Chrome,
+Safari), devices (Mobiles, Tablets, PCs), and operating systems.
+6. Performance & Load Testing
+Simulating high user traffic (e.g., 10,000 users logging in at once) to evaluate if the
+system speed drops or if the server crashes.
+7. Keyboard & Screen-Reader Walkthroughs
+Testing system navigation using *only* the keyboard (Tab/Enter) or assistive
+technologies to ensure strict accessibility compliance for users with disabilities.
+Page 20
+
+##P21
+Careers & Summary
+Career Opportunities in UI/UX
+UX Designer: Researches user needs to ensure the app is intuitive and satisfying.
+UI Designer: Designs the visual layout (colors, typography, buttons) using tools like Figma.
+Interaction Designer: Focuses on the flow between screens, animations, and gestures.
+Usability Researcher: Runs SUS/NPS tests and A/B tests with real users to find flaws.
+Accessibility Specialist: Ensures products meet inclusive standards for people with
+disabilities.
+Summary
+HCI: The study of how people and computers interact to create human-centered
+technology.
+Interaction Modes: Sight, Touch, Hearing, Voice, Spatial.
+Traditional vs Natural: Mouse/Keyboard vs Voice/Gestures.
+Accessibility Principles: High contrast, readable fonts, inclusive navigation.
+UI vs UX: UI is the visual elements (buttons, layout); UX is the overall feeling and efficiency.
+Wireframing: Low-fidelity (sketch/structure) vs High-fidelity (detailed, colored prototype).
+Figma: A web-based tool for creating UI frames and interactive prototypes.
+Evaluation & Testing: SUS/NPS measure usability. A/B testing compares designs.
+Automated audits find broken links. Load testing checks server capacity.
+Page 21

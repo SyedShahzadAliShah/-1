@@ -1,0 +1,539 @@
+##P103
+COMPUTER SCIENCE
+XII
+CHAPTER 5:
+APPLICATION AND IMPACTS OF
+COMPUTING
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2025-27
+Page 1
+
+##P104
+TABLE OF CONTENTS
+1. 5.1 Machine Learning, Neural Networks & Deep Learning
+2. 5.1.1 Machine Learning (ML)
+3. 5.1.2 Neural Networks (NN) ★
+4. 5.1.3 Deep Learning (DL)
+5. 5.1.4 Components of Neural Networks ★
+6. 5.1.5 Components of Deep Learning
+7. 5.2 Applications of Neural Networks and Deep Learning
+8. 5.3 Secure Collaboration and Data Protection ★
+9. 5.3.1 Secure Collaboration (Authentication, Access Control)
+10. 5.3.2 Data Protection (Encryption, Passwords, Backup, Firewall)
+11. 5.4 Security Threats and Mitigation Techniques ★
+12. 5.4.1 Common Security Threats (Malware, Phishing, DoS)
+13. 5.4.2 Identify Security Threats
+14. 5.4.3 Apply Mitigation Techniques
+15. 5.5 Equity and Equal Access in Digital Collaboration
+16. 5.5.1 Functions of Equity and Equal Access ★
+17. 5.5.2 Collaboration Tools
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XII (3 - 6).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P105
+5.1 Machine Learning, Neural Networks and Deep
+Learning
+Machine learning, neural networks, and deep learning are important areas of
+artificial intelligence. These technologies help computers learn from data and
+make useful decisions without being explicitly programmed for every single
+step.
+They are used in many modern systems such as:
+Face unlock features on smartphones
+Speech recognition (e.g., Siri, Alexa)
+Photo search categorization
+Medical diagnosis
+Language translation
+5.1.1 Machine Learning
+A machine learning model is the system that learns from data and gives an
+output. It is like a trained brain of a computer program.
+How it works:
+1. Data Input: The model is given massive amounts of data.
+2. Learning: It studies the data and learns patterns and rules automatically.
+3. Prediction: After training, it can make accurate predictions or decisions when given
+new, unseen data.
+Note: There are many types of machine learning models. Neural networks are one
+important type, and Deep learning is a highly advanced method of machine learning.
+Page 3
+
+##P106
+5.1.2 Neural Networks
+★ GOLDEN TOPIC
+A neural network is a computer model that learns patterns from data. It is
+directly inspired by the human brain, but it works as a mathematical computer
+system.
+A neural network uses small processing units called neurons or nodes. These
+nodes are connected and pass information from one layer to another,
+performing calculations at each step.
+Input Layer
+Hidden Layers
+Output Layer
+💡 Practical Example: Face Unlock
+When you look at your phone, the camera captures your face (Input Layer).
+The system studies your face features like eye distance and nose shape
+(Hidden Layers). It compares them with stored data. If the features match,
+the phone unlocks (Output Layer).
+Page 4
+
+##P107
+5.1.3 Deep Learning
+Deep learning is a machine learning method in which computers use multi-
+layer neural networks to learn complex patterns from data.
+The word "deep" is used because data passes through several hidden layers
+before the system produces the final output. Each layer learns a different level of
+detail from the data.
+Early layers: The system may learn simple features (like edges, shapes, colors).
+Deeper layers: It combines those simple features to understand more complex
+patterns (like a whole face or a specific car model).
+Real-World Example: Photo Gallery Search
+A modern photo gallery app on a smartphone uses deep learning to recognize faces,
+objects, or places in thousands of photos. When a user types "car" or "flower" in the search
+bar, the app instantly shows related photos because its deep neural network has already
+learned visual patterns from millions of training images.
+Difference: Neural Network vs Deep Learning
+Neural Network (The Model)
+Deep Learning (The Method)
+A system/model that has layers, nodes, and
+connections to help it learn.
+A specific method that trains neural
+networks containing many hidden layers.
+Can be simple (shallow) with just one or two
+hidden layers.
+Always "deep," requiring huge amounts of
+data and processing power to learn
+complex patterns.
+Page 5
+
+##P108
+5.1.4 Components of Neural Networks
+★ GOLDEN TOPIC
+The components of a neural network can be understood through its layered
+architecture. Data enters, gets processed, and exits, with mathematical
+adjustments happening inside.
+Component
+Description
+1. Input Layer
+Receives the initial raw data (e.g., image pixels, sound waves, text).
+2. Neurons / Nodes
+Small processing units that receive, calculate, and pass information
+forward.
+3. Hidden Layer(s)
+The layers between Input and Output. They process the data and
+learn patterns from it.
+4. Weights
+Numbers that show the importance or strength of connections
+between neurons.
+5. Bias
+An extra constant value added to help the model adjust its result
+and improve accuracy.
+6. Activation
+Function
+A mathematical gate that decides whether the information is
+important enough to move to the next layer.
+7. Output Layer
+Gives the final computed result, decision, or prediction (e.g., "This is
+a cat").
+8. Loss Function
+Checks the error (how much the model's answer is wrong
+compared to reality) so the network can correct itself.
+Page 6
+
+##P109
+5.1.5 Components of Deep Learning
+Deep learning relies on specific advanced components to achieve its high
+accuracy and capability. These components differentiate it from basic machine
+learning.
+1. Large Input Data
+Deep learning is "data hungry." It needs
+massive datasets (thousands or millions of
+records) for better learning and accuracy.
+2. Many Hidden Layers
+Uses dozens or hundreds of hidden layers
+to learn deeper, more intricate patterns.
+3. Automatic Feature Learning
+Unlike older models where humans had to
+manually highlight important features,
+deep learning extracts important features
+by itself.
+4. Learning Algorithm
+Math routines (like Backpropagation) that
+help the system reduce mistakes and
+improve learning continuously.
+5. High Computing Power
+Processing millions of data points across
+deep layers requires specialized, strong
+hardware, such as GPUs (Graphics
+Processing Units).
+6. Training Process
+The model is trained again and again (in
+loops called epochs) to gradually improve
+its final performance.
+Page 7
+
+##P110
+Future of AI, NN, and DL in Pakistan
+Machine learning, neural networks, and deep learning will play a key role in
+Pakistan's future. The National AI Policy 2025 highlights how artificial intelligence
+is now part of national planning, focusing on innovation, skill-building, ethical
+use, and digital growth.
+Sector
+Potential Impact in Pakistan
+Education
+Smart learning systems, online tutoring, automatic assessments,
+and finding where students need specific help.
+Healthcare
+Disease detection, medical image analysis, and managing hospital
+data. Crucial for rural areas lacking specialist doctors.
+Agriculture
+Monitoring crops, predicting weather, managing irrigation, and
+estimating yields (Highly important for Pakistan's economy).
+Business & Banking
+Fraud detection, customer support (chatbots), market forecasting,
+and intelligent risk analysis.
+Local Languages
+Developing speech recognition, translation, and text-to-speech
+tools for Urdu, Sindhi, and other regional languages.
+👨‍🏫 What students need to prepare:
+To benefit from this future, Pakistan needs skilled individuals. Students
+should focus on learning programming (like Python), mathematics, data
+analysis, problem-solving, and the ethical use of technology.
+Page 8
+
+##P111
+5.2 Applications of Neural Networks & Deep
+Learning
+Neural networks and deep learning are widely used in modern life. Many
+intelligent systems use them in the background to recognize information, make
+predictions, and support users.
+1. Image Recognition
+Allows computers to identify objects, faces, or patterns in images. It is used in security
+cameras, photo search tools, and biometric locks.
+Example: Unlocking a smartphone using face recognition, where the system matches
+current facial features with stored data.
+2. Speech Recognition
+Converts spoken words into digital text or commands. Deep learning helps the system
+understand various accents, pronunciation, and voice patterns.
+Example: A student speaks to a voice assistant (like Google Assistant or Alexa) to set a
+morning alarm.
+3. Natural Language Processing (NLP)
+Helps computers understand, process, and respond to human language
+grammatically and contextually. It is the core of chatbots, online translators, and AI
+writers.
+Example: Using Google Translate to understand a difficult English text by translating it into
+Urdu.
+Page 9
+
+##P112
+Applications (Continued)
+4. Healthcare Systems
+Deep learning helps doctors analyze complex medical images such as X-rays, CT
+scans, and MRIs to detect diseases early and accurately.
+Example: A hospital system highlighting abnormal patterns in a lung X-ray that might
+indicate pneumonia or tumors.
+5. Recommendation Systems
+Analyzes past user behavior, preferences, and data to suggest relevant content,
+products, or services to the user.
+Example: When a student watches computer science videos on YouTube, the platform uses
+AI to recommend more programming tutorials.
+6. Autonomous Vehicles
+Self-driving cars use neural networks to process real-time camera and radar data to
+understand roads, traffic signals, pedestrians, and obstacles.
+Example: A self-driving car detects a pedestrian crossing the road and automatically
+applies the brakes.
+7. Fraud Detection & 8. Assistive Technologies
+Fraud Detection: Banks use neural networks to detect unusual transactions by
+comparing current activity with previous spending patterns.
+Assistive Tech: AI supports people with disabilities (e.g., Speech-to-text tools for users
+who have difficulty typing).
+Page 10
+
+##P113
+5.3 Secure Collaboration and Data Protection
+★ GOLDEN TOPIC
+Digital tools allow people to share files, attend online classes, edit documents,
+and work together from different locations. However, collaboration is useful only
+when data is protected and communication remains safe.
+5.3.1 Secure Collaboration
+Secure collaboration means using digital tools to work together in a safe,
+controlled, and responsible way. It depends on several key elements:
+i) Authentication / Identity Verification
+Confirming the identity of a user before allowing access. This is done via
+Username/Password, PIN, OTP (One-Time Password), or Biometrics (Fingerprint/Face).
+Example: A banking app sending an OTP to your phone before login.
+ii) Access Control
+Deciding what an authenticated user is allowed to do (View, Edit, Comment, Download,
+Share).
+Example: A teacher sharing a Google Doc with students as "view only", but giving group
+leaders "edit" permissions.
+Page 11
+
+##P114
+Secure Collaboration (Continued)
+iii) Accountability and Tracking
+Ensuring user actions are linked to verified accounts. It helps track who opened, edited,
+deleted, or shared a file.
+Example: A school LMS tracking exactly which teacher uploaded an assignment and which
+student submitted it.
+iv) Data Privacy
+Protecting personal and sensitive information and using it only for the purpose it was
+collected. It involves:
+Protection: Keeping names, numbers, marks, and passwords secure.
+Controlled Sharing: Sharing only with the right people.
+Confidentiality: Data remains private during storage and transmission.
+Compliance: Following legal and ethical rules for data handling.
+v) Safe Communication / Transmission
+Exchanging information through digital platforms securely, protecting messages from
+unauthorized interception or wiretapping.
+Example: A teacher sharing class instructions through an official, encrypted LMS rather than
+an open public forum.
+Page 12
+
+##P115
+5.3.2 Data Protection
+Data protection means keeping digital information safe from unauthorized
+access, misuse, loss, damage, or accidental deletion. Important features of data
+protection include:
+1. Data Encryption
+Changes readable data into a coded form called ciphertext. It cannot be understood by
+unauthorized users.
+Symmetric: Same key used for encryption and decryption.
+Asymmetric: Two keys used (Public key to encrypt, Private key to decrypt).
+2. Strong Passwords
+Includes uppercase, lowercase, numbers,
+and symbols. Prevents brute-force
+guessing. (e.g., Zk@2026#Pass).
+3. Backup & Recovery
+Keeping a copy of data in a safe location
+(Cloud/External drive) to restore it after
+hardware damage or cyberattacks.
+4. Firewall and Antivirus Software
+A firewall is a security barrier that monitors network traffic and blocks suspicious internet
+access. Antivirus detects and removes harmful software (viruses, spyware) from the
+local machine.
+Page 13
+
+##P116
+5.4 Security Threats and Mitigation
+★ GOLDEN TOPIC
+A security threat is any action, event, or weakness that can harm a computer
+system or its data. Mitigation techniques are protective measures used to
+prevent threats or reduce their impact.
+5.4.1 Common Security Threats
+1. Malware
+Harmful software designed to damage a computer, steal data, or gain unauthorized
+access. Includes viruses, worms, spyware, ransomware, and Trojans.
+Example: Installing cracked software that secretly corrupts files.
+2. Phishing
+A social engineering trick used to deceive users into sharing personal information
+(passwords, bank details, OTPs) using fake emails or websites that look genuine.
+3. Unauthorized Access
+Entering a system, account, or file without permission. Often caused by weak passwords,
+shared passwords, or leaving devices unlocked.
+Page 14
+
+##P117
+Security Threats (Continued)
+4. Data Theft / Identity Theft
+Data theft is stealing or copying data without permission. Identity theft is using another
+person's stolen details (Name, CNIC, bank details) to pretend to be them online and
+commit fraud.
+5. Denial of Service (DoS)
+An attack where a website or system is flooded with thousands of fake requests, causing it
+to slow down or crash, preventing real users from accessing the service.
+Example: Hackers flooding an online exam portal so students cannot log in.
+6. Human Error
+Mistakes made by legitimate users, such as accidentally deleting important files, sending
+confidential data to the wrong email, or falling for a simple scam.
+Phishing
+Fake Bank Email
+DoS Attack
+Server Overload
+Identity Theft
+Stolen CNIC/Details
+Page 15
+
+##P118
+5.4.2 Identifying Security Threats
+Identifying security threats means noticing signs that data or systems may be
+at risk. Early identification helps take action before serious damage occurs.
+Sign / Indicator
+What it likely means
+Slow performance,
+missing files, or random
+pop-ups.
+Indicates the presence of Malware or background
+unauthorized activity.
+Failed login attempts or
+strange login locations.
+Indicates an attempt of Unauthorized Access.
+Emails urging quick
+action, asking for OTP, or
+containing bad
+grammar/strange links.
+Classic signs of a Phishing attempt.
+Unexpected deletion,
+copying, or movement
+of records.
+Indicates Data Theft or insider misuse.
+Sudden massive spike
+in server requests or
+very slow website
+response.
+Indicates an ongoing DoS (Denial of Service) attack.
+👨‍🏫 Real-World Awareness
+Teach students that avoiding unsafe downloads, cracked software,
+unverified websites, and infected USB drives is the first line of defense
+against most of these indicators.
+Page 16
+
+##P119
+5.4.3 Apply Mitigation Techniques
+Mitigation techniques are actions taken to prevent security threats or reduce
+their harmful effects once identified.
+1. Antivirus & Firewalls
+Antivirus scans and removes harmful
+software (e.g., from USB drives). A
+Firewall monitors network traffic and
+blocks suspicious access from the
+internet.
+2. Strong Passwords & 2FA
+Use complex passwords. Two-Factor
+Authentication (2FA) adds an extra
+layer by requiring an OTP sent to your
+phone alongside the password.
+3. Data Encryption
+Converts data into unreadable code
+during transmission. Protects passwords
+and sensitive data from being read if
+intercepted.
+4. Regular Backups
+Storing copies of data on cloud or
+external drives allows quick recovery
+after a crash, human error, or
+ransomware attack.
+5. User Awareness (The Human Factor)
+Technology cannot stop all threats if the user is careless. Training users to avoid unknown
+links, suspicious attachments, and password sharing is critical.
+Page 17
+
+##P120
+5.5 Equity and Equal Access in Collaboration
+★ GOLDEN TOPIC
+Collaboration tools are vital for online learning and teamwork. To use these tools
+fairly, all users must participate without barriers. It is crucial to understand the
+difference between Equal Access and Equity.
+Giving everyone the exact same
+opportunity, tools, and resources.
+Giving additional, specific support to
+users who need it, so they can reach the
+same outcome.
+Example: Providing every student with the
+same login ID to access a Zoom class.
+Example: Turning on live
+subtitles/captions in Zoom specifically for
+a student who has hearing difficulties.
+5.5.1 Functions of Equity and Equal Access
+Providing Need-Based Support (Equity): Giving help tailored to individuals (e.g., audio
+descriptions for visually impaired students).
+Removing Barriers: Helping students in remote areas of Pakistan attend online
+classes by providing mobile-friendly, low-data apps.
+Enabling Active Participation: Providing recorded lectures so students who face
+power or internet outages don't fall behind.
+Supporting Different Learning Needs: Offering videos, text notes, and audio so
+students can learn in the way that suits them best.
+Page 18
+
+##P121
+5.5.2 Collaboration Tools
+Digital collaboration tools are online platforms that support communication, file
+sharing, learning, and teamwork across different locations.
+Tool
+Primary Function & Educational Use
+Google Docs
+Allows users to write, edit, comment, and share documents in
+real-time. Excellent for group assignments.
+Zoom
+Supports online meetings, virtual classes, screen sharing, and
+video-based communication.
+Microsoft Teams
+A unified workspace for online meetings, file sharing, class
+groups, and structured teamwork.
+Google Classroom / LMS
+Learning Management Systems help teachers manage
+lectures, distribute assignments, conduct quizzes, and grade
+student activities.
+WhatsApp
+Commonly used for quick class announcements, urgent
+reminders, and instant group communication. Must be used
+responsibly.
+Email
+Used for formal communication, official notices, submitting
+large attachments, and maintaining a professional written
+record.
+⚖️ Discussion Point: Fairness in Tools
+Ask students: If a teacher only accepts assignments via an app that requires
+a high-end smartphone, is that providing Equal Access? (Answer: No, it
+creates a hardware barrier for lower-income students. Web-based or light
+apps ensure better access).
+Page 19
+
+##P122
+Career Opportunities
+This unit covers neural networks, deep learning, secure collaboration, data
+protection, and digital equity. Mastery of these concepts opens the door to
+high-demand careers in Artificial Intelligence and Cybersecurity.
+Machine Learning Engineer
+Builds and trains machine learning and
+neural network models used in
+applications like face recognition, NLP,
+and recommendation systems.
+Cybersecurity Analyst
+Monitors systems for security threats
+such as malware and phishing, and
+applies mitigation techniques
+(Firewalls, 2FA) to protect
+organizational data.
+AI Researcher
+Studies and develops new techniques
+in artificial intelligence and deep
+learning, often working within university
+research labs or high-tech R&D
+centers.
+Data Privacy Officer
+Ensures an organization's data
+handling practices comply with legal
+privacy principles, protecting sensitive
+user information and ensuring secure
+collaboration.
+Ethical Hacker
+Legally tests systems and networks for
+vulnerabilities (penetration testing)
+before malicious attackers can exploit
+them via DoS or malware.
+Page 20
+
+##P123
+Summary of Chapter 5
+Machine Learning: A model that acts as a trained brain, learning from data to give
+outputs without explicit programming for every scenario.
+Neural Networks: Computer models inspired by the human brain, utilizing Input layers,
+Hidden layers, Neurons, Weights, Bias, and Output layers.
+Deep Learning: An advanced ML method using multi-layer (deep) neural networks,
+requiring massive data and high computing power (GPUs).
+AI Applications: Face unlock, Speech recognition, NLP (translation/chatbots),
+Healthcare image analysis, Autonomous vehicles, and Fraud detection.
+Secure Collaboration: Safely working online by enforcing Authentication (verifying
+identity) and Access Control (managing permissions).
+Data Privacy & Protection: Protecting sensitive data using Encryption (changing data
+to ciphertext), strong passwords, firewalls, and regular backups.
+Security Threats: Includes Malware (viruses/Trojans), Phishing (fake emails stealing
+info), DoS (crashing servers with fake traffic), and Human Error.
+Mitigation: Preventive measures like 2FA (Two-Factor Authentication), Antivirus
+software, and strong user awareness training.
+Equity vs Equal Access: Equal access gives everyone the same tools. Equity gives
+specific, tailored support to those who need it (e.g., captions for the hearing impaired)
+to ensure fair participation in digital spaces.
+Page 21
