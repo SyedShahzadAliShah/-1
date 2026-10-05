@@ -120,20 +120,53 @@ def build(key):
 
 
 def print_pdf(html_path, pdf_path, profile):
-    subprocess.run(
+    """Chrome often keeps running after the PDF is written; wait on the file, then stop that process."""
+    import time
+    pdf_path = Path(pdf_path)
+    if pdf_path.exists():
+        pdf_path.unlink()
+    proc = subprocess.Popen(
         [
             CHROME, "--headless=new", "--no-sandbox", "--disable-gpu",
             f"--user-data-dir={profile}", "--no-first-run", "--disable-extensions",
             "--no-pdf-header-footer",
             "--run-all-compositor-stages-before-draw",
-            "--virtual-time-budget=60000",
+            "--virtual-time-budget=120000",
             f"--print-to-pdf={pdf_path}", html_path.as_uri(),
         ],
-        check=True,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
-        timeout=600,
     )
+    last_size, stable = -1, 0
+    for _ in range(240):  # up to ~12 minutes
+        time.sleep(3)
+        if not pdf_path.exists():
+            if proc.poll() is not None:
+                raise RuntimeError(f"Chrome exited {proc.returncode} without writing {pdf_path}")
+            continue
+        size = pdf_path.stat().st_size
+        if size > 50_000 and size == last_size:
+            stable += 1
+            if stable >= 2:
+                break
+        else:
+            stable = 0
+            last_size = size
+    else:
+        proc.terminate()
+        try:
+            proc.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        raise RuntimeError(f"Timed out waiting for {pdf_path}")
+    if proc.poll() is None:
+        proc.terminate()
+        try:
+            proc.wait(timeout=15)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+    if pdf_path.stat().st_size < 50_000:
+        raise RuntimeError(f"PDF too small: {pdf_path.stat().st_size} bytes")
 
 
 if __name__ == "__main__":

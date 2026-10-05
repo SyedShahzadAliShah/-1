@@ -394,16 +394,23 @@ print(find_average(A, n))</pre>
     <div class="box example">
       <p><b>Worked example: the same formula, two styles.</b></p>
 <pre class="code"># Hard to read
-v=d/t
-if v&gt;s:
-    if t&gt;0:
+d = 100
+t = 4
+s = 20
+v = d / t
+if v &gt; s:
+    if t &gt; 0:
         print(v)</pre>
+<pre class="code output">25.0</pre>
 <pre class="code"># Readable
+distance = 100
+time = 4
 velocity = distance / time
 speed_limit = 20
 if time &gt; 0 and velocity &gt; speed_limit:
     print(velocity)</pre>
-      <p>The second version uses names, avoids an IF nested inside an IF, and keeps one consistent snake_case style. You can understand it without running it.</p>
+<pre class="code output">25.0</pre>
+      <p>The second version uses names, avoids an IF nested inside an IF, and keeps one consistent snake_case style. You can understand it without running it. Both print <code>25.0</code>, but only the second is clear.</p>
     </div>
     <div class="box tip">
       <p>Remember readability as <b>N-S-S-C</b>: <b>N</b>ames, <b>S</b>elf-documentation, <b>S</b>imple flow, <b>C</b>onsistency.</p>
@@ -549,9 +556,9 @@ print(linear_search([10, 50, 20, 70, 90, 30], 99))</pre>
 data = [3, 8, 12, 17, 23, 31, 40, 52]
 print(binary_search(data, 40))
 print(binary_search(data, 3))</pre>
-<pre class="code output">(6, 2)
+<pre class="code output">(6, 3)
 (0, 3)</pre>
-      <p>Key 40 is found at index 6 after 2 comparisons. Key 3 is found at index 0 after 3 comparisons. Never more than a handful of steps, even if the list later grows to a million (about 20 steps).</p>
+      <p>Key 40 is found at index 6 after 3 comparisons. Key 3 is found at index 0 after 3 comparisons. Never more than a handful of steps, even if the list later grows to a million (about 20 steps).</p>
       <p><b>Worked example D — O(n log n): Merge Sort idea.</b> To sort 8 items, Merge Sort makes log<sub>2</sub> 8 = 3 split-levels, and each level walks all 8 items once, so work ≈ 8 × 3 = 24, which matches the growth table. Bubble Sort on 8 items is on the order of 8² = 64 comparisons. That gap becomes enormous at n = 1,000,000.</p>
       <p><b>Worked example E — O(n²): nested loops.</b></p>
 <pre class="code">n = 4
@@ -759,7 +766,10 @@ for i in range(1, N + 1):
 21
 28
 35</pre>
-<pre class="code"># GOOD: compute C once
+<pre class="code">A = 3
+B = 4
+N = 5
+# GOOD: compute C once
 C = A + B
 for i in range(1, N + 1):
     print(C * i)</pre>
@@ -1588,13 +1598,13 @@ now: ['B', 'C', 'D']</pre>
         <ol class="opts"><li>a paper execution that tracks variables line by line</li><li>a diagram of a tree</li><li>a type of graph edge</li><li>an O(n²) nested loop</li></ol>
       </li>
       <li>Stepwise reasoning mainly checks:
-        <ol class="opts"><li>printer ink levels</li><li>the colour of variable names</li><li>the overall state of logic blocks</li><li>only the last printed line</li></ol>
+        <ol class="opts"><li>printer ink levels</li><li>the colour of variable names</li><li>only the last printed line</li><li>the overall state of logic blocks</li></ol>
       </li>
       <li>Which method is impractical if a loop runs 1,000 times?
         <ol class="opts"><li>Abstraction</li><li>A full trace table</li><li>Stepwise reasoning</li><li>Using a function</li></ol>
       </li>
       <li>The Single Responsibility Principle says each module should:
-        <ol class="opts"><li>print and save and calculate everything</li><li>focus on one specific task</li><li>avoid meaningful names</li><li>use nested IF only</li></ol>
+        <ol class="opts"><li>focus on one specific task</li><li>print and save and calculate everything</li><li>avoid meaningful names</li><li>use nested IF only</li></ol>
       </li>
       <li>Which assignment is more readable?
         <ol class="opts"><li><code>v = d / t</code></li><li><code>x1 = a2 / b2</code></li><li><code>velocity = distance / time</code></li><li><code>a = b / c</code></li></ol>
@@ -1612,7 +1622,7 @@ now: ['B', 'C', 'D']</pre>
         <ol class="opts"><li>2 times</li><li>10 times</li><li>100 times</li><li>log 10 times</li></ol>
       </li>
       <li>LIFO is the rule of a:
-        <ol class="opts"><li>queue</li><li>stack</li><li>graph of cities</li><li>tree root only</li></ol>
+        <ol class="opts"><li>queue</li><li>graph of cities</li><li>tree root only</li><li>stack</li></ol>
       </li>
       <li>ENQUEUE adds an item at the:
         <ol class="opts"><li>Front of a queue</li><li>TOP of a stack only</li><li>Rear of a queue</li><li>root of a tree</li></ol>
@@ -1655,7 +1665,7 @@ now: ['B', 'C', 'D']</pre>
       <h2>Answer key</h2>
       <h3>Multiple choice</h3>
       <ol class="inline">
-        <li>b</li><li>a</li><li>c</li><li>b</li><li>b</li><li>c</li><li>d</li><li>a</li><li>d</li><li>c</li><li>b</li><li>c</li><li>a</li><li>b</li><li>c</li>
+        <li>b</li><li>a</li><li>d</li><li>b</li><li>a</li><li>c</li><li>d</li><li>a</li><li>d</li><li>c</li><li>d</li><li>c</li><li>a</li><li>b</li><li>c</li>
       </ol>
 
       <h3>Short questions — model answers</h3>
