@@ -1,16 +1,18 @@
 import { xiLectures } from "./lectures/xi.js";
 import { xiiLectures } from "./lectures/xii.js";
 import { applyDepth } from "./lectures/depth.js";
+import { applyCitations } from "./citations.js";
 
 export const lectures = [...xiLectures, ...xiiLectures];
 applyDepth(lectures);
+applyCitations(lectures);
 
 export const tracks = [
   {
     id: "xi",
     grade: "XI",
     title: "Computer Science XI",
-    edition: "Sindh curriculum notes, 2026",
+    edition: "Sindh Computer Science, 2026",
     blurb: "Digital systems, computational thinking, Python, databases, impacts, and a careful digital inquiry.",
     chapters: [
       { code: "1", title: "Computer Systems", lectureIds: ["xi-digital", "xi-signals", "xi-boolean", "xi-gates", "xi-kmap", "xi-sdlc", "xi-osi"] },
@@ -25,7 +27,7 @@ export const tracks = [
     id: "xii",
     grade: "XII",
     title: "Computer Science XII",
-    edition: "Sindh curriculum notes, 2024 / 2025-27",
+    edition: "Sindh Computer Science, 2024 / 2025–27",
     blurb: "HCI, algorithms and data structures, Python collections and files, analysis, security, and a venture.",
     chapters: [
       { code: "1", title: "Human Computer Interaction", lectureIds: ["xii-hci", "xii-design"] },

@@ -6,6 +6,7 @@ import { rich } from "./js/mathtext.js";
 import { DIAGRAM_NAMES, chartMarkup, renderDiagram } from "./js/diagrams.js";
 import { whiteboardSvg } from "./js/whiteboard.js";
 import { depthIds } from "./js/lectures/depth.js";
+import { citationHaystack, formatSupport, supportIds, SLO } from "./js/citations.js";
 
 const errors = [];
 const fail = (message) => errors.push(message);
@@ -93,6 +94,34 @@ if (!board.includes("<svg") || !board.includes("pathLength")) fail("whiteboard s
 for (const kind of ["bar", "line", "pie", "box", "scatter", "hist"]) {
   const markup = chartMarkup({ kind, values: [1, 2], labels: ["a", "b"], points: [{ x: 10, y: 20 }], min: 0, q1: 1, median: 2, q3: 3, max: 4 });
   if (!markup.includes("<svg")) fail(`chart ${kind} missing svg`);
+}
+
+if (supportIds.length !== lectures.length) fail(`support sources ${supportIds.length}, lectures ${lectures.length}`);
+for (const lecture of lectures) {
+  const cites = lecture.citations;
+  if (!cites?.curriculum?.work || !cites.curriculum.year) fail(`${lecture.id} missing curriculum citation`);
+  if (!Array.isArray(cites.slos) || cites.slos.length !== (lecture.covers || []).length) {
+    fail(`${lecture.id} SLO citations do not match covers`);
+  }
+  (lecture.covers || []).forEach((code, index) => {
+    const slo = cites.slos[index];
+    if (!slo || slo.code !== code) fail(`${lecture.id} SLO ${code} missing from citations`);
+    if (!slo.title) fail(`${lecture.id} SLO ${code} has no title`);
+    if (!(SLO[lecture.track] || {})[code]) fail(`${lecture.id} unknown SLO ${code}`);
+  });
+  if (!cites.support) fail(`${lecture.id} missing supporting source`);
+  else {
+    const extra = cites.support;
+    ["author", "year", "title", "venue", "why"].forEach((key) => {
+      if (!extra[key]) fail(`${lecture.id} support missing ${key}`);
+    });
+    const words = String(extra.why).split(/\s+/).filter(Boolean).length;
+    if (words < 8 || words > 32) fail(`${lecture.id} support why should be 8–32 words (${words})`);
+    if (!formatSupport(extra).includes(extra.year)) fail(`${lecture.id} formatted citation dropped the year`);
+  }
+  if (!citationHaystack(lecture).toLowerCase().includes(String(cites.support.title).slice(0, 12).toLowerCase())) {
+    fail(`${lecture.id} citation haystack missing the supporting title`);
+  }
 }
 
 if (errors.length) {

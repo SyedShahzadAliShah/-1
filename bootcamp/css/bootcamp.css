@@ -298,6 +298,29 @@ th mjx-container, td mjx-container { vertical-align: middle; }
 .panel { padding: 16px; }
 .panel h2 { margin: 0 0 8px; font-size: 1.4rem; }
 .outcomes { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+.cites { margin: 18px 0 8px; }
+.cites h2 { margin: 0 0 4px; }
+.cite-note { margin: 0 0 8px; font-size: 0.88rem; }
+.cites > ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.cites > ul > li { padding-top: 10px; border-top: 1px solid var(--line); }
+.cite-kind {
+  display: inline-block;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  color: var(--gold);
+}
+.cites strong { display: block; font-family: var(--serif); font-weight: 560; color: var(--ink); margin: 4px 0 6px; line-height: 1.35; }
+.cite-why { display: block; color: var(--ink-soft); font-size: 0.92rem; }
+.slo-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.slo-list li {
+  background: #fff4df;
+  color: #7a5208;
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 0.78rem;
+}
+.slo-code { font-weight: 650; color: var(--gold); }
 .quiz-q { margin: 14px 0; }
 .choices { display: grid; gap: 8px; }
 .choices button { text-align: left; background: white; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }

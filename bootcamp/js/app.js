@@ -4,6 +4,7 @@ import { Narrator } from "./narrator.js";
 import { createPlayer, captionOf } from "./player.js";
 import { gradeQuiz, loadProgress, saveProgress } from "./progress.js";
 import { esc, mountScene } from "./scenes.js";
+import { citationHaystack, formatSupport } from "./citations.js";
 
 const narrator = new Narrator();
 const progress = loadProgress();
@@ -72,7 +73,7 @@ function homeView() {
     <div>
       <p class="eyebrow">Sindh curriculum · spoken lectures</p>
       <h1>Learn computer science by watching the board draw, then hearing the idea.</h1>
-      <p class="lede">A self-taught path through Classes XI and XII. Each lecture animates the idea, reads it aloud, and locks it in with a short checkpoint.</p>
+      <p class="lede">A self-taught path through Classes XI and XII. Each lecture animates the idea, reads it aloud, names the syllabus SLO and one supporting source, then locks it in with a short checkpoint.</p>
       <div class="hero-actions">
         <a class="solid-btn" href="#/lecture/${next.id}">${passed ? "Continue" : "Start the first lecture"}</a>
         <a class="ghost-btn" href="#/labs">Open a practice bench</a>
@@ -91,10 +92,10 @@ function homeView() {
   <div class="how">
     <article><h3>1. The board draws</h3><p>Signals, gates, sorts, stacks, and charts move while the idea is explained.</p></article>
     <article><h3>2. A voice reads it</h3><p>Press play for English or Urdu. If this device has no voice, captions still advance.</p></article>
-    <article><h3>3. You check it</h3><p>Three questions close the lecture. Two correct marks it complete on this device.</p></article>
+    <article><h3>3. You check it</h3><p>Three questions close the lecture. The sidebar cites the Sindh SLO and the source of the extra board. Two correct marks it complete on this device.</p></article>
   </div>
   <div class="section-head"><h2>Find a topic</h2></div>
-  <input class="search" data-search placeholder="Search, for example K-map, queue, or 1.1.7" aria-label="Search lectures" />
+  <input class="search" data-search placeholder="Search, for example K-map, Fitts, or 1.1.7" aria-label="Search lectures" />
   <div data-results></div>`;
 }
 
@@ -121,6 +122,33 @@ function trackView(id, goldenOnly) {
     </div>
     <p class="lede">${esc(track.blurb)}</p>
     ${chapters}`;
+}
+
+function citesHtml(lecture) {
+  const cites = lecture.citations;
+  if (!cites?.curriculum) return "";
+  const slos = (cites.slos || []).map((item) =>
+    `<li><span class="slo-code">${esc(item.code)}</span> ${esc(item.title)}</li>`
+  ).join("");
+  const extra = cites.support
+    ? `<li>
+        <span class="cite-kind">Deeper board</span>
+        <strong>${esc(formatSupport(cites.support))}</strong>
+        <span class="cite-why">${esc(cites.support.why)}</span>
+      </li>`
+    : "";
+  return `<section class="cites">
+    <h2>Sources</h2>
+    <p class="cite-note">The lecture is an original briefing. Name these if you reuse the idea.</p>
+    <ul>
+      <li>
+        <span class="cite-kind">Syllabus</span>
+        <strong>${esc(cites.curriculum.work)} (${esc(cites.curriculum.year)}).</strong>
+        <ul class="slo-list">${slos}</ul>
+      </li>
+      ${extra}
+    </ul>
+  </section>`;
 }
 
 function lectureView(id) {
@@ -161,9 +189,10 @@ function lectureView(id) {
         <details class="transcript"><summary>Read the lecture</summary><ol>${transcript}</ol></details>
       </section>
       <aside class="panel">
-        <p class="kicker">${esc((lecture.covers || []).join(" · "))}</p>
+        <p class="kicker">${esc(lecture.citations?.curriculum?.short || `Class ${lecture.level}`)} · ${esc((lecture.covers || []).join(" · "))}</p>
         <h2>You will be able to</h2>
         <ul class="outcomes">${outcomes}</ul>
+        ${citesHtml(lecture)}
         <div data-quiz></div>
       </aside>
     </div>`;
@@ -254,7 +283,7 @@ function bind(route) {
         return;
       }
       const found = lectures.filter((lecture) =>
-        [lecture.title, lecture.chapter, lecture.summary, ...(lecture.covers || []), ...(lecture.outcomes || [])]
+        [lecture.title, lecture.chapter, lecture.summary, ...(lecture.covers || []), ...(lecture.outcomes || []), citationHaystack(lecture)]
           .join(" ")
           .toLowerCase()
           .includes(query)
