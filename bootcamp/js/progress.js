@@ -10,9 +10,13 @@ export function loadProgress() {
       lastId: data.lastId || "",
       lang: data.lang === "ur" ? "ur" : "en",
       rate: [0.85, 1, 1.2].includes(data.rate) ? data.rate : 1,
+      decks: data.decks || {},
+      cards: data.cards || {},
+      notes: data.notes || {},
+      log: data.log || {},
     };
   } catch {
-    return { done: {}, scores: {}, lastId: "", lang: "en", rate: 1 };
+    return { done: {}, scores: {}, lastId: "", lang: "en", rate: 1, decks: {}, cards: {}, notes: {}, log: {} };
   }
 }
 

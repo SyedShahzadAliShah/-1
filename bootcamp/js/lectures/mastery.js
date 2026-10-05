@@ -45,7 +45,7 @@ const MASTERY = {
     steps: [
       { do: "Absences are discrete.", why: "You can count them one by one." },
       { do: "The live reading is continuous.", why: "It can sit anywhere in a range." },
-      { do: "The stored $36$ is a sample.", why: "The file holds a allowed level, not the ramp." },
+      { do: "The stored $36$ is a sample.", why: "The file holds an allowed level, not the ramp." },
     ],
     exampleNote: "Name the quantity first. Then say whether a machine stored it.",
     trapTitle: "Smooth is not continuous",

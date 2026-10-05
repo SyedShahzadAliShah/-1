@@ -8,6 +8,7 @@ import { whiteboardSvg } from "./js/whiteboard.js";
 import { depthIds } from "./js/lectures/depth.js";
 import { masteryIds, ROLE_ORDER } from "./js/lectures/mastery.js";
 import { citationHaystack, formatSupport, supportIds, SLO } from "./js/citations.js";
+import { BOX_DAYS, buildCards, buildPlan, coverage, dueCards, rate, sessionState, streak, dayKey } from "./js/teach.js";
 
 const errors = [];
 const fail = (message) => errors.push(message);
@@ -139,8 +140,60 @@ for (const lecture of lectures) {
   }
 }
 
+const plan = buildPlan();
+const planned = plan.flatMap((session) => session.lectureIds);
+if (planned.length !== lectures.length || new Set(planned).size !== planned.length) fail(`plan covers ${planned.length} lecture slots for ${lectures.length} lectures`);
+for (const lecture of lectures) {
+  if (!planned.includes(lecture.id)) fail(`${lecture.id} is not in the study plan`);
+}
+if (plan.filter((session) => session.kind === "review").length !== tracks.length) fail("one review session per class");
+plan.forEach((session, index) => {
+  if (session.n !== index + 1) fail(`session ${index} numbered ${session.n}`);
+  if (session.kind === "learn" && (session.lectureIds.length < 1 || session.lectureIds.length > 2)) fail(`session ${session.n} size`);
+  if (!session.minutes || session.minutes < 10) fail(`session ${session.n} minutes`);
+});
+
+const cards = buildCards();
+if (cards.length !== lectures.length * 6) fail(`expected ${lectures.length * 6} cards, built ${cards.length}`);
+if (new Set(cards.map((card) => card.id)).size !== cards.length) fail("duplicate card ids");
+for (const card of cards) {
+  if (!card.front || !card.back || !card.lectureId) fail(`card ${card.id} incomplete`);
+}
+
+const now = Date.UTC(2026, 9, 5, 12);
+const first = rate(undefined, true, now);
+if (first.box !== 1 || first.due !== now + BOX_DAYS[1] * 86400000) fail("rate: first success goes to box 1 for one day");
+const again = rate(first, false, now);
+if (again.box !== 0 || again.due > now + 11 * 60 * 1000) fail("rate: again returns in ten minutes");
+let state = undefined;
+for (let i = 0; i < 10; i += 1) state = rate(state, true, now);
+if (state.box !== BOX_DAYS.length - 1) fail("rate: box caps at the top interval");
+
+const fakeProgress = { decks: { [lectures[0].id]: true }, cards: {}, done: {}, log: {} };
+const due = dueCards(cards, fakeProgress, now);
+if (due.length !== 6) fail(`new deck should have 6 due cards, got ${due.length}`);
+fakeProgress.cards[due[0].id] = rate(undefined, true, now);
+if (dueCards(cards, fakeProgress, now).length !== 5) fail("a passed card leaves the due list");
+if (dueCards(cards, fakeProgress, now + 2 * 86400000).length !== 6) fail("a card returns when due");
+
+const learn = plan.find((session) => session.kind === "learn");
+if (sessionState(learn, fakeProgress, cards).done) fail("session not done before passes");
+learn.lectureIds.forEach((id) => { fakeProgress.done[id] = 1; });
+if (!sessionState(learn, fakeProgress, cards).done) fail("session done after passes");
+
+const boole = lectureById("xi-boolean");
+const covered = coverage("AND is 1 only when every input is 1, OR when any input is 1, and NOT flips the bit.", boole);
+if (covered.hit.length < 3) fail(`coverage should find key terms (${covered.hit.join(",")})`);
+if (coverage("", boole).score !== 0) fail("empty coverage is zero");
+if (coverage("pizza and football", boole).hit.length > 0) fail("coverage should not credit unrelated text");
+
+const log = { [dayKey(now)]: 2, [dayKey(now - 86400000)]: 1 };
+if (streak(log, now) !== 2) fail(`streak should be 2, got ${streak(log, now)}`);
+if (streak({ [dayKey(now - 86400000)]: 1 }, now) !== 1) fail("streak counts yesterday when today is not yet studied");
+if (streak({}, now) !== 0) fail("empty streak");
+
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`ok ${lectures.length} lectures, ${lectures.reduce((n, lecture) => n + lecture.beats.length, 0)} beats, scenes ${used.size}`);
+console.log(`ok ${lectures.length} lectures, ${lectures.reduce((n, lecture) => n + lecture.beats.length, 0)} beats, scenes ${used.size}, ${plan.length} sessions, ${cards.length} cards`);

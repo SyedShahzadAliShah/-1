@@ -360,6 +360,127 @@ th mjx-container, td mjx-container { vertical-align: middle; }
 .drill-out { color: var(--ok); font-weight: 560; }
 .trap-why { color: var(--rose); margin: 4px 0 0; font-size: 0.92rem; }
 
+.edition-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.edition-card {
+  display: block;
+  padding: 18px;
+  border-radius: 18px;
+  text-decoration: none;
+  background: var(--board);
+  color: var(--chalk);
+  box-shadow: var(--shadow);
+}
+.edition-card h3 { margin: 4px 0 8px; font-size: 1.4rem; }
+.edition-card p { margin: 0; color: #d9d0c3; }
+.edition-card .kicker { color: var(--lamp-2); }
+.today {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--board);
+  color: var(--chalk);
+  margin: 0 0 18px;
+}
+.today h3 { margin: 4px 0 6px; font-size: 1.5rem; }
+.today p { margin: 0; color: #d9d0c3; }
+.today .kicker { color: var(--lamp-2); }
+.sessions { display: grid; gap: 12px; }
+.session {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.72);
+}
+.session.is-next { border-color: var(--lamp); box-shadow: 0 0 0 3px rgba(224, 122, 47, 0.15); }
+.session.is-done { opacity: 0.72; }
+.session-n {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--ink); color: white;
+  font-family: var(--serif); font-size: 1.2rem;
+}
+.session.is-done .session-n { background: var(--ok); }
+.session h3 { margin: 2px 0 8px; font-size: 1.2rem; }
+.session-steps { margin: 0; padding-left: 18px; color: var(--ink-soft); display: grid; gap: 4px; }
+.session-state { color: var(--ink-soft); font-size: 0.9rem; white-space: nowrap; }
+.deck-stats { margin-bottom: 12px; }
+.deck-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 0 0 14px; }
+.flash-host { min-height: 320px; }
+.flashcard, .flash-empty {
+  background: var(--board);
+  color: var(--chalk);
+  border-radius: 22px;
+  padding: 22px;
+  min-height: 300px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+.flashcard .kicker { color: var(--lamp-2); margin: 0; }
+.flash-front p { font-family: var(--serif); font-size: clamp(1.4rem, 2.4vw, 1.9rem); margin: 0; line-height: 1.35; }
+.flash-back {
+  border-top: 1px dashed rgba(255,255,255,0.25);
+  padding-top: 12px;
+  animation: rise 0.4s ease;
+}
+.flash-back p { font-size: 1.15rem; margin: 0; color: #f2ebdf; }
+.flash-back .sheet-lines li { color: #f2ebdf; }
+.flash-empty h3 { margin: 0; font-size: 1.6rem; }
+.flash-empty p { color: #d9d0c3; margin: 0; }
+.flashcard .solid-btn { background: var(--lamp); }
+.teach-back { margin: 18px 0 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+.teach-back textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  resize: vertical;
+  margin: 6px 0 10px;
+  background: white;
+}
+.term-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.term { border-radius: 999px; padding: 3px 10px; font-size: 0.8rem; border: 1px solid var(--line); color: var(--ink-soft); }
+.term.hit { background: #eef8f1; border-color: var(--ok); color: var(--ok); }
+.term.miss { text-decoration: line-through; }
+.wrap-book { max-width: 960px; }
+.book { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 28px; }
+.book-track > h2 { font-size: 2rem; margin: 0 0 4px; }
+.book-track + .book-track { margin-top: 36px; padding-top: 24px; border-top: 2px solid var(--ink); }
+.book-chapter h3 { margin: 24px 0 8px; font-size: 1.4rem; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.book-lecture { padding: 12px 0 16px; border-bottom: 1px dashed var(--line); break-inside: avoid; }
+.book-lecture h4 { margin: 0; font-size: 1.15rem; }
+.book-lecture h4 small { color: var(--gold); font-weight: 500; margin-left: 8px; font-size: 0.8rem; }
+.book-lecture h5 { margin: 10px 0 4px; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+.book-summary { margin: 4px 0 0; color: var(--ink-soft); }
+.book-cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 18px; }
+.book-cols ol { margin: 0; padding-left: 18px; }
+.book-cols p { margin: 0 0 4px; }
+.book-formula { color: var(--gold); }
+.book-wrong { color: var(--rose); text-decoration: line-through; }
+.book-note { font-style: italic; color: var(--ink-soft); border-left: 3px solid var(--lamp-2); padding-left: 10px; }
+.book-key { margin: 10px 0 0; font-size: 0.88rem; color: var(--ink-soft); }
+.book-key i { color: var(--ink); font-style: normal; font-weight: 600; }
+
+@media print {
+  .app-header, .no-print { display: none !important; }
+  body { background: white; }
+  .wrap { max-width: none; padding: 0; }
+  .book { border: 0; padding: 0; }
+  .book-lecture { page-break-inside: avoid; }
+  .book-track { page-break-before: always; }
+  .book-track:first-child { page-break-before: auto; }
+  a { color: inherit; text-decoration: none; }
+}
+
 .player-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
 .player-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr); gap: 16px; }
 .stage { min-height: 420px; }
@@ -560,9 +681,13 @@ th { color: var(--lamp-2); font-weight: 560; }
   .app-header { flex-wrap: wrap; padding: 12px; }
   .section-head { flex-direction: column; align-items: flex-start; }
   .lecture-row { grid-template-columns: 1fr; }
-  .hero, .player-grid, .track-grid, .how, .lab-layout, .lab-grid { grid-template-columns: 1fr; }
+  .hero, .player-grid, .track-grid, .how, .lab-layout, .lab-grid, .edition-grid, .book-cols { grid-template-columns: 1fr; }
+  .session { grid-template-columns: 40px 1fr; }
+  .session-state { grid-column: 2; }
+  .session-n { width: 36px; height: 36px; font-size: 1rem; }
   .split, .osi-row, .gate-bench, .trap-grid { grid-template-columns: 1fr; }
-  .nav-links { order: 3; width: 100%; }
+  .nav-links { order: 3; width: 100%; flex-wrap: wrap; }
+  .nav-links a { padding: 6px 10px; white-space: nowrap; }
   h1 { font-size: 2.4rem; }
   .scene, .stage .scene { min-height: 280px; }
   .caption { font-size: 1.05rem; }
