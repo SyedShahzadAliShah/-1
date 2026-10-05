@@ -92,7 +92,7 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Stable narration (1.2.2 line) + AI Tutor</string>
+    <string name="version_badge">Version %1$s — Bootcamp citations + stable TTS</string>
     <string name="ai_tutor_title">Embedded AI Tutor</string>
     <string name="open_ai_tutor">🤖 Open Embedded AI Tutor</string>
     <string name="ask_ai_tutor_chapter">🤖 Ask AI Tutor about this chapter</string>
@@ -112,4 +112,6 @@
     <string name="tutor_cloud_footer">Enhanced with Gemini using your notes as context.</string>
     <string name="tutor_cloud_fallback">(Cloud tutor unavailable — showing embedded answer.)</string>
     <string name="tutor_read_aloud">Read reply aloud</string>
+    <string name="bootcamp_citation_title">📚 Bootcamp citation (required source)</string>
+    <string name="tutor_chip_citations">Citation format</string>
 </resources>

@@ -102,12 +102,13 @@ object TutorCorpus {
             val en = page.english.trim()
             if (en.length < 40) continue
             val ur = page.urdu.trim().ifBlank { page.urduTts.trim() }
+            val chapter = BootcampCitation.findChapterForPage(context, classId, page.page)
             out.add(
                 TutorPassage(
                     classId = classId,
                     classLabel = classLabel,
-                    chapterId = null,
-                    chapterTitle = "",
+                    chapterId = chapter?.id,
+                    chapterTitle = chapter?.english?.title ?: "",
                     page = page.page,
                     textEn = en,
                     textUr = ur.ifBlank { en },

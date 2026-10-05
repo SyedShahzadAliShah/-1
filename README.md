@@ -10,7 +10,8 @@ Android bootcamp for **Sindh Curriculum Computer Science Class XI & XII**, built
 - **Full PDF embedded** — XI (127 pp) and XII (147 pp) teacher notes in `assets/lecture_notes/`
 - **Embed TTS** — English or Urdu male-voice narration per page or full PDF
 - **Embedded AI Tutor** — offline Q&amp;A grounded in lecture notes; quiz &amp; ★ golden topics; optional Gemini API key
-- **PDF export** — printable chapter summary study guide
+- **Bootcamp citations** — every tutor answer lists required sources (class, chapter, teacher PDF page, syllabus §)
+- **PDF export** — printable chapter summary study guide (includes citation line per chapter)
 
 ## Build assets (after updating source PDFs in uploads)
 
@@ -22,7 +23,11 @@ python3 scripts/build_cs_study_assets.py
 
 ## Download
 
-**Download (recommended)** — **v1.2.3** stable (same narration as v1.2.2):
+**Download (recommended)** — **v1.2.4** (Bootcamp citations + stable narration):
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.4-debug.apk
+
+**v1.2.3** (same narration as v1.2.2, without citation UI):
 
 https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.3-debug.apk
 

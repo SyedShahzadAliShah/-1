@@ -14,6 +14,7 @@ import com.couplesguide.postures.util.LocaleHelper
 import com.couplesguide.postures.util.NarrativeLanguageDialog
 import com.couplesguide.postures.util.NarrationBuilder
 import com.couplesguide.postures.util.TtsPlaybackHelper
+import com.couplesguide.postures.tutor.BootcampCitation
 import com.couplesguide.postures.util.VoiceNarrator
 
 class StudyChapterDetailActivity : AppCompatActivity() {
@@ -89,6 +90,9 @@ class StudyChapterDetailActivity : AppCompatActivity() {
         val ur = chapter.urdu
         supportActionBar?.title = if (language == LocaleHelper.LANG_UR) ur.title else en.title
         AnimatedIllustrationHelper.bind(binding.illustration, chapter.illustrationRes)
+
+        val useUrdu = language == LocaleHelper.LANG_UR
+        binding.chapterCitation.text = BootcampCitation.forChapter(this, chapter, useUrdu)
 
         binding.chapterTitleEn.text = en.title
         binding.chapterSummaryEn.text = en.summary

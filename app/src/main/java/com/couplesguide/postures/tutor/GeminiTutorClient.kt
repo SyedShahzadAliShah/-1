@@ -25,6 +25,8 @@ object GeminiTutorClient {
             Answer ONLY using the CONTEXT below from the student's lecture notes.
             If context is insufficient, say so and suggest what to study in the PDF.
             Reply in $lang. Keep under 220 words. Mention ★ topics when relevant.
+            End with a "Bootcamp references" section: copy the [n] citation lines from CONTEXT exactly.
+            Do not invent page numbers or chapters not present in CONTEXT.
             
             CONTEXT:
             $groundedContext

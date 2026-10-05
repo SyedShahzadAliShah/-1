@@ -11,6 +11,7 @@ import android.text.TextDirectionHeuristics
 import android.text.TextPaint
 import com.couplesguide.postures.data.LectureNotesRepository
 import com.couplesguide.postures.data.StudyChapter
+import com.couplesguide.postures.tutor.BootcampCitation
 import java.io.File
 import java.io.FileOutputStream
 
@@ -74,8 +75,12 @@ object StudyGuidePdfExporter {
         pageNumber: Int
     ): Int {
         val content = chapter.content(language)
+        val useUrdu = language == LocaleHelper.LANG_UR
+        val citation = BootcampCitation.forChapter(context, chapter, useUrdu)
         val points = content.keyPoints.joinToString("\n• ", prefix = "• ")
         val body = buildString {
+            append(citation)
+            append("\n\n")
             append(content.summary)
             append("\n\n")
             append(content.body)

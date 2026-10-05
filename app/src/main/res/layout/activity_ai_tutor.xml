@@ -78,6 +78,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tutor_chip_osi" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCitations"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tutor_chip_citations" />
+
             </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>

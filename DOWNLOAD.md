@@ -1,6 +1,10 @@
 # Download Self-Taught Bootcamp APK
 
-## Recommended — stable narration (same behavior as v1.2.2)
+## Recommended — stable narration + Bootcamp citations
+
+**v1.2.4** (required source citations on tutor answers, chapter screen, PDF export; same TTS as 1.2.2/1.2.3):
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cinematic-self-taught-bootcamp-9c6c/releases/Self-Taught-Bootcamp-v1.2.4-debug.apk
 
 **v1.2.3** (restores 1.2.2 embed/cinematic TTS; keeps AI Tutor + natural voice prep):
 

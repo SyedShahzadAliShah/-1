@@ -118,6 +118,7 @@ class AiTutorActivity : AppCompatActivity() {
         binding.chipQuizXi.setOnClickListener { sendUserMessage("quiz xi") }
         binding.chipQuizXii.setOnClickListener { sendUserMessage("quiz xii") }
         binding.chipOsi.setOnClickListener { sendUserMessage("explain OSI 7 layer model") }
+        binding.chipCitations.setOnClickListener { sendUserMessage("citation example for logic gates") }
     }
 
     private fun sendFromInput() {

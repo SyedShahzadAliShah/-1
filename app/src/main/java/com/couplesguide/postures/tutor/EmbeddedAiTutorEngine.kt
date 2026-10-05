@@ -32,6 +32,9 @@ object EmbeddedAiTutorEngine {
         if (lower.contains("golden") || lower.contains("★") || lower.contains("star topic")) {
             return goldenTopics(context, tutorContext, useUrdu)
         }
+        if (lower.contains("citation") || lower.contains("reference format") || lower.contains("bootcamp ref")) {
+            return citationGuide(context, query, tutorContext, useUrdu)
+        }
 
         val corpus = TutorCorpus.ensureLoaded(context)
         val tokens = tokenize(query)
@@ -53,7 +56,7 @@ object EmbeddedAiTutorEngine {
             return noMatch(useUrdu, query)
         }
 
-        return formatAnswer(ranked, useUrdu, query)
+        return formatAnswer(context, ranked, useUrdu, query)
     }
 
     private fun greeting(context: Context, useUrdu: Boolean): String {
@@ -71,6 +74,7 @@ object EmbeddedAiTutorEngine {
         • golden topics — ★ امتحانی موضوعات
         • quiz xi / quiz xii — فوری کوئز
         • اختیاری: Settings میں Gemini API key سے گہرے جواب
+        • ہر جواب میں 📚 Bootcamp حوالہ جات (جماعت، باب، PDF صفحہ، نصاب §)
         """.trimIndent()
     } else {
         """
@@ -79,6 +83,7 @@ object EmbeddedAiTutorEngine {
         • golden topics — lists ★ exam-critical items
         • quiz xi / quiz xii — quick practice question
         • Optional: add a Gemini API key in the toolbar for richer answers (still grounded in your notes)
+        • Every answer includes 📚 Bootcamp references (class, chapter, PDF page, syllabus §)
         """.trimIndent()
     }
 
@@ -102,12 +107,44 @@ object EmbeddedAiTutorEngine {
         }
         val pick = pool.randomOrNull() ?: return noMatch(useUrdu, "quiz")
         val snippet = excerpt(pick, useUrdu, 220)
-        val label = "${pick.classLabel} • ${pick.sourceLabel}"
+        val cite = BootcampCitation.format(context, pick, 1, useUrdu)
         return if (useUrdu) {
-            "📝 فوری کوئز ($label):\n$snippet\n\nاپنا جواب سوچیں، پھر \"explain\" لکھ کر وضاحت حاصل کریں۔"
+            "📝 فوری کوئز:\n$snippet\n\n$cite\n\nاپنا جواب سوچیں، پھر \"explain\" لکھ کر وضاحت حاصل کریں۔"
         } else {
-            "📝 Quick quiz ($label):\n$snippet\n\nThink of your answer, then type \"explain\" for a guided breakdown."
+            "📝 Quick quiz:\n$snippet\n\n$cite\n\nThink of your answer, then type \"explain\" for a guided breakdown."
         }
+    }
+
+    private fun citationGuide(
+        context: Context,
+        query: String,
+        tutorContext: TutorContext,
+        useUrdu: Boolean
+    ): String {
+        val corpus = TutorCorpus.ensureLoaded(context)
+        val tokens = tokenize(query).ifEmpty { listOf("logic", "gates") }
+        val ranked = corpus
+            .map { passage -> passage to scorePassage(passage, tokens, tutorContext) }
+            .filter { it.second > 0 }
+            .sortedByDescending { it.second }
+            .take(2)
+        val samples = if (ranked.isEmpty()) {
+            corpus.filter { it.textEn.contains("logic", ignoreCase = true) }.take(2)
+        } else {
+            ranked.map { it.first }
+        }
+        val intro = if (useUrdu) {
+            "Bootcamp میں ہر جواب کے ساتھ یہ لازمی حوالہ فارمیٹ استعمال کریں:"
+        } else {
+            "Required Bootcamp citation format (use on every answer and in your notes):"
+        }
+        val template = if (useUrdu) {
+            "[n] سندھ CS جماعت … • باب … • PDF صفحات … • نصاب §… • cs_xi_lecture_notes.pdf"
+        } else {
+            "[n] Sindh CS Class … • Ch.… • Teacher PDF pp. … • Syllabus §… • cs_xi_lecture_notes.pdf"
+        }
+        val refs = BootcampCitation.referencesBlock(context, samples, useUrdu)
+        return "$intro\n\n$template\n\n$refs"
     }
 
     private fun goldenTopics(
@@ -119,9 +156,11 @@ object EmbeddedAiTutorEngine {
         val hits = corpus
             .filter { it.isGolden }
             .filter { tutorContext.classId == null || it.classId == tutorContext.classId }
-            .map { "${it.classLabel}: ${excerpt(it, useUrdu, 120)}" }
-            .distinct()
             .take(8)
+            .mapIndexed { i, passage ->
+                val cite = BootcampCitation.format(context, passage, i + 1, useUrdu)
+                "$cite\n${excerpt(passage, useUrdu, 100)}"
+            }
         if (hits.isEmpty()) {
             return if (useUrdu) "★ والا مواد PDF صفحات میں تلاش کریں۔" else "Search your PDF pages for ★ markers in cinematic mode."
         }
@@ -130,32 +169,38 @@ object EmbeddedAiTutorEngine {
     }
 
     private fun formatAnswer(
+        context: Context,
         ranked: List<Pair<TutorPassage, Int>>,
         useUrdu: Boolean,
         query: String
     ): String {
         val top = ranked.first().first
         val intro = if (useUrdu) {
-            "آپ کے bootcamp نوٹس سے (${top.classLabel}, ${top.sourceLabel}):"
+            "آپ کے bootcamp نوٹس سے:"
         } else {
-            "From your bootcamp notes (${top.classLabel}, ${top.sourceLabel}):"
+            "From your bundled teacher lecture notes:"
         }
         val body = excerpt(top, useUrdu, 480)
+        val refs = BootcampCitation.referencesBlock(
+            context,
+            ranked.map { it.first },
+            useUrdu
+        )
         val exam = if (top.isGolden) {
             if (useUrdu) "\n\n★ امتحان کی یاد دہانی — یہ موضوع teacher PDF میں ★ کے ساتھ نشان زد ہے۔"
             else "\n\n★ Exam tip — this topic is marked ★ in the teacher PDF."
         } else ""
         val more = if (ranked.size > 1) {
-            val extra = ranked.drop(1).joinToString("\n") { (p, _) ->
-                "• ${p.sourceLabel}: ${excerpt(p, useUrdu, 100)}"
+            val extra = ranked.drop(1).joinToString("\n\n") { (p, _) ->
+                excerpt(p, useUrdu, 120)
             }
-            if (useUrdu) "\n\nمتعلقہ:\n$extra" else "\n\nRelated:\n$extra"
+            if (useUrdu) "\n\nمتعلقہ اقتباسات:\n$extra" else "\n\nRelated excerpts:\n$extra"
         } else ""
         val cinematic = if (top.page != null) {
             if (useUrdu) "\n\nسینمائی لیکچر میں صفحہ ${top.page} کھولیں۔"
             else "\n\nOpen cinematic lecture around page ${top.page}."
         } else ""
-        return "$intro\n\n$body$exam$more$cinematic"
+        return "$intro\n\n$body\n\n$refs$exam$more$cinematic"
     }
 
     private fun noMatch(useUrdu: Boolean, query: String): String {
@@ -205,14 +250,15 @@ object EmbeddedAiTutorEngine {
         val tokens = tokenize(query)
         if (tokens.isEmpty()) return ""
         val corpus = TutorCorpus.ensureLoaded(context)
-        return corpus
+        val ranked = corpus
             .map { passage -> passage to scorePassage(passage, tokens, tutorContext) }
             .filter { it.second > 0 }
             .sortedByDescending { it.second }
             .take(4)
-            .joinToString("\n\n---\n\n") { (p, _) ->
-                "${p.classLabel} ${p.sourceLabel}\n${excerpt(p, false, 600)}"
-            }
+        return BootcampCitation.groundingWithCitations(
+            context,
+            ranked.map { (p, _) -> p to excerpt(p, false, 600) }
+        )
     }
 
     fun chapterHint(context: Context, chapterId: String, useUrdu: Boolean): String {
