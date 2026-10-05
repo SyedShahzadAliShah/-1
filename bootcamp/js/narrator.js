@@ -29,6 +29,11 @@ export function speechChunks(text) {
   return chunks;
 }
 
+function nativeVoice() {
+  if (typeof window === "undefined" || !window.BootcampVoice) return null;
+  return typeof window.BootcampVoice.speak === "function" ? window.BootcampVoice : null;
+}
+
 function pickVoice(voices, lang) {
   const list = (voices || []).filter((voice) => voice && voice.lang);
   if (lang === "ur") {
@@ -76,11 +81,27 @@ export class Narrator {
   }
 
   supports(lang) {
+    const native = nativeVoice();
+    if (native && typeof native.hasLanguage === "function") {
+      try {
+        return Boolean(native.hasLanguage(lang === "ur" ? "ur" : "en"));
+      } catch {
+        return false;
+      }
+    }
     return Boolean(pickVoice(this.voices, lang));
   }
 
   cancel() {
     this.token += 1;
+    const native = nativeVoice();
+    if (native && typeof native.stop === "function") {
+      try {
+        native.stop();
+      } catch {
+        /* ignore a bridge that is not ready */
+      }
+    }
     if (this.synth) {
       try {
         this.synth.cancel();
@@ -95,7 +116,70 @@ export class Narrator {
    * Pass `fallbackText` (English) when `lang` is Urdu so a missing Urdu voice
    * still reads the lecture aloud.
    */
-  speak(text, { lang = "en", rate = 1, fallbackText = "", onstart, onfallback } = {}) {
+  speak(text, options = {}) {
+    if (nativeVoice()) return this.speakNative(text, options);
+    return this.speakWeb(text, options);
+  }
+
+  speakNative(text, { lang = "en", rate = 1, fallbackText = "", onstart, onfallback } = {}) {
+    this.token += 1;
+    const token = this.token;
+    const bridge = nativeVoice();
+    try {
+      bridge.stop();
+    } catch {
+      /* the engine may already be idle */
+    }
+    let spoken = String(text || "").trim();
+    let speakLang = lang === "ur" ? "ur" : "en";
+    if (!spoken) return Promise.resolve("end");
+    let urduMissing = false;
+    try {
+      urduMissing = lang === "ur" && typeof bridge.hasLanguage === "function" && !bridge.hasLanguage("ur");
+    } catch {
+      urduMissing = lang === "ur";
+    }
+    if (urduMissing) {
+      onfallback?.("no-urdu-voice");
+      if (fallbackText && fallbackText.trim()) {
+        spoken = fallbackText.trim();
+        speakLang = "en";
+      }
+    }
+
+    return new Promise((resolve) => {
+      let settled = false;
+      let hang = 0;
+      const finish = (reason) => {
+        if (settled || token !== this.token) return;
+        settled = true;
+        clearTimeout(hang);
+        resolve(reason);
+      };
+      window.__bootcampOnStart = (id) => {
+        if (String(id) !== String(token)) return;
+        onstart?.();
+      };
+      window.__bootcampOnDone = (id) => {
+        if (String(id) !== String(token)) return;
+        finish("end");
+      };
+      hang = setTimeout(() => finish("end"), Math.max(25000, beatDurationMs(spoken, rate) + 8000));
+      let accepted = false;
+      try {
+        accepted = bridge.speak(String(token), spoken, speakLang, Number(rate) || 1) !== false;
+      } catch {
+        accepted = false;
+      }
+      if (!accepted) {
+        clearTimeout(hang);
+        onfallback?.("no-engine");
+        setTimeout(() => finish("timer"), beatDurationMs(spoken, rate));
+      }
+    });
+  }
+
+  speakWeb(text, { lang = "en", rate = 1, fallbackText = "", onstart, onfallback } = {}) {
     const wasSpeaking = Boolean(this.synth?.speaking);
     if (wasSpeaking) this.cancel();
     else this.token += 1;
