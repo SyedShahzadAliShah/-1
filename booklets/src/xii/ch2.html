@@ -1,0 +1,1779 @@
+<section class="chapter" id="xii-ch2" data-num="2" data-title="Computational Thinking &amp; Algorithms">
+  <div class="ch-opener">
+    <div class="num">Chapter 2</div>
+    <h1>Computational Thinking &amp; Algorithms</h1>
+    <p>Class XI taught you how to write algorithms. This chapter teaches you how to <b>judge</b> them: is the algorithm correct, clear and efficient? You will then learn the main <b>data structures</b> — array, linked list, stack, queue, tree and graph — so you can store data the smart way and trace how it is retrieved.</p>
+    <p class="ur">گیارہویں جماعت میں آپ نے الگورتھم لکھنا سیکھا۔ اس باب میں آپ سیکھیں گے کہ الگورتھم درست، واضح اور تیز ہے یا نہیں، اور ایرے، لنکڈ لسٹ، سٹیک، کیو، ٹری اور گراف جیسے ڈیٹا سٹرکچرز میں ڈیٹا کیسے رکھا اور نکالا جاتا ہے۔</p>
+  </div>
+
+  <h3>What you will learn</h3>
+  <ul class="objectives">
+    <li>Define <b>correctness</b> and prove it with a complete <b>trace table</b>.</li>
+    <li>Apply <b>stepwise reasoning</b> and compare it with a trace table on at least four points.</li>
+    <li>Evaluate <b>clarity</b> using modularity (SRP, coupling, abstraction) and readability (names, flow, consistency).</li>
+    <li>Define <b>efficiency</b> in time and space, and state Big O for O(1), O(log n), O(n), O(n log n) and O(n²) with examples.</li>
+    <li>Explain how the number of <b>conditions</b> and <b>repetitions</b> changes efficiency, and apply the three-question efficiency framework.</li>
+    <li>Refine an algorithm for clearer names, modules, comments and fewer wasted steps.</li>
+    <li>Define a <b>data structure</b> and classify it as linear or non-linear.</li>
+    <li>Draw and trace an array, linked list, stack (PUSH/POP) and queue (ENQUEUE/DEQUEUE).</li>
+    <li>Draw a tree and a graph, and name the five operations on data structures.</li>
+    <li>Choose a data structure for a real scenario and trace retrieval in an array, a linked list and a queue.</li>
+  </ul>
+
+  <!-- ===================== 2.1 ===================== -->
+  <div class="topic">
+    <h2>2.1 Analyze algorithms for correctness</h2>
+    <div class="box learn">
+      <p>An algorithm is <b>correct</b> if its <b>output matches the expected results</b> for a given input. Analysing correctness means showing that the algorithm produces the intended output for <b>all valid inputs</b>, not just one lucky example.</p>
+      <p>Two methods are used in this course:</p>
+    </div>
+    <div class="flow"><span>Trace tables</span><i>→</i><span>paper execution, line by line</span><i>→</i><span>Stepwise reasoning</span><i>→</i><span>logic blocks, overall state</span></div>
+    <p>You already met the idea of a dry run in Class XI. Here you learn to do it formally, and to choose the method that fits the size of the algorithm.</p>
+    <div class="box example">
+      <p><b>Worked example: what “correct” means.</b> An algorithm is supposed to count how many of the heights 1.91, 2.01, 1.87, 1.57, 1.48 lie between 1.57 m and 1.91 m inclusive.</p>
+      <p>Expected output: <b>3</b> (1.91, 1.87 and 1.57 qualify; 2.01 is too tall; 1.48 is too short).</p>
+      <p>If a program prints 4, it <b>runs</b> but it is <b>not correct</b>. Correctness is about the right answer, not about “no crash”.</p>
+    </div>
+    <div class="box tip">
+      <p>Remember: <b>runs ≠ correct</b>. A logical error still produces output — just the wrong output. That is why we analyse correctness on paper before we trust the code.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> testing only one “normal” input and calling the algorithm correct.</p>
+      <p><b>Fix:</b> also try edge cases (empty list, N = 0, the exact boundary values 1.57 and 1.91). The definition says <b>all valid inputs</b>.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">الگورتھم تب درست (Correct) سمجھا جاتا ہے جب دیے گئے ان پٹ پر اس کا آؤٹ پٹ وہی ہو جو ہونا چاہیے۔ صرف چل جانا کافی نہیں؛ منطقی غلطی سے غلط جواب بھی نکل سکتا ہے۔ درستگی جانچنے کے دو طریقے ہیں: ٹریس ٹیبل (Trace Table) اور مرحلہ وار استدلال (Stepwise Reasoning)۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> When is an algorithm considered correct?</p>
+      <p><b>2.</b> Name the two methods used to analyse correctness in this chapter.</p>
+      <p><b>3.</b> Why is “the program ran without an error” not enough?</p>
+      <div class="ans">Answers: 1. When its output matches the expected results for a given input (and does so for all valid inputs). 2. Trace tables and stepwise reasoning. 3. Because a logical error can still produce output — the wrong output.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.1.1 ===================== -->
+  <div class="topic">
+    <h2>2.1.1 Trace Tables <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>trace table</b> is a technique used to monitor how the values of variables change during the execution of an algorithm. It is a <b>paper execution</b> of the code — a manual walkthrough, also called a <b>dry run</b>. You act as the computer and fill in one row after another.</p>
+      <p><b>Purpose of trace tables</b></p>
+      <ul>
+        <li><b>Dry running:</b> execute the algorithm line by line by hand.</li>
+        <li><b>Debugging:</b> find logical errors where the algorithm runs but the output is wrong.</li>
+        <li><b>Validation:</b> check that the algorithm does what it is intended to do.</li>
+      </ul>
+      <p><b>Components of a trace table</b></p>
+      <ul>
+        <li><b>Line / step number</b> — which line is being executed.</li>
+        <li><b>Variables</b> — one column for every variable.</li>
+        <li><b>Input / output</b> — user inputs and printed results.</li>
+        <li><b>Condition check</b> — True/False for IF, WHILE, FOR, and similar tests.</li>
+      </ul>
+    </div>
+
+    <div class="box example">
+      <p><b>Worked example: soldiers who meet the height rule.</b> To qualify for training, a soldier’s height must be between <b>1.57 and 1.91 metres, inclusive</b>.</p>
+      <p>Inputs: all soldiers’ heights. Output: the count of eligible soldiers.</p>
+      <p>Step 1: Start<br>
+      Step 2: SET Total = 0<br>
+      Step 3: Set AllHeights = [1.91, 2.01, 1.87, 1.57, 1.48]<br>
+      Step 4: FOR EACH height FROM AllHeights DO<br>
+      Step 5: &nbsp;&nbsp;IF height &gt;= 1.57 AND height &lt;= 1.91 THEN<br>
+      Step 6: &nbsp;&nbsp;&nbsp;&nbsp;SET Total = Total + 1<br>
+      Step 7: &nbsp;&nbsp;END IF<br>
+      Step 8: END FOR EACH<br>
+      Step 9: Print Total<br>
+      Step 10: End</p>
+      <p>Inclusive means the two boundary values <b>count</b>: 1.57 and 1.91 are eligible.</p>
+      <table class="center">
+        <tr><th>Step</th><th>Total</th><th>Height</th><th>AllHeights (input)</th><th>Height between 1.57 and 1.91?</th><th>Output</th></tr>
+        <tr><td>2</td><td>0</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td>0</td><td></td><td>1.91, 2.01, 1.87, 1.57, 1.48</td><td></td><td></td></tr>
+        <tr><td>4</td><td>0</td><td>1.91</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>0</td><td>1.91</td><td></td><td class="hl">True</td><td></td></tr>
+        <tr><td>6</td><td class="hl">1</td><td>1.91</td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td>1</td><td>2.01</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>1</td><td>2.01</td><td></td><td>False (skip Step 6)</td><td></td></tr>
+        <tr><td>4</td><td>1</td><td>1.87</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>1</td><td>1.87</td><td></td><td class="hl">True</td><td></td></tr>
+        <tr><td>6</td><td class="hl">2</td><td>1.87</td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td>2</td><td>1.57</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>2</td><td>1.57</td><td></td><td class="hl">True (boundary)</td><td></td></tr>
+        <tr><td>6</td><td class="hl">3</td><td>1.57</td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td>3</td><td>1.48</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>3</td><td>1.48</td><td></td><td>False (skip Step 6)</td><td></td></tr>
+        <tr><td>9</td><td>3</td><td></td><td></td><td></td><td class="hl">3</td></tr>
+      </table>
+      <p>Eligible: 1.91, 1.87, 1.57. Not eligible: 2.01 (above 1.91) and 1.48 (below 1.57). Printed Total = <b>3</b>.</p>
+<pre class="code">AllHeights = [1.91, 2.01, 1.87, 1.57, 1.48]
+Total = 0
+for height in AllHeights:
+    if height &gt;= 1.57 and height &lt;= 1.91:
+        Total = Total + 1
+print(Total)</pre>
+<pre class="code output">3</pre>
+    </div>
+
+    <div class="box tip">
+      <p><b>How to fill a trace table without getting lost.</b> Write a new row every time a variable <b>changes</b> or a condition is <b>tested</b>. Copy unchanged values into the new row so you never guess. Circle the final output.</p>
+      <p>Mnemonic: <b>V-I-C-O</b> — <b>V</b>ariables, <b>I</b>nput, <b>C</b>ondition, <b>O</b>utput. If a column is missing, the table is incomplete.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake 1:</b> treating 1.57 or 1.91 as out of range. The words “inclusive” and the operators <code>&gt;=</code> and <code>&lt;=</code> mean the boundaries <b>are allowed</b>.</p>
+      <p><b>Mistake 2:</b> updating Total on a False condition. If the IF is False, skip the SET line and leave Total unchanged.</p>
+      <p><b>Mistake 3:</b> writing only the last Total. Examiners award marks for the <b>changing values in the table</b>, not only for the printed 3.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ٹریس ٹیبل الگورتھم کا کاغذی اجرا (Dry Run) ہے۔ ہر قطار میں لکیر نمبر، متغیرات کی نئی قیمتیں، ان پٹ/آؤٹ پٹ اور شرط کا نتیجہ (True/False) لکھا جاتا ہے۔ فوجیوں کی مثال میں قد 1.57 سے 1.91 میٹر تک ہونا چاہیے، حدود سمیت؛ پانچ قدوں میں سے تین اہل ہیں اس لیے آؤٹ پٹ 3 ہے۔</p>
+    </div>
+    <div class="box exam">
+      <p>Very common long question: “Dry-run the given algorithm using a trace table and state the output.” Draw columns for <b>every</b> variable plus a condition column. Show the loop once per item. Boundary values (<code>&gt;=</code>, <code>&lt;=</code>, empty list) are favourite traps. Short questions ask: purpose of a trace table (dry run / debug / validate) and its components (line, variables, I/O, condition).</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> List the four usual columns / components of a trace table.</p>
+      <p><b>2.</b> In the soldier example, why is height 1.57 counted but 1.48 not counted?</p>
+      <p><b>3.</b> What is printed, and how many times is Step 6 executed?</p>
+      <div class="ans">Answers: 1. Line/step number, variables, input/output, condition check. 2. 1.57 is the lower boundary (inclusive, so True); 1.48 is below 1.57 (False). 3. 3 is printed; Step 6 runs three times (for 1.91, 1.87 and 1.57).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.1.2 ===================== -->
+  <div class="topic">
+    <h2>2.1.2 Stepwise Reasoning</h2>
+    <div class="box learn">
+      <p><b>Stepwise reasoning</b> (also called <b>logic verification</b>) breaks an algorithm into logical sections and checks the <b>state</b> of the algorithm at each stage. A <b>state</b> is a snapshot of what is true about the variables at that moment (for example, “Sum currently holds the total of the numbers seen so far”).</p>
+      <p>You do <b>not</b> fill a row for every line. You think through the logic:</p>
+      <ol>
+        <li>Analyse each step of the algorithm.</li>
+        <li>Check: does it <b>start in a valid state</b>?</li>
+        <li>Does it <b>handle all possible cases</b>?</li>
+        <li>Are the <b>conditions correct</b>?</li>
+        <li>If the loop is correct at the <b>start</b> of an iteration, does it remain correct at the <b>end</b>?</li>
+      </ol>
+    </div>
+    <div class="box example">
+      <p><b>Worked example: sum of the numbers from 1 to N.</b></p>
+      <p>Step 1: Start<br>
+      Step 2: Input N<br>
+      Step 3: SET Sum = 0<br>
+      Step 4: For i = 1 to N<br>
+      Step 5: &nbsp;&nbsp;Sum = Sum + i<br>
+      Step 6: END For<br>
+      Step 7: Print Sum<br>
+      Step 8: End</p>
+      <p><b>Stepwise reasoning breakdown</b></p>
+      <table>
+        <tr><th>Check</th><th>What you verify</th></tr>
+        <tr><td>Initial state</td><td>Sum = 0 before the loop. Valid: nothing has been added yet.</td></tr>
+        <tr><td>Loop boundary</td><td>The loop runs exactly from i = 1 to i = N. No missing number, no extra number.</td></tr>
+        <tr><td>Iteration</td><td>Each i is added once: after k iterations, Sum = 1+2+…+k.</td></tr>
+        <tr><td>Final state</td><td>When the loop ends, Sum holds 1+2+…+N, which is the required total.</td></tr>
+        <tr><td>Edge case N = 0</td><td>The loop body never runs, Sum stays 0. Correct (the sum of no numbers is 0).</td></tr>
+        <tr><td>Check case N = 5</td><td>Sum becomes 15, which matches 5×6/2 = 15.</td></tr>
+      </table>
+<pre class="code">N = 5
+Sum = 0
+for i in range(1, N + 1):
+    Sum = Sum + i
+print(Sum)</pre>
+<pre class="code output">15</pre>
+<pre class="code">N = 0
+Sum = 0
+for i in range(1, N + 1):
+    Sum = Sum + i
+print(Sum)</pre>
+<pre class="code output">0</pre>
+    </div>
+    <div class="box tip">
+      <p>Think of stepwise reasoning as a <b>teacher checking a proof</b>, not as a cashier counting coins one by one. You ask “is this block always true?” instead of “what is Sum when i = 17?”.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> rewriting the whole trace table and calling it stepwise reasoning.</p>
+      <p><b>Fix:</b> write short comments about <b>state</b> (start, loop, finish, edges). If you listed every i from 1 to 1000, you used the wrong method.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">مرحلہ وار استدلال میں الگورتھم کو منطقی حصوں میں توڑ کر ہر مرحلے پر اس کی حالت (State) دیکھی جاتی ہے: کیا شروع درست ہے، کیا تمام صورتیں سنبھلی ہیں، کیا شرط صحیح ہے، اور کیا لوپ کے ہر چکر کے بعد بھی نتیجہ درست رہتا ہے۔ ایک سے N تک جمع کی مثال میں Sum شروع میں 0 ہے، لوپ 1 سے N تک چلتا ہے، اور N=0 پر جواب 0 ہی رہتا ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What other name is given to stepwise reasoning?</p>
+      <p><b>2.</b> For the sum algorithm, why is Sum = 0 a valid start?</p>
+      <p><b>3.</b> What happens when N = 0, and is that correct?</p>
+      <div class="ans">Answers: 1. Logic verification. 2. Because no numbers have been added yet, so the running total should be zero. 3. The loop does not run and Sum remains 0, which is the correct sum of no numbers.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.1.3 ===================== -->
+  <div class="topic">
+    <h2>2.1.3 Comparing Trace Tables and Stepwise Reasoning <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Both methods verify correctness, but they fit different situations depending on the <b>complexity and length</b> of the algorithm.</p>
+    </div>
+    <table>
+      <tr><th>Feature</th><th>Trace table</th><th>Stepwise reasoning</th></tr>
+      <tr><td>Best for</td><td>Small algorithm blocks, complex loops, and beginners learning to track variables.</td><td>Large systems, architectural logic, and abstract mathematical proofs.</td></tr>
+      <tr><td>Effort required</td><td>High. Very tedious and impractical if a loop runs 1,000 times.</td><td>Moderate. Needs strong logical deduction and abstract thinking.</td></tr>
+      <tr><td>Primary goal</td><td>Catching syntax misinterpretations or specific arithmetic errors line by line.</td><td>Catching conceptual or structural flaws in the overall design.</td></tr>
+      <tr><td>Level</td><td><b>Micro-level</b> (line by line). Checks exact values.</td><td><b>Macro-level</b> (logic blocks). Checks overall state.</td></tr>
+    </table>
+    <figure class="diagram">
+      <svg viewBox="0 0 560 150" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <rect x="20" y="20" width="240" height="110" rx="8" fill="#eef3ff" stroke="#1f3c88"/>
+        <text x="140" y="48" text-anchor="middle" font-weight="700" fill="#1f3c88">Trace table</text>
+        <text x="140" y="74" text-anchor="middle">Micro-level</text>
+        <text x="140" y="96" text-anchor="middle">Line by line</text>
+        <text x="140" y="118" text-anchor="middle">Exact values</text>
+        <rect x="300" y="20" width="240" height="110" rx="8" fill="#edf9f0" stroke="#2b8a3e"/>
+        <text x="420" y="48" text-anchor="middle" font-weight="700" fill="#2b8a3e">Stepwise reasoning</text>
+        <text x="420" y="74" text-anchor="middle">Macro-level</text>
+        <text x="420" y="96" text-anchor="middle">Logic blocks</text>
+        <text x="420" y="118" text-anchor="middle">Overall state</text>
+      </svg>
+      <figcaption>Trace tables zoom in on values; stepwise reasoning zooms out on design.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: which method would you pick?</b></p>
+      <ol>
+        <li><b>A 12-line loop that adds five heights.</b> Use a <b>trace table</b>. The loop is short, you are a beginner, and you need the exact Total.</li>
+        <li><b>A billing system with 40 functions.</b> Use <b>stepwise reasoning</b>. You cannot fill 10,000 rows. You check each module’s start state, end state and edge cases.</li>
+        <li><b>A loop from i = 1 to 1,000 that should produce Sum = 500500.</b> Do <b>not</b> write 1,000 rows. Argue: “Sum starts at 0; each i is added once; final Sum = n(n+1)/2 = 1000×1001/2 = 500500.” That is stepwise reasoning. Then dry-run a tiny N (say 5) with a trace table if you want extra confidence.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p><b>Micro vs macro.</b> Trace table = microscope (every cell). Stepwise reasoning = map (whole city). Beginners start with the microscope; designers need the map.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> saying one method is “better” in every question.</p>
+      <p><b>Fix:</b> they have different jobs. For a short dry-run in the exam, draw the table. For “explain why the algorithm is correct for any N”, write stepwise reasoning.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ٹریس ٹیبل خرد بینی (Micro) سطح پر کام کرتا ہے: ہر لائن اور ہر قیمت۔ مرحلہ وار استدلال بڑی (Macro) سطح پر ڈیزائن اور حالت چیک کرتا ہے۔ چھوٹے لوپ اور مبتدیوں کے لیے ٹیبل بہتر ہے؛ ہزار بار چلنے والے لوپ یا بڑے سسٹم کے لیے استدلال بہتر ہے۔</p>
+    </div>
+    <div class="box exam">
+      <p>Differentiate questions are almost guaranteed: “Compare a trace table with stepwise reasoning.” Write a <b>four-row table</b> (best for, effort, primary goal, micro/macro). Add one sentence of advice: table for small loops and exact values; reasoning for large systems and proofs. Do not write “trace table is always better”.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Which method is micro-level and checks exact values?</p>
+      <p><b>2.</b> Why is a trace table a poor choice if a loop runs 1,000 times?</p>
+      <p><b>3.</b> Which method is better for catching a structural flaw in a large design?</p>
+      <div class="ans">Answers: 1. Trace table. 2. It is very tedious and impractical (too many rows). 3. Stepwise reasoning (macro-level, conceptual / structural flaws).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.2 ===================== -->
+  <div class="topic">
+    <h2>2.2 Evaluating the Clarity of an Algorithm</h2>
+    <div class="box learn">
+      <p><b>Clarity</b> means an algorithm is easy to <b>read, understand and modify</b>. In many cases, evaluating clarity is even more important than making the algorithm slightly faster. A clear algorithm is easier to <b>maintain, debug and extend</b> over time.</p>
+      <p>The two key aspects of clarity are:</p>
+    </div>
+    <div class="flow"><span>Clarity</span><i>→</i><span>Modularity (parts)</span><i>→</i><span>Readability (text and flow)</span></div>
+    <div class="box example">
+      <p><b>Worked example: speed versus clarity.</b> Algorithm A finds the class average in 8 confusing lines with variables <code>a</code>, <code>b</code>, <code>c</code>. Algorithm B uses two named functions and takes the same number of additions. Both are O(n). Algorithm B is the better school solution because the next person (or you, in three months) can change it without breaking it.</p>
+    </div>
+    <div class="box tip">
+      <p>Ask two questions: <b>“Can I split this into parts?”</b> (modularity) and <b>“Can another student read it aloud and understand it?”</b> (readability).</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> treating a clever one-line trick as “better” than a clear five-line solution.</p>
+      <p><b>Fix:</b> the source says clarity is often more important than speed. Board answers should praise meaningful names and modules, not compacted code.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">وضاحت (Clarity) کا مطلب ہے الگورتھم پڑھنا، سمجھنا اور بدلنا آسان ہو۔ بہت سی صورتوں میں وضاحت رفتار سے بھی اہم ہے۔ اس کے دو حصے ہیں: ماڈیولریٹی (Modularity) یعنی کام کو حصوں میں بانٹنا، اور پڑھائی پن (Readability) یعنی متن اور بہاؤ صاف ہونا۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What does clarity mean?</p>
+      <p><b>2.</b> Name the two key aspects of clarity.</p>
+      <p><b>3.</b> Why can clarity matter more than a small speed gain?</p>
+      <div class="ans">Answers: 1. The algorithm is easy to read, understand and modify. 2. Modularity and readability. 3. Because a clear algorithm is easier to maintain, debug and extend over time.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.2.1 ===================== -->
+  <div class="topic">
+    <h2>2.2.1 Modularity</h2>
+    <div class="box learn">
+      <p><b>Modularity</b> means breaking an algorithm into smaller, independent parts such as <b>functions, classes or modules</b>. This makes the algorithm more organised and easier to work with.</p>
+      <p><b>How to evaluate modularity</b></p>
+      <ol>
+        <li><b>Single Responsibility Principle (SRP).</b> Each module should focus on <b>one</b> specific task. If a function calculates a sum, prints a report and saves a file, it violates SRP.</li>
+        <li><b>Coupling.</b> Modules should be reusable in different contexts. Good modularity means <b>loose coupling</b>: a change in one part does not smash the others. Tight coupling is when two functions share so many hidden details that you cannot reuse one without the other.</li>
+        <li><b>Abstraction.</b> A well-designed algorithm hides complex implementation details. You can call a sorting function without knowing whether it uses Bubble Sort or Selection Sort inside.</li>
+      </ol>
+    </div>
+    <div class="box example">
+      <p><b>Worked example: average of an array.</b></p>
+      <div class="two-col">
+        <div>
+          <p><b>Poor modularity (monoblock)</b></p>
+          <p>All logic sits in one block, so you cannot reuse the sum.</p>
+          <p>Step 1: Start<br>
+          Step 2: Set A = [1, 2, 3, 4, 5]<br>
+          Step 3: Set n = 5<br>
+          Step 4: Set total = 0<br>
+          Step 5: Set avg = 0<br>
+          Step 6: For I = 1 to n<br>
+          Step 7: &nbsp;&nbsp;total = total + A[I]<br>
+          Step 8: End For<br>
+          Step 9: avg = total / n<br>
+          Step 10: Print avg<br>
+          Step 11: End</p>
+        </div>
+        <div>
+          <p><b>Good modularity (functions)</b></p>
+          <p>Two clear functions: <code>CalculateSum()</code> and <code>FindAverage()</code>.</p>
+          <p>Step 1: Start<br>
+          Step 2: Set A = [1, 2, 3, 4, 5]<br>
+          Step 3: Set n = 5<br>
+          Step 4: Print FindAverage(A, n)<br>
+          Step 5: End</p>
+          <p>Function FindAverage(A, n)<br>
+          &nbsp;&nbsp;Sum = CalculateSum(A, n)<br>
+          &nbsp;&nbsp;Avg = Sum / n<br>
+          &nbsp;&nbsp;Return Avg<br>
+          End Function</p>
+          <p>Function CalculateSum(A, n)<br>
+          &nbsp;&nbsp;Set Total = 0<br>
+          &nbsp;&nbsp;For I = 1 to n<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Total = Total + A[I]<br>
+          &nbsp;&nbsp;End For<br>
+          &nbsp;&nbsp;Return Total<br>
+          End Function</p>
+        </div>
+      </div>
+      <p>SRP check: <code>CalculateSum</code> only adds; <code>FindAverage</code> only divides. Loose coupling: you can reuse <code>CalculateSum</code> to find a total without computing an average. Abstraction: the main algorithm just calls <code>FindAverage</code> and does not see the loop.</p>
+      <p>The source pseudocode numbers array positions from 1. Python numbers them from 0, so the loop is <code>for i in range(n)</code>.</p>
+<pre class="code">def calculate_sum(A, n):
+    total = 0
+    for i in range(n):
+        total = total + A[i]
+    return total
+
+def find_average(A, n):
+    return calculate_sum(A, n) / n
+
+A = [1, 2, 3, 4, 5]
+n = 5
+print(find_average(A, n))</pre>
+<pre class="code output">3.0</pre>
+    </div>
+    <div class="box tip">
+      <p>SRP in one line: <b>one function, one job</b>. If you cannot name the function with a short verb-phrase (<code>CalculateSum</code>, <code>FindAverage</code>), it is doing too much.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> copying the 1-based loop <code>for I = 1 to n: total = total + A[I]</code> into Python. Then <code>A[1]</code> skips the first item and <code>A[5]</code> crashes.</p>
+      <p><b>Fix:</b> in Python use <code>for i in range(n)</code> so the indices are 0, 1, 2, 3, 4.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ماڈیولریٹی کا مطلب الگورتھم کو آزاد حصوں (فنکشن، کلاس، ماڈیول) میں توڑنا ہے۔ جانچ کے تین اصول: واحد ذمہ داری (SRP) یعنی ایک فنکشن ایک کام؛ ڈھیلی جڑت (Loose Coupling) تاکہ ایک حصہ بدلنے سے دوسرے نہ ٹوٹیں؛ اور تجرید (Abstraction) یعنی اندرونی تفصیل چھپا کر صرف کام منگوانا، جیسے سورٹ فنکشن بلائے بغیر یہ جانے کہ ببل ہے یا سلیکشن۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What does SRP say each module should do?</p>
+      <p><b>2.</b> In the good average algorithm, which function hides the loop?</p>
+      <p><b>3.</b> Why is the monoblock harder to reuse?</p>
+      <div class="ans">Answers: 1. One specific task. 2. CalculateSum (FindAverage only divides; the main program only prints). 3. All logic is in one block, so you cannot call “just the sum” from another algorithm.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.2.2 ===================== -->
+  <div class="topic">
+    <h2>2.2.2 Readability</h2>
+    <div class="box learn">
+      <p><b>Readability</b> is how easily another person can understand the purpose and logic of an algorithm <b>without running it</b>. It is about how clear the text and the flow are.</p>
+      <p><b>How to evaluate readability</b></p>
+      <ol>
+        <li><b>Naming conventions</b> — consistent rules for names. Good names make an algorithm easier to search and understand.<br>
+        Bad: <code>v = d / t</code><br>
+        Good: <code>velocity = distance / time</code></li>
+        <li><b>Self-documentation</b> — the algorithm explains itself, so you need fewer comments. Meaningful names and clean formatting make the purpose obvious.</li>
+        <li><b>Control-flow simplicity</b> — keep the logic straightforward. Avoid deep nesting (IF inside IF inside IF), limit extra conditions, and keep each function on one task.</li>
+        <li><b>Consistency</b> — one style throughout: indentation, spacing, and casing (camelCase or snake_case). Then the logic stands out instead of the mess.</li>
+      </ol>
+    </div>
+    <div class="flow"><span>Names</span><i>→</i><span>Self-doc</span><i>→</i><span>Simple flow</span><i>→</i><span>Consistent</span></div>
+    <div class="box example">
+      <p><b>Worked example: the same formula, two styles.</b></p>
+<pre class="code"># Hard to read
+v=d/t
+if v&gt;s:
+    if t&gt;0:
+        print(v)</pre>
+<pre class="code"># Readable
+velocity = distance / time
+speed_limit = 20
+if time &gt; 0 and velocity &gt; speed_limit:
+    print(velocity)</pre>
+      <p>The second version uses names, avoids an IF nested inside an IF, and keeps one consistent snake_case style. You can understand it without running it.</p>
+    </div>
+    <div class="box tip">
+      <p>Remember readability as <b>N-S-S-C</b>: <b>N</b>ames, <b>S</b>elf-documentation, <b>S</b>imple flow, <b>C</b>onsistency.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> dumping a comment on every line (<code>total = total + 1  # add one to total</code>).</p>
+      <p><b>Fix:</b> if the name already says it, skip the comment. Comments should explain <b>why</b>, not repeat <b>what</b>.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">پڑھائی پن یہ ہے کہ دوسرا شخص الگورتھم چلائے بغیر اس کا مقصد سمجھ لے۔ اچھے نام (<code>velocity = distance / time</code>)، خود بیان (کم تبصرے)، سادہ کنٹرول فلو (گہری IF کے بغیر) اور ایک جیسا انداز (indentation اور casing) اسے آسان بناتے ہیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Rewrite <code>v = d / t</code> with readable names.</p>
+      <p><b>2.</b> What is deep nesting, and why is it a readability problem?</p>
+      <p><b>3.</b> Name two style habits that support consistency.</p>
+      <div class="ans">Answers: 1. velocity = distance / time. 2. IF inside IF inside IF (or similar); it makes the flow hard to follow. 3. Any two of: consistent indentation, spacing, and casing (camelCase or snake_case).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3 ===================== -->
+  <div class="topic">
+    <h2>2.3 Assess Algorithm Efficiency</h2>
+    <div class="box learn">
+      <p><b>Algorithm efficiency</b> is measured in terms of <b>time</b> and <b>space</b> — how fast it runs and how much memory it uses.</p>
+      <p>The key considerations for assessing efficiency are:</p>
+      <ol>
+        <li><b>Number of steps</b> (described with <b>Big O notation</b>).</li>
+        <li><b>Number of conditions</b> (IF decisions).</li>
+        <li><b>Number of repetitions</b> (loops).</li>
+      </ol>
+    </div>
+    <div class="flow"><span>Time (speed)</span><i>+</i><span>Space (memory)</span><i>→</i><span>Efficiency</span></div>
+    <div class="box example">
+      <p><b>Worked example: two ways to find a name in 1,000,000 sorted records.</b></p>
+      <p>Linear search checks about 1,000,000 names in the worst case (time grows with n). Binary search checks about 20 names (it halves the list each time). Both can be correct and clear. They are not equally efficient.</p>
+    </div>
+    <div class="box tip">
+      <p>Efficiency is always “as the input grows”. An algorithm that feels instant on 10 items can freeze on 10 million items if it is O(n²).</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> judging efficiency by how short the code looks.</p>
+      <p><b>Fix:</b> a five-line nested loop can do n² work. Count steps, conditions and repetitions — not lines of text.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">کارکردگی (Efficiency) وقت (رفتار) اور جگہ (میموری) سے ناپی جاتی ہے۔ تین چیزیں دیکھی جاتی ہیں: قدموں کی تعداد (بگ او)، شرطوں کی تعداد، اور دہرائی (لوپ) کی تعداد۔ چھوٹے ان پٹ پر تیز لگنے والا الگورتھم بڑے ان پٹ پر سست پڑ سکتا ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Efficiency is measured in terms of which two resources?</p>
+      <p><b>2.</b> List the three key considerations named in the source.</p>
+      <div class="ans">Answers: 1. Time (speed) and space (memory). 2. Number of steps (Big O), number of conditions, number of repetitions.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.1 ===================== -->
+  <div class="topic">
+    <h2>2.3.1 Number of Steps (Big O Notation) <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>When we discuss efficiency we ask how performance changes as the <b>input size n</b> increases. <b>Big O notation</b> is a mathematical method used to describe how the running time (or memory) <b>grows</b> as n grows. We ignore small constants and keep the most important term: if an algorithm does 3n + 5 steps we write O(n).</p>
+      <p>In computer science, <b>log n</b> almost always means log base 2 (how many times you can halve n until you reach 1).</p>
+    </div>
+
+    <h3>Five common classes</h3>
+    <table>
+      <tr><th>Class</th><th>Name</th><th>What happens when n grows</th><th>Typical example</th><th>Grade</th></tr>
+      <tr><td>O(1)</td><td>Constant</td><td>Time stays the same for 10 items or 10 million.</td><td>Access <code>arr[0]</code> (or any known index).</td><td>Excellent</td></tr>
+      <tr><td>O(log n)</td><td>Logarithmic</td><td>Time grows very slowly; the problem is halved each step.</td><td>Binary search on a sorted list.</td><td>Great</td></tr>
+      <tr><td>O(n)</td><td>Linear</td><td>If n doubles, time roughly doubles.</td><td>Linear search of an unsorted list.</td><td>Fair / Good</td></tr>
+      <tr><td>O(n log n)</td><td>Linearithmic</td><td>A little worse than linear; much better than n². Common in good sorting.</td><td>Merge Sort (split in half, then merge).</td><td>Good</td></tr>
+      <tr><td>O(n²)</td><td>Quadratic</td><td>Time grows with the square of n. Nested loops. Painful for large n.</td><td>Bubble Sort; compare every item with every other item.</td><td>Poor</td></tr>
+    </table>
+
+    <p>The source stresses O(1), O(log n), O(n) and O(n²). O(n log n) is the class of efficient general-purpose sorts, so you should recognise it when a question says “better than Bubble Sort but more than linear”.</p>
+
+    <h3>Growth table (log is log<sub>2</sub>)</h3>
+    <p>Each cell is the approximate number of operations for that n. Read down a column to see how fast that class explodes.</p>
+    <table class="center">
+      <tr><th>n</th><th>O(1)</th><th>O(log n)</th><th>O(n)</th><th>O(n log n)</th><th>O(n²)</th></tr>
+      <tr><td>2</td><td>1</td><td>1</td><td>2</td><td>2</td><td>4</td></tr>
+      <tr><td>4</td><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td></tr>
+      <tr><td>8</td><td>1</td><td>3</td><td>8</td><td>24</td><td>64</td></tr>
+      <tr><td>16</td><td>1</td><td>4</td><td>16</td><td>64</td><td>256</td></tr>
+      <tr><td>32</td><td>1</td><td>5</td><td>32</td><td>160</td><td>1,024</td></tr>
+      <tr><td>1,024</td><td>1</td><td>10</td><td>1,024</td><td>10,240</td><td>1,048,576</td></tr>
+      <tr><td>1,000,000</td><td>1</td><td>~20</td><td>1,000,000</td><td>~20,000,000</td><td>1,000,000,000,000</td></tr>
+    </table>
+    <p>From n = 8 to n = 1,000,000, O(1) does not move, O(log n) only goes from 3 to about 20, O(n) becomes a million, and O(n²) becomes a million million — which is why nested loops “fail for large datasets”.</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 560 220" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <text x="280" y="22" text-anchor="middle" font-weight="700" fill="#1f3c88">Relative work at n = 16</text>
+        <line x1="50" y1="190" x2="530" y2="190" stroke="#1d2433" stroke-width="1.5"/>
+        <rect x="70" y="178" width="50" height="12" fill="#2b8a3e"/>
+        <text x="95" y="208" text-anchor="middle">O(1)</text>
+        <text x="95" y="172" text-anchor="middle">1</text>
+        <rect x="160" y="166" width="50" height="24" fill="#2b8a3e"/>
+        <text x="185" y="208" text-anchor="middle">O(log n)</text>
+        <text x="185" y="160" text-anchor="middle">4</text>
+        <rect x="260" y="130" width="50" height="60" fill="#b7791f"/>
+        <text x="285" y="208" text-anchor="middle">O(n)</text>
+        <text x="285" y="124" text-anchor="middle">16</text>
+        <rect x="360" y="70" width="50" height="120" fill="#e8590c"/>
+        <text x="385" y="208" text-anchor="middle">O(n log n)</text>
+        <text x="385" y="64" text-anchor="middle">64</text>
+        <rect x="460" y="40" width="50" height="150" fill="#c92a2a"/>
+        <text x="485" y="208" text-anchor="middle">O(n²)</text>
+        <text x="485" y="34" text-anchor="middle">256</text>
+      </svg>
+      <figcaption>Same n = 16. Quadratic work is already four times n log n and sixteen times linear.</figcaption>
+    </figure>
+
+    <div class="box example">
+      <p><b>Worked example A — O(1): first element of an array.</b> Whether the array holds 10 or 10 million values, <code>arr[0]</code> is one jump to a known address.</p>
+<pre class="code">arr = [23, 76, 12, 90, 34, 68]
+print(arr[0])</pre>
+<pre class="code output">23</pre>
+      <p><b>Worked example B — O(n): linear search.</b> Each extra item adds one extra check.</p>
+<pre class="code">def linear_search(items, key):
+    for i, value in enumerate(items):
+        if value == key:
+            return i
+    return -1
+
+print(linear_search([10, 50, 20, 70, 90, 30], 20))
+print(linear_search([10, 50, 20, 70, 90, 30], 99))</pre>
+<pre class="code output">2
+-1</pre>
+      <p><b>Worked example C — O(log n): binary search on a sorted list.</b> Each step throws away half of the remaining items. For 8 sorted numbers the worst case is about 4 comparisons (floor(log<sub>2</sub> 8)+1).</p>
+<pre class="code">def binary_search(arr, key):
+    low = 0
+    high = len(arr) - 1
+    steps = 0
+    while low &lt;= high:
+        mid = (low + high) // 2
+        steps = steps + 1
+        if arr[mid] == key:
+            return mid, steps
+        if arr[mid] &lt; key:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1, steps
+
+data = [3, 8, 12, 17, 23, 31, 40, 52]
+print(binary_search(data, 40))
+print(binary_search(data, 3))</pre>
+<pre class="code output">(6, 2)
+(0, 3)</pre>
+      <p>Key 40 is found at index 6 after 2 comparisons. Key 3 is found at index 0 after 3 comparisons. Never more than a handful of steps, even if the list later grows to a million (about 20 steps).</p>
+      <p><b>Worked example D — O(n log n): Merge Sort idea.</b> To sort 8 items, Merge Sort makes log<sub>2</sub> 8 = 3 split-levels, and each level walks all 8 items once, so work ≈ 8 × 3 = 24, which matches the growth table. Bubble Sort on 8 items is on the order of 8² = 64 comparisons. That gap becomes enormous at n = 1,000,000.</p>
+      <p><b>Worked example E — O(n²): nested loops.</b></p>
+<pre class="code">n = 4
+count = 0
+for i in range(n):
+    for j in range(n):
+        count = count + 1
+print(count)</pre>
+<pre class="code output">16</pre>
+      <p>Inner body runs n × n = 16 times. That is the pattern of Bubble Sort and of “compare every item with every other item”.</p>
+    </div>
+    <div class="box tip">
+      <p><b>Order from fastest to slowest (for large n):</b> O(1) → O(log n) → O(n) → O(n log n) → O(n²).</p>
+      <p>Mnemonic: <b>“Constant Logs Never Need Squares”</b> — Constant, Logarithmic, N, N-log-N, Squares.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake 1:</b> writing O(n) for binary search because “there is a loop”. The loop runs about log n times, not n times.</p>
+      <p><b>Mistake 2:</b> writing O(2n) or O(n+5). Big O drops constants: both are O(n).</p>
+      <p><b>Mistake 3:</b> using binary search on an <b>unsorted</b> list. Binary search is O(log n) only on sorted data.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">بگ او (Big O) بتاتا ہے کہ ان پٹ n بڑھنے پر وقت یا میموری کیسے بڑھتی ہے۔ O(1) مستقل (ایرے کا arr[0])، O(log n) ہر قدم پر آدھا (بائنری سرچ)، O(n) لکیری (لینیئر سرچ)، O(n log n) اچھے سارٹ جیسے مرج سارٹ، اور O(n²) مربع (ببل سارٹ، اندرونی لوپ)۔ بڑے n پر O(n²) ناقابلِ استعمال ہو جاتا ہے۔</p>
+    </div>
+    <div class="box exam">
+      <p>Memorise the five rows of the class table (name, growth, one example, grade). Typical MCQ: “Accessing arr[0] is …?” → O(1). “Binary search is …?” → O(log n). “Nested loops / Bubble Sort …?” → O(n²). Long questions ask you to fill or interpret a growth table, or to say what happens if n becomes 10 times larger (linear → 10× time; quadratic → 100× time). Always mention that log n is “halving” and n² is “nested loops”.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Give one example each of O(1), O(log n), O(n) and O(n²).</p>
+      <p><b>2.</b> From the growth table, how many operations does O(n²) need when n = 32?</p>
+      <p><b>3.</b> Why is Merge Sort described as O(n log n)?</p>
+      <div class="ans">Answers: 1. O(1) arr[0]; O(log n) binary search; O(n) linear search; O(n²) Bubble Sort / nested loops. 2. 1,024. 3. It makes about log n split-levels and does about n work on each level, so n × log n.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.2 ===================== -->
+  <div class="topic">
+    <h2>2.3.2 Number of Conditions</h2>
+    <div class="box learn">
+      <p><b>Conditions</b> (IF statements) are decision points. Every condition forces the CPU to evaluate True or False, so excessive branching reduces performance.</p>
+      <ul>
+        <li><b>Computational cost.</b> Each IF is extra work, even if the rest of the algorithm is simple.</li>
+        <li><b>Nested conditions.</b> IF inside IF often means a brute-force approach. It hurts both readability and speed.</li>
+        <li><b>Short-circuiting</b> (the optimisation goal). Stop evaluating as soon as the result is known. In a logical AND, if the first part is False the second part is skipped. In a logical OR, if the first part is True the second part is skipped.</li>
+      </ul>
+    </div>
+    <div class="box example">
+      <p><b>Worked example: cheap test first.</b> You only divide if the denominator is not zero. Place the cheap, safe test on the left so Python never evaluates the dangerous part.</p>
+<pre class="code">x = 0
+y = 10
+if x != 0 and (y / x) &gt; 2:
+    print("ratio is large")
+else:
+    print("skipped safely")</pre>
+<pre class="code output">skipped safely</pre>
+      <p><code>x != 0</code> is False, so AND short-circuits and <code>y / x</code> is never attempted. If you wrote the division first, the program would crash. Same idea in the soldier algorithm: a False height test skips Step 6.</p>
+    </div>
+    <div class="box tip">
+      <p>Put the <b>cheapest / most likely False</b> test first in an AND, and the <b>most likely True</b> test first in an OR. That is short-circuiting used on purpose.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> writing a chain of nested IFs when one compound condition would do (as in the velocity example in 2.2.2).</p>
+      <p><b>Fix:</b> flatten with AND/OR, and rely on short-circuiting instead of extra layers.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ہر IF پروسیسر سے True/False پوچھتی ہے اس لیے زیادہ شاخیں کارکردگی گھٹاتی ہیں۔ اندرونی IF اکثر brute-force ہوتی ہے۔ شارٹ سرکٹ (Short-circuit) کا مطلب ہے جیسے ہی جواب معلوم ہو جانچ روک دی جائے، مثلاً AND میں پہلی شرط False ہو تو دوسری نہ چلے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Why do extra IF statements reduce performance?</p>
+      <p><b>2.</b> What does nested IF often indicate?</p>
+      <p><b>3.</b> In <code>x != 0 and (y / x) &gt; 2</code> with x = 0, why is there no division-by-zero?</p>
+      <div class="ans">Answers: 1. Each condition must be evaluated True/False by the CPU. 2. A brute-force approach (and it reduces readability and speed). 3. AND short-circuits: the first part is False, so the division is never evaluated.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.3 ===================== -->
+  <div class="topic">
+    <h2>2.3.3 Number of Repetitions</h2>
+    <div class="box learn">
+      <p><b>Repetitions</b> (loops) are the most significant factor in algorithm efficiency. The <b>structure of the loop</b> decides how time grows with n.</p>
+    </div>
+    <table>
+      <tr><th>Type of repetition</th><th>Conceptual impact</th><th>Efficiency grade</th></tr>
+      <tr><td>Linear loop</td><td>Processes each element exactly once. Time grows in proportion to size.</td><td>Good — O(n)</td></tr>
+      <tr><td>Logarithmic repetition</td><td>Reduces the problem size by half each iteration (binary search). Huge time savings.</td><td>Excellent — O(log n)</td></tr>
+      <tr><td>Nested loops</td><td>For each element, process all other elements. Operations explode.</td><td>Poor — O(n²)</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Worked example: count the inner-body runs.</b></p>
+<pre class="code">n = 5
+linear = 0
+for i in range(n):
+    linear = linear + 1
+
+nested = 0
+for i in range(n):
+    for j in range(n):
+        nested = nested + 1
+
+print(linear, nested)</pre>
+<pre class="code output">5 25</pre>
+      <p>One loop: 5. Nested loops: 25 = 5². For n = 1,000 that would be 1,000 versus 1,000,000.</p>
+    </div>
+    <div class="box tip">
+      <p>Find the <b>deepest loop</b>. One loop ≈ O(n). Loop inside a loop ≈ O(n²). A loop that halves n ≈ O(log n).</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> counting the word <code>for</code> and ignoring how the index moves.</p>
+      <p><b>Fix:</b> a loop <code>while n &gt; 1: n = n // 2</code> is logarithmic, even though it is still “a loop”.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">دہرائی (لوپ) کارکردگی کا سب سے بڑا عامل ہے۔ ایک بار ہر عنصر پر چلنے والا لوپ O(n) (اچھا)، ہر بار مسئلہ آدھا کرنے والا O(log n) (بہترین)، اور اندرونی لوپ O(n²) (خراب) ہے۔ اندرونی جسم کے چلنے کی گنتی سے یہ فرق صاف نظر آتا ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What grade does the source give nested loops?</p>
+      <p><b>2.</b> Why is binary search’s loop logarithmic rather than linear?</p>
+      <p><b>3.</b> If n = 5, how many times does a fully nested n-by-n pair of loops run?</p>
+      <div class="ans">Answers: 1. Poor — O(n²). 2. Each iteration halves the remaining problem, so the number of iterations is about log n. 3. 25.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.4 ===================== -->
+  <div class="topic">
+    <h2>2.3.4 The Efficiency Evaluation Framework</h2>
+    <div class="box learn">
+      <p>To evaluate an algorithm at a conceptual level, ask three questions:</p>
+      <ol>
+        <li><b>Does it scale?</b> If n grows 10 times, does time jump 10 times (linear) or 100 times (quadratic)? Quadratic scaling fails for large datasets.</li>
+        <li><b>What is the bottleneck?</b> Focus on the most time-consuming section (usually the deepest loop) and try to improve that part.</li>
+        <li><b>Is the cost worth it?</b> A theoretically faster O(log n) algorithm can be too complex to code and maintain. For a list of just 50 items, a simple O(n) linear search is practically better because it is simple.</li>
+      </ol>
+    </div>
+    <div class="flow"><span>Does it scale?</span><i>→</i><span>Where is the bottleneck?</span><i>→</i><span>Is the extra complexity worth it?</span></div>
+    <div class="box example">
+      <p><b>Worked example: 50 names versus 1 million names.</b></p>
+      <table>
+        <tr><th>Situation</th><th>Scale</th><th>Bottleneck</th><th>Worth the cost?</th><th>Choice</th></tr>
+        <tr><td>50 unsorted class names</td><td>Tiny n</td><td>A single linear scan</td><td>Binary search needs a sort first, which is extra work and extra code</td><td>Linear search O(n)</td></tr>
+        <tr><td>1,000,000 sorted account numbers, searched all day</td><td>n × 10 compared with 100,000 is already huge; quadratic would be impossible</td><td>The search loop</td><td>Yes — binary search is standard and well understood</td><td>Binary search O(log n)</td></tr>
+      </table>
+    </div>
+    <div class="box tip">
+      <p>Framework mnemonic: <b>S-B-W</b> — <b>S</b>cale, <b>B</b>ottleneck, <b>W</b>orth it.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> always choosing the theoretically fastest Big O.</p>
+      <p><b>Fix:</b> question 3 exists for a reason. For n = 50, simple O(n) beats a fragile O(log n) implementation.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">کارکردگی کے تین سوال: کیا الگورتھم بڑے n پر چل سکتا ہے (Scale)؟ سب سے سست جگہ کون سی ہے (Bottleneck، عموماً گہرا لوپ)؟ کیا تیز تر طریقے کی پیچیدگی اس چھوٹے فائدے کے لائق ہے؟ پچاس ناموں کے لیے سادہ O(n) تلاش عملی طور پر بہتر ہو سکتی ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> If n grows 10×, how much slower is a quadratic algorithm?</p>
+      <p><b>2.</b> Where do you usually look for the bottleneck?</p>
+      <p><b>3.</b> Why might linear search beat binary search for 50 items?</p>
+      <div class="ans">Answers: 1. About 100× slower (10²). 2. The most time-consuming section, usually the deepest loop. 3. Binary search is more complex to code and maintain, and for n = 50 the simplicity of O(n) is practically better.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.4 ===================== -->
+  <div class="topic">
+    <h2>2.4 Refinements to improve clarity and efficiency</h2>
+    <div class="box learn">
+      <p>Improving an algorithm means reviewing it step by step: simplifying logic, removing redundant work, and picking smart data structures. A clear algorithm is easier to follow; an efficient one wastes fewer steps.</p>
+      <h3>2.4.1 Refinements for clarity</h3>
+      <ol>
+        <li><b>Use meaningful names.</b> Replace vague variables with descriptive ones. Bad: <code>a = b / c</code>. Good: <code>average = totalSum / totalItems</code>.</li>
+        <li><b>Break into modules.</b> Divide a massive block into functions, for example separating <code>CalculateSum()</code> from the printing logic.</li>
+        <li><b>Improve structure and indentation.</b> Packed loops and IF statements confuse the reader. Spacing reduces mental effort.</li>
+        <li><b>Add comments.</b> Keep them short. Explain <b>why</b> something is done, not just what is happening, especially for tricky logic.</li>
+      </ol>
+      <h3>2.4.2 Refinements for efficiency</h3>
+      <ol>
+        <li><b>Reduce unnecessary steps.</b> In Bubble Sort, after the first pass the largest value has settled at the end. Ignore that sorted tail on the next pass by shrinking the inner loop, and you save comparisons.</li>
+        <li><b>Use better algorithms.</b> Searching 1 million <b>sorted</b> records with Binary Search instead of Linear Search changes the time from seconds to milliseconds.</li>
+        <li><b>Avoid re-computing values</b> (memoization / caching). If a value never changes, compute it once outside the loop, store it, and reuse it.</li>
+        <li><b>Use appropriate data structures.</b> Direct access → array. Hierarchical data → tree. Do not force one structure everywhere.</li>
+      </ol>
+    </div>
+    <div class="box example">
+      <p><b>Worked example 1 — shrinking Bubble Sort’s inner loop (n = 5).</b> A naive inner loop always runs n−1 = 4 times, for 4 passes: 16 comparisons. The refined inner loop runs 4, then 3, then 2, then 1: 10 comparisons.</p>
+<pre class="code">n = 5
+naive = 0
+for i in range(n - 1):
+    for j in range(n - 1):
+        naive = naive + 1
+
+refined = 0
+for i in range(n - 1):
+    for j in range(n - 1 - i):
+        refined = refined + 1
+
+print(naive, refined)</pre>
+<pre class="code output">16 10</pre>
+      <p><b>Worked example 2 — do not re-compute a constant inside the loop.</b></p>
+<pre class="code">A = 3
+B = 4
+N = 5
+
+# BAD: C is recalculated every time
+for i in range(1, N + 1):
+    C = A + B
+    print(C * i)</pre>
+<pre class="code output">7
+14
+21
+28
+35</pre>
+<pre class="code"># GOOD: compute C once
+C = A + B
+for i in range(1, N + 1):
+    print(C * i)</pre>
+<pre class="code output">7
+14
+21
+28
+35</pre>
+      <p>Same output, fewer additions. That is caching: compute once, reuse N times.</p>
+    </div>
+    <div class="box tip">
+      <p>Clarity: <b>N-M-I-C</b> (Names, Modules, Indentation, Comments). Efficiency: <b>S-A-C-D</b> (Shrink steps, Algorithm choice, Cache, Data structure).</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “optimising” by renaming variables and thinking that is an efficiency refinement.</p>
+      <p><b>Fix:</b> meaningful names improve <b>clarity</b>. Efficiency refinements change the <b>amount of work</b> (fewer loop iterations, a better algorithm, no re-compute, a better structure).</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">وضاحت بہتر کرنے کے لیے معنی خیز نام، ماڈیول، درست indentation اور مختصر تبصرے استعمال کریں۔ کارکردگی کے لیے فضول قدم ہٹائیں (ببل سارٹ میں ترتیب شدہ دم نظر انداز کریں)، بہتر الگورتھم چنیں (لینیئر کی جگہ بائنری سرچ)، لوپ کے اندر وہی حساب بار بار نہ کریں (Caching/Memoization)، اور مناسب ڈیٹا سٹرکچر رکھیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Rewrite <code>a = b / c</code> with meaningful names for an average.</p>
+      <p><b>2.</b> After Bubble Sort’s first pass, what should the next pass ignore?</p>
+      <p><b>3.</b> In the A+B example, where should <code>C = A + B</code> be written?</p>
+      <div class="ans">Answers: 1. average = totalSum / totalItems. 2. The already-sorted largest value at the end (shrink the inner loop). 3. Once, outside the loop, then reuse C inside.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.5 ===================== -->
+  <div class="topic">
+    <h2>2.5 Concept of Data Structure <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>data structure</b> is a systematic way of <b>organising, storing and managing</b> data so that an algorithm can access, modify and process it efficiently.</p>
+      <p><b>Real-life analogy.</b> Books on a shelf are arranged in a set order, so you can find a title quickly. Files in folders are grouped on purpose. Data structures do the same job inside computer memory.</p>
+    </div>
+    <div class="two-col">
+      <div>
+        <p><b>1. Linear data structures</b></p>
+        <p>Elements stand in a strict sequence, one after another. Each element (except the first and last) has exactly <b>one predecessor</b> and <b>one successor</b>.</p>
+        <p>Examples: Array, Linked List, Stack, Queue.</p>
+      </div>
+      <div>
+        <p><b>2. Non-linear data structures</b></p>
+        <p>Elements are connected in a hierarchy or a network. One element can connect to <b>several</b> others at the same time.</p>
+        <p>Examples: Tree, Graph.</p>
+      </div>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 560 130" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <text x="140" y="22" text-anchor="middle" font-weight="700">Linear (sequence)</text>
+        <rect x="20" y="40" width="50" height="36" fill="#dbeafe" stroke="#1f3c88"/>
+        <rect x="85" y="40" width="50" height="36" fill="#dbeafe" stroke="#1f3c88"/>
+        <rect x="150" y="40" width="50" height="36" fill="#dbeafe" stroke="#1f3c88"/>
+        <rect x="215" y="40" width="50" height="36" fill="#dbeafe" stroke="#1f3c88"/>
+        <text x="45" y="62" text-anchor="middle">A</text>
+        <text x="110" y="62" text-anchor="middle">B</text>
+        <text x="175" y="62" text-anchor="middle">C</text>
+        <text x="240" y="62" text-anchor="middle">D</text>
+        <text x="140" y="100" text-anchor="middle" fill="#5b6577">one after another</text>
+        <text x="430" y="22" text-anchor="middle" font-weight="700">Non-linear (branch / net)</text>
+        <circle cx="430" cy="48" r="16" fill="#fff3bf" stroke="#b7791f"/>
+        <text x="430" y="52" text-anchor="middle">R</text>
+        <circle cx="380" cy="100" r="16" fill="#edf9f0" stroke="#2b8a3e"/>
+        <circle cx="480" cy="100" r="16" fill="#edf9f0" stroke="#2b8a3e"/>
+        <text x="380" y="104" text-anchor="middle">L</text>
+        <text x="480" y="104" text-anchor="middle">R</text>
+        <line x1="422" y1="62" x2="390" y2="88" stroke="#1d2433"/>
+        <line x1="438" y1="62" x2="470" y2="88" stroke="#1d2433"/>
+      </svg>
+      <figcaption>Linear: a line of neighbours. Non-linear: a node with more than one connection.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: classify each everyday picture.</b></p>
+      <ol>
+        <li>Students standing in a single assembly line → <b>linear</b> (each has one in front and one behind).</li>
+        <li>A family tree of grandparents, parents and children → <b>non-linear</b> (one parent, several children).</li>
+        <li>Roads linking Karachi, Hyderabad, Sukkur and Larkana in many ways → <b>non-linear</b> (a network).</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p>Ask: “Does each item have at most one next item?” Yes → linear. “Can one item link to many, or can links form a net?” → non-linear.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> calling a tree “linear” because you can walk it from top to bottom.</p>
+      <p><b>Fix:</b> walking is traversal. The <b>shape</b> is hierarchical: one parent, many children. That is non-linear.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ڈیٹا سٹرکچر ڈیٹا کو منظم طریقے سے رکھنے کا نظام ہے تاکہ الگورتھم اسے جلدی استعمال کر سکے۔ لکیری ڈھانچوں میں عناصر قطار میں ہوتے ہیں (ایرے، لنکڈ لسٹ، سٹیک، کیو)۔ غیر لکیری میں ایک عنصر کئی سے جڑ سکتا ہے (ٹری، گراف)۔ الماری کی کتابیں اور فولڈرز کی مثال یاد رکھیں۔</p>
+    </div>
+    <div class="box exam">
+      <p>Define data structure in full (organise, store, manage; efficient access and processing). Then split linear vs non-linear with the “one predecessor and one successor” test, and list the four linear and two non-linear examples. The shelf / folder analogy earns a mark. MCQs: “Which is non-linear?” → Tree or Graph.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Define data structure.</p>
+      <p><b>2.</b> Name four linear and two non-linear examples.</p>
+      <p><b>3.</b> What is true of each middle element in a linear structure?</p>
+      <div class="ans">Answers: 1. A systematic way of organising, storing and managing data for efficient access, modification and processing. 2. Linear: array, linked list, stack, queue. Non-linear: tree, graph. 3. It has exactly one predecessor and one successor.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Array ===================== -->
+  <div class="topic">
+    <h2>2.5.1 Linear Data Structures: Array</h2>
+    <div class="box learn">
+      <p>An <b>array</b> holds a collection of <b>similar items</b> (the same data type) placed next to each other in <b>contiguous memory</b> (one continuous block).</p>
+      <p>Each item has a position number called an <b>index</b>, usually starting from <b>0</b>. Because the address of any cell can be calculated from the index, you can jump straight to it. That is <b>direct access</b> (also called random access), and it is O(1).</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 560 140" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <text x="20" y="24" font-weight="700">Array name: A</text>
+        <g stroke="#1f3c88" stroke-width="1.5">
+          <rect x="20" y="40" width="80" height="44" fill="#eef3ff"/>
+          <rect x="100" y="40" width="80" height="44" fill="#eef3ff"/>
+          <rect x="180" y="40" width="80" height="44" fill="#eef3ff"/>
+          <rect x="260" y="40" width="80" height="44" fill="#fff3bf"/>
+          <rect x="340" y="40" width="80" height="44" fill="#eef3ff"/>
+          <rect x="420" y="40" width="80" height="44" fill="#eef3ff"/>
+        </g>
+        <g fill="#1d2433" text-anchor="middle">
+          <text x="60" y="68">23</text>
+          <text x="140" y="68">76</text>
+          <text x="220" y="68">12</text>
+          <text x="300" y="68">90</text>
+          <text x="380" y="68">34</text>
+          <text x="460" y="68">68</text>
+          <text x="60" y="108">0</text>
+          <text x="140" y="108">1</text>
+          <text x="220" y="108">2</text>
+          <text x="300" y="108">3</text>
+          <text x="380" y="108">4</text>
+          <text x="460" y="108">5</text>
+        </g>
+        <text x="300" y="132" text-anchor="middle" fill="#b7791f" font-weight="700">A[3] = 90  (index starts at 0)</text>
+      </svg>
+      <figcaption>Six integers in contiguous cells. Direct access: A[3] jumps to 90 without walking 23, 76 and 12.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: read by index.</b></p>
+<pre class="code">A = [23, 76, 12, 90, 34, 68]
+print(A[3])
+print(A[0])</pre>
+<pre class="code output">90
+23</pre>
+    </div>
+    <div class="box tip">
+      <p>Index 0 is the first shelf on the row. The third item that humans call “number 4” is index 3. Formula in your head: <b>position from the left, minus one</b>.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Limitation.</b> Arrays are fast to read by index but <b>inflexible</b> to grow in the middle. Inserting a new value between 12 and 90 means shifting 90, 34 and 68 one cell to the right. That shift is O(n), so arrays are a poor fit when you insert and delete in the middle all the time.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ایرے ایک جیسے عناصر کو میموری کے لگاتار بلاک میں رکھتا ہے۔ ہر عنصر کا انڈیکس (عموماً 0 سے) ہوتا ہے جس سے براہِ راست رسائی O(1) میں مل جاتی ہے، جیسے A[3] = 90۔ درمیان میں نیا عنصر ڈالنے کے لیے دائیں طرف شفٹ کرنا پڑتا ہے جو سست ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What does “contiguous memory” mean?</p>
+      <p><b>2.</b> In the diagram, what is A[2]?</p>
+      <p><b>3.</b> Why is inserting in the middle of an array inefficient?</p>
+      <div class="ans">Answers: 1. The items sit in one continuous block, next to each other. 2. 12. 3. Later elements must all be shifted right to make room.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Linked list ===================== -->
+  <div class="topic">
+    <h2>Linear Data Structures: Linked List</h2>
+    <div class="box learn">
+      <p>A <b>linked list</b> stores data as a chain. Unlike an array, the items are <b>not</b> one continuous block. Each separate piece is a <b>node</b> sitting somewhere in memory.</p>
+      <p>Each node has two parts:</p>
+      <ol>
+        <li>the actual <b>data</b>;</li>
+        <li>a <b>link</b> (pointer) holding the memory address of the <b>next</b> node.</li>
+      </ol>
+      <p>The first node is pointed to by <b>HEAD</b>. The last node’s link is <b>NULL</b> (nowhere). To find an item you start at HEAD and follow links one by one — <b>sequential access</b>, O(n).</p>
+      <p><b>Real-life example:</b> browser history. Clicking Back follows the pointer to the previous page-node.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 620 130" width="620" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <text x="10" y="28" font-weight="700" fill="#1f3c88">HEAD</text>
+        <line x1="52" y1="24" x2="78" y2="24" stroke="#1f3c88" stroke-width="2" marker-end="url(#arrow)"/>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#1f3c88"/>
+          </marker>
+        </defs>
+        <g stroke="#1f3c88" stroke-width="1.5">
+          <rect x="80" y="8" width="70" height="36" fill="#eef3ff"/>
+          <rect x="150" y="8" width="36" height="36" fill="#fff8e6"/>
+          <rect x="220" y="8" width="70" height="36" fill="#eef3ff"/>
+          <rect x="290" y="8" width="36" height="36" fill="#fff8e6"/>
+          <rect x="360" y="8" width="70" height="36" fill="#eef3ff"/>
+          <rect x="430" y="8" width="36" height="36" fill="#fff8e6"/>
+          <rect x="500" y="8" width="70" height="36" fill="#eef3ff"/>
+          <rect x="570" y="8" width="36" height="36" fill="#fff8e6"/>
+        </g>
+        <g text-anchor="middle" fill="#1d2433">
+          <text x="115" y="32">23</text>
+          <text x="168" y="32">•</text>
+          <text x="255" y="32">76</text>
+          <text x="308" y="32">•</text>
+          <text x="395" y="32">12</text>
+          <text x="448" y="32">•</text>
+          <text x="535" y="32">90</text>
+          <text x="588" y="32">✕</text>
+        </g>
+        <line x1="186" y1="26" x2="216" y2="26" stroke="#1f3c88" stroke-width="2"/>
+        <line x1="326" y1="26" x2="356" y2="26" stroke="#1f3c88" stroke-width="2"/>
+        <line x1="466" y1="26" x2="496" y2="26" stroke="#1f3c88" stroke-width="2"/>
+        <text x="115" y="70">Data</text>
+        <text x="168" y="70">Link</text>
+        <text x="588" y="70">NULL</text>
+        <text x="310" y="110" fill="#5b6577">Follow HEAD → 23 → 76 → 12 → 90 → NULL</text>
+      </svg>
+      <figcaption>Four nodes. The last link is NULL, which ends the chain.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: walk from HEAD to print every data field.</b></p>
+<pre class="code">nodes = [23, 76, 12, 90]
+for data in nodes:
+    print(data, end=" -&gt; ")
+print("NULL")</pre>
+<pre class="code output">23 -&gt; 76 -&gt; 12 -&gt; 90 -&gt; NULL</pre>
+      <p>There is no <code>nodes[2]</code> jump in a real linked list. The loop above models following each link once. Inserting a new node between 76 and 12 only means changing two pointers — you do not shift the rest of a big block, which is why lists beat arrays for frequent insert/delete.</p>
+    </div>
+    <div class="box tip">
+      <p>Array = row of lockers with numbers on the doors. Linked list = treasure hunt: each clue (link) tells you where the next box is.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> writing <code>list[3]</code> and calling it linked-list access.</p>
+      <p><b>Fix:</b> a true linked list has no index. Python’s <code>list</code> type is an array-like structure. In this chapter, “linked list” means HEAD-and-pointers.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">لنکڈ لسٹ زنجیر کی طرح نوڈز پر مشتمل ہے جو میموری میں بکھرے ہو سکتے ہیں۔ ہر نوڈ میں ڈیٹا اور اگلے نوڈ کا پتہ (Link) ہوتا ہے۔ پہلا نوڈ HEAD سے ملتا ہے، آخری کا لنک NULL ہوتا ہے۔ براؤزر کا Back بٹن پچھلے نوڈ کے پوائنٹر پر چلتا ہے۔ رسائی ترتیب وار ہے، انڈیکس سے چھلانگ نہیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Name the two parts of a node.</p>
+      <p><b>2.</b> What does the last node’s link store?</p>
+      <p><b>3.</b> Why is browser history a fair analogy?</p>
+      <div class="ans">Answers: 1. Data, and a link/pointer to the next node. 2. NULL (no next node). 3. Back follows the pointer to the previous page-node instead of jumping by index.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Stack ===================== -->
+  <div class="topic">
+    <h2>Linear Data Structures: Stack <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>stack</b> is a linear data structure that works on the <b>LIFO</b> principle: <b>Last-In, First-Out</b>. The last element added is the first one removed. You cannot pull an item from the bottom or the middle.</p>
+      <ul>
+        <li><b>PUSH</b> — add an item to the <b>top</b>.</li>
+        <li><b>POP</b> — remove the item from the <b>top</b>.</li>
+      </ul>
+      <p>A <b>TOP</b> pointer always names the current top item. <b>Real-life example:</b> Undo in a text editor. Every action is piled on the stack; Undo POPs the most recent action first.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 480 240" width="480" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <text x="240" y="22" text-anchor="middle" font-weight="700" fill="#1f3c88">Stack (LIFO)</text>
+        <rect x="160" y="40" width="140" height="40" fill="#fff3bf" stroke="#b7791f" stroke-width="1.5"/>
+        <rect x="160" y="80" width="140" height="40" fill="#eef3ff" stroke="#1f3c88" stroke-width="1.5"/>
+        <rect x="160" y="120" width="140" height="40" fill="#eef3ff" stroke="#1f3c88" stroke-width="1.5"/>
+        <text x="230" y="65" text-anchor="middle">Data 3</text>
+        <text x="230" y="105" text-anchor="middle">Data 2</text>
+        <text x="230" y="145" text-anchor="middle">Data 1</text>
+        <text x="320" y="62" fill="#c92a2a" font-weight="700">← TOP</text>
+        <path d="M80,50 L150,50" stroke="#0b7a75" stroke-width="2"/>
+        <polygon points="150,50 140,45 140,55" fill="#0b7a75"/>
+        <text x="40" y="46" fill="#0b7a75" font-weight="700">PUSH</text>
+        <text x="28" y="62" fill="#0b7a75">add to top</text>
+        <path d="M150,150 L80,150" stroke="#c92a2a" stroke-width="2"/>
+        <polygon points="80,150 90,145 90,155" fill="#c92a2a"/>
+        <text x="28" y="146" fill="#c92a2a" font-weight="700">POP</text>
+        <text x="18" y="162" fill="#c92a2a">remove top</text>
+        <text x="230" y="190" text-anchor="middle" fill="#5b6577">bottom (cannot remove from here)</text>
+        <text x="230" y="220" text-anchor="middle">PUSH Data1, Data2, Data3 — first POP is Data3</text>
+      </svg>
+      <figcaption>Three PUSH operations. The TOP is Data 3, so the first POP returns Data 3.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: PUSH / POP trace.</b> Start with an empty stack. Then PUSH Data1, PUSH Data2, PUSH Data3, POP, POP.</p>
+      <table class="center">
+        <tr><th>Step</th><th>Operation</th><th>Stack (bottom → top)</th><th>TOP</th><th>Popped value</th></tr>
+        <tr><td>0</td><td>(empty)</td><td>[]</td><td>none</td><td></td></tr>
+        <tr><td>1</td><td>PUSH Data1</td><td>[Data1]</td><td>Data1</td><td></td></tr>
+        <tr><td>2</td><td>PUSH Data2</td><td>[Data1, Data2]</td><td>Data2</td><td></td></tr>
+        <tr><td>3</td><td>PUSH Data3</td><td>[Data1, Data2, Data3]</td><td>Data3</td><td></td></tr>
+        <tr><td>4</td><td>POP</td><td>[Data1, Data2]</td><td>Data2</td><td class="hl">Data3</td></tr>
+        <tr><td>5</td><td>POP</td><td>[Data1]</td><td>Data1</td><td class="hl">Data2</td></tr>
+      </table>
+<pre class="code">stack = []
+stack.append("Data1")
+stack.append("Data2")
+stack.append("Data3")
+print("after 3 PUSHes:", stack)
+print("POP:", stack.pop())
+print("POP:", stack.pop())
+print("left:", stack)</pre>
+<pre class="code output">after 3 PUSHes: ['Data1', 'Data2', 'Data3']
+POP: Data3
+POP: Data2
+left: ['Data1']</pre>
+      <p>Python’s <code>list.append</code> is PUSH and <code>list.pop()</code> (no index) is POP from the top.</p>
+    </div>
+    <div class="box tip">
+      <p><b>LIFO = Last In First Out = “last plate washed is first plate used”</b> on a canteen pile. Undo, Redo, Back button and function calls are all stacks.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> POPing from the bottom, or mixing LIFO with FIFO.</p>
+      <p><b>Fix:</b> stack = plates (top only). Queue = ticket line (front leaves, rear joins). If the first POP is Data1, you drew a queue, not a stack.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">سٹیک LIFO پر چلتا ہے: جو سب سے بعد میں آیا وہ سب سے پہلے نکلے گا۔ اوپر رکھنا PUSH، اوپر سے ہٹانا POP، اور TOP پوائنٹر موجودہ سب سے اوپر عنصر بتاتا ہے۔ انڈو (Undo) کی مثال: ہر عمل ڈھیر پر پڑتا ہے، انڈو سب سے تازہ عمل ہٹاتا ہے۔</p>
+    </div>
+    <div class="box exam">
+      <p>Define stack + LIFO, define PUSH and POP, mention TOP, give the Undo example, and draw the vertical boxes with TOP labelled. Trace questions: “Show the stack after PUSH A, PUSH B, POP, PUSH C.” Work left to right; the first POP must be B. Never remove from the middle.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Expand LIFO.</p>
+      <p><b>2.</b> After PUSH Data1, Data2, Data3, what does the first POP return?</p>
+      <p><b>3.</b> Why is Undo modelled as a stack?</p>
+      <div class="ans">Answers: 1. Last-In, First-Out. 2. Data3. 3. Each action is PUSHed; Undo POPs the most recent action first.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Queue ===================== -->
+  <div class="topic">
+    <h2>Linear Data Structures: Queue <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>queue</b> organises data on the <b>FIFO</b> principle: <b>First-In, First-Out</b>. Whoever arrives first is served first. Order truly matters.</p>
+      <ul>
+        <li><b>ENQUEUE</b> — add an element at the <b>Rear</b> (back).</li>
+        <li><b>DEQUEUE</b> — remove an element from the <b>Front</b>.</li>
+      </ul>
+      <p><b>Real-life example:</b> several documents sent to a printer. The printer prints the first document received, then the next.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 620 160" width="620" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <text x="310" y="22" text-anchor="middle" font-weight="700" fill="#1f3c88">Queue (FIFO)</text>
+        <text x="70" y="70" fill="#c92a2a" font-weight="700">DEQUEUE</text>
+        <text x="58" y="88" fill="#c92a2a">removes Front</text>
+        <path d="M150,74 L110,74" stroke="#c92a2a" stroke-width="2"/>
+        <polygon points="110,74 120,69 120,79" fill="#c92a2a"/>
+        <rect x="160" y="48" width="90" height="50" fill="#fff3bf" stroke="#b7791f" stroke-width="1.5"/>
+        <rect x="250" y="48" width="90" height="50" fill="#eef3ff" stroke="#1f3c88" stroke-width="1.5"/>
+        <rect x="340" y="48" width="90" height="50" fill="#eef3ff" stroke="#1f3c88" stroke-width="1.5"/>
+        <text x="205" y="78" text-anchor="middle">55</text>
+        <text x="295" y="78" text-anchor="middle">76</text>
+        <text x="385" y="78" text-anchor="middle">90</text>
+        <text x="205" y="118" text-anchor="middle" font-weight="700">FRONT</text>
+        <text x="385" y="118" text-anchor="middle" font-weight="700">REAR</text>
+        <path d="M430,74 L470,74" stroke="#0b7a75" stroke-width="2"/>
+        <polygon points="470,74 460,69 460,79" fill="#0b7a75"/>
+        <text x="480" y="70" fill="#0b7a75" font-weight="700">ENQUEUE</text>
+        <text x="480" y="88" fill="#0b7a75">adds to Rear</text>
+        <text x="310" y="148" text-anchor="middle" fill="#5b6577">Next ENQUEUE joins after 90. Next DEQUEUE removes 55.</text>
+      </svg>
+      <figcaption>Three jobs waiting. New jobs join at the rear; service always takes the front.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: ENQUEUE / DEQUEUE trace.</b> Start empty. ENQUEUE 55, 76, 90, then ENQUEUE D, then DEQUEUE.</p>
+      <table class="center">
+        <tr><th>Step</th><th>Operation</th><th>Queue (Front → Rear)</th><th>Front</th><th>Rear</th><th>Removed</th></tr>
+        <tr><td>0</td><td>(empty)</td><td>[]</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>1</td><td>ENQUEUE 55</td><td>[55]</td><td>55</td><td>55</td><td></td></tr>
+        <tr><td>2</td><td>ENQUEUE 76</td><td>[55, 76]</td><td>55</td><td>76</td><td></td></tr>
+        <tr><td>3</td><td>ENQUEUE 90</td><td>[55, 76, 90]</td><td>55</td><td>90</td><td></td></tr>
+        <tr><td>4</td><td>ENQUEUE D</td><td>[55, 76, 90, D]</td><td>55</td><td>D</td><td></td></tr>
+        <tr><td>5</td><td>DEQUEUE</td><td>[76, 90, D]</td><td>76</td><td>D</td><td class="hl">55</td></tr>
+      </table>
+<pre class="code">from collections import deque
+q = deque()
+q.append(55)
+q.append(76)
+q.append(90)
+q.append("D")
+print("after ENQUEUE D:", list(q))
+print("DEQUEUE:", q.popleft())
+print("left:", list(q))</pre>
+<pre class="code output">after ENQUEUE D: [55, 76, 90, 'D']
+DEQUEUE: 55
+left: [76, 90, 'D']</pre>
+      <p><code>append</code> is ENQUEUE at the rear; <code>popleft</code> is DEQUEUE from the front. The first DEQUEUE is 55 (the oldest), never D.</p>
+    </div>
+    <div class="box tip">
+      <p><b>FIFO = First In First Out = a canteen line.</b> Front = the person being served. Rear = the person who just joined.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> DEQUEUEing from the rear, or ENQUEUEing at the front.</p>
+      <p><b>Fix:</b> new items only at Rear; removal only at Front. If your first removal is D, you treated the queue as a stack.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">کیو FIFO پر چلتی ہے: جو پہلے آیا وہ پہلے نکلے۔ پیچھے (Rear) شامل کرنا ENQUEUE، آگے (Front) سے ہٹانا DEQUEUE ہے۔ پرنٹر کی قطار: جو فائل پہلے بھیجی گئی وہ پہلے چھپے گی۔ پہلی DEQUEUE ہمیشہ سب سے پرانا عنصر نکالتی ہے۔</p>
+    </div>
+    <div class="box exam">
+      <p>Define queue + FIFO, define ENQUEUE (rear) and DEQUEUE (front), give the printer example, draw the labelled Front/Rear diagram, and trace a short sequence. Examiners mix stack and queue on the same paper: if they say “first come, first served” write Queue; if they say “Undo” write Stack.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Expand FIFO. Where is an item added, and where is it removed?</p>
+      <p><b>2.</b> After ENQUEUE 55, 76, 90, what does DEQUEUE return?</p>
+      <p><b>3.</b> Why is a printer a queue, not a stack?</p>
+      <div class="ans">Answers: 1. First-In, First-Out; added at Rear, removed from Front. 2. 55. 3. Documents must print in the order they arrived (first received, first printed), not last-received first.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Tree ===================== -->
+  <div class="topic">
+    <h2>2.5.2 Non-Linear Data Structures: Tree</h2>
+    <div class="box learn">
+      <p>A <b>tree</b> organises data in a <b>hierarchy</b>. Everything branches out from a single starting point called the <b>root</b>.</p>
+      <p>It creates a strict <b>one-to-many (parent–child)</b> relationship. That is an excellent way to show how roles flow in an organisation.</p>
+      <p><b>Real-life examples:</b> a family tree (grandparents → parents → children) and folders inside folders on a drive.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 560 230" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <rect x="190" y="8" width="180" height="36" rx="6" fill="#fff3bf" stroke="#b7791f"/>
+        <text x="280" y="32" text-anchor="middle" font-weight="700">Principal (Root)</text>
+        <rect x="40" y="90" width="180" height="36" rx="6" fill="#eef3ff" stroke="#1f3c88"/>
+        <text x="130" y="114" text-anchor="middle">Administrative Head</text>
+        <rect x="340" y="90" width="180" height="36" rx="6" fill="#eef3ff" stroke="#1f3c88"/>
+        <text x="430" y="114" text-anchor="middle">Academic Dean</text>
+        <rect x="10" y="172" width="110" height="32" rx="6" fill="#edf9f0" stroke="#2b8a3e"/>
+        <text x="65" y="193" text-anchor="middle">Accounts</text>
+        <rect x="140" y="172" width="110" height="32" rx="6" fill="#edf9f0" stroke="#2b8a3e"/>
+        <text x="195" y="193" text-anchor="middle">HR</text>
+        <rect x="320" y="172" width="110" height="32" rx="6" fill="#edf9f0" stroke="#2b8a3e"/>
+        <text x="375" y="193" text-anchor="middle">HOD Math</text>
+        <rect x="450" y="172" width="110" height="32" rx="6" fill="#edf9f0" stroke="#2b8a3e"/>
+        <text x="505" y="193" text-anchor="middle">HOD CS</text>
+        <line x1="280" y1="44" x2="130" y2="90" stroke="#1d2433"/>
+        <line x1="280" y1="44" x2="430" y2="90" stroke="#1d2433"/>
+        <line x1="130" y1="126" x2="65" y2="172" stroke="#1d2433"/>
+        <line x1="130" y1="126" x2="195" y2="172" stroke="#1d2433"/>
+        <line x1="430" y1="126" x2="375" y2="172" stroke="#1d2433"/>
+        <line x1="430" y1="126" x2="505" y2="172" stroke="#1d2433"/>
+      </svg>
+      <figcaption>College tree: one root (Principal), then parent–child branches. No child has two parents in this model.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: name the relationships.</b></p>
+      <ul>
+        <li>Root: Principal.</li>
+        <li>Children of the root: Administrative Head, Academic Dean.</li>
+        <li>Children of Academic Dean: HOD Math, HOD CS.</li>
+        <li>HOD CS has one parent (Academic Dean), not two — that is the tree rule. If HOD CS also reported sideways to Accounts as an equal link, the picture would become a <b>graph</b>.</li>
+      </ul>
+    </div>
+    <div class="box tip">
+      <p>Tree = family / folders / organogram. One root. Branches down. Parent–child, not a web of equals.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> drawing a tree with two roots, or with an arrow going back up to the Principal from HOD CS (a cycle).</p>
+      <p><b>Fix:</b> one root, links only parent → child, no loops. Cycles belong to graphs.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ٹری ڈیٹا کو درجہ بندی (Hierarchy) میں رکھتی ہے جو ایک جڑ (Root) سے پھوٹتی ہے۔ تعلق والدین-بچہ (ایک سے کئی) ہوتا ہے، جیسے پرنسپل → ڈین → ایچ او ڈی، خاندانی شجرہ، یا فولڈر کے اندر فولڈر۔ دو جڑیں یا چکر ٹری کو گراف بنا دیتے ہیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What is the starting node of a tree called?</p>
+      <p><b>2.</b> What kind of relationship does a tree model?</p>
+      <p><b>3.</b> Give two real-life tree examples from the source.</p>
+      <div class="ans">Answers: 1. The root. 2. One-to-many parent–child. 3. A family tree, and folders inside folders (or a college organogram).</div>
+    </div>
+  </div>
+
+  <!-- ===================== Graph ===================== -->
+  <div class="topic">
+    <h2>Non-Linear Data Structures: Graph</h2>
+    <div class="box learn">
+      <p>A <b>graph</b> organises data when things connect in a flexible, complex way. Unlike a tree, there is <b>no strict hierarchy</b>: any node can connect to any other node.</p>
+      <ul>
+        <li><b>Nodes (vertices)</b> — the items (cities, people).</li>
+        <li><b>Edges</b> — the connections (roads, friendships).</li>
+      </ul>
+      <p><b>Examples:</b> Facebook friends; GPS mapping (the fastest route between two cities).</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 420 220" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="14">
+        <circle cx="110" cy="50" r="28" fill="#eef3ff" stroke="#1f3c88" stroke-width="1.5"/>
+        <circle cx="310" cy="50" r="28" fill="#eef3ff" stroke="#1f3c88" stroke-width="1.5"/>
+        <circle cx="110" cy="170" r="28" fill="#edf9f0" stroke="#2b8a3e" stroke-width="1.5"/>
+        <circle cx="310" cy="170" r="28" fill="#fff3bf" stroke="#b7791f" stroke-width="1.5"/>
+        <text x="110" y="55" text-anchor="middle" font-weight="700">A</text>
+        <text x="310" y="55" text-anchor="middle" font-weight="700">B</text>
+        <text x="110" y="175" text-anchor="middle" font-weight="700">C</text>
+        <text x="310" y="175" text-anchor="middle" font-weight="700">D</text>
+        <line x1="138" y1="50" x2="282" y2="50" stroke="#1d2433" stroke-width="1.5"/>
+        <line x1="110" y1="78" x2="110" y2="142" stroke="#1d2433" stroke-width="1.5"/>
+        <line x1="310" y1="78" x2="310" y2="142" stroke="#1d2433" stroke-width="1.5"/>
+        <line x1="132" y1="68" x2="288" y2="152" stroke="#1d2433" stroke-width="1.5"/>
+        <line x1="138" y1="170" x2="282" y2="170" stroke="#1d2433" stroke-width="1.5"/>
+        <text x="210" y="42" text-anchor="middle" fill="#5b6577" font-size="11">edge</text>
+      </svg>
+      <figcaption>Four vertices A, B, C, D. Edges can form a cycle (A–B–D–C–A). A tree cannot do that.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Worked example: Karachi – Hyderabad – Sukkur – Larkana.</b> Cities are vertices. Roads are edges. You can travel Karachi → Hyderabad → Sukkur or Karachi → Larkana → Sukkur. There is no single “root city”. That is a graph, and GPS uses it to pick a fast route.</p>
+    </div>
+    <div class="box tip">
+      <p>Tree ⊂ Graph in shape-talk: a tree is a special graph with one root and no cycles. If you need cycles or many-to-many links, say <b>graph</b>.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> using a tree for GPS because “Hyderabad comes under Sindh”.</p>
+      <p><b>Fix:</b> administration can be a tree; <b>roads</b> are a graph because you can loop and take alternative paths.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">گراف لچکدار روابط کے لیے ہے: کوئی سخت درجہ بندی نہیں، کوئی بھی نوڈ کسی سے جڑ سکتا ہے۔ نوڈز (Vertices) چیزیں ہیں، کنارے (Edges) تعلق۔ فیس بک دوست اور GPS نقشہ کلاسیکی مثالیں ہیں۔ چکر (Cycle) اور کئی راستے گراف کو ٹری سے الگ کرتے ہیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What are the two parts of a graph?</p>
+      <p><b>2.</b> Give two source examples of graphs.</p>
+      <p><b>3.</b> State one difference between a tree and a graph.</p>
+      <div class="ans">Answers: 1. Nodes/vertices and edges. 2. Social networks (Facebook friends) and GPS mapping. 3. A tree has a hierarchy and one root; a graph has no strict hierarchy and any node may connect to any other (cycles allowed).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.5.3 ===================== -->
+  <div class="topic">
+    <h2>2.5.3 Operations on Data Structures</h2>
+    <div class="box learn">
+      <p>Whatever the shape, you keep meeting the same five operations:</p>
+    </div>
+    <table>
+      <tr><th>Operation</th><th>Meaning</th><th>Quick picture</th></tr>
+      <tr><td>Insertion</td><td>Adding a new item into the structure.</td><td>PUSH on a stack; ENQUEUE on a queue; putting 40 into an array.</td></tr>
+      <tr><td>Deletion</td><td>Removing an item that is no longer needed.</td><td>POP; DEQUEUE; deleting a node from a list.</td></tr>
+      <tr><td>Traversal</td><td>Going through each item one by one.</td><td>Walking HEAD → … → NULL; visiting every tree node.</td></tr>
+      <tr><td>Searching</td><td>Finding a specific item.</td><td>Linear search in an array; following links until 87 is found.</td></tr>
+      <tr><td>Sorting</td><td>Arranging items in a proper order (ascending or descending).</td><td>Bubble Sort on an array of marks.</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Worked example: name the operation.</b></p>
+      <ol>
+        <li>“Print every song from the start of the playlist.” → <b>Traversal</b>.</li>
+        <li>“Add a print job at the rear.” → <b>Insertion</b> (ENQUEUE).</li>
+        <li>“Undo the last typing action.” → <b>Deletion</b> (POP).</li>
+        <li>“Is roll number 87 in the list?” → <b>Searching</b>.</li>
+        <li>“Arrange heights from shortest to tallest.” → <b>Sorting</b>.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p>Memorise <b>I-D-T-S-S</b>: <b>I</b>nsert, <b>D</b>elete, <b>T</b>raverse, <b>S</b>earch, <b>S</b>ort.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> calling a PUSH “sorting” because the stack looks tidy.</p>
+      <p><b>Fix:</b> PUSH is insertion. Sorting means putting values in ascending or descending order.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ہر ڈیٹا سٹرکچر پر پانچ عمل ہوتے ہیں: داخل کرنا (Insertion)، حذف کرنا (Deletion)، ایک ایک کر کے گزرنا (Traversal)، تلاش (Searching) اور ترتیب (Sorting، صعودی یا نزولی)۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> List the five operations.</p>
+      <p><b>2.</b> Which operation is ENQUEUE?</p>
+      <p><b>3.</b> Traversal vs searching — one difference?</p>
+      <div class="ans">Answers: 1. Insertion, deletion, traversal, searching, sorting. 2. Insertion (at the rear of a queue). 3. Traversal visits every item; searching stops when the target is found (or the structure ends).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.6 ===================== -->
+  <div class="topic">
+    <h2>2.6 Identify data structures in problem scenarios</h2>
+    <div class="box learn">
+      <p>To pick a structure, first see how the data is organised. If each item has a clear “before and after”, it is <b>linear</b>. If it branches or connects to many items, it is <b>non-linear</b>.</p>
+      <h3>2.6.1 Linear scenarios</h3>
+      <ol>
+        <li><b>Storing student grades for a class → Array.</b> You usually know how many students there are, and all grades are the same type. Indices give rapid lookup.</li>
+        <li><b>Music playlist / browser history → Linked list.</b> Every song knows what comes next. When one finishes, follow the pointer. Frequent insert/delete is cheap.</li>
+        <li><b>Undo or Redo → Stack (LIFO).</b> Each typing or formatting action is PUSHed. Undo POPs the most recent action.</li>
+        <li><b>Printer task scheduling → Queue (FIFO).</b> Documents print in the exact order they were received. First-come, first-served.</li>
+      </ol>
+      <h3>2.6.2 Non-linear scenarios</h3>
+      <ol>
+        <li><b>Organisational chart of a college → Tree.</b> Principal is the root, then deans, then HODs, then teachers. Clear parent–child links.</li>
+        <li><b>GPS navigation and maps → Graph.</b> Cities are nodes, roads are edges. No strict top-down hierarchy. Several routes can reach the same destination.</li>
+      </ol>
+    </div>
+    <table>
+      <tr><th>If the data…</th><th>Then it is…</th><th>Recommended structure</th></tr>
+      <tr><td>Follows “next” or “previous” logic</td><td>Linear</td><td>Array, Linked list</td></tr>
+      <tr><td>Follows “parent” and “child” logic</td><td>Non-linear</td><td>Tree</td></tr>
+      <tr><td>Follows “first-come, first-served” logic</td><td>Linear</td><td>Queue</td></tr>
+      <tr><td>Follows “connections / relationships” logic</td><td>Non-linear</td><td>Graph</td></tr>
+      <tr><td>Needs to be accessed in the reverse order of entry</td><td>Linear</td><td>Stack</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Worked example: match five school problems.</b></p>
+      <table>
+        <tr><th>Scenario</th><th>Structure</th><th>Why (one line)</th></tr>
+        <tr><td>Store 40 practical marks you already counted</td><td>Array</td><td>Fixed size, same type, need A[i] lookup.</td></tr>
+        <tr><td>A playlist where the teacher inserts a nasheed between two songs</td><td>Linked list</td><td>Insert by moving two pointers, no big shift.</td></tr>
+        <tr><td>Ctrl+Z after formatting a heading</td><td>Stack</td><td>Last action must come off first.</td></tr>
+        <tr><td>Students lining up for the photocopier</td><td>Queue</td><td>First in line is served first.</td></tr>
+        <tr><td>Friend links in a class WhatsApp “everyone knows everyone”</td><td>Graph</td><td>Any student can connect to any other.</td></tr>
+      </table>
+    </div>
+    <div class="box tip">
+      <p>Decision order: reverse-of-entry? → stack. First-come? → queue. Parent–child? → tree. Many-to-many routes? → graph. Known list with indexes? → array. Lots of insert/delete in a sequence? → linked list.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> choosing an array for Undo because “actions are stored in a list”.</p>
+      <p><b>Fix:</b> the <b>access rule</b> matters more than “it is a list”. Undo is reverse order of entry → stack.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">اگر ہر عنصر کا واضح اگلا/پچھلا ہے تو ڈھانچہ لکیری ہے؛ اگر شاخیں یا کئی روابط ہیں تو غیر لکیری۔ نمبر: ایرے؛ پلے لسٹ/ہسٹری: لنکڈ لسٹ؛ انڈو: سٹیک؛ پرنٹر: کیو؛ کالج کا چارٹ: ٹری؛ GPS: گراف۔ فیصلے کی جدول یاد کر لیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Which structure stores a class’s grades, and why?</p>
+      <p><b>2.</b> Printer jobs: stack or queue? Why?</p>
+      <p><b>3.</b> “Needs reverse order of entry” maps to which structure?</p>
+      <div class="ans">Answers: 1. Array — known size, same type, fast index lookup. 2. Queue, because first-come, first-served. 3. Stack.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.7 ===================== -->
+  <div class="topic">
+    <h2>2.7 Trace data retrieval in Array, List and Queue</h2>
+    <div class="box learn">
+      <p><b>Tracing data retrieval</b> means following the step-by-step path of how an algorithm finds or accesses data. Array, linked list and queue are all linear, but the <b>effort</b> to find an item is very different because of how they are organised inside.</p>
+    </div>
+
+    <h3>2.7.1 Retrieval in an array</h3>
+    <p>Every element has a fixed index from 0 to n−1 pointing at a spot in memory. If the algorithm already knows the index, it does not search: it <b>jumps</b> (direct access, O(1)).</p>
+    <p>Array = [10, 50, 20, 70, 90, 30]. Direct access: Array[2] = 20.</p>
+    <table class="center">
+      <tr><th>Loop iteration</th><th>Index</th><th>Array access</th><th>Value</th></tr>
+      <tr><td>1</td><td>0</td><td>Array[0]</td><td>10</td></tr>
+      <tr><td>2</td><td>1</td><td>Array[1]</td><td>50</td></tr>
+      <tr><td>3</td><td>2</td><td>Array[2]</td><td class="hl">20</td></tr>
+    </table>
+<pre class="code">Array = [10, 50, 20, 70, 90, 30]
+print("Direct Array[2] =", Array[2])
+for i in range(3):
+    print(i + 1, i, f"Array[{i}]", Array[i])</pre>
+<pre class="code output">Direct Array[2] = 20
+1 0 Array[0] 10
+2 1 Array[1] 50
+3 2 Array[2] 20</pre>
+
+    <h3>2.7.2 Retrieval in a linked list</h3>
+    <p>Linked lists have <b>no index</b>. The only way is to start at HEAD and follow links one node at a time (sequential access, O(n)).</p>
+    <p>List: [12] → [98] → [23] → [87] → [56] → NULL. Search key: 87.</p>
+    <table>
+      <tr><th>Step</th><th>Node data</th><th>Compare with 87</th><th>Action</th></tr>
+      <tr><td>1</td><td>12</td><td>12 != 87</td><td>Move next</td></tr>
+      <tr><td>2</td><td>98</td><td>98 != 87</td><td>Move next</td></tr>
+      <tr><td>3</td><td>23</td><td>23 != 87</td><td>Move next</td></tr>
+      <tr><td>4</td><td class="hl">87</td><td>87 == 87</td><td class="hl">FOUND — output True</td></tr>
+    </table>
+<pre class="code">nodes = [12, 98, 23, 87, 56]
+key = 87
+found = False
+for i, value in enumerate(nodes, start=1):
+    print(f"Step {i}: Check Node {i} ({value}).")
+    if value == key:
+        found = True
+        print("FOUND! Output: True")
+        break
+    print("Not equal. Move Next.")
+print("Result:", found)</pre>
+<pre class="code output">Step 1: Check Node 1 (12).
+Not equal. Move Next.
+Step 2: Check Node 2 (98).
+Not equal. Move Next.
+Step 3: Check Node 3 (23).
+Not equal. Move Next.
+Step 4: Check Node 4 (87).
+FOUND! Output: True
+Result: True</pre>
+    <p>Key 87 sits at the fourth node, so you paid four checks. An array that already knew index 3 would have paid one jump.</p>
+
+    <h3>2.7.3 Retrieval in a queue</h3>
+    <p>A queue is FIFO. You <b>cannot</b> retrieve from the middle or the rear. The oldest item at the Front is always DEQUEUEd first.</p>
+    <figure class="diagram">
+      <svg viewBox="0 0 520 130" width="520" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <rect x="80" y="30" width="70" height="44" fill="#fff3bf" stroke="#b7791f"/>
+        <rect x="150" y="30" width="70" height="44" fill="#eef3ff" stroke="#1f3c88"/>
+        <rect x="220" y="30" width="70" height="44" fill="#eef3ff" stroke="#1f3c88"/>
+        <text x="115" y="58" text-anchor="middle">A</text>
+        <text x="185" y="58" text-anchor="middle">B</text>
+        <text x="255" y="58" text-anchor="middle">C</text>
+        <text x="115" y="92" text-anchor="middle" font-weight="700">Front</text>
+        <text x="255" y="92" text-anchor="middle" font-weight="700">Rear</text>
+        <text x="40" y="40" fill="#c92a2a" font-weight="700">DEQUEUE</text>
+        <text x="48" y="56" fill="#c92a2a">(A)</text>
+        <text x="320" y="40" fill="#0b7a75" font-weight="700">ENQUEUE (D)</text>
+        <rect x="360" y="30" width="70" height="44" fill="#edf9f0" stroke="#2b8a3e" stroke-dasharray="4 3"/>
+        <text x="395" y="58" text-anchor="middle">D</text>
+        <text x="260" y="118" text-anchor="middle" fill="#5b6577">You cannot pull B until A has left.</text>
+      </svg>
+      <figcaption>Queue A, B, C. ENQUEUE D joins the rear. DEQUEUE must remove A, not C or B.</figcaption>
+    </figure>
+<pre class="code">from collections import deque
+q = deque(["A", "B", "C"])
+q.append("D")
+print("after ENQUEUE D:", list(q))
+print("DEQUEUE:", q.popleft())
+print("now:", list(q))</pre>
+<pre class="code output">after ENQUEUE D: ['A', 'B', 'C', 'D']
+DEQUEUE: A
+now: ['B', 'C', 'D']</pre>
+    <div class="box example">
+      <p><b>Worked example: three retrievals compared for “get 20 / get 87 / get A”.</b></p>
+      <table>
+        <tr><th>Structure</th><th>Target</th><th>Path</th><th>Can you jump?</th></tr>
+        <tr><td>Array [10, 50, 20, …]</td><td>20 at index 2</td><td>Array[2] in one step, or scan 10, 50, 20</td><td>Yes, if the index is known</td></tr>
+        <tr><td>Linked list 12→98→23→87→…</td><td>87</td><td>Must visit 12, 98, 23, then 87</td><td>No</td></tr>
+        <tr><td>Queue A-B-C</td><td>A (the only legal retrieval)</td><td>DEQUEUE Front</td><td>No — never the middle</td></tr>
+      </table>
+    </div>
+    <div class="box tip">
+      <p><b>Array jumps, list walks, queue waits.</b> If the exam asks “why is array retrieval different?”, write <b>direct access by index</b> versus <b>sequential links</b> versus <b>Front only</b>.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> DEQUEUEing C because “C is the interesting letter”, or reading linked-list node 4 as <code>list[3]</code> without walking.</p>
+      <p><b>Fix:</b> show every hop in the table. Marks are for the path, not only for FOUND.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ایرے میں اگر انڈیکس معلوم ہو تو سیدھی چھلانگ لگتی ہے، جیسے Array[2] = 20۔ لنکڈ لسٹ میں HEAD سے ایک ایک نوڈ دیکھنا پڑتا ہے؛ 87 چوتھے نوڈ پر ملا۔ کیو سے صرف Front نکلتا ہے، درمیان سے نہیں؛ A, B, C میں DEQUEUE ہمیشہ A ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What is Array[2] in [10, 50, 20, 70, 90, 30]?</p>
+      <p><b>2.</b> How many nodes are checked before 87 is found in 12→98→23→87→56?</p>
+      <p><b>3.</b> In queue A, B, C, can you retrieve B without removing A?</p>
+      <div class="ans">Answers: 1. 20. 2. Four (12, 98, 23, 87). 3. No — a queue only DEQUEUEs the Front, so A must leave first.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Careers ===================== -->
+  <div class="topic">
+    <h2>Career Opportunities in Algorithms</h2>
+    <div class="box learn">
+      <p>The skills in this chapter — proving correctness, writing clear modules, judging Big O, and choosing data structures — are the daily tools of several computing careers.</p>
+    </div>
+    <table>
+      <tr><th>Career</th><th>What the person does</th></tr>
+      <tr><td>Software Engineer</td><td>Builds and maintains software that relies on data structures and efficient algorithms to solve logic problems.</td></tr>
+      <tr><td>Backend Developer</td><td>Builds server-side logic where choosing the right structure (array, queue) directly affects web performance.</td></tr>
+      <tr><td>Algorithm Engineer</td><td>Specialises in optimising algorithms for search engines, finance or logistics.</td></tr>
+      <tr><td>Systems Analyst</td><td>Evaluates and improves the efficiency and clarity of existing computer systems in an organisation.</td></tr>
+      <tr><td>Competitive Programmer</td><td>Solves complex algorithmic problems under time limits, a common path into top tech roles.</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Worked example: match the task.</b></p>
+      <ol>
+        <li>“Replace an O(n²) report with an O(n log n) sort so the payroll finishes overnight.” → <b>Algorithm Engineer</b> (or a performance-minded Software Engineer).</li>
+        <li>“Put incoming HTTP requests into a FIFO buffer so the first visitor is served first.” → <b>Backend Developer</b> (queue).</li>
+        <li>“Read a college’s old fee software, find the nested-IF bottleneck, and recommend modules.” → <b>Systems Analyst</b>.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p>Every career in the table uses the same three tests you learned: <b>correct, clear, efficient</b> — plus the right data structure.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> thinking only “Algorithm Engineer” needs Big O.</p>
+      <p><b>Fix:</b> a backend developer who puts a nested loop on every page request will take a site down. Efficiency is a shared skill.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">اس باب کی مہارتیں سافٹ ویئر انجینئر، بیک اینڈ ڈیولپر، الگورتھم انجینئر، سسٹمز اینالسٹ اور کمپیٹیٹو پروگرامر کے کام میں روز استعمال ہوتی ہیں: درست منطق، صاف ماڈیول، بگ او اور درست ڈیٹا سٹرکچر۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Which career specialises in search-engine or logistics algorithms?</p>
+      <p><b>2.</b> Why does a backend developer care about queues and arrays?</p>
+      <div class="ans">Answers: 1. Algorithm Engineer. 2. The choice of structure (array, queue) directly affects web performance.</div>
+    </div>
+  </div>
+
+  <!-- ===================== REVIEW ===================== -->
+  <section class="review">
+    <h2>Chapter 2 Review</h2>
+    <h3>Chapter summary</h3>
+    <ul class="summary">
+      <li><b>Correctness:</b> output matches expected results for valid inputs. Test with a trace table (manual dry run) or stepwise reasoning (logic verification).</li>
+      <li>A <b>trace table</b> is micro-level: line, variables, I/O, conditions. Best for small loops. The soldier heights [1.91, 2.01, 1.87, 1.57, 1.48] print Total = 3.</li>
+      <li><b>Stepwise reasoning</b> is macro-level: valid start, all cases, correct conditions, loop stays correct. Sum 1..N starts at 0; N = 0 stays 0; N = 5 becomes 15.</li>
+      <li><b>Clarity</b> (read, understand, modify) often beats a tiny speed gain. It has two parts: modularity and readability.</li>
+      <li><b>Modularity:</b> SRP (one job), loose coupling, abstraction (call Sort without knowing Bubble vs Selection). Split CalculateSum and FindAverage.</li>
+      <li><b>Readability:</b> names (<code>velocity = distance / time</code>), self-documentation, simple flow, consistent style.</li>
+      <li><b>Efficiency</b> = time + space. Drivers: number of steps (Big O), conditions, repetitions.</li>
+      <li><b>Big O:</b> O(1) constant (arr[0]), O(log n) binary search, O(n) linear search, O(n log n) Merge Sort, O(n²) nested loops / Bubble Sort. Quadratic fails as n grows.</li>
+      <li><b>Framework:</b> Does it scale? What is the bottleneck (deepest loop)? Is the extra complexity worth it? For n = 50, simple O(n) can beat fragile O(log n).</li>
+      <li><b>Refinements:</b> meaningful names, modules, indentation, why-comments; shrink Bubble Sort’s inner loop; better algorithms; cache constants; pick the right structure.</li>
+      <li><b>Data structure:</b> systematic organising of data. Linear (one after another): array, linked list, stack, queue. Non-linear: tree, graph.</li>
+      <li><b>Array:</b> contiguous, index from 0, direct access O(1), shifting on mid-insert. <b>Linked list:</b> nodes of data+link, HEAD to NULL, sequential access.</li>
+      <li><b>Stack LIFO:</b> PUSH/POP at TOP (Undo). <b>Queue FIFO:</b> ENQUEUE rear, DEQUEUE front (printer).</li>
+      <li><b>Tree:</b> one root, parent–child (college chart). <b>Graph:</b> vertices + edges, no strict hierarchy (GPS, friends).</li>
+      <li>Five operations: insert, delete, traverse, search, sort. Choose by next/previous, parent/child, FIFO, relationships, or reverse-of-entry.</li>
+      <li><b>Retrieval:</b> array can jump to an index; a list walks from HEAD; a queue only removes the Front.</li>
+    </ul>
+
+    <h3>Key terms</h3>
+    <table class="glossary">
+      <tr><th>Term</th><th>Meaning</th><th>اردو</th></tr>
+      <tr><td>Correctness</td><td>The algorithm’s output matches the expected results for valid inputs.</td><td class="ur">درستگی</td></tr>
+      <tr><td>Trace table</td><td>A paper dry-run table of steps, variables, I/O and conditions.</td><td class="ur">ٹریس ٹیبل</td></tr>
+      <tr><td>Dry run</td><td>Executing an algorithm by hand, line by line.</td><td class="ur">دستی اجرا</td></tr>
+      <tr><td>Stepwise reasoning</td><td>Checking each logic block’s state; also called logic verification.</td><td class="ur">مرحلہ وار استدلال</td></tr>
+      <tr><td>Clarity</td><td>How easy an algorithm is to read, understand and modify.</td><td class="ur">وضاحت</td></tr>
+      <tr><td>Modularity</td><td>Breaking work into independent functions, classes or modules.</td><td class="ur">ماڈیولریٹی</td></tr>
+      <tr><td>Single Responsibility Principle</td><td>Each module should do one specific task.</td><td class="ur">واحد ذمہ داری کا اصول</td></tr>
+      <tr><td>Coupling</td><td>How tightly modules depend on each other; loose coupling is the goal.</td><td class="ur">ماڈیولز کی جڑت</td></tr>
+      <tr><td>Abstraction</td><td>Hiding implementation details so a caller need not know the inner method.</td><td class="ur">تجرید</td></tr>
+      <tr><td>Readability</td><td>How easily another person understands the logic without running it.</td><td class="ur">پڑھائی پن</td></tr>
+      <tr><td>Efficiency</td><td>How well an algorithm uses time (speed) and space (memory).</td><td class="ur">کارکردگی</td></tr>
+      <tr><td>Big O notation</td><td>A description of how running time or memory grows as n grows.</td><td class="ur">بگ او نوٹیشن</td></tr>
+      <tr><td>O(1)</td><td>Constant time; e.g. accessing arr[0].</td><td class="ur">مستقل وقت</td></tr>
+      <tr><td>O(log n)</td><td>Logarithmic time; the problem is halved each step (binary search).</td><td class="ur">لاجارتھمک وقت</td></tr>
+      <tr><td>O(n)</td><td>Linear time; work grows in proportion to n (linear search).</td><td class="ur">لکیری وقت</td></tr>
+      <tr><td>O(n log n)</td><td>Work about n times log n (Merge Sort).</td><td class="ur">این لاگ این وقت</td></tr>
+      <tr><td>O(n²)</td><td>Quadratic time; nested loops (Bubble Sort).</td><td class="ur">مربع وقت</td></tr>
+      <tr><td>Bottleneck</td><td>The slowest, most time-consuming section, often the deepest loop.</td><td class="ur">رکاوٹ، سب سے سست حصہ</td></tr>
+      <tr><td>Short-circuiting</td><td>Stopping a boolean evaluation as soon as the result is known.</td><td class="ur">جلدی ختم ہونے والی شرط</td></tr>
+      <tr><td>Memoization / caching</td><td>Computing a fixed value once and reusing it instead of recalculating.</td><td class="ur">ایک بار حساب، بار بار استعمال</td></tr>
+      <tr><td>Data structure</td><td>A systematic way to organise, store and manage data for efficient use.</td><td class="ur">ڈیٹا سٹرکچر</td></tr>
+      <tr><td>Linear structure</td><td>A sequence; each middle item has one predecessor and one successor.</td><td class="ur">لکیری ڈھانچہ</td></tr>
+      <tr><td>Array</td><td>Same-type items in contiguous memory, accessed by index.</td><td class="ur">ایرے</td></tr>
+      <tr><td>Linked list</td><td>Nodes of data + pointer, starting at HEAD and ending at NULL.</td><td class="ur">لنکڈ لسٹ</td></tr>
+      <tr><td>Stack</td><td>LIFO structure: PUSH and POP at the TOP.</td><td class="ur">سٹیک</td></tr>
+      <tr><td>Queue</td><td>FIFO structure: ENQUEUE at Rear, DEQUEUE at Front.</td><td class="ur">کیو</td></tr>
+      <tr><td>Tree</td><td>Hierarchical non-linear structure with one root and parent–child links.</td><td class="ur">ٹری</td></tr>
+      <tr><td>Graph</td><td>Nodes (vertices) joined by edges, with no strict hierarchy.</td><td class="ur">گراف</td></tr>
+      <tr><td>Traversal</td><td>Visiting each item in a structure one by one.</td><td class="ur">گزرنا، طواف</td></tr>
+      <tr><td>Direct access</td><td>Jumping to an array index without walking earlier items.</td><td class="ur">براہِ راست رسائی</td></tr>
+    </table>
+
+    <h3>Practice: multiple choice</h3>
+    <ol class="mcq">
+      <li>An algorithm is correct when:
+        <ol class="opts"><li>it compiles with no syntax error</li><li>its output matches the expected results for the given input</li><li>it uses Big O notation</li><li>it has no comments</li></ol>
+      </li>
+      <li>A trace table is best described as:
+        <ol class="opts"><li>a paper execution that tracks variables line by line</li><li>a diagram of a tree</li><li>a type of graph edge</li><li>an O(n²) nested loop</li></ol>
+      </li>
+      <li>Stepwise reasoning mainly checks:
+        <ol class="opts"><li>printer ink levels</li><li>the colour of variable names</li><li>the overall state of logic blocks</li><li>only the last printed line</li></ol>
+      </li>
+      <li>Which method is impractical if a loop runs 1,000 times?
+        <ol class="opts"><li>Abstraction</li><li>A full trace table</li><li>Stepwise reasoning</li><li>Using a function</li></ol>
+      </li>
+      <li>The Single Responsibility Principle says each module should:
+        <ol class="opts"><li>print and save and calculate everything</li><li>focus on one specific task</li><li>avoid meaningful names</li><li>use nested IF only</li></ol>
+      </li>
+      <li>Which assignment is more readable?
+        <ol class="opts"><li><code>v = d / t</code></li><li><code>x1 = a2 / b2</code></li><li><code>velocity = distance / time</code></li><li><code>a = b / c</code></li></ol>
+      </li>
+      <li>Accessing <code>arr[0]</code> is:
+        <ol class="opts"><li>O(n²)</li><li>O(n log n)</li><li>O(n)</li><li>O(1)</li></ol>
+      </li>
+      <li>Binary search on a sorted list is:
+        <ol class="opts"><li>O(log n)</li><li>O(n²)</li><li>O(1) always for any n</li><li>O(n) because a loop exists</li></ol>
+      </li>
+      <li>Bubble Sort and nested “compare every pair” loops are:
+        <ol class="opts"><li>O(1)</li><li>O(log n)</li><li>O(n)</li><li>O(n²)</li></ol>
+      </li>
+      <li>If n grows 10 times, a quadratic algorithm’s time grows about:
+        <ol class="opts"><li>2 times</li><li>10 times</li><li>100 times</li><li>log 10 times</li></ol>
+      </li>
+      <li>LIFO is the rule of a:
+        <ol class="opts"><li>queue</li><li>stack</li><li>graph of cities</li><li>tree root only</li></ol>
+      </li>
+      <li>ENQUEUE adds an item at the:
+        <ol class="opts"><li>Front of a queue</li><li>TOP of a stack only</li><li>Rear of a queue</li><li>root of a tree</li></ol>
+      </li>
+      <li>A college organogram with a Principal at the top is modelled as a:
+        <ol class="opts"><li>tree</li><li>queue</li><li>stack</li><li>contiguous array of roads</li></ol>
+      </li>
+      <li>GPS maps (cities and roads, many possible routes) need a:
+        <ol class="opts"><li>stack of undo actions</li><li>graph</li><li>strict one-parent tree only</li><li>single array index</li></ol>
+      </li>
+      <li>To retrieve 87 from HEAD→12→98→23→87→56 you must:
+        <ol class="opts"><li>jump with Array[87]</li><li>DEQUEUE the rear</li><li>follow four nodes from HEAD until 87 matches</li><li>POP from the bottom of a stack</li></ol>
+      </li>
+    </ol>
+
+    <h3>Practice: short questions</h3>
+    <ol class="short">
+      <li>Define correctness of an algorithm. Name the two analysis methods used in this chapter.</li>
+      <li>List the components of a trace table. Why is a dry run useful for debugging?</li>
+      <li>Give four differences between a trace table and stepwise reasoning.</li>
+      <li>What is modularity? Explain SRP, coupling and abstraction in one sentence each.</li>
+      <li>State four ways to evaluate readability, with one example of a bad name and a good name.</li>
+      <li>Define Big O notation. Give one example each of O(1), O(log n), O(n), O(n log n) and O(n²).</li>
+      <li>Write the three questions of the efficiency evaluation framework and answer them for searching 50 unsorted names.</li>
+      <li>List four refinements for clarity and four for efficiency.</li>
+      <li>Define data structure. Distinguish linear from non-linear with examples.</li>
+      <li>Define stack and queue. Include LIFO/FIFO, PUSH/POP, ENQUEUE/DEQUEUE, and one real-life example of each.</li>
+    </ol>
+
+    <h3>Practice: long / problem questions</h3>
+    <ol class="long">
+      <li>The soldier-eligibility algorithm uses AllHeights = [1.91, 2.01, 1.87, 1.57, 1.48] and counts heights from 1.57 to 1.91 inclusive. (a) Draw a complete trace table. (b) State the printed Total. (c) Explain in stepwise-reasoning style why the boundaries 1.57 and 1.91 are counted. (d) Write equivalent Python and its output.</li>
+      <li>Copy the monoblock average algorithm for A = [1, 2, 3, 4, 5] and rewrite it with CalculateSum and FindAverage. (a) Show that SRP, loose coupling and abstraction are improved. (b) Dry-run both versions to the same average. (c) Give two readability improvements you would still make to the functions.</li>
+      <li>Using the growth table idea, (a) fill n = 8 and n = 32 for O(1), O(log<sub>2</sub> n), O(n), O(n log<sub>2</sub> n) and O(n²). (b) Explain what happens if n becomes 10 times larger for O(n) and for O(n²). (c) A library has 1,000,000 sorted IDs. Choose linear or binary search using the Scale / Bottleneck / Worth-it framework. (d) Show a 4-by-4 nested loop counts 16 operations in Python.</li>
+      <li>Draw a labelled stack and a labelled queue. Then trace: (a) PUSH Data1, PUSH Data2, PUSH Data3, POP, POP. (b) ENQUEUE 55, 76, 90, D then DEQUEUE. Include Python that matches both traces. (c) Why is Undo a stack and a printer a queue?</li>
+      <li>A college needs structures for: (i) 200 integer marks, (ii) a playlist with frequent insertions, (iii) Undo in the fee-office editor, (iv) photocopier jobs, (v) the Principal–Dean–HOD chart, (vi) roads between Sindh cities. Identify each structure using the decision guide, draw the tree and the graph, and then trace retrieval of 20 from Array = [10, 50, 20, 70, 90, 30] and of 87 from the linked list 12→98→23→87→56→NULL.</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Answer key</h2>
+      <h3>Multiple choice</h3>
+      <ol class="inline">
+        <li>b</li><li>a</li><li>c</li><li>b</li><li>b</li><li>c</li><li>d</li><li>a</li><li>d</li><li>c</li><li>b</li><li>c</li><li>a</li><li>b</li><li>c</li>
+      </ol>
+
+      <h3>Short questions — model answers</h3>
+      <ol>
+        <li>An algorithm is correct if its output matches the expected results for a given input (and does so for all valid inputs). The two methods are trace tables and stepwise reasoning (logic verification).</li>
+        <li>Components: line/step number, a column per variable, input/output, and a condition-check column. A dry run acts as the computer, so you see logical errors where the program runs but the values go wrong, and you can validate that the intention is met.</li>
+        <li>Trace table: small blocks/complex loops/beginners; high effort (bad for 1,000 iterations); catches arithmetic/line mistakes; micro-level exact values. Stepwise reasoning: large systems and proofs; moderate effort; catches conceptual/structural flaws; macro-level overall state.</li>
+        <li>Modularity is breaking an algorithm into smaller independent parts (functions, classes, modules). SRP: each module does one task. Coupling: modules should be loosely coupled so a change in one does not break others. Abstraction: hide inner details (call Sort without knowing Bubble vs Selection).</li>
+        <li>Naming conventions, self-documentation, simple control flow, consistency of indentation/spacing/casing. Bad: <code>v = d / t</code>. Good: <code>velocity = distance / time</code>.</li>
+        <li>Big O describes how time or memory grows as n grows. O(1): arr[0]; O(log n): binary search; O(n): linear search; O(n log n): Merge Sort; O(n²): Bubble Sort / nested loops.</li>
+        <li>Does it scale? n = 50 is tiny, even O(n) is fine. Bottleneck? A single scan of 50 names. Worth it? Binary search needs sorted data and more complex code, so linear search is practically better.</li>
+        <li>Clarity: meaningful names; modules; structure/indentation; short why-comments. Efficiency: reduce extra steps (shrink Bubble Sort’s inner loop); better algorithms (binary vs linear on sorted millions); avoid re-computing (cache C = A+B outside the loop); appropriate data structures (array for direct access, tree for hierarchy).</li>
+        <li>A data structure is a systematic way of organising, storing and managing data for efficient access, modification and processing. Linear: sequence with one predecessor and one successor (array, linked list, stack, queue). Non-linear: hierarchical or network links (tree, graph).</li>
+        <li>Stack: LIFO; PUSH adds at TOP; POP removes from TOP; example Undo. Queue: FIFO; ENQUEUE adds at Rear; DEQUEUE removes from Front; example printer jobs.</li>
+      </ol>
+
+      <h3>Long questions — model answers</h3>
+      <ol>
+        <li>
+          <p>(a) Columns: Step, Total, Height, AllHeights, condition, output. Step 2 sets Total = 0. Step 3 stores the five heights. Then five loop cycles:</p>
+          <ul>
+            <li>1.91 → True → Total 1</li>
+            <li>2.01 → False → Total stays 1</li>
+            <li>1.87 → True → Total 2</li>
+            <li>1.57 → True (boundary) → Total 3</li>
+            <li>1.48 → False → Total stays 3</li>
+          </ul>
+          <p>(b) Printed Total = <b>3</b>.</p>
+          <p>(c) The condition is height &gt;= 1.57 AND height &lt;= 1.91, so the closed interval includes both ends. 1.57 and 1.91 satisfy the inequalities; 2.01 and 1.48 do not. Initial Total = 0 is valid; each True branch adds one; False skips the add; after five items Total is the count of eligible soldiers.</p>
+          <p>(d) Python:</p>
+<pre class="code">AllHeights = [1.91, 2.01, 1.87, 1.57, 1.48]
+Total = 0
+for height in AllHeights:
+    if height &gt;= 1.57 and height &lt;= 1.91:
+        Total = Total + 1
+print(Total)</pre>
+<pre class="code output">3</pre>
+        </li>
+        <li>
+          <p>(a) Monoblock: one sequence does the loop, the division and the print, so you cannot reuse the sum. Modular version: CalculateSum only adds; FindAverage only divides; main only prints. SRP holds. CalculateSum can be called from another program (loose coupling). Main does not see the loop (abstraction).</p>
+          <p>(b) Both compute total = 15 and avg = 15/5 = <b>3.0</b>.</p>
+<pre class="code">def calculate_sum(A, n):
+    total = 0
+    for i in range(n):
+        total = total + A[i]
+    return total
+
+def find_average(A, n):
+    return calculate_sum(A, n) / n
+
+print(find_average([1, 2, 3, 4, 5], 5))</pre>
+<pre class="code output">3.0</pre>
+          <p>(c) Keep snake_case names; avoid 1-based I in Python; a one-line comment on why you divide by n (empty-list guard could be added later) is enough — do not comment every addition.</p>
+        </li>
+        <li>
+          <p>(a) Growth (log<sub>2</sub>):</p>
+          <table class="center">
+            <tr><th>n</th><th>O(1)</th><th>O(log n)</th><th>O(n)</th><th>O(n log n)</th><th>O(n²)</th></tr>
+            <tr><td>8</td><td>1</td><td>3</td><td>8</td><td>24</td><td>64</td></tr>
+            <tr><td>32</td><td>1</td><td>5</td><td>32</td><td>160</td><td>1,024</td></tr>
+          </table>
+          <p>(b) O(n): 10× input → about 10× time. O(n²): 10× input → about 100× time, which fails for large sets.</p>
+          <p>(c) Scale: a million IDs; linear worst case is a million checks, binary about 20. Bottleneck: the search. Worth it: the IDs are already sorted and binary search is standard, so choose <b>binary search O(log n)</b>.</p>
+          <p>(d)</p>
+<pre class="code">n = 4
+count = 0
+for i in range(n):
+    for j in range(n):
+        count = count + 1
+print(count)</pre>
+<pre class="code output">16</pre>
+        </li>
+        <li>
+          <p>Draw the vertical stack with TOP on Data3 after three PUSHes, and the horizontal queue with FRONT on 55 and REAR on 90 (then D).</p>
+          <p>(a) Stack: [] → [Data1] → [Data1, Data2] → [Data1, Data2, Data3] → POP Data3 → POP Data2 → [Data1].</p>
+<pre class="code">stack = []
+stack.append("Data1")
+stack.append("Data2")
+stack.append("Data3")
+print(stack.pop())
+print(stack.pop())
+print(stack)</pre>
+<pre class="code output">Data3
+Data2
+['Data1']</pre>
+          <p>(b) Queue: [55] → [55, 76] → [55, 76, 90] → [55, 76, 90, D] → DEQUEUE 55 → [76, 90, D].</p>
+<pre class="code">from collections import deque
+q = deque()
+q.append(55)
+q.append(76)
+q.append(90)
+q.append("D")
+print(q.popleft())
+print(list(q))</pre>
+<pre class="code output">55
+[76, 90, 'D']</pre>
+          <p>(c) Undo must cancel the most recent action (LIFO → stack). A printer must respect arrival order (FIFO → queue).</p>
+        </li>
+        <li>
+          <p>(i) Array — known count, same type, index lookup. (ii) Linked list — next-pointer, cheap insert. (iii) Stack — reverse order of entry. (iv) Queue — first-come, first-served. (v) Tree — parent–child from the Principal root (Administrative Head / Academic Dean, then Accounts, HR, HOD Math, HOD CS). (vi) Graph — cities as vertices, roads as edges, alternative routes.</p>
+          <p>Array retrieval: Array[2] = 20 in one direct access (or after visiting 10 then 50 then 20 if you scan).</p>
+          <p>List retrieval: Step1 12 ≠ 87, Step2 98 ≠ 87, Step3 23 ≠ 87, Step4 87 = 87 FOUND True.</p>
+        </li>
+      </ol>
+    </div>
+
+    <h3>Self-assessment: I can…</h3>
+    <ul class="checklist">
+      <li>prove correctness with a full trace table, including boundary values.</li>
+      <li>write stepwise reasoning (start, loop, finish, edges) and compare it with a trace table.</li>
+      <li>judge modularity (SRP, coupling, abstraction) and readability (N-S-S-C).</li>
+      <li>state O(1), O(log n), O(n), O(n log n) and O(n²) with examples and a growth table.</li>
+      <li>apply the Scale / Bottleneck / Worth-it framework, including the n = 50 warning.</li>
+      <li>refine an algorithm for names, modules, fewer loop steps and cached values.</li>
+      <li>define a data structure and classify linear vs non-linear.</li>
+      <li>draw and trace an array, linked list, stack (PUSH/POP) and queue (ENQUEUE/DEQUEUE).</li>
+      <li>draw a tree and a graph and pick a structure from a scenario using the decision guide.</li>
+      <li>trace retrieval: array jump, list walk from HEAD, queue Front only.</li>
+    </ul>
+  </section>
+</section>
