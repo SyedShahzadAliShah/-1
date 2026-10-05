@@ -353,6 +353,7 @@ th mjx-container, td mjx-container { vertical-align: middle; }
   background: rgba(224, 122, 47, 0.12);
   border-radius: 0 12px 12px 0;
 }
+.exam-sheet .say-this { background: rgba(242, 196, 138, 0.18); color: #f7f1e4; }
 .study-sheet, .drill { margin: 18px 0 8px; padding-top: 12px; border-top: 1px solid var(--line); }
 .study-sheet ol { margin: 0; padding-left: 18px; color: var(--ink-soft); }
 .study-sheet .say-this { background: #fff4df; color: var(--ink); }
