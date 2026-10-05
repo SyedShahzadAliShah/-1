@@ -4,6 +4,8 @@ import { beatDurationMs, speechChunks } from "./js/narrator.js";
 import { gradeQuiz } from "./js/progress.js";
 import { rich } from "./js/mathtext.js";
 import { DIAGRAM_NAMES, chartMarkup, renderDiagram } from "./js/diagrams.js";
+import { whiteboardSvg } from "./js/whiteboard.js";
+import { depthIds } from "./js/lectures/depth.js";
 
 const errors = [];
 const fail = (message) => errors.push(message);
@@ -78,6 +80,16 @@ if (rich("plain").includes("math-inline")) fail("rich plain");
 for (const name of DIAGRAM_NAMES) {
   if (!renderDiagram(name).includes("<svg")) fail(`diagram ${name} missing svg`);
 }
+if (depthIds.length !== lectures.length) fail(`depth beats ${depthIds.length}, lectures ${lectures.length}`);
+for (const lecture of lectures) {
+  const boards = lecture.beats.filter((beat) => beat.scene?.type === "whiteboard");
+  if (boards.length !== 1) fail(`${lecture.id} should have one whiteboard`);
+  if (!boards[0]?.scene.ink?.length) fail(`${lecture.id} whiteboard has no ink`);
+  if ((lecture.outcomes || []).length < 4) fail(`${lecture.id} missing deeper outcome`);
+}
+const board = whiteboardSvg([{ t: "box", x: 10, y: 10, w: 40, h: 20, label: "A" }, { t: "arrow", x1: 0, y1: 0, x2: 10, y2: 10 }]);
+if (!board.includes("<svg") || !board.includes("pathLength")) fail("whiteboard svg");
+
 for (const kind of ["bar", "line", "pie", "box", "scatter", "hist"]) {
   const markup = chartMarkup({ kind, values: [1, 2], labels: ["a", "b"], points: [{ x: 10, y: 20 }], min: 0, q1: 1, median: 2, q3: 3, max: 4 });
   if (!markup.includes("<svg")) fail(`chart ${kind} missing svg`);

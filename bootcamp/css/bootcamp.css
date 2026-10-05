@@ -192,6 +192,38 @@ th mjx-container, td mjx-container { vertical-align: middle; }
 .diagram-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0; padding: 0; list-style: none; color: #d9d0c3; }
 .diagram-legend i { display: inline-block; width: 18px; height: 4px; margin-right: 6px; vertical-align: middle; border-radius: 99px; }
 .sample-svg .stroke { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.2s ease forwards; }
+.whiteboard { width: 100%; height: auto; display: block; }
+.board-rule { stroke: rgba(246, 241, 231, 0.14); stroke-width: 1; }
+.whiteboard .ink, .whiteboard .ink-gold, .whiteboard .ink-teal {
+  fill: none;
+  stroke: #f7f1e4;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw 0.72s ease forwards;
+  animation-delay: calc(var(--i) * 0.34s);
+}
+.whiteboard .ink-gold { stroke: #f2c48a; }
+.whiteboard .ink-teal { stroke: #2dd4bf; }
+.whiteboard .ink-label {
+  fill: #f7f1e4;
+  font-size: 16px;
+  font-family: var(--sans);
+  opacity: 0;
+  animation: ink-in 0.35s ease forwards;
+  animation-delay: calc(var(--i) * 0.34s + 0.28s);
+}
+.whiteboard .ink-dot {
+  fill: #f7f1e4;
+  opacity: 0;
+  animation: ink-in 0.35s ease forwards;
+  animation-delay: calc(var(--i) * 0.34s);
+}
+.whiteboard .ink-dot.ink-gold { fill: #f2c48a; }
+.whiteboard .ink-dot.ink-teal { fill: #2dd4bf; }
+@keyframes ink-in { to { opacity: 1; } }
 .scene-body { min-height: 220px; }
 
 .section-head { display: flex; justify-content: space-between; gap: 12px; align-items: end; margin: 36px 0 14px; }
@@ -432,5 +464,7 @@ th { color: var(--lamp-2); font-weight: 560; }
     animation: none !important;
     transition: none !important;
   }
-  .wave-svg path, .line-chart path, .sample-svg .stroke { stroke-dashoffset: 0; }
+  .wave-svg path, .line-chart path, .sample-svg .stroke,
+  .whiteboard .ink, .whiteboard .ink-gold, .whiteboard .ink-teal { stroke-dashoffset: 0; }
+  .whiteboard .ink-label, .whiteboard .ink-dot { opacity: 1; }
 }

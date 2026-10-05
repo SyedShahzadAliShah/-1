@@ -2,6 +2,7 @@
 
 import { esc, rich, typeset } from "./mathtext.js";
 import { chartMarkup, erSvg, kmapSvg, renderDiagram, treeSvg } from "./diagrams.js";
+import { whiteboardSvg } from "./whiteboard.js";
 
 export { esc };
 
@@ -31,6 +32,7 @@ export const SCENE_TYPES = [
   "callout",
   "compare",
   "diagram",
+  "whiteboard",
 ];
 
 function reducedMotion() {
@@ -380,6 +382,9 @@ const builders = {
   },
   diagram(spec) {
     return { html: shell(spec.title, renderDiagram(spec.diagram), spec.note) };
+  },
+  whiteboard(spec) {
+    return { html: shell(spec.title, whiteboardSvg(spec.ink || []), spec.note) };
   },
   compare(spec) {
     const headers = spec.headers || [];

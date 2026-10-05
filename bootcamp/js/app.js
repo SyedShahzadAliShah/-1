@@ -13,6 +13,14 @@ let heroStop = () => {};
 const session = { lectureId: "", beat: 0, playing: false, autoplay: false };
 
 const previewScenes = [
+  { type: "whiteboard", title: "Drawn while you listen", ink: [
+    { t: "line", x1: 36, y1: 130, x2: 470, y2: 130 },
+    { t: "dot", x: 80, y: 130 },
+    { t: "dot", x: 400, y: 130, pen: "gold" },
+    { t: "dot", x: 180, y: 72, pen: "gold" },
+    { t: "arrow", x1: 180, y1: 84, x2: 96, y2: 118, pen: "gold" },
+    { t: "text", x: 150, y: 44, label: "snap to the nearer level", pen: "gold" },
+  ], note: "Each lecture ends on a board that draws the deeper rule." },
   { type: "wave", title: "Analog and digital", mode: "both", note: "A voice is a smooth wave. A file stores jumps between 0 and 1." },
   { type: "gate", gate: "AND", title: "AND gate", steps: [{ a: 0, b: 0, y: 0, note: "Both off. The lamp stays dark." }, { a: 1, b: 1, y: 1, note: "Both on. AND lights the lamp." }] },
   { type: "bars", title: "Selection sort", frames: [{ values: [8, 4, 1, 9, 3], hi: [2], note: "Find the smallest." }, { values: [1, 4, 8, 9, 3], hi: [0], placed: [0], note: "Swap it into place." }] },

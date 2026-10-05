@@ -1,7 +1,9 @@
 import { xiLectures } from "./lectures/xi.js";
 import { xiiLectures } from "./lectures/xii.js";
+import { applyDepth } from "./lectures/depth.js";
 
 export const lectures = [...xiLectures, ...xiiLectures];
+applyDepth(lectures);
 
 export const tracks = [
   {
