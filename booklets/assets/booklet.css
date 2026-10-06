@@ -229,5 +229,63 @@ ol.short > li, ol.long > li { margin: 5px 0; break-inside: avoid; }
 .pagebreak { break-before: page; }
 .muted { color: var(--muted); }
 .small { font-size: 8.8pt; }
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .two-col > * { min-width: 0; }
+
+/* ---------- Fit every block inside the A4 printable area ---------- */
+p, li, td, th, figcaption, .flow span {
+  overflow-wrap: break-word;
+}
+code, pre.code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+img, svg, video, canvas, table, pre, figure, .box, .flow, .ch-opener, .two-col, .answers {
+  max-width: 100%;
+}
+svg { max-width: 100%; height: auto; width: auto; }
+
+/* Tables shrink to the text column and wrap instead of running off the page. */
+table { table-layout: fixed; }
+table.compact { width: auto; table-layout: auto; }
+th, td { overflow-wrap: anywhere; hyphens: auto; }
+thead { display: table-header-group; }
+tr { break-inside: avoid; page-break-inside: avoid; }
+table { break-inside: auto; page-break-inside: auto; }
+
+/* Keep each card, diagram and short question entirely on one A4 page.
+   A block taller than the page (a long answer or a long code listing) may continue. */
+.box, figure.diagram, .flow, .ch-opener, ol.mcq > li, ol.short > li, pre.code {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+ol.long > li, .answers li {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+/* Multi-column text leaves one leftover line on a blank page. Use a
+   wrapping grid so each item stays inside the A4 width. */
+.objectives, .checklist, .toc ul {
+  columns: auto;
+  column-count: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  gap: 2px 16px;
+}
+.toc ul { font-size: 9pt; color: var(--muted); margin-top: 3px; padding-left: 16px; }
+.checklist { list-style: none; padding-left: 0; }
+.legend, ol.mcq ol.opts, .cover .units {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+ol.mcq ol.opts li, .objectives li, .checklist li, .toc li {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.answers ol.inline {
+  columns: 5;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
