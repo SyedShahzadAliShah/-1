@@ -1,40 +1,27 @@
-# Intimacy Guide
+# CS Whiteboard
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Animated whiteboard lectures with voice for Sindh Computer Science Class XI and Class XII.
 
-## Download
+Each lecture is a sequence of boards. A marker draws the title, diagram, table, or code while the phone reads the script aloud using Android text-to-speech. The scripts are original lessons that follow the course outline: computer systems, computational thinking, programming, data, impacts of computing, digital literacy, HCI, and digital entrepreneurship.
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+## Install
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
-
-## Build
+Build a debug APK:
 
 ```bash
-python3 scripts/generate_posture_pictures.py
-export ANDROID_HOME=/path/to/android-sdk
+python3 scripts/build_lectures.py
+export ANDROID_HOME=$HOME/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+The APK is written to `app/build/outputs/apk/debug/`. A copy is kept at `releases/CSWhiteboard-v1.0.0-debug.apk`.
+
+On the phone, install that APK. For spoken vocals, install an English text-to-speech voice (Google Text-to-speech works well). The words also stay on screen if a voice is not installed yet.
+
+## Use
+
+1. Open Class XI or Class XII.
+2. Open a chapter, then a lecture. High-yield lectures are marked.
+3. The board draws and the voice reads. Pause, skip a board, change speed (0.9x, 1x, 1.15x), or continue to the next lecture.
+
+## Version 1.0.0

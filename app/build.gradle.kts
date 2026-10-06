@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.couplesguide.postures"
+    namespace = "com.sindhcs.whiteboard"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.couplesguide.postures"
+        applicationId = "com.sindhcs.whiteboard"
         minSdk = 24
         targetSdk = 34
-        versionCode = 15
-        versionName = "3.2.1"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {
@@ -38,6 +38,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -47,5 +51,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("androidx.test:core:1.6.1")
 }
