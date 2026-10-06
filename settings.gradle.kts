@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "IntimacyGuide"
+rootProject.name = "CsWhiteboard"
 include(":app")
