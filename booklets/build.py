@@ -30,6 +30,7 @@ FIT = (ROOT / "assets" / "fit-pages.js").as_uri()
 CHROME = "google-chrome"
 BRANCH = "cursor/teach-yourself-lectures-pdf-339e"
 RAW = f"https://github.com/SyedShahzadAliShah/-1/raw/{BRANCH}/releases/lectures"
+ZIP_RAW = f"https://github.com/SyedShahzadAliShah/-1/raw/{BRANCH}/releases"
 
 BOOKS = {
     "xi": {
@@ -249,7 +250,7 @@ def print_job(html_text: str, html_path: Path, pdf_path: Path, min_bytes: int, b
     html_path.write_text(html_text, encoding="utf-8")
     last_err = None
     for attempt in range(2):
-        with tempfile.TemporaryDirectory(prefix="chrome-pdf-") as profile:
+        with tempfile.TemporaryDirectory(prefix="chrome-pdf-", ignore_cleanup_errors=True) as profile:
             try:
                 print_pdf(html_path, pdf_path, Path(profile), min_bytes=min_bytes, budget_ms=budget_ms)
                 return pdf_path
@@ -508,7 +509,7 @@ def write_index_md(all_items: dict[str, list[dict]]):
             lines.append(f"- [Lecture {it['ch_num']:02d}: {it['ch_title']}]({url})")
         lines.append("")
         lines.append(f"- [Lecture index PDF]({RAW}/{key}/CS-{book['grade']}-Lecture-Index.pdf)")
-        lines.append(f"- [All {book['grade']} lectures (zip)]({RAW}/../CS-{book['grade']}-Teach-Yourself-Lectures.zip)")
+        lines.append(f"- [All {book['grade']} lectures (zip)]({ZIP_RAW}/CS-{book['grade']}-Teach-Yourself-Lectures.zip)")
         lines.append("")
         lines.append("<details><summary>Individual topic lectures</summary>")
         lines.append("")
