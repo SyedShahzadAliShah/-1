@@ -419,3 +419,24 @@ ol.split-continued, ul.split-continued { list-style: none; margin-top: 0; }
 .answers-seal p { margin: 0; }
 .check-key li { margin: 4px 0; font-size: 9.4pt; }
 .write-here { font-style: italic; color: var(--muted); }
+
+/* ---------- Coaching Academy edition ---------- */
+.cover.academy-cover {
+  background: linear-gradient(160deg, #12081f 0%, #3b1d6e 48%, #c9a227 100%);
+}
+.cover.academy-cover .tag { background: #c9a227; color: #1a1033; }
+.cover.academy-cover .units div { background: rgba(201,162,39,.16); border-color: rgba(255,255,255,.28); }
+.box.academy { border-color: #6d28d9; background: #f5f3ff; }
+.box.academy::before { content: "Academy session"; color: #6d28d9; }
+.box.marks { border-color: #1f3c88; background: #eef3ff; }
+.box.marks::before { content: "Full-mark answer recipe"; color: #1f3c88; }
+.box.drill { border-color: #b7791f; background: #fff8e6; }
+.box.drill::before { content: "Academy drill"; color: #b7791f; }
+.box.hw { border-color: #0b7a75; background: #e6f6f3; }
+.box.hw::before { content: "Batch homework"; color: #0b7a75; }
+.box.plan { border-color: #3b1d6e; background: #f7f3ff; }
+.box.plan::before { content: "Academy calendar"; color: #3b1d6e; }
+table.session-table { font-size: 9pt; }
+table.session-table th { background: #3b1d6e; }
+table.session-table td:first-child { width: 14%; font-weight: 600; white-space: nowrap; }
+.box.academy, .box.marks, .box.drill, .box.hw, .box.plan { font-size: 9.5pt; }

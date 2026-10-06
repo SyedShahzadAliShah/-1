@@ -20,6 +20,20 @@ The **Student's Edition** hides Check yourself answers until the end of each cha
 python3 booklets/build.py editions
 ```
 
+## Coaching Academy Edition
+
+In-depth books for a 90-minute coaching batch: session calendar, full-mark recipes, extra drills with answers, and homework.
+
+- [CS XI Coaching Academy Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Coaching-Academy-Edition.pdf)
+- [CS XII Coaching Academy Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Coaching-Academy-Edition.pdf)
+- [XI + XII Coaching Academy Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf)
+
+★ Golden topics take a full 90-minute class. Other topics pair into one class.
+
+```bash
+python3 booklets/build.py academy
+```
+
 ## Download — lecture PDFs
 
 Each topic is a printable **Teach Yourself lecture**. Each chapter also has a packed
@@ -44,7 +58,7 @@ python3 booklets/build.py lectures xi     # Grade XI only
 python3 booklets/build.py        # both booklets
 python3 booklets/build.py xi     # Grade XI only
 python3 booklets/build.py xii    # Grade XII only
-python3 booklets/build.py all    # booklets + lectures + editions
+python3 booklets/build.py all    # booklets + lectures + editions + academy
 ```
 
 Requires Google Chrome (`google-chrome`) and the Noto Naskh Arabic + Inter fonts.

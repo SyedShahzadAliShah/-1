@@ -7,7 +7,8 @@ Usage:
   python3 booklets/build.py lectures     # chapter + topic lecture PDFs
   python3 booklets/build.py lectures xi  # Grade XI lectures only
   python3 booklets/build.py editions     # Student's Edition + Teacher's Edition
-  python3 booklets/build.py all          # booklets + lectures + editions
+  python3 booklets/build.py academy      # Coaching Academy Edition
+  python3 booklets/build.py all          # booklets + lectures + editions + academy
 """
 from __future__ import annotations
 
@@ -453,6 +454,352 @@ def teacherize_fragment(fragment: str) -> str:
     return f"{open_tag}\n{body}\n</section>"
 
 
+def clip_text(text: str, limit: int = 180) -> str:
+    text = re.sub(r"\s+", " ", unescape(strip_tags(text))).strip()
+    if not text:
+        return ""
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0] + "…"
+
+
+def short_topic_name(title: str) -> str:
+    t = re.sub(r"\s*★.*", "", title).strip()
+    t = re.sub(r"^[\d.]+(?:\s*[–-]\s*[\d.]+)?\s+", "", t).strip()
+    return t or title
+
+
+def extract_box_html(block: str, kind: str) -> str:
+    m = re.search(rf'<div class="box {re.escape(kind)}">', block)
+    if not m:
+        return ""
+    return extract_balanced(block, m.start(), DIV_OPEN, DIV_CLOSE)
+
+
+def extract_box_text(block: str, kind: str) -> str:
+    raw = extract_box_html(block, kind)
+    if not raw:
+        return ""
+    inner = re.sub(r"^<div[^>]*>", "", raw, count=1)
+    inner = re.sub(r"</div>\s*$", "", inner)
+    return unescape(strip_tags(inner)).strip()
+
+
+def topic_points(block: str, limit: int = 4) -> list[str]:
+    html_box = extract_box_html(block, "learn")
+    items = [unescape(strip_tags(x)).strip() for x in re.findall(r"<li>(.*?)</li>", html_box, flags=re.S)]
+    items = [clip_text(x, 140) for x in items if strip_tags(x).strip()]
+    if len(items) >= 2:
+        return items[:limit]
+    text = unescape(strip_tags(html_box))
+    sents = [clip_text(s, 140) for s in re.split(r"(?<=[.!?])\s+", text) if len(s.strip()) > 24]
+    if len(sents) >= 2:
+        return sents[:limit]
+    bolds = [unescape(strip_tags(x)).strip() for x in re.findall(r"<b>(.*?)</b>", html_box, flags=re.S)]
+    bolds = [x for x in bolds if 8 < len(x) < 80]
+    return (sents or bolds)[:limit]
+
+
+def table_headers(block: str) -> str:
+    m = re.search(r"<table[^>]*>(.*?)</table>", block, flags=re.S)
+    if not m:
+        return ""
+    headers = [unescape(strip_tags(h)).strip() for h in re.findall(r"<th>(.*?)</th>", m.group(1), flags=re.S)]
+    headers = [h for h in headers if h]
+    return " / ".join(headers[:6])
+
+
+def working_kind(title: str, block: str) -> str:
+    blob = f"{title} {extract_box_text(block, 'learn')[:500]}".lower()
+    rules = [
+        (r"k-?map|karnaugh",
+         "a completed K-map with legal groups (1, 2, 4 or 8) and the simplified Boolean expression"),
+        (r"truth table|logic gate|boolean|nand|nor|xor|xnor|minterm|maxterm",
+         "a complete truth table and a labelled gate / logic diagram"),
+        (r"python|loop|function|list|tuple|dict|set |file handling|pandas|dataframe|sql",
+         "working code with correct indentation and a short trace of one example"),
+        (r"trace table|bubble sort|selection sort|linear search|binary search|stack|queue|linked list",
+         "a filled trace table with every variable on every line"),
+        (r"er[- ]?model|entity relationship|schema|rdbms|referential",
+         "a labelled ER diagram (rectangle / oval / diamond) or the relational schema"),
+        (r"osi|tcp/?ip",
+         "the layer table with one protocol or device on each layer"),
+        (r"sdlc|waterfall|agile",
+         "a comparison table plus a named local case (school portal / NADRA)"),
+        (r"hci|wireframe|figma|usability|accessibility|ui vs ux",
+         "a labelled wireframe and one accessibility fix"),
+        (r"neural|machine learning|deep learning",
+         "a labelled network: input layer → hidden layer → output layer"),
+        (r"encrypt|malware|phish|firewall|authentication",
+         "named threat + one mitigation + a local example"),
+        (r"prototype|mvp|beachhead|entrepreneur",
+         "a one-page canvas: problem, user, riskiest assumption, test"),
+        (r"interview|survey|primary|secondary|infographic",
+         "a four-row comparison table and one rewritten survey question"),
+    ]
+    for pat, hint in rules:
+        if re.search(pat, blob):
+            return hint
+    if re.search(r"<figure|<svg", block):
+        return "a fully labelled diagram copied from the board"
+    if "<table" in block:
+        return "the full comparison table with every cell filled"
+    if "<pre" in block:
+        return "working code or a filled trace of the example"
+    return "full working plus a one-line conclusion"
+
+
+def check_answer_text(block: str) -> str:
+    m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+    if not m:
+        return ""
+    text = unescape(strip_tags(m.group(1))).strip()
+    text = re.sub(r"^Answers?:\s*", "", text, flags=re.I)
+    return clip_text(text, 280)
+
+
+def assign_academy_sessions(topics: list[str]) -> list[dict]:
+    metas = []
+    for block in topics:
+        raw = topic_title(block)
+        title = re.sub(r"\s*★.*", "", raw).strip()
+        metas.append({
+            "block": block,
+            "title": title,
+            "golden": topic_is_golden(raw, block),
+        })
+    i, session, out = 0, 0, []
+    while i < len(metas):
+        if metas[i]["golden"]:
+            session += 1
+            out.append({**metas[i], "session": session, "share": "full", "partner": ""})
+            i += 1
+        elif i + 1 < len(metas) and not metas[i + 1]["golden"]:
+            session += 1
+            out.append({**metas[i], "session": session, "share": "first-half",
+                        "partner": metas[i + 1]["title"]})
+            out.append({**metas[i + 1], "session": session, "share": "second-half",
+                        "partner": metas[i]["title"]})
+            i += 2
+        else:
+            session += 1
+            out.append({**metas[i], "session": session, "share": "full", "partner": ""})
+            i += 1
+    return out
+
+
+def academy_session_box(item: dict, total: int) -> str:
+    title = item["title"]
+    short = short_topic_name(title)
+    golden = item["golden"]
+    share = item["share"]
+    partner = short_topic_name(item["partner"]) if item["partner"] else ""
+    board = clip_text(first_sentence(extract_box_text(item["block"], "learn")), 200)
+    warn = clip_text(first_sentence(extract_box_text(item["block"], "warn")), 160)
+    exam = clip_text(first_sentence(extract_box_text(item["block"], "exam")), 160)
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    if share == "first-half":
+        kind = f"45 minutes (first half) · paired with {html.escape(partner)}"
+        run = (f"<p><b>10–45 min — this topic.</b> Lock the definition and table for "
+               f"<b>{html.escape(short)}</b>. Starter (0–10) is from last class. "
+               f"Second half is {html.escape(partner)}.</p>")
+    elif share == "second-half":
+        kind = f"45 minutes (second half) · paired with {html.escape(partner)}"
+        run = (f"<p><b>45–75 min — this topic.</b> Board working for "
+               f"<b>{html.escape(short)}</b>, then a short drill. "
+               f"75–85 error clinic covers both topics in this class.</p>")
+    else:
+        kind = "90 minutes (full class)"
+        run = ("<p><b>Full 90-minute class:</b> 0–10 starter · 10–35 concept lock · "
+               "35–55 board working · 55–75 academy drill · 75–85 error clinic · "
+               "85–90 homework out.</p>")
+    board_p = f"<p><b>On the board:</b> {html.escape(board)}</p>" if board else ""
+    warn_p = f"<p><b>Error clinic:</b> {html.escape(warn)}</p>" if warn else ""
+    exam_p = f"<p><b>Exam wording to train:</b> {html.escape(exam)}</p>" if exam else ""
+    return f"""
+    <div class="box academy">
+      <p><b>Session {item['session']} of {total}</b>{star} · {kind}.</p>
+      {run}
+      {board_p}
+      {warn_p}
+      {exam_p}
+      <p class="ur">بورڈ پر تعریف، جدول اور خاکہ لکھیں؛ ڈرل کے بعد تین عام غلطیاں ایک خانے میں درست کریں۔</p>
+    </div>"""
+
+
+def academy_marks_box(item: dict) -> str:
+    block = item["block"]
+    short = short_topic_name(item["title"])
+    define = clip_text(first_sentence(extract_box_text(block, "learn")), 200)
+    points = topic_points(block, 4)
+    if len(points) >= 3:
+        pair = points[1], points[2]
+    elif len(points) == 2:
+        pair = points[0], points[1]
+    elif points:
+        pair = points[0], "Second distinct point (not a repeat of the definition)"
+    else:
+        pair = (f"First key fact about {short}", "Second distinct point (not a repeat of the definition)")
+    p1, p2 = html.escape(pair[0]), html.escape(pair[1])
+    headers = table_headers(block)
+    has_fig = bool(re.search(r"<figure|<svg", block))
+    visual = "labelled diagram" if has_fig else ("table: " + headers if headers else "four-point explanation")
+    work = working_kind(item["title"], block)
+    extra = ""
+    if item["golden"]:
+        extra = (f"<p><b>8–10 marks:</b> 5-mark structure + {html.escape(work)} + "
+                 "a one-line conclusion. Method marks are awarded for working.</p>")
+    define_bit = html.escape(define) if define else f"one exact sentence that defines {html.escape(short)}"
+    return f"""
+    <div class="box marks">
+      <p>Train this wording every class: <em>Define. Explain. Example. Diagram. Working.</em></p>
+      <p><b>1 mark:</b> Define <b>{html.escape(short)}</b>. Write: {define_bit}</p>
+      <p><b>2 marks:</b> definition + one local example (JazzCash, school portal, NADRA, load-shedding).</p>
+      <p><b>3 marks:</b> definition + two points — (1) {p1} (2) {p2} — + example.</p>
+      <p><b>5 marks:</b> 3-mark structure + {html.escape(visual)} + the worked example from this topic.</p>
+      {extra}
+    </div>"""
+
+
+def academy_drill_box(item: dict) -> str:
+    block = item["block"]
+    short = short_topic_name(item["title"])
+    qs = check_prompts(block)
+    q1 = qs[0] if qs else f"Define {short}."
+    ans1 = check_answer_text(block) or first_sentence(extract_box_text(block, "learn")) or "See Learn it."
+    points = topic_points(block, 4)
+    explain = points[1:3] if len(points) >= 3 else points[:2]
+    ptxt = "; ".join(explain) if explain else first_sentence(extract_box_text(block, "learn"))
+    q3 = f"Explain {short} with two clear points and one example."
+    a3 = clip_text(ptxt, 220) + " Example: school portal / NADRA / JazzCash / load-shedding as it fits this topic."
+    exam = clip_text(extract_box_text(block, "exam"), 200)
+    if exam:
+        q5 = exam
+    else:
+        q5 = (f"Write a 5-mark answer on {short}: definition, two points, "
+              "a labelled diagram or table, and one example.")
+    a5 = (f"Use the recipe in the blue box. Model opening: "
+          f"{clip_text(first_sentence(extract_box_text(block, 'learn')), 160)}")
+    timed = "20 minutes" if item["golden"] else "10 minutes"
+    extra_q = extra_a = ""
+    if item["golden"]:
+        work = working_kind(item["title"], block)
+        extra_q = f"<p><b>8 marks.</b> {html.escape(short)}: 5-mark answer plus {html.escape(work)}.</p>"
+        extra_a = f" 8. Same 5-mark body + {work} + one-line conclusion."
+    return f"""
+    <div class="box drill">
+      <p><b>Timed {timed}.</b> Books closed. Mark at once with the answers in this box — this is class work, not homework.</p>
+      <p><b>1 mark.</b> {html.escape(q1)}</p>
+      <p><b>3 marks.</b> {html.escape(q3)}</p>
+      <p><b>5 marks.</b> {html.escape(q5)}</p>
+      {extra_q}
+      <div class="ans">Answers: 1. {html.escape(clip_text(ans1, 220))}
+      3. {html.escape(a3)}
+      5. {html.escape(a5)}{html.escape(extra_a)}</div>
+    </div>"""
+
+
+def academy_hw_box(item: dict) -> str:
+    short = short_topic_name(item["title"])
+    work = working_kind(item["title"], item["block"])
+    if item["golden"]:
+        task = (f"Write an 8-mark answer on <b>{html.escape(short)}</b> using the recipe in this topic. "
+                f"Include {html.escape(work)}. Then redraw the board work from memory on a fresh page — no notes.")
+        mark = "Mark to the 8–10 mark recipe. Any answer with no working is half marks."
+    else:
+        task = (f"Write a 5-mark answer on <b>{html.escape(short)}</b> using Define · Explain · Example · Diagram. "
+                "Learn the Check yourself questions so you can answer them in 60 seconds at the start of next class.")
+        mark = "Collect next class. Stamp full / half / zero against the 5-mark recipe."
+    return f"""
+    <div class="box hw">
+      <p>{task}</p>
+      <p><b>How you will mark it tomorrow:</b> {mark}</p>
+      <p class="ur">کل جمع کرائیں؛ بغیر ورکنگ کے جواب آدھے نمبر ہیں۔</p>
+    </div>"""
+
+
+def academy_calendar(items: list[dict]) -> str:
+    if not items:
+        return ""
+    total = items[-1]["session"]
+    golden = sum(1 for it in items if it["golden"])
+    rows = []
+    seen = set()
+    for it in items:
+        n = it["session"]
+        if n in seen:
+            continue
+        seen.add(n)
+        group = [x for x in items if x["session"] == n]
+        names = " + ".join(html.escape(short_topic_name(x["title"])) for x in group)
+        kind = "★ Golden · 90 min" if any(x["golden"] for x in group) else "Paired · 90 min"
+        if len(group) == 1 and not group[0]["golden"]:
+            kind = "Single · 90 min"
+        focus = clip_text(first_sentence(extract_box_text(group[0]["block"], "learn")), 90)
+        rows.append(
+            f"<tr><td>Class {n:02d}</td><td>{names}</td>"
+            f"<td>{kind}</td><td>{html.escape(focus)}</td></tr>"
+        )
+    return f"""
+    <div class="box plan">
+      <p><b>Academy calendar:</b> {len(items)} topics · {golden} Golden ·
+      <b>{total} classes of 90 minutes</b> + one 40-minute weekly test after this chapter.</p>
+      <table class="session-table">
+        <tr><th>Class</th><th>Topics</th><th>Kind</th><th>Board focus</th></tr>
+        {''.join(rows)}
+      </table>
+      <p><b>Weekly test:</b> 15 MCQ from this chapter + two 5-mark Golden questions.
+      Mark to the recipes. Re-teach any Golden below 60% in the next starter.</p>
+      <p class="ur">گولڈن موضوع پوری کلاس لیتا ہے۔ ہفتہ وار ٹیسٹ کے بعد کمزور گولڈن دوبارہ پڑھائیں۔</p>
+    </div>"""
+
+
+def append_inside_topic(block: str, extra: str) -> str:
+    block = block.rstrip()
+    if block.endswith("</div>"):
+        return block[:-6] + extra + "</div>"
+    return block + extra
+
+
+def academyize_fragment(fragment: str) -> str:
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    review = extract_review(fragment)
+    open_tag = section_open_tag(fragment)
+    items = assign_academy_sessions(topics)
+    total = items[-1]["session"] if items else 0
+    plan = academy_calendar(items)
+    new_topics = []
+    for item in items:
+        notes = academy_session_box(item, total) + academy_marks_box(item)
+        block = re.sub(
+            r"(<h2[^>]*>.*?</h2>)", r"\1" + notes, item["block"], count=1, flags=re.S
+        )
+        block = append_inside_topic(block, academy_drill_box(item) + academy_hw_box(item))
+        new_topics.append(block)
+    if not topics:
+        plan = """
+    <div class="box academy">
+      <p><b>Academy exam week — 7 days × 90 minutes.</b></p>
+      <p><b>Days 1–6:</b> one chapter recap as an error clinic. Starter test from that
+      chapter's Golden topics. Two students write a 5-mark answer on the board using the recipe.</p>
+      <p><b>Day 7:</b> sit the mock paper in 2 hours 30 minutes, academy hall conditions.
+      No notes, no phones. Invigilate as the board will.</p>
+      <p class="ur">چھ دن خلاصے اور ایرر کلینک، ساتویں دن ماک پیپر بغیر نوٹس کے کرائیں۔</p>
+    </div>
+    <div class="box hw">
+      <p>After the mock, students mark with the key in this book. Each student lists every
+      Golden topic they missed. Those topics become the last two 90-minute revision classes.</p>
+      <p>Collect the list next class. Re-teach any Golden that more than a third of the batch missed.</p>
+    </div>
+    <div class="box marks">
+      <p>Mark the mock to the same 1 / 3 / 5 / 8–10 recipes used all year.
+      An answer with no working, no diagram, or no example cannot score full marks.</p>
+    </div>"""
+    body = opener + plan + "".join(new_topics) + review
+    return f"{open_tag}\n{body}\n</section>"
+
+
 def edition_cover(book, chapters, edition: str):
     units = "".join(
         f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
@@ -465,6 +812,14 @@ def edition_cover(book, chapters, edition: str):
         urdu = "اساتذہ کے لیے — سبق کی منصوبہ بندی، بورڈ سوالات، اردو وضاحت اور مکمل جوابات"
         foot = (f"Bilingual Teacher's Edition &middot; {book['curriculum']} &middot; "
                 "★ marks Golden (high-yield) exam topics. Not a student workbook.")
+    elif edition == "academy":
+        tag = "COACHING ACADEMY EDITION"
+        cover_cls = "cover academy-cover"
+        sub = ("For coaching academies &mdash; 90-minute batch plans, full-mark recipes, "
+               "timed drills with answers, and batch homework.")
+        urdu = "کوچنگ اکیڈمی کے لیے — 90 منٹ کی کلاس، مکمل نمبر کا طریقہ، ڈرل اور ہوم ورک"
+        foot = (f"Coaching Academy Edition &middot; {book['curriculum']} &middot; "
+                "★ Golden topics take a full 90-minute class. Not a student workbook.")
     else:
         tag = "STUDENT'S EDITION"
         cover_cls = "cover student-cover"
@@ -489,9 +844,17 @@ def edition_cover(book, chapters, edition: str):
 def build_edition(key: str, edition: str):
     book = BOOKS[key]
     folder = SRC / key
-    how_name = "how-to-use-teacher.html" if edition == "teacher" else "how-to-use-student.html"
+    how_name = {
+        "teacher": "how-to-use-teacher.html",
+        "academy": "how-to-use-academy.html",
+        "student": "how-to-use-student.html",
+    }[edition]
     intro = (SRC / how_name).read_text(encoding="utf-8")
-    transform = teacherize_fragment if edition == "teacher" else studentize_fragment
+    transform = {
+        "teacher": teacherize_fragment,
+        "academy": academyize_fragment,
+        "student": studentize_fragment,
+    }[edition]
     frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
     chapters_html, chapters = [], []
     for f in frags:
@@ -500,8 +863,16 @@ def build_edition(key: str, edition: str):
         chapters_html.append(transform(text))
     final_path = folder / "final.html"
     final = transform(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
-    label = "Teacher's Edition" if edition == "teacher" else "Student's Edition"
-    file_name = f"CS-{book['grade']}-{'Teachers' if edition == 'teacher' else 'Students'}-Edition.pdf"
+    label = {
+        "teacher": "Teacher's Edition",
+        "academy": "Coaching Academy Edition",
+        "student": "Student's Edition",
+    }[edition]
+    file_name = {
+        "teacher": f"CS-{book['grade']}-Teachers-Edition.pdf",
+        "academy": f"CS-{book['grade']}-Coaching-Academy-Edition.pdf",
+        "student": f"CS-{book['grade']}-Students-Edition.pdf",
+    }[edition]
     doc = wrap_html(
         f"{book['title']} — {label}",
         edition_cover(book, chapters, edition)
@@ -513,7 +884,8 @@ def build_edition(key: str, edition: str):
     OUT.mkdir(exist_ok=True)
     html_path = OUT / f"{key}-{edition}.html"
     pdf_path = ROOT.parent / "releases" / file_name
-    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=120000)
+    budget = 180000 if edition == "academy" else 120000
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=budget)
     print(f"{key} {edition} edition -> {pdf_path}")
     return pdf_path
 
@@ -527,8 +899,11 @@ def merge_edition_pair(edition: str, paths: list[Path]):
     except ImportError:
         print("skip edition complete merge (pymupdf not installed)")
         return
-    name = ("CS-XI-and-XII-Teachers-Edition-Complete.pdf" if edition == "teacher"
-            else "CS-XI-and-XII-Students-Edition-Complete.pdf")
+    name = {
+        "teacher": "CS-XI-and-XII-Teachers-Edition-Complete.pdf",
+        "academy": "CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf",
+        "student": "CS-XI-and-XII-Students-Edition-Complete.pdf",
+    }[edition]
     dest = ROOT.parent / "releases" / name
     out = pymupdf.open()
     for p in paths:
@@ -539,8 +914,8 @@ def merge_edition_pair(edition: str, paths: list[Path]):
     print(f"{edition} complete -> {dest} ({pages} pages)")
 
 
-def build_editions(keys: list[str]):
-    for edition in ("student", "teacher"):
+def build_editions(keys: list[str], editions: tuple[str, ...] | None = None):
+    for edition in editions or ("student", "teacher"):
         paths = [build_edition(k, edition) for k in keys]
         merge_edition_pair(edition, paths)
 
@@ -881,7 +1256,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -893,6 +1268,8 @@ def main(argv: list[str]):
         build_lectures(keys)
     if mode in ("editions", "all"):
         build_editions(keys)
+    if mode in ("academy", "all"):
+        build_editions(keys, ("academy",))
 
 
 if __name__ == "__main__":
