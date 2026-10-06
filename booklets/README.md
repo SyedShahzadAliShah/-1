@@ -34,6 +34,18 @@ In-depth books for a 90-minute coaching batch: session calendar, full-mark recip
 python3 booklets/build.py academy
 ```
 
+## Cheat Sheets
+
+Compact exam-revision cards: one card per topic with the definition, table or formula, mnemonic, exam wording, and an Urdu line. ★ Golden cards first if time is short.
+
+- [CS XI Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+
+```bash
+python3 booklets/build.py cheat
+```
+
 ## Download — lecture PDFs
 
 Each topic is a printable **Teach Yourself lecture**. Each chapter also has a packed
@@ -58,7 +70,7 @@ python3 booklets/build.py lectures xi     # Grade XI only
 python3 booklets/build.py        # both booklets
 python3 booklets/build.py xi     # Grade XI only
 python3 booklets/build.py xii    # Grade XII only
-python3 booklets/build.py all    # booklets + lectures + editions + academy
+python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat
 ```
 
 Requires Google Chrome (`google-chrome`) and the Noto Naskh Arabic + Inter fonts.

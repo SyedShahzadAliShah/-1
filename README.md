@@ -17,7 +17,12 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 - [CS XII Coaching Academy Edition (298 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Coaching-Academy-Edition.pdf)
 - [XI + XII Coaching Academy Edition complete (595 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf)
 
-Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`.
+**Cheat Sheets** (exam revision cards — definitions, tables, mnemonics, ★ Golden):
+- [CS XI Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+
+Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`. Rebuild cheat sheets: `python3 booklets/build.py cheat`.
 
 ---
 

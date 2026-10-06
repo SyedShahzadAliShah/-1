@@ -8,7 +8,8 @@ Usage:
   python3 booklets/build.py lectures xi  # Grade XI lectures only
   python3 booklets/build.py editions     # Student's Edition + Teacher's Edition
   python3 booklets/build.py academy      # Coaching Academy Edition
-  python3 booklets/build.py all          # booklets + lectures + editions + academy
+  python3 booklets/build.py cheat        # Cheat-sheet booklet
+  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat
 """
 from __future__ import annotations
 
@@ -116,12 +117,13 @@ def contents(chapters, has_final):
 </section>"""
 
 
-def wrap_html(title: str, body: str) -> str:
+def wrap_html(title: str, body: str, body_class: str = "") -> str:
+    cls = f' class="{html.escape(body_class)}"' if body_class else ""
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <title>{html.escape(title)}</title>
 <link rel="stylesheet" href="{CSS}">
-</head><body>
+</head><body{cls}>
 {body}
 <script src="{FIT}"></script>
 </body></html>"""
@@ -928,6 +930,258 @@ def build_editions(keys: list[str], editions: tuple[str, ...] | None = None):
         merge_edition_pair(edition, paths)
 
 
+def topic_definition(block: str) -> str:
+    text = extract_box_text(block, "learn")
+    sents = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+    if not sents:
+        return ""
+    if len(sents[0]) < 42 and len(sents) > 1:
+        return clip_text(sents[0] + " " + sents[1], 240)
+    return clip_text(sents[0], 220)
+
+
+def compact_table(block: str) -> tuple[str, bool]:
+    for m in re.finditer(r"<table\b[^>]*>.*?</table>", block, flags=re.S):
+        t = m.group(0)
+        if "glossary" in t:
+            continue
+        rows = t.count("<tr")
+        head = t.split("</tr>", 1)[0]
+        cols = head.count("<th") + head.count("<td")
+        if rows < 2 or rows > 9:
+            continue
+        return t, (cols >= 3 or rows >= 6)
+    return "", False
+
+
+def compact_code(block: str) -> str:
+    m = re.search(r'<pre class="code">(.*?)</pre>', block, flags=re.S)
+    if not m:
+        return ""
+    body = m.group(1).strip("\n")
+    if 1 <= len(body.splitlines()) <= 8:
+        return f'<pre class="code">{body}</pre>'
+    return ""
+
+
+def flow_line(block: str) -> str:
+    m = re.search(r'<div class="flow">(.*?)</div>', block, flags=re.S)
+    if not m:
+        return ""
+    parts = [unescape(strip_tags(p)).strip() for p in re.findall(r"<span>(.*?)</span>", m.group(1), flags=re.S)]
+    parts = [p for p in parts if p]
+    if len(parts) >= 3:
+        return html.escape(" → ".join(parts))
+    return ""
+
+
+def extract_glossary(fragment: str) -> str:
+    m = re.search(r'(<table class="glossary">.*?</table>)', fragment, flags=re.S)
+    return m.group(1) if m else ""
+
+
+def extract_summary(fragment: str) -> str:
+    m = re.search(r'(<ul class="summary">.*?</ul>)', fragment, flags=re.S)
+    return m.group(1) if m else ""
+
+
+def cheat_card(block: str) -> str:
+    raw = topic_title(block)
+    title = re.sub(r"\s*★.*", "", raw).strip()
+    golden = topic_is_golden(raw, block)
+    define = topic_definition(block)
+    points = topic_points(block, 4)
+    if define:
+        stem = define[:36].lower()
+        points = [p for p in points if p[:36].lower() not in (stem, define[:36].lower())]
+    table, wide_table = compact_table(block)
+    code = compact_code(block)
+    flow = flow_line(block)
+    tip = clip_text(extract_box_text(block, "tip"), 160)
+    exam = clip_text(extract_box_text(block, "exam"), 170)
+    warn = clip_text(first_sentence(extract_box_text(block, "warn")), 140)
+    urdu = short_urdu(extract_box_text(block, "urdu"), 130)
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    bits = [f"<h3>{html.escape(title)}{star}</h3>"]
+    if define:
+        bits.append(f"<p>{html.escape(define)}</p>")
+    if flow:
+        bits.append(f'<p class="flow-line">{flow}</p>')
+    if points:
+        bits.append("<ul>" + "".join(f"<li>{html.escape(p)}</li>" for p in points[:4]) + "</ul>")
+    if table:
+        bits.append(table)
+    if code:
+        bits.append(code)
+    if tip:
+        bits.append(f'<p class="mn"><b>Remember:</b> {html.escape(tip)}</p>')
+    elif warn:
+        bits.append(f'<p class="mn"><b>Trap:</b> {html.escape(warn)}</p>')
+    if exam:
+        bits.append(f'<p class="xq"><b>Exam:</b> {html.escape(exam)}</p>')
+    if urdu:
+        bits.append(f'<p class="ur">{html.escape(urdu)}</p>')
+    cls = "cheat-card"
+    if golden:
+        cls += " golden"
+    if wide_table or (code and golden):
+        cls += " wide"
+    return f'<article class="{cls}">' + "".join(bits) + "</article>"
+
+
+def cheatsheetize_fragment(fragment: str) -> str:
+    topics = extract_class_divs(fragment, "topic")
+    num = re.search(r'data-num="(\d+)"', fragment)
+    title = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(num.group(1)) if num else 0
+    ch_title = unescape(title.group(1)) if title else "Chapter"
+    if not topics:
+        recaps = []
+        for m in re.finditer(
+            r"<h2>(.*?)</h2>\s*<ul class=\"summary\">(.*?)</ul>", fragment, flags=re.S
+        ):
+            recaps.append(
+                f"<h2>{m.group(1)}</h2><ul class=\"summary\">{m.group(2)}</ul>"
+            )
+        body = "".join(recaps) or extract_opener(fragment)
+        return f"""
+<section class="chapter cheat-chapter" data-num="{ch_num}">
+  <header class="cheat-head">
+    <div class="num">Night before</div>
+    <h1>One-page recaps</h1>
+    <p class="cheat-stars">Read each recap, close the booklet, say it aloud. Then stop.</p>
+  </header>
+  {body}
+</section>"""
+    goldens = []
+    cards = []
+    for block in topics:
+        raw = topic_title(block)
+        if topic_is_golden(raw, block):
+            goldens.append(re.sub(r"\s*★.*", "", raw).strip())
+        cards.append(cheat_card(block))
+    star_line = " · ".join(html.escape(short_topic_name(g)) for g in goldens) if goldens else "No Golden topics in this chapter — still learn the tables."
+    gloss = extract_glossary(fragment)
+    summary = extract_summary(fragment)
+    gloss_h = "<h2>Key terms</h2>" + gloss if gloss else ""
+    sum_h = "<h2>Chapter in one look</h2>" + summary if summary else ""
+    return f"""
+<section class="chapter cheat-chapter">
+  <header class="cheat-head">
+    <div class="num">Chapter {ch_num}</div>
+    <h1>{html.escape(ch_title)}</h1>
+    <p class="cheat-stars">★ {len(goldens)} Golden · {len(topics)} cards · {star_line}</p>
+  </header>
+  <div class="cheat-grid">{"".join(cards)}</div>
+  {gloss_h}
+  {sum_h}
+</section>"""
+
+
+def cheat_cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover cheat-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">CHEAT SHEETS</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Exam revision cards &mdash; definitions, tables, mnemonics and ★ Golden topics
+  on one glance each.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">امتحانی چیٹ شیٹ — تعریفیں، جدول، یادداشت اور گولڈن موضوعات</div>
+  <div class="units">{units}</div>
+  <div class="foot">Cheat Sheets &middot; {book['curriculum']} &middot;
+  ★ Golden first if time is short. Not a textbook.</div>
+</section>"""
+
+
+def cheat_toc(chapters, gold_n: int):
+    items = []
+    for n, t, topics in chapters:
+        items.append(
+            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} cards</li>"
+        )
+    items.append("<li><b>Night-before recaps:</b> one-page summaries of every chapter</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden cards are listed on the next page. Start there if you have less than two hours.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def cheat_golden_index(entries: list[tuple[int, str, str]]):
+    items = "".join(
+        f"<li><b>Ch {ch}.</b> {html.escape(short_topic_name(title))} "
+        f"<span class=\"star\">★</span></li>"
+        for ch, _, title in entries
+    )
+    return f"""
+<section class="front">
+  <h1>★ Golden index — if you only have two hours</h1>
+  <p>These are the high-yield topics. Say each definition aloud, then draw the table or diagram from memory.</p>
+  <p class="ur">صرف دو گھنٹے ہوں تو یہ گولڈن کارڈز زبانی دہرائیں، پھر جدول حافظے سے بنائیں۔</p>
+  <ol class="golden-index">{items}</ol>
+</section>"""
+
+
+def build_cheatsheet(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-cheat.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_html, goldens = [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        chapters.append(meta)
+        chapters_html.append(cheatsheetize_fragment(text))
+        for block in extract_class_divs(text, "topic"):
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = cheatsheetize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    doc = wrap_html(
+        f"{book['title']} — Cheat Sheets",
+        cheat_cover(book, chapters)
+        + cheat_toc(chapters, len(goldens))
+        + cheat_golden_index(goldens)
+        + intro
+        + "".join(chapters_html)
+        + final,
+        body_class="cheat-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-cheat.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Cheat-Sheets.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=30_000, budget_ms=120000)
+    print(f"{key} cheat sheets -> {pdf_path}")
+    return pdf_path
+
+
+def build_cheatsheets(keys: list[str]):
+    paths = [build_cheatsheet(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip cheat complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-Cheat-Sheets-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"cheat complete -> {dest} ({pages} pages)")
+
+
 def short_urdu(text: str, limit: int = 110) -> str:
     text = re.sub(r"\s+", " ", text).strip()
     if not text:
@@ -1264,7 +1518,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "academy", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -1278,6 +1532,8 @@ def main(argv: list[str]):
         build_editions(keys)
     if mode in ("academy", "all"):
         build_editions(keys, ("academy",))
+    if mode in ("cheat", "all"):
+        build_cheatsheets(keys)
 
 
 if __name__ == "__main__":

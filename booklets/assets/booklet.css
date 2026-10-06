@@ -441,3 +441,69 @@ table.session-table { font-size: 9pt; }
 table.session-table th { background: #3b1d6e; }
 table.session-table td:first-child { width: 14%; font-weight: 600; white-space: nowrap; }
 .box.academy, .box.marks, .box.drill, .box.hw, .box.plan { font-size: 9.5pt; }
+
+/* ---------- Cheat-sheet booklet ---------- */
+.cover.cheat-cover {
+  background: linear-gradient(160deg, #041f1c 0%, #0b3d4a 48%, #0b7a75 100%);
+}
+.cover.cheat-cover .tag { background: #94d2bd; color: #041f1c; }
+.cover.cheat-cover .units div { background: rgba(148,210,189,.16); border-color: rgba(255,255,255,.28); }
+.cover.cheat-cover .ur { white-space: nowrap; font-size: 15pt; }
+body.cheat-book { font-size: 9.5pt; }
+.cheat-head {
+  background: #0b3d4a;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px 8px;
+  margin: 0 0 10px;
+  break-inside: avoid;
+}
+.cheat-head .num {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #94d2bd;
+}
+.cheat-head h1 { color: #fff; font-size: 18pt; margin: 2px 0 4px; }
+.cheat-stars { margin: 4px 0 0; font-size: 9pt; color: #ffe8cc; }
+.cheat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 12px;
+}
+.cheat-card {
+  border: 1px solid var(--line);
+  border-left: 4px solid #0b7a75;
+  border-radius: 6px;
+  padding: 7px 9px 6px;
+  background: #f7fbfb;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  font-size: 8.8pt;
+  line-height: 1.4;
+}
+.cheat-card.golden {
+  border-left-color: var(--brand-2);
+  background: #fff8f1;
+}
+.cheat-card.wide { grid-column: 1 / -1; }
+.cheat-card h3 {
+  font-size: 10pt;
+  margin: 0 0 4px;
+  color: var(--brand);
+  border: 0;
+  padding: 0;
+}
+.cheat-card p { margin: 3px 0; }
+.cheat-card ul { margin: 3px 0 4px; padding-left: 16px; }
+.cheat-card table { font-size: 8pt; margin: 4px 0; }
+.cheat-card pre.code { font-size: 7.6pt; padding: 6px 8px; margin: 4px 0; }
+.cheat-card .mn { color: #7c5a12; }
+.cheat-card .xq { color: #9c2c00; }
+.cheat-card .ur { font-size: 10pt; line-height: 1.7; }
+.cheat-card .flow-line { font-weight: 600; font-size: 8.6pt; }
+.golden-index li { margin: 2px 0; }
+.cheat-chapter .glossary { font-size: 8.4pt; }
+.cheat-chapter .summary { font-size: 9pt; }
