@@ -7,7 +7,7 @@ built from the bilingual teacher's lecture notes.
 
 - [CS XI booklet (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-booklets-44eb/releases/CS-XI-Ultimate-Teach-Yourself-Booklet.pdf)
 - [CS XII booklet (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-booklets-44eb/releases/CS-XII-Ultimate-Teach-Yourself-Booklet.pdf)
-- [Cinematic reader APK (embedded English voice)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-booklets-44eb/releases/CS-Teach-Yourself-Cinematic.apk)
+- [Cinematic reader APK (embedded English voice, MathJax, and diagrams)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-booklets-44eb/releases/CS-Teach-Yourself-Cinematic.apk)
 
 Copies also live in `releases/` on this branch. Rebuild with:
 

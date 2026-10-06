@@ -5,6 +5,7 @@
 /cinema/build/
 /cinema/libs/
 /cinema/src/main/assets/voice/
+/cinema/src/main/assets/mathjax/
 /android-sdk/
 /gradle-8.7/
 *.iml

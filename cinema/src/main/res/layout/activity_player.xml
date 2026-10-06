@@ -54,51 +54,30 @@
         android:textColor="@color/cinema_muted"
         android:textSize="14sp" />
 
-    <ScrollView
-        android:id="@+id/cardScroll"
+    <LinearLayout
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/card"
+        <TextView
+            android:id="@+id/sceneTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:fontFamily="serif"
             android:paddingHorizontal="22dp"
-            android:paddingBottom="12dp">
+            android:textColor="@color/cinema_cream"
+            android:textSize="28sp" />
 
-            <TextView
-                android:id="@+id/sceneTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:textColor="@color/cinema_cream"
-                android:textSize="28sp" />
-
-            <TextView
-                android:id="@+id/bodyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:lineSpacingExtra="6dp"
-                android:textColor="@color/cinema_cream"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/urduText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:gravity="end"
-                android:lineSpacingExtra="6dp"
-                android:textColor="@color/cinema_gold"
-                android:textDirection="rtl"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </ScrollView>
+        <WebView
+            android:id="@+id/cardWeb"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/subtitle"

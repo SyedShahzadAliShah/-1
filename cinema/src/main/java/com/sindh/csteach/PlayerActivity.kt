@@ -1,14 +1,20 @@
 package com.sindh.csteach
 
+import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Bundle
-import android.view.View
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.webkit.WebViewAssetLoader
 import com.sindh.csteach.databinding.ActivityPlayerBinding
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.concurrent.atomic.AtomicInteger
 
 class PlayerActivity : AppCompatActivity() {
@@ -22,6 +28,8 @@ class PlayerActivity : AppCompatActivity() {
     private var track: AudioTrack? = null
     private var sentences = listOf<String>()
     private var sentenceIndex = 0
+    private var cardReady = false
+    private var pendingBeat: Beat? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +54,7 @@ class PlayerActivity : AppCompatActivity() {
             binding.playButton.isEnabled = ready
         }
 
+        setupCard()
         binding.backButton.setOnClickListener { finish() }
         binding.playButton.setOnClickListener { togglePlay() }
         binding.prevButton.setOnClickListener { showBeat((index - 1).coerceAtLeast(0), autoplay = playing) }
@@ -91,10 +100,8 @@ class PlayerActivity : AppCompatActivity() {
         binding.chapterTitle.text = beat.chapterLabel
         binding.counter.text = "${index + 1} / ${grade.beats.size}"
         binding.sceneTitle.text = beat.title
-        binding.bodyText.text = beat.body
-        binding.urduText.text = beat.urdu
-        binding.urduText.visibility = if (beat.urdu.isBlank()) View.GONE else View.VISIBLE
-        binding.cardScroll.scrollTo(0, 0)
+        renderCard(beat)
+        binding.cardWeb.scrollTo(0, 0)
         binding.card.animate().alpha(1f).setDuration(280).start()
         sentences = sentencesOf(beat.speak)
         sentenceIndex = 0
@@ -104,6 +111,43 @@ class PlayerActivity : AppCompatActivity() {
             binding.playButton.text = getString(R.string.pause)
             speakFrom(0)
         }
+    }
+
+    private fun setupCard() {
+        val loader = WebViewAssetLoader.Builder()
+            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
+            .build()
+        binding.cardWeb.setBackgroundColor(Color.parseColor("#07080C"))
+        binding.cardWeb.settings.apply {
+            javaScriptEnabled = true
+            allowFileAccess = false
+            blockNetworkLoads = true
+            domStorageEnabled = false
+        }
+        binding.cardWeb.webViewClient = object : WebViewClient() {
+            override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest) =
+                loader.shouldInterceptRequest(request.url)
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                cardReady = true
+                pendingBeat?.let { renderCard(it) }
+            }
+        }
+        binding.cardWeb.loadUrl("https://appassets.androidplatform.net/assets/card.html")
+    }
+
+    private fun renderCard(beat: Beat) {
+        if (!cardReady) {
+            pendingBeat = beat
+            return
+        }
+        pendingBeat = null
+        val payload = JSONObject()
+            .put("body", beat.body)
+            .put("urdu", beat.urdu)
+            .put("figures", JSONArray(beat.figures))
+            .toString()
+        binding.cardWeb.evaluateJavascript("show(${JSONObject.quote(payload)})", null)
     }
 
     private fun speakFrom(start: Int) {
@@ -208,6 +252,10 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        if (::binding.isInitialized) {
+            binding.cardWeb.stopLoading()
+            binding.cardWeb.destroy()
+        }
         if (::voice.isInitialized) voice.shutdown()
         super.onDestroy()
     }

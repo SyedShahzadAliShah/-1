@@ -8,6 +8,7 @@ data class Scene(
     val body: String,
     val urdu: String,
     val speak: String,
+    val figures: List<String>,
 )
 
 data class Chapter(
@@ -33,6 +34,7 @@ data class Grade(
                     body = scene.body,
                     urdu = scene.urdu,
                     speak = scene.speak.ifBlank { scene.title },
+                    figures = scene.figures,
                 )
             }
         }
@@ -55,6 +57,7 @@ data class Beat(
     val body: String,
     val urdu: String,
     val speak: String,
+    val figures: List<String>,
 )
 
 object Catalog {
@@ -76,12 +79,21 @@ object Catalog {
                         val scenes = buildList {
                             for (s in 0 until scenesJson.length()) {
                                 val scene = scenesJson.getJSONObject(s)
+                                val figuresJson = scene.optJSONArray("figures")
+                                val figures = buildList {
+                                    if (figuresJson != null) {
+                                        for (f in 0 until figuresJson.length()) {
+                                            add(figuresJson.optString(f))
+                                        }
+                                    }
+                                }
                                 add(
                                     Scene(
                                         title = scene.optString("title"),
                                         body = scene.optString("body"),
                                         urdu = scene.optString("urdu"),
                                         speak = scene.optString("speak"),
+                                        figures = figures,
                                     )
                                 )
                             }

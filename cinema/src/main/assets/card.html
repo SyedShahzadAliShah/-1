@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+      svg: { fontCache: "local" },
+      options: { enableMenu: false },
+      startup: {
+        typeset: false,
+        ready: function () {
+          MathJax.startup.defaultReady();
+          window.cardReady = true;
+          if (window.pendingCard) {
+            var waiting = window.pendingCard;
+            window.pendingCard = null;
+            window.show(waiting);
+          }
+        }
+      }
+    };
+  </script>
+  <script src="mathjax/es5/tex-svg.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      background: #07080C;
+      color: #F4EFE4;
+    }
+    body {
+      padding: 4px 22px 32px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    #urdu {
+      margin-top: 18px;
+      color: #E0B15A;
+      direction: rtl;
+      text-align: right;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .diagram {
+      background: #f6f3ea;
+      border-radius: 12px;
+      padding: 12px 12px 8px;
+      margin: 16px 0;
+    }
+    .diagram svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .diagram figcaption {
+      margin-top: 8px;
+      color: #3d3830;
+      font-family: sans-serif;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    mjx-container {
+      color: #F4EFE4;
+    }
+  </style>
+</head>
+<body>
+  <div id="body"></div>
+  <div id="figures"></div>
+  <div id="urdu"></div>
+  <script>
+    function scopeFigure(html, index) {
+      var prefix = "d" + index + "_";
+      return html
+        .replace(/\bid\s*=\s*(['"])([^'"]+)\1/gi, function (_, quote, id) {
+          return "id=" + quote + prefix + id + quote;
+        })
+        .replace(/url\(\s*#([^)]+?)\s*\)/gi, function (_, id) {
+          return "url(#" + prefix + id + ")";
+        })
+        .replace(/(href\s*=\s*(['"]))#([^'"]+)\2/gi, function (_, start, quote, id) {
+          return start + "#" + prefix + id + quote;
+        });
+    }
+
+    function show(payload) {
+      if (!window.cardReady || !window.MathJax || !MathJax.typesetPromise) {
+        window.pendingCard = payload;
+        return "pending";
+      }
+      var data = JSON.parse(payload);
+      var body = document.getElementById("body");
+      var figures = document.getElementById("figures");
+      var urdu = document.getElementById("urdu");
+      MathJax.typesetClear([document.body]);
+      body.textContent = data.body || "";
+      urdu.textContent = data.urdu || "";
+      urdu.style.display = data.urdu ? "block" : "none";
+      figures.innerHTML = (data.figures || []).map(scopeFigure).join("");
+      window.scrollTo(0, 0);
+      MathJax.typesetPromise([body, figures]).catch(function () {});
+      return "shown";
+    }
+  </script>
+</body>
+</html>
