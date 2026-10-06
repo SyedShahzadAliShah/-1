@@ -120,7 +120,12 @@ and the stylesheet `booklets/assets/booklet.css`. Use only the classes listed he
 - Diagrams: `<figure class="diagram"><svg viewBox="…" width="…">…</svg><figcaption>…</figcaption></figure>`.
   Keep inline SVG simple and clean (rect, line, path, text; fonts `Inter`). Use for logic gate
   symbols, signal waves, trees/graphs, linked lists, stacks/queues, OSI layers, ER diagrams,
-  etc. Width ≤ 640.
+  etc. Width ≤ 640. SVG diagrams are preserved as-is; MathJax does not rewrite them.
+- Mathematics: write TeX in `\(...\)` (inline) or `\[...\]` (display), or wrap a display
+  formula in `<p class="math">\[ ... \]</p>`. The builder also auto-converts common board
+  notation (`O(n²)`, `2<sup>n</sup>`, `σ²`, `A ⊕ B`). MathJax renders to SVG. Do not use `$…$`
+  (it clashes with Python and money). No CDN scripts — MathJax is the local file
+  `booklets/assets/mathjax/tex-svg.js`.
 - Side-by-side: `<div class="two-col"><div>…</div><div>…</div></div>`.
 - No external images, scripts, or fonts. No `<style>` blocks or inline `style` except in SVG.
 

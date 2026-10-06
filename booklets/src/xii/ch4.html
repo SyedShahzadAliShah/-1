@@ -293,10 +293,11 @@ plt.title("Rainfall vs Crop Yield")  # positive correlation</pre>
     <ul>
       <li><b>Min / max</b> — smallest and largest. Marks 70, 80, 90, 60, 75 → min 60, max 90.</li>
       <li><b>Range</b> = max − min. Sales 120, 150, 180 → range 60.</li>
-      <li><b>Population variance</b> σ² = (sum of squared deviations from the mean) ÷ n.</li>
-      <li><b>Sample variance</b> s² uses ÷ (n−1). <code>pandas.Series.std()</code> uses the sample version.</li>
-      <li><b>Standard deviation</b> = √variance. Same units as the data (marks, not marks²). Low SD → tight, consistent. High SD → spread out, unpredictable.</li>
+      <li><b>Population variance</b> \(\sigma^{2} = \dfrac{1}{n}\sum (x_i - \mu)^{2}\).</li>
+      <li><b>Sample variance</b> \(s^{2}\) uses \(\div (n-1)\). <code>pandas.Series.std()</code> uses the sample version.</li>
+      <li><b>Standard deviation</b> \(\sigma = \sqrt{\sigma^{2}}\). Same units as the data (marks, not marks²). Low SD → tight, consistent. High SD → spread out, unpredictable.</li>
     </ul>
+    <p class="math">\[ \sigma^{2} = \frac{1}{n}\sum_{i=1}^{n}(x_{i}-\mu)^{2},\qquad \sigma=\sqrt{\sigma^{2}},\qquad s^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2} \]</p>
     <div class="box example">
       <p><b>Full working</b> on 70, 80, 90. Mean μ = 80. Deviations −10, 0, +10. Squares 100, 0, 100. Sum = 200.</p>
       <p>Population variance σ² = 200/3 = <b>66.67</b> (2 d.p.). Population SD σ = √(200/3) = <b>8.16</b> (2 d.p.).</p>

@@ -257,7 +257,7 @@
         var kids = Array.prototype.slice.call(el.children);
         return kids.length > 1 ? kids : [el];
       }
-      if (el.matches("figure,svg")) return [el];
+      if (el.matches("figure,svg,mjx-container")) return [el];
       probe.appendChild(el);
       var tall = probe.scrollHeight > FIT_LIMIT;
       el.remove();
@@ -295,7 +295,7 @@
         if (child.classList.contains("cover") || child.id === "sheets") return;
         if (child.tagName === "SCRIPT") return;
         var atomic = child.matches(
-          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak"
+          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak,mjx-container,.math"
         );
         if (atomic) atoms.push(child);
         else if (child.children.length && child.matches("div,section,article")) walk(child);
@@ -447,8 +447,16 @@
   }
 
   function start() {
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-    else fit();
+    var fonts = (document.fonts && document.fonts.ready)
+      ? document.fonts.ready
+      : Promise.resolve();
+    var math = Promise.resolve();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+      math = MathJax.startup.promise.then(function () {
+        return MathJax.typesetPromise ? MathJax.typesetPromise() : null;
+      });
+    }
+    Promise.all([fonts, math]).then(fit).catch(function () { fit(); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();

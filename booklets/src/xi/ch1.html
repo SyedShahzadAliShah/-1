@@ -545,7 +545,7 @@
       <tr><td>1</td><td>0</td><td>0</td><td>–</td><td>A' + B</td></tr>
       <tr><td>1</td><td>1</td><td>1</td><td>AB</td><td>–</td></tr>
     </table>
-    <p><b>Final SOP expression:</b> Y = A'B + AB. <b>Final POS expression:</b> Y = (A + B)(A' + B). Both describe the same table. (Both simplify to Y = B — look at the table: Y always equals B. You will confirm this with a K-map later.)</p>
+    <p><b>Final SOP expression:</b> \(Y = A'B + AB\). <b>Final POS expression:</b> \(Y = (A + B)(A' + B)\). Both describe the same table. (Both simplify to \(Y = B\) — look at the table: Y always equals B. You will confirm this with a K-map later.)</p>
     <div class="box example">
       <p><b>Worked example 3: write the SOP for a 3-input "majority" circuit.</b> Y = 1 when at least two of A, B, C are 1.</p>
       <table class="center">
@@ -561,7 +561,8 @@
       </table>
       <p>Step 1: Pick the rows with Y = 1: rows 3, 5, 6, 7.</p>
       <p>Step 2: Row 3 is A=0, B=1, C=1 → A is 0 so write A'; B and C are 1 so write B, C → A'BC.</p>
-      <p>Step 3: Do the same for the other rows and OR them: <b>Y = A'BC + AB'C + ABC' + ABC</b>. In short form: Y = Σm(3, 5, 6, 7). We will simplify this with a K-map in 1.1.13.</p>
+      <p>Step 3: Do the same for the other rows and OR them: <b>\(Y = A'BC + AB'C + ABC' + ABC\)</b>. In short form: \(Y = \Sigma m(3, 5, 6, 7)\). We will simplify this with a K-map in 1.1.13.</p>
+      <p class="math">\[ Y = A'BC + AB'C + ABC' + ABC = \Sigma m(3,5,6,7) \]</p>
     </div>
     <div class="box tip"><p><b>SOP = 1s, POS = 0s.</b> Minterm: 0 → bar, 1 → plain. Maxterm: the reverse (1 → bar, 0 → plain). Think "Min likes 1s, Max likes 0s".</p></div>
     <div class="box warn"><p>Two classic errors: (1) writing minterms for the 0-rows — minterms come only from rows where Y = 1; (2) forgetting precedence — in A + B·C you must do B·C first. A + B·C is <b>not</b> (A + B)·C: for A=1, B=0, C=0 the first gives 1 and the second gives 0.</p></div>

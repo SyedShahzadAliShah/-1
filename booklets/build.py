@@ -31,6 +31,7 @@ OUT = ROOT / "output"
 RELEASES = ROOT.parent / "releases" / "lectures"
 CSS = (ROOT / "assets" / "booklet.css").as_uri()
 FIT = (ROOT / "assets" / "fit-pages.js").as_uri()
+MJAX = (ROOT / "assets" / "mathjax" / "tex-svg.js").as_uri()
 CHROME = "google-chrome"
 BRANCH = "cursor/teach-yourself-lectures-pdf-339e"
 RAW = f"https://github.com/SyedShahzadAliShah/-1/raw/{BRANCH}/releases/lectures"
@@ -118,12 +119,95 @@ def contents(chapters, has_final):
 </section>"""
 
 
+PROTECTED_MATH = re.compile(
+    r"(<pre\b[^>]*>.*?</pre>|<code\b[^>]*>.*?</code>|"
+    r"<svg\b[^>]*>.*?</svg>|<script\b[^>]*>.*?</script>)",
+    re.S | re.I,
+)
+EXISTING_TEX = re.compile(r"(\\\(.*?\\\)|\\\[.*?\\\])", re.S)
+SUP_TEX = re.compile(r"(2|10|n|N)<sup>([^<]{1,12})</sup>")
+LOG_SUB = re.compile(r"log<sub>([^<]{1,8})</sub>")
+
+
+def _tidy_tex_script(text: str) -> str:
+    return (
+        unescape(strip_tags(text))
+        .replace("−", "-")
+        .replace("–", "-")
+        .replace("—", "-")
+    )
+
+
+def _texify_plain(chunk: str) -> str:
+    def sup(m: re.Match) -> str:
+        return f"\\({m.group(1)}^{{{_tidy_tex_script(m.group(2))}}}\\)"
+
+    def log_sub(m: re.Match) -> str:
+        return f"\\(\\log_{{{_tidy_tex_script(m.group(1))}}}\\)"
+
+    out = SUP_TEX.sub(sup, chunk)
+    out = LOG_SUB.sub(log_sub, out)
+    ordered = (
+        (r"O\(n\s*log\s*n\)", r"\\(O(n\\log n)\\)"),
+        (r"O\(log\s*n\)", r"\\(O(\\log n)\\)"),
+        (r"O\(n²\)", r"\\(O(n^{2})\\)"),
+        (r"O\(N²\)", r"\\(O(N^{2})\\)"),
+        (r"O\(1\)", r"\\(O(1)\\)"),
+        (r"O\(n\)", r"\\(O(n)\\)"),
+        (r"σ²", r"\\(\\sigma^{2}\\)"),
+        (r"(?<![A-Za-z])s²(?![A-Za-z])", r"\\(s^{2}\\)"),
+        (r"Σm\(([^)]{1,40})\)", r"\\(\\Sigma m(\1)\\)"),
+        (r"A ⊕ B", r"\\(A \\oplus B\\)"),
+        (r"Y = A · B · C", r"\\(Y = A \\cdot B \\cdot C\\)"),
+        (r"Y = A · B", r"\\(Y = A \\cdot B\\)"),
+        (r"√\(([^)]{1,24})\)", r"\\(\\sqrt{\1}\\)"),
+        (r"√(\d+(?:\.\d+)?)", r"\\(\\sqrt{\1}\\)"),
+    )
+    for pat, repl in ordered:
+        out = re.sub(pat, repl, out)
+    return out
+
+
+def texify_math(html_text: str) -> str:
+    """Turn common board-math into MathJax TeX, skipping code and SVG diagrams."""
+
+    def tex_region(region: str) -> str:
+        pieces = EXISTING_TEX.split(region)
+        return "".join(
+            piece if EXISTING_TEX.fullmatch(piece) else _texify_plain(piece)
+            for piece in pieces
+        )
+
+    parts = PROTECTED_MATH.split(html_text)
+    return "".join(
+        part if PROTECTED_MATH.fullmatch(part) else tex_region(part) for part in parts
+    )
+
+
 def wrap_html(title: str, body: str, body_class: str = "") -> str:
     cls = f' class="{html.escape(body_class)}"' if body_class else ""
+    body = texify_math(body)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <title>{html.escape(title)}</title>
 <link rel="stylesheet" href="{CSS}">
+<script>
+window.MathJax = {{
+  tex: {{
+    inlineMath: [['\\\\(', '\\\\)']],
+    displayMath: [['\\\\[', '\\\\]']],
+    processEscapes: true,
+    processEnvironments: true
+  }},
+  svg: {{ fontCache: 'global', displayAlign: 'left', scale: 0.95 }},
+  options: {{
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code','svg'],
+    ignoreHtmlClass: 'diagram'
+  }},
+  startup: {{ typeset: true }}
+}};
+</script>
+<script src="{MJAX}"></script>
 </head><body{cls}>
 {body}
 <script src="{FIT}"></script>
@@ -285,7 +369,7 @@ def build_booklet(key: str):
     OUT.mkdir(exist_ok=True)
     html_path = OUT / f"{key}.html"
     pdf_path = OUT / book["file"]
-    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=120000)
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=180000)
     dest = ROOT.parent / "releases" / book["file"]
     dest.parent.mkdir(exist_ok=True)
     shutil.copy2(pdf_path, dest)
@@ -955,6 +1039,20 @@ def compact_table(block: str) -> tuple[str, bool]:
     return "", False
 
 
+def compact_diagram(block: str) -> str:
+    m = re.search(r'<figure class="diagram">.*?</figure>', block, flags=re.S)
+    if not m:
+        return ""
+    fig = m.group(0)
+    fig = re.sub(
+        r'\bwidth="(\d+)"',
+        lambda mm: f'width="{min(int(mm.group(1)), 520)}"',
+        fig,
+        count=1,
+    )
+    return fig.replace('class="diagram"', 'class="diagram cheat-fig"', 1)
+
+
 def compact_code(block: str) -> str:
     m = re.search(r'<pre class="code">(.*?)</pre>', block, flags=re.S)
     if not m:
@@ -997,6 +1095,7 @@ def cheat_card(block: str) -> str:
         points = [p for p in points if p[:36].lower() not in (stem, define[:36].lower())]
     table, wide_table = compact_table(block)
     code = compact_code(block)
+    diag = compact_diagram(block)
     flow = flow_line(block)
     tip = clip_text(extract_box_text(block, "tip"), 160)
     exam = clip_text(extract_box_text(block, "exam"), 170)
@@ -1012,6 +1111,8 @@ def cheat_card(block: str) -> str:
         bits.append("<ul>" + "".join(f"<li>{html.escape(p)}</li>" for p in points[:4]) + "</ul>")
     if table:
         bits.append(table)
+    if diag:
+        bits.append(diag)
     if code:
         bits.append(code)
     if tip:
@@ -1025,7 +1126,7 @@ def cheat_card(block: str) -> str:
     cls = "cheat-card"
     if golden:
         cls += " golden"
-    if wide_table or (code and golden):
+    if wide_table or diag or (code and golden):
         cls += " wide"
     return f'<article class="{cls}">' + "".join(bits) + "</article>"
 
@@ -1157,7 +1258,7 @@ def build_cheatsheet(key: str) -> Path:
     OUT.mkdir(exist_ok=True)
     html_path = OUT / f"{key}-cheat.html"
     pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Cheat-Sheets.pdf"
-    print_job(doc, html_path, pdf_path, min_bytes=30_000, budget_ms=120000)
+    print_job(doc, html_path, pdf_path, min_bytes=30_000, budget_ms=180000)
     print(f"{key} cheat sheets -> {pdf_path}")
     return pdf_path
 

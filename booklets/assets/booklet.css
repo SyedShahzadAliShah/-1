@@ -215,6 +215,13 @@ span.ur { display: inline; }
 figure.diagram { margin: 8px 0 12px; text-align: center; break-inside: avoid; }
 figure.diagram svg { max-width: 100%; height: auto; }
 figure.diagram figcaption { font-size: 8.5pt; color: var(--muted); margin-top: 3px; }
+mjx-container, .mjx-container, p.math {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+p.math { margin: 8px 0; text-align: center; overflow-x: auto; }
+mjx-container[jax="SVG"][display="true"] { margin: 8px 0 !important; }
+mjx-container svg { max-width: 100%; }
 
 .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0 12px; break-inside: avoid; }
 .flow span { background: #fff; border: 1.5px solid var(--brand); border-radius: 6px; padding: 4px 9px; font-size: 9pt; font-weight: 600; }
@@ -504,6 +511,9 @@ body.cheat-book { font-size: 9.5pt; }
 .cheat-card .xq { color: #9c2c00; }
 .cheat-card .ur { font-size: 10pt; line-height: 1.7; }
 .cheat-card .flow-line { font-weight: 600; font-size: 8.6pt; }
+.cheat-card .diagram { margin: 4px 0 6px; }
+.cheat-card .diagram svg { max-width: 100%; height: auto; max-height: 170px; }
+.cheat-card mjx-container { font-size: 95%; }
 .golden-index {
   columns: 2;
   column-gap: 18px;
