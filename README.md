@@ -1,3 +1,12 @@
+# Teach Yourself Lectures (CS XI & XII)
+
+Printable **Teach Yourself** lecture PDFs for Sindh Computer Science XI and XII — one PDF per topic, plus a packed PDF per chapter.
+
+- Catalogue: [`releases/lectures/README.md`](releases/lectures/README.md)
+- Rebuild: `python3 booklets/build.py lectures`
+
+---
+
 # Intimacy Guide
 
 Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.

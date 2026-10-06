@@ -1,0 +1,1745 @@
+<section class="chapter" id="xi-ch3" data-num="3" data-title="Programming Fundamentals">
+  <div class="ch-opener">
+    <div class="num">Chapter 3</div>
+    <h1>Programming Fundamentals</h1>
+    <p>In this chapter you start writing real programs in Python. You will learn how programs store data, take input, make decisions, repeat work, use ready-made libraries, and how to find and fix your own mistakes.</p>
+    <p class="ur">اس باب میں آپ پائتھن (Python) میں حقیقی پروگرام لکھنا سیکھیں گے۔ آپ جانیں گے کہ پروگرام ڈیٹا کیسے محفوظ کرتا ہے، فیصلے کیسے کرتا ہے، کام کو کیسے دہراتا ہے، اور غلطیاں کیسے تلاش کی جاتی ہیں۔</p>
+  </div>
+
+  <h3>What you will learn</h3>
+  <ul class="objectives">
+    <li>Define a program and a programming language, and compare low-, mid- and high-level languages.</li>
+    <li>Name career areas where Python is used.</li>
+    <li>Describe the features of an IDE and the main parts of the VS Code window.</li>
+    <li>Write Python programs that use comments, correct indentation, valid variable names and the main data types.</li>
+    <li>Take input with <code>input()</code>, convert it with <code>int()</code>/<code>float()</code>, and display output with <code>print()</code> and f-strings.</li>
+    <li>Evaluate expressions with arithmetic, assignment, relational, logical, membership and bitwise operators, including binary working.</li>
+    <li>Use sequence, selection (<code>if</code>, <code>if-else</code>, <code>if-elif-else</code>, nested <code>if</code>) and repetition (<code>for</code>, <code>while</code>, <code>range()</code>, <code>break</code>, <code>continue</code>, nested loops).</li>
+    <li>Import and use built-in libraries (<code>math</code>, <code>random</code>, <code>datetime</code>) and install third-party libraries with <code>pip</code>.</li>
+    <li>Identify syntax, runtime and logical errors and read a traceback to fix a bug.</li>
+  </ul>
+
+  <div class="topic">
+    <h2>3.1 Programming</h2>
+    <div class="box learn">
+      <p>Computers are "dumb" machines. They are very fast, but they cannot think or do anything on their own. They need exact, step-by-step <b>instructions</b>.</p>
+      <ul>
+        <li>A set of instructions given to a computer is called a <b>program</b>.</li>
+        <li>The language used to write these instructions is called a <b>programming language</b>.</li>
+        <li>Writing programs is called <b>programming</b>, and the person who writes them is a <b>programmer</b>.</li>
+      </ul>
+    </div>
+    <p>Think of a recipe. A cook follows the recipe line by line: "boil water, add rice, wait 15 minutes". A computer follows a program in the same way, one instruction at a time, without guessing what you meant.</p>
+    <div class="box example">
+      <p><b>A tiny program.</b> Here is a complete Python program with one instruction. It tells the computer to show a message on the screen.</p>
+<pre class="code">print("Hello")</pre>
+<pre class="code output">Hello</pre>
+      <p>The word <code>print</code> is the instruction; <code>"Hello"</code> is the data it works on.</p>
+    </div>
+    <div class="box tip"><p><b>Program = recipe, programmer = recipe writer, computer = cook who follows every line exactly.</b> If the recipe is wrong, the food is wrong. The cook does not fix it for you.</p></div>
+    <div class="box warn"><p>Students often think the computer "understands" what they want. It does not. If you type <code>Print("Hello")</code> with a capital P, Python stops with an error, because it only knows <code>print</code>. Be exact.</p></div>
+    <div class="box urdu"><p class="ur">کمپیوٹر خود سے کچھ نہیں سوچ سکتا۔ اسے کام کرنے کے لیے ہدایات چاہئیں۔ ہدایات کے مجموعے کو پروگرام (Program) کہتے ہیں، اور جس زبان میں یہ ہدایات لکھی جاتی ہیں اسے پروگرامنگ لینگویج (Programming Language) کہتے ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What is a program?</p>
+      <p><b>2.</b> Why do we say computers are "dumb" machines?</p>
+      <div class="ans">Answers: 1. A set of instructions given to a computer to perform a task. 2. Because they cannot think or do anything without instructions; they only follow exactly what they are told.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.1.1 Programming Language Types</h2>
+    <div class="box learn">
+      <p>Programming languages are classified into <b>three main types</b>, depending on how close they are to the computer's own language (binary 0s and 1s) or to human language.</p>
+    </div>
+    <table>
+      <tr><th>Type</th><th>Description</th><th>Examples</th></tr>
+      <tr><td><b>Low level</b></td><td>Closest to the native language of the computer (binary 0s and 1s). Very difficult for humans to read and write.</td><td>Machine language (binary)</td></tr>
+      <tr><td><b>Mid level</b></td><td>Bridges the gap. It can access hardware but is easier to read than binary because it uses short words called <b>mnemonics</b> (e.g. <code>MOV</code>, <code>ADD</code>).</td><td>Assembly language</td></tr>
+      <tr><td><b>High level</b></td><td>Designed to be easy for humans to read and write. Uses English-like words.</td><td>C++, Java, Python</td></tr>
+    </table>
+    <figure class="diagram">
+      <svg viewBox="0 0 600 190" width="600" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <rect x="20" y="10" width="380" height="45" rx="6" fill="#e8f4ea" stroke="#2e7d32"/>
+        <text x="35" y="30" font-weight="bold">High level</text>
+        <text x="35" y="47" font-family="monospace">print("Hello")</text>
+        <rect x="20" y="70" width="380" height="45" rx="6" fill="#fff6e0" stroke="#b7791f"/>
+        <text x="35" y="90" font-weight="bold">Mid level (Assembly)</text>
+        <text x="35" y="107" font-family="monospace">MOV AX, BX</text>
+        <rect x="20" y="130" width="380" height="45" rx="6" fill="#fdecea" stroke="#c62828"/>
+        <text x="35" y="150" font-weight="bold">Low level (Machine)</text>
+        <text x="35" y="167" font-family="monospace">01010101</text>
+        <line x1="440" y1="170" x2="440" y2="20" stroke="#333" stroke-width="2"/>
+        <path d="M434 28 L440 14 L446 28 Z" fill="#333"/>
+        <text x="452" y="30">Easier for humans</text>
+        <text x="452" y="168">Closer to hardware</text>
+      </svg>
+      <figcaption>The three levels of programming languages, with a sample line from each.</figcaption>
+    </figure>
+    <h3>Common high-level languages</h3>
+    <table>
+      <tr><th>Language</th><th>Key idea</th><th>Used for</th></tr>
+      <tr><td>C++</td><td>Powerful and closer to hardware.</td><td>System software, operating systems, high-performance computer games.</td></tr>
+      <tr><td>Java</td><td>"Write once, run anywhere."</td><td>Large enterprise applications, Android mobile apps, server programming.</td></tr>
+      <tr><td>Python</td><td>Simple, readable syntax.</td><td>Data Science, Artificial Intelligence, Web Development, and learning to program.</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Same task, three levels.</b> Suppose you want to copy a value.</p>
+      <ul>
+        <li>Machine language: a pattern like <code>01010101</code> — you would need a chart to know what it means.</li>
+        <li>Assembly: <code>MOV AX, BX</code> — "move the value in register BX into register AX". Shorter words, but you still need to know the hardware.</li>
+        <li>Python: <code>a = b</code> — you simply say "a gets the value of b".</li>
+      </ul>
+      <p>The higher the level, the less you need to know about the hardware and the faster you can write the program.</p>
+    </div>
+    <div class="box tip"><p><b>"Low = Like the machine, High = Human."</b> Mid level sits in the Middle and uses Mnemonics (both start with M).</p></div>
+    <div class="box warn"><p>"Low level" does not mean "bad" or "weak". Low-level code runs very fast and controls hardware directly. It is just harder for humans to write.</p></div>
+    <div class="box urdu"><p class="ur">پروگرامنگ زبانوں کی تین اقسام ہیں: لو لیول (Low Level) جو بائنری 0 اور 1 میں ہوتی ہے، مڈ لیول (Mid Level) یعنی اسمبلی جو مختصر الفاظ (Mnemonics) استعمال کرتی ہے، اور ہائی لیول (High Level) جیسے پائتھن، جاوا اور سی پلس پلس جو انگریزی جیسے الفاظ استعمال کرتی ہیں اور انسانوں کے لیے آسان ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which level is <code>MOV AX, BX</code>?</p>
+      <p><b>2.</b> Which high-level language is famous for "write once, run anywhere"?</p>
+      <p><b>3.</b> Give one use of C++.</p>
+      <div class="ans">Answers: 1. Mid level (assembly language). 2. Java. 3. Any one: system software, operating systems, high-performance games.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.2 Career Growth with Python</h2>
+    <div class="box learn">
+      <p>Python is one of the most in-demand languages in the world. Learning it opens many career paths:</p>
+      <ul>
+        <li><b>Software Development:</b> build desktop and web applications.</li>
+        <li><b>Data Science and Data Analysis:</b> analyse data, create reports and make predictions.</li>
+        <li><b>Artificial Intelligence and Machine Learning:</b> develop intelligent systems, chatbots and recommendation algorithms (like "videos you may like").</li>
+        <li><b>Web Development:</b> use frameworks such as <b>Django</b> and <b>Flask</b> to build websites.</li>
+        <li><b>Automation and Scripting:</b> automate repetitive office or lab tasks (renaming 500 files, filling spreadsheets).</li>
+        <li><b>Cybersecurity and Networking:</b> write security tools and analyse network data.</li>
+      </ul>
+    </div>
+    <p><b>Why Python?</b> Python lets you focus on <b>problem-solving and logic</b> instead of memorising complex syntax rules. Compare printing a message in Python with C++:</p>
+    <div class="two-col">
+      <div>
+<pre class="code"># Python
+print("Hello")</pre>
+      </div>
+      <div>
+<pre class="code">// C++
+#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; "Hello";
+    return 0;
+}</pre>
+      </div>
+    </div>
+    <div class="box example">
+      <p><b>Automation example.</b> A school clerk must write "Roll No. 1" to "Roll No. 5" on a list. Python does it in two lines:</p>
+<pre class="code">for n in range(1, 6):
+    print("Roll No.", n)</pre>
+<pre class="code output">Roll No. 1
+Roll No. 2
+Roll No. 3
+Roll No. 4
+Roll No. 5</pre>
+      <p>Change <code>6</code> to <code>501</code> and it writes 500 lines just as fast. (You will learn loops in 3.5.3.)</p>
+    </div>
+    <div class="box tip"><p>Six careers — remember <b>"S-D-A-W-A-C"</b>: <b>S</b>oftware, <b>D</b>ata, <b>A</b>I, <b>W</b>eb, <b>A</b>utomation, <b>C</b>ybersecurity.</p></div>
+    <div class="box warn"><p>Django and Flask are <b>web frameworks</b> (for websites), not AI tools. AI/ML uses libraries such as TensorFlow and PyTorch (see 3.6.2).</p></div>
+    <div class="box urdu"><p class="ur">پائتھن سیکھ کر آپ سافٹ ویئر ڈیولپمنٹ، ڈیٹا سائنس، مصنوعی ذہانت (AI)، ویب ڈیولپمنٹ، آٹومیشن اور سائبر سیکیورٹی جیسے شعبوں میں کیریئر بنا سکتے ہیں۔ پائتھن کا آسان انداز آپ کو مشکل اصول یاد کرنے کے بجائے مسئلہ حل کرنے پر توجہ دینے دیتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Name two Python web frameworks.</p>
+      <p><b>2.</b> Which career area builds chatbots and recommendation systems?</p>
+      <div class="ans">Answers: 1. Django and Flask. 2. Artificial Intelligence and Machine Learning.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.3 Integrated Development Environment (IDE)</h2>
+    <div class="box learn">
+      <p>An <b>IDE (Integrated Development Environment)</b> is a software tool that helps programmers <b>write, run and manage code in one place</b>. It is a complete workspace for programming. "Integrated" means many tools are joined together in one window.</p>
+      <p><b>Key features of an IDE:</b></p>
+      <ul>
+        <li><b>Code Editor:</b> where you write and edit code.</li>
+        <li><b>Syntax Highlighting:</b> colours different parts of the code (keywords, strings, numbers) to make it easier to read.</li>
+        <li><b>Auto-completion:</b> suggests code while you type (type <code>pri</code> and it offers <code>print</code>).</li>
+        <li><b>Run/Execute Tool:</b> runs the program with one click.</li>
+        <li><b>Debugger:</b> helps you find and fix errors, for example by pausing the program at a chosen line.</li>
+      </ul>
+    </div>
+    <div class="box example">
+      <p><b>Without vs with an IDE.</b> Without an IDE you would write code in Notepad, save it, open a terminal and type <code>python file.py</code>, then go back to Notepad to fix mistakes. With an IDE you write, run (press the ▶ Run button) and debug in the same window, and errors are underlined while you type.</p>
+    </div>
+    <div class="box tip"><p>IDE features — <b>"E-S-A-R-D"</b>: <b>E</b>ditor, <b>S</b>yntax highlighting, <b>A</b>uto-completion, <b>R</b>un, <b>D</b>ebugger.</p></div>
+    <div class="box warn"><p>An IDE does not write the program for you and does not catch logical mistakes. It only makes writing, running and debugging easier.</p></div>
+    <div class="box urdu"><p class="ur">آئی ڈی ای (IDE) ایک ایسا سافٹ ویئر ہے جس میں کوڈ لکھنا، چلانا اور غلطیاں درست کرنا ایک ہی جگہ ممکن ہوتا ہے۔ اس کی اہم خصوصیات میں کوڈ ایڈیٹر، رنگین کوڈ (Syntax Highlighting)، خودکار تجاویز (Auto completion)، رن بٹن اور ڈیبگر شامل ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What does "integrated" mean in IDE?</p>
+      <p><b>2.</b> Which IDE feature suggests code while you type?</p>
+      <div class="ans">Answers: 1. Many programming tools (editor, runner, debugger) are combined in one program. 2. Auto-completion.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.3.1 Visual Studio Code (VS Code)</h2>
+    <div class="box learn">
+      <p><b>VS Code</b> is a <b>free, lightweight and powerful code editor</b> made by Microsoft and widely used for Python. By default it is <b>not a full IDE</b>, but it becomes one when you install <b>extensions</b> (add-ons), such as the <b>Python extension by Microsoft</b>.</p>
+    </div>
+    <h3>VS Code interface elements</h3>
+    <table>
+      <tr><th>Element</th><th>Description</th></tr>
+      <tr><td>1. Top Menu Bar</td><td>Control over files, editing, navigation and workspace (File, Edit, Selection, View, Go, Run).</td></tr>
+      <tr><td>2. Side Bar</td><td>Contains the core tools: Explorer, Search, Source Control, Run &amp; Debug and Extensions.</td></tr>
+      <tr><td>3. Explorer</td><td>Shows project files and folders. Helps you create, open and manage your Python files.</td></tr>
+      <tr><td>4. Search</td><td>Finds and replaces text in the open file or across the whole project.</td></tr>
+      <tr><td>5. Source Control</td><td>Connects with Git (a version control system) to track changes, undo mistakes and collaborate.</td></tr>
+      <tr><td>6. Run &amp; Debug</td><td>Runs code, finds errors, pauses at specific lines and lets you inspect variables.</td></tr>
+      <tr><td>7. Extensions</td><td>Like an App Store for VS Code. Add features such as the Python extension, Prettier or Python Debugger.</td></tr>
+    </table>
+    <figure class="diagram">
+      <svg viewBox="0 0 560 230" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <rect x="10" y="10" width="540" height="210" fill="#fafafa" stroke="#555"/>
+        <rect x="10" y="10" width="540" height="26" fill="#dde3ea" stroke="#555"/>
+        <text x="20" y="28">1. Menu bar: File  Edit  Selection  View  Go  Run …</text>
+        <rect x="10" y="36" width="44" height="184" fill="#cfd8e3" stroke="#555"/>
+        <text x="16" y="60">2. Side</text>
+        <text x="20" y="74">bar</text>
+        <text x="16" y="100">Explorer</text>
+        <text x="16" y="118">Search</text>
+        <text x="16" y="136">Source</text>
+        <text x="16" y="154">Run</text>
+        <text x="16" y="172">Ext.</text>
+        <rect x="54" y="36" width="130" height="184" fill="#eef2f6" stroke="#555"/>
+        <text x="62" y="56" font-weight="bold">3. Explorer</text>
+        <text x="66" y="78">hello.py</text>
+        <text x="66" y="96">marks.py</text>
+        <rect x="184" y="36" width="366" height="184" fill="#fff" stroke="#555"/>
+        <text x="194" y="56" font-weight="bold">Code editor</text>
+        <text x="194" y="82" font-family="monospace" fill="#795e26">print</text>
+        <text x="234" y="82" font-family="monospace">(</text>
+        <text x="242" y="82" font-family="monospace" fill="#a31515">"Hello, World!"</text>
+        <text x="362" y="82" font-family="monospace">)</text>
+        <text x="194" y="200" fill="#555">Colours = syntax highlighting</text>
+        <rect x="500" y="44" width="40" height="22" rx="4" fill="#2e7d32"/>
+        <text x="510" y="60" fill="#fff">▶ Run</text>
+      </svg>
+      <figcaption>A simplified VS Code window: menu bar, side bar, Explorer and the code editor.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Setting up and running your first program in VS Code:</b></p>
+      <div class="flow"><span>Install Python</span><i>→</i><span>Install VS Code</span><i>→</i><span>Extensions: install "Python" (Microsoft)</span><i>→</i><span>Explorer: new file <code>hello.py</code></span><i>→</i><span>Type code</span><i>→</i><span>Click ▶ Run</span></div>
+<pre class="code">print("Hello, World!")</pre>
+<pre class="code output">Hello, World!</pre>
+      <p>The output appears in the <b>Terminal</b> panel at the bottom of the window.</p>
+    </div>
+    <div class="box tip"><p>Extensions are the <b>"App Store"</b> of VS Code: just as apps give your phone new abilities, extensions give VS Code new abilities.</p></div>
+    <div class="box warn"><p>Always save Python files with the <code>.py</code> extension (e.g. <code>hello.py</code>). Without it, VS Code does not know the file is Python, so there is no syntax highlighting and no Run button.</p></div>
+    <div class="box urdu"><p class="ur">وی ایس کوڈ (VS Code) ایک مفت اور ہلکا پھلکا کوڈ ایڈیٹر ہے۔ یہ اپنے آپ میں مکمل آئی ڈی ای نہیں، لیکن ایکسٹینشنز (Extensions) لگانے سے آئی ڈی ای بن جاتا ہے۔ اس کے اہم حصے مینو بار، سائیڈ بار، ایکسپلورر، سرچ، سورس کنٹرول، رن اینڈ ڈیبگ اور ایکسٹینشنز ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which VS Code element connects to Git?</p>
+      <p><b>2.</b> Is VS Code a full IDE by default? How does it become one?</p>
+      <p><b>3.</b> Where do you see and manage your project's files?</p>
+      <div class="ans">Answers: 1. Source Control. 2. No; it becomes an IDE by installing extensions (e.g. the Python extension). 3. Explorer.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4 Fundamentals of Python Programming <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>The basic structure of a Python program is simple and clear. A program takes data, <b>processes it using statements</b>, and finally <b>shows output</b>. Python runs the statements <b>top to bottom, one after another</b> (sequentially).</p>
+      <p>A <b>statement</b> is one complete instruction, usually written on one line, such as <code>print("Hi")</code> or <code>x = 5</code>.</p>
+      <p><b>1. Comments (<code>#</code>)</b> — Comments are notes written in the code <b>for humans</b>. They start with the <code>#</code> symbol. The Python interpreter completely <b>ignores</b> them. Use them to explain what your code does.</p>
+      <p><b>2. Indentation (spaces)</b> — C++ and Java use curly brackets <code>{ }</code> to mark a <b>block</b> of code (a group of statements that belong together). Python instead uses <b>indentation</b>: spaces at the beginning of a line. Indentation is <b>mandatory</b> in Python. The standard is <b>4 spaces</b> (or 1 tab).</p>
+    </div>
+<pre class="code"># This is a comment. It explains the code below.
+print("Hello, World!")
+if 5 &gt; 2:
+    # The space before 'print' is the indentation
+    print("Five is greater than two!")</pre>
+<pre class="code output">Hello, World!
+Five is greater than two!</pre>
+    <div class="box example">
+      <p><b>Reading the program line by line:</b></p>
+      <ol>
+        <li>Line 1 starts with <code>#</code>, so Python skips it.</li>
+        <li>Line 2 prints <code>Hello, World!</code>.</li>
+        <li>Line 3 asks a question: is 5 greater than 2? The colon <code>:</code> says "a block follows".</li>
+        <li>Line 4 is a comment inside the block (ignored).</li>
+        <li>Line 5 is indented by 4 spaces, so it belongs to the <code>if</code> block. Because 5 &gt; 2 is true, it runs.</li>
+      </ol>
+      <p><b>What happens if you forget the indentation?</b></p>
+<pre class="code">if 5 &gt; 2:
+print("Five is greater than two!")</pre>
+<pre class="code output">  File "indent.py", line 2
+    print("Five is greater than two!")
+    ^
+IndentationError: expected an indented block after 'if' statement on line 1</pre>
+      <p>Python refuses to run the program and points to line 2. Add 4 spaces before <code>print</code> to fix it.</p>
+    </div>
+    <div class="box tip"><p>Think of indentation like the points and sub-points in your notebook. Sub-points are written a little to the right to show they "belong" to the main point. A colon <code>:</code> at the end of a line always means "<b>indent the next line</b>".</p></div>
+    <div class="box warn"><p><b>IndentationError?</b> Check your spaces. <b>Mixing tabs and spaces</b> can break a Python program even when the code looks lined up. Choose 4 spaces and use them everywhere (VS Code inserts 4 spaces when you press Tab in a <code>.py</code> file).</p></div>
+    <div class="box urdu"><p class="ur">پائتھن پروگرام اوپر سے نیچے ترتیب سے چلتا ہے۔ <code>#</code> سے شروع ہونے والی لائن تبصرہ (Comment) ہوتی ہے جسے پائتھن نظرانداز کر دیتا ہے۔ پائتھن میں کوڈ کے بلاک کو بریکٹ کے بجائے انڈینٹیشن (Indentation) یعنی لائن کے شروع میں چار خالی جگہوں سے ظاہر کیا جاتا ہے، اور یہ لازمی ہے۔</p></div>
+    <div class="box exam"><p>Common questions: "What is the purpose of comments?", "Why is indentation important in Python?", "How is Python different from C++/Java in defining blocks?" Write: comments start with <code>#</code> and are ignored by the interpreter; Python uses indentation (4 spaces) instead of <code>{ }</code>; wrong indentation gives an <code>IndentationError</code>. Always give a 3–4 line code example.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code"># print("A")
+print("B")
+if 3 &gt; 7:
+    print("C")
+print("D")</pre>
+      <p><b>2.</b> What is the standard amount of indentation in Python?</p>
+      <div class="ans">Answers: 1. <code>B</code> then <code>D</code> on separate lines (line 1 is a comment; 3 &gt; 7 is false so <code>C</code> is skipped). 2. 4 spaces (or 1 tab).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4.1 Variables <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>variable</b> is a <b>named space in computer memory used to store data</b>. Think of it as a labelled container (a box with a name written on it). You put a value in it with the <b>assignment operator</b> <code>=</code>, which means "store", not "equals".</p>
+      <p>In Python you <b>do not need to declare the type</b> of a variable. Python figures it out automatically from the value. This is called <b>dynamic typing</b>: the same variable can later hold a different type.</p>
+      <p><b>Rules for naming variables:</b></p>
+      <ul>
+        <li>Can contain <b>letters, numbers and underscores</b> (<code>_</code>) only — no spaces or symbols like <code>-</code>, <code>@</code>, <code>$</code>.</li>
+        <li><b>Must start with a letter or underscore</b>, NOT a number (<code>1name</code> is invalid).</li>
+        <li>Are <b>case-sensitive</b>: <code>age</code> and <code>Age</code> are two completely different variables.</li>
+        <li>Cannot be a Python <b>keyword</b> (a reserved word such as <code>if</code>, <code>for</code>, <code>while</code>, <code>else</code>, <code>True</code>).</li>
+      </ul>
+    </div>
+    <div class="two-col">
+      <div>
+        <p><b>Valid names ✓</b></p>
+<pre class="code">name = "Ali"
+age = 16
+my_height = 5.7
+score1 = 100</pre>
+      </div>
+      <div>
+        <p><b>Invalid names ✗</b></p>
+<pre class="code">1name = "Ali"   # starts with a number
+my height = 5.7 # contains a space
+if = 100        # keyword used</pre>
+      </div>
+    </div>
+    <div class="box example">
+      <p><b>Using variables and case-sensitivity:</b></p>
+<pre class="code">name = "Ali"
+age = 16
+my_height = 5.7
+score1 = 100
+print(name, age, my_height, score1)
+
+Age = 17          # a different variable from age
+print(age, Age)</pre>
+<pre class="code output">Ali 16 5.7 100
+16 17</pre>
+      <p><b>Dynamic typing</b> — the type follows the value. <code>type()</code> tells you the type:</p>
+<pre class="code">x = 5
+print(x, type(x))
+x = "five"
+print(x, type(x))</pre>
+<pre class="code output">5 &lt;class 'int'&gt;
+five &lt;class 'str'&gt;</pre>
+      <p><b>What Python says about an invalid name:</b></p>
+<pre class="code">1name = "Ali"</pre>
+<pre class="code output">  File "names.py", line 1
+    1name = "Ali"
+    ^
+SyntaxError: invalid decimal literal</pre>
+    </div>
+    <div class="box tip"><p>Choose <b>meaningful names</b>: <code>total_marks</code> is far clearer than <code>tm</code> or <code>x</code>. Use lowercase words joined by underscores (this style is called <b>snake_case</b>).</p></div>
+    <div class="box warn"><p><code>=</code> is <b>not</b> "equals" in the maths sense. <code>x = x + 1</code> is not a false equation; it means "take the value of x, add 1, and store the result back in x". To <b>compare</b> two values you use <code>==</code> (see 3.4.3).</p></div>
+    <div class="box urdu"><p class="ur">ویری ایبل (Variable) میموری میں ایک نام والی جگہ ہے جس میں ڈیٹا رکھا جاتا ہے، بالکل ایک لیبل لگے ڈبے کی طرح۔ پائتھن میں ٹائپ بتانے کی ضرورت نہیں ہوتی۔ نام حرف یا انڈرسکور سے شروع ہونا چاہیے، اس میں خالی جگہ نہیں ہو سکتی، یہ کیس سینسیٹو (Case-sensitive) ہوتا ہے اور کوئی کی ورڈ (Keyword) نہیں ہو سکتا۔</p></div>
+    <div class="box exam"><p>A favourite question: "Which of these variable names are valid? Give reasons." Check each name against all four rules and state the rule broken, e.g. "<code>2nd_place</code> — invalid, starts with a digit". Remember that <code>While</code> (capital W) is <b>valid</b> because keywords are lowercase and Python is case-sensitive.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Valid or invalid? <code>_total</code>, <code>roll-no</code>, <code>class</code>, <code>marks2026</code>, <code>2marks</code></p>
+      <p><b>2.</b> Predict the output:</p>
+<pre class="code">city = "Karachi"
+City = "Hyderabad"
+print(city)</pre>
+      <div class="ans">Answers: 1. <code>_total</code> valid; <code>roll-no</code> invalid (hyphen); <code>class</code> invalid (keyword); <code>marks2026</code> valid; <code>2marks</code> invalid (starts with a digit). 2. <code>Karachi</code> — <code>city</code> and <code>City</code> are different variables.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4.1 Data Types in Python <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>data type</b> specifies the <b>kind of data</b> a variable holds — a whole number, a decimal, text, True/False, or a collection of items. The type decides what you can do with the data (you can divide numbers, but not names). Python has several built-in data types:</p>
+    </div>
+    <table>
+      <tr><th>Name</th><th>Type</th><th>Description</th><th>Example</th></tr>
+      <tr><td>Integer</td><td><code>int</code></td><td>Whole numbers without decimals (positive, negative or zero).</td><td><code>age = 16</code></td></tr>
+      <tr><td>Floating point</td><td><code>float</code></td><td>Numbers with a decimal point.</td><td><code>height = 5.7</code></td></tr>
+      <tr><td>String</td><td><code>str</code></td><td>Text data, enclosed in quotes (<code>" "</code> or <code>' '</code>).</td><td><code>name = "Sammy"</code> or <code>year = "2026"</code></td></tr>
+      <tr><td>Boolean</td><td><code>bool</code></td><td>Logical value: <code>True</code> or <code>False</code> (capital T / F).</td><td><code>is_student = True</code></td></tr>
+      <tr><td>List</td><td><code>list</code></td><td>Ordered, changeable collection in square brackets <code>[ ]</code>.</td><td><code>marks = [85, 90, 75]</code></td></tr>
+      <tr><td>Tuple</td><td><code>tuple</code></td><td>Ordered, unchangeable sequence in parentheses <code>( )</code>.</td><td><code>coords = (10, 20)</code></td></tr>
+      <tr><td>Dictionary</td><td><code>dict</code></td><td>Key : value pairs in curly braces <code>{ }</code>.</td><td><code>student = {"name": "Ahmed", "age": 16}</code></td></tr>
+      <tr><td>Set</td><td><code>set</code></td><td>Unordered collection of unique items (no duplicates).</td><td><code>vowels = {'a', 'e', 'i'}</code></td></tr>
+    </table>
+    <p class="small">Note: the slide abbreviates tuple as "tup"; the real Python type name is <code>tuple</code>, as the program below shows. The slides describe dictionaries as unordered; since Python 3.7 a dictionary remembers the order in which keys were added, but you always look items up <b>by key</b>, not by position.</p>
+    <div class="box example">
+      <p><b>Checking every type with <code>type()</code>:</b></p>
+<pre class="code">age = 16
+height = 5.7
+name = "Sammy"
+year = "2026"
+is_student = True
+marks = [85, 90, 75]
+coords = (10, 20)
+student = {"name": "Ahmed", "age": 16}
+vowels = {'a', 'e', 'i'}
+
+print(type(age))
+print(type(height))
+print(type(name), type(year))
+print(type(is_student))
+print(type(marks))
+print(type(coords))
+print(type(student))
+print(type(vowels))</pre>
+<pre class="code output">&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt; &lt;class 'str'&gt;
+&lt;class 'bool'&gt;
+&lt;class 'list'&gt;
+&lt;class 'tuple'&gt;
+&lt;class 'dict'&gt;
+&lt;class 'set'&gt;</pre>
+      <p>Notice that <code>year = "2026"</code> is a <b>string</b>, not a number, because it is inside quotes.</p>
+      <p><b>Working with the collection types:</b></p>
+<pre class="code">marks = [85, 90, 75]
+marks[0] = 88              # lists are changeable
+marks.append(60)
+print(marks)
+
+coords = (10, 20)
+print(coords[0])           # read item at position 0
+
+student = {"name": "Ahmed", "age": 16}
+print(student["name"])     # look up by key
+
+nums = {1, 2, 2, 3, 3, 3}  # duplicates are removed
+print(nums)
+print(len(nums))</pre>
+<pre class="code output">[88, 90, 75, 60]
+10
+Ahmed
+{1, 2, 3}
+3</pre>
+      <p>Positions (called <b>indexes</b>) start at <b>0</b>, so <code>coords[0]</code> is the first item. Trying to change a tuple causes an error:</p>
+<pre class="code">coords = (10, 20)
+coords[0] = 50</pre>
+<pre class="code output">Traceback (most recent call last):
+  File "tuple_test.py", line 2, in &lt;module&gt;
+    coords[0] = 50
+    ~~~~~~^^^
+TypeError: 'tuple' object does not support item assignment</pre>
+    </div>
+    <div class="box tip"><p><b>Brackets decide the collection:</b> <b>[ ]</b> List (changeable), <b>( )</b> Tuple (locked), <b>{ }</b> with <b>key:value</b> = Dictionary, <b>{ }</b> with single items = Set (unique). Think: a <b>list</b> is a shopping list you can edit; a <b>tuple</b> is your date of birth — it never changes.</p></div>
+    <div class="box warn"><p><code>True</code> and <code>False</code> must start with a capital letter. <code>true</code> is not a Boolean; Python treats it as an unknown variable name and gives a <code>NameError</code>. Also, <code>"16"</code> (string) and <code>16</code> (int) are different: <code>"16" + "1"</code> gives <code>"161"</code>, while <code>16 + 1</code> gives <code>17</code>.</p></div>
+    <div class="box urdu"><p class="ur">ڈیٹا ٹائپ (Data Type) بتاتی ہے کہ ویری ایبل میں کس قسم کا ڈیٹا ہے۔ <code>int</code> مکمل اعداد، <code>float</code> اعشاریہ والے اعداد، <code>str</code> متن، اور <code>bool</code> صرف True یا False کے لیے ہے۔ لسٹ (List) تبدیل ہو سکتی ہے، ٹپل (Tuple) تبدیل نہیں ہو سکتا، ڈکشنری (Dictionary) میں کی اور ویلیو کے جوڑے ہوتے ہیں، اور سیٹ (Set) میں کوئی چیز دہرائی نہیں جاتی۔</p></div>
+    <div class="box exam"><p>Expect: "Name any four data types with examples" or "Differentiate list and tuple". For a difference question, use a two-column table: list — <code>[ ]</code>, changeable, e.g. <code>marks = [85, 90]</code>; tuple — <code>( )</code>, unchangeable, e.g. <code>coords = (10, 20)</code>.</p></div>
+    <div class="box check">
+      <p><b>1.</b> What is the data type of each? <code>3.0</code>, <code>"3"</code>, <code>3</code>, <code>False</code>, <code>[3]</code></p>
+      <p><b>2.</b> Predict the output: <code>print(len({5, 5, 6, 6, 6}))</code></p>
+      <p><b>3.</b> Which type should store a student's CNIC/B-Form number such as <code>"42101-1234567-1"</code>? Why?</p>
+      <div class="ans">Answers: 1. float, str, int, bool, list. 2. <code>2</code> (the set keeps only 5 and 6). 3. <code>str</code>, because it contains hyphens and you never do arithmetic on it.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4.2 Input and Output Handling</h2>
+    <div class="box learn">
+      <p><b>Output — the <code>print()</code> function.</b> A <b>function</b> is a named, ready-made piece of code that does a job when you call it with brackets. <code>print()</code> displays information on the screen.</p>
+      <ul>
+        <li>Items separated by commas are printed with one space between them.</li>
+        <li>An <b>f-string</b> (a string with <code>f</code> before the quote) lets you put variables directly inside <code>{ }</code>. It is the fastest and most readable way to format output.</li>
+      </ul>
+      <p><b>Input — the <code>input()</code> function.</b> It shows a message (a <b>prompt</b>), <b>pauses the program</b> and waits for the user to type something and press Enter. Whatever the user types is <b>always a string</b> by default.</p>
+      <p><b>Type casting</b> means converting a value from one type to another: <code>int()</code> converts to an integer, <code>float()</code> to a decimal number, <code>str()</code> to a string.</p>
+    </div>
+<pre class="code"># 1. Print only a string
+print("Hello Class!")
+
+# 2. Print a string and a variable (comma separates them)
+name = "Ali"
+print("Welcome,", name)
+
+# 3. f-strings (fastest and most readable way to format)
+age = 16
+print(f"My name is {name} and I am {age} years old.")</pre>
+<pre class="code output">Hello Class!
+Welcome, Ali
+My name is Ali and I am 16 years old.</pre>
+    <p>Two useful extras: <code>sep</code> changes the separator between items, and <code>end</code> changes what is printed at the end (normally a new line).</p>
+<pre class="code">print("10", "09", "2026", sep="-")
+print("Loading", end="...")
+print("done")
+print(f"Total: {7 * 3}")</pre>
+<pre class="code output">10-09-2026
+Loading...done
+Total: 21</pre>
+    <div class="box example">
+      <p><b>Taking input with type casting.</b></p>
+<pre class="code"># Taking text input
+user_name = input("Enter your name: ")
+# Type casting: converting string input to an integer (int)
+age = int(input("Enter your age: "))
+# Type casting: converting string input to a decimal (float)
+height = float(input("Enter your height: "))
+print(f"Hello {user_name}! Next year you will be {age + 1}.")
+print("Height:", height, "feet")</pre>
+      <p>Sample run (the user types <code>Sara</code>, <code>16</code> and <code>5.4</code>):</p>
+<pre class="code output">Enter your name: Sara
+Enter your age: 16
+Enter your height: 5.4
+Hello Sara! Next year you will be 17.
+Height: 5.4 feet</pre>
+      <p><b>Why type casting matters.</b> Without <code>int()</code>, the numbers stay as text and <code>+</code> joins them:</p>
+<pre class="code">a = input("First number: ")
+b = input("Second number: ")
+print(a + b)
+print(int(a) + int(b))</pre>
+<pre class="code output">First number: 5
+Second number: 3
+53
+8</pre>
+      <p><code>"5" + "3"</code> joins two strings into <code>"53"</code> (called <b>concatenation</b>). <code>5 + 3</code> adds numbers to give <code>8</code>.</p>
+    </div>
+    <div class="box tip"><p><b>"input() always gives a string."</b> If you plan to do maths, wrap it: <code>int(input(...))</code> for whole numbers, <code>float(input(...))</code> for decimals. Read it from the inside out: first <code>input</code>, then convert.</p></div>
+    <div class="box warn"><p>If the user types letters where a number is expected, <code>int()</code> crashes with <code>ValueError: invalid literal for int() with base 10</code> (see 3.7). Also, <code>int("5.4")</code> fails — use <code>float()</code> for decimal input.</p></div>
+    <div class="box urdu"><p class="ur"><code>print()</code> اسکرین پر معلومات دکھاتا ہے اور <code>input()</code> صارف سے معلومات لیتا ہے۔ یاد رکھیں کہ <code>input()</code> ہمیشہ اسٹرنگ (String) دیتا ہے، اس لیے حساب کے لیے اسے <code>int()</code> یا <code>float()</code> سے تبدیل کرنا ضروری ہے۔ اسے ٹائپ کاسٹنگ (Type Casting) کہتے ہیں۔ ایف اسٹرنگ (f-string) سے ویری ایبلز کو جملے کے اندر آسانی سے لکھا جا سکتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">a = "3"
+b = 4
+print(a * b)
+print(int(a) * b)</pre>
+      <p><b>2.</b> Find the error: the user types <code>21</code> but the output is <code>2121</code>, not <code>42</code>.</p>
+<pre class="code">num = input("Enter a number: ")
+print(num * 2)</pre>
+      <div class="ans">Answers: 1. <code>3333</code> then <code>12</code> (a string times a number repeats the string). 2. <code>input()</code> returns the string <code>"21"</code>, and a string times 2 repeats it. Fix: <code>num = int(input("Enter a number: "))</code>.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4.3 Operators and Operands: Arithmetic and Assignment <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>An <b>operand</b> is the value or variable being worked on. An <b>operator</b> is the symbol that performs the action. Together they form an <b>expression</b>, which Python evaluates to a single value.</p>
+      <p>In <code>10 + 20</code>: <b>10</b> is an operand, <b>+</b> is the operator, <b>20</b> is an operand, and the result is <b>30</b>.</p>
+      <p><b>1. Arithmetic operators</b> do maths:</p>
+    </div>
+    <table>
+      <tr><th>Operator</th><th>Purpose</th><th>Example</th><th>Result</th></tr>
+      <tr><td><code>+</code></td><td>Addition</td><td><code>5 + 3</code></td><td>8</td></tr>
+      <tr><td><code>-</code></td><td>Subtraction</td><td><code>10 - 4</code></td><td>6</td></tr>
+      <tr><td><code>*</code></td><td>Multiplication</td><td><code>4 * 2</code></td><td>8</td></tr>
+      <tr><td><code>/</code></td><td>Division (result is always a float)</td><td><code>9 / 2</code></td><td>4.5</td></tr>
+      <tr><td><code>//</code></td><td>Floor division (drops the decimal part)</td><td><code>9 // 2</code></td><td>4</td></tr>
+      <tr><td><code>%</code></td><td>Modulus (remainder)</td><td><code>9 % 2</code></td><td>1</td></tr>
+      <tr><td><code>**</code></td><td>Exponentiation (power)</td><td><code>2 ** 3</code></td><td>8</td></tr>
+    </table>
+<pre class="code">print(5 + 3)
+print(10 - 4)
+print(4 * 2)
+print(9 / 2)
+print(9 // 2)
+print(9 % 2)
+print(2 ** 3)
+print(8 / 2)</pre>
+<pre class="code output">8
+6
+8
+4.5
+4
+1
+8
+4.0</pre>
+    <p>Notice the last line: <code>8 / 2</code> gives <code>4.0</code>, not <code>4</code>, because <code>/</code> always gives a float.</p>
+    <p><b>Order of operations (precedence).</b> Python follows the same order as maths (like BODMAS): brackets first, then <code>**</code>, then <code>*</code> <code>/</code> <code>//</code> <code>%</code> (left to right), then <code>+</code> <code>-</code> (left to right). <code>**</code> is the exception: it works right to left.</p>
+<pre class="code">print(2 + 3 * 4)
+print((2 + 3) * 4)
+print(2 ** 3 ** 2)
+print(10 - 4 - 3)
+print(-9 // 2)
+print(17 % 5, 17 // 5)</pre>
+<pre class="code output">14
+20
+512
+3
+-5
+2 3</pre>
+    <p><code>2 ** 3 ** 2</code> = <code>2 ** 9</code> = 512 (right to left). <code>-9 // 2</code> is <code>-5</code> because floor division always rounds <b>down</b> to the smaller whole number (−4.5 → −5).</p>
+    <p><b>2. Assignment operators</b> store a value in a variable, often updating it. The short forms are called <b>compound assignment</b>.</p>
+    <table>
+      <tr><th>Operator</th><th>Example</th><th>Equivalent to</th></tr>
+      <tr><td><code>=</code></td><td><code>x = 5</code></td><td>Assign 5 to x</td></tr>
+      <tr><td><code>+=</code></td><td><code>x += 2</code></td><td><code>x = x + 2</code></td></tr>
+      <tr><td><code>-=</code></td><td><code>x -= 1</code></td><td><code>x = x - 1</code></td></tr>
+      <tr><td><code>*=</code></td><td><code>x *= 3</code></td><td><code>x = x * 3</code></td></tr>
+      <tr><td><code>/=</code>, <code>//=</code>, <code>%=</code>, <code>**=</code></td><td><code>x /= 2</code></td><td><code>x = x / 2</code> (and so on)</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Tracing assignment operators.</b> Follow the value of <code>x</code> line by line:</p>
+<pre class="code">x = 5
+x += 2      # x = 5 + 2
+print(x)
+x -= 1      # x = 7 - 1
+print(x)
+x *= 3      # x = 6 * 3
+print(x)
+x /= 2      # x = 18 / 2
+print(x)</pre>
+<pre class="code output">7
+6
+18
+9.0</pre>
+      <p><b>Using <code>%</code> and <code>//</code> to split digits.</b> <code>% 10</code> gives the last digit; <code>// 10</code> removes it.</p>
+<pre class="code">n = 357
+last = n % 10      # remainder after dividing by 10
+rest = n // 10     # drop the last digit
+print("Last digit:", last)
+print("Remaining:", rest)</pre>
+<pre class="code output">Last digit: 7
+Remaining: 35</pre>
+      <p>357 ÷ 10 = 35 remainder 7. So <code>357 // 10</code> = 35 and <code>357 % 10</code> = 7.</p>
+    </div>
+    <div class="box tip"><p><b>Three kinds of division:</b> <code>/</code> = exact answer (float), <code>//</code> = quotient only ("floor"), <code>%</code> = remainder only. A number is <b>even</b> when <code>n % 2 == 0</code>.</p></div>
+    <div class="box warn"><p><code>^</code> is <b>not</b> power in Python — it is bitwise XOR (see bitwise operators). <code>2 ^ 3</code> gives 1, not 8. For power, always use <code>**</code>.</p></div>
+    <div class="box urdu"><p class="ur">آپرینڈ (Operand) وہ ویلیو ہے جس پر عمل ہوتا ہے اور آپریٹر (Operator) وہ علامت ہے جو عمل کرتی ہے۔ <code>/</code> ہمیشہ اعشاریہ والا جواب دیتا ہے، <code>//</code> صرف حاصلِ تقسیم دیتا ہے، <code>%</code> باقی دیتا ہے اور <code>**</code> طاقت (Power) نکالتا ہے۔ <code>x += 2</code> کا مطلب ہے <code>x = x + 2</code>۔</p></div>
+    <div class="box exam"><p>You will be asked to evaluate expressions such as <code>17 // 5</code>, <code>17 % 5</code>, <code>2 ** 4</code> or to trace compound assignment. Show each step and write the final value with its type (e.g. <code>9.0</code> is a float, so write the <code>.0</code>).</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">x = 7
+y = 2
+print(x // y, x % y, x / y)
+print(x ** y)</pre>
+      <p><b>2.</b> Predict the output:</p>
+<pre class="code">x = 10
+x += 5
+x //= 4
+print(x)</pre>
+      <div class="ans">Answers: 1. <code>3 1 3.5</code> then <code>49</code>. 2. <code>3</code> (10 + 5 = 15; 15 // 4 = 3).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4.3 Relational, Logical and Membership Operators <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>3. Relational (comparison) operators</b> compare two values and return a <b>Boolean</b> (<code>True</code> or <code>False</code>). They are used in conditions.</p>
+    </div>
+    <table>
+      <tr><th>Op</th><th>Description</th><th>Example (a = 10, b = 5)</th><th>Result</th></tr>
+      <tr><td><code>==</code></td><td>Equal to</td><td><code>a == b</code></td><td>False</td></tr>
+      <tr><td><code>!=</code></td><td>Not equal to</td><td><code>a != b</code></td><td>True</td></tr>
+      <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>a &gt; b</code></td><td>True</td></tr>
+      <tr><td><code>&lt;</code></td><td>Less than</td><td><code>a &lt; b</code></td><td>False</td></tr>
+      <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>a &gt;= 10</code></td><td>True</td></tr>
+      <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>a &lt;= b</code></td><td>False</td></tr>
+    </table>
+<pre class="code">a = 10
+b = 5
+print(a == b)
+print(a != b)
+print(a &gt; b)
+print(a &lt; b)
+print(a &gt;= 10)
+print(a &lt;= b)</pre>
+<pre class="code output">False
+True
+True
+False
+True
+False</pre>
+    <p><b>4. Logical operators</b> combine several conditions:</p>
+    <table class="center">
+      <tr><th>A</th><th>B</th><th>A and B</th><th>A or B</th><th>not A</th></tr>
+      <tr><td>False</td><td>False</td><td>False</td><td>False</td><td>True</td></tr>
+      <tr><td>False</td><td>True</td><td>False</td><td>True</td><td>True</td></tr>
+      <tr><td>True</td><td>False</td><td>False</td><td>True</td><td>False</td></tr>
+      <tr><td>True</td><td>True</td><td class="hl">True</td><td>True</td><td>False</td></tr>
+    </table>
+    <ul>
+      <li><code>and</code> — True <b>only if both</b> conditions are true.</li>
+      <li><code>or</code> — True if <b>at least one</b> condition is true.</li>
+      <li><code>not</code> — <b>reverses</b> the result (True becomes False, False becomes True).</li>
+    </ul>
+<pre class="code">a = 10
+b = 5
+print(a &gt; 5 and b &gt; 5)
+print(a &gt; 5 or b &gt; 5)
+print(not a &gt; 5)</pre>
+<pre class="code output">False
+True
+False</pre>
+    <p><b>5. Membership operators</b> check whether a value exists inside a sequence (such as a string or list): <code>in</code> and <code>not in</code>.</p>
+<pre class="code">name = "Python"
+print("P" in name)
+print("z" not in name)
+print("p" in name)
+marks = [85, 90, 75]
+print(90 in marks)</pre>
+<pre class="code output">True
+True
+False
+True</pre>
+    <p><code>"p" in name</code> is False because strings are case-sensitive: the word has a capital P.</p>
+    <div class="box example">
+      <p><b>Real-life conditions.</b> A person can apply for a CNIC if they are 18 or older <b>and</b> have the documents. Marks are invalid if they are below 0 <b>or</b> above 100.</p>
+<pre class="code">age = 20
+has_cnic = True
+print(age &gt;= 18 and has_cnic)
+marks = 45
+print(marks &lt; 0 or marks &gt; 100)</pre>
+<pre class="code output">True
+False</pre>
+      <p>Step by step: <code>20 &gt;= 18</code> is True, <code>has_cnic</code> is True, True and True = <b>True</b>. For marks: <code>45 &lt; 0</code> is False, <code>45 &gt; 100</code> is False, False or False = <b>False</b> (the marks are valid).</p>
+    </div>
+    <div class="box tip"><p><b>AND is strict, OR is generous.</b> AND is like a teacher who needs both homework and attendance; OR is like a shop that accepts cash <b>or</b> card. Order of evaluation: <code>not</code> first, then <code>and</code>, then <code>or</code>.</p></div>
+    <div class="box warn"><p>Do not confuse <code>=</code> (assignment, "store") with <code>==</code> (comparison, "is it equal?"). Writing <code>if x = 5:</code> is a <b>syntax error</b>; the correct form is <code>if x == 5:</code>.</p></div>
+    <div class="box urdu"><p class="ur">ریلیشنل آپریٹرز (Relational Operators) دو ویلیوز کا موازنہ کر کے True یا False دیتے ہیں۔ لاجیکل آپریٹرز میں <code>and</code> تب True دیتا ہے جب دونوں شرطیں درست ہوں، <code>or</code> تب جب کم از کم ایک درست ہو، اور <code>not</code> نتیجہ الٹ دیتا ہے۔ <code>in</code> اور <code>not in</code> دیکھتے ہیں کہ کوئی چیز اسٹرنگ یا لسٹ میں موجود ہے یا نہیں۔</p></div>
+    <div class="box exam"><p>Typical: "Evaluate <code>a &gt; b and b &gt; 3</code> for a = 10, b = 5" or "Write the truth table of <code>and</code>/<code>or</code>". Write each sub-condition's value first, then combine. Remember: <code>==</code> compares, <code>=</code> assigns.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">print(True and False or True)
+print(not (5 &gt; 3) or 2 == 2.0)</pre>
+      <p><b>2.</b> Find the error:</p>
+<pre class="code">x = 5
+if x = 5:
+    print("five")</pre>
+      <div class="ans">Answers: 1. <code>True</code> and <code>True</code>. (True and False = False; False or True = True. not True = False; 2 == 2.0 is True; False or True = True.) 2. <code>=</code> is assignment; a comparison needs <code>==</code>. Python reports <code>SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?</code> Fix: <code>if x == 5:</code></div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.4.3 Bitwise Operators <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>6. Bitwise operators</b> treat numbers as <b>binary digits</b> (bits: 0s and 1s) and work on them <b>bit by bit</b>, column by column. Think of each bit as a switch that is ON (1) or OFF (0). Python's <code>bin()</code> function shows the binary form of a number (it starts with <code>0b</code>).</p>
+      <ul>
+        <li><b>AND (<code>&amp;</code>)</b> — gives 1 <b>only if both</b> bits are 1, otherwise 0.</li>
+        <li><b>OR (<code>|</code>)</b> — gives 1 if <b>at least one</b> bit is 1.</li>
+        <li><b>XOR (<code>^</code>)</b> — gives 1 if the bits are <b>different</b>, 0 if they are the <b>same</b>.</li>
+        <li><b>NOT (<code>~</code>)</b> — inverts all bits (0 → 1, 1 → 0). In Python the result is the number made negative, minus 1: <code>~x = -(x + 1)</code>. So <code>~10</code> gives <code>-11</code>.</li>
+        <li><b>Left shift (<code>&lt;&lt;</code>)</b> — moves bits left and adds 0s on the right. Each shift <b>multiplies by 2</b>.</li>
+        <li><b>Right shift (<code>&gt;&gt;</code>)</b> — moves bits right and removes the rightmost bits. Each shift <b>divides by 2</b> (floor division).</li>
+      </ul>
+    </div>
+    <table class="center">
+      <tr><th>Bit A</th><th>Bit B</th><th>A &amp; B</th><th>A | B</th><th>A ^ B</th><th>~A</th></tr>
+      <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Worked example: a = 10, b = 6.</b> First convert to binary using place values 8, 4, 2, 1: 10 = 8 + 2 = <b>1010</b>; 6 = 4 + 2 = <b>0110</b>. Then work column by column.</p>
+      <table class="center">
+        <tr><th></th><th>8</th><th>4</th><th>2</th><th>1</th><th>Decimal</th></tr>
+        <tr><td>a = 10</td><td>1</td><td>0</td><td>1</td><td>0</td><td>10</td></tr>
+        <tr><td>b = 6</td><td>0</td><td>1</td><td>1</td><td>0</td><td>6</td></tr>
+        <tr><td>a &amp; b</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="hl">2</td></tr>
+        <tr><td>a | b</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="hl">14</td></tr>
+        <tr><td>a ^ b</td><td>1</td><td>1</td><td>0</td><td>0</td><td class="hl">12</td></tr>
+      </table>
+      <ul>
+        <li>AND: only the "2" column has 1 in both → 0010 = <b>2</b>.</li>
+        <li>OR: columns 8, 4 and 2 have at least one 1 → 1110 = 8 + 4 + 2 = <b>14</b>.</li>
+        <li>XOR: columns 8 and 4 are different; column 2 is the same (both 1) → 1100 = 8 + 4 = <b>12</b>.</li>
+        <li>NOT: <code>~10</code> = −(10 + 1) = <b>−11</b>.</li>
+      </ul>
+<pre class="code">a = 10
+b = 6
+print(bin(a), bin(b))
+print(a &amp; b)
+print(a | b)
+print(a ^ b)
+print(~a)</pre>
+<pre class="code output">0b1010 0b110
+2
+14
+12
+-11</pre>
+      <p><b>Worked example: shifts.</b> 5 in 8 bits is <b>0000 0101</b>.</p>
+      <table class="center">
+        <tr><th>Expression</th><th>Binary</th><th>Decimal</th><th>What happened</th></tr>
+        <tr><td><code>5</code></td><td>0000 0101</td><td>5</td><td>start</td></tr>
+        <tr><td><code>5 &lt;&lt; 1</code></td><td>0000 1010</td><td>10</td><td>add one 0 on the right (5 × 2)</td></tr>
+        <tr><td><code>5 &lt;&lt; 2</code></td><td>0001 0100</td><td>20</td><td>add 00 on the right (5 × 4)</td></tr>
+        <tr><td><code>20 &gt;&gt; 1</code></td><td>0000 1010</td><td>10</td><td>remove the rightmost bit (20 ÷ 2)</td></tr>
+        <tr><td><code>20 &gt;&gt; 2</code></td><td>0000 0101</td><td>5</td><td>remove two bits (20 ÷ 4)</td></tr>
+      </table>
+<pre class="code">a = 5           # Binary: 0000 0101
+print(a &lt;&lt; 1)   # 0000 1010
+print(a &lt;&lt; 2)   # 0001 0100
+b = 20          # Binary: 0001 0100
+print(b &gt;&gt; 1)   # 0000 1010
+print(b &gt;&gt; 2)   # 0000 0101
+print(bin(20 &gt;&gt; 2))</pre>
+<pre class="code output">10
+20
+10
+5
+0b101</pre>
+    </div>
+    <div class="box tip"><p><b>Shortcuts:</b> <code>x &lt;&lt; n</code> = x × 2ⁿ, <code>x &gt;&gt; n</code> = x // 2ⁿ, <code>~x</code> = −x − 1. For AND/OR/XOR always write both numbers in binary, one under the other, with the same number of bits.</p></div>
+    <div class="box warn"><p>Do not mix up the logical and bitwise operators: <code>and</code>/<code>or</code>/<code>not</code> work on True/False conditions, while <code>&amp;</code>/<code>|</code>/<code>~</code> work on the bits of integers. Also remember <code>bin(6)</code> prints <code>0b110</code>, without the leading zero — add zeros yourself when lining up columns.</p></div>
+    <div class="box urdu"><p class="ur">بٹ وائز آپریٹرز (Bitwise Operators) اعداد کو بائنری میں بدل کر ہر بٹ پر الگ الگ کام کرتے ہیں۔ <code>&amp;</code> تب 1 دیتا ہے جب دونوں بٹ 1 ہوں، <code>|</code> تب جب کوئی ایک بھی 1 ہو، اور <code>^</code> تب جب دونوں بٹ مختلف ہوں۔ <code>~</code> تمام بٹ الٹ دیتا ہے، اس لیے <code>~10</code> کا جواب <code>-11</code> ہے۔ لیفٹ شفٹ عدد کو 2 سے ضرب دیتا ہے اور رائٹ شفٹ 2 سے تقسیم کرتا ہے۔</p></div>
+    <div class="box exam"><p>Exams ask you to "evaluate <code>12 &amp; 10</code>, <code>12 | 10</code>, <code>12 ^ 10</code>, <code>~5</code>, <code>7 &gt;&gt; 1</code> showing binary working". Marks are given for the binary conversion and column working, not just the final number. Always draw the column table.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output (show the binary working):</p>
+<pre class="code">print(12 &amp; 10, 12 | 10, 12 ^ 10)
+print(~5, 7 &gt;&gt; 1, 3 &lt;&lt; 3)</pre>
+      <p><b>2.</b> What does <code>bin(13)</code> print?</p>
+      <div class="ans">Answers: 1. <code>8 14 6</code> and <code>-6 3 24</code>. 12 = 1100, 10 = 1010: AND = 1000 = 8, OR = 1110 = 14, XOR = 0110 = 6. ~5 = −(5 + 1) = −6. 7 = 111 → 11 = 3. 3 = 11 → 11000 = 24 (3 × 8). 2. <code>0b1101</code> (8 + 4 + 1).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5 Control Structures <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Control structures</b> decide the <b>order in which statements are executed</b> in a program (the "flow of control"). Almost every program is built from just three basic structures:</p>
+      <ol>
+        <li><b>Sequence</b> — do the steps one after another, top to bottom.</li>
+        <li><b>Selection</b> — choose a path depending on a condition (<code>if</code>, <code>else</code>).</li>
+        <li><b>Repetition</b> — repeat steps (loops: <code>for</code>, <code>while</code>).</li>
+      </ol>
+    </div>
+    <div class="box example">
+      <p><b>Morning routine as control structures:</b></p>
+      <ul>
+        <li>Sequence: wake up → brush teeth → have breakfast.</li>
+        <li>Selection: <b>if</b> it is raining, take an umbrella; <b>else</b> take a cap.</li>
+        <li>Repetition: <b>while</b> the bus has not come, keep waiting.</li>
+      </ul>
+    </div>
+    <div class="box tip"><p>Remember <b>"S-S-R"</b>: <b>S</b>equence, <b>S</b>election, <b>R</b>epetition — "Step, Select, Repeat".</p></div>
+    <div class="box warn"><p>Selection and repetition both use conditions, but they are different: selection runs a block <b>at most once</b>; repetition can run a block <b>many times</b>.</p></div>
+    <div class="box urdu"><p class="ur">کنٹرول اسٹرکچرز (Control Structures) طے کرتے ہیں کہ پروگرام کی ہدایات کس ترتیب سے چلیں گی۔ تین بنیادی اسٹرکچر ہیں: سیکوئنس (ترتیب وار)، سلیکشن (شرط کی بنیاد پر انتخاب) اور ریپیٹیشن (دہرانا یعنی لوپ)۔</p></div>
+    <div class="box exam"><p>"Name and explain the three basic control structures" is a very common short question. Give a one-line definition and a two-line Python example for each.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Name the three basic control structures.</p>
+      <p><b>2.</b> Which structure is used for "keep asking for the password until it is correct"?</p>
+      <div class="ans">Answers: 1. Sequence, selection, repetition. 2. Repetition (a <code>while</code> loop).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5.1 Sequence</h2>
+    <div class="box learn">
+      <p><b>Sequence</b> means statements are executed <b>one after another, strictly from top to bottom</b>, in the exact order they are written. This is the <b>default behaviour</b> of Python. No statement is skipped or repeated.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 200 250" width="180" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <rect x="50" y="5" width="100" height="34" rx="17" fill="#e8f4ea" stroke="#2e7d32"/>
+        <text x="100" y="27" text-anchor="middle">Start</text>
+        <line x1="100" y1="39" x2="100" y2="69" stroke="#333"/><path d="M95 62 L100 70 L105 62 Z" fill="#333"/>
+        <rect x="35" y="70" width="130" height="36" fill="#fff" stroke="#333"/>
+        <text x="100" y="93" text-anchor="middle">Statement 1</text>
+        <line x1="100" y1="106" x2="100" y2="136" stroke="#333"/><path d="M95 129 L100 137 L105 129 Z" fill="#333"/>
+        <rect x="35" y="137" width="130" height="36" fill="#fff" stroke="#333"/>
+        <text x="100" y="160" text-anchor="middle">Statement 2</text>
+        <line x1="100" y1="173" x2="100" y2="203" stroke="#333"/><path d="M95 196 L100 204 L105 196 Z" fill="#333"/>
+        <rect x="50" y="204" width="100" height="34" rx="17" fill="#fdecea" stroke="#c62828"/>
+        <text x="100" y="226" text-anchor="middle">End</text>
+      </svg>
+      <figcaption>Sequence: control flows straight down from one statement to the next.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>Input → Process → Output in sequence.</b></p>
+<pre class="code">print("Enter two numbers")
+a = int(input("Enter first number: "))   # Step 1: Input
+b = int(input("Enter second number: "))  # Step 2: Input
+total = a + b                            # Step 3: Process
+print("Sum =", total)                    # Step 4: Output</pre>
+      <p>Sample run (user types 7 and 5):</p>
+<pre class="code output">Enter two numbers
+Enter first number: 7
+Enter second number: 5
+Sum = 12</pre>
+      <p>Each line runs exactly once, in order. If you moved line 4 (<code>total = a + b</code>) above the input lines, Python would stop with a <code>NameError</code> because <code>a</code> and <code>b</code> would not exist yet.</p>
+    </div>
+    <div class="box tip"><p>Sequence is like reading a page: line 1, then line 2, then line 3. Most programs follow the pattern <b>Input → Process → Output</b>.</p></div>
+    <div class="box warn"><p>Order matters. A variable must be given a value <b>before</b> it is used. Using it first causes <code>NameError: name '…' is not defined</code>.</p></div>
+    <div class="box urdu"><p class="ur">سیکوئنس (Sequence) کا مطلب ہے کہ ہدایات بالکل اسی ترتیب سے ایک کے بعد ایک اوپر سے نیچے چلتی ہیں جس ترتیب سے لکھی گئی ہیں۔ یہ پائتھن کا عام طریقہ ہے۔ کسی ویری ایبل کو استعمال کرنے سے پہلے اس میں ویلیو رکھنا ضروری ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">x = 4
+y = x * 2
+x = 10
+print(x, y)</pre>
+      <p><b>2.</b> What is the default control structure in Python?</p>
+      <div class="ans">Answers: 1. <code>10 8</code> — <code>y</code> was calculated when x was still 4; changing x later does not change y. 2. Sequence.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5.2 Selection Statements: if and if-else <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Selection</b> changes the flow of a program based on a <b>condition</b> — an expression that is either True or False. It helps a program respond intelligently to different situations.</p>
+      <p><b>1. The <code>if</code> statement</b> executes a block of code <b>only if</b> the condition is True. If the condition is False, the block is completely skipped.</p>
+<pre class="code">if condition:
+    statement(s)    # runs only when condition is True</pre>
+      <p><b>2. The <code>if-else</code> statement</b> provides <b>two paths</b>: if the condition is true, do this; <b>else</b> (otherwise), do that. Exactly one of the two blocks always runs.</p>
+<pre class="code">if condition:
+    block A         # condition True
+else:
+    block B         # condition False</pre>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 420 230" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <path d="M210 10 L300 55 L210 100 L120 55 Z" fill="#fff6e0" stroke="#b7791f"/>
+        <text x="210" y="59" text-anchor="middle">age &gt;= 18 ?</text>
+        <line x1="120" y1="55" x2="70" y2="55" stroke="#333"/><line x1="70" y1="55" x2="70" y2="124" stroke="#333"/><path d="M65 117 L70 125 L75 117 Z" fill="#333"/>
+        <text x="88" y="48">True</text>
+        <line x1="300" y1="55" x2="350" y2="55" stroke="#333"/><line x1="350" y1="55" x2="350" y2="124" stroke="#333"/><path d="M345 117 L350 125 L355 117 Z" fill="#333"/>
+        <text x="306" y="48">False</text>
+        <rect x="10" y="125" width="120" height="36" fill="#fff" stroke="#333"/>
+        <text x="70" y="148" text-anchor="middle">Apply for CNIC</text>
+        <rect x="270" y="125" width="150" height="36" fill="#fff" stroke="#333"/>
+        <text x="345" y="148" text-anchor="middle">Apply for CRC (B-Form)</text>
+        <line x1="70" y1="161" x2="70" y2="195" stroke="#333"/><line x1="350" y1="161" x2="350" y2="195" stroke="#333"/>
+        <line x1="70" y1="195" x2="350" y2="195" stroke="#333"/>
+        <line x1="210" y1="195" x2="210" y2="220" stroke="#333"/><path d="M205 213 L210 221 L215 213 Z" fill="#333"/>
+      </svg>
+      <figcaption>An if-else statement: one diamond (condition), two paths, then the paths join again.</figcaption>
+    </figure>
+    <div class="box example">
+      <p><b>The <code>if</code> statement.</b></p>
+<pre class="code">age = int(input("Enter your age: "))
+if age &gt;= 18:
+    print("You are an Adult.")    # runs only if age &gt;= 18
+print("Program continues...")     # runs every time</pre>
+      <div class="two-col">
+        <div>
+          <p>Run 1 (user types 20):</p>
+<pre class="code output">Enter your age: 20
+You are an Adult.
+Program continues...</pre>
+        </div>
+        <div>
+          <p>Run 2 (user types 15):</p>
+<pre class="code output">Enter your age: 15
+Program continues...</pre>
+        </div>
+      </div>
+      <p>The last line is not indented, so it is outside the <code>if</code> block and runs every time.</p>
+      <p><b>The <code>if-else</code> statement.</b></p>
+<pre class="code">age = int(input("Enter your age: "))
+if age &gt;= 18:
+    print("Apply for CNIC.")
+else:
+    print("Apply for CRC (B-Form).")</pre>
+      <p>Sample run (user types 16):</p>
+<pre class="code output">Enter your age: 16
+Apply for CRC (B-Form).</pre>
+      <p><b>Even or odd</b> — a classic if-else program:</p>
+<pre class="code">n = 7
+if n % 2 == 0:
+    print(n, "is even")
+else:
+    print(n, "is odd")</pre>
+<pre class="code output">7 is odd</pre>
+      <p>7 % 2 = 1, and 1 == 0 is False, so the <code>else</code> block runs.</p>
+    </div>
+    <div class="box tip"><p><b>Formatting rule:</b> put a <b>colon ( : )</b> after <code>if</code> and <code>else</code>, and <b>indent</b> the code inside the blocks. <code>else</code> never has a condition of its own.</p></div>
+    <div class="box warn"><p>Common mistakes: forgetting the colon (<code>SyntaxError: expected ':'</code>), writing a condition after <code>else</code> (<code>else age &lt; 18:</code> is wrong), and not indenting <code>else</code> at the same level as its <code>if</code>.</p></div>
+    <div class="box urdu"><p class="ur">سلیکشن (Selection) میں پروگرام شرط کی بنیاد پر فیصلہ کرتا ہے۔ <code>if</code> کا بلاک صرف تب چلتا ہے جب شرط درست (True) ہو۔ <code>if-else</code> میں دو راستے ہوتے ہیں: شرط درست ہو تو پہلا بلاک، ورنہ <code>else</code> والا بلاک چلتا ہے۔ <code>if</code> اور <code>else</code> کے بعد کولن (:) اور اندر کے کوڈ کی انڈینٹیشن ضروری ہے۔</p></div>
+    <div class="box exam"><p>Asked as: "Write a program that inputs a number and prints whether it is even or odd / positive or negative / pass or fail." Write the full program with <code>int(input())</code>, the condition, both blocks, and a sample run.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output when <code>marks = 32</code>:</p>
+<pre class="code">marks = 32
+if marks &gt;= 33:
+    print("Pass")
+else:
+    print("Fail")
+print("Done")</pre>
+      <p><b>2.</b> Find the two errors:</p>
+<pre class="code">n = 5
+if n &gt; 0
+    print("Positive")
+else n &lt;= 0:
+    print("Not positive")</pre>
+      <div class="ans">Answers: 1. <code>Fail</code> then <code>Done</code>. 2. Missing colon after <code>if n &gt; 0</code>; <code>else</code> must not have a condition — write <code>else:</code>.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5.2 Selection Statements: if-elif-else and Nested if <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>3. The <code>if-elif-else</code> statement</b> handles <b>many conditions</b>. (<code>elif</code> is short for "else if".) Python checks the conditions <b>from top to bottom</b>. As soon as it finds a True condition, it runs that block and <b>ignores all the rest</b>. If none is True, the <code>else</code> block runs.</p>
+      <p><b>4. Nested <code>if</code></b> is an <code>if</code> inside another <code>if</code>. It is used when a decision needs to pass <b>several levels of checks</b>: the inner check happens only if the outer check passed.</p>
+    </div>
+    <div class="box example">
+      <p><b>Grading with if-elif-else.</b></p>
+<pre class="code">marks = int(input("Enter marks: "))
+if marks &gt;= 80:
+    print("A-1 Grade")
+elif marks &gt;= 70:
+    print("A Grade")
+elif marks &gt;= 60:
+    print("B Grade")
+else:
+    print("Fail or below B")</pre>
+      <p>Sample run (user types 75):</p>
+<pre class="code output">Enter marks: 75
+A Grade</pre>
+      <p><b>Trace for different marks:</b></p>
+      <table>
+        <tr><th>marks</th><th>&gt;= 80?</th><th>&gt;= 70?</th><th>&gt;= 60?</th><th>Output</th></tr>
+        <tr><td>92</td><td>True</td><td>(not checked)</td><td>(not checked)</td><td>A-1 Grade</td></tr>
+        <tr><td>75</td><td>False</td><td>True</td><td>(not checked)</td><td>A Grade</td></tr>
+        <tr><td>60</td><td>False</td><td>False</td><td>True</td><td>B Grade</td></tr>
+        <tr><td>41</td><td>False</td><td>False</td><td>False</td><td>Fail or below B</td></tr>
+      </table>
+      <p><b>Loan approval with nested if.</b></p>
+<pre class="code">age = 20
+salary = 35000
+if age &gt;= 18:
+    # passed first check
+    if salary &gt;= 30000:
+        # passed second check
+        print("Loan APPROVED!")
+    else:
+        print("Salary too low for loan.")
+else:
+    print("Too young for loan.")</pre>
+<pre class="code output">Loan APPROVED!</pre>
+      <table>
+        <tr><th>age</th><th>salary</th><th>Outer check (age &gt;= 18)</th><th>Inner check (salary &gt;= 30000)</th><th>Output</th></tr>
+        <tr><td>20</td><td>35000</td><td>True</td><td>True</td><td>Loan APPROVED!</td></tr>
+        <tr><td>20</td><td>25000</td><td>True</td><td>False</td><td>Salary too low for loan.</td></tr>
+        <tr><td>16</td><td>35000</td><td>False</td><td>(never checked)</td><td>Too young for loan.</td></tr>
+      </table>
+      <p>When you only need a yes/no answer, two levels can often be joined with <code>and</code> — but then you lose the separate messages:</p>
+<pre class="code">age = 20
+salary = 25000
+if age &gt;= 18 and salary &gt;= 30000:
+    print("Loan APPROVED!")
+else:
+    print("Loan not approved.")</pre>
+<pre class="code output">Loan not approved.</pre>
+    </div>
+    <div class="box tip"><p>In an <code>if-elif-else</code> ladder, put the <b>strictest condition first</b> (highest marks first). Think of a ladder: you step off at the first rung that fits.</p></div>
+    <div class="box warn">
+      <p><b>Wrong order gives wrong answers.</b> Here 85 marks gets "B Grade", because <code>85 &gt;= 60</code> is True first and the other conditions are ignored:</p>
+<pre class="code">marks = 85
+if marks &gt;= 60:
+    print("B Grade")
+elif marks &gt;= 70:
+    print("A Grade")
+elif marks &gt;= 80:
+    print("A-1 Grade")</pre>
+<pre class="code output">B Grade</pre>
+      <p>This is a <b>logical error</b>: no crash, just a wrong result. Fix it by checking <code>&gt;= 80</code> first.</p>
+    </div>
+    <div class="box urdu"><p class="ur"><code>if-elif-else</code> میں کئی شرطیں اوپر سے نیچے ترتیب سے دیکھی جاتی ہیں، اور جو شرط سب سے پہلے درست ہو اسی کا بلاک چلتا ہے، باقی سب چھوڑ دی جاتی ہیں۔ نیسٹڈ اِف (Nested if) میں ایک <code>if</code> دوسرے <code>if</code> کے اندر ہوتا ہے، اور اندر والی شرط تب ہی دیکھی جاتی ہے جب باہر والی شرط درست ہو۔</p></div>
+    <div class="box exam"><p>Grade-calculator programs (if-elif-else) and "largest of three numbers" are very common long questions. Check conditions in the right order, indent nested blocks carefully (8 spaces for the inner block), and give a sample run. Tracing tables like the ones above earn full marks in "predict the output" questions.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">temp = 30
+if temp &gt; 35:
+    print("Hot")
+elif temp &gt; 25:
+    print("Warm")
+elif temp &gt; 15:
+    print("Pleasant")
+else:
+    print("Cold")</pre>
+      <p><b>2.</b> Predict the output:</p>
+<pre class="code">x = 15
+if x &gt; 10:
+    if x &gt; 20:
+        print("A")
+    else:
+        print("B")
+else:
+    print("C")</pre>
+      <div class="ans">Answers: 1. <code>Warm</code> (30 &gt; 35 is False; 30 &gt; 25 is True, so the rest are skipped even though 30 &gt; 15 is also True). 2. <code>B</code> (outer check 15 &gt; 10 passes; inner check 15 &gt; 20 fails).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5.3 Repetition Statements: the for Loop and range() <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>repetition statement (loop)</b> lets a block of code run <b>again and again</b>. This greatly reduces the need to write the same code many times. Each single run of the loop body is called an <b>iteration</b>.</p>
+      <p><b>1. The <code>for</code> loop</b> is used when the <b>exact number of iterations is known</b>. It takes each value from a sequence one by one and stores it in the <b>loop variable</b> (e.g. <code>i</code>).</p>
+      <p>The <b><code>range()</code></b> function generates the sequence of numbers for the loop:</p>
+    </div>
+    <table>
+      <tr><th>Syntax</th><th>How it works</th><th>Example</th><th>Values produced</th></tr>
+      <tr><td><code>range(stop)</code></td><td>From 0 up to, but <b>not including</b>, stop.</td><td><code>range(3)</code></td><td>0 1 2</td></tr>
+      <tr><td><code>range(start, stop)</code></td><td>From start up to, but not including, stop.</td><td><code>range(2, 5)</code></td><td>2 3 4</td></tr>
+      <tr><td><code>range(start, stop, step)</code></td><td>From start towards stop, jumping by step.</td><td><code>range(1, 6, 2)</code></td><td>1 3 5</td></tr>
+    </table>
+    <div class="two-col">
+      <div>
+<pre class="code">for i in range(3):
+    print(i)</pre>
+<pre class="code output">0
+1
+2</pre>
+<pre class="code">for i in range(2, 5):
+    print(i)</pre>
+<pre class="code output">2
+3
+4</pre>
+      </div>
+      <div>
+<pre class="code">for i in range(1, 6, 2):
+    print(i)</pre>
+<pre class="code output">1
+3
+5</pre>
+<pre class="code">for i in range(0, 6, 2):
+    print("Even:", i)</pre>
+<pre class="code output">Even: 0
+Even: 2
+Even: 4</pre>
+      </div>
+    </div>
+    <p>You can see all the values of a range at once by converting it to a list. A negative step counts <b>down</b>; if start equals stop, the range is empty:</p>
+<pre class="code">print(list(range(5)))
+print(list(range(2, 5)))
+print(list(range(1, 6, 2)))
+print(list(range(10, 0, -2)))
+print(list(range(5, 5)))</pre>
+<pre class="code output">[0, 1, 2, 3, 4]
+[2, 3, 4]
+[1, 3, 5]
+[10, 8, 6, 4, 2]
+[]</pre>
+    <div class="box example">
+      <p><b>Multiplication table of 7:</b></p>
+<pre class="code">for i in range(1, 6):
+    print(f"7 x {i} = {7 * i}")</pre>
+<pre class="code output">7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+7 x 4 = 28
+7 x 5 = 35</pre>
+      <p><b>Adding numbers with an accumulator.</b> An <b>accumulator</b> is a variable that starts at 0 and collects a running total.</p>
+<pre class="code">total = 0
+for i in range(1, 11):
+    total += i
+print("Sum of 1 to 10 =", total)</pre>
+<pre class="code output">Sum of 1 to 10 = 55</pre>
+      <table class="center">
+        <tr><th>i</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>…</th><th>10</th></tr>
+        <tr><td>total after</td><td>1</td><td>3</td><td>6</td><td>10</td><td>15</td><td>…</td><td>55</td></tr>
+      </table>
+      <p><b>Looping over a string or list.</b> A <code>for</code> loop can also take items directly from any sequence:</p>
+<pre class="code">for ch in "Sindh":
+    print(ch, end=" ")
+print()
+for m in [85, 90, 75]:
+    print(m + 5)</pre>
+<pre class="code output">S i n d h 
+90
+95
+80</pre>
+    </div>
+    <div class="box tip"><p><b>range stops one short:</b> <code>range(1, 11)</code> gives 1 to <b>10</b>. To include a number n, write <code>range(…, n + 1)</code>. Number of values in <code>range(a, b)</code> = b − a.</p></div>
+    <div class="box warn"><p>Writing <code>range(1, 10)</code> to print 1 to 10 misses 10 — an "off-by-one" logical error. Also, the loop body must be indented; a <code>for</code> line without an indented block gives <code>IndentationError: expected an indented block after 'for' statement</code>.</p></div>
+    <div class="box urdu"><p class="ur">لوپ (Loop) کوڈ کے ایک بلاک کو بار بار چلاتا ہے۔ <code>for</code> لوپ تب استعمال ہوتا ہے جب پہلے سے معلوم ہو کہ کتنی بار دہرانا ہے۔ <code>range(stop)</code> صفر سے شروع ہوتا ہے، <code>range(start, stop)</code> start سے، اور <code>range(start, stop, step)</code> ہر بار step کے برابر چھلانگ لگاتا ہے۔ آخری عدد (stop) کبھی شامل نہیں ہوتا۔</p></div>
+    <div class="box exam"><p>Expect "predict the output" questions on <code>range()</code> with a step, and programs such as "print a table", "sum of first n numbers", "even numbers from 1 to 20". Always state what range produces before tracing.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">for i in range(10, 0, -3):
+    print(i, end=" ")</pre>
+      <p><b>2.</b> Predict the output:</p>
+<pre class="code">s = 0
+for k in range(2, 11, 2):
+    s += k
+print(s)</pre>
+      <p><b>3.</b> Find the error:</p>
+<pre class="code">for i in range(3):
+print(i)</pre>
+      <div class="ans">Answers: 1. <code>10 7 4 1</code>. 2. <code>30</code> (2 + 4 + 6 + 8 + 10). 3. The body is not indented: <code>IndentationError</code>. Indent <code>print(i)</code> by 4 spaces.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5.3 The while Loop, break and continue <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>2. The <code>while</code> loop</b> repeats a block of code <b>as long as a condition remains True</b>. It is used when the exact number of iterations is <b>not known in advance</b> (for example, "keep asking until the password is correct").</p>
+      <p>A <code>while</code> loop needs three parts: (1) <b>initialise</b> a variable before the loop, (2) <b>test</b> the condition, (3) <b>update</b> the variable inside the loop. If you forget the update, the condition never becomes False and the loop never stops — an <b>infinite loop</b>.</p>
+      <p><b>Loop control statements</b> change the normal flow of a loop:</p>
+      <ul>
+        <li><b><code>break</code></b> — exits (stops) the loop <b>entirely and immediately</b>.</li>
+        <li><b><code>continue</code></b> — <b>skips the rest of the current iteration</b> and jumps to the next one.</li>
+      </ul>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 360 250" width="340" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <rect x="90" y="5" width="140" height="32" fill="#fff" stroke="#333"/>
+        <text x="160" y="26" text-anchor="middle">count = 1</text>
+        <line x1="160" y1="37" x2="160" y2="57" stroke="#333"/><path d="M155 50 L160 58 L165 50 Z" fill="#333"/>
+        <path d="M160 58 L240 98 L160 138 L80 98 Z" fill="#fff6e0" stroke="#b7791f"/>
+        <text x="160" y="102" text-anchor="middle">count &lt;= 3 ?</text>
+        <line x1="160" y1="138" x2="160" y2="160" stroke="#333"/><path d="M155 153 L160 161 L165 153 Z" fill="#333"/>
+        <text x="168" y="154">True</text>
+        <rect x="90" y="161" width="140" height="44" fill="#fff" stroke="#333"/>
+        <text x="160" y="180" text-anchor="middle">print(count)</text>
+        <text x="160" y="197" text-anchor="middle">count += 1</text>
+        <line x1="90" y1="183" x2="30" y2="183" stroke="#333"/><line x1="30" y1="183" x2="30" y2="98" stroke="#333"/><line x1="30" y1="98" x2="79" y2="98" stroke="#333"/><path d="M72 93 L80 98 L72 103 Z" fill="#333"/>
+        <line x1="240" y1="98" x2="300" y2="98" stroke="#333"/><line x1="300" y1="98" x2="300" y2="225" stroke="#333"/><path d="M295 218 L300 226 L305 218 Z" fill="#333"/>
+        <text x="250" y="90">False</text>
+        <text x="300" y="242" text-anchor="middle">exit loop</text>
+      </svg>
+      <figcaption>A while loop: test the condition, run the body, go back and test again.</figcaption>
+    </figure>
+<pre class="code">count = 1
+while count &lt;= 3:
+    print(count)
+    count += 1   # VERY IMPORTANT: update the condition!</pre>
+<pre class="code output">1
+2
+3</pre>
+    <div class="box example">
+      <p><b>Trace of the while loop above:</b></p>
+      <table class="center">
+        <tr><th>count</th><th>count &lt;= 3?</th><th>Printed</th><th>count after update</th></tr>
+        <tr><td>1</td><td>True</td><td>1</td><td>2</td></tr>
+        <tr><td>2</td><td>True</td><td>2</td><td>3</td></tr>
+        <tr><td>3</td><td>True</td><td>3</td><td>4</td></tr>
+        <tr><td>4</td><td>False</td><td>—</td><td>loop ends</td></tr>
+      </table>
+      <p><b>Sum of digits</b> — we do not know how many digits the number has, so <code>while</code> fits well:</p>
+<pre class="code">n = 4072
+total = 0
+while n &gt; 0:
+    digit = n % 10
+    total += digit
+    n = n // 10
+print("Sum of digits =", total)</pre>
+<pre class="code output">Sum of digits = 13</pre>
+      <p>Digits taken: 2, 7, 0, 4 → 2 + 7 + 0 + 4 = 13. n becomes 407, 40, 4, 0, and then the loop stops.</p>
+      <p><b>Password check</b> — repeat until the user gets it right:</p>
+<pre class="code">password = input("Enter password: ")
+while password != "sindh123":
+    print("Wrong password, try again.")
+    password = input("Enter password: ")
+print("Welcome!")</pre>
+      <p>Sample run (user types <code>abc</code>, <code>sindh</code>, <code>sindh123</code>):</p>
+<pre class="code output">Enter password: abc
+Wrong password, try again.
+Enter password: sindh
+Wrong password, try again.
+Enter password: sindh123
+Welcome!</pre>
+      <p><b><code>break</code> and <code>continue</code> side by side:</b></p>
+      <div class="two-col">
+        <div>
+<pre class="code">for i in range(5):
+    if i == 3:
+        break
+    print(i)
+print("Loop ended")</pre>
+<pre class="code output">0
+1
+2
+Loop ended</pre>
+          <p>At i = 3 the loop stops completely, so 3 and 4 are never printed.</p>
+        </div>
+        <div>
+<pre class="code">for i in range(5):
+    if i == 3:
+        continue
+    print(i)</pre>
+<pre class="code output">0
+1
+2
+4</pre>
+          <p>At i = 3 only that iteration is skipped; the loop carries on with 4.</p>
+        </div>
+      </div>
+      <p><b><code>while True</code> with <code>break</code></b> — a loop that runs "forever" until <code>break</code> stops it:</p>
+<pre class="code">n = 1
+while True:
+    if n * n &gt; 50:
+        break
+    n += 1
+print("First number whose square is more than 50:", n)</pre>
+<pre class="code output">First number whose square is more than 50: 8</pre>
+    </div>
+    <div class="box tip"><p><b>break = "exit the room"; continue = "skip this turn".</b> For every <code>while</code> loop, check the <b>I-T-U</b> rule: <b>I</b>nitialise, <b>T</b>est, <b>U</b>pdate.</p></div>
+    <div class="box warn">
+      <p><b>Infinite loop — find the error:</b></p>
+<pre class="code">count = 1
+while count &lt;= 5:
+    print(count)</pre>
+      <p><code>count</code> is never updated, so <code>count &lt;= 5</code> stays True and the program prints <code>1</code> forever. Fix: add <code>count += 1</code> inside the loop. (To stop a running program in the terminal, press <b>Ctrl + C</b>.)</p>
+    </div>
+    <div class="box urdu"><p class="ur"><code>while</code> لوپ اس وقت تک چلتا رہتا ہے جب تک شرط درست (True) رہے، اور یہ تب استعمال ہوتا ہے جب پہلے سے معلوم نہ ہو کہ کتنی بار دہرانا ہے۔ لوپ کے اندر ویری ایبل کو اپڈیٹ کرنا لازمی ہے ورنہ لوپ کبھی ختم نہیں ہوگا (Infinite Loop)۔ <code>break</code> لوپ کو فوراً مکمل طور پر روک دیتا ہے، جبکہ <code>continue</code> صرف موجودہ چکر چھوڑ کر اگلے چکر پر چلا جاتا ہے۔</p></div>
+    <div class="box exam"><p>"Differentiate <code>break</code> and <code>continue</code> with examples" and "What is an infinite loop?" are frequent. Use the two side-by-side programs above with their outputs — examiners like seeing the difference in the output (0 1 2 vs 0 1 2 4).</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">n = 1
+while n &lt; 20:
+    n = n * 3
+print(n)</pre>
+      <p><b>2.</b> Predict the output:</p>
+<pre class="code">for i in range(1, 8):
+    if i % 3 == 0:
+        continue
+    if i == 7:
+        break
+    print(i, end=" ")</pre>
+      <div class="ans">Answers: 1. <code>27</code> (n: 1 → 3 → 9 → 27; 27 &lt; 20 is False, so the loop stops). 2. <code>1 2 4 5</code> (3 and 6 are skipped by <code>continue</code>; at 7 the loop breaks).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.5.3 Nested Loops and for vs while <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>nested loop</b> is a loop inside another loop. The <b>inner loop runs completely, from start to finish, for every single iteration of the outer loop</b>. If the outer loop runs 2 times and the inner loop runs 3 times, the inner body runs 2 × 3 = 6 times.</p>
+    </div>
+<pre class="code">for outer in range(1, 3):        # runs 2 times (1, 2)
+    for inner in range(1, 4):    # runs 3 times per outer (1, 2, 3)
+        print(f"Outer: {outer}, Inner: {inner}")</pre>
+<pre class="code output">Outer: 1, Inner: 1
+Outer: 1, Inner: 2
+Outer: 1, Inner: 3
+Outer: 2, Inner: 1
+Outer: 2, Inner: 2
+Outer: 2, Inner: 3</pre>
+    <div class="box example">
+      <p><b>A star triangle.</b> The outer loop chooses the row; the inner loop prints that many stars on the same line (<code>end=""</code>), and the empty <code>print()</code> moves to the next line.</p>
+<pre class="code">for row in range(1, 5):
+    for col in range(row):
+        print("*", end="")
+    print()</pre>
+<pre class="code output">*
+**
+***
+****</pre>
+      <p>Row 1: inner loop runs once → <code>*</code>. Row 2: twice → <code>**</code>. And so on up to row 4.</p>
+    </div>
+    <h3>for loop vs while loop</h3>
+    <table>
+      <tr><th>for loop</th><th>while loop</th></tr>
+      <tr><td>Used when the number of iterations is <b>known</b>.</td><td>Used when the number of iterations is <b>unknown</b> (condition-based).</td></tr>
+      <tr><td>Automatically updates the loop variable.</td><td>Requires a manual update of the counter (risk of an infinite loop).</td></tr>
+      <tr><td>Cleaner and shorter for counting tasks.</td><td>Better for dynamic situations (like "keep playing until the user says Stop").</td></tr>
+      <tr><td><code>for i in range(1, 4): print(i)</code></td><td><code>i = 1</code> / <code>while i &lt;= 3:</code> / <code>print(i)</code> / <code>i += 1</code></td></tr>
+    </table>
+    <div class="box tip"><p>Ask yourself: "Do I know <b>how many times</b>?" Yes → <code>for</code>. "Do I only know <b>when to stop</b>?" → <code>while</code>. Nested loops are like a clock: the minute hand (inner loop) goes all the way round for each step of the hour hand (outer loop).</p></div>
+    <div class="box warn"><p>Indentation decides which loop a line belongs to. In the triangle program, if <code>print()</code> were indented under the inner loop, every star would go on its own line.</p></div>
+    <div class="box urdu"><p class="ur">نیسٹڈ لوپ (Nested Loop) میں ایک لوپ دوسرے لوپ کے اندر ہوتا ہے، اور باہر والے لوپ کے ہر چکر میں اندر والا لوپ شروع سے آخر تک مکمل چلتا ہے۔ جب دہرانے کی تعداد معلوم ہو تو <code>for</code> لوپ، اور جب صرف رکنے کی شرط معلوم ہو تو <code>while</code> لوپ بہتر ہے۔</p></div>
+    <div class="box exam"><p>"Differentiate between for and while loops" (give three points and an example of each) and "How many times will the inner statement run?" (multiply the counts) are typical. For pattern programs, explain what the outer and inner loops each control.</p></div>
+    <div class="box check">
+      <p><b>1.</b> Predict the output:</p>
+<pre class="code">count = 0
+for i in range(3):
+    for j in range(2):
+        count += 1
+print(count)</pre>
+      <p><b>2.</b> Which loop would you use to keep reading numbers until the user enters 0?</p>
+      <div class="ans">Answers: 1. <code>6</code> (3 × 2). 2. A <code>while</code> loop, because the number of inputs is not known in advance.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>Practical Activity: Shopping Bill Calculator</h2>
+    <div class="box learn">
+      <p>This program combines all three control structures: <b>sequence</b> (steps in order), <b>selection</b> (checking "done", checking the price, checking for a discount) and <b>repetition</b> (a <code>while</code> loop that keeps adding items). It uses a <b>flag</b> — a Boolean variable (<code>shopping</code>) that controls when the loop stops. <code>item.lower()</code> converts the text to lowercase so that "done", "Done" and "DONE" all work.</p>
+    </div>
+<pre class="code">print("===== SHOPPING BILL =====")
+total = 0.0
+count = 0
+shopping = True
+
+# REPETITION: keep adding items
+while shopping:
+    item = input("Enter Item Name (or 'done' to stop): ")
+    # SELECTION: check if user wants to stop
+    if item.lower() == "done":
+        shopping = False
+    else:
+        price = float(input(f"Enter Price of {item}: "))
+        # SELECTION: validate price
+        if price &lt;= 0:
+            print("Invalid price!")
+        else:
+            total += price
+            count += 1
+
+# Summary and discount
+if total &gt;= 5000:
+    discount = total * 0.20  # 20% off
+else:
+    discount = 0
+
+final = total - discount
+print(f"Total Items: {count}")
+print(f"Total Bill: {total}")
+print(f"Final to Pay: {final}")</pre>
+    <div class="box example">
+      <p><b>Sample run.</b> The user buys Rice for 3000, types a wrong price −50 for Soap, buys Oil for 2500, then types <code>DONE</code>:</p>
+<pre class="code output">===== SHOPPING BILL =====
+Enter Item Name (or 'done' to stop): Rice
+Enter Price of Rice: 3000
+Enter Item Name (or 'done' to stop): Soap
+Enter Price of Soap: -50
+Invalid price!
+Enter Item Name (or 'done' to stop): Oil
+Enter Price of Oil: 2500
+Enter Item Name (or 'done' to stop): DONE
+Total Items: 2
+Total Bill: 5500.0
+Final to Pay: 4400.0</pre>
+      <table>
+        <tr><th>Step</th><th>item</th><th>price</th><th>total</th><th>count</th></tr>
+        <tr><td>1</td><td>Rice</td><td>3000.0</td><td>3000.0</td><td>1</td></tr>
+        <tr><td>2</td><td>Soap</td><td>-50.0 (invalid, not added)</td><td>3000.0</td><td>1</td></tr>
+        <tr><td>3</td><td>Oil</td><td>2500.0</td><td>5500.0</td><td>2</td></tr>
+        <tr><td>4</td><td>DONE → <code>shopping = False</code></td><td>—</td><td>5500.0</td><td>2</td></tr>
+      </table>
+      <p>After the loop: 5500.0 &gt;= 5000, so discount = 5500.0 × 0.20 = 1100.0, and final = 5500.0 − 1100.0 = <b>4400.0</b>.</p>
+    </div>
+    <div class="box tip"><p>Label the parts of any program with comments, as here: <code># REPETITION</code>, <code># SELECTION</code>. It helps you, your teacher and the examiner see the structure.</p></div>
+    <div class="box warn"><p><code>total</code> and <code>count</code> must be set to 0 <b>before</b> the loop. If you put <code>total = 0.0</code> inside the loop, it resets on every item and the bill is wrong.</p></div>
+    <div class="box urdu"><p class="ur">یہ شاپنگ بل پروگرام تینوں کنٹرول اسٹرکچرز کو ملا کر بنایا گیا ہے: <code>while</code> لوپ سے اشیاء بار بار شامل ہوتی ہیں، <code>if-else</code> سے غلط قیمت روکی جاتی ہے اور 5000 یا زیادہ کے بل پر 20 فیصد رعایت دی جاتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What will "Final to Pay" be if the user buys one item for 4000 and then types <code>done</code>?</p>
+      <p><b>2.</b> What is the purpose of the variable <code>shopping</code>?</p>
+      <div class="ans">Answers: 1. <code>Final to Pay: 4000.0</code> (4000 is less than 5000, so no discount). 2. It is a flag that keeps the <code>while</code> loop running; setting it to <code>False</code> stops the loop.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.6 Libraries in Python</h2>
+    <div class="box learn">
+      <p>A <b>library</b> (also called a <b>module</b>) is a collection of pre-written code that offers ready-made functions. Instead of writing a square-root algorithm from scratch, you import <code>math</code> and call <code>math.sqrt()</code>. Libraries save time, reduce bugs and let you stand on other programmers' work.</p>
+      <p>There are five common ways to import a library. Method 3 (import only what you need) is the best habit: it is clearer and uses less memory than <code>from math import *</code>.</p>
+    </div>
+    <table>
+      <tr><th>Method</th><th>Syntax</th><th>How you call the function</th></tr>
+      <tr><td>1. Entire module</td><td><code>import math</code></td><td><code>math.sqrt(25)</code></td></tr>
+      <tr><td>2. Alias (nickname)</td><td><code>import math as m</code></td><td><code>m.sqrt(16)</code></td></tr>
+      <tr><td>3. Specific function</td><td><code>from math import sqrt</code></td><td><code>sqrt(36)</code></td></tr>
+      <tr><td>4. Several functions</td><td><code>from math import sqrt, pi</code></td><td><code>sqrt(9)</code>, <code>pi</code></td></tr>
+      <tr><td>5. Everything (*)</td><td><code>from math import *</code></td><td><code>sqrt(64)</code> — avoid this</td></tr>
+    </table>
+    <div class="box example">
+      <p>Five imports, one result each:</p>
+<pre class="code">import math
+print(math.sqrt(25))
+import math as m
+print(m.sqrt(16))
+from math import sqrt
+print(sqrt(36))
+from math import sqrt, pi
+print(pi)
+from math import *
+print(sqrt(64))</pre>
+<pre class="code output">5.0
+4.0
+6.0
+3.141592653589793
+8.0</pre>
+    </div>
+    <div class="box warn"><p><code>from math import *</code> dumps every name into your program. If you later write a function called <code>sqrt</code>, you silently overwrite the library one. Prefer methods 1–4.</p></div>
+    <div class="box urdu"><p class="ur">لائبریری پہلے سے لکھا ہوا کوڈ ہے جسے <code>import</code> سے پروگرام میں لایا جاتا ہے۔ سب سے اچھا طریقہ یہ ہے کہ صرف وہ فنکشن درآمد کریں جس کی ضرورت ہو، ستارہ <code>*</code> سے سب کچھ نہ کھینچیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Write the line that lets you call <code>ceil</code> without writing <code>math.</code> in front.</p>
+      <p><b>2.</b> Why is an alias such as <code>import pandas as pd</code> useful?</p>
+      <div class="ans">Answers: 1. <code>from math import ceil</code>. 2. The library name is long; a short nickname keeps later lines short and is a community convention.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.6.1 Built-in Libraries</h2>
+    <div class="box learn">
+      <p><b>Built-in libraries</b> come pre-installed with Python. You only import them; you do not run <code>pip</code>. Three that every Class XI student must know are <code>math</code>, <code>random</code> and <code>datetime</code>.</p>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4>math</h4>
+<pre class="code">import math
+print(math.pi)
+print(math.ceil(4.3))
+print(math.floor(4.9))
+print(math.pow(2, 4))
+print(math.sqrt(81))</pre>
+<pre class="code output">3.141592653589793
+5
+4
+16.0
+9.0</pre>
+      </div>
+      <div>
+        <h4>random and datetime</h4>
+<pre class="code">import random
+print(random.randint(1, 1))
+print(0.0 &lt;= random.random() &lt; 1.0)
+
+import datetime
+now = datetime.datetime(2026, 9, 27, 11, 59, 40)
+print(now.strftime("%d-%m-%Y"))</pre>
+<pre class="code output">1
+True
+27-09-2026</pre>
+        <p class="small muted"><code>randint(a, b)</code> includes both ends. <code>random()</code> is a float in <code>[0.0, 1.0)</code>. <code>strftime</code> formats a date; <code>%d-%m-%Y</code> is day-month-year.</p>
+      </div>
+    </div>
+    <div class="box tip"><p><code>ceil</code> always rounds <b>up</b> (ceiling); <code>floor</code> always rounds <b>down</b>. <code>round()</code> (built-in, not in math) goes to the nearest integer and is a different function.</p></div>
+    <div class="box urdu"><p class="ur"><code>math</code> حساب کے لیے، <code>random</code> بے ترتیب عدد کے لیے اور <code>datetime</code> تاریخ وقت کے لیے بنی ہوئی لائبریریاں ہیں۔ انہیں انسٹال نہیں کرنا پڑتا، صرف <code>import</code> کافی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What does <code>math.ceil(4.0)</code> return?</p>
+      <p><b>2.</b> Write a line that prints a random integer from 1 to 6 (a dice).</p>
+      <div class="ans">Answers: 1. <code>4</code> (already an integer). 2. <code>print(random.randint(1, 6))</code> after <code>import random</code>.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.6.2 Third-Party Libraries</h2>
+    <div class="box learn">
+      <p><b>Third-party libraries</b> are written by the community. They are <b>not</b> bundled with Python, so you install them from a terminal with <code>pip install library_name</code> and then import them as usual.</p>
+    </div>
+    <table>
+      <tr><th>Library</th><th>Primary use</th></tr>
+      <tr><td>NumPy</td><td>Heavy numerical computing and large arrays</td></tr>
+      <tr><td>Pandas</td><td>Data analysis; table-like data (CSV / Excel)</td></tr>
+      <tr><td>Matplotlib</td><td>Data visualisation — graphs and charts</td></tr>
+      <tr><td>TensorFlow / PyTorch</td><td>Artificial intelligence and machine learning</td></tr>
+    </table>
+    <div class="box example">
+      <p>Installing and importing Pandas (you will use this in Class XII):</p>
+<pre class="code">pip install pandas
+import pandas as pd</pre>
+    </div>
+    <div class="box warn"><p><code>pip</code> is a <b>terminal</b> command, not a Python statement. Do not type <code>pip install pandas</code> inside a <code>.py</code> file. In VS Code, open the Terminal panel.</p></div>
+    <div class="box urdu"><p class="ur">تھرڈ پارٹی لائبریریاں پائتھن کے ساتھ نہیں آتیں، انہیں <code>pip install</code> سے انسٹال کیا جاتا ہے۔ نمپائی، پینڈاز، میٹپلاٹ لیب اور ٹینسر فلو اسی قسم کی ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which library would you choose to draw a bar chart of class marks?</p>
+      <p><b>2.</b> Is <code>math</code> a third-party library?</p>
+      <div class="ans">Answers: 1. Matplotlib. 2. No — <code>math</code> is built-in.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>3.7 Debugging Code in Python</h2>
+    <div class="box learn">
+      <p><b>Debugging</b> is the process of identifying, tracing and fixing bugs so a program works correctly. Every program you write will have bugs. The skill is not "never make a mistake"; it is "find the mistake quickly".</p>
+      <p>Python errors fall into three families:</p>
+    </div>
+    <table>
+      <tr><th>Type</th><th>When it appears</th><th>What you notice</th><th>Example</th></tr>
+      <tr><td>Syntax error</td><td>Before the program even starts</td><td>Python refuses to run</td><td><code>print("Hello"</code> — missing <code>)</code></td></tr>
+      <tr><td>Runtime error (exception)</td><td>While the program is running</td><td>It crashes with a traceback</td><td><code>x = 10 / 0</code> → <code>ZeroDivisionError</code></td></tr>
+      <tr><td>Logical error</td><td>Program finishes "successfully"</td><td>The output is wrong</td><td><code>area = length + width</code> instead of <code>*</code></td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Reading a traceback.</b> When Python crashes it prints a roadmap: the file, the line number, and the error type.</p>
+<pre class="code">x = int("abc")</pre>
+<pre class="code output">Traceback (most recent call last):
+  File "debug_program.py", line 1, in &lt;module&gt;
+    x = int("abc")
+ValueError: invalid literal for int() with base 10: 'abc'</pre>
+      <p>Diagnosis: on <b>line 1</b> we tried to convert the letters <code>"abc"</code> into an integer, which raised a <code>ValueError</code>.</p>
+    </div>
+    <div class="box exam">
+      <p>Examiners love "identify the error type" questions. Ask: (1) Does it refuse to start? → syntax. (2) Does it crash mid-run? → runtime. (3) Does it run but give a wrong answer? → logical. Write the name of the error <b>and</b> how to fix it.</p>
+    </div>
+    <div class="box tip"><p>Fix syntax errors first (the program cannot start). Then run it. Then check the output against a hand-worked example to catch logical errors.</p></div>
+    <div class="box warn"><p>A logical error is the most dangerous because Python reports nothing. Always test with values whose answer you already know (for a rectangle 3 by 4, area must be 12, not 7).</p></div>
+    <div class="box urdu"><p class="ur">ڈیبگنگ یعنی غلطی ڈھونڈ کر ٹھیک کرنا۔ نحوی غلطی پر پروگرام چلتا ہی نہیں، رن ٹائم پر چلتے چلتے رک جاتا ہے، منطقی غلطی پر چل تو جاتا ہے مگر جواب غلط دیتا ہے — یہ سب سے خطرناک ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> <code>print("Hi"</code> — which error type?</p>
+      <p><b>2.</b> A program that should add two numbers multiplies them instead. Which error type?</p>
+      <p><b>3.</b> <code>int("12.5")</code> raises which named exception?</p>
+      <div class="ans">Answers: 1. Syntax error. 2. Logical error. 3. <code>ValueError</code> (runtime).</div>
+    </div>
+  </div>
+
+  <section class="review">
+    <h2>Chapter 3 Review</h2>
+    <h3>Chapter summary</h3>
+    <ul class="summary">
+      <li>A program is a set of instructions; programming languages are low-level (close to hardware) or high-level (close to English). Python is a high-level, interpreted, readable language.</li>
+      <li>Python is widely used in web development, data science, AI and automation — skills that grow a career in Pakistan and abroad.</li>
+      <li>An IDE (such as VS Code plus the Python extension) combines an editor, a terminal, a debugger and syntax highlighting.</li>
+      <li>Variables store values; Python types are dynamic. Core types: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>list</code>, <code>dict</code>.</li>
+      <li><code>print()</code> displays output; <code>input()</code> always returns a <b>string</b> — convert with <code>int()</code> or <code>float()</code> before arithmetic.</li>
+      <li>Operators: arithmetic (<code>+ - * / // % **</code>), assignment (<code>= +=</code> …), relational, logical (<code>and or not</code>), membership (<code>in</code>), bitwise (<code>&amp; | ^ ~ &lt;&lt; &gt;&gt;</code>).</li>
+      <li>Control structures: sequence (top to bottom), selection (<code>if</code> / <code>if-else</code> / <code>if-elif-else</code> / nested), repetition (<code>for</code> / <code>while</code>).</li>
+      <li><code>range(stop)</code> goes 0 … stop−1; <code>range(start, stop, step)</code> jumps by step. <code>break</code> leaves a loop; <code>continue</code> skips one iteration.</li>
+      <li>Use <code>for</code> when the count is known; use <code>while</code> when you wait for a condition (and always update that condition).</li>
+      <li>Libraries extend Python. Built-in: <code>math</code>, <code>random</code>, <code>datetime</code>. Third-party (need <code>pip</code>): NumPy, Pandas, Matplotlib, TensorFlow.</li>
+      <li>Errors: syntax (grammar, will not run), runtime (crash, traceback), logical (runs, wrong answer).</li>
+    </ul>
+
+    <h3>Key terms</h3>
+    <table class="glossary">
+      <tr><th>Term</th><th>Meaning</th><th>اردو</th></tr>
+      <tr><td>Program</td><td>A set of instructions a computer can follow.</td><td class="ur">پروگرام</td></tr>
+      <tr><td>High-level language</td><td>A language close to English (Python, Java, C++).</td><td class="ur">اعلیٰ سطحی زبان</td></tr>
+      <tr><td>Interpreter</td><td>Runs a program line by line without a separate compile step.</td><td class="ur">انٹرپریٹر</td></tr>
+      <tr><td>IDE</td><td>Software that combines editor, terminal and debugger.</td><td class="ur">انٹیگریٹڈ ڈویلپمنٹ انوائرنمنٹ</td></tr>
+      <tr><td>Variable</td><td>A named box that holds a value.</td><td class="ur">متغیر</td></tr>
+      <tr><td>Data type</td><td>The kind of value: int, float, str, bool, list, dict.</td><td class="ur">ڈیٹا کی قسم</td></tr>
+      <tr><td>Operator</td><td>A symbol that performs an operation on operands.</td><td class="ur">عامل</td></tr>
+      <tr><td>Operand</td><td>A value an operator works on.</td><td class="ur">معمول</td></tr>
+      <tr><td>Sequence</td><td>Instructions executed from top to bottom.</td><td class="ur">تسلسل</td></tr>
+      <tr><td>Selection</td><td>Choosing a path with <code>if</code> / <code>else</code>.</td><td class="ur">انتخاب</td></tr>
+      <tr><td>Repetition / loop</td><td>Repeating a block with <code>for</code> or <code>while</code>.</td><td class="ur">تکرار / لوپ</td></tr>
+      <tr><td>Nested</td><td>A structure placed inside another of the same kind.</td><td class="ur">تو در تو</td></tr>
+      <tr><td>Library / module</td><td>A collection of ready-made functions.</td><td class="ur">لائبریری / ماڈیول</td></tr>
+      <tr><td>pip</td><td>The tool that installs third-party Python libraries.</td><td class="ur">پِپ</td></tr>
+      <tr><td>Syntax error</td><td>A grammar mistake; the program will not start.</td><td class="ur">نحوی غلطی</td></tr>
+      <tr><td>Runtime error</td><td>A crash while the program is running (exception).</td><td class="ur">رن ٹائم غلطی</td></tr>
+      <tr><td>Logical error</td><td>The program runs but the result is wrong.</td><td class="ur">منطقی غلطی</td></tr>
+      <tr><td>Traceback</td><td>Python's report of where a crash happened.</td><td class="ur">ٹریس بیک</td></tr>
+      <tr><td>Flag</td><td>A Boolean variable that controls a loop or decision.</td><td class="ur">فلیگ</td></tr>
+      <tr><td>Integer division</td><td><code>//</code> division that drops the fraction.</td><td class="ur">صحیح تقسیم</td></tr>
+    </table>
+
+    <h3>Practice: multiple choice</h3>
+    <ol class="mcq">
+      <li>Python is best described as a:
+        <ol class="opts"><li>low-level compiled language</li><li>high-level interpreted language</li><li>machine language</li><li>hardware description language</li></ol>
+      </li>
+      <li><code>input("Age: ")</code> always returns a:
+        <ol class="opts"><li>int</li><li>float</li><li>str</li><li>bool</li></ol>
+      </li>
+      <li>The value of <code>17 // 5</code> is:
+        <ol class="opts"><li>3.4</li><li>2</li><li>3</li><li>3.0</li></ol>
+      </li>
+      <li>The value of <code>17 % 5</code> is:
+        <ol class="opts"><li>2</li><li>3</li><li>3.4</li><li>0</li></ol>
+      </li>
+      <li><code>2 ** 3</code> equals:
+        <ol class="opts"><li>6</li><li>8</li><li>9</li><li>5</li></ol>
+      </li>
+      <li>Which operator is bitwise AND?
+        <ol class="opts"><li><code>and</code></li><li><code>&amp;&amp;</code></li><li><code>&amp;</code></li><li><code>^</code></li></ol>
+      </li>
+      <li><code>list(range(2, 5))</code> is:
+        <ol class="opts"><li>[2, 3, 4, 5]</li><li>[2, 3, 4]</li><li>[2, 5]</li><li>[0, 1, 2, 3, 4]</li></ol>
+      </li>
+      <li>A <code>while</code> loop is preferred when:
+        <ol class="opts"><li>you know the exact number of repeats</li><li>you must wait for a condition</li><li>you never need a counter</li><li>the body must run exactly once</li></ol>
+      </li>
+      <li><code>break</code> inside a loop:
+        <ol class="opts"><li>skips one iteration</li><li>restarts the loop</li><li>leaves the loop immediately</li><li>pauses for input</li></ol>
+      </li>
+      <li><code>from math import sqrt</code> lets you write:
+        <ol class="opts"><li><code>math.sqrt(9)</code> only</li><li><code>sqrt(9)</code></li><li><code>import.sqrt(9)</code></li><li><code>m.sqrt(9)</code></li></ol>
+      </li>
+      <li>Which library is built-in?
+        <ol class="opts"><li>Pandas</li><li>NumPy</li><li>random</li><li>Matplotlib</li></ol>
+      </li>
+      <li><code>print("Hi"</code> is a:
+        <ol class="opts"><li>syntax error</li><li>runtime error</li><li>logical error</li><li>warning only</li></ol>
+      </li>
+      <li><code>10 / 0</code> is a:
+        <ol class="opts"><li>syntax error</li><li>runtime error</li><li>logical error</li><li>style error</li></ol>
+      </li>
+      <li><code>area = length + width</code> when you meant to multiply is a:
+        <ol class="opts"><li>syntax error</li><li>runtime error</li><li>logical error</li><li>import error</li></ol>
+      </li>
+      <li><code>math.ceil(4.3)</code> is:
+        <ol class="opts"><li>4</li><li>4.0</li><li>5</li><li>4.3</li></ol>
+      </li>
+    </ol>
+
+    <h3>Practice: short questions</h3>
+    <ol class="short">
+      <li>Differentiate between a compiler and an interpreter.</li>
+      <li>Why must the result of <code>input()</code> often be converted with <code>int()</code>?</li>
+      <li>State the difference between <code>/</code> and <code>//</code> with one example each.</li>
+      <li>Write the truth table of the logical operator <code>and</code> for two Boolean values.</li>
+      <li>Explain <code>if-elif-else</code>. Why is the order of conditions important?</li>
+      <li>Differentiate between a <code>for</code> loop and a <code>while</code> loop.</li>
+      <li>What do <code>break</code> and <code>continue</code> do?</li>
+      <li>Name two built-in and two third-party Python libraries and their uses.</li>
+      <li>Differentiate between syntax, runtime and logical errors with one example each.</li>
+      <li>What three pieces of information does a Python traceback give you?</li>
+    </ol>
+
+    <h3>Practice: long / problem questions</h3>
+    <ol class="long">
+      <li>Write a complete Python program that reads a student's marks (0–100) and prints the grade: 80+ A-1, 70–79 A, 60–69 B, otherwise Fail. Include input conversion and a sample run.</li>
+      <li>Write a program that prints all even numbers from 0 to 10 using <code>range</code>, then rewrite it with a <code>while</code> loop. Dry-run both.</li>
+      <li>Trace this nested loop and write every line of output:<br>
+      <code>for o in range(1, 3):</code><br>
+      &nbsp;&nbsp;<code>for i in range(1, 4):</code><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<code>print(o, i)</code></li>
+      <li>A shop gives 20% discount if the bill is 5000 or more. Write a program that keeps reading item prices until the user types 0, prints the total, the discount and the amount to pay. Show a sample run with prices 3000, 2500, 0.</li>
+      <li>Classify each bug and write the corrected line:<br>(a) <code>print("Total is", total</code><br>(b) <code>avg = total / 0</code> when there are no items<br>(c) <code>discount = total + 0.20</code> when 20% off was intended.</li>
+      <li>Explain how you would use <code>math</code>, <code>random</code> and <code>datetime</code> in a small "lucky student of the day" program for a class of 40. Write the code.</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Answer key</h2>
+      <h3>Multiple choice</h3>
+      <ol class="inline"><li>b</li><li>c</li><li>c</li><li>a</li><li>b</li><li>c</li><li>b</li><li>b</li><li>c</li><li>b</li><li>c</li><li>a</li><li>b</li><li>c</li><li>c</li></ol>
+      <h3>Short questions — model answers</h3>
+      <ol>
+        <li>A compiler translates the whole program into machine code before it runs (C, C++). An interpreter translates and runs line by line (Python). Compiled programs often run faster; interpreted ones are easier to test.</li>
+        <li><code>input()</code> always returns a string. Adding strings concatenates them (<code>"2"+"3"</code> is <code>"23"</code>), so numeric work needs <code>int()</code> or <code>float()</code>.</li>
+        <li><code>/</code> is true division: <code>17/5</code> is <code>3.4</code>. <code>//</code> is integer (floor) division: <code>17//5</code> is <code>3</code>.</li>
+        <li>F and F → F; F and T → F; T and F → F; T and T → T. Output is True only when both operands are True.</li>
+        <li>Python tests conditions from the top. The first True block runs and the rest are skipped. If you put <code>marks &gt;= 60</code> above <code>marks &gt;= 80</code>, an 85 would match the weaker condition first and get the wrong grade.</li>
+        <li><code>for</code>: known count, counter updates automatically, good with <code>range</code>. <code>while</code>: unknown count, you must update the condition yourself or you get an infinite loop.</li>
+        <li><code>break</code> leaves the loop immediately. <code>continue</code> skips the rest of this iteration and starts the next one.</li>
+        <li>Built-in: <code>math</code> (roots, ceil/floor), <code>random</code> (random integers). Third-party: Pandas (tables), Matplotlib (charts). (NumPy and TensorFlow also accepted.)</li>
+        <li>Syntax: missing bracket, will not run. Runtime: <code>10/0</code>, crashes. Logical: <code>area = l + w</code>, runs but answer is wrong.</li>
+        <li>The error type (e.g. ValueError), the file name, and the line number that caused the crash.</li>
+      </ol>
+      <h3>Long questions — model answers</h3>
+      <ol>
+        <li><pre class="code">marks = int(input("Enter marks: "))
+if marks &gt;= 80:
+    print("A-1 Grade")
+elif marks &gt;= 70:
+    print("A Grade")
+elif marks &gt;= 60:
+    print("B Grade")
+else:
+    print("Fail or below B")</pre>
+        Sample: input 85 → A-1 Grade; input 72 → A Grade; input 40 → Fail or below B.</li>
+        <li><pre class="code">for i in range(0, 11, 2):
+    print(i)
+n = 0
+while n &lt;= 10:
+    print(n)
+    n += 2</pre>
+        Both print 0, 2, 4, 6, 8, 10.</li>
+        <li>Output (six lines): <code>1 1</code> / <code>1 2</code> / <code>1 3</code> / <code>2 1</code> / <code>2 2</code> / <code>2 3</code>. The inner loop runs fully for each value of the outer loop.</li>
+        <li><pre class="code">total = 0.0
+while True:
+    p = float(input("Price (0 to stop): "))
+    if p == 0:
+        break
+    if p &gt; 0:
+        total += p
+discount = total * 0.20 if total &gt;= 5000 else 0
+print("Total", total)
+print("Discount", discount)
+print("Pay", total - discount)</pre>
+        Sample: 3000 + 2500 = 5500; discount 1100; pay 4400.</li>
+        <li>(a) Syntax — add <code>)</code>: <code>print("Total is", total)</code>. (b) Runtime ZeroDivisionError — only divide when the count of items is not 0. (c) Logical — 20% of total is <code>total * 0.20</code>, not <code>total + 0.20</code>.</li>
+        <li><pre class="code">import random, datetime, math
+n = random.randint(1, 40)
+today = datetime.datetime.now().strftime("%d-%m-%Y")
+print("Lucky roll", n, "on", today)
+print("Root of roll", math.sqrt(n))</pre>
+        <code>random</code> picks the student number, <code>datetime</code> stamps the date, <code>math</code> shows a sample extra calculation.</li>
+      </ol>
+    </div>
+
+    <h3>Self-assessment: I can…</h3>
+    <ul class="checklist">
+      <li>classify a language as high-level or low-level and explain why Python is popular.</li>
+      <li>declare variables and identify int, float, str, bool, list and dict values.</li>
+      <li>read input, convert types, and print formatted output.</li>
+      <li>evaluate arithmetic, relational, logical and bitwise expressions by hand.</li>
+      <li>write if, if-else, if-elif-else and nested selections.</li>
+      <li>write for and while loops, including range, break and continue.</li>
+      <li>import built-in libraries (math, random, datetime) in more than one style.</li>
+      <li>name pip and at least two third-party libraries.</li>
+      <li>classify a bug as syntax, runtime or logical and read a traceback.</li>
+      <li>combine sequence, selection and repetition in a small complete program.</li>
+    </ul>
+  </section>
+</section>
+
