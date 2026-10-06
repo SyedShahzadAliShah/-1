@@ -34,8 +34,8 @@ FIT = (ROOT / "assets" / "fit-pages.js").as_uri()
 MJAX = (ROOT / "assets" / "mathjax" / "tex-svg.js").as_uri()
 CHROME = "google-chrome"
 BRANCH = "cursor/teach-yourself-lectures-pdf-339e"
-RAW = f"https://github.com/SyedShahzadAliShah/-1/raw/{BRANCH}/releases/lectures"
-ZIP_RAW = f"https://github.com/SyedShahzadAliShah/-1/raw/{BRANCH}/releases"
+RAW = f"https://raw.githubusercontent.com/SyedShahzadAliShah/-1/{BRANCH}/releases/lectures"
+ZIP_RAW = f"https://raw.githubusercontent.com/SyedShahzadAliShah/-1/{BRANCH}/releases"
 
 BOOKS = {
     "xi": {
