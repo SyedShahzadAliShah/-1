@@ -1315,9 +1315,14 @@ def day_plan_box(day: dict) -> str:
     titles = [short_topic_name(t["title"]) for t in day.get("topics", [])]
     names = " · ".join(html.escape(x) for x in titles[:8])
     gold = [short_topic_name(t["title"]) for t in day.get("topics", []) if t["golden"]]
-    gold_s = ", ".join(html.escape(x) for x in gold) if gold else "none — still copy every table"
     extra = day.get("extra", "")
     kind = day.get("kind", "Teach")
+    if day.get("topics"):
+        gold_s = ", ".join(html.escape(x) for x in gold) if gold else "none — still copy every table"
+        behind = "<p>If behind, skip non-Golden. Phone in another room.</p>"
+    else:
+        gold_s = html.escape(day.get("star") or "—")
+        behind = "<p>Phone in another room.</p>"
     if kind == "Checkpoint":
         clock = (
             "0–15 min recap yesterday ★ · 15–90 min remaining cards · "
@@ -1357,7 +1362,7 @@ def day_plan_box(day: dict) -> str:
       <p><b>3 hours.</b> {clock}</p>
       <p><b>Cover:</b> {names or html.escape(day['focus'])}</p>
       <p><b>★ Must lock:</b> {gold_s}</p>
-      <p>If behind, skip non-Golden. Phone in another room.</p>
+      {behind}
       {extra}
     </div>"""
 
@@ -1401,7 +1406,7 @@ def checkpoint_box(ch: dict) -> str:
     mcq_html = "".join(mcqs)
     short_html = "".join(shorts)
     ans_mcq = " ".join(f"{i}. {html.escape(a)}" for i, a in enumerate(key, 1)) if key else "See the Student's Edition chapter key."
-    ans_sh = "".join(f"<li>{html.escape(clip_text(a, 220))}</li>" for a in short_a)
+    ans_sh = "".join(f"<li>{html.escape(clip_text(a, 480))}</li>" for a in short_a)
     return f"""
     <div class="box checkpt">
       <p><b>40 minutes, closed book.</b> Chapter {ch['num']}: {html.escape(ch['title'])}.
@@ -1552,7 +1557,7 @@ def build_crash_days(chapters: list[dict], final_html: str) -> list[dict]:
         "star": "Missed Goldens",
         "topics": [],
         "body": (mock_a or "") + """
-        <div class="box checkpt">
+        <div class="box repair">
           <p><b>Repair list.</b> Copy every Golden you scored 0 or half on.
           Tomorrow you redo only this list — not the whole book.</p>
           <table class="crash-cal">

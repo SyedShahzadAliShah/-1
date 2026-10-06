@@ -295,7 +295,7 @@
         if (child.classList.contains("cover") || child.id === "sheets") return;
         if (child.tagName === "SCRIPT") return;
         var atomic = child.matches(
-          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head"
+          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak"
         );
         if (atomic) atoms.push(child);
         else if (child.children.length && child.matches("div,section,article")) walk(child);
@@ -395,8 +395,20 @@
 
     for (var i = 0; i < atoms.length; i++) {
       var el = atoms[i];
+      if (el.matches && el.matches(".crash-head,.crash-seal,.pagebreak")) {
+        seal();
+      }
       var nxt = atoms[i + 1];
-      if (isHeading(el) && nxt && !isHeading(nxt)) {
+      if (
+        el.classList &&
+        el.classList.contains("crash-head") &&
+        nxt &&
+        nxt.classList &&
+        nxt.classList.contains("box")
+      ) {
+        i += 1;
+        placeGroup([el, nxt]);
+      } else if (isHeading(el) && nxt && !isHeading(nxt)) {
         i += 1;
         placeGroup([el, nxt]);
       } else {

@@ -547,6 +547,10 @@ table.crash-cal .wk { background: #fff7ed; font-weight: 700; }
 .box.day { border-color: #7c2d12; background: #fff7ed; }
 .box.checkpt::before { content: "Checkpoint test"; color: #9c2c00; }
 .box.checkpt { border-color: #9c2c00; background: #fff5f0; }
+.box.repair::before { content: "Repair list"; color: #7c2d12; }
+.box.repair { border-color: #7c2d12; background: #fff7ed; }
+body.crash-book .box.drill::before { content: "Closed-book drill"; color: #b7791f; }
+body.crash-book .box.hw::before { content: "Tonight's 5-mark"; color: #0b7a75; }
 .crash-seal {
   break-before: page;
   page-break-before: always;
