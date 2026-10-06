@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Cinema" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/cinema_gold</item>
+        <item name="colorOnPrimary">#1A1408</item>
+        <item name="android:statusBarColor">@color/cinema_bar</item>
+        <item name="android:navigationBarColor">@color/cinema_bar</item>
+        <item name="android:windowBackground">@color/cinema_bg</item>
+    </style>
+</resources>

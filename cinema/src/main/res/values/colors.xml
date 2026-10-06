@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cinema_bg">#07080C</color>
+    <color name="cinema_bar">#000000</color>
+    <color name="cinema_gold">#E0B15A</color>
+    <color name="cinema_cream">#F4EFE4</color>
+    <color name="cinema_muted">#A39886</color>
+    <color name="cinema_card">#141820</color>
+    <color name="cinema_line">#2A3140</color>
+</resources>
