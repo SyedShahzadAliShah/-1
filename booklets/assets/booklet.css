@@ -281,7 +281,7 @@ table { break-inside: auto; page-break-inside: auto; }
 
 /* Keep each card, diagram and short question entirely on one A4 page.
    A block taller than the page (a long answer or a long code listing) may continue. */
-.box, figure.diagram, .flow, .ch-opener, ol.mcq > li, ol.short > li, pre.code {
+.cheat-card, .cheat-head {
   break-inside: avoid;
   page-break-inside: avoid;
 }
@@ -504,6 +504,12 @@ body.cheat-book { font-size: 9.5pt; }
 .cheat-card .xq { color: #9c2c00; }
 .cheat-card .ur { font-size: 10pt; line-height: 1.7; }
 .cheat-card .flow-line { font-weight: 600; font-size: 8.6pt; }
-.golden-index li { margin: 2px 0; }
+.golden-index {
+  columns: 2;
+  column-gap: 18px;
+  padding-left: 22px;
+  display: block;
+}
+.golden-index li { margin: 1px 0; min-width: 0; }
 .cheat-chapter .glossary { font-size: 8.4pt; }
 .cheat-chapter .summary { font-size: 9pt; }

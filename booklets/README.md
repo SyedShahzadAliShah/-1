@@ -38,9 +38,9 @@ python3 booklets/build.py academy
 
 Compact exam-revision cards: one card per topic with the definition, table or formula, mnemonic, exam wording, and an Urdu line. ★ Golden cards first if time is short.
 
-- [CS XI Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
-- [CS XII Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
-- [XI + XII Cheat Sheets complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+- [CS XI Cheat Sheets (51 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets (52 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete (103 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
 
 ```bash
 python3 booklets/build.py cheat

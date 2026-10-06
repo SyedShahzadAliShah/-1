@@ -1107,15 +1107,14 @@ def cheat_toc(chapters, gold_n: int):
     return f"""
 <section class="front">
   <h1>Contents</h1>
-  <p>{gold_n} Golden cards are listed on the next page. Start there if you have less than two hours.</p>
+  <p>{gold_n} Golden cards are listed below. Start there if you have less than two hours.</p>
   <ol class="toc">{''.join(items)}</ol>
 </section>"""
 
 
 def cheat_golden_index(entries: list[tuple[int, str, str]]):
     items = "".join(
-        f"<li><b>Ch {ch}.</b> {html.escape(short_topic_name(title))} "
-        f"<span class=\"star\">★</span></li>"
+        f"<li>★ <b>Ch {ch}.</b> {html.escape(short_topic_name(title))}</li>"
         for ch, _, title in entries
     )
     return f"""

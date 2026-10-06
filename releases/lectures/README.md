@@ -27,9 +27,9 @@ Rebuild: `python3 booklets/build.py academy`
 
 Exam revision cards: definition, table, mnemonic, exam cue, Urdu line. Golden index for a two-hour revision.
 
-- [CS XI Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
-- [CS XII Cheat Sheets](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
-- [XI + XII Cheat Sheets complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+- [CS XI Cheat Sheets (51 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets (52 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete (103 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
 
 Rebuild: `python3 booklets/build.py cheat`
 
