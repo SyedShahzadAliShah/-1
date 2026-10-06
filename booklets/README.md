@@ -38,9 +38,9 @@ python3 booklets/build.py academy
 
 Compact exam-revision cards: one card per topic with the definition, table or formula, mnemonic, exam wording, and an Urdu line. ★ Golden cards first if time is short.
 
-- [CS XI Cheat Sheets (51 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
-- [CS XII Cheat Sheets (52 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
-- [XI + XII Cheat Sheets complete (103 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+- [CS XI Cheat Sheets (56 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets (58 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete (114 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
 
 ```bash
 python3 booklets/build.py cheat
@@ -50,9 +50,9 @@ python3 booklets/build.py cheat
 
 Complete preparatory plan: Days 1–23 teach every topic as revision cards (last day of each chapter is a timed checkpoint). Days 24–26 are ★ Golden blitz. Day 27 recaps. Day 28 mock. Day 29 mark and repair list. Day 30 repair only, then stop.
 
-- [CS XI 30-Day Crash Course (96 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
-- [CS XII 30-Day Crash Course (93 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
-- [XI + XII 30-Day Crash Course complete (189 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+- [CS XI 30-Day Crash Course (103 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course (101 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete (204 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
 
 ```bash
 python3 booklets/build.py crash
