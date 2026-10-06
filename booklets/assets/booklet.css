@@ -314,3 +314,24 @@ ol.mcq ol.opts li, .objectives li, .checklist li, .toc li {
   break-inside: avoid;
   page-break-inside: avoid;
 }
+
+/* One A4 content box. The fitter packs blocks into these sheets and
+   scales a sheet only when its blocks would otherwise spill onto the next page. */
+.sheet {
+  width: 180mm;
+  height: 258mm;
+  max-height: 258mm;
+  overflow: hidden;
+  break-after: page;
+  page-break-after: always;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+#sheets > .sheet:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+.sheet-inner { width: 100%; transform-origin: top left; }
+.sheet-inner > :first-child { margin-top: 0; }
+.box.box-continued::before { content: none; display: none; }
+ol.split-continued, ul.split-continued { list-style: none; margin-top: 0; }

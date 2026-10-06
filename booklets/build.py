@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
 OUT = ROOT / "output"
 CSS = (ROOT / "assets" / "booklet.css").as_uri()
+FIT = (ROOT / "assets" / "fit-pages.js").as_uri()
 CHROME = "google-chrome"
 
 BOOKS = {
@@ -109,6 +110,7 @@ def build(key):
 {intro}
 {''.join(chapters_html)}
 {final}
+<script src="{FIT}"></script>
 </body></html>"""
     OUT.mkdir(exist_ok=True)
     html_path = OUT / f"{key}.html"
