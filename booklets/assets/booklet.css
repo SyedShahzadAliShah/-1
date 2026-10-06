@@ -513,3 +513,46 @@ body.cheat-book { font-size: 9.5pt; }
 .golden-index li { margin: 1px 0; min-width: 0; }
 .cheat-chapter .glossary { font-size: 8.4pt; }
 .cheat-chapter .summary { font-size: 9pt; }
+
+/* ---------- 30-day crash course ---------- */
+.cover.crash-cover {
+  background: linear-gradient(160deg, #1a0800 0%, #7c2d12 48%, #ea580c 100%);
+}
+.cover.crash-cover .tag { background: #ffedd5; color: #7c2d12; }
+.cover.crash-cover .units div { background: rgba(255,237,213,.16); border-color: rgba(255,255,255,.28); }
+.cover.crash-cover .ur { white-space: nowrap; font-size: 15pt; }
+body.crash-book { font-size: 9.5pt; }
+.crash-head {
+  background: #7c2d12;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px 8px;
+  margin: 10px 0 10px;
+  break-inside: avoid;
+}
+.crash-head .num {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #ffedd5;
+}
+.crash-head h1 { color: #fff; font-size: 18pt; margin: 2px 0 4px; }
+.crash-head .meta { margin: 4px 0 0; font-size: 9.2pt; color: #ffe8cc; }
+table.crash-cal { font-size: 8.6pt; }
+table.crash-cal th { background: #7c2d12; }
+table.crash-cal td:first-child { width: 12%; font-weight: 700; white-space: nowrap; }
+table.crash-cal .wk { background: #fff7ed; font-weight: 700; }
+.box.day::before { content: "Today's 3 hours"; color: #7c2d12; }
+.box.day { border-color: #7c2d12; background: #fff7ed; }
+.box.checkpt::before { content: "Checkpoint test"; color: #9c2c00; }
+.box.checkpt { border-color: #9c2c00; background: #fff5f0; }
+.crash-seal {
+  break-before: page;
+  page-break-before: always;
+  background: #fff7ed;
+  border: 2px dashed #7c2d12;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0;
+}

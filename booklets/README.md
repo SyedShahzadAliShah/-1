@@ -46,6 +46,18 @@ Compact exam-revision cards: one card per topic with the definition, table or fo
 python3 booklets/build.py cheat
 ```
 
+## 30-Day Crash Course
+
+Complete preparatory plan: Days 1–23 teach every topic as revision cards (last day of each chapter is a timed checkpoint). Days 24–26 are ★ Golden blitz. Day 27 recaps. Day 28 mock. Day 29 mark and repair list. Day 30 repair only, then stop.
+
+- [CS XI 30-Day Crash Course](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+
+```bash
+python3 booklets/build.py crash
+```
+
 ## Download — lecture PDFs
 
 Each topic is a printable **Teach Yourself lecture**. Each chapter also has a packed
@@ -70,7 +82,7 @@ python3 booklets/build.py lectures xi     # Grade XI only
 python3 booklets/build.py        # both booklets
 python3 booklets/build.py xi     # Grade XI only
 python3 booklets/build.py xii    # Grade XII only
-python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat
+python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat + crash
 ```
 
 Requires Google Chrome (`google-chrome`) and the Noto Naskh Arabic + Inter fonts.

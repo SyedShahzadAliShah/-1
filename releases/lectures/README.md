@@ -33,6 +33,16 @@ Exam revision cards: definition, table, mnemonic, exam cue, Urdu line. Golden in
 
 Rebuild: `python3 booklets/build.py cheat`
 
+## 30-Day Crash Course
+
+Daily 3-hour plans, ★ Golden first, chapter checkpoints, mock paper, and a repair day.
+
+- [CS XI 30-Day Crash Course](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py crash`
+
 ## All-in-one PDFs (whole grade in one file)
 
 - [CS XI Teach Yourself — All-in-One (203 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)

@@ -9,7 +9,8 @@ Usage:
   python3 booklets/build.py editions     # Student's Edition + Teacher's Edition
   python3 booklets/build.py academy      # Coaching Academy Edition
   python3 booklets/build.py cheat        # Cheat-sheet booklet
-  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat
+  python3 booklets/build.py crash        # 30-day crash course
+  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash
 """
 from __future__ import annotations
 
@@ -1181,6 +1182,455 @@ def build_cheatsheets(keys: list[str]):
     print(f"cheat complete -> {dest} ({pages} pages)")
 
 
+OL_OPEN = re.compile(r"<ol\b", re.I)
+OL_CLOSE = re.compile(r"</ol>", re.I)
+LI_OPEN = re.compile(r"<li\b", re.I)
+LI_CLOSE = re.compile(r"</li>", re.I)
+
+
+def extract_ol_items(html_text: str, class_name: str, limit: int = 8) -> list[str]:
+    m = re.search(rf'<ol class="{re.escape(class_name)}">', html_text)
+    if not m:
+        return []
+    ol = extract_balanced(html_text, m.start(), OL_OPEN, OL_CLOSE)
+    inner = re.sub(r"^<ol[^>]*>", "", ol, count=1)
+    inner = re.sub(r"</ol>\s*$", "", inner)
+    items, pos = [], 0
+    while len(items) < limit:
+        sm = LI_OPEN.search(inner, pos)
+        if not sm:
+            break
+        block = extract_balanced(inner, sm.start(), LI_OPEN, LI_CLOSE)
+        if not block:
+            break
+        items.append(block)
+        pos = sm.start() + len(block)
+    return items
+
+
+def mcq_key(fragment: str, n: int = 8) -> list[str]:
+    m = re.search(r'<ol class="inline">(.*?)</ol>', fragment, flags=re.S)
+    if not m:
+        return []
+    return [unescape(strip_tags(x)).strip() for x in re.findall(r"<li>(.*?)</li>", m.group(1), flags=re.S) if strip_tags(x).strip()][:n]
+
+
+def short_model_answers(fragment: str, n: int = 3) -> list[str]:
+    m = re.search(
+        r"Short questions — model answers</h3>\s*<ol>(.*?)</ol>", fragment, flags=re.S
+    )
+    if not m:
+        return []
+    items, pos = [], 0
+    inner = m.group(1)
+    while len(items) < n:
+        sm = LI_OPEN.search(inner, pos)
+        if not sm:
+            break
+        block = extract_balanced(inner, sm.start(), LI_OPEN, LI_CLOSE)
+        if not block:
+            break
+        items.append(unescape(strip_tags(block)).strip())
+        pos = sm.start() + len(block)
+    return items
+
+
+def allocate_chapter_days(counts: list[int], total: int = 23) -> list[int]:
+    n = len(counts)
+    s = sum(counts) or 1
+    days = [max(2, round(c / s * total)) for c in counts]
+    while sum(days) > total:
+        i = max(range(n), key=lambda i: days[i] / max(counts[i], 1))
+        if days[i] > 2:
+            days[i] -= 1
+        else:
+            j = max(range(n), key=lambda k: days[k])
+            if days[j] > 2:
+                days[j] -= 1
+            else:
+                break
+    while sum(days) < total:
+        i = max(range(n), key=lambda i: counts[i] / days[i])
+        days[i] += 1
+    return days
+
+
+def chunk_topics(topics: list, n_days: int) -> list[list]:
+    if n_days < 1 or not topics:
+        return []
+    n = len(topics)
+    n_days = min(n_days, n)
+    sizes = [n // n_days] * n_days
+    for i in range(n % n_days):
+        sizes[i] += 1
+    out, i = [], 0
+    for sz in sizes:
+        out.append(topics[i:i + sz])
+        i += sz
+    return out
+
+
+def crash_cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover crash-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">30-DAY CRASH COURSE</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Complete preparatory material in 30 days &mdash; daily 3-hour plans,
+  ★ Golden first, weekly checkpoints, mock paper and repair day.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">تیس دن کا کریش کورس — روزانہ منصوبہ، گولڈن، ماک پیپر</div>
+  <div class="units">{units}</div>
+  <div class="foot">Crash Course &middot; {book['curriculum']} &middot;
+  Days 1–23 teach · 24–30 revise, mock, repair. Not a textbook.</div>
+</section>"""
+
+
+def crash_calendar(rows: list[dict]) -> str:
+    body = []
+    last_week = 0
+    for r in rows:
+        wk = r["week"]
+        mark = f'<tr class="wk"><td colspan="4">Week {wk}</td></tr>' if wk != last_week else ""
+        last_week = wk
+        body.append(
+            f"{mark}<tr><td>Day {r['day']:02d}</td><td>{html.escape(r['focus'])}</td>"
+            f"<td>{html.escape(r['kind'])}</td><td>{html.escape(r['star'])}</td></tr>"
+        )
+    return f"""
+<section class="front">
+  <h1>30-day calendar</h1>
+  <p>Tick each day after the 3-hour block. Do not skip checkpoint or mock days.</p>
+  <table class="crash-cal">
+    <tr><th>Day</th><th>Focus</th><th>Kind</th><th>★ Golden today</th></tr>
+    {''.join(body)}
+  </table>
+</section>"""
+
+
+def day_plan_box(day: dict) -> str:
+    titles = [short_topic_name(t["title"]) for t in day.get("topics", [])]
+    names = " · ".join(html.escape(x) for x in titles[:8])
+    gold = [short_topic_name(t["title"]) for t in day.get("topics", []) if t["golden"]]
+    gold_s = ", ".join(html.escape(x) for x in gold) if gold else "none — still copy every table"
+    extra = day.get("extra", "")
+    kind = day.get("kind", "Teach")
+    if kind == "Checkpoint":
+        clock = (
+            "0–15 min recap yesterday ★ · 15–90 min remaining cards · "
+            "90–130 min closed-book chapter checkpoint · 130–180 min mark and rewrite missed Goldens."
+        )
+    elif kind == "Golden blitz":
+        clock = (
+            "0–15 min recap · 15–150 min ★ Golden cards only (write every table from memory) · "
+            "150–180 min one 5-mark Golden answer."
+        )
+    elif kind == "Recap":
+        clock = (
+            "0–20 min skim the recap pages · 20–150 min say each chapter aloud, book closed · "
+            "150–180 min rewrite any line you could not say."
+        )
+    elif kind == "Mock":
+        clock = (
+            "Sit the mock in 2 hours 30 minutes. Hall conditions: no notes, no phone, no Day 29 peeking. "
+            "Use the leftover 30 minutes to pack the paper — do not mark it today."
+        )
+    elif kind == "Mark":
+        clock = (
+            "0–90 min mark the mock to the key · 90–150 min fill the repair list · "
+            "150–180 min rewrite one missed Golden from memory."
+        )
+    elif kind == "Repair":
+        clock = (
+            "Redo only the Day 29 repair list. Stop at 6 pm. Sleep by 10 pm. No new topic."
+        )
+    else:
+        clock = (
+            "0–15 min recap yesterday ★ · 15–105 min today's cards · "
+            "105–135 min closed-book drill · 135–180 min one 5-mark homework."
+        )
+    return f"""
+    <div class="box day">
+      <p><b>3 hours.</b> {clock}</p>
+      <p><b>Cover:</b> {names or html.escape(day['focus'])}</p>
+      <p><b>★ Must lock:</b> {gold_s}</p>
+      <p>If behind, skip non-Golden. Phone in another room.</p>
+      {extra}
+    </div>"""
+
+
+def day_drill_box(topics: list[dict]) -> str:
+    qs, answers = [], []
+    for t in topics:
+        prompts = check_prompts(t["block"])
+        if prompts:
+            qs.append(prompts[0])
+            answers.append(first_check_answer(t["block"]) or first_sentence(extract_box_text(t["block"], "learn")))
+        if len(qs) >= 6:
+            break
+    if not qs:
+        return ""
+    items = "".join(f"<li>{html.escape(q)}</li>" for q in qs)
+    key = " ".join(f"{i}. {html.escape(clip_text(a, 120))}" for i, a in enumerate(answers, 1))
+    hw_topic = next((t for t in topics if t["golden"]), topics[0])
+    hw = short_topic_name(hw_topic["title"])
+    return f"""
+    <div class="box drill">
+      <p><b>Closed book, 30 minutes.</b> Then mark with the answers under this box.</p>
+      <ol>{items}</ol>
+      <div class="ans">Answers: {key}</div>
+    </div>
+    <div class="box hw">
+      <p>Write a 5-mark answer on <b>{html.escape(hw)}</b> using Define · Explain · Example · Diagram · Working.
+      Tomorrow's 0–15 min is you reciting it without notes.</p>
+      <p class="ur">پانچ نمبر کا جواب ترکیب کے ساتھ لکھیں؛ کل زبانی سنائیں۔</p>
+    </div>"""
+
+
+def checkpoint_box(ch: dict) -> str:
+    frag = ch["fragment"]
+    mcqs = extract_ol_items(frag, "mcq", 8)
+    shorts = extract_ol_items(frag, "short", 3)
+    if not mcqs:
+        return ""
+    key = mcq_key(frag, 8)
+    short_a = short_model_answers(frag, 3)
+    mcq_html = "".join(mcqs)
+    short_html = "".join(shorts)
+    ans_mcq = " ".join(f"{i}. {html.escape(a)}" for i, a in enumerate(key, 1)) if key else "See the Student's Edition chapter key."
+    ans_sh = "".join(f"<li>{html.escape(clip_text(a, 220))}</li>" for a in short_a)
+    return f"""
+    <div class="box checkpt">
+      <p><b>40 minutes, closed book.</b> Chapter {ch['num']}: {html.escape(ch['title'])}.
+      8 MCQ + 3 short. Mark below 60% means tomorrow morning is Golden repair, not a new chapter.</p>
+      <h3>Multiple choice</h3>
+      <ol class="mcq">{mcq_html}</ol>
+      <h3>Short questions</h3>
+      <ol class="short">{short_html}</ol>
+    </div>
+    <div class="crash-seal">
+      <p><b>Checkpoint answers — mark after the 40 minutes.</b></p>
+      <p>MCQ: {ans_mcq}</p>
+      {"<ol>" + ans_sh + "</ol>" if ans_sh else ""}
+    </div>"""
+
+
+def crash_day_html(day: dict) -> str:
+    cards = "".join(cheat_card(t["block"]) for t in day.get("topics", []))
+    drill = day_drill_box(day["topics"]) if day.get("topics") and day["kind"] in ("Teach", "Checkpoint") else ""
+    check = day.get("checkpoint", "")
+    extra_html = day.get("body", "")
+    return f"""
+<section class="chapter crash-chapter">
+  <header class="crash-head">
+    <div class="num">Day {day['day']:02d} of 30 · Week {day['week']}</div>
+    <h1>{html.escape(day['title'])}</h1>
+    <p class="meta">{html.escape(day['focus'])} · {html.escape(day['kind'])} · 3 hours</p>
+  </header>
+  {day_plan_box(day)}
+  <div class="cheat-grid">{cards}</div>
+  {drill}
+  {check}
+  {extra_html}
+</section>"""
+
+
+def extract_mock_parts(fragment: str) -> tuple[str, str]:
+    review = extract_review(fragment)
+    if not review:
+        return "", ""
+    parts = re.split(r'<div class="answers">', review, maxsplit=1)
+    questions = parts[0]
+    questions = re.sub(r"^<section[^>]*>", "", questions, count=1)
+    answers = ('<div class="answers">' + parts[1]) if len(parts) > 1 else ""
+    answers = re.sub(r"</section>\s*$", "", answers)
+    return questions, answers
+
+
+def extract_recaps_html(fragment: str) -> str:
+    recaps = []
+    for m in re.finditer(
+        r"<h2>(.*?)</h2>\s*<ul class=\"summary\">(.*?)</ul>", fragment, flags=re.S
+    ):
+        recaps.append(f"<h2>{m.group(1)}</h2><ul class=\"summary\">{m.group(2)}</ul>")
+    return "".join(recaps)
+
+
+def load_crash_chapters(key: str) -> list[dict]:
+    folder = SRC / key
+    out = []
+    for f in sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group())):
+        text = f.read_text(encoding="utf-8")
+        num, title, _ = chapter_meta(text)
+        topics = []
+        for block in extract_class_divs(text, "topic"):
+            raw = topic_title(block)
+            topics.append({
+                "title": re.sub(r"\s*★.*", "", raw).strip(),
+                "golden": topic_is_golden(raw, block),
+                "block": block,
+                "ch": num,
+            })
+        out.append({"num": num, "title": title, "fragment": text, "topics": topics})
+    return out
+
+
+def build_crash_days(chapters: list[dict], final_html: str) -> list[dict]:
+    counts = [len(c["topics"]) for c in chapters]
+    day_ns = allocate_chapter_days(counts, 23)
+    days = []
+    day_no = 1
+    for ch, n_days in zip(chapters, day_ns):
+        chunks = chunk_topics(ch["topics"], n_days)
+        for i, chunk in enumerate(chunks):
+            last = i == len(chunks) - 1
+            gold = [short_topic_name(t["title"]) for t in chunk if t["golden"]]
+            kind = "Checkpoint" if last else "Teach"
+            days.append({
+                "day": day_no,
+                "week": (day_no - 1) // 5 + 1,
+                "title": f"Chapter {ch['num']}: {ch['title']}",
+                "focus": f"{ch['title']} ({i + 1}/{len(chunks)})",
+                "kind": kind,
+                "star": ", ".join(gold) or "—",
+                "topics": chunk,
+                "checkpoint": checkpoint_box(ch) if last else "",
+            })
+            day_no += 1
+    groups = [(24, "Chapters 1–2", [1, 2]), (25, "Chapters 3–4", [3, 4]), (26, "Chapters 5–6", [5, 6])]
+    by_num = {c["num"]: c for c in chapters}
+    for d, label, nums in groups:
+        golds = []
+        for n in nums:
+            ch = by_num.get(n)
+            if not ch:
+                continue
+            golds.extend([t for t in ch["topics"] if t["golden"]] or ch["topics"][:2])
+        days.append({
+            "day": d,
+            "week": 5 if d == 24 else 6,
+            "title": f"Golden blitz — {label}",
+            "focus": f"★ only · {label}",
+            "kind": "Golden blitz",
+            "star": f"{len(golds)} Golden cards",
+            "topics": golds,
+            "extra": "<p>Write every table and diagram on this day from memory on scrap paper, then check the cards.</p>",
+        })
+    recaps = extract_recaps_html(final_html)
+    mock_q, mock_a = extract_mock_parts(final_html)
+    days.append({
+        "day": 27,
+        "week": 6,
+        "title": "Night-before recaps",
+        "focus": "Say every chapter recap aloud, book closed",
+        "kind": "Recap",
+        "star": "All chapters",
+        "topics": [],
+        "body": recaps or "<p>Use the chapter summaries in this book.</p>",
+        "extra": "<p>No new cards. Recite, close the booklet, recite again.</p>",
+    })
+    days.append({
+        "day": 28,
+        "week": 6,
+        "title": "Mock paper — hall conditions",
+        "focus": "2 hours 30 minutes · 75 marks · no notes",
+        "kind": "Mock",
+        "star": "Whole syllabus",
+        "topics": [],
+        "body": mock_q or "<p>Sit a past paper in 2 hours 30 minutes.</p>",
+        "extra": "<p>Invigilate yourself. No phone, no notes, no Day 29 peeking.</p>",
+    })
+    days.append({
+        "day": 29,
+        "week": 6,
+        "title": "Mark the mock · repair list",
+        "focus": "Mark to the key. List every ★ Golden you missed.",
+        "kind": "Mark",
+        "star": "Missed Goldens",
+        "topics": [],
+        "body": (mock_a or "") + """
+        <div class="box checkpt">
+          <p><b>Repair list.</b> Copy every Golden you scored 0 or half on.
+          Tomorrow you redo only this list — not the whole book.</p>
+          <table class="crash-cal">
+            <tr><th>#</th><th>Golden topic missed</th><th>What I will rewrite from memory</th></tr>
+            <tr><td>1</td><td></td><td></td></tr>
+            <tr><td>2</td><td></td><td></td></tr>
+            <tr><td>3</td><td></td><td></td></tr>
+            <tr><td>4</td><td></td><td></td></tr>
+            <tr><td>5</td><td></td><td></td></tr>
+            <tr><td>6</td><td></td><td></td></tr>
+          </table>
+        </div>""",
+        "extra": "<p>An answer with no working, no diagram or no example cannot score full marks.</p>",
+    })
+    days.append({
+        "day": 30,
+        "week": 6,
+        "title": "Repair day · then stop",
+        "focus": "Redo the Day 29 list only. Sleep by 10 pm.",
+        "kind": "Repair",
+        "star": "Missed Goldens only",
+        "topics": [],
+        "extra": """<p>No new chapter. No new non-Golden card. Redo each missed Golden:
+        say the definition, draw the table, write one 5-mark answer.</p>
+        <p>Stop at 6 pm. Pack your pen, ruler and this booklet's Golden cards in your head — not in the hall.</p>
+        <p class="ur">نیا باب نہ کھولیں۔ صرف چھوٹی گولڈن دہرائیں۔ دس بجے سو جائیں۔</p>""",
+    })
+    return days
+
+
+def build_crash(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    chapters = load_crash_chapters(key)
+    final = (folder / "final.html").read_text(encoding="utf-8") if (folder / "final.html").exists() else ""
+    days = build_crash_days(chapters, final)
+    intro = (SRC / "how-to-use-crash.html").read_text(encoding="utf-8")
+    cal_rows = [{
+        "day": d["day"], "week": d["week"], "focus": d["focus"],
+        "kind": d["kind"], "star": d["star"],
+    } for d in days]
+    meta = [(c["num"], c["title"], [t["title"] for t in c["topics"]]) for c in chapters]
+    doc = wrap_html(
+        f"{book['title']} — 30-Day Crash Course",
+        crash_cover(book, meta)
+        + crash_calendar(cal_rows)
+        + intro
+        + "".join(crash_day_html(d) for d in days),
+        body_class="crash-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-crash.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-30-Day-Crash-Course.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=40_000, budget_ms=180000)
+    print(f"{key} crash course -> {pdf_path}")
+    return pdf_path
+
+
+def build_crash_courses(keys: list[str]):
+    paths = [build_crash(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip crash complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"crash complete -> {dest} ({pages} pages)")
+
+
 def short_urdu(text: str, limit: int = 110) -> str:
     text = re.sub(r"\s+", " ", text).strip()
     if not text:
@@ -1517,7 +1967,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -1533,6 +1983,8 @@ def main(argv: list[str]):
         build_editions(keys, ("academy",))
     if mode in ("cheat", "all"):
         build_cheatsheets(keys)
+    if mode in ("crash", "all"):
+        build_crash_courses(keys)
 
 
 if __name__ == "__main__":

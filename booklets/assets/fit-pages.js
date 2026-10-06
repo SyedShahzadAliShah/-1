@@ -295,7 +295,7 @@
         if (child.classList.contains("cover") || child.id === "sheets") return;
         if (child.tagName === "SCRIPT") return;
         var atomic = child.matches(
-          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head"
+          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head"
         );
         if (atomic) atoms.push(child);
         else if (child.children.length && child.matches("div,section,article")) walk(child);

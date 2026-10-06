@@ -22,7 +22,12 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 - [CS XII Cheat Sheets (52 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
 - [XI + XII Cheat Sheets complete (103 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
 
-Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`. Rebuild cheat sheets: `python3 booklets/build.py cheat`.
+**30-Day Crash Course** (daily 3-hour plans, ★ Golden first, weekly checkpoints, mock, repair day):
+- [CS XI 30-Day Crash Course](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+
+Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`. Rebuild cheat sheets: `python3 booklets/build.py cheat`. Rebuild crash course: `python3 booklets/build.py crash`.
 
 ---
 
