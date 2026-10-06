@@ -17,10 +17,11 @@ python3 booklets/build.py lectures        # XI + XII lecture PDFs
 python3 booklets/build.py lectures xi     # Grade XI only
 ```
 
-## Download — full booklets
+## Download — full booklets (all-in-one)
 
-- [CS XI booklet (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-booklets-44eb/releases/CS-XI-Ultimate-Teach-Yourself-Booklet.pdf)
-- [CS XII booklet (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-booklets-44eb/releases/CS-XII-Ultimate-Teach-Yourself-Booklet.pdf)
+- [CS XI All-in-One (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)
+- [CS XII All-in-One (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teach-Yourself-All-in-One.pdf)
+- [XI + XII complete (PDF)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
 
 ```bash
 python3 booklets/build.py        # both booklets

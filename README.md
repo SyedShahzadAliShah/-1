@@ -1,9 +1,13 @@
 # Teach Yourself Lectures (CS XI & XII)
 
-Printable **Teach Yourself** lecture PDFs for Sindh Computer Science XI and XII — one PDF per topic, plus a packed PDF per chapter.
+Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
-- Catalogue: [`releases/lectures/README.md`](releases/lectures/README.md)
-- Rebuild: `python3 booklets/build.py lectures`
+**All-in-one (one PDF per grade):**
+- [CS XI — All-in-One](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)
+- [CS XII — All-in-One](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teach-Yourself-All-in-One.pdf)
+- [XI + XII complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
+
+Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild: `python3 booklets/build.py` (all-in-one) or `python3 booklets/build.py lectures`.
 
 ---
 

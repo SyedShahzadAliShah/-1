@@ -284,7 +284,33 @@ def build_booklet(key: str):
     dest = ROOT.parent / "releases" / book["file"]
     dest.parent.mkdir(exist_ok=True)
     shutil.copy2(pdf_path, dest)
+    all_in_one = ROOT.parent / "releases" / f"CS-{book['grade']}-Teach-Yourself-All-in-One.pdf"
+    shutil.copy2(pdf_path, all_in_one)
     print(f"{key} booklet: {len(frags)} chapters -> {pdf_path}")
+    print(f"{key} all-in-one -> {all_in_one}")
+
+
+def merge_complete(keys: list[str]):
+    """Stitch grade all-in-one PDFs into one XI+XII complete file when pymupdf is available."""
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip XI+XII complete merge (pymupdf not installed)")
+        return
+    releases = ROOT.parent / "releases"
+    srcs = [releases / f"CS-{BOOKS[k]['grade']}-Teach-Yourself-All-in-One.pdf" for k in keys]
+    srcs = [p for p in srcs if p.exists()]
+    if len(srcs) < 2:
+        return
+    dest = releases / "CS-XI-and-XII-Teach-Yourself-Complete.pdf"
+    out = pymupdf.open()
+    for p in srcs:
+        out.insert_file(p)
+    dest.parent.mkdir(exist_ok=True)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"complete XI+XII -> {dest} ({pages} pages)")
 
 
 def short_urdu(text: str, limit: int = 110) -> str:
@@ -630,6 +656,7 @@ def main(argv: list[str]):
     if mode in ("booklets", "all"):
         for k in keys:
             build_booklet(k)
+        merge_complete(keys)
     if mode in ("lectures", "all"):
         build_lectures(keys)
 
