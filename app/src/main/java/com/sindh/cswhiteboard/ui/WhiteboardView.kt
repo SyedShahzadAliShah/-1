@@ -34,38 +34,38 @@ class WhiteboardView @JvmOverloads constructor(
 
     private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFFF7F1E3.toInt() }
     private val rulePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0x332C5282
+        color = 0x332C5282.toInt()
         strokeWidth = dp(1f)
     }
     private val marginPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0x55C53030
+        color = 0x55C53030.toInt()
         strokeWidth = dp(1.5f)
     }
     private val penPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFFE53E3E
+        color = 0xFFE53E3E.toInt()
         style = Paint.Style.FILL
     }
     private val headingPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF1A365D
+        color = 0xFF1A365D.toInt()
         typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
         textSize = sp(22f)
     }
     private val subPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF2B6CB0
+        color = 0xFF2B6CB0.toInt()
         typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
         textSize = sp(16f)
     }
     private val bodyPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF1A202C
+        color = 0xFF1A202C.toInt()
         textSize = sp(15f)
     }
     private val notePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF4A5568
+        color = 0xFF4A5568.toInt()
         textSize = sp(13f)
         typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.ITALIC)
     }
     private val codePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFFC6F6D5
+        color = 0xFFC6F6D5.toInt()
         typeface = Typeface.MONOSPACE
         textSize = sp(13f)
     }
@@ -542,7 +542,7 @@ private object Diagrams {
             val h = (v / max) * (area.height() - 50) * p
             val left = area.left + 10 + i * w
             val rect = RectF(left + 8, area.bottom - 16 - h, left + w - 8, area.bottom - 16)
-            fill.color = 0x662B6CB0
+            fill.color = 0x662B6CB0.toInt()
             canvas.drawRect(rect, fill)
             canvas.drawRect(rect, stroke)
             canvas.drawText(v.toString(), rect.centerX() - 6, rect.top - 6, body)
@@ -670,7 +670,7 @@ private object Diagrams {
             }
         }
         if (p > 0.3f) {
-            stroke.color = 0x662B6CB0
+            stroke.color = 0x662B6CB0.toInt()
             for (l in 0 until nodes.size - 1) {
                 for (a in nodes[l]) for (b in nodes[l + 1]) canvas.drawLine(a.first, a.second, b.first, b.second, stroke)
             }

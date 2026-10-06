@@ -6,7 +6,11 @@ The marker writes headings, bullets, diagrams, worked examples and exam callouts
 
 ## Download
 
-`releases/CS-Whiteboard-Lectures-v1.0.0-debug.apk`
+**v1.0.0 debug APK**
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-whiteboard-lectures-apk-e3b4/releases/CS-Whiteboard-Lectures-v1.0.0-debug.apk
+
+Repo copy: `releases/CS-Whiteboard-Lectures-v1.0.0-debug.apk`
 
 Package id: `com.sindh.cswhiteboard` (installs beside older apps).
 
