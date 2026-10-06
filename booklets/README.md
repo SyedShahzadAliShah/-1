@@ -3,6 +3,23 @@
 Self-study materials for **Computer Science XI** and **XII** (Sindh curriculum),
 built from the bilingual teacher's lecture notes.
 
+## Student's Edition and Teacher's Edition
+
+Separate all-in-one PDFs:
+
+- [CS XI Student's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Students-Edition.pdf)
+- [CS XII Student's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Students-Edition.pdf)
+- [CS XI Teacher's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teachers-Edition.pdf)
+- [CS XII Teacher's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teachers-Edition.pdf)
+- [XI + XII Student's Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Students-Edition-Complete.pdf)
+- [XI + XII Teacher's Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
+
+The **Student's Edition** hides Check yourself answers until the end of each chapter. The **Teacher's Edition** adds lesson timing, board cues, oral questions and Urdu classroom lines, with answers on the page.
+
+```bash
+python3 booklets/build.py editions
+```
+
 ## Download — lecture PDFs
 
 Each topic is a printable **Teach Yourself lecture**. Each chapter also has a packed
@@ -27,7 +44,7 @@ python3 booklets/build.py lectures xi     # Grade XI only
 python3 booklets/build.py        # both booklets
 python3 booklets/build.py xi     # Grade XI only
 python3 booklets/build.py xii    # Grade XII only
-python3 booklets/build.py all    # booklets + lectures
+python3 booklets/build.py all    # booklets + lectures + editions
 ```
 
 Requires Google Chrome (`google-chrome`) and the Noto Naskh Arabic + Inter fonts.

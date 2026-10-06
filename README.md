@@ -2,12 +2,17 @@
 
 Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
-**All-in-one (one PDF per grade):**
-- [CS XI — All-in-One](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)
-- [CS XII — All-in-One](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teach-Yourself-All-in-One.pdf)
-- [XI + XII complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
+**Student's Edition** (practice first; answers at the end of each chapter):
+- [CS XI Student's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Students-Edition.pdf)
+- [CS XII Student's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Students-Edition.pdf)
+- [XI + XII Student's Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Students-Edition-Complete.pdf)
 
-Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild: `python3 booklets/build.py` (all-in-one) or `python3 booklets/build.py lectures`.
+**Teacher's Edition** (lesson timing, board questions, Urdu cues, answers on the page):
+- [CS XI Teacher's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teachers-Edition.pdf)
+- [CS XII Teacher's Edition](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teachers-Edition.pdf)
+- [XI + XII Teacher's Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
+
+Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild: `python3 booklets/build.py editions`.
 
 ---
 

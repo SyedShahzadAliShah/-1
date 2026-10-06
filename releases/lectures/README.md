@@ -2,6 +2,17 @@
 
 Standalone **Teach Yourself** lecture PDFs for Computer Science XI and XII (Sindh curriculum). Each topic is one printable lecture; each chapter also has a packed lecture PDF with the review and answer key.
 
+## Student's Edition and Teacher's Edition
+
+- [CS XI Student's Edition (205 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Students-Edition.pdf)
+- [CS XII Student's Edition (209 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Students-Edition.pdf)
+- [CS XI Teacher's Edition (229 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teachers-Edition.pdf)
+- [CS XII Teacher's Edition (233 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teachers-Edition.pdf)
+- [XI + XII Student's Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Students-Edition-Complete.pdf)
+- [XI + XII Teacher's Edition complete](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py editions`
+
 ## All-in-one PDFs (whole grade in one file)
 
 - [CS XI Teach Yourself — All-in-One (203 pages)](https://github.com/SyedShahzadAliShah/-1/raw/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)

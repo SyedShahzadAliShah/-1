@@ -6,7 +6,8 @@ Usage:
   python3 booklets/build.py xi           # Grade XI booklet
   python3 booklets/build.py lectures     # chapter + topic lecture PDFs
   python3 booklets/build.py lectures xi  # Grade XI lectures only
-  python3 booklets/build.py all          # booklets + lectures
+  python3 booklets/build.py editions     # Student's Edition + Teacher's Edition
+  python3 booklets/build.py all          # booklets + lectures + editions
 """
 from __future__ import annotations
 
@@ -311,6 +312,237 @@ def merge_complete(keys: list[str]):
     pages = out.page_count
     out.close()
     print(f"complete XI+XII -> {dest} ({pages} pages)")
+
+
+def section_open_tag(fragment: str) -> str:
+    m = re.search(r"<section[^>]*>", fragment)
+    return m.group(0) if m else '<section class="chapter">'
+
+
+def first_sentence(text: str) -> str:
+    text = re.sub(r"\s+", " ", unescape(strip_tags(text))).strip()
+    if not text:
+        return ""
+    parts = re.split(r"(?<=[.!?۔])\s+", text)
+    return (parts[0] if parts else text).strip()
+
+
+def box_inner(block: str, kind: str) -> str:
+    m = re.search(rf'<div class="box {re.escape(kind)}">(.*?)</div>', block, flags=re.S)
+    return m.group(1) if m else ""
+
+
+def check_prompts(block: str) -> list[str]:
+    m = re.search(r'<div class="box check">(.*?)<div class="ans">', block, flags=re.S)
+    if not m:
+        return []
+    found = re.findall(r"<p><b>\d+\.</b>\s*(.*?)</p>", m.group(1), flags=re.S)
+    return [unescape(strip_tags(q)).strip() for q in found if strip_tags(q).strip()]
+
+
+def studentize_fragment(fragment: str) -> str:
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    review = extract_review(fragment)
+    open_tag = section_open_tag(fragment)
+    items = []
+    new_topics = []
+    for block in topics:
+        title = re.sub(r"\s*★.*", "", topic_title(block)).strip()
+        ans_m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+        if ans_m:
+            items.append(f"<li><b>{html.escape(title)}.</b> {ans_m.group(1).strip()}</li>")
+            block = (
+                block[: ans_m.start()]
+                + '<div class="ans write-here">Write your answers in your notebook. '
+                "Check the Answer key at the end of this chapter.</div>"
+                + block[ans_m.end() :]
+            )
+        new_topics.append(block)
+    check_key = ""
+    if items:
+        check_key = f'<h3>Check yourself — answers</h3><ol class="check-key">{"".join(items)}</ol>'
+    seal = (
+        '<div class="answers-seal"><p><b>Answer key.</b> Finish the practice first, then mark your work. '
+        "Do not peek while you are still answering.</p>"
+        '<p class="ur">پہلے سوالات حل کریں، پھر اس کلید سے نمبر لگائیں۔</p></div>'
+    )
+    sealed = False
+    if review:
+        if '<div class="answers">' in review:
+            review = review.replace(
+                '<div class="answers">',
+                seal + '<div class="answers">' + check_key,
+                1,
+            )
+            sealed = True
+        else:
+            review = seal + check_key + review
+            sealed = True
+    elif check_key:
+        review = f'<section class="review">{seal}<div class="answers">{check_key}</div></section>'
+        sealed = True
+    body = opener + "".join(new_topics) + review
+    if not sealed and '<div class="answers">' in body:
+        body = body.replace('<div class="answers">', seal + '<div class="answers">', 1)
+    return f"{open_tag}\n{body}\n</section>"
+
+
+def teacher_notes_box(block: str) -> str:
+    raw_title = topic_title(block)
+    title = re.sub(r"\s*★.*", "", raw_title).strip()
+    golden = topic_is_golden(raw_title, block)
+    mins = 25 if golden else 15
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    qs = check_prompts(block)
+    ask = ""
+    if qs:
+        ask = "<p><b>Ask the class:</b> " + " ".join(
+            f"{i}. {html.escape(q)}" for i, q in enumerate(qs, 1)
+        ) + "</p>"
+    board = first_sentence(box_inner(block, "learn"))
+    warn = first_sentence(box_inner(block, "warn"))
+    urdu = first_sentence(box_inner(block, "urdu"))
+    board_p = f"<p><b>On the board:</b> {html.escape(board)}</p>" if board else ""
+    warn_p = f"<p><b>Stop and correct:</b> {html.escape(warn)}</p>" if warn else ""
+    ur_p = f'<p class="ur"><b>اردو میں کہیں:</b> {html.escape(urdu)}</p>' if urdu else ""
+    return f"""
+    <div class="box teach">
+      <p><b>{html.escape(title)}</b>{star} · <b>{mins} minutes</b>
+      ({'one full period if you include practice' if golden else 'half to three-quarters of a period'}).</p>
+      {board_p}
+      {ask}
+      {warn_p}
+      {ur_p}
+      <p>End by asking Check yourself orally. Answers are printed in the purple box for you.</p>
+    </div>"""
+
+
+def teacherize_fragment(fragment: str) -> str:
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    review = extract_review(fragment)
+    open_tag = section_open_tag(fragment)
+    golden = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+    n = len(topics)
+    mins = sum(25 if topic_is_golden(topic_title(b), b) else 15 for b in topics) or 40
+    periods = max(1, round(mins / 40))
+    plan = ""
+    if n:
+        plan = f"""
+    <div class="box teach">
+      <p><b>Chapter plan:</b> {n} topics · {golden} Golden · about <b>{mins} minutes</b>
+      ({periods} period{'s' if periods != 1 else ''} of 40 minutes).</p>
+      <p>Teach every ★ Golden topic in full. If time is short, set non-Golden Check yourself as homework.
+      Use the chapter practice paper as a period test or weekend homework, then mark with the answer key.</p>
+      <p class="ur">گولڈن موضوعات پوری تفصیل سے پڑھائیں۔ وقت کم ہو تو باقی سوالات گھر کے کام دیں۔ باب کے مشقی سوالات ٹیسٹ یا ہوم ورک بنائیں۔</p>
+    </div>"""
+    new_topics = []
+    for block in topics:
+        notes = teacher_notes_box(block)
+        block = re.sub(r"(<h2[^>]*>.*?</h2>)", r"\1" + notes, block, count=1, flags=re.S)
+        new_topics.append(block)
+    if not topics:
+        plan = """
+    <div class="box teach">
+      <p><b>Final week:</b> students read one recap aloud, then sit the mock paper in 2 hours 30 minutes with no notes.
+      Mark with the key in this edition and re-teach any Golden topic they missed.</p>
+      <p class="ur">آخری ہفتے خلاصے زبانی سنیں، پھر ماک پیپر بغیر نوٹس کے کرائیں۔ غلط گولڈن موضوعات دوبارہ پڑھائیں۔</p>
+    </div>"""
+    body = opener + plan + "".join(new_topics) + review
+    return f"{open_tag}\n{body}\n</section>"
+
+
+def edition_cover(book, chapters, edition: str):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    if edition == "teacher":
+        tag = "TEACHER'S EDITION"
+        cover_cls = "cover teacher-cover"
+        sub = ("For teachers &mdash; lesson timing, board questions, Urdu classroom cues "
+               "and full answers on the same page.")
+        urdu = "اساتذہ کے لیے — سبق کی منصوبہ بندی، بورڈ سوالات، اردو وضاحت اور مکمل جوابات"
+        foot = (f"Bilingual Teacher's Edition &middot; {book['curriculum']} &middot; "
+                "★ marks Golden (high-yield) exam topics. Not a student workbook.")
+    else:
+        tag = "STUDENT'S EDITION"
+        cover_cls = "cover student-cover"
+        sub = ("For students &mdash; learn every chapter on your own. Practice first; "
+               "the answer key is at the end of each chapter.")
+        urdu = "طلبہ کے لیے — خود سیکھیں، سوالات پہلے حل کریں، جوابات باب کے آخر میں ہیں"
+        foot = (f"Student's Edition &middot; {book['curriculum']} &middot; "
+                "★ marks Golden (high-yield) exam topics.")
+    return f"""
+<section class="{cover_cls}">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">{tag}</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">{sub}</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">{urdu}</div>
+  <div class="units">{units}</div>
+  <div class="foot">{foot}</div>
+</section>"""
+
+
+def build_edition(key: str, edition: str):
+    book = BOOKS[key]
+    folder = SRC / key
+    how_name = "how-to-use-teacher.html" if edition == "teacher" else "how-to-use-student.html"
+    intro = (SRC / how_name).read_text(encoding="utf-8")
+    transform = teacherize_fragment if edition == "teacher" else studentize_fragment
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters_html, chapters = [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        chapters.append(chapter_meta(text))
+        chapters_html.append(transform(text))
+    final_path = folder / "final.html"
+    final = transform(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    label = "Teacher's Edition" if edition == "teacher" else "Student's Edition"
+    file_name = f"CS-{book['grade']}-{'Teachers' if edition == 'teacher' else 'Students'}-Edition.pdf"
+    doc = wrap_html(
+        f"{book['title']} — {label}",
+        edition_cover(book, chapters, edition)
+        + contents(chapters, bool(final))
+        + intro
+        + "".join(chapters_html)
+        + final,
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-{edition}.html"
+    pdf_path = ROOT.parent / "releases" / file_name
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=120000)
+    print(f"{key} {edition} edition -> {pdf_path}")
+    return pdf_path
+
+
+def merge_edition_pair(edition: str, paths: list[Path]):
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip edition complete merge (pymupdf not installed)")
+        return
+    name = ("CS-XI-and-XII-Teachers-Edition-Complete.pdf" if edition == "teacher"
+            else "CS-XI-and-XII-Students-Edition-Complete.pdf")
+    dest = ROOT.parent / "releases" / name
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"{edition} complete -> {dest} ({pages} pages)")
+
+
+def build_editions(keys: list[str]):
+    for edition in ("student", "teacher"):
+        paths = [build_edition(k, edition) for k in keys]
+        merge_edition_pair(edition, paths)
 
 
 def short_urdu(text: str, limit: int = 110) -> str:
@@ -649,7 +881,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -659,6 +891,8 @@ def main(argv: list[str]):
         merge_complete(keys)
     if mode in ("lectures", "all"):
         build_lectures(keys)
+    if mode in ("editions", "all"):
+        build_editions(keys)
 
 
 if __name__ == "__main__":

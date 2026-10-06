@@ -391,3 +391,31 @@ ol.split-continued, ul.split-continued { list-style: none; margin-top: 0; }
   padding: 0;
 }
 .lecture-index > li { padding: 3px 0; font-size: 9.5pt; border-bottom: 1px dashed var(--line); }
+
+/* ---------- Student / Teacher editions ---------- */
+.cover.student-cover {
+  background: linear-gradient(160deg, #0b3d4a 0%, #0b7a75 55%, #2b8a3e 100%);
+}
+.cover.student-cover .tag { background: #087f5b; }
+.cover.teacher-cover {
+  background: linear-gradient(160deg, #4a1c00 0%, #9c2c00 50%, #e8590c 100%);
+}
+.cover.teacher-cover .tag { background: #fff4e6; color: #9c2c00; }
+.box.teach {
+  border-color: #9c2c00;
+  background: #fff4ec;
+}
+.box.teach::before { content: "Teacher notes"; color: #9c2c00; }
+.box.teach .ur { margin-top: 4px; }
+.answers-seal {
+  break-before: page;
+  page-break-before: always;
+  background: #eef3ff;
+  border: 2px dashed var(--brand);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0;
+}
+.answers-seal p { margin: 0; }
+.check-key li { margin: 4px 0; font-size: 9.4pt; }
+.write-here { font-style: italic; color: var(--muted); }
