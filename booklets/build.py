@@ -558,6 +558,14 @@ def check_answer_text(block: str) -> str:
     return clip_text(text, 280)
 
 
+def first_check_answer(block: str) -> str:
+    text = check_answer_text(block)
+    m = re.search(r"1\.\s*(.*?)(?:\s*2\.|$)", text)
+    if m:
+        return m.group(1).strip().rstrip(".")
+    return text
+
+
 def assign_academy_sessions(topics: list[str]) -> list[dict]:
     metas = []
     for block in topics:
@@ -666,12 +674,12 @@ def academy_drill_box(item: dict) -> str:
     short = short_topic_name(item["title"])
     qs = check_prompts(block)
     q1 = qs[0] if qs else f"Define {short}."
-    ans1 = check_answer_text(block) or first_sentence(extract_box_text(block, "learn")) or "See Learn it."
+    ans1 = first_check_answer(block) or first_sentence(extract_box_text(block, "learn")) or "See Learn it."
     points = topic_points(block, 4)
     explain = points[1:3] if len(points) >= 3 else points[:2]
     ptxt = "; ".join(explain) if explain else first_sentence(extract_box_text(block, "learn"))
     q3 = f"Explain {short} with two clear points and one example."
-    a3 = clip_text(ptxt, 220) + " Example: school portal / NADRA / JazzCash / load-shedding as it fits this topic."
+    a3 = clip_text(ptxt, 240)
     exam = clip_text(extract_box_text(block, "exam"), 200)
     if exam:
         q5 = exam
@@ -817,7 +825,7 @@ def edition_cover(book, chapters, edition: str):
         cover_cls = "cover academy-cover"
         sub = ("For coaching academies &mdash; 90-minute batch plans, full-mark recipes, "
                "timed drills with answers, and batch homework.")
-        urdu = "کوچنگ اکیڈمی کے لیے — 90 منٹ کی کلاس، مکمل نمبر کا طریقہ، ڈرل اور ہوم ورک"
+        urdu = "کوچنگ اکیڈمی کے لیے — 90 منٹ کلاس، مکمل نمبر، ڈرل اور ہوم ورک"
         foot = (f"Coaching Academy Edition &middot; {book['curriculum']} &middot; "
                 "★ Golden topics take a full 90-minute class. Not a student workbook.")
     else:

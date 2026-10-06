@@ -425,6 +425,7 @@ ol.split-continued, ul.split-continued { list-style: none; margin-top: 0; }
   background: linear-gradient(160deg, #12081f 0%, #3b1d6e 48%, #c9a227 100%);
 }
 .cover.academy-cover .tag { background: #c9a227; color: #1a1033; }
+.cover.academy-cover .ur { white-space: nowrap; font-size: 15pt; }
 .cover.academy-cover .units div { background: rgba(201,162,39,.16); border-color: rgba(255,255,255,.28); }
 .box.academy { border-color: #6d28d9; background: #f5f3ff; }
 .box.academy::before { content: "Academy session"; color: #6d28d9; }
