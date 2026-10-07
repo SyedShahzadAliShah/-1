@@ -702,3 +702,37 @@ body.paced-book .paced-lesson table { font-size: 8.4pt; margin: 4px 0 8px; }
 body.paced-book .paced-lesson pre.code { font-size: 8pt; padding: 7px 9px; margin: 4px 0 8px; }
 body.paced-book .paced-lesson .diagram svg { max-width: 100%; height: auto; max-height: 150px; }
 body.paced-book .paced-lesson ul, body.paced-book .paced-lesson ol { margin: 3px 0 6px; }
+.paced-chapter {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  break-before: page;
+  page-break-before: always;
+}
+.exam-head {
+  background: #7c2d12;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px 8px;
+  margin: 0 0 10px;
+  break-inside: avoid;
+}
+.exam-head .num {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fed7aa;
+}
+.exam-head h1 { color: #fff; font-size: 18pt; margin: 2px 0 4px; }
+.exam-head .meta { margin: 4px 0 0; font-size: 9.2pt; color: #ffedd5; }
+.chapter-recap {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  break-before: page;
+}
+.chapter-recap .summary { font-size: 9pt; }
+.chapter-recap .glossary { font-size: 8.4pt; }
+.box.exam-rules::before { content: "Chapter exam rules"; color: #7c2d12; }
+.box.exam-rules { border-color: #7c2d12; background: #fff7ed; }
+.chapter-exam h2 { color: #7c2d12; }
+.exam-key { break-before: page; page-break-before: always; }

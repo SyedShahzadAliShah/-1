@@ -243,6 +243,15 @@ def extract_class_divs(html_text: str, class_name: str) -> list[str]:
     return blocks
 
 
+def extract_tagged(html_text: str, tag: str, class_name: str) -> str:
+    open_re = re.compile(rf"<{re.escape(tag)}\b", re.I)
+    close_re = re.compile(rf"</{re.escape(tag)}>", re.I)
+    m = re.search(rf'<{re.escape(tag)}\s+class="{re.escape(class_name)}"', html_text, flags=re.I)
+    if not m:
+        return ""
+    return extract_balanced(html_text, m.start(), open_re, close_re)
+
+
 def extract_review(fragment: str) -> str:
     m = re.search(r'<section\s+class="review">', fragment)
     if not m:
@@ -1588,9 +1597,9 @@ def lesson_gate(n: int, total: int) -> str:
     if n >= total:
         return """
     <div class="box gate">
-      <p><b>Chapter gate.</b> If Check yourself was clean, sit the chapter practice
-      paper in exam conditions. Then mark with the Answer key after the seal.</p>
-      <p class="ur">اگر خود آزمائی ٹھیک ہے تو باب کا پیپر بغیر نوٹس کے حل کریں، پھر کلید سے نمبر لگائیں۔</p>
+      <p><b>Chapter gate.</b> If Check yourself was clean, turn to the Chapter Recap,
+      then sit the <b>Chapter Exam</b> (75 marks, 1 h 15 min, closed book). Mark only after the seal.</p>
+      <p class="ur">اگر خود آزمائی ٹھیک ہے تو خلاصہ پڑھیں، پھر باب کا امتحان بغیر نوٹس کے حل کریں۔</p>
     </div>"""
     return f"""
     <div class="box gate">
@@ -1619,30 +1628,117 @@ def chapter_pace_box(ch_num: int, topics: list[str]) -> str:
       <p><b>Pace.</b> Steady: {PACE_STEADY.get(ch_num, "—")}.
       Term: {PACE_TERM.get(ch_num, "—")}.
       Exam: {PACE_EXAM.get(ch_num, "—")} (Golden lessons only if the calendar is short).</p>
-      <p>Close the Answer key. Work one lesson at a time. Tick “I can…” only after the chapter paper.</p>
-      <p class="ur">ایک وقت میں ایک سبق۔ جوابات باب کے آخر تک نہ کھولیں۔</p>
+      <p>Close the Answer key. Work one single-page lesson at a time. After Lesson {n:02d},
+      sit the Chapter Exam. Tick “I can…” only after you mark it.</p>
+      <p class="ur">ایک سبق ایک صفحہ۔ آخری سبق کے بعد باب کا امتحان حل کریں۔</p>
     </div>"""
+
+
+def check_key_from_topics(topics: list[str]) -> str:
+    items = []
+    for block in topics:
+        title = re.sub(r"\s*★.*", "", topic_title(block)).strip()
+        ans_m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+        if ans_m:
+            items.append(f"<li><b>{html.escape(title)}.</b> {ans_m.group(1).strip()}</li>")
+    if not items:
+        return ""
+    return f'<h3>Check yourself — answers</h3><ol class="check-key">{"".join(items)}</ol>'
+
+
+def chapter_exam_bundle(fragment: str, ch_num: int, title: str, raw_topics: list[str]) -> str:
+    review = extract_review(fragment)
+    if not review:
+        return ""
+    summary = extract_tagged(review, "ul", "summary")
+    gloss = compact_glossary(review, 12)
+    mcq = extract_tagged(review, "ol", "mcq")
+    short = extract_tagged(review, "ol", "short")
+    long = extract_tagged(review, "ol", "long")
+    answers = extract_tagged(review, "div", "answers")
+    checklist = extract_tagged(review, "ul", "checklist")
+    n = len(raw_topics)
+    gold = sum(1 for b in raw_topics if topic_is_golden(topic_title(b), b))
+    recap_body = ""
+    if summary:
+        recap_body += "<h2>Chapter in one look</h2>" + summary
+    if gloss:
+        recap_body += "<h2>Key terms</h2>" + gloss
+    recap = f"""
+    <div class="chapter-recap">
+      <header class="exam-head">
+        <div class="num">Chapter {ch_num} · Recap</div>
+        <h1>{html.escape(title)}</h1>
+        <p class="meta">{n} single-page lessons · {gold} Golden · read, close, say aloud, then sit the exam</p>
+      </header>
+      {recap_body or extract_opener(fragment)}
+    </div>"""
+    exam = f"""
+    <div class="chapter-exam">
+      <header class="exam-head">
+        <div class="num">Chapter {ch_num} exam · closed book</div>
+        <h1>{html.escape(title)}</h1>
+        <p class="meta">75 marks · 1 hour 15 minutes · no notes · no phones</p>
+      </header>
+      <div class="box exam-rules">
+        <p><b>Instructions.</b> Sit this exam after Lesson {n:02d} and the recap.
+        <b>Section A</b> — all 15 MCQs (1 mark). <b>Section B</b> — all 10 short questions (3 marks).
+        <b>Section C</b> — attempt any <b>three</b> long questions (10 marks). At least one Section C
+        answer must be a ★ Golden topic. Write in your notebook. Do not open the key until time is up.</p>
+        <p><b>Marks.</b> 15 + 30 + 30 = 75. A 5-mark / 10-mark answer needs Define · Explain · Example ·
+        Diagram · Working.</p>
+        <p class="ur">سبق اور خلاصے کے بعد یہ امتحان بغیر نوٹس کے حل کریں۔ وقت پورا ہونے پر کلید کھولیں۔</p>
+      </div>
+      <h2>Section A — Multiple choice (15 × 1 = 15)</h2>
+      {mcq}
+      <h2>Section B — Short questions (10 × 3 = 30)</h2>
+      {short}
+      <h2>Section C — Long questions (attempt any 3 × 10 = 30)</h2>
+      {long}
+    </div>"""
+    seal = (
+        '<div class="answers-seal"><p><b>Answer key.</b> Finish the Chapter Exam first, then mark. '
+        "Do not peek while the clock is running.</p>"
+        '<p class="ur">پہلے امتحان مکمل کریں، پھر اس کلید سے نمبر لگائیں۔</p></div>'
+    )
+    key_inner = check_key_from_topics(raw_topics)
+    if answers:
+        key_inner += answers
+    if checklist:
+        key_inner += "<h3>Self-assessment: I can…</h3>" + checklist
+    key = f'<div class="exam-key">{seal}{key_inner}</div>'
+    return recap + exam + key
 
 
 def pacedize_fragment(fragment: str) -> str:
     sealed = studentize_fragment(fragment)
     opener = extract_opener(sealed)
     topics = extract_class_divs(sealed, "topic")
-    review = extract_review(sealed)
+    raw_topics = extract_class_divs(fragment, "topic")
     open_tag = section_open_tag(sealed)
-    ch_num_m = re.search(r'data-num="(\d+)"', sealed) or re.search(r'data-num="(\d+)"', fragment)
+    ch_num_m = re.search(r'data-num="(\d+)"', fragment)
+    title_m = re.search(r'data-title="([^"]+)"', fragment)
     ch_num = int(ch_num_m.group(1)) if ch_num_m else 0
+    ch_title = unescape(title_m.group(1)) if title_m else "Chapter"
     if not topics:
+        review = extract_review(sealed)
+        if review:
+            review = (
+                '<header class="exam-head"><div class="num">Final mock · closed book</div>'
+                "<h1>Mock paper</h1>"
+                '<p class="meta">75 marks · 2 hours 30 minutes · no notes</p></header>'
+                + review
+            )
         plan = """
     <div class="box pace">
       <p><b>Exam week — self-paced.</b> Steady: Weeks 15–16. Term: Weeks 7–8.
       Exam track: Days 26–30.</p>
-      <p>Read one recap aloud, close the book, say it again. Then sit the mock paper
-      in 2 hours 30 minutes with no notes. Mark with the key. List every Golden you missed
-      and repair only those lessons.</p>
+      <p>Read each chapter recap aloud, close the book, say it again. Then sit the mock
+      in 2 hours 30 minutes with no notes. Mark with the key. Repair only the Golden lessons you missed.</p>
       <p class="ur">ایک خلاصہ زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔ صرف کمزور گولڈن دوبارہ پڑھیں۔</p>
     </div>"""
-        return f"{open_tag}\n{opener}{plan}{review}\n</section>"
+        start = f'<div class="paced-chapter">{opener}{plan}</div>'
+        return f"{open_tag}\n{start}{review}\n</section>"
     new_topics = []
     total = len(topics)
     for i, block in enumerate(topics, 1):
@@ -1664,7 +1760,12 @@ def pacedize_fragment(fragment: str) -> str:
             count=1,
         )
         new_topics.append(block)
-    body = opener + chapter_pace_box(ch_num, topics) + "".join(new_topics) + review
+    start = (
+        f'<div class="paced-chapter">{opener}'
+        f"{chapter_pace_box(ch_num, raw_topics or topics)}</div>"
+    )
+    exam = chapter_exam_bundle(fragment, ch_num, ch_title, raw_topics or topics)
+    body = start + "".join(new_topics) + exam
     return f"{open_tag}\n{body}\n</section>"
 
 
@@ -1757,7 +1858,8 @@ def paced_toc(chapters, has_final: bool, gold_n: int):
             f"<li>L{i:02d} {html.escape(x)}</li>" for i, x in enumerate(topics, 1)
         )
         items.append(
-            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} lessons<ul>{sub}</ul></li>'
+            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page lessons '
+            f"+ recap + 75-mark exam<ul>{sub}</ul></li>"
         )
     if has_final:
         items.append("<li><b>Final revision:</b> one-page recaps, mock paper and answers</li>")
