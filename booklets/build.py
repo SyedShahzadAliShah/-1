@@ -2930,7 +2930,7 @@ def golden_concepts_box(topics: list[str]) -> str:
             bit += " " + html.escape(idea)
         items.append(f"<li>{bit}</li>")
     return f"""
-    <div class="box golden">
+    <div class="box golden golden-concepts">
       <p><b>★ Golden concepts in this chapter.</b> These ideas are taught first as lecture notes.
       If time is short, lock these before the other notes, then sit the chapter exam.</p>
       <ul>{''.join(items)}</ul>

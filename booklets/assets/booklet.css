@@ -210,6 +210,7 @@ span.ur { display: inline; }
 .box.exam::before    { content: "Exam tip"; color: var(--brand-2); }
 .box.golden         { border-color: var(--brand-2); background: #fff4e6; }
 .box.golden::before { content: "Golden topic"; color: var(--brand-2); }
+.box.golden-concepts::before { content: "Golden concepts"; }
 .box.check .ans { color: var(--muted); font-size: 9pt; border-top: 1px dashed #c5b8f5; margin-top: 5px; padding-top: 4px; }
 
 figure.diagram { margin: 8px 0 12px; text-align: center; break-inside: avoid; }
