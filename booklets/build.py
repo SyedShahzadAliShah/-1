@@ -111,9 +111,12 @@ def contents(chapters, has_final):
     items = []
     for n, t, topics in chapters:
         sub = "".join(f"<li>{html.escape(x)}</li>" for x in topics)
-        items.append(f'<li><b>Chapter {n}:</b> {html.escape(t)}<ul>{sub}</ul></li>')
+        items.append(
+            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page topics '
+            f"+ 75-mark exam<ul>{sub}</ul></li>"
+        )
     if has_final:
-        items.append("<li><b>Final Revision:</b> one-page summaries, mock paper and answers</li>")
+        items.append("<li><b>Final Revision:</b> one-page recaps, mock paper and answers</li>")
     return f"""
 <section class="front">
   <h1>Contents</h1>
@@ -238,7 +241,9 @@ def extract_balanced(html_text: str, start: int, open_re: re.Pattern, close_re: 
 
 def extract_class_divs(html_text: str, class_name: str) -> list[str]:
     blocks = []
-    for m in re.finditer(rf'<div\s+class="{re.escape(class_name)}">', html_text):
+    for m in re.finditer(
+        rf'<div\s+class="[^"]*\b{re.escape(class_name)}\b[^"]*">', html_text
+    ):
         blocks.append(extract_balanced(html_text, m.start(), DIV_OPEN, DIV_CLOSE))
     return blocks
 
@@ -260,12 +265,16 @@ def extract_review(fragment: str) -> str:
 
 
 def extract_opener(fragment: str) -> str:
-    first_topic = fragment.find('<div class="topic">')
+    topic_m = re.search(r'<div\s+class="[^"]*\btopic\b', fragment)
+    first_topic = topic_m.start() if topic_m else -1
     review = fragment.find('<section class="review">')
     end = first_topic if first_topic != -1 else (review if review != -1 else len(fragment))
     head = fragment[:end]
     # Drop the outer <section ...> opening tag; keep opener + objectives.
     head = re.sub(r"^<section[^>]*>", "", head, count=1).strip()
+    head = re.sub(
+        r'^<div class="paced-chapter">(.*)</div>\s*$', r"\1", head, flags=re.S
+    ).strip()
     return head
 
 
@@ -368,10 +377,10 @@ def build_booklet(key: str):
     for f in frags:
         text = f.read_text(encoding="utf-8")
         chapters.append(chapter_meta(text))
-        chapters_html.append(text)
+        chapters_html.append(contentize_fragment(text))
     intro = (SRC / "how-to-use.html").read_text(encoding="utf-8")
     final_path = folder / "final.html"
-    final = final_path.read_text(encoding="utf-8") if final_path.exists() else ""
+    final = contentize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
 
     doc = wrap_html(
         f"{book['title']} — Ultimate Teach Yourself Booklet",
@@ -481,10 +490,19 @@ def studentize_fragment(fragment: str) -> str:
     elif check_key:
         review = f'<section class="review">{seal}<div class="answers">{check_key}</div></section>'
         sealed = True
-    body = opener + "".join(new_topics) + review
-    if not sealed and '<div class="answers">' in body:
-        body = body.replace('<div class="answers">', seal + '<div class="answers">', 1)
-    return f"{open_tag}\n{body}\n</section>"
+    if not topics:
+        review = extract_review(fragment)
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener)
+        body = start + (review or "")
+        if not sealed and '<div class="answers">' in body:
+            body = body.replace('<div class="answers">', seal + '<div class="answers">', 1)
+        return f"{open_tag}\n{body}\n</section>"
+    new_topics = [mark_one_page_topic(b) for b in new_topics]
+    start = chapter_divider(opener)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(new_topics)}{exam}\n</section>"
 
 
 def teacher_notes_box(block: str) -> str:
@@ -533,14 +551,14 @@ def teacherize_fragment(fragment: str) -> str:
       <p><b>Chapter plan:</b> {n} topics · {golden} Golden · about <b>{mins} minutes</b>
       ({periods} period{'s' if periods != 1 else ''} of 40 minutes).</p>
       <p>Teach every ★ Golden topic in full. If time is short, set non-Golden Check yourself as homework.
-      Use the chapter practice paper as a period test or weekend homework, then mark with the answer key.</p>
+      Sit the chapter exam (75 marks, 1 h 15 min) as a period test or weekend paper, then mark with the key.</p>
       <p class="ur">گولڈن موضوعات پوری تفصیل سے پڑھائیں۔ وقت کم ہو تو باقی سوالات گھر کے کام دیں۔ باب کے مشقی سوالات ٹیسٹ یا ہوم ورک بنائیں۔</p>
     </div>"""
     new_topics = []
     for block in topics:
         notes = teacher_notes_box(block)
         block = re.sub(r"(<h2[^>]*>.*?</h2>)", r"\1" + notes, block, count=1, flags=re.S)
-        new_topics.append(block)
+        new_topics.append(mark_one_page_topic(block))
     if not topics:
         plan = """
     <div class="box teach">
@@ -548,8 +566,13 @@ def teacherize_fragment(fragment: str) -> str:
       Mark with the key in this edition and re-teach any Golden topic they missed.</p>
       <p class="ur">آخری ہفتے خلاصے زبانی سنیں، پھر ماک پیپر بغیر نوٹس کے کرائیں۔ غلط گولڈن موضوعات دوبارہ پڑھائیں۔</p>
     </div>"""
-    body = opener + plan + "".join(new_topics) + review
-    return f"{open_tag}\n{body}\n</section>"
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener, plan)
+        return f"{open_tag}\n{start}{review}\n</section>"
+    start = chapter_divider(opener, plan)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(new_topics)}{exam}\n</section>"
 
 
 def clip_text(text: str, limit: int = 180) -> str:
@@ -854,7 +877,7 @@ def academy_calendar(items: list[dict]) -> str:
         <tr><th>Class</th><th>Topics</th><th>Kind</th><th>Board focus</th></tr>
         {''.join(rows)}
       </table>
-      <p><b>Weekly test:</b> 15 MCQ from this chapter + two 5-mark Golden questions.
+      <p><b>Chapter exam:</b> 75 marks · 1 h 15 min · 15 MCQ + 10 short + any 3 long.
       Mark to the recipes. Re-teach any Golden below 60% in the next starter.</p>
       <p class="ur">گولڈن موضوع پوری کلاس لیتا ہے۔ ہفتہ وار ٹیسٹ کے بعد کمزور گولڈن دوبارہ پڑھائیں۔</p>
     </div>"""
@@ -902,8 +925,14 @@ def academyize_fragment(fragment: str) -> str:
       <p>Mark the mock to the same 1 / 3 / 5 / 8–10 recipes used all year.
       An answer with no working, no diagram, or no example cannot score full marks.</p>
     </div>"""
-    body = opener + plan + "".join(new_topics) + review
-    return f"{open_tag}\n{body}\n</section>"
+    if not topics:
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener, plan)
+        return f"{open_tag}\n{start}{review}\n</section>"
+    start = chapter_divider(opener, plan)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(new_topics)}{exam}\n</section>"
 
 
 def edition_cover(book, chapters, edition: str):
@@ -1134,7 +1163,7 @@ def cheat_card(block: str) -> str:
         bits.append(f'<p class="xq"><b>Exam:</b> {html.escape(exam)}</p>')
     if urdu:
         bits.append(f'<p class="ur">{html.escape(urdu)}</p>')
-    cls = "cheat-card"
+    cls = "cheat-card one-page-topic"
     if golden:
         cls += " golden"
     if wide_table or diag or (code and golden):
@@ -1174,10 +1203,6 @@ def cheatsheetize_fragment(fragment: str) -> str:
             goldens.append(re.sub(r"\s*★.*", "", raw).strip())
         cards.append(cheat_card(block))
     star_line = " · ".join(html.escape(short_topic_name(g)) for g in goldens) if goldens else "No Golden topics in this chapter — still learn the tables."
-    gloss = extract_glossary(fragment)
-    summary = extract_summary(fragment)
-    gloss_h = "<h2>Key terms</h2>" + gloss if gloss else ""
-    sum_h = "<h2>Chapter in one look</h2>" + summary if summary else ""
     return f"""
 <section class="chapter cheat-chapter">
   <header class="cheat-head">
@@ -1185,9 +1210,8 @@ def cheatsheetize_fragment(fragment: str) -> str:
     <h1>{html.escape(ch_title)}</h1>
     <p class="cheat-stars">★ {len(goldens)} Golden · {len(topics)} cards · {star_line}</p>
   </header>
-  <div class="cheat-grid">{"".join(cards)}</div>
-  {gloss_h}
-  {sum_h}
+  {"".join(cards)}
+  {chapter_exam_after(fragment)}
 </section>"""
 
 
@@ -1214,7 +1238,7 @@ def cheat_toc(chapters, gold_n: int):
     items = []
     for n, t, topics in chapters:
         items.append(
-            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} cards</li>"
+            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page cards + 75-mark exam</li>"
         )
     items.append("<li><b>Night-before recaps:</b> one-page summaries of every chapter</li>")
     return f"""
@@ -1367,7 +1391,7 @@ def note_block(block: str) -> str:
         bits.append(
             "<p><b>Write.</b> 5-mark: Define · Explain · Example · Diagram · Working.</p>"
         )
-    cls = "note-block golden" if golden else "note-block"
+    cls = "note-block one-page-topic golden" if golden else "note-block one-page-topic"
     return f'<article class="{cls}">' + "".join(bits) + "</article>"
 
 
@@ -1413,10 +1437,6 @@ def notesize_fragment(fragment: str) -> str:
         if objs
         else ""
     )
-    gloss = compact_glossary(fragment, 12)
-    summary = compact_summary(fragment, 8)
-    gloss_h = "<h2>Key terms to copy</h2>" + gloss if gloss else ""
-    sum_h = "<h2>Chapter in one look</h2>" + summary if summary else ""
     period = f"""
     <div class="box period">
       <p><b>40 minutes.</b> 0–5 min yesterday ★ · 5–25 min board these notes
@@ -1434,9 +1454,8 @@ def notesize_fragment(fragment: str) -> str:
   </header>
   {period}
   {obj_h}
-  {"".join(notes)}
-  {gloss_h}
-  {sum_h}
+    {"".join(notes)}
+  {chapter_exam_after(fragment)}
 </section>"""
 
 
@@ -1463,7 +1482,7 @@ def notes_toc(chapters, gold_n: int):
     items = []
     for n, t, topics in chapters:
         items.append(
-            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} notes</li>"
+            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page notes + 75-mark exam</li>"
         )
     items.append("<li><b>Night-before recaps:</b> one-page summaries of every chapter</li>")
     return f"""
@@ -1646,6 +1665,55 @@ def check_key_from_topics(topics: list[str]) -> str:
     return f'<h3>Check yourself — answers</h3><ol class="check-key">{"".join(items)}</ol>'
 
 
+def mark_one_page_topic(block: str) -> str:
+    if re.search(r'\bone-page-topic\b', block[:180]):
+        return block
+    return re.sub(r'(<div class="topic)', r"\1 one-page-topic", block, count=1)
+
+
+def chapter_divider(opener: str, extra: str = "") -> str:
+    return f'<div class="paced-chapter">{opener}{extra}</div>'
+
+
+def mock_exam_head() -> str:
+    return (
+        '<header class="exam-head"><div class="num">Final mock · closed book</div>'
+        "<h1>Mock paper</h1>"
+        '<p class="meta">75 marks · 2 hours 30 minutes · no notes</p></header>'
+    )
+
+
+def chapter_nums(fragment: str) -> tuple[int, str]:
+    ch_num_m = re.search(r'data-num="(\d+)"', fragment)
+    title_m = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(ch_num_m.group(1)) if ch_num_m else 0
+    ch_title = unescape(title_m.group(1)) if title_m else "Chapter"
+    return ch_num, ch_title
+
+
+def chapter_exam_after(fragment: str, topics: list[str] | None = None) -> str:
+    ch_num, ch_title = chapter_nums(fragment)
+    raw = topics if topics is not None else extract_class_divs(fragment, "topic")
+    return chapter_exam_bundle(fragment, ch_num, ch_title, raw)
+
+
+def contentize_fragment(fragment: str) -> str:
+    """All-in-one: one A4 page per topic, then a thorough chapter exam."""
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    open_tag = section_open_tag(fragment)
+    if not topics:
+        review = extract_review(fragment)
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener)
+        return f"{open_tag}\n{start}{review}\n</section>"
+    pages = [mark_one_page_topic(b) for b in topics]
+    start = chapter_divider(opener)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(pages)}{exam}\n</section>"
+
+
 def chapter_exam_bundle(fragment: str, ch_num: int, title: str, raw_topics: list[str]) -> str:
     review = extract_review(fragment)
     if not review:
@@ -1753,12 +1821,13 @@ def pacedize_fragment(fragment: str) -> str:
             flags=re.S,
         )
         block = append_inside_topic(block, lesson_gate(i, total))
-        block = re.sub(
-            r'<div class="topic">',
-            '<div class="topic paced-lesson">',
-            block,
-            count=1,
-        )
+        if "paced-lesson" not in block[:180]:
+            block = re.sub(
+                r'(<div class="topic)',
+                r'\1 paced-lesson',
+                block,
+                count=1,
+            )
         new_topics.append(block)
     start = (
         f'<div class="paced-chapter">{opener}'
@@ -2095,10 +2164,10 @@ def day_plan_box(day: dict) -> str:
     else:
         gold_s = html.escape(day.get("star") or "—")
         behind = "<p>Phone in another room.</p>"
-    if kind == "Checkpoint":
+    if kind in ("Checkpoint", "Chapter exam"):
         clock = (
-            "0–15 min recap yesterday ★ · 15–90 min remaining cards · "
-            "90–130 min closed-book chapter checkpoint · 130–180 min mark and rewrite missed Goldens."
+            "0–15 min recap yesterday ★ · 15–60 min remaining cards · "
+            "60–135 min closed-book chapter exam (75 marks) · 135–180 min mark and rewrite missed Goldens."
         )
     elif kind == "Golden blitz":
         clock = (
@@ -2168,31 +2237,11 @@ def day_drill_box(topics: list[dict]) -> str:
 
 
 def checkpoint_box(ch: dict) -> str:
-    frag = ch["fragment"]
-    mcqs = extract_ol_items(frag, "mcq", 8)
-    shorts = extract_ol_items(frag, "short", 3)
-    if not mcqs:
+    topics = [t["block"] for t in ch.get("topics", [])]
+    exam = chapter_exam_after(ch["fragment"], topics)
+    if not exam:
         return ""
-    key = mcq_key(frag, 8)
-    short_a = short_model_answers(frag, 3)
-    mcq_html = "".join(mcqs)
-    short_html = "".join(shorts)
-    ans_mcq = " ".join(f"{i}. {html.escape(a)}" for i, a in enumerate(key, 1)) if key else "See the Student's Edition chapter key."
-    ans_sh = "".join(f"<li>{html.escape(clip_text(a, 480))}</li>" for a in short_a)
-    return f"""
-    <div class="box checkpt">
-      <p><b>40 minutes, closed book.</b> Chapter {ch['num']}: {html.escape(ch['title'])}.
-      8 MCQ + 3 short. Mark below 60% means tomorrow morning is Golden repair, not a new chapter.</p>
-      <h3>Multiple choice</h3>
-      <ol class="mcq">{mcq_html}</ol>
-      <h3>Short questions</h3>
-      <ol class="short">{short_html}</ol>
-    </div>
-    <div class="crash-seal">
-      <p><b>Checkpoint answers — mark after the 40 minutes.</b></p>
-      <p>MCQ: {ans_mcq}</p>
-      {"<ol>" + ans_sh + "</ol>" if ans_sh else ""}
-    </div>"""
+    return exam
 
 
 def crash_day_html(day: dict) -> str:
@@ -2265,7 +2314,7 @@ def build_crash_days(chapters: list[dict], final_html: str) -> list[dict]:
         for i, chunk in enumerate(chunks):
             last = i == len(chunks) - 1
             gold = [short_topic_name(t["title"]) for t in chunk if t["golden"]]
-            kind = "Checkpoint" if last else "Teach"
+            kind = "Chapter exam" if last else "Teach"
             days.append({
                 "day": day_no,
                 "week": (day_no - 1) // 5 + 1,
@@ -2498,11 +2547,7 @@ def parse_book_lectures(key: str):
             "body": (
                 chapter_cover(book, ch_num, ch_title, titles)
                 + packed_how
-                + f'<section class="chapter" id="{key}-ch{ch_num}">'
-                + opener
-                + "".join(topics)
-                + review
-                + "</section>"
+                + contentize_fragment(fragment)
             ),
             "title": f"{book['title']} · Lecture {ch_num:02d}: {ch_title}",
             "golden": False,
@@ -2517,10 +2562,10 @@ def parse_book_lectures(key: str):
             title = re.sub(r"\s*★.*", "", raw_title).strip()
             golden = topic_is_golden(raw_title, block)
             urdu = topic_urdu(block)
-            nxt = titles[i] if i < total else "Chapter review (in the chapter lecture PDF)"
+            nxt = titles[i] if i < total else "Chapter exam (in the chapter lecture PDF)"
             body = (
                 lecture_banner(book, ch_num, ch_title, i, total, raw_title, golden, urdu)
-                + f'<section class="chapter">{block}</section>'
+                + f'<section class="chapter">{mark_one_page_topic(block)}</section>'
             )
             if nxt:
                 body += f'<p class="lecture-next">Next lecture: {html.escape(nxt)}</p>'

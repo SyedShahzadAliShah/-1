@@ -686,22 +686,31 @@ table.planner td:first-child { font-weight: 700; white-space: nowrap; }
   margin-top: 18px;
 }
 .colophon h1 { font-size: 16pt; color: #111827; }
-.paced-lesson {
+.paced-lesson, .one-page-topic {
   break-inside: avoid;
   page-break-inside: avoid;
   break-before: page;
   page-break-before: always;
 }
-body.paced-book .paced-lesson { font-size: 9.3pt; }
-body.paced-book .paced-lesson h2 { font-size: 13pt; margin: 4px 0 6px; }
-body.paced-book .paced-lesson h3 { font-size: 10.5pt; margin: 8px 0 4px; }
-body.paced-book .paced-lesson p { margin: 3px 0 6px; }
-body.paced-book .paced-lesson .box { padding: 6px 8px; margin: 4px 0 6px; }
+body.paced-book .paced-lesson,
+.one-page-topic { font-size: 9.3pt; }
+body.paced-book .paced-lesson h2,
+.one-page-topic h2 { font-size: 13pt; margin: 4px 0 6px; }
+body.paced-book .paced-lesson h3,
+.one-page-topic h3 { font-size: 10.5pt; margin: 8px 0 4px; }
+body.paced-book .paced-lesson p,
+.one-page-topic p { margin: 3px 0 6px; }
+body.paced-book .paced-lesson .box,
+.one-page-topic .box { padding: 6px 8px; margin: 4px 0 6px; }
 body.paced-book .paced-lesson .lesson-head { margin: 0 0 6px; }
-body.paced-book .paced-lesson table { font-size: 8.4pt; margin: 4px 0 8px; }
-body.paced-book .paced-lesson pre.code { font-size: 8pt; padding: 7px 9px; margin: 4px 0 8px; }
-body.paced-book .paced-lesson .diagram svg { max-width: 100%; height: auto; max-height: 150px; }
-body.paced-book .paced-lesson ul, body.paced-book .paced-lesson ol { margin: 3px 0 6px; }
+body.paced-book .paced-lesson table,
+.one-page-topic table { font-size: 8.4pt; margin: 4px 0 8px; }
+body.paced-book .paced-lesson pre.code,
+.one-page-topic pre.code { font-size: 8pt; padding: 7px 9px; margin: 4px 0 8px; }
+body.paced-book .paced-lesson .diagram svg,
+.one-page-topic .diagram svg { max-width: 100%; height: auto; max-height: 150px; }
+body.paced-book .paced-lesson ul, body.paced-book .paced-lesson ol,
+.one-page-topic ul, .one-page-topic ol { margin: 3px 0 6px; }
 .paced-chapter {
   break-inside: avoid;
   page-break-inside: avoid;
