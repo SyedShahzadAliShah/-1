@@ -295,7 +295,7 @@
         if (child.classList.contains("cover") || child.id === "sheets") return;
         if (child.tagName === "SCRIPT") return;
         var atomic = child.matches(
-          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak,mjx-container,.math,.note-block,.notes-head,.lesson-head,.answers-seal,.colophon,.imprint"
+          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak,mjx-container,.math,.note-block,.notes-head,.lesson-head,.answers-seal,.colophon,.imprint,.paced-lesson"
         );
         if (atomic) atoms.push(child);
         else if (child.children.length && child.matches("div,section,article")) walk(child);
@@ -334,8 +334,17 @@
     }
 
     var placeCalls = 0;
+    function isOnePageBlock(el) {
+      return el && el.matches && el.matches(".paced-lesson");
+    }
     function placeGroup(nodes) {
       if (!nodes.length || ++placeCalls > 8000) return;
+      if (nodes.length === 1 && isOnePageBlock(nodes[0])) {
+        if (inner.childElementCount) seal();
+        inner.appendChild(nodes[0]);
+        seal();
+        return;
+      }
       nodes.forEach(function (n) { inner.appendChild(n); });
       var together = inner.scrollHeight;
       if (together <= PAGE) return;
@@ -395,7 +404,7 @@
 
     for (var i = 0; i < atoms.length; i++) {
       var el = atoms[i];
-      if (el.matches && el.matches(".crash-head,.crash-seal,.pagebreak,.notes-head,.answers-seal,.colophon")) {
+      if (el.matches && el.matches(".crash-head,.crash-seal,.pagebreak,.notes-head,.answers-seal,.colophon,.paced-lesson")) {
         seal();
       }
       var nxt = atoms[i + 1];

@@ -1657,6 +1657,12 @@ def pacedize_fragment(fragment: str) -> str:
             flags=re.S,
         )
         block = append_inside_topic(block, lesson_gate(i, total))
+        block = re.sub(
+            r'<div class="topic">',
+            '<div class="topic paced-lesson">',
+            block,
+            count=1,
+        )
         new_topics.append(block)
     body = opener + chapter_pace_box(ch_num, topics) + "".join(new_topics) + review
     return f"{open_tag}\n{body}\n</section>"
