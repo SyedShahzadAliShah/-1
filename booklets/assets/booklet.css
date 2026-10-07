@@ -745,3 +745,50 @@ body.paced-book .paced-lesson ul, body.paced-book .paced-lesson ol,
 .box.exam-rules { border-color: #7c2d12; background: #fff7ed; }
 .chapter-exam h2 { color: #7c2d12; }
 .exam-key { break-before: page; page-break-before: always; }
+
+/* ---------- Complete one-grade book (readable lessons) ---------- */
+.cover.complete-cover {
+  background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 50%, #1d4ed8 100%);
+}
+.cover.complete-cover .tag { background: #f59e0b; color: #111827; }
+.cover.complete-cover .units div { background: rgba(245,158,11,.16); border-color: rgba(255,255,255,.3); }
+body.complete-book {
+  font-size: 11pt;
+  line-height: 1.58;
+}
+body.complete-book h2 { font-size: 16pt; margin: 10px 0 12px; }
+body.complete-book h3 { font-size: 12.5pt; }
+body.complete-book p { margin: 6px 0 10px; }
+body.complete-book .box { padding: 10px 12px; margin: 8px 0 12px; font-size: 10.8pt; }
+body.complete-book table { font-size: 10pt; }
+body.complete-book pre.code { font-size: 9.4pt; }
+body.complete-book .ur { font-size: 12pt; }
+body.complete-book .diagram svg { max-height: 220px; }
+.complete-lesson,
+.complete-chapter,
+.complete-part,
+.part-banner {
+  break-before: page;
+  page-break-before: always;
+}
+.part-banner {
+  background: #0f172a;
+  color: #fff;
+  border-radius: 10px;
+  padding: 22px 20px 18px;
+}
+.part-banner .num {
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+.part-banner h1 { color: #fff; font-size: 26pt; margin: 6px 0 8px; }
+.part-banner .meta { color: #e2e8f0; font-size: 12pt; }
+.part-banner .ur { color: #fde68a; }
+.complete-lesson.is-golden { border-left: 5px solid #eab308; padding-left: 10px; }
+body.complete-book .lesson-head { padding: 8px 14px; margin: 0 0 12px; }
+body.complete-book .lesson-head .num { font-size: 10.5pt; letter-spacing: .08em; }
+.box.exam-recipe::before { content: "Full-mark recipe"; color: #7c2d12; }
+.box.exam-recipe { border-color: #7c2d12; background: #fff7ed; }

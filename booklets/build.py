@@ -12,6 +12,7 @@ Usage:
   python3 booklets/build.py crash        # 30-day crash course
   python3 booklets/build.py notes        # concise classroom lecture-notes study guide
   python3 booklets/build.py paced        # AIO Self-Paced Teach Yourself Edition
+  python3 booklets/build.py complete     # one readable XI file + one readable XII file
   python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes + paced
 """
 from __future__ import annotations
@@ -2855,11 +2856,227 @@ def build_lectures(keys: list[str], workers: int = 3):
     print("Lecture PDFs ready in", RELEASES)
 
 
+def hide_check_answers(block: str) -> str:
+    ans_m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+    if not ans_m:
+        return block
+    return (
+        block[: ans_m.start()]
+        + '<div class="ans write-here">Write your answers in your notebook. '
+        "The key is in Part III — Exam preparation.</div>"
+        + block[ans_m.end() :]
+    )
+
+
+def as_complete_lesson(block: str, n: int, total: int, ch_num: int, part: str) -> str:
+    block = hide_check_answers(block)
+    golden = topic_is_golden(topic_title(block), block)
+    star = ' · <span class="star">★ Golden</span>' if golden else ""
+    label = "Golden topic" if part == "golden" else "Lesson"
+    mins = 25 if golden else 15
+    head = (
+        f'<div class="lesson-head{" golden" if golden else ""}">'
+        f'<div class="num">{label} {n:02d} of {total:02d} · Chapter {ch_num} · '
+        f"{mins} minutes{star}</div></div>"
+    )
+    block = re.sub(r"(<h2[^>]*>.*?</h2>)", head + r"\1", block, count=1, flags=re.S)
+    cls = "topic complete-lesson"
+    if golden:
+        cls += " is-golden"
+    block = re.sub(r'<div class="topic[^"]*"', f'<div class="{cls}"', block, count=1)
+    return block
+
+
+def part_banner(num: str, title: str, blurb: str, urdu: str) -> str:
+    return f"""
+<section class="complete-part">
+  <header class="part-banner">
+    <div class="num">Part {html.escape(num)}</div>
+    <h1>{html.escape(title)}</h1>
+    <p class="meta">{blurb}</p>
+    <p class="ur">{urdu}</p>
+  </header>
+</section>"""
+
+
+def complete_cover(book, chapters, gold_n: int, lesson_n: int):
+    units = "".join(f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters)
+    return f"""
+<section class="cover complete-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">COMPLETE TEACH YOURSELF</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">One book for the grade &mdash; every lesson at readable size,
+  ★ Golden topics on their own, then chapter exams and the mock.</p>
+  <p class="sub">{lesson_n} lessons · {gold_n} Golden · six chapter papers + mock</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">مکمل کتاب — سبق، گولڈن، امتحانی تیاری</div>
+  <div class="units">{units}</div>
+  <div class="foot">Complete Edition &middot; {book['curriculum']} &middot;
+  Each lesson starts on a new page. Long topics continue at the same type size.</div>
+</section>"""
+
+
+def complete_toc(chapters, goldens: list[tuple[int, str, str]], has_final: bool):
+    gold_items = "".join(
+        f"<li>★ Ch {ch}. {html.escape(title)}</li>" for ch, _, title in goldens
+    )
+    ch_items = []
+    for n, t, topics in chapters:
+        sub = "".join(f"<li>{html.escape(x)}</li>" for x in topics)
+        ch_items.append(
+            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} lessons<ul>{sub}</ul></li>'
+        )
+    exams = "".join(
+        f"<li>Chapter {n} recap + 75-mark exam + key</li>" for n, t, _ in chapters
+    )
+    if has_final:
+        exams += "<li>Final mock (75 marks, 2 h 30 min) + key</li>"
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <h2>Part I — ★ Golden Topics</h2>
+  <ol class="toc">{gold_items or "<li>No Golden topics listed.</li>"}</ol>
+  <h2>Part II — Chapters</h2>
+  <ol class="toc">{''.join(ch_items)}</ol>
+  <h2>Part III — Exam preparation</h2>
+  <ol class="toc">{exams}</ol>
+</section>"""
+
+
+def complete_golden_part(chapters_src: list[tuple[int, str, str, list[str]]]) -> str:
+    cards = []
+    all_gold = []
+    for ch_num, _title, _frag, topics in chapters_src:
+        golds = [b for b in topics if topic_is_golden(topic_title(b), b)]
+        all_gold.extend((ch_num, b) for b in golds)
+    total = len(all_gold)
+    for i, (ch_num, block) in enumerate(all_gold, 1):
+        cards.append(as_complete_lesson(block, i, total, ch_num, "golden"))
+    if not cards:
+        return ""
+    return (
+        part_banner(
+            "I",
+            "★ Golden Topics",
+            "High-yield lessons only, full detail, readable type. Do these first if time is short.",
+            "صرف گولڈن موضوعات — پوری تفصیل، پڑھنے جتنا بڑا متن۔",
+        )
+        + "".join(cards)
+    )
+
+
+def complete_chapter_part(chapters_src: list[tuple[int, str, str, list[str]]]) -> str:
+    chunks = [
+        part_banner(
+            "II",
+            "Chapters",
+            "Every topic in syllabus order. Each lesson starts on a new page and continues at the same size.",
+            "ہر باب کے تمام اسباق۔ نیا سبق نئے صفحے سے۔",
+        )
+    ]
+    for ch_num, title, fragment, topics in chapters_src:
+        opener = extract_opener(fragment)
+        gold = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+        stars = " · ".join(
+            html.escape(short_topic_name(re.sub(r"\s*★.*", "", topic_title(b)).strip()))
+            for b in topics
+            if topic_is_golden(topic_title(b), b)
+        ) or "—"
+        note = f"""
+        <div class="box pace">
+          <p><b>This chapter.</b> {len(topics)} lessons · {gold} Golden.
+          ★ also printed in Part I: {stars}</p>
+          <p>After the last lesson, sit the Chapter {ch_num} paper in Part III.</p>
+        </div>"""
+        start = f'<div class="complete-chapter">{opener}{note}</div>'
+        lessons = [
+            as_complete_lesson(b, i, len(topics), ch_num, "chapter")
+            for i, b in enumerate(topics, 1)
+        ]
+        chunks.append(start + "".join(lessons))
+    return "".join(chunks)
+
+
+def complete_exam_part(
+    chapters_src: list[tuple[int, str, str, list[str]]], final_html: str
+) -> str:
+    recipe = """
+    <div class="box exam-recipe">
+      <p><b>How marks are given.</b> 1-mark: one exact fact. 3-mark: definition + two points or a short table.
+      5-mark / 10-mark: Define · Explain · Example · Diagram · Working. An answer with no working,
+      no diagram or no example cannot score full marks.</p>
+      <p>Sit each paper after you finish that chapter in Part II. 75 marks · 1 hour 15 minutes ·
+      no notes. Then break the seal.</p>
+    </div>"""
+    chunks = [
+        part_banner(
+            "III",
+            "Exam preparation",
+            "One recap and one 75-mark closed-book paper per chapter, then the mock. Keys stay sealed.",
+            "ہر باب کا خلاصہ اور ۷۵ نمبر کا پیپر، پھر ماک۔ کلید مہر کے پیچھے ہے۔",
+        )
+        + recipe
+    ]
+    for ch_num, title, fragment, topics in chapters_src:
+        chunks.append(chapter_exam_bundle(fragment, ch_num, title, topics))
+    if final_html:
+        review = extract_review(final_html)
+        opener = extract_opener(final_html)
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        chunks.append(f'<div class="complete-chapter">{opener}</div>{review}')
+    return "".join(chunks)
+
+
+def build_complete(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-complete.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_src, goldens = [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        topics = extract_class_divs(text, "topic")
+        chapters.append(meta)
+        chapters_src.append((meta[0], meta[1], text, topics))
+        for block in topics:
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = final_path.read_text(encoding="utf-8") if final_path.exists() else ""
+    lesson_n = sum(len(row[3]) for row in chapters_src)
+    doc = wrap_html(
+        f"{book['title']} — Complete Teach Yourself",
+        complete_cover(book, chapters, len(goldens), lesson_n)
+        + intro
+        + '<div class="pagebreak"></div>'
+        + complete_toc(chapters, goldens, bool(final))
+        + complete_golden_part(chapters_src)
+        + complete_chapter_part(chapters_src)
+        + complete_exam_part(chapters_src, final),
+        body_class="complete-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-complete.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Complete-Teach-Yourself.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=80_000, budget_ms=240000)
+    print(f"{key} complete book -> {pdf_path}")
+    return pdf_path
+
+
+def build_complete_books(keys: list[str]):
+    for k in keys:
+        build_complete(k)
+
+
 def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "complete", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -2881,6 +3098,8 @@ def main(argv: list[str]):
         build_notes_guides(keys)
     if mode in ("paced", "all"):
         build_paced_editions(keys)
+    if mode == "complete":
+        build_complete_books(keys)
 
 
 if __name__ == "__main__":

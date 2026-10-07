@@ -89,6 +89,17 @@ Concise classroom photocopy pack: one A4 note per topic (Board definition, numbe
 python3 booklets/build.py notes
 ```
 
+## Complete Teach Yourself (one file per grade)
+
+The combined book: Part I ★ Golden Topics, Part II every chapter lesson at readable type (each lesson starts on a new page and continues if it needs more room), Part III exam preparation (75-mark chapter papers + mock).
+
+- [CS XI Complete Teach Yourself](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf)
+- [CS XII Complete Teach Yourself](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf)
+
+```bash
+python3 booklets/build.py complete
+```
+
 ## AIO Self-Paced Teach Yourself Edition
 
 The published all-in-one: imprint, three-track study planner, one topic per A4 page, then a chapter recap and a thorough 75-mark closed-book exam (15 MCQ + 10 short + any 3 long). Keys stay sealed.
