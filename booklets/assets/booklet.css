@@ -765,8 +765,7 @@ body.paced-book .paced-lesson ul, body.paced-book .paced-lesson ol,
 .box.combo-track { border-color: #0f766e; background: #f0fdfa; }
 .box.combo-track::before { content: "Student · Coach"; color: #0f766e; }
 body.complete-book .imprint { break-after: auto; }
-body.complete-book .combo-planner,
-body.complete-book .combo-toc { break-before: page; page-break-before: always; }
+body.complete-book .combo-planner { break-before: page; page-break-before: always; }
 body.complete-book table.session-table { font-size: 9.2pt; }
 body.complete-book {
   font-size: 11pt;
