@@ -2538,7 +2538,7 @@ def lecture_banner(book, ch_num, ch_title, index, total, title, golden, urdu):
 def chapter_cover(book, ch_num, ch_title, topics, kind="Chapter lecture"):
     n = len(topics)
     units = (
-        f"<div><b>{n:02d}</b>teach-yourself lectures in this pack</div>"
+        f"<div><b>{n:02d}</b>book lectures in this pack</div>"
         f"<div><b>★</b>Golden topics, Urdu notes, review and answer key</div>"
     )
     return f"""
