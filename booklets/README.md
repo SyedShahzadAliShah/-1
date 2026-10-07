@@ -7,6 +7,9 @@ built from the bilingual teacher's lecture notes.
 
 Plain file URLs (save the PDF, no GitHub preview page):
 
+- Notes XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf
+- Notes XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf
+- Notes XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf
 - Crash XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf
 - Crash XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf
 - Crash XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf
@@ -71,6 +74,18 @@ Complete preparatory plan: Days 1–23 teach every topic as revision cards (last
 python3 booklets/build.py crash
 ```
 
+## Lecture-Notes Study Guide
+
+Concise classroom photocopy pack: one full-width note per topic (Board definition, numbered points, one table or diagram, exam wording, Urdu). ★ Golden first. A 40-minute period box sits at the top of each chapter.
+
+- [CS XI Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+
+```bash
+python3 booklets/build.py notes
+```
+
 ## Download — lecture PDFs
 
 Each topic is a printable **Teach Yourself lecture**. Each chapter also has a packed
@@ -95,7 +110,7 @@ python3 booklets/build.py lectures xi     # Grade XI only
 python3 booklets/build.py        # both booklets
 python3 booklets/build.py xi     # Grade XI only
 python3 booklets/build.py xii    # Grade XII only
-python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat + crash
+python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat + crash + notes
 ```
 
 Requires Google Chrome (`google-chrome`) and the Noto Naskh Arabic + Inter fonts.

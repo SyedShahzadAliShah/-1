@@ -45,6 +45,16 @@ Daily 3-hour plans, ★ Golden first, chapter checkpoints, mock paper, and a rep
 
 Rebuild: `python3 booklets/build.py crash`
 
+## Lecture-Notes Study Guide
+
+Classroom photocopy pack: Board definition, numbered points, one table or diagram, exam cue, Urdu. ★ Golden first. 40-minute period on every chapter.
+
+- [CS XI Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py notes`
+
 ## All-in-one PDFs (whole grade in one file)
 
 - [CS XI Teach Yourself — All-in-One (203 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)

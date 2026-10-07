@@ -570,3 +570,67 @@ body.crash-book .box.hw::before { content: "Tonight's 5-mark"; color: #0b7a75; }
   padding: 10px 14px;
   margin: 12px 0;
 }
+
+/* ---------- Lecture-notes study guide ---------- */
+.cover.notes-cover {
+  background: linear-gradient(160deg, #0b1220 0%, #1e3a5f 48%, #2563eb 100%);
+}
+.cover.notes-cover .tag { background: #dbeafe; color: #1e3a5f; }
+.cover.notes-cover .units div { background: rgba(219,234,254,.16); border-color: rgba(255,255,255,.28); }
+.cover.notes-cover .ur { white-space: nowrap; font-size: 15pt; }
+body.notes-book { font-size: 9.6pt; }
+.notes-head {
+  background: #1e3a5f;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px 8px;
+  margin: 0 0 10px;
+  break-inside: avoid;
+}
+.notes-head .num {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #bfdbfe;
+}
+.notes-head h1 { color: #fff; font-size: 18pt; margin: 2px 0 4px; }
+.notes-head .meta { margin: 4px 0 0; font-size: 9.2pt; color: #dbeafe; }
+.box.period::before { content: "40-minute period"; color: #1e3a5f; }
+.box.period { border-color: #1e3a5f; background: #eff6ff; }
+.note-block {
+  border: 1px solid var(--line);
+  border-left: 5px solid #1e3a5f;
+  border-radius: 6px;
+  padding: 8px 10px 7px;
+  margin: 0 0 9px;
+  background: #f8fafc;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.note-block.golden {
+  border-left-color: var(--brand-2);
+  background: #fff8f1;
+}
+.note-block h3 {
+  font-size: 11pt;
+  margin: 0 0 5px;
+  color: var(--brand);
+  border: 0;
+  padding: 0;
+}
+.note-block p { margin: 3px 0; }
+.note-block ol, .note-block ul { margin: 3px 0 5px; padding-left: 18px; }
+.note-block table { font-size: 8.2pt; margin: 4px 0; }
+.note-block pre.code { font-size: 7.8pt; padding: 6px 8px; margin: 4px 0; }
+.note-block .board { font-weight: 500; }
+.note-block .mn { color: #7c5a12; }
+.note-block .xq { color: #9c2c00; }
+.note-block .ur { font-size: 10.2pt; line-height: 1.7; }
+.note-block .flow-line { font-weight: 600; font-size: 8.8pt; }
+.note-block .diagram { margin: 4px 0 6px; }
+.note-block .diagram svg { max-width: 100%; height: auto; max-height: 180px; }
+.note-block mjx-container { font-size: 95%; }
+.notes-chapter .glossary { font-size: 8.4pt; }
+.notes-chapter .summary { font-size: 9pt; }
+.notes-chapter .objectives { font-size: 9pt; }

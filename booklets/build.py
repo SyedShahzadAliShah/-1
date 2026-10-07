@@ -10,7 +10,8 @@ Usage:
   python3 booklets/build.py academy      # Coaching Academy Edition
   python3 booklets/build.py cheat        # Cheat-sheet booklet
   python3 booklets/build.py crash        # 30-day crash course
-  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash
+  python3 booklets/build.py notes        # concise classroom lecture-notes study guide
+  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes
 """
 from __future__ import annotations
 
@@ -1283,6 +1284,241 @@ def build_cheatsheets(keys: list[str]):
     print(f"cheat complete -> {dest} ({pages} pages)")
 
 
+def extract_objectives(fragment: str, limit: int = 6) -> list[str]:
+    m = re.search(r'<ul class="objectives">(.*?)</ul>', fragment, flags=re.S)
+    if not m:
+        return []
+    items = [unescape(strip_tags(x)).strip() for x in re.findall(r"<li>(.*?)</li>", m.group(1), flags=re.S)]
+    return [x for x in items if x][:limit]
+
+
+def compact_glossary(fragment: str, limit: int = 12) -> str:
+    gloss = extract_glossary(fragment)
+    if not gloss:
+        return ""
+    rows = re.findall(r"<tr>.*?</tr>", gloss, flags=re.S)
+    if len(rows) <= 1:
+        return gloss
+    keep = rows[: limit + 1]
+    return '<table class="glossary">' + "".join(keep) + "</table>"
+
+
+def compact_summary(fragment: str, limit: int = 8) -> str:
+    m = re.search(r'<ul class="summary">(.*?)</ul>', fragment, flags=re.S)
+    if not m:
+        return ""
+    items = re.findall(r"<li>(.*?)</li>", m.group(1), flags=re.S)
+    items = [x for x in items if strip_tags(x).strip()][:limit]
+    if not items:
+        return ""
+    return '<ul class="summary">' + "".join(f"<li>{x}</li>" for x in items) + "</ul>"
+
+
+def note_block(block: str) -> str:
+    raw = topic_title(block)
+    title = re.sub(r"\s*★.*", "", raw).strip()
+    golden = topic_is_golden(raw, block)
+    define = topic_definition(block)
+    points = topic_points(block, 5)
+    if define:
+        stem = define[:36].lower()
+        points = [p for p in points if p[:36].lower() not in (stem, define[:36].lower())]
+    table, _ = compact_table(block)
+    code = compact_code(block)
+    diag = compact_diagram(block)
+    flow = flow_line(block)
+    tip = clip_text(extract_box_text(block, "tip"), 150)
+    exam = clip_text(extract_box_text(block, "exam"), 160)
+    warn = clip_text(first_sentence(extract_box_text(block, "warn")), 130)
+    urdu = short_urdu(extract_box_text(block, "urdu"), 120)
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    bits = [f"<h3>{html.escape(title)}{star}</h3>"]
+    if define:
+        bits.append(f'<p class="board"><b>Board.</b> {html.escape(define)}</p>')
+    if flow:
+        bits.append(f'<p class="flow-line">{flow}</p>')
+    if points:
+        bits.append("<ol>" + "".join(f"<li>{html.escape(p)}</li>" for p in points[:5]) + "</ol>")
+    if table:
+        bits.append(table)
+    if diag:
+        bits.append(diag)
+    if code:
+        bits.append(code)
+    if tip:
+        bits.append(f'<p class="mn"><b>Remember:</b> {html.escape(tip)}</p>')
+    elif warn:
+        bits.append(f'<p class="mn"><b>Trap:</b> {html.escape(warn)}</p>')
+    if exam:
+        bits.append(f'<p class="xq"><b>Exam:</b> {html.escape(exam)}</p>')
+    if urdu:
+        bits.append(f'<p class="ur">{html.escape(urdu)}</p>')
+    if golden:
+        bits.append(
+            "<p><b>Write.</b> 5-mark: Define · Explain · Example · Diagram · Working.</p>"
+        )
+    cls = "note-block golden" if golden else "note-block"
+    return f'<article class="{cls}">' + "".join(bits) + "</article>"
+
+
+def notesize_fragment(fragment: str) -> str:
+    topics = extract_class_divs(fragment, "topic")
+    num = re.search(r'data-num="(\d+)"', fragment)
+    title = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(num.group(1)) if num else 0
+    ch_title = unescape(title.group(1)) if title else "Chapter"
+    if not topics:
+        recaps = []
+        for m in re.finditer(
+            r"<h2>(.*?)</h2>\s*<ul class=\"summary\">(.*?)</ul>", fragment, flags=re.S
+        ):
+            recaps.append(f"<h2>{m.group(1)}</h2><ul class=\"summary\">{m.group(2)}</ul>")
+        body = "".join(recaps) or extract_opener(fragment)
+        return f"""
+<section class="chapter notes-chapter" data-num="{ch_num}">
+  <header class="notes-head">
+    <div class="num">Night before</div>
+    <h1>Chapter recaps</h1>
+    <p class="meta">Read each recap, close the booklet, say it aloud. Then stop.</p>
+  </header>
+  {body}
+</section>"""
+    goldens = []
+    notes = []
+    for block in topics:
+        raw = topic_title(block)
+        if topic_is_golden(raw, block):
+            goldens.append(re.sub(r"\s*★.*", "", raw).strip())
+        notes.append(note_block(block))
+    star_line = (
+        " · ".join(html.escape(short_topic_name(g)) for g in goldens)
+        if goldens
+        else "No Golden topics — still copy every table."
+    )
+    objs = extract_objectives(fragment, 6)
+    obj_h = (
+        "<h2>This chapter in class</h2><ul class=\"objectives\">"
+        + "".join(f"<li>{html.escape(o)}</li>" for o in objs)
+        + "</ul>"
+        if objs
+        else ""
+    )
+    gloss = compact_glossary(fragment, 12)
+    summary = compact_summary(fragment, 8)
+    gloss_h = "<h2>Key terms to copy</h2>" + gloss if gloss else ""
+    sum_h = "<h2>Chapter in one look</h2>" + summary if summary else ""
+    period = f"""
+    <div class="box period">
+      <p><b>40 minutes.</b> 0–5 min yesterday ★ · 5–25 min board these notes
+      (Golden first) · 25–35 min closed-book definition + table ·
+      35–40 min one 5-mark homework.</p>
+      <p><b>★ Teach first:</b> {star_line}</p>
+      <p>If behind, skip non-Golden. Phones away. Copy every table.</p>
+    </div>"""
+    return f"""
+<section class="chapter notes-chapter">
+  <header class="notes-head">
+    <div class="num">Chapter {ch_num} · Lecture notes</div>
+    <h1>{html.escape(ch_title)}</h1>
+    <p class="meta">★ {len(goldens)} Golden · {len(topics)} notes · classroom study guide</p>
+  </header>
+  {period}
+  {obj_h}
+  {"".join(notes)}
+  {gloss_h}
+  {sum_h}
+</section>"""
+
+
+def notes_cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover notes-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">LECTURE-NOTES STUDY GUIDE</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Concise classroom notes &mdash; board definitions, numbered points,
+  tables and diagrams, ★ Golden first, exam wording.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">کلاس روم لیکچر نوٹس — مختصر گائیڈ</div>
+  <div class="units">{units}</div>
+  <div class="foot">Lecture Notes &middot; {book['curriculum']} &middot;
+  40-minute period pack. Not a textbook.</div>
+</section>"""
+
+
+def notes_toc(chapters, gold_n: int):
+    items = []
+    for n, t, topics in chapters:
+        items.append(
+            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} notes</li>"
+        )
+    items.append("<li><b>Night-before recaps:</b> one-page summaries of every chapter</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden notes. Teach those first in every 40-minute period.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def build_notes_guide(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-notes.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_html, goldens = [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        chapters.append(meta)
+        chapters_html.append(notesize_fragment(text))
+        for block in extract_class_divs(text, "topic"):
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = notesize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    doc = wrap_html(
+        f"{book['title']} — Lecture-Notes Study Guide",
+        notes_cover(book, chapters)
+        + notes_toc(chapters, len(goldens))
+        + cheat_golden_index(goldens)
+        + intro
+        + "".join(chapters_html)
+        + final,
+        body_class="notes-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-notes.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Lecture-Notes-Study-Guide.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=30_000, budget_ms=180000)
+    print(f"{key} lecture-notes study guide -> {pdf_path}")
+    return pdf_path
+
+
+def build_notes_guides(keys: list[str]):
+    paths = [build_notes_guide(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip notes complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"notes complete -> {dest} ({pages} pages)")
+
+
 OL_OPEN = re.compile(r"<ol\b", re.I)
 OL_CLOSE = re.compile(r"</ol>", re.I)
 LI_OPEN = re.compile(r"<li\b", re.I)
@@ -2073,7 +2309,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -2091,6 +2327,8 @@ def main(argv: list[str]):
         build_cheatsheets(keys)
     if mode in ("crash", "all"):
         build_crash_courses(keys)
+    if mode in ("notes", "all"):
+        build_notes_guides(keys)
 
 
 if __name__ == "__main__":
