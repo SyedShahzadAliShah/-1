@@ -9,6 +9,16 @@ It is written for **two users at once**:
 - **Teacher:** session outcomes, 90-minute lesson plan, board work, common traps, how to mark.
 - **Student:** compact notes, CSS-ready examples, drills, homework, and a self-check.
 
+## PDF (print the course)
+
+The full book is `CSS-Essay-Grammar-Course.pdf` (A4, cover + contents + 17 sessions + tests + keys). Rebuild after editing notes:
+
+```bash
+python3 css-essay-course/pdf/build_pdf.py
+```
+
+Requires Python packages `markdown` and `weasyprint`.
+
 ## How to use this pack
 
 | File | Who uses it | When |
