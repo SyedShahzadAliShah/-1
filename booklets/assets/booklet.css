@@ -866,6 +866,9 @@ body.study-guide .ur { font-size: 13pt; }
 body.study-guide .box.urdu::before { font-size: 12.5pt; }
 body.study-guide .mcq-card { font-size: 11pt; }
 body.study-guide .mcq-card .opts li { font-size: 11pt; }
+body.study-guide .answers ol,
+body.study-guide .extra-key,
+body.study-guide .box.check .ans { font-size: 11pt; }
 body.study-guide .extra-practice { break-before: page; page-break-before: always; font-size: 11.5pt; }
 body.study-guide .extra-practice .extra-grid { gap: 12px; }
 body.study-guide figure.diagram figcaption { font-size: 10pt; }
@@ -879,8 +882,8 @@ body.study-guide .paced-chapter {
   page-break-inside: auto;
 }
 body.study-guide .topic { break-before: page; page-break-before: always; }
-body.study-guide .front + .chapter .topic:first-of-type,
-body.study-guide .paced-chapter + .topic { break-before: page; }
+body.study-guide .lecture-body .topic { break-before: auto; page-break-before: auto; }
+body.study-guide .lecture-next { break-before: avoid; }
 body.study-guide .one-page-topic {
   font-size: 11.5pt;
   break-before: page;
