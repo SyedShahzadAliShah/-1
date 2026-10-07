@@ -7,6 +7,9 @@ built from the bilingual teacher's lecture notes.
 
 Plain file URLs (save the PDF, no GitHub preview page):
 
+- Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
+- Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
+- Paced XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf
 - Notes XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf
 - Notes XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf
 - Notes XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf
@@ -86,6 +89,18 @@ Concise classroom photocopy pack: one full-width note per topic (Board definitio
 python3 booklets/build.py notes
 ```
 
+## AIO Self-Paced Teach Yourself Edition
+
+The published all-in-one: imprint, three-track study planner (Steady 16 weeks / Term 8 / Exam 4), numbered lessons with a gate, practice first, answers after each chapter seal, colophon.
+
+- [CS XI AIO Self-Paced Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [CS XII AIO Self-Paced Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [XI + XII AIO Self-Paced Teach Yourself Edition complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
+
+```bash
+python3 booklets/build.py paced
+```
+
 ## Download — lecture PDFs
 
 Each topic is a printable **Teach Yourself lecture**. Each chapter also has a packed
@@ -110,7 +125,7 @@ python3 booklets/build.py lectures xi     # Grade XI only
 python3 booklets/build.py        # both booklets
 python3 booklets/build.py xi     # Grade XI only
 python3 booklets/build.py xii    # Grade XII only
-python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat + crash + notes
+python3 booklets/build.py all    # booklets + lectures + editions + academy + cheat + crash + notes + paced
 ```
 
 Requires Google Chrome (`google-chrome`) and the Noto Naskh Arabic + Inter fonts.

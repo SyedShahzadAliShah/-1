@@ -11,7 +11,8 @@ Usage:
   python3 booklets/build.py cheat        # Cheat-sheet booklet
   python3 booklets/build.py crash        # 30-day crash course
   python3 booklets/build.py notes        # concise classroom lecture-notes study guide
-  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes
+  python3 booklets/build.py paced        # AIO Self-Paced Teach Yourself Edition
+  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes + paced
 """
 from __future__ import annotations
 
@@ -1519,6 +1520,329 @@ def build_notes_guides(keys: list[str]):
     print(f"notes complete -> {dest} ({pages} pages)")
 
 
+PACE_PREREQ = {
+    1: "None. Open Lesson 01 and start.",
+    2: "Chapter 1. You will reuse tables and step-by-step thinking.",
+    3: "Chapter 2. Algorithms in this chapter become working programs.",
+    4: "Chapter 3. You will store and query the data programs produce.",
+    5: "Chapters 1–4. Applications sit on systems, algorithms, code and data.",
+    6: "Chapters 1–5. This chapter closes the year.",
+}
+PACE_STEADY = {
+    1: "Weeks 1–3",
+    2: "Weeks 4–5",
+    3: "Weeks 6–8",
+    4: "Weeks 9–10",
+    5: "Weeks 11–12",
+    6: "Weeks 13–14",
+}
+PACE_TERM = {1: "Week 1", 2: "Week 2", 3: "Week 3", 4: "Week 4", 5: "Week 5", 6: "Week 6"}
+PACE_EXAM = {
+    1: "Days 1–4",
+    2: "Days 5–8",
+    3: "Days 9–13",
+    4: "Days 14–17",
+    5: "Days 18–21",
+    6: "Days 22–25",
+}
+
+
+def lesson_minutes(block: str) -> int:
+    return 25 if topic_is_golden(topic_title(block), block) else 15
+
+
+def fmt_hours(mins: int) -> str:
+    if mins < 60:
+        return f"{mins} min"
+    h, m = divmod(mins, 60)
+    if m == 0:
+        return f"{h} h"
+    return f"{h} h {m} min"
+
+
+def chapter_study_mins(topics: list[str]) -> int:
+    return sum(lesson_minutes(b) for b in topics) + 60
+
+
+def lesson_head_html(n: int, total: int, block: str) -> str:
+    golden = topic_is_golden(topic_title(block), block)
+    mins = 25 if golden else 15
+    star = ' · <span class="star">★ Golden</span>' if golden else ""
+    cls = "lesson-head golden" if golden else "lesson-head"
+    return (
+        f'<div class="{cls}"><div class="num">Lesson {n:02d} of {total:02d} · '
+        f"{mins} minutes{star}</div></div>"
+    )
+
+
+def lesson_do_now(golden: bool) -> str:
+    extra = " This is Golden — give it the full time." if golden else ""
+    return (
+        '<div class="box pace"><p><b>Do this now.</b> Read Learn it slowly. '
+        "Cover the example and reproduce it on paper. Write Check yourself in your "
+        f"notebook. Do not open the chapter Answer key.{extra}</p></div>"
+    )
+
+
+def lesson_gate(n: int, total: int) -> str:
+    if n >= total:
+        return """
+    <div class="box gate">
+      <p><b>Chapter gate.</b> If Check yourself was clean, sit the chapter practice
+      paper in exam conditions. Then mark with the Answer key after the seal.</p>
+      <p class="ur">اگر خود آزمائی ٹھیک ہے تو باب کا پیپر بغیر نوٹس کے حل کریں، پھر کلید سے نمبر لگائیں۔</p>
+    </div>"""
+    return f"""
+    <div class="box gate">
+      <p><b>Can you go on?</b> If any Check yourself line was wrong, re-read this
+      lesson before Lesson {n + 1:02d}. If it was clean, turn the page.</p>
+      <p class="ur">غلط جواب ہو تو یہ سبق دوبارہ پڑھیں۔ ٹھیک ہو تو اگلا سبق شروع کریں۔</p>
+    </div>"""
+
+
+def chapter_pace_box(ch_num: int, topics: list[str]) -> str:
+    n = len(topics)
+    gold = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+    mins = chapter_study_mins(topics)
+    goldens = [
+        short_topic_name(re.sub(r"\s*★.*", "", topic_title(b)).strip())
+        for b in topics
+        if topic_is_golden(topic_title(b), b)
+    ]
+    stars = " · ".join(html.escape(g) for g in goldens) if goldens else "No Golden lessons — still do every check."
+    return f"""
+    <div class="box pace">
+      <p><b>Before you start.</b> {n} lessons · {gold} Golden · about
+      <b>{fmt_hours(mins)}</b> (lessons + chapter paper + review).</p>
+      <p><b>Need first:</b> {html.escape(PACE_PREREQ.get(ch_num, "The previous chapter."))}</p>
+      <p><b>★ Do first if time is short:</b> {stars}</p>
+      <p><b>Pace.</b> Steady: {PACE_STEADY.get(ch_num, "—")}.
+      Term: {PACE_TERM.get(ch_num, "—")}.
+      Exam: {PACE_EXAM.get(ch_num, "—")} (Golden lessons only if the calendar is short).</p>
+      <p>Close the Answer key. Work one lesson at a time. Tick “I can…” only after the chapter paper.</p>
+      <p class="ur">ایک وقت میں ایک سبق۔ جوابات باب کے آخر تک نہ کھولیں۔</p>
+    </div>"""
+
+
+def pacedize_fragment(fragment: str) -> str:
+    sealed = studentize_fragment(fragment)
+    opener = extract_opener(sealed)
+    topics = extract_class_divs(sealed, "topic")
+    review = extract_review(sealed)
+    open_tag = section_open_tag(sealed)
+    ch_num_m = re.search(r'data-num="(\d+)"', sealed) or re.search(r'data-num="(\d+)"', fragment)
+    ch_num = int(ch_num_m.group(1)) if ch_num_m else 0
+    if not topics:
+        plan = """
+    <div class="box pace">
+      <p><b>Exam week — self-paced.</b> Steady: Weeks 15–16. Term: Weeks 7–8.
+      Exam track: Days 26–30.</p>
+      <p>Read one recap aloud, close the book, say it again. Then sit the mock paper
+      in 2 hours 30 minutes with no notes. Mark with the key. List every Golden you missed
+      and repair only those lessons.</p>
+      <p class="ur">ایک خلاصہ زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔ صرف کمزور گولڈن دوبارہ پڑھیں۔</p>
+    </div>"""
+        return f"{open_tag}\n{opener}{plan}{review}\n</section>"
+    new_topics = []
+    total = len(topics)
+    for i, block in enumerate(topics, 1):
+        golden = topic_is_golden(topic_title(block), block)
+        head = lesson_head_html(i, total, block)
+        do_now = lesson_do_now(golden)
+        block = re.sub(
+            r"(<h2[^>]*>.*?</h2>)",
+            head + r"\1" + do_now,
+            block,
+            count=1,
+            flags=re.S,
+        )
+        block = append_inside_topic(block, lesson_gate(i, total))
+        new_topics.append(block)
+    body = opener + chapter_pace_box(ch_num, topics) + "".join(new_topics) + review
+    return f"{open_tag}\n{body}\n</section>"
+
+
+def paced_cover(book, chapters):
+    units = "".join(f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters)
+    return f"""
+<section class="cover paced-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">AIO SELF-PACED TEACH YOURSELF EDITION</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">The complete grade in one published volume &mdash; numbered lessons,
+  three study paces, practice first, answers after each chapter seal.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">سیلف پیسڈ — خود سیکھیں</div>
+  <div class="units">{units}</div>
+  <div class="foot">Self-Paced Edition &middot; {book['curriculum']} &middot;
+  ★ Golden lessons take 25 minutes. Not a teacher or academy book.</div>
+</section>"""
+
+
+def paced_imprint(book, chapters, gold_n: int, lesson_n: int, hours: str):
+    units = " · ".join(f"{n:02d} {t}" for n, t, _ in chapters)
+    return f"""
+<section class="front imprint">
+  <p class="series">Sindh Computer Science · Teach Yourself</p>
+  <h1>Imprint</h1>
+  <table>
+    <tr><td>Title</td><td>{html.escape(book['title'])} — AIO Self-Paced Teach Yourself Edition</td></tr>
+    <tr><td>Curriculum</td><td>{html.escape(book['curriculum'])}</td></tr>
+    <tr><td>Language</td><td>English with Urdu support</td></tr>
+    <tr><td>Structure</td><td>{lesson_n} numbered lessons · {gold_n} Golden · six chapters + final revision</td></tr>
+    <tr><td>Study time</td><td>About {html.escape(hours)} of lessons, papers and review (pick Steady, Term or Exam)</td></tr>
+    <tr><td>Format</td><td>A4 print / screen · MathJax SVG mathematics · inline SVG diagrams</td></tr>
+    <tr><td>Series</td><td>{html.escape(units)}</td></tr>
+  </table>
+  <h2>What you hold</h2>
+  <p>The complete grade as a self-study book. Each topic is a lesson with a time, a task,
+  and a gate. Answers are sealed at the end of the chapter so you practise first.</p>
+  <h2>What this edition is not</h2>
+  <p>Not the Teacher’s Edition (no classroom timing). Not the Coaching Academy Edition
+  (no 90-minute batches). Not the 30-day crash course. Not the classroom Lecture-Notes pack.</p>
+  <p class="ur">یہ خودآموز مکمل کتاب ہے۔ استاد، اکیڈمی یا کریش کورس کی کتاب نہیں۔</p>
+</section>"""
+
+
+def paced_planner(chapters_data: list[dict]):
+    rows = []
+    total_lessons = total_gold = total_mins = 0
+    for row in chapters_data:
+        n, title, topics = row["meta"]
+        gold = row["gold"]
+        mins = row["mins"]
+        lessons = len(topics)
+        total_lessons += lessons
+        total_gold += gold
+        total_mins += mins
+        rows.append(
+            f"<tr><td>Ch {n}</td><td>{html.escape(title)}</td>"
+            f"<td>{lessons}</td><td>{gold}</td><td>{fmt_hours(mins)}</td>"
+            f"<td>{PACE_STEADY.get(n, '—')}</td>"
+            f"<td>{PACE_TERM.get(n, '—')}</td>"
+            f"<td>{PACE_EXAM.get(n, '—')}</td></tr>"
+        )
+    rows.append(
+        "<tr><td>Final</td><td>Recaps + mock paper</td>"
+        "<td>—</td><td>—</td><td>6 h</td>"
+        "<td>Weeks 15–16</td><td>Weeks 7–8</td><td>Days 26–30</td></tr>"
+    )
+    return f"""
+<section class="front">
+  <h1>Study planner</h1>
+  <p>Pick <b>one</b> track and stay on it. {total_lessons} lessons · {total_gold} Golden ·
+  about <b>{fmt_hours(total_mins)}</b> of chapter work, plus the final week.</p>
+  <p><b>Steady (16 weeks)</b> is the published default: two or three lessons a weekday,
+  chapter paper at the weekend. <b>Term (8 weeks)</b> is one chapter a week.
+  <b>Exam (4 weeks)</b> is Golden first, then papers, then the mock.</p>
+  <table class="planner">
+    <tr><th>Ch</th><th>Title</th><th>Lessons</th><th>★</th><th>Time</th>
+    <th>Steady</th><th>Term</th><th>Exam</th></tr>
+    {''.join(rows)}
+  </table>
+  <p class="ur">ایک ٹریک رکھیں۔ سٹیڈی سولہ ہفتے، ٹرم آٹھ ہفتے، امتحان چار ہفتے۔</p>
+</section>"""
+
+
+def paced_toc(chapters, has_final: bool, gold_n: int):
+    items = []
+    for n, t, topics in chapters:
+        sub = "".join(
+            f"<li>L{i:02d} {html.escape(x)}</li>" for i, x in enumerate(topics, 1)
+        )
+        items.append(
+            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} lessons<ul>{sub}</ul></li>'
+        )
+    if has_final:
+        items.append("<li><b>Final revision:</b> one-page recaps, mock paper and answers</li>")
+    items.append("<li><b>Colophon:</b> how this edition was assembled</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden lessons. On the Exam track, do those first.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def paced_colophon(book, lesson_n: int, gold_n: int):
+    return f"""
+<section class="front colophon">
+  <h1>Colophon</h1>
+  <p>This <b>AIO Self-Paced Teach Yourself Edition</b> of {html.escape(book['title'])}
+  is assembled from the bilingual Sindh lecture notes. It numbers every topic as a lesson,
+  adds a three-track study planner, seals Check yourself answers at the end of each chapter,
+  and keeps the worked explanations, tables, SVG diagrams and Urdu lines of the source.</p>
+  <p>{lesson_n} lessons · {gold_n} Golden · {html.escape(book['curriculum'])} ·
+  English + اردو · A4.</p>
+  <p>Companion volumes in the same series: Student's Edition, Teacher's Edition,
+  Coaching Academy Edition, Cheat Sheets, 30-Day Crash Course, Lecture-Notes Study Guide.</p>
+  <p class="ur">یہ خودآموز مکمل ایڈیشن ہے۔ سبق نمبر والے ہیں، منصوبہ تین رفتار کا ہے، جوابات باب کے آخر میں ہیں۔</p>
+</section>"""
+
+
+def build_paced(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-paced.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_html, goldens, planner = [], [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        topics = extract_class_divs(text, "topic")
+        gold = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+        chapters.append(meta)
+        chapters_html.append(pacedize_fragment(text))
+        planner.append({"meta": meta, "gold": gold, "mins": chapter_study_mins(topics)})
+        for block in topics:
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = pacedize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    lesson_n = sum(len(m[2]) for m in chapters)
+    hours = fmt_hours(sum(p["mins"] for p in planner))
+    doc = wrap_html(
+        f"{book['title']} — AIO Self-Paced Teach Yourself Edition",
+        paced_cover(book, chapters)
+        + paced_imprint(book, chapters, len(goldens), lesson_n, hours)
+        + intro
+        + paced_planner(planner)
+        + paced_toc(chapters, bool(final), len(goldens))
+        + cheat_golden_index(goldens)
+        + "".join(chapters_html)
+        + final
+        + paced_colophon(book, lesson_n, len(goldens)),
+        body_class="paced-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-paced.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-AIO-Self-Paced-Teach-Yourself-Edition.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=180000)
+    print(f"{key} self-paced AIO -> {pdf_path}")
+    return pdf_path
+
+
+def build_paced_editions(keys: list[str]):
+    paths = [build_paced(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip paced complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"paced complete -> {dest} ({pages} pages)")
+
+
 OL_OPEN = re.compile(r"<ol\b", re.I)
 OL_CLOSE = re.compile(r"</ol>", re.I)
 LI_OPEN = re.compile(r"<li\b", re.I)
@@ -2309,7 +2633,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -2329,6 +2653,8 @@ def main(argv: list[str]):
         build_crash_courses(keys)
     if mode in ("notes", "all"):
         build_notes_guides(keys)
+    if mode in ("paced", "all"):
+        build_paced_editions(keys)
 
 
 if __name__ == "__main__":

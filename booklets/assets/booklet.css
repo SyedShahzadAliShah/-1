@@ -634,3 +634,55 @@ body.notes-book { font-size: 9.6pt; }
 .notes-chapter .glossary { font-size: 8.4pt; }
 .notes-chapter .summary { font-size: 9pt; }
 .notes-chapter .objectives { font-size: 9pt; }
+
+/* ---------- AIO Self-Paced Teach Yourself Edition ---------- */
+.cover.paced-cover {
+  background: linear-gradient(160deg, #111827 0%, #1f2937 48%, #374151 100%);
+}
+.cover.paced-cover .tag { background: #eab308; color: #1c1917; }
+.cover.paced-cover .units div { background: rgba(234,179,8,.14); border-color: rgba(255,255,255,.28); }
+.cover.paced-cover .ur { white-space: nowrap; font-size: 15pt; }
+body.paced-book { font-size: 10.1pt; }
+.imprint {
+  break-after: page;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px 12px;
+  background: #f8fafc;
+}
+.imprint h1 { font-size: 16pt; color: #111827; margin: 0 0 8px; }
+.imprint .series { letter-spacing: .12em; text-transform: uppercase; font-size: 9pt; font-weight: 700; color: #92400e; }
+.imprint table { font-size: 9.4pt; }
+.imprint td:first-child { width: 28%; font-weight: 600; color: var(--muted); }
+.lesson-head {
+  background: #111827;
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 12px 5px;
+  margin: 16px 0 8px;
+  break-inside: avoid;
+}
+.lesson-head .num {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fde68a;
+}
+.lesson-head.golden { background: #7c2d12; }
+.lesson-head.golden .num { color: #fed7aa; }
+.box.pace::before { content: "Self-paced"; color: #111827; }
+.box.pace { border-color: #111827; background: #f8fafc; }
+.box.gate::before { content: "Can you go on?"; color: #92400e; }
+.box.gate { border-color: #92400e; background: #fffbeb; }
+table.planner { font-size: 8.8pt; }
+table.planner th { background: #111827; }
+table.planner td:first-child { font-weight: 700; white-space: nowrap; }
+.colophon {
+  break-before: page;
+  page-break-before: always;
+  border-top: 3px solid #111827;
+  padding-top: 12px;
+  margin-top: 18px;
+}
+.colophon h1 { font-size: 16pt; color: #111827; }

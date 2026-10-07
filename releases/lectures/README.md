@@ -55,6 +55,16 @@ Classroom photocopy pack: Board definition, numbered points, one table or diagra
 
 Rebuild: `python3 booklets/build.py notes`
 
+## AIO Self-Paced Teach Yourself Edition
+
+Published all-in-one: imprint, Steady/Term/Exam planner, numbered lessons, gates, sealed chapter answer keys.
+
+- [CS XI AIO Self-Paced Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [CS XII AIO Self-Paced Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [XI + XII AIO Self-Paced Teach Yourself Edition complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py paced`
+
 ## All-in-one PDFs (whole grade in one file)
 
 - [CS XI Teach Yourself — All-in-One (203 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)
