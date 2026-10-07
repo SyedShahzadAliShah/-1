@@ -4,6 +4,12 @@ Standalone **BIEK lecture-wise** study-guide PDFs for Computer Science XI and XI
 
 Rebuild: `python3 booklets/build.py lectures`
 
+## Combined Study Guides
+
+- [CS XI BIEK Lecture Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/biek-lecture-studyguides-4cff/releases/CS-XI-BIEK-Lecture-StudyGuide.pdf)
+- [CS XII BIEK Lecture Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/biek-lecture-studyguides-4cff/releases/CS-XII-BIEK-Lecture-StudyGuide.pdf)
+- [XI + XII complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/biek-lecture-studyguides-4cff/releases/CS-XI-and-XII-BIEK-Lecture-StudyGuide.pdf)
+
 ## Chapter lecture packs
 
 ### BIEK Computer Science XI
