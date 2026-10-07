@@ -210,7 +210,7 @@ window.MathJax = {{
     processEscapes: true,
     processEnvironments: true
   }},
-  svg: {{ fontCache: 'global', displayAlign: 'left', scale: 0.95 }},
+    svg: {{ fontCache: 'global', displayAlign: 'left', scale: {1.05 if body_class == "study-guide" else 0.95} }},
   options: {{
     skipHtmlTags: ['script','noscript','style','textarea','pre','code','svg'],
     ignoreHtmlClass: 'diagram'
@@ -1743,6 +1743,16 @@ def chapter_exam_after(fragment: str, topics: list[str] | None = None) -> str:
     return chapter_exam_bundle(fragment, ch_num, ch_title, raw)
 
 
+def lecture_pack_fragment(fragment: str) -> str:
+    """Chapter pack for study guides: topics flow at full type across A4 pages."""
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    open_tag = section_open_tag(fragment)
+    start = chapter_divider(opener)
+    exam = chapter_exam_after(fragment, topics) if topics else (extract_review(fragment) or "")
+    return f"{open_tag}\n{start}{''.join(topics)}{exam}\n</section>"
+
+
 def contentize_fragment(fragment: str) -> str:
     """All-in-one: one A4 page per topic, then a thorough chapter exam."""
     opener = extract_opener(fragment)
@@ -2595,13 +2605,13 @@ def parse_book_lectures(key: str):
             "body": (
                 chapter_cover(book, ch_num, ch_title, titles)
                 + packed_how
-                + contentize_fragment(fragment)
+                + lecture_pack_fragment(fragment)
             ),
             "title": f"{book['title']} · Lecture {ch_num:02d}: {ch_title}",
             "golden": False,
             "index": ch_num,
             "total": len(ch_files),
-            "budget": 90000,
+            "budget": 180000,
             "min_bytes": 30_000,
         })
         total = len(topics)
@@ -2631,8 +2641,8 @@ def parse_book_lectures(key: str):
                 "golden": golden,
                 "index": i,
                 "total": total,
-                "budget": 45000,
-                "min_bytes": 12_000,
+            "budget": 60000,
+            "min_bytes": 12_000,
                 "topics": [title],
             })
     final_path = folder / "final.html"
@@ -2698,7 +2708,7 @@ def catalog_html(key: str, items: list[dict]) -> str:
     {''.join(rows)}
   </table>
 </section>"""
-    return wrap_html(f"{book['title']} — BIEK Lecture-wise Study Guides", body)
+    return wrap_html(f"{book['title']} — BIEK Lecture-wise Study Guides", body, "study-guide")
 
 
 def edition_index_md() -> str:
@@ -2907,7 +2917,7 @@ def build_lectures(keys: list[str], workers: int = 3):
         copied[key].append(cat_pdf)
         for it in items:
             jobs.append({
-                "html": wrap_html(it["title"], it["body"]),
+                "html": wrap_html(it["title"], it["body"], "study-guide"),
                 "html_path": html_root / it["html_name"],
                 "pdf_path": RELEASES / it["rel_dir"] / it["pdf_name"],
                 "min_bytes": it["min_bytes"],

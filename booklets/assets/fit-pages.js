@@ -467,6 +467,10 @@
   }
 
   function start() {
+    if (document.body.classList.contains("study-guide")) {
+      document.body.dataset.pagefit = "1";
+      return;
+    }
     var fonts = (document.fonts && document.fonts.ready)
       ? document.fonts.ready
       : Promise.resolve();

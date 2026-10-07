@@ -848,3 +848,51 @@ body.complete-book .lesson-head { padding: 8px 14px; margin: 0 0 12px; }
 body.complete-book .lesson-head .num { font-size: 10.5pt; letter-spacing: .08em; }
 .box.exam-recipe::before { content: "Full-mark recipe"; color: #7c2d12; }
 .box.exam-recipe { border-color: #7c2d12; background: #fff7ed; }
+
+/* Readable A4 study-guide print: native pagination, no squeeze-to-fit zoom */
+body.study-guide {
+  font-size: 11.5pt;
+  line-height: 1.55;
+}
+body.study-guide h2 { font-size: 16pt; margin: 14px 0 10px; }
+body.study-guide h3 { font-size: 13pt; }
+body.study-guide h4 { font-size: 12pt; }
+body.study-guide table { font-size: 10.5pt; break-inside: auto; page-break-inside: auto; }
+body.study-guide th, body.study-guide td { padding: 6px 8px; }
+body.study-guide .box { padding: 10px 14px 8px; margin: 10px 0 12px; font-size: 11.5pt; }
+body.study-guide .box::before { font-size: 8.5pt; }
+body.study-guide pre.code { font-size: 10pt; }
+body.study-guide .ur { font-size: 13pt; }
+body.study-guide .box.urdu::before { font-size: 12.5pt; }
+body.study-guide .mcq-card { font-size: 11pt; }
+body.study-guide .mcq-card .opts li { font-size: 11pt; }
+body.study-guide .extra-practice { break-before: page; page-break-before: always; font-size: 11.5pt; }
+body.study-guide .extra-practice .extra-grid { gap: 12px; }
+body.study-guide figure.diagram figcaption { font-size: 10pt; }
+body.study-guide .lecture-banner h1 { font-size: 22pt; }
+body.study-guide .lecture-index > li { font-size: 11pt; }
+body.study-guide .chapter { break-before: auto; page-break-before: auto; }
+body.study-guide .paced-chapter {
+  break-before: auto;
+  page-break-before: auto;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+body.study-guide .topic { break-before: page; page-break-before: always; }
+body.study-guide .front + .chapter .topic:first-of-type,
+body.study-guide .paced-chapter + .topic { break-before: page; }
+body.study-guide .one-page-topic {
+  font-size: 11.5pt;
+  break-before: page;
+  page-break-before: always;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+body.study-guide .one-page-topic h2 { font-size: 16pt; }
+body.study-guide .one-page-topic h3 { font-size: 13pt; }
+body.study-guide .one-page-topic table { font-size: 10.5pt; }
+body.study-guide .one-page-topic pre.code { font-size: 10pt; }
+body.study-guide .one-page-topic .diagram svg { max-height: none; }
+body.study-guide .diagram svg { max-height: none; }
+body.study-guide .catalog table { font-size: 10pt; }
+body.study-guide .catalog table td:nth-child(2) { font-size: 8.5pt; }
