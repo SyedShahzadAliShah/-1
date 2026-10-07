@@ -335,7 +335,7 @@
 
     var placeCalls = 0;
     function isOnePageBlock(el) {
-      return el && el.matches && el.matches(".paced-lesson,.paced-chapter,.chapter-recap,.one-page-topic,.cheat-card,.note-block");
+      return el && el.matches && el.matches(".paced-lesson,.paced-chapter,.chapter-recap,.one-page-topic,.cheat-card,.note-block,.imprint,.combo-planner");
     }
     function placeGroup(nodes) {
       if (!nodes.length || ++placeCalls > 8000) return;
