@@ -93,8 +93,8 @@ python3 booklets/build.py notes
 
 The combined book: Part I ★ Golden Topics, Part II every chapter lesson at readable type (each lesson starts on a new page and continues if it needs more room), Part III exam preparation (75-mark chapter papers + mock).
 
-- [CS XI Complete Teach Yourself](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf)
-- [CS XII Complete Teach Yourself](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf)
+- [CS XI Complete Teach Yourself (372 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf)
+- [CS XII Complete Teach Yourself (372 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf)
 
 ```bash
 python3 booklets/build.py complete
