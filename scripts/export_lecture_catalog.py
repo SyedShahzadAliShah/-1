@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
-"""Build lectures.json: English notes + Urdu spoken lecture scripts."""
+"""Build lectures.json and HTML whiteboards (MathJax + SVG + flexbox)."""
 from __future__ import annotations
 
+import html as html_lib
 import importlib.util
 import json
+import os
 import re
+import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "booklets" / "build.py"
-OUT = ROOT / "lectures" / "src" / "main" / "assets" / "lectures.json"
+JSON_OUT = ROOT / "lectures" / "src" / "main" / "assets" / "lectures.json"
+CSS_SRC = ROOT / "lectures" / "src" / "main" / "assets" / "whiteboards" / "whiteboard.css"
+MJAX_SRC = ROOT / "booklets" / "assets" / "mathjax" / "tex-svg.js"
+WB_OUT = Path(os.environ.get("WHITEBOARD_OUT", ROOT / "lectures" / "src" / "main" / "assets" / "whiteboards"))
 
 spec = importlib.util.spec_from_file_location("booklets_build", BUILD)
 b = importlib.util.module_from_spec(spec)
@@ -43,6 +49,7 @@ def spoken_urdu(title: str, chapter: str, golden: bool, urdu: str, terms: list[s
         "آج ہم کالج کے طالب علموں کو انگریزی لیکچر نوٹس اردو میں سمجھا رہے ہیں۔",
         f"سبق کا عنوان ہے: {title}۔",
         f"یہ باب {chapter} سے ہے۔",
+        "بورڈ پر خاکے، جدول اور فارمولے دیکھتے رہو۔",
     ]
     if golden:
         bits.append("یہ گولڈن موضوع ہے۔ بورڈ امتحان میں زیادہ نمبر اسی سے آتے ہیں۔ پوری توجہ سے سنو۔")
@@ -57,8 +64,58 @@ def spoken_urdu(title: str, chapter: str, golden: bool, urdu: str, terms: list[s
     return " ".join(bits)
 
 
+def topic_inner(block: str) -> str:
+    inner = re.sub(r"^<div[^>]*>", "", block, count=1)
+    inner = re.sub(r"</div>\s*$", "", inner)
+    inner = re.sub(r"<h2[^>]*>.*?</h2>", "", inner, count=1, flags=re.S)
+    inner = re.sub(r'<div class="ans">.*?</div>', "", inner, flags=re.S)
+    return b.texify_math(inner.strip())
+
+
+def board_html(title: str, chapter: str, golden: bool, body: str) -> str:
+    star = '<span class="chip gold">★ Golden</span>' if golden else ""
+    return f"""<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html_lib.escape(title)}</title>
+<link rel="stylesheet" href="../../whiteboard.css">
+<script>
+window.MathJax = {{
+  tex: {{
+    inlineMath: [['\\\\(', '\\\\)']],
+    displayMath: [['\\\\[', '\\\\]']],
+    processEscapes: true,
+    processEnvironments: true
+  }},
+  svg: {{ fontCache: 'global', displayAlign: 'left', scale: 0.95 }},
+  options: {{
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code','svg'],
+    ignoreHtmlClass: 'diagram'
+  }},
+  startup: {{ typeset: true }}
+}};
+</script>
+<script src="../../mathjax/tex-svg.js"></script>
+</head>
+<body>
+<article class="board">
+  <div class="rail">
+    <span class="chip">Whiteboard</span>
+    <span class="chip">{html_lib.escape(chapter)}</span>
+    {star}
+  </div>
+  <h1>{html_lib.escape(title)}</h1>
+  {body}
+</article>
+</body></html>
+"""
+
+
 def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[dict]:
     rows = []
+    ch_dir = WB_OUT / grade / str(ch_num)
+    ch_dir.mkdir(parents=True, exist_ok=True)
     for i, block in enumerate(b.extract_class_divs(fragment, "topic"), 1):
         raw = b.topic_title(block)
         title = re.sub(r"\s*★.*", "", raw).strip()
@@ -68,6 +125,11 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
         urdu = b.topic_urdu(block)
         exam = b.clip_text(b.extract_box_text(block, "exam"), 220)
         terms = bold_terms(learn_html)
+        rel = f"whiteboards/{grade}/{ch_num}/{i:02d}.html"
+        (ch_dir / f"{i:02d}.html").write_text(
+            board_html(title, f"{grade.upper()} · Chapter {ch_num} · {ch_title}", golden, topic_inner(block)),
+            encoding="utf-8",
+        )
         rows.append({
             "id": f"{grade}-{ch_num}-{i}",
             "title": title,
@@ -76,11 +138,19 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             "urdu": urdu,
             "spokenUrdu": spoken_urdu(title, ch_title, golden, urdu, terms, exam),
             "terms": terms,
+            "board": rel,
         })
     return rows
 
 
 def main() -> int:
+    WB_OUT.mkdir(parents=True, exist_ok=True)
+    if CSS_SRC.exists() and (WB_OUT / "whiteboard.css").resolve() != CSS_SRC.resolve():
+        shutil.copy2(CSS_SRC, WB_OUT / "whiteboard.css")
+    mjax_dir = WB_OUT / "mathjax"
+    mjax_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MJAX_SRC, mjax_dir / "tex-svg.js")
+
     grades = []
     for key, book in b.BOOKS.items():
         folder = b.SRC / key
@@ -100,11 +170,10 @@ def main() -> int:
             "curriculum": book["curriculum"],
             "chapters": chapters,
         })
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"grades": grades}
-    OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    n = sum(len(t) for g in grades for c in g["chapters"] for t in [c["topics"]])
-    print(f"wrote {OUT} ({n} topics)")
+    JSON_OUT.parent.mkdir(parents=True, exist_ok=True)
+    JSON_OUT.write_text(json.dumps({"grades": grades}, ensure_ascii=False, indent=2), encoding="utf-8")
+    n = sum(len(c["topics"]) for g in grades for c in g["chapters"])
+    print(f"wrote {JSON_OUT} and {n} whiteboards -> {WB_OUT}")
     return 0
 
 

@@ -11,8 +11,8 @@ android {
         applicationId = "com.sindhcs.lectures"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     buildTypes {
@@ -38,6 +38,15 @@ android {
         viewBinding = true
         buildConfig = true
     }
+}
+
+tasks.register<Exec>("exportLectureAssets") {
+    workingDir = rootProject.projectDir
+    commandLine("python3", "scripts/export_lecture_catalog.py")
+}
+
+tasks.named("preBuild") {
+    dependsOn("exportLectureAssets")
 }
 
 dependencies {

@@ -1,6 +1,9 @@
 package com.sindhcs.lectures
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sindhcs.lectures.data.LectureRepository
@@ -13,6 +16,7 @@ class TopicActivity : AppCompatActivity() {
     private var speaking = false
     private var spoken = ""
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTopicBinding.inflate(layoutInflater)
@@ -25,16 +29,23 @@ class TopicActivity : AppCompatActivity() {
         val chNum = intent.getIntExtra(MainActivity.EXTRA_CHAPTER, 0)
         val topicId = intent.getStringExtra(MainActivity.EXTRA_TOPIC) ?: return finish()
         val topic = LectureRepository.topic(this, gradeId, chNum, topicId) ?: return finish()
-        val chapter = LectureRepository.chapter(this, gradeId, chNum)
 
         title = getString(R.string.lecture)
         spoken = topic.spokenUrdu
-        binding.topicTitle.text = topic.title
-        binding.chapterLabel.text = chapter?.let { "Chapter ${it.num} · ${it.title}" } ?: ""
-        binding.goldenChip.visibility = if (topic.golden) android.view.View.VISIBLE else android.view.View.GONE
-        binding.learnText.text = topic.learn.ifBlank { getString(R.string.no_english) }
-        binding.urduText.text = topic.urdu.ifBlank { getString(R.string.no_urdu) }
-        binding.urduText.textDirection = android.view.View.TEXT_DIRECTION_RTL
+
+        val board = binding.board
+        board.webViewClient = WebViewClient()
+        board.settings.javaScriptEnabled = true
+        board.settings.domStorageEnabled = true
+        board.settings.allowFileAccess = true
+        board.settings.loadWithOverviewMode = true
+        board.settings.useWideViewPort = true
+        board.settings.builtInZoomControls = true
+        board.settings.displayZoomControls = false
+        board.settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+        board.settings.cacheMode = WebSettings.LOAD_DEFAULT
+        val path = topic.board.ifBlank { "whiteboards/missing.html" }
+        board.loadUrl("file:///android_asset/$path")
 
         narrator = UrduNarrator(
             context = this,
@@ -59,11 +70,18 @@ class TopicActivity : AppCompatActivity() {
 
     override fun onPause() {
         narrator?.stop()
+        binding.board.onPause()
         super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.board.onResume()
     }
 
     override fun onDestroy() {
         narrator?.shutdown()
+        binding.board.destroy()
         super.onDestroy()
     }
 }

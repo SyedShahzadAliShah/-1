@@ -37,7 +37,8 @@ object LectureRepository {
                             learn = to.optString("learn"),
                             urdu = to.optString("urdu"),
                             spokenUrdu = to.optString("spokenUrdu"),
-                            terms = terms
+                            terms = terms,
+                            board = to.optString("board")
                         )
                     )
                 }

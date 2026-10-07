@@ -25,5 +25,6 @@ data class Topic(
     val learn: String,
     val urdu: String,
     val spokenUrdu: String,
-    val terms: List<String>
+    val terms: List<String>,
+    val board: String
 )
