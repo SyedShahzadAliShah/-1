@@ -295,7 +295,7 @@
         if (child.classList.contains("cover") || child.id === "sheets") return;
         if (child.tagName === "SCRIPT") return;
         var atomic = child.matches(
-          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak,mjx-container,.math,.note-block,.notes-head,.lesson-head,.answers-seal,.colophon,.imprint,.combo-planner,.paced-lesson,.paced-chapter,.chapter-recap,.exam-head,.exam-open,.one-page-topic,.complete-lesson,.complete-chapter,.complete-part,.part-banner"
+          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.academy30-head,.crash-seal,.academy30-seal,.pagebreak,mjx-container,.math,.note-block,.notes-head,.lesson-head,.answers-seal,.colophon,.imprint,.combo-planner,.paced-lesson,.paced-chapter,.chapter-recap,.exam-head,.exam-open,.one-page-topic,.complete-lesson,.complete-chapter,.complete-part,.part-banner"
         );
         if (atomic) atoms.push(child);
         else if (child.children.length && child.matches("div,section,article")) walk(child);
@@ -404,13 +404,13 @@
 
     for (var i = 0; i < atoms.length; i++) {
       var el = atoms[i];
-      if (el.matches && el.matches(".crash-head,.crash-seal,.pagebreak,.notes-head,.answers-seal,.colophon,.imprint,.combo-planner,.paced-lesson,.paced-chapter,.chapter-recap,.exam-head,.exam-open,.exam-key,.one-page-topic,.cheat-card,.note-block,.complete-lesson,.complete-chapter,.complete-part,.part-banner")) {
+      if (el.matches && el.matches(".crash-head,.academy30-head,.crash-seal,.academy30-seal,.pagebreak,.notes-head,.answers-seal,.colophon,.imprint,.combo-planner,.paced-lesson,.paced-chapter,.chapter-recap,.exam-head,.exam-open,.exam-key,.one-page-topic,.cheat-card,.note-block,.complete-lesson,.complete-chapter,.complete-part,.part-banner")) {
         seal();
       }
       var nxt = atoms[i + 1];
       if (
         el.classList &&
-        el.classList.contains("crash-head") &&
+        (el.classList.contains("crash-head") || el.classList.contains("academy30-head")) &&
         nxt &&
         nxt.classList &&
         nxt.classList.contains("box")

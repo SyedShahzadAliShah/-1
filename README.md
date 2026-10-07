@@ -8,9 +8,9 @@ This is not a 40-minute school period and not a 3-hour self-study crash course.
 
 ## Direct download
 
-- [CS XI 30-Day Coaching Academy Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XI-30-Day-Coaching-Academy-Edition.pdf)
-- [CS XII 30-Day Coaching Academy Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XII-30-Day-Coaching-Academy-Edition.pdf)
-- [XI + XII complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XI-and-XII-30-Day-Coaching-Academy-Edition-Complete.pdf)
+- [CS XI 30-Day Coaching Academy Edition (269 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XI-30-Day-Coaching-Academy-Edition.pdf)
+- [CS XII 30-Day Coaching Academy Edition (252 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XII-30-Day-Coaching-Academy-Edition.pdf)
+- [XI + XII complete (521 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XI-and-XII-30-Day-Coaching-Academy-Edition-Complete.pdf)
 
 ## What is inside each book
 
