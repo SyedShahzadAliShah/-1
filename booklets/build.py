@@ -3252,6 +3252,7 @@ def build_complete(key: str) -> Path:
         + combo_imprint(book, chapters, len(goldens), lesson_n, class_n, hours)
         + intro
         + combo_planner(chapters_src)
+        + '<div class="pagebreak"></div>'
         + complete_toc(chapters_src, bool(final))
         + complete_chapters(chapters_src)
         + complete_final(final)

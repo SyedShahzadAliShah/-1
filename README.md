@@ -6,7 +6,7 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
 These `raw.githubusercontent.com` links return the file itself (`Content-Type: application/octet-stream`). They do not open a GitHub preview page.
 
-**Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers. Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.
+**Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers (XI 301 pages, XII 314 pages). Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Bootcamp-Combo-StudyGuide.pdf
 

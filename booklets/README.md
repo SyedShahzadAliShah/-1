@@ -93,8 +93,8 @@ python3 booklets/build.py notes
 
 Official Study Guide for students and teachers: imprint, bootcamp planner, chapter-wise lecture notes at readable type. ★ Golden concepts are listed and taught first inside each chapter. Each lesson has a Student · Coach strip. Then that chapter’s 75-mark exam. Blank leftover pages are dropped.
 
-- [CS XI Bootcamp Combo Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf)
-- [CS XII Bootcamp Combo Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Bootcamp-Combo-StudyGuide.pdf)
+- [CS XI Bootcamp Combo Study Guide (301 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf)
+- [CS XII Bootcamp Combo Study Guide (314 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Bootcamp-Combo-StudyGuide.pdf)
 
 ```bash
 python3 booklets/build.py complete
