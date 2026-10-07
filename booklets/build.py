@@ -2696,7 +2696,7 @@ def catalog_html(key: str, items: list[dict]) -> str:
     {''.join(rows)}
   </table>
 </section>"""
-    return wrap_html(f"{book['title']} — Teach Yourself Lectures", body)
+    return wrap_html(f"{book['title']} — BIEK Lecture-wise Study Guides", body)
 
 
 def edition_index_md() -> str:
@@ -2770,13 +2770,14 @@ Rebuild: `python3 booklets/build.py`
 def write_index_md(all_items: dict[str, list[dict]]):
     RELEASES.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# Teach Yourself Lectures (PDF)",
+        "# BIEK lecture-wise Study Guides (PDF)",
         "",
-        "Standalone **Teach Yourself** lecture PDFs for Computer Science XI and XII "
-        "(Sindh curriculum). Each topic is one printable lecture; each chapter also has "
-        "a packed lecture PDF with the recap, 75-mark exam and answer key.",
+        "Standalone **BIEK lecture-wise** study-guide PDFs for Computer Science XI and XII "
+        "(New Sindh Curriculum). Each PDF follows one textbook lecture; each chapter also has "
+        "a packed lecture PDF. Extra MCQs / short / long questions sit after the book notes. "
+        "Career-only extras that were not in the book lecture list are omitted.",
         "",
-        edition_index_md().strip(),
+        "Rebuild: `python3 booklets/build.py lectures`",
         "",
         "## Chapter lecture packs",
         "",
@@ -2792,7 +2793,7 @@ def write_index_md(all_items: dict[str, list[dict]]):
             lines.append(f"- [Lecture {it['ch_num']:02d}: {it['ch_title']}]({url})")
         lines.append("")
         lines.append(f"- [Lecture index PDF]({RAW}/{key}/CS-{book['grade']}-Lecture-Index.pdf)")
-        lines.append(f"- [All {book['grade']} lectures (zip)]({ZIP_RAW}/CS-{book['grade']}-Teach-Yourself-Lectures.zip)")
+        lines.append(f"- [All {book['grade']} lectures (zip)]({ZIP_RAW}/CS-{book['grade']}-BIEK-Lecture-StudyGuides.zip)")
         lines.append("")
         lines.append("<details><summary>Individual topic lectures</summary>")
         lines.append("")
@@ -2815,7 +2816,7 @@ def write_index_md(all_items: dict[str, list[dict]]):
 
 def zip_grade(key: str, pdf_paths: list[Path]):
     book = BOOKS[key]
-    zip_path = RELEASES.parent / f"CS-{book['grade']}-Teach-Yourself-Lectures.zip"
+    zip_path = RELEASES.parent / f"CS-{book['grade']}-BIEK-Lecture-StudyGuides.zip"
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for p in pdf_paths:
             zf.write(p, arcname=f"{book['grade']}/{p.relative_to(RELEASES)}")
