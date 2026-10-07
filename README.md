@@ -11,9 +11,12 @@ Printable **lecture-wise Study Guide PDFs** for Board of Intermediate Education 
 ## Rebuild
 
 ```bash
-python3 booklets/build.py              # XI + XII lecture PDFs
+python3 booklets/build.py              # XI + XII lecture PDFs + merged study guides
 python3 booklets/build.py lectures xi  # Grade XI only
+python3 booklets/build.py merge        # stitch existing packs into XI, XII, XI+XII PDFs
 ```
+
+Merged files land in `releases/CS-XI-BIEK-Lecture-StudyGuide.pdf`, `releases/CS-XII-BIEK-Lecture-StudyGuide.pdf`, and `releases/CS-XI-and-XII-BIEK-Lecture-StudyGuide.pdf`.
 
 Needs Google Chrome and the Inter + Noto Naskh Arabic fonts.
 

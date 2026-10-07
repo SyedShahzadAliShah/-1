@@ -5,6 +5,7 @@ Usage:
   python3 booklets/build.py              # BIEK lecture-wise study guides (xi + xii)
   python3 booklets/build.py lectures     # same as default
   python3 booklets/build.py lectures xi  # Grade XI lectures only
+  python3 booklets/build.py merge        # stitch existing lecture packs into XI, XII, XI+XII PDFs
   python3 booklets/build.py booklets     # full booklets (xi + xii)
   python3 booklets/build.py editions     # Student's Edition + Teacher's Edition
   python3 booklets/build.py academy      # Coaching Academy Edition
@@ -2780,6 +2781,12 @@ def write_index_md(all_items: dict[str, list[dict]]):
         "",
         "Rebuild: `python3 booklets/build.py lectures`",
         "",
+        "## Combined Study Guides",
+        "",
+        f"- [CS XI BIEK Lecture Study Guide]({ZIP_RAW}/CS-XI-BIEK-Lecture-StudyGuide.pdf)",
+        f"- [CS XII BIEK Lecture Study Guide]({ZIP_RAW}/CS-XII-BIEK-Lecture-StudyGuide.pdf)",
+        f"- [XI + XII complete]({ZIP_RAW}/CS-XI-and-XII-BIEK-Lecture-StudyGuide.pdf)",
+        "",
         "## Chapter lecture packs",
         "",
     ]
@@ -2813,6 +2820,53 @@ def write_index_md(all_items: dict[str, list[dict]]):
         lines.append("</details>")
         lines.append("")
     (RELEASES / "README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def stitch_pdfs(paths: list[Path], dest: Path) -> int:
+    """Concatenate existing PDFs into dest. Returns page count."""
+    import pymupdf
+
+    missing = [p for p in paths if not p.exists()]
+    if missing:
+        raise FileNotFoundError("Missing PDFs to merge:\n" + "\n".join(str(p) for p in missing))
+    out = pymupdf.open()
+    for p in paths:
+        src = pymupdf.open(p)
+        out.insert_pdf(src)
+        src.close()
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(".tmp.pdf")
+    out.save(tmp, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    tmp.replace(dest)
+    return pages
+
+
+def grade_pack_paths(key: str, items: list[dict]) -> list[Path]:
+    """Index + chapter packs + final (not per-topic PDFs, which would duplicate)."""
+    book = BOOKS[key]
+    paths = [RELEASES / key / f"CS-{book['grade']}-Lecture-Index.pdf"]
+    for it in items:
+        if it["kind"] in ("chapter", "final"):
+            paths.append(RELEASES / it["rel_dir"] / it["pdf_name"])
+    return paths
+
+
+def merge_lecture_books(keys: list[str], parsed: dict[str, list[dict]] | None = None):
+    """One Study Guide PDF per grade, plus XI+XII complete."""
+    if parsed is None:
+        parsed = {key: parse_book_lectures(key) for key in keys}
+    grade_pdfs = []
+    for key in keys:
+        dest = ROOT.parent / "releases" / BOOKS[key]["file"]
+        pages = stitch_pdfs(grade_pack_paths(key, parsed[key]), dest)
+        print(f"merged {key} study guide -> {dest} ({pages} pages)")
+        grade_pdfs.append(dest)
+    if len(grade_pdfs) >= 2:
+        dest = ROOT.parent / "releases" / "CS-XI-and-XII-BIEK-Lecture-StudyGuide.pdf"
+        pages = stitch_pdfs(grade_pdfs, dest)
+        print(f"merged XI+XII study guide -> {dest} ({pages} pages)")
 
 
 def zip_grade(key: str, pdf_paths: list[Path]):
@@ -2902,6 +2956,7 @@ def build_lectures(keys: list[str], workers: int = 3):
     for key in keys:
         existing = [p for p in copied[key] if p.exists()]
         zip_grade(key, existing)
+    merge_lecture_books(keys, parsed)
     print("Lecture PDFs ready in", RELEASES)
 
 
@@ -3329,7 +3384,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "lectures"
     keys = []
-    if args and args[0] in ("lectures", "studyguides", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "complete", "all"):
+    if args and args[0] in ("lectures", "studyguides", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "complete", "merge", "all"):
         mode = "lectures" if args[0] == "studyguides" else args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -3353,6 +3408,10 @@ def main(argv: list[str]):
         build_paced_editions(keys)
     if mode == "complete":
         build_complete_books(keys)
+    if mode == "merge":
+        parsed = {key: parse_book_lectures(key) for key in keys}
+        merge_lecture_books(keys, parsed)
+        write_index_md(parsed)
 
 
 if __name__ == "__main__":
