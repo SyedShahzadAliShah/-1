@@ -52,9 +52,9 @@ These `raw.githubusercontent.com` links return the file itself (`Content-Type: a
 - [XI + XII 30-Day Crash Course complete (204 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
 
 **Lecture-Notes Study Guide** (classroom photocopy pack — Board definition, numbered points, one table/diagram, exam cue, Urdu; ★ Golden first; 40-minute period):
-- [CS XI Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
-- [CS XII Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
-- [XI + XII Lecture-Notes Study Guide complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+- [CS XI Lecture-Notes Study Guide (61 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide (62 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete (123 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
 
 Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`. Rebuild cheat sheets: `python3 booklets/build.py cheat`. Rebuild crash course: `python3 booklets/build.py crash`. Rebuild lecture notes: `python3 booklets/build.py notes`.
 

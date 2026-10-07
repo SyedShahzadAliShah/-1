@@ -78,9 +78,9 @@ python3 booklets/build.py crash
 
 Concise classroom photocopy pack: one full-width note per topic (Board definition, numbered points, one table or diagram, exam wording, Urdu). ★ Golden first. A 40-minute period box sits at the top of each chapter.
 
-- [CS XI Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
-- [CS XII Lecture-Notes Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
-- [XI + XII Lecture-Notes Study Guide complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+- [CS XI Lecture-Notes Study Guide (61 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide (62 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete (123 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
 
 ```bash
 python3 booklets/build.py notes
