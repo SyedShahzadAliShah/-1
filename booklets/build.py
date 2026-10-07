@@ -2610,12 +2610,13 @@ def parse_book_lectures(key: str):
             golden = topic_is_golden(raw_title, block)
             urdu = topic_urdu(block)
             nxt = titles[i] if i < total else "Chapter exam (in the chapter lecture PDF)"
+            nxt_html = (
+                f'<p class="lecture-next">Next lecture: {html.escape(nxt)}</p>' if nxt else ""
+            )
             body = (
                 lecture_banner(book, ch_num, ch_title, i, total, raw_title, golden, urdu)
-                + f'<section class="chapter">{mark_one_page_topic(block)}</section>'
+                + f'<section class="lecture-body">{block}{nxt_html}</section>'
             )
-            if nxt:
-                body += f'<p class="lecture-next">Next lecture: {html.escape(nxt)}</p>'
             items.append({
                 "kind": "topic",
                 "key": key,
@@ -2867,6 +2868,7 @@ def build_lectures(keys: list[str], workers: int = 3):
 
     def run(job):
         print_job(job["html"], job["html_path"], job["pdf_path"], job["min_bytes"], job["budget"])
+        drop_blank_pages(job["pdf_path"])
         return job["label"], job["pdf_path"].stat().st_size
 
     with ThreadPoolExecutor(max_workers=workers) as pool:

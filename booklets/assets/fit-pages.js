@@ -295,7 +295,7 @@
         if (child.classList.contains("cover") || child.id === "sheets") return;
         if (child.tagName === "SCRIPT") return;
         var atomic = child.matches(
-          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak,mjx-container,.math,.note-block,.notes-head,.lesson-head,.answers-seal,.colophon,.imprint,.combo-planner,.paced-lesson,.paced-chapter,.chapter-recap,.exam-head,.exam-open,.one-page-topic,.complete-lesson,.complete-chapter,.complete-part,.part-banner"
+          "h1,h2,h3,h4,p,table,pre,figure,ul,ol,blockquote,.box,.flow,.ch-opener,.legend,.two-col,.cheat-card,.cheat-head,.crash-head,.crash-seal,.pagebreak,mjx-container,.math,.note-block,.notes-head,.lesson-head,.answers-seal,.colophon,.imprint,.combo-planner,.paced-lesson,.paced-chapter,.chapter-recap,.exam-head,.exam-open,.one-page-topic,.complete-lesson,.complete-chapter,.complete-part,.part-banner,.extra-practice,.lecture-banner"
         );
         if (atomic) atoms.push(child);
         else if (child.children.length && child.matches("div,section,article")) walk(child);
@@ -337,8 +337,16 @@
     function isOnePageBlock(el) {
       return el && el.matches && el.matches(".paced-lesson,.paced-chapter,.chapter-recap,.one-page-topic,.cheat-card,.note-block,.imprint,.combo-planner");
     }
+    function isSheetBreak(el) {
+      return el && el.matches && el.matches(".extra-practice,.pagebreak");
+    }
     function placeGroup(nodes) {
       if (!nodes.length || ++placeCalls > 8000) return;
+      if (nodes.length === 1 && isSheetBreak(nodes[0])) {
+        if (inner.childElementCount) seal();
+        inner.appendChild(nodes[0]);
+        return;
+      }
       if (nodes.length === 1 && isOnePageBlock(nodes[0])) {
         if (inner.childElementCount) seal();
         inner.appendChild(nodes[0]);

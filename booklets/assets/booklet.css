@@ -257,13 +257,16 @@ ol.short > li, ol.long > li { margin: 5px 0; break-inside: avoid; }
 .two-col > * { flex: 1 1 280px; min-width: 0; }
 
 .extra-practice {
-  break-before: page;
+  break-before: auto;
+  page-break-before: auto;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 10px 12px 12px;
   margin-top: 14px;
   background: #fbfcff;
 }
+.lecture-body { break-before: auto; page-break-before: auto; }
+.lecture-body .extra-practice { break-inside: avoid; }
 .extra-practice h3 { margin-top: 2px; color: var(--check); border: 0; }
 .extra-practice h4 { margin: 10px 0 4px; }
 .extra-grid {
@@ -421,6 +424,8 @@ ol.split-continued, ul.split-continued { list-style: none; margin-top: 0; }
   border-top: 1px dashed var(--line);
   color: var(--muted);
   font-size: 9.5pt;
+  break-before: avoid;
+  page-break-before: avoid;
 }
 .catalog table td:first-child { white-space: nowrap; font-weight: 600; width: 9%; }
 .catalog table td:nth-child(2) { width: 18%; font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; font-size: 8pt; }
