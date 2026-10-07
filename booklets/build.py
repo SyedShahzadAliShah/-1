@@ -1806,8 +1806,11 @@ def build_paced(key: str) -> Path:
         f"{book['title']} — AIO Self-Paced Teach Yourself Edition",
         paced_cover(book, chapters)
         + paced_imprint(book, chapters, len(goldens), lesson_n, hours)
+        + '<div class="pagebreak"></div>'
         + intro
+        + '<div class="pagebreak"></div>'
         + paced_planner(planner)
+        + '<div class="pagebreak"></div>'
         + paced_toc(chapters, bool(final), len(goldens))
         + cheat_golden_index(goldens)
         + "".join(chapters_html)
