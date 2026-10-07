@@ -89,12 +89,12 @@ Concise classroom photocopy pack: one A4 note per topic (Board definition, numbe
 python3 booklets/build.py notes
 ```
 
-## Complete Teach Yourself (one file per grade)
+## Self-Taught / Coaching-Academy Bootcamp (Combo Edition)
 
-The combined book: chapter-wise lecture notes at readable type (each lesson starts on a new page and continues if it needs more room). ★ Golden concepts are listed and taught first inside each chapter, then that chapter’s 75-mark exam. Blank leftover pages are dropped.
+Official Study Guide for students and teachers: imprint, bootcamp planner, chapter-wise lecture notes at readable type. ★ Golden concepts are listed and taught first inside each chapter. Each lesson has a Student · Coach strip. Then that chapter’s 75-mark exam. Blank leftover pages are dropped.
 
-- [CS XI Complete Teach Yourself (264 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf)
-- [CS XII Complete Teach Yourself (288 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf)
+- [CS XI Bootcamp Combo Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf)
+- [CS XII Bootcamp Combo Study Guide](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Bootcamp-Combo-StudyGuide.pdf)
 
 ```bash
 python3 booklets/build.py complete

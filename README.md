@@ -6,9 +6,9 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
 These `raw.githubusercontent.com` links return the file itself (`Content-Type: application/octet-stream`). They do not open a GitHub preview page.
 
-**Complete Teach Yourself** — one file per grade (XI 264 pages, XII 288 pages): chapter-wise lecture notes at readable size (each lesson starts on its own page and continues if needed). ★ Golden concepts sit inside the chapter that teaches them, then that chapter’s exam. Blank leftover pages are dropped.
-- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf
-- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf
+**Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers. Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Bootcamp-Combo-StudyGuide.pdf
 
 **AIO Self-Paced Teach Yourself Edition**
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf

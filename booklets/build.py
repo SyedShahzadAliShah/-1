@@ -12,7 +12,7 @@ Usage:
   python3 booklets/build.py crash        # 30-day crash course
   python3 booklets/build.py notes        # concise classroom lecture-notes study guide
   python3 booklets/build.py paced        # AIO Self-Paced Teach Yourself Edition
-  python3 booklets/build.py complete     # one readable XI file + one readable XII file
+  python3 booklets/build.py complete     # Self-Taught / Academy Bootcamp combo Study Guide (one file per grade)
   python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes + paced
 """
 from __future__ import annotations
@@ -2870,7 +2870,48 @@ def hide_check_answers(block: str) -> str:
     )
 
 
-def as_complete_lesson(block: str, n: int, total: int, ch_num: int, part: str) -> str:
+def combo_session_kind(item: dict) -> str:
+    share = item.get("share") or "full"
+    partner = short_topic_name(item["partner"]) if item.get("partner") else ""
+    if share == "first-half":
+        return f"45 min · first half · with {partner}"
+    if share == "second-half":
+        return f"45 min · second half · with {partner}"
+    if item.get("golden"):
+        return "90 min · full Golden class"
+    return "90 min · single class"
+
+
+def combo_track_box(block: str, n: int, total: int, item: dict, session_total: int) -> str:
+    golden = topic_is_golden(topic_title(block), block)
+    mins = 25 if golden else 15
+    board = first_sentence(extract_box_text(block, "learn"))
+    qs = check_prompts(block)
+    ask = ""
+    if qs:
+        ask = " Ask: " + " ".join(f"{i}. {html.escape(q)}" for i, q in enumerate(qs[:3], 1))
+    board_bit = html.escape(board) if board else "definition + table or diagram"
+    kind = combo_session_kind(item)
+    star = " ★" if golden else ""
+    return f"""
+    <div class="box combo-track">
+      <div class="two-col">
+        <div>
+          <p><b>Self-taught.</b> {mins} minutes{star}. Read Learn it. Cover the example
+          and redo it. Write Check yourself in your notebook. Do not open the chapter key.</p>
+        </div>
+        <div>
+          <p><b>Coach / teacher.</b> Class {item['session']:02d} of {session_total:02d} · {html.escape(kind)}.
+          Board: {board_bit}.{ask}</p>
+        </div>
+      </div>
+      <p><b>Full-mark recipe.</b> Define · Explain · Example · Diagram · Working.</p>
+    </div>"""
+
+
+def as_complete_lesson(
+    block: str, n: int, total: int, ch_num: int, part: str, item: dict, session_total: int
+) -> str:
     block = hide_check_answers(block)
     golden = topic_is_golden(topic_title(block), block)
     star = ' · <span class="star">★ Golden</span>' if golden else ""
@@ -2879,9 +2920,10 @@ def as_complete_lesson(block: str, n: int, total: int, ch_num: int, part: str) -
     head = (
         f'<div class="lesson-head{" golden" if golden else ""}">'
         f'<div class="num">{label} {n:02d} of {total:02d} · Chapter {ch_num} · '
-        f"{mins} minutes{star}</div></div>"
+        f"Class {item['session']:02d} · {mins} minutes{star}</div></div>"
     )
-    block = re.sub(r"(<h2[^>]*>.*?</h2>)", head + r"\1", block, count=1, flags=re.S)
+    strip = combo_track_box(block, n, total, item, session_total)
+    block = re.sub(r"(<h2[^>]*>.*?</h2>)", head + r"\1" + strip, block, count=1, flags=re.S)
     cls = "topic complete-lesson"
     if golden:
         cls += " is-golden"
@@ -2889,21 +2931,98 @@ def as_complete_lesson(block: str, n: int, total: int, ch_num: int, part: str) -
     return block
 
 
-def complete_cover(book, chapters, gold_n: int, lesson_n: int):
+def complete_cover(book, chapters, gold_n: int, lesson_n: int, class_n: int):
     units = "".join(f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters)
     return f"""
-<section class="cover complete-cover">
+<section class="cover complete-cover combo-cover">
   <div class="grade">{book['grade']}</div>
-  <span class="tag">COMPLETE TEACH YOURSELF</span>
+  <span class="tag">COMBO EDITION · STUDY GUIDE</span>
   <h1>{book['title']}</h1>
-  <p class="sub">One book for the grade &mdash; chapter-wise lecture notes at readable size.
-  ★ Golden concepts sit inside each chapter, then that chapter’s exam.</p>
-  <p class="sub">{lesson_n} lecture notes · {gold_n} Golden concepts · six chapter papers + mock</p>
+  <p class="sub">Self-Taught / Coaching-Academy Bootcamp &mdash; one official book for students and teachers.
+  Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside each chapter, then that chapter’s exam.</p>
+  <p class="sub">{lesson_n} lecture notes · {gold_n} Golden concepts · {class_n} academy classes · six papers + mock</p>
   <p class="sub">Bilingual support: English + اردو</p>
-  <div class="ur">مکمل کتاب — باب وار نوٹس، گولڈن تصورات اسی باب میں</div>
+  <div class="ur">مشترکہ اسٹڈی گائیڈ — خود سیکھیں یا اکیڈمی بوٹ کیمپ، گولڈن اسی باب میں</div>
   <div class="units">{units}</div>
-  <div class="foot">Complete Edition &middot; {book['curriculum']} &middot;
+  <div class="foot">Combo Study Guide &middot; {book['curriculum']} &middot;
   Each lesson starts on a new page. Long topics continue at the same type size. No blank pages.</div>
+</section>"""
+
+
+def combo_imprint(book, chapters, gold_n: int, lesson_n: int, class_n: int, hours: str):
+    units = " · ".join(f"{n:02d} {t}" for n, t, _ in chapters)
+    return f"""
+<section class="front imprint">
+  <p class="series">Sindh Computer Science · Official Study Guide</p>
+  <h1>Imprint</h1>
+  <table>
+    <tr><td>Title</td><td>{html.escape(book['title'])} — Self-Taught / Coaching-Academy Bootcamp (Combo Edition)</td></tr>
+    <tr><td>Audience</td><td>Students (self-taught) and teachers / academy coaches</td></tr>
+    <tr><td>Curriculum</td><td>{html.escape(book['curriculum'])}</td></tr>
+    <tr><td>Language</td><td>English with Urdu support</td></tr>
+    <tr><td>Structure</td><td>{lesson_n} lecture notes · {gold_n} Golden concepts · {class_n} academy classes · six chapter papers + mock</td></tr>
+    <tr><td>Study time</td><td>About {html.escape(hours)} self-taught, or the academy calendar (90-minute classes)</td></tr>
+    <tr><td>Format</td><td>A4 print / screen · MathJax SVG mathematics · inline SVG diagrams</td></tr>
+    <tr><td>Series</td><td>{html.escape(units)}</td></tr>
+  </table>
+  <h2>What you hold</h2>
+  <p>The published combo Study Guide for the grade. The same pages serve a student working alone
+  and a coach running a bootcamp. ★ Golden concepts are taught first inside each chapter.
+  Check yourself answers stay sealed after the chapter exam.</p>
+  <p class="ur">یہ جماعت کی آفیشل مشترکہ اسٹڈی گائیڈ ہے۔ طالب علم اور استاد ایک ہی صفحات استعمال کرتے ہیں۔</p>
+</section>"""
+
+
+def combo_planner(chapters_src: list[tuple[int, str, str, list[str]]]):
+    rows = []
+    total_notes = total_gold = total_mins = total_class = 0
+    for ch_num, title, _frag, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        ordered = gold + rest
+        sessions = assign_academy_sessions(ordered)
+        n_class = sessions[-1]["session"] if sessions else 0
+        mins = chapter_study_mins(topics)
+        total_notes += len(topics)
+        total_gold += len(gold)
+        total_mins += mins
+        total_class += n_class
+        rows.append(
+            f"<tr><td>Ch {ch_num}</td><td>{html.escape(title)}</td>"
+            f"<td>{len(topics)}</td><td>{len(gold)}</td>"
+            f"<td>{fmt_hours(mins)}</td><td>{n_class} × 90 min</td>"
+            f"<td>75 marks · 1 h 15 min</td></tr>"
+        )
+    rows.append(
+        "<tr><td>Final</td><td>Recaps + mock paper</td>"
+        "<td>—</td><td>—</td><td>6 h</td><td>Exam week</td>"
+        "<td>75 marks · 2 h 30 min</td></tr>"
+    )
+    return f"""
+<section class="front combo-planner">
+  <h1>Bootcamp planner</h1>
+  <p><b>Self-taught:</b> {total_notes} notes · {total_gold} ★ · about <b>{fmt_hours(total_mins)}</b>
+  plus the mock week. <b>Academy:</b> {total_class} classes of 90 minutes, then chapter papers.
+  <b>School teacher:</b> ★ Golden = one 40-minute period; other notes = half to three-quarters of a period.</p>
+  <table class="planner">
+    <tr><th>Ch</th><th>Title</th><th>Notes</th><th>★</th><th>Self-taught</th>
+    <th>Academy</th><th>Exam</th></tr>
+    {''.join(rows)}
+  </table>
+  <p class="ur">ایک ٹریک رکھیں۔ طالب علم نوٹس اور امتحان؛ اکیڈمی 90 منٹ کلاس؛ استاد 40 منٹ پیراڈ۔</p>
+</section>"""
+
+
+def combo_colophon(book, lesson_n: int, gold_n: int, class_n: int):
+    return f"""
+<section class="front colophon">
+  <h1>Colophon</h1>
+  <p>This <b>Self-Taught / Coaching-Academy Bootcamp (Combo Edition)</b> of {html.escape(book['title'])}
+  is the official Study Guide for students and teachers. It keeps chapter-wise lecture notes at readable type,
+  embeds ★ Golden concepts inside each chapter, prints a Student · Coach strip on every lesson,
+  and seals the key after the 75-mark chapter exam.</p>
+  <p>{lesson_n} lecture notes · {gold_n} Golden concepts · {class_n} academy classes ·
+  {html.escape(book['curriculum'])} · English + اردو · A4.</p>
+  <p class="ur">یہ طلبہ اور اساتذہ کی آفیشل مشترکہ اسٹڈی گائیڈ ہے۔</p>
 </section>"""
 
 
@@ -2962,12 +3081,51 @@ def complete_toc(chapters_src: list[tuple[int, str, str, list[str]]], has_final:
         )
     if has_final:
         items.append("<li><b>Final revision:</b> recaps and mock paper (75 marks, 2 h 30 min)</li>")
+    items.append("<li><b>Colophon</b></li>")
     return f"""
-<section class="front">
+<section class="front combo-toc">
   <h1>Contents</h1>
-  <p>Chapter-wise lecture notes. ★ Golden concepts are listed under the chapter that teaches them.</p>
+  <p>Chapter-wise lecture notes. ★ Golden concepts sit under the chapter that teaches them.
+  Self-taught and academy tracks share these same pages.</p>
   <ol class="toc">{''.join(items)}</ol>
 </section>"""
+
+
+def combo_chapter_card(ch_num: int, topics: list[str], sessions: list[dict]) -> str:
+    gold, rest = split_gold_rest(topics)
+    n_class = sessions[-1]["session"] if sessions else 0
+    mins = chapter_study_mins(topics)
+    rows = []
+    seen = set()
+    for it in sessions:
+        n = it["session"]
+        if n in seen:
+            continue
+        seen.add(n)
+        group = [x for x in sessions if x["session"] == n]
+        names = " + ".join(html.escape(short_topic_name(x["title"])) for x in group)
+        kind = "★ 90 min" if any(x["golden"] for x in group) else "90 min"
+        rows.append(f"<tr><td>Class {n:02d}</td><td>{names}</td><td>{kind}</td></tr>")
+    return f"""
+    <div class="box combo-track">
+      <div class="two-col">
+        <div>
+          <p><b>Self-taught.</b> {len(topics)} notes · {len(gold)} ★ first · about {fmt_hours(mins)}.
+          After the last note, sit the chapter exam (75 marks, 1 h 15 min).</p>
+        </div>
+        <div>
+          <p><b>Coach / teacher.</b> {n_class} academy classes of 90 minutes
+          (each ★ Golden is a full class; other notes pair). School: ★ = one 40-minute period.</p>
+        </div>
+      </div>
+    </div>
+    <div class="box plan">
+      <p><b>Chapter {ch_num} academy calendar.</b></p>
+      <table class="session-table">
+        <tr><th>Class</th><th>Topics</th><th>Kind</th></tr>
+        {''.join(rows)}
+      </table>
+    </div>"""
 
 
 def complete_chapters(chapters_src: list[tuple[int, str, str, list[str]]]) -> str:
@@ -2975,19 +3133,26 @@ def complete_chapters(chapters_src: list[tuple[int, str, str, list[str]]]) -> st
     for ch_num, title, fragment, topics in chapters_src:
         gold, rest = split_gold_rest(topics)
         ordered = gold + rest
+        sessions = assign_academy_sessions(ordered)
+        session_total = sessions[-1]["session"] if sessions else 0
         opener = extract_opener(fragment)
-        note = f"""
-        <div class="box pace">
-          <p><b>This chapter’s lecture notes.</b> {len(topics)} notes · {len(gold)} ★ Golden concepts first,
-          then the remaining notes. After the last note, sit the chapter exam on the following pages.</p>
-        </div>"""
-        start = f'<div class="complete-chapter">{opener}{golden_concepts_box(topics)}{note}</div>'
-        lessons = [
-            as_complete_lesson(
-                b, i, len(ordered), ch_num, "golden" if topic_is_golden(topic_title(b), b) else "chapter"
+        start = (
+            f'<div class="complete-chapter">{opener}{golden_concepts_box(topics)}'
+            f"{combo_chapter_card(ch_num, topics, sessions)}</div>"
+        )
+        lessons = []
+        for i, (block, item) in enumerate(zip(ordered, sessions), 1):
+            lessons.append(
+                as_complete_lesson(
+                    block,
+                    i,
+                    len(ordered),
+                    ch_num,
+                    "golden" if topic_is_golden(topic_title(block), block) else "chapter",
+                    item,
+                    session_total,
+                )
             )
-            for i, b in enumerate(ordered, 1)
-        ]
         chunks.append(start + "".join(lessons) + chapter_exam_bundle(fragment, ch_num, title, topics))
     return "".join(chunks)
 
@@ -2997,9 +3162,22 @@ def complete_final(final_html: str) -> str:
         return ""
     opener = extract_opener(final_html)
     review = extract_review(final_html)
+    extra = """
+    <div class="box combo-track">
+      <div class="two-col">
+        <div>
+          <p><b>Self-taught.</b> Read each recap aloud, close the book, say it again.
+          Then sit the mock in 2 hours 30 minutes with no notes. Mark with the key. Repair only the Golden notes you missed.</p>
+        </div>
+        <div>
+          <p><b>Coach / teacher.</b> Exam week: six 90-minute recap clinics, then the mock under hall conditions.
+          Re-teach any Golden that more than a third of the batch missed.</p>
+        </div>
+      </div>
+    </div>"""
     if review and "exam-head" not in review:
         review = mock_exam_head() + review
-    return f'<div class="complete-chapter">{opener}</div>{review}'
+    return f'<div class="complete-chapter">{opener}{extra}</div>{review}'
 
 
 def drop_blank_pages(pdf_path: Path) -> int:
@@ -3037,6 +3215,16 @@ def drop_blank_pages(pdf_path: Path) -> int:
     return dropped
 
 
+def combo_class_count(chapters_src: list[tuple[int, str, str, list[str]]]) -> int:
+    total = 0
+    for _n, _t, _f, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        sessions = assign_academy_sessions(gold + rest)
+        if sessions:
+            total += sessions[-1]["session"]
+    return total
+
+
 def build_complete(key: str) -> Path:
     book = BOOKS[key]
     folder = SRC / key
@@ -3056,23 +3244,31 @@ def build_complete(key: str) -> Path:
     final_path = folder / "final.html"
     final = final_path.read_text(encoding="utf-8") if final_path.exists() else ""
     lesson_n = sum(len(row[3]) for row in chapters_src)
+    class_n = combo_class_count(chapters_src)
+    hours = fmt_hours(sum(chapter_study_mins(row[3]) for row in chapters_src))
     doc = wrap_html(
-        f"{book['title']} — Complete Teach Yourself",
-        complete_cover(book, chapters, len(goldens), lesson_n)
+        f"{book['title']} — Self-Taught / Academy Bootcamp Study Guide",
+        complete_cover(book, chapters, len(goldens), lesson_n, class_n)
+        + combo_imprint(book, chapters, len(goldens), lesson_n, class_n, hours)
         + intro
+        + combo_planner(chapters_src)
         + complete_toc(chapters_src, bool(final))
         + complete_chapters(chapters_src)
-        + complete_final(final),
+        + complete_final(final)
+        + combo_colophon(book, lesson_n, len(goldens), class_n),
         body_class="complete-book",
     )
     OUT.mkdir(exist_ok=True)
     html_path = OUT / f"{key}-complete.html"
-    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Complete-Teach-Yourself.pdf"
+    releases = ROOT.parent / "releases"
+    pdf_path = releases / f"CS-{book['grade']}-Bootcamp-Combo-StudyGuide.pdf"
+    alias = releases / f"CS-{book['grade']}-Complete-Teach-Yourself.pdf"
     print_job(doc, html_path, pdf_path, min_bytes=80_000, budget_ms=240000)
     gone = drop_blank_pages(pdf_path)
     if gone:
-        print(f"{key} complete book dropped {gone} blank page(s)")
-    print(f"{key} complete book -> {pdf_path}")
+        print(f"{key} combo study guide dropped {gone} blank page(s)")
+    shutil.copy2(pdf_path, alias)
+    print(f"{key} combo study guide -> {pdf_path}")
     return pdf_path
 
 
