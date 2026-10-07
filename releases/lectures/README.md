@@ -1,63 +1,12 @@
 # Teach Yourself Lectures (PDF)
 
-Standalone **Teach Yourself** lecture PDFs for Computer Science XI and XII (Sindh curriculum). Each topic is one printable lecture; each chapter also has a packed lecture PDF with the review and answer key.
+Standalone **Teach Yourself** lecture PDFs for Computer Science XI and XII (Sindh curriculum). Each topic is one printable lecture; each chapter also has a packed lecture PDF with the recap, 75-mark exam and answer key.
 
 **Direct download (no GitHub preview):** use the `raw.githubusercontent.com` links below — they save the PDF.
 
-## Student's Edition and Teacher's Edition
-
-- [CS XI Student's Edition (205 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Students-Edition.pdf)
-- [CS XII Student's Edition (209 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Students-Edition.pdf)
-- [CS XI Teacher's Edition (229 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teachers-Edition.pdf)
-- [CS XII Teacher's Edition (233 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teachers-Edition.pdf)
-- [XI + XII Student's Edition complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Students-Edition-Complete.pdf)
-- [XI + XII Teacher's Edition complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
-
-Rebuild: `python3 booklets/build.py editions`
-
-## Coaching Academy Edition
-
-90-minute batch plans, full-mark answer recipes, timed drills with answers, and homework. Golden topics (★) take a full class; other topics pair.
-
-- [CS XI Coaching Academy Edition (297 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Coaching-Academy-Edition.pdf)
-- [CS XII Coaching Academy Edition (298 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Coaching-Academy-Edition.pdf)
-- [XI + XII Coaching Academy Edition complete (595 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf)
-
-Rebuild: `python3 booklets/build.py academy`
-
-## Cheat Sheets
-
-Exam revision cards: definition, table, mnemonic, exam cue, Urdu line. Golden index for a two-hour revision.
-
-- [CS XI Cheat Sheets (56 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
-- [CS XII Cheat Sheets (58 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
-- [XI + XII Cheat Sheets complete (114 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
-
-Rebuild: `python3 booklets/build.py cheat`
-
-## 30-Day Crash Course
-
-Daily 3-hour plans, ★ Golden first, chapter checkpoints, mock paper, and a repair day.
-
-- [CS XI 30-Day Crash Course (103 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
-- [CS XII 30-Day Crash Course (101 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
-- [XI + XII 30-Day Crash Course complete (204 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
-
-Rebuild: `python3 booklets/build.py crash`
-
-## Lecture-Notes Study Guide
-
-Classroom photocopy pack: Board definition, numbered points, one table or diagram, exam cue, Urdu. ★ Golden first. 40-minute period on every chapter.
-
-- [CS XI Lecture-Notes Study Guide (61 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
-- [CS XII Lecture-Notes Study Guide (62 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
-- [XI + XII Lecture-Notes Study Guide complete (123 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
-
-Rebuild: `python3 booklets/build.py notes`
+Each edition keeps **one topic on one A4 page** (academy classes stay a full 90-minute write-up) and ends every chapter with a thorough **75-mark closed-book exam**.
 
 ## AIO Self-Paced Teach Yourself Edition
-
-Published all-in-one: imprint, Steady/Term/Exam planner, one topic per A4 page, chapters isolated, then a thorough 75-mark closed-book chapter exam (15 MCQ + 10 short + any 3 long). Keys stay sealed.
 
 - [CS XI AIO Self-Paced Teach Yourself Edition (168 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
 - [CS XII AIO Self-Paced Teach Yourself Edition (169 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
@@ -65,16 +14,54 @@ Published all-in-one: imprint, Steady/Term/Exam planner, one topic per A4 page, 
 
 Rebuild: `python3 booklets/build.py paced`
 
+## Student's Edition and Teacher's Edition
+
+- [CS XI Student's Edition (163 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Students-Edition.pdf)
+- [CS XII Student's Edition (164 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Students-Edition.pdf)
+- [CS XI Teacher's Edition (163 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teachers-Edition.pdf)
+- [CS XII Teacher's Edition (164 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teachers-Edition.pdf)
+- [XI + XII Student's Edition complete (327 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Students-Edition-Complete.pdf)
+- [XI + XII Teacher's Edition complete (327 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py editions`
+
+## Coaching Academy Edition
+
+- [CS XI Coaching Academy Edition (298 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Coaching-Academy-Edition.pdf)
+- [CS XII Coaching Academy Edition (302 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Coaching-Academy-Edition.pdf)
+- [XI + XII Coaching Academy Edition complete (600 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py academy`
+
+## Cheat Sheets
+
+- [CS XI Cheat Sheets (153 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets (154 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete (307 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py cheat`
+
+## 30-Day Crash Course
+
+- [CS XI 30-Day Crash Course (248 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course (235 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete (483 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py crash`
+
+## Lecture-Notes Study Guide
+
+- [CS XI Lecture-Notes Study Guide (159 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide (159 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete (318 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py notes`
+
 ## All-in-one PDFs (whole grade in one file)
 
-- [CS XI Teach Yourself — All-in-One (203 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)
-- [CS XII Teach Yourself — All-in-One (207 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teach-Yourself-All-in-One.pdf)
-- [CS XI + XII complete (410 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
-
-Same XI/XII books under the original booklet names:
-
-- [CS-XI-Ultimate-Teach-Yourself-Booklet.pdf](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Booklet.pdf)
-- [CS-XII-Ultimate-Teach-Yourself-Booklet.pdf](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Booklet.pdf)
+- [CS XI Teach Yourself — All-in-One (163 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Teach-Yourself-All-in-One.pdf)
+- [CS XII Teach Yourself — All-in-One (164 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Teach-Yourself-All-in-One.pdf)
+- [CS XI + XII complete (327 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
 
 Rebuild: `python3 booklets/build.py`
 

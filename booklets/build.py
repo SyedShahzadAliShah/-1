@@ -2652,6 +2652,74 @@ def catalog_html(key: str, items: list[dict]) -> str:
     return wrap_html(f"{book['title']} — Teach Yourself Lectures", body)
 
 
+def edition_index_md() -> str:
+    z = ZIP_RAW
+    return f"""
+**Direct download (no GitHub preview):** use the `raw.githubusercontent.com` links below — they save the PDF.
+
+Each edition keeps **one topic on one A4 page** (academy classes stay a full 90-minute write-up) and ends every chapter with a thorough **75-mark closed-book exam**.
+
+## AIO Self-Paced Teach Yourself Edition
+
+- [CS XI AIO Self-Paced Teach Yourself Edition (168 pages)]({z}/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [CS XII AIO Self-Paced Teach Yourself Edition (169 pages)]({z}/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [XI + XII AIO Self-Paced Teach Yourself Edition complete (337 pages)]({z}/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py paced`
+
+## Student's Edition and Teacher's Edition
+
+- [CS XI Student's Edition (163 pages)]({z}/CS-XI-Students-Edition.pdf)
+- [CS XII Student's Edition (164 pages)]({z}/CS-XII-Students-Edition.pdf)
+- [CS XI Teacher's Edition (163 pages)]({z}/CS-XI-Teachers-Edition.pdf)
+- [CS XII Teacher's Edition (164 pages)]({z}/CS-XII-Teachers-Edition.pdf)
+- [XI + XII Student's Edition complete (327 pages)]({z}/CS-XI-and-XII-Students-Edition-Complete.pdf)
+- [XI + XII Teacher's Edition complete (327 pages)]({z}/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py editions`
+
+## Coaching Academy Edition
+
+- [CS XI Coaching Academy Edition (298 pages)]({z}/CS-XI-Coaching-Academy-Edition.pdf)
+- [CS XII Coaching Academy Edition (302 pages)]({z}/CS-XII-Coaching-Academy-Edition.pdf)
+- [XI + XII Coaching Academy Edition complete (600 pages)]({z}/CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py academy`
+
+## Cheat Sheets
+
+- [CS XI Cheat Sheets (153 pages)]({z}/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets (154 pages)]({z}/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete (307 pages)]({z}/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py cheat`
+
+## 30-Day Crash Course
+
+- [CS XI 30-Day Crash Course (248 pages)]({z}/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course (235 pages)]({z}/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete (483 pages)]({z}/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py crash`
+
+## Lecture-Notes Study Guide
+
+- [CS XI Lecture-Notes Study Guide (159 pages)]({z}/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide (159 pages)]({z}/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete (318 pages)]({z}/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py notes`
+
+## All-in-one PDFs (whole grade in one file)
+
+- [CS XI Teach Yourself — All-in-One (163 pages)]({z}/CS-XI-Teach-Yourself-All-in-One.pdf)
+- [CS XII Teach Yourself — All-in-One (164 pages)]({z}/CS-XII-Teach-Yourself-All-in-One.pdf)
+- [CS XI + XII complete (327 pages)]({z}/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py`
+"""
+
+
 def write_index_md(all_items: dict[str, list[dict]]):
     RELEASES.mkdir(parents=True, exist_ok=True)
     lines = [
@@ -2659,7 +2727,9 @@ def write_index_md(all_items: dict[str, list[dict]]):
         "",
         "Standalone **Teach Yourself** lecture PDFs for Computer Science XI and XII "
         "(Sindh curriculum). Each topic is one printable lecture; each chapter also has "
-        "a packed lecture PDF with the review and answer key.",
+        "a packed lecture PDF with the recap, 75-mark exam and answer key.",
+        "",
+        edition_index_md().strip(),
         "",
         "## Chapter lecture packs",
         "",
