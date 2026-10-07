@@ -1,0 +1,459 @@
+<section class="chapter" id="xii-ch4" data-num="4" data-title="Data and Analysis">
+  <div class="ch-opener">
+    <div class="num">Chapter 4</div>
+    <h1>Data and Analysis</h1>
+    <p>This chapter shows you how to pull data from a SQLite database with Python, clean it in Pandas, draw the right chart, and summarise a dataset with mean, median, mode and standard deviation. These are the same steps a data analyst uses every day.</p>
+    <p class="ur">اس باب میں آپ سیکھیں گے کہ پائتھن سے ایس کیو لائٹ ڈیٹا بیس کیسے جوڑا جاتا ہے، پینڈاز میں ڈیٹا کیسے صاف ہوتا ہے، درست چارٹ کیسے بنتا ہے، اور اوسط، میڈین، موڈ اور معیاری انحراف سے خلاصہ کیسے نکلتا ہے۔</p>
+  </div>
+
+  <h3>What you will learn</h3>
+  <ul class="objectives">
+    <li>Define data analysis and say why Python is used for it.</li>
+    <li>Name the five parts of a Python database connection in order.</li>
+    <li>Create a SQLite database, table, insert, select, commit and close.</li>
+    <li>Build a Pandas DataFrame from a dictionary, CSV or Excel file.</li>
+    <li>Create calculated columns and handle NaN with isnull, fillna and dropna.</li>
+    <li>Organise data in tables and frequency distributions.</li>
+    <li>Choose and code bar, line, pie, histogram, scatter and box plots.</li>
+    <li>Compute mean, median, mode, range, variance, standard deviation, min and max by hand, and know that pandas <code>.std()</code> uses n−1.</li>
+  </ul>
+
+  <div class="topic">
+    <h2>4.1 Concept of Data Analysis</h2>
+    <div class="box learn">
+      <p><b>Data analysis</b> is examining, organising and interpreting data so you can extract useful information. Schools study results, shops study sales, hospitals study patient records — all to make a decision, spot a trend or solve a problem.</p>
+      <p>Python is popular for this work because it is readable, talks to files and databases, does statistics, and draws graphs. Five lines of Pandas often replace an hour of spreadsheet clicking.</p>
+    </div>
+    <div class="box example">
+      <p>A Hyderabad college has 400 CS marks in a spreadsheet. Analysis answers: What is the average? How many failed? Is the second shift weaker than the first? The numbers are data; those answers are information.</p>
+    </div>
+    <div class="box urdu"><p class="ur">ڈیٹا کا تجزیہ یعنی اعداد کو ترتیب دے کر ان سے فیصلے کے قابل معلومات نکالنا۔ پائتھن اس لیے منتخب کیا جاتا ہے کہ وہ فائلیں، ڈیٹا بیس، حساب اور گراف سب سنبھال لیتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Give one school use of data analysis.</p>
+      <p><b>2.</b> Name two Python superpowers for analysis.</p>
+      <div class="ans">Answers: 1. Study results to improve teaching (or similar). 2. Any two: read CSV/Excel/databases, organise tables, statistics, charts.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.1.1 – 4.1.2 Data Sources and Database Connection <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Data sources</b> are where information comes from: school records, websites, sensors, databases. <b>Connectivity</b> is the conversation between your Python program and that source so you can read and update data.</p>
+      <p>Five components of a database connection, in the order they actually work:</p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Component</th><th>Role</th></tr>
+      <tr><td>1</td><td>Database</td><td>Organised store (SQLite = one <code>.db</code> file; MySQL = a server for big apps)</td></tr>
+      <tr><td>2</td><td>Driver</td><td>Translator between Python and that DBMS (<code>sqlite3</code> is built in)</td></tr>
+      <tr><td>3</td><td>Connection object</td><td>Opens, manages and closes the pipeline</td></tr>
+      <tr><td>4</td><td>Cursor object</td><td>Runs SQL and walks through result rows</td></tr>
+      <tr><td>5</td><td>SQL queries</td><td>CREATE, INSERT, SELECT, UPDATE, DELETE</td></tr>
+    </table>
+    <div class="flow"><span>Python</span><i>→</i><span>Driver</span><i>→</i><span>Connection</span><i>→</i><span>Cursor</span><i>→</i><span>SQL</span><i>→</i><span>Database</span></div>
+    <div class="box exam"><p>Write the five names in order and one line each. A common trap is swapping cursor and connection: the connection is the pipe; the cursor is the messenger that travels through it.</p></div>
+    <div class="box urdu"><p class="ur">خمسہ اجزاء: ڈیٹا بیس، ڈرائیور، کنکشن، کرسر، ایس کیو ایل۔ کنکشن پائپ ہے، کرسر اس پائپ میں چل کر حکم چلاتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which object executes <code>SELECT *</code>?</p>
+      <p><b>2.</b> Is SQLite a driver, a database, or both?</p>
+      <div class="ans">Answers: 1. The cursor. 2. SQLite is the database; the <code>sqlite3</code> module is the driver.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.2 Creating a SQLite Database in Python</h2>
+    <div class="box learn">
+      <p>SQLite is built into Python. The whole database is one <code>.db</code> file next to your script — no password, no port, no server. Nine steps you must be able to write from memory:</p>
+    </div>
+<pre class="code">import sqlite3
+conn = sqlite3.connect("school.db")   # 1–2  driver + connection
+cur = conn.cursor()                   # 3    cursor
+cur.execute("CREATE TABLE IF NOT EXISTS students (id INTEGER, name TEXT, marks INTEGER)")
+cur.execute("INSERT INTO students VALUES (1, 'Ali', 85)")
+conn.commit()                         # 6    SAVE or the row vanishes
+cur.execute("SELECT * FROM students")
+rows = cur.fetchall()
+for r in rows:
+    print(r)
+conn.close()                          # 9    unlock the file</pre>
+<pre class="code output">(1, 'Ali', 85)</pre>
+    <table>
+      <tr><th>Step</th><th>Why it matters</th></tr>
+      <tr><td><code>connect</code></td><td>Creates the file if it does not exist</td></tr>
+      <tr><td><code>cursor</code></td><td>Vehicle that carries SQL</td></tr>
+      <tr><td><code>execute</code></td><td>Runs one SQL command</td></tr>
+      <tr><td><code>commit</code></td><td>Writes INSERT/UPDATE/DELETE to disk</td></tr>
+      <tr><td><code>fetchall</code></td><td>Brings SELECT results into a Python list of tuples</td></tr>
+      <tr><td><code>close</code></td><td>Frees memory and unlocks the file</td></tr>
+    </table>
+    <div class="box warn"><p>Forgetting <code>commit()</code> is the classic bug: the program prints nothing next time because the insert was never saved. Forgetting <code>close()</code> can lock <code>school.db</code> so the next run fails.</p></div>
+    <div class="box tip"><p>Strings inside SQL use single quotes: <code>'Ali'</code>. Python strings around the SQL use double quotes (or a triple-quoted string).</p></div>
+    <div class="box urdu"><p class="ur">ایس کیو لائٹ پائتھن کے ساتھ آتی ہے، پورا ڈیٹا بیس ایک فائل ہے۔ ترتیب: امپورٹ، کنکٹ، کرسر، EXECUTE، COMMIT، SELECT، FETCALL، CLOSE۔ COMMIT نہ ہو تو اندراج ضائع ہو جاتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What does <code>*</code> mean in <code>SELECT *</code>?</p>
+      <p><b>2.</b> Which call must follow INSERT?</p>
+      <div class="ans">Answers: 1. All columns. 2. <code>conn.commit()</code>.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.3 Pandas and DataFrames <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Pandas</b> is a third-party library for tables. Install once: <code>pip install pandas</code> in the terminal (not inside the <code>.py</code> file). Convention: <code>import pandas as pd</code>.</p>
+      <p>A <b>DataFrame</b> is a 2-D table of rows and columns, like Excel or an SQL table. You can filter, sort and calculate whole columns without writing a <code>for</code> loop.</p>
+    </div>
+<pre class="code">import pandas as pd
+data = {
+    "Name": ["Ali", "Sara", "Ahmed"],
+    "Math": [85, 90, 78],
+    "Science": [80, 88, 70],
+}
+df = pd.DataFrame(data)
+print(df)</pre>
+<pre class="code output">    Name  Math  Science
+0    Ali    85       80
+1   Sara    90       88
+2  Ahmed    78       70</pre>
+    <p><code>read_csv('students.csv')</code> and <code>read_excel('students.xlsx', sheet_name='Sheet1')</code> load files. <code>df.head()</code> prints the first five rows — use it on large files so you do not flood the screen.</p>
+<pre class="code">df["Total"] = df["Math"] + df["Science"]
+df["Average"] = df["Total"] / 2
+print(df)</pre>
+<pre class="code output">    Name  Math  Science  Total  Average
+0    Ali    85       80    165     82.5
+1   Sara    90       88    178     89.0
+2  Ahmed    78       70    148     74.0</pre>
+    <div class="box example">
+      <p>Check: Ali 85+80=165, 165/2=82.5. Sara 90+88=178, 89.0. Ahmed 78+70=148, 74.0.</p>
+    </div>
+    <div class="box urdu"><p class="ur">پینڈاز ٹیبل نما ڈیٹا فریم دیتا ہے۔ ڈکشنری، سی ایس وی یا ایکسل سے لوڈ کریں۔ نئے کالم بغیر لوپ کے پوری قطار پر حساب کر کے بنتے ہیں۔ <code>head()</code> صرف پہلی پانچ قطاریں دکھاتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What is <code>pd</code>?</p>
+      <p><b>2.</b> Why not <code>print(df)</code> on a million-row file?</p>
+      <div class="ans">Answers: 1. The usual alias for pandas. 2. It would print everything; use <code>df.head()</code>.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.3.3 Handling Missing Values (NaN) <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Missing cells are <b>NaN</b> (“Not a Number”). Statistics crash or lie if you ignore them. Three tools: <code>isnull()</code> (True where empty), <code>fillna(value)</code> (replace), <code>dropna()</code> (delete the row).</p>
+    </div>
+<pre class="code">import pandas as pd
+df = pd.DataFrame({
+    "Name": ["Ali", "Sara", "Ahmed", "Ayesha"],
+    "Marks": [85.0, None, 78.0, 92.0],
+    "Grade": ["A", "A", None, "A"],
+})
+print(df.isnull().sum())</pre>
+<pre class="code output">Name     0
+Marks    1
+Grade    1
+dtype: int64</pre>
+    <div class="box example">
+      <p>Replace Marks with the mean of the known marks, and Grade with a label. Known marks 85, 78, 92 → mean = 255/3 = <b>85.0</b>.</p>
+<pre class="code">avg = df["Marks"].mean()          # 85.0
+df["Marks"] = df["Marks"].fillna(avg)
+df["Grade"] = df["Grade"].fillna("Not Assigned")
+print(df)</pre>
+<pre class="code output">     Name  Marks         Grade
+0     Ali   85.0             A
+1    Sara   85.0             A
+2   Ahmed   78.0  Not Assigned
+3  Ayesha   92.0             A</pre>
+      <p><code>df = df.dropna()</code> would instead delete Sara’s row and Ahmed’s row (any row that still had a NaN).</p>
+    </div>
+    <div class="box exam"><p>State: identify with <code>isnull</code>/<code>sum</code>, fill numeric gaps with the mean, fill categories with a label, or drop rows if filling would invent a lie. Never analyse first and clean second.</p></div>
+    <div class="box warn"><p>Filling a salary gap with the mean of a company that includes the CEO can hide poverty (the same outlier problem as the mean). Know <i>why</i> the value is missing before you fill.</p></div>
+    <div class="box urdu"><p class="ur">خالی خانے NaN ہیں۔ <code>isnull</code> تلاش، <code>fillna</code> بھرنا (اکثر اوسط سے)، <code>dropna</code> قطار ہٹانا۔ پہلے صاف کرو، پھر تجزیہ۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What does <code>df.isnull().sum()</code> return?</p>
+      <p><b>2.</b> Does <code>dropna()</code> delete a column or a row by default?</p>
+      <div class="ans">Answers: 1. Count of NaNs in each column. 2. Any <b>row</b> that contains at least one NaN.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.4 Data Organization and Representation</h2>
+    <div class="box learn">
+      <p>Organised data is easier to read. Three everyday forms:</p>
+      <ul>
+        <li><b>Table</b> — exact values side by side (Ali 85 Math, 80 Science).</li>
+        <li><b>Frequency distribution</b> — how many items fall in each range (bin).</li>
+        <li><b>Graph</b> — a picture of a trend or comparison (next topics).</li>
+      </ul>
+    </div>
+    <table class="center">
+      <tr><th>Range of marks</th><th>Frequency (students)</th></tr>
+      <tr><td>50–59</td><td>5</td></tr>
+      <tr><td>60–69</td><td>7</td></tr>
+      <tr><td>70–79</td><td>9</td></tr>
+      <tr><td>80–89</td><td>4</td></tr>
+      <tr><td>90–100</td><td>2</td></tr>
+    </table>
+    <p>Most students scored 70–79. That pattern is hard to see in a raw list of 27 marks, and obvious in this table. Matplotlib (<code>import matplotlib.pyplot as plt</code>) turns tables into graphs: import → figure → plot → labels → title → <code>show()</code>.</p>
+    <div class="box urdu"><p class="ur">ٹیبل درست عدد دکھاتی ہے، تعدد کی جدول بتاتی ہے کتنے طلبہ کس رینج میں ہیں، گراف رجحان دکھاتا ہے۔ میٹپلاٹ لِب گراف بناتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> How many students scored 80 or above in the table?</p>
+      <p><b>2.</b> Name the library that draws graphs in Python.</p>
+      <div class="ans">Answers: 1. 4 + 2 = 6. 2. Matplotlib (pyplot).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.5 Data Visualization and Types of Graphs <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Pick the graph that matches the question. Then label axes and give a title — an unlabelled chart scores zero in an exam.</p>
+    </div>
+    <table>
+      <tr><th>Chart</th><th>Shows</th><th>Watch out</th></tr>
+      <tr><td>Bar / column</td><td>Compare discrete categories (subjects, departments)</td><td>Column = vertical; bar often = horizontal</td></tr>
+      <tr><td>Line</td><td>Change over time (temperature, visitors)</td><td>Needs an ordered x-axis (months, years)</td></tr>
+      <tr><td>Pie</td><td>Parts of one whole as percentages</td><td>Bad with many or almost-equal slices</td></tr>
+      <tr><td>Histogram</td><td>Distribution of one numeric variable in bins</td><td>Bars <b>touch</b> (continuous range), unlike a bar chart</td></tr>
+      <tr><td>Scatter</td><td>Relationship of two numeric variables</td><td>Each dot is one pair (x, y)</td></tr>
+      <tr><td>Box plot</td><td>Min, Q1, median, Q3, max, and outliers</td><td>Best tool for spotting extreme values</td></tr>
+    </table>
+    <h3>4.5.1 Bar / column</h3>
+<pre class="code">import matplotlib.pyplot as plt
+subjects = ["English", "Math", "Science", "History"]
+marks = [64, 82, 71, 49]
+plt.bar(subjects, marks, color="skyblue", edgecolor="black")
+plt.title("Marks vs Subjects")
+plt.xlabel("Subjects")
+plt.ylabel("Marks out of 100")</pre>
+    <h3>4.5.2 Line</h3>
+<pre class="code">months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+temps = [12, 15, 20, 25, 30, 35]
+plt.plot(months, temps, marker="o")
+plt.title("Average Monthly Temperature")
+plt.grid(True)</pre>
+    <h3>4.5.3 Pie</h3>
+<pre class="code">subjects = ["Math", "Physics", "CS", "Biology"]
+students = [25, 15, 30, 10]   # total 80
+plt.pie(students, labels=subjects, autopct="%1.1f%%", startangle=90)</pre>
+    <p>Check: Math 25/80 = 31.25% → 31.2%. Physics 18.8%. CS 37.5%. Biology 12.5%.</p>
+    <h3>4.5.4 Histogram</h3>
+<pre class="code">scores = [45, 50, 55, 60, 62, 65, 68, 70, 72, 75, 78, 80, 82, 85, 90, 95]
+plt.hist(scores, bins=[40, 50, 60, 70, 80, 90, 100], edgecolor="black")</pre>
+    <h3>4.5.5 Scatter</h3>
+<pre class="code">plt.scatter([10, 20, 30, 40, 50, 60, 70, 80],
+            [2, 4, 5, 4, 7, 8, 9, 12], color="green", alpha=0.7)
+plt.title("Rainfall vs Crop Yield")  # positive correlation</pre>
+    <h3>4.5.6 Box plot</h3>
+<pre class="code">plt.boxplot([[55, 60, 65, 70, 75, 80, 85],
+             [40, 65, 70, 72, 75, 80, 95]],
+            tick_labels=["Class A", "Class B"])</pre>
+    <p>The box is the middle 50% (Q1 to Q3). The line inside is the median. Whiskers reach min and max (or a fence, with outliers drawn as dots). Class B is more spread out than Class A.</p>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 120" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="11">
+        <text x="70" y="16" text-anchor="middle" font-weight="700">Column</text>
+        <rect x="30" y="60" width="22" height="40" fill="#1f3c88"/>
+        <rect x="58" y="40" width="22" height="60" fill="#3b5bdb"/>
+        <rect x="86" y="30" width="22" height="70" fill="#e8590c"/>
+        <text x="220" y="16" text-anchor="middle" font-weight="700">Line</text>
+        <polyline points="170,90 200,70 230,75 260,40 290,50" fill="none" stroke="#1f3c88" stroke-width="3"/>
+        <text x="370" y="16" text-anchor="middle" font-weight="700">Pie</text>
+        <circle cx="370" cy="70" r="32" fill="#1f3c88"/>
+        <path d="M370,70 L370,38 A32,32 0 0,1 398,82 Z" fill="#e8590c"/>
+        <text x="520" y="16" text-anchor="middle" font-weight="700">Box (median line)</text>
+        <line x1="520" y1="30" x2="520" y2="50" stroke="#1d2433" stroke-width="2"/>
+        <rect x="500" y="50" width="40" height="40" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <line x1="500" y1="70" x2="540" y2="70" stroke="#e8590c" stroke-width="3"/>
+        <line x1="520" y1="90" x2="520" y2="110" stroke="#1d2433" stroke-width="2"/>
+      </svg>
+      <figcaption>Column compares; line shows a trend; pie shows share; the box summarises spread around the median.</figcaption>
+    </figure>
+    <div class="box exam"><p>“Which graph and why?” is a 3-mark gift. Write the name, what it shows, and one reason the others are worse.</p></div>
+    <div class="box urdu"><p class="ur">بار/کالم اقسام کا موازنہ، لائن وقت کا رجحان، پائی حصے، ہسٹوگرام مسلسل تقسیم (بار آپس میں لگے)، اسکیٹر دو متغیرات کا تعلق، باکس پلاٹ پانچ اعداد اور آؤٹ لائر۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Why do histogram bars touch?</p>
+      <p><b>2.</b> Rainfall vs yield — which chart?</p>
+      <div class="ans">Answers: 1. The x-axis is a continuous numeric range, not separate categories. 2. Scatter (two numeric variables, looking for correlation).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.6 Descriptive Statistics <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Descriptive statistics</b> squeeze a long list into a few honest numbers. <b>Central tendency</b> asks “what is typical?”. <b>Spread</b> asks “how mixed is the list?”.</p>
+    </div>
+    <h3>4.6.1 Mean, median, mode</h3>
+    <table>
+      <tr><th>Measure</th><th>How</th><th>Use when</th></tr>
+      <tr><td>Mean</td><td>Sum ÷ n. Uses every value.</td><td>Values sit close together. Example: ordinary test scores.</td></tr>
+      <tr><td>Median</td><td>Middle after sorting. Odd n: centre. Even n: mean of the two centre values.</td><td>Outliers would wreck the mean (CEO salary).</td></tr>
+      <tr><td>Mode</td><td>Most frequent value. May be none, one, or several.</td><td>Most popular choice (shoe size).</td></tr>
+    </table>
+    <div class="box example">
+      <p>Marks 70, 80, 90. Mean = 240/3 = <b>80</b>.</p>
+      <p>Odd list 35, 10, 15, 70, 95. Sort: 10, 15, 35, 70, 95. Median = <b>35</b>.</p>
+      <p>Bottles sold 20, 25, 20, 30, 20, 25, 20. Mode = <b>20</b> (appears four times).</p>
+      <p>Outlier trap: nine people earn 10, one earns 1000. Mean = 1090/10 = 109 (looks rich). Median = 10 (tells the truth).</p>
+    </div>
+    <h3>4.6.2 Spread: range, variance, standard deviation, min, max</h3>
+    <ul>
+      <li><b>Min / max</b> — smallest and largest. Marks 70, 80, 90, 60, 75 → min 60, max 90.</li>
+      <li><b>Range</b> = max − min. Sales 120, 150, 180 → range 60.</li>
+      <li><b>Population variance</b> \(\sigma^{2} = \dfrac{1}{n}\sum (x_i - \mu)^{2}\).</li>
+      <li><b>Sample variance</b> \(s^{2}\) uses \(\div (n-1)\). <code>pandas.Series.std()</code> uses the sample version.</li>
+      <li><b>Standard deviation</b> \(\sigma = \sqrt{\sigma^{2}}\). Same units as the data (marks, not marks²). Low SD → tight, consistent. High SD → spread out, unpredictable.</li>
+    </ul>
+    <p class="math">\[ \sigma^{2} = \frac{1}{n}\sum_{i=1}^{n}(x_{i}-\mu)^{2},\qquad \sigma=\sqrt{\sigma^{2}},\qquad s^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2} \]</p>
+    <div class="box example">
+      <p><b>Full working</b> on 70, 80, 90. Mean μ = 80. Deviations −10, 0, +10. Squares 100, 0, 100. Sum = 200.</p>
+      <p>Population variance σ² = 200/3 = <b>66.67</b> (2 d.p.). Population SD σ = √(200/3) = <b>8.16</b> (2 d.p.).</p>
+      <p>Sample variance s² = 200/2 = <b>100</b>. Sample SD s = 10. That is what <code>pd.Series([70,80,90]).std()</code> returns.</p>
+    </div>
+    <div class="box exam">
+      <p>Always state whether you used n or n−1. Show the sorted list for the median. For SD, show: mean → deviations → squares → divide → square root. A box plot pictures min, Q1, median, Q3, max of the same data.</p>
+    </div>
+    <div class="box warn"><p>Do not report variance as if it were in “marks”. Variance is marks². Quote the standard deviation when you want a sentence in the original units.</p></div>
+    <div class="box urdu"><p class="ur">اوسط سب کا مجموعہ تقسیم تعداد، میڈین ترتیب کے بعد بیچ، موڈ سب سے زیادہ بار آنے والا۔ رینج بڑا منفی چھوٹا۔ ویرینس اوسط سے فاصلوں کے مربع کی اوسط ہے، معیاری انحراف اس کا جذر ہے اور اصل اکائی میں ہوتا ہے۔ پینڈاز <code>std()</code> نمونے والا (n−1) استعمال کرتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Median of 4, 8, 6, 10, 2?</p>
+      <p><b>2.</b> Range of 120, 150, 180?</p>
+      <p><b>3.</b> Does pandas <code>.std()</code> divide by n or n−1?</p>
+      <div class="ans">Answers: 1. Sorted 2,4,6,8,10 → 6. 2. 60. 3. n−1 (sample).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>Career Opportunities</h2>
+    <div class="box learn">
+      <p>The skills in this chapter map onto real jobs: data analyst (Pandas, Excel), database administrator (SQLite/MySQL), data scientist (statistics + modelling), visualisation specialist (Matplotlib, Power BI), business-intelligence analyst (dashboards for managers), backend developer (the code that talks to the database).</p>
+    </div>
+    <div class="box urdu"><p class="ur">یہ باب ڈیٹا اینالسٹ، ڈیٹا بیس ایڈمن، ڈیٹا سائنسدان، ویژولائزیشن اور بیک اینڈ ڈویلپر جیسے کیریئرز کی بنیاد ہے۔</p></div>
+  </div>
+
+  <section class="review">
+    <h2>Chapter 4 Review</h2>
+    <h3>Chapter summary</h3>
+    <ul class="summary">
+      <li>Data analysis turns raw facts into decisions. Python reads files and databases, calculates and plots.</li>
+      <li>Connection chain: database → driver → connection → cursor → SQL.</li>
+      <li>SQLite: connect, cursor, execute, commit, fetchall, close. No commit means no save.</li>
+      <li>A DataFrame is a 2-D table. Load with a dictionary, <code>read_csv</code> or <code>read_excel</code>. New columns are vectorised arithmetic.</li>
+      <li>NaN: find (<code>isnull</code>), fill (<code>fillna</code>, often with the mean), or drop (<code>dropna</code>).</li>
+      <li>Tables give exact values; frequency bins show how many in each range.</li>
+      <li>Bar/column = categories; line = time; pie = parts of a whole; histogram = numeric distribution (touching bars); scatter = two variables; box = five-number summary + outliers.</li>
+      <li>Mean uses every value and is sensitive to outliers; median is the middle; mode is the most common.</li>
+      <li>Range = max−min. Variance = mean squared deviation (÷n or ÷n−1). SD = √variance. pandas <code>.std()</code> uses n−1.</li>
+    </ul>
+    <h3>Key terms</h3>
+    <table class="glossary">
+      <tr><th>Term</th><th>Meaning</th><th>اردو</th></tr>
+      <tr><td>Data analysis</td><td>Examining data to extract useful information.</td><td class="ur">ڈیٹا کا تجزیہ</td></tr>
+      <tr><td>Connectivity</td><td>Link between a program and a data source.</td><td class="ur">رابطہ کاری</td></tr>
+      <tr><td>Driver</td><td>Translator between Python and a DBMS.</td><td class="ur">ڈرائیور</td></tr>
+      <tr><td>Connection</td><td>Open pipeline to the database.</td><td class="ur">کنکشن</td></tr>
+      <tr><td>Cursor</td><td>Object that executes SQL and fetches rows.</td><td class="ur">کرسر</td></tr>
+      <tr><td>SQLite</td><td>Built-in file-based database.</td><td class="ur">ایس کیو لائٹ</td></tr>
+      <tr><td>commit</td><td>Save INSERT/UPDATE/DELETE to disk.</td><td class="ur">کمیٹ / محفوظ کرنا</td></tr>
+      <tr><td>Pandas</td><td>Library for table-like data.</td><td class="ur">پینڈاز</td></tr>
+      <tr><td>DataFrame</td><td>2-D labelled table of rows and columns.</td><td class="ur">ڈیٹا فریم</td></tr>
+      <tr><td>NaN</td><td>Missing value (“Not a Number”).</td><td class="ur">خالی / غیر موجود قدر</td></tr>
+      <tr><td>Frequency</td><td>How many items fall in a class/bin.</td><td class="ur">تعدد</td></tr>
+      <tr><td>Histogram</td><td>Distribution chart whose bars touch.</td><td class="ur">ہسٹوگرام</td></tr>
+      <tr><td>Scatter plot</td><td>Dots showing two numeric variables.</td><td class="ur">اسکیٹر پلاٹ</td></tr>
+      <tr><td>Box plot</td><td>Min, Q1, median, Q3, max (and outliers).</td><td class="ur">باکس پلاٹ</td></tr>
+      <tr><td>Mean</td><td>Arithmetic average.</td><td class="ur">اوسط</td></tr>
+      <tr><td>Median</td><td>Middle value of a sorted list.</td><td class="ur">میڈین / درمیانی قدر</td></tr>
+      <tr><td>Mode</td><td>Most frequent value.</td><td class="ur">موڈ / کثرت</td></tr>
+      <tr><td>Range</td><td>Max − min.</td><td class="ur">حد / رینج</td></tr>
+      <tr><td>Variance</td><td>Mean of squared deviations from the mean.</td><td class="ur">ویرینس / تغیر</td></tr>
+      <tr><td>Standard deviation</td><td>Square root of variance (original units).</td><td class="ur">معیاری انحراف</td></tr>
+      <tr><td>Outlier</td><td>An extreme unusual value.</td><td class="ur">آؤٹ لائر</td></tr>
+    </table>
+    <h3>Practice: multiple choice</h3>
+    <ol class="mcq">
+      <li>The object that executes SQL is the:
+        <ol class="opts"><li>driver</li><li>cursor</li><li>DataFrame</li><li>histogram</li></ol></li>
+      <li>After INSERT you must:
+        <ol class="opts"><li>close then commit</li><li>commit</li><li>drop the table</li><li>call head()</li></ol></li>
+      <li>Pandas is installed with:
+        <ol class="opts"><li>import pandas</li><li>pip install pandas</li><li>sqlite3.connect</li><li>plt.show()</li></ol></li>
+      <li><code>df.head()</code> shows:
+        <ol class="opts"><li>the last 5 rows</li><li>the first 5 rows</li><li>only NaNs</li><li>the standard deviation</li></ol></li>
+      <li>Missing Pandas values appear as:
+        <ol class="opts"><li>NULL in every chart</li><li>NaN</li><li>0 always</li><li>a pie slice</li></ol></li>
+      <li>To delete every row that contains a gap:
+        <ol class="opts"><li>fillna</li><li>dropna</li><li>fetchall</li><li>commit</li></ol></li>
+      <li>A line graph is best for:
+        <ol class="opts"><li>parts of a whole</li><li>a trend over months</li><li>two unrelated categories</li><li>a primary key</li></ol></li>
+      <li>Histogram bars:
+        <ol class="opts"><li>must have gaps</li><li>touch, because bins are a continuous range</li><li>always show time</li><li>replace the mean</li></ol></li>
+      <li>Rainfall vs crop yield is a:
+        <ol class="opts"><li>pie chart</li><li>scatter plot</li><li>primary key</li><li>mode</li></ol></li>
+      <li>A box plot’s inner line is the:
+        <ol class="opts"><li>mean</li><li>mode</li><li>median</li><li>range</li></ol></li>
+      <li>Mean of 70, 80, 90 is:
+        <ol class="opts"><li>70</li><li>80</li><li>90</li><li>240</li></ol></li>
+      <li>Median of 10, 15, 35, 70, 95 is:
+        <ol class="opts"><li>10</li><li>35</li><li>70</li><li>45</li></ol></li>
+      <li>Mode of 20, 25, 20, 30, 20, 25, 20 is:
+        <ol class="opts"><li>25</li><li>30</li><li>20</li><li>7</li></ol></li>
+      <li>Range of 120, 150, 180 is:
+        <ol class="opts"><li>30</li><li>60</li><li>150</li><li>180</li></ol></li>
+      <li>pandas <code>.std()</code> divides by:
+        <ol class="opts"><li>n</li><li>n−1</li><li>2n</li><li>zero</li></ol></li>
+    </ol>
+    <h3>Practice: short questions</h3>
+    <ol class="short">
+      <li>List the five components of a Python database connection in order.</li>
+      <li>Why is <code>conn.commit()</code> required after INSERT?</li>
+      <li>What is a DataFrame? How do you load a CSV into one?</li>
+      <li>Differentiate <code>fillna</code> and <code>dropna</code>.</li>
+      <li>When is a pie chart a poor choice?</li>
+      <li>Differentiate a bar chart and a histogram.</li>
+      <li>Why is the median better than the mean for company salaries?</li>
+      <li>Define range, min and max with the list 70, 80, 90, 60, 75.</li>
+      <li>Why do we take the square root of variance?</li>
+      <li>State two careers that use this chapter’s skills.</li>
+    </ol>
+    <h3>Practice: long / problem questions</h3>
+    <ol class="long">
+      <li>Write a complete Python program that creates <code>school.db</code>, a <code>students</code> table, inserts Ali 85 and Sara 90, commits, prints all rows, and closes. Number the five connection components beside the matching lines.</li>
+      <li>Starting from the dictionary of Ali/Sara/Ahmed marks, write Pandas code to build a DataFrame, add Total and Average columns, and print it. Show the exact output.</li>
+      <li>Given Marks [85, None, 78, 92] and Grade ["A","A", None, "A"], show <code>isnull().sum()</code>, then fill Marks with the mean and Grade with "Not Assigned". Compute the mean by hand.</li>
+      <li>For each goal pick a chart and justify in one sentence: (a) CS vs IT vs Eng enrolment, (b) website hits from Jan to Jun, (c) share of four clubs in one college, (d) distribution of 200 heights, (e) hours studied vs marks, (f) comparing spread of two classes.</li>
+      <li>For 4, 8, 6, 10, 2 compute mean, median, range, population variance and population SD. Show every step. Then say what pandas <code>.std()</code> would report instead.</li>
+      <li>Explain, with a numeric example, how an outlier distorts the mean but not the median. Link this to when you would draw a box plot.</li>
+    </ol>
+    <div class="answers">
+      <h2>Answer key</h2>
+      <h3>Multiple choice</h3>
+      <ol class="inline"><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>c</li><li>b</li><li>b</li><li>c</li><li>b</li><li>b</li></ol>
+      <h3>Short questions — model answers</h3>
+      <ol>
+        <li>Database, driver, connection object, cursor object, SQL queries.</li>
+        <li>Without commit the insert stays in memory and disappears when the program ends, so the next run cannot see the row.</li>
+        <li>A 2-D table of labelled rows and columns. <code>df = pd.read_csv("file.csv")</code>.</li>
+        <li><code>fillna(v)</code> replaces NaN with v (the row stays). <code>dropna()</code> deletes any row that still contains a NaN.</li>
+        <li>When there are many slices, or the values are almost equal, so the eye cannot compare them.</li>
+        <li>Bar: separate categories, gaps between bars. Histogram: one numeric variable grouped into bins; bars touch.</li>
+        <li>A huge CEO salary pulls the mean up; the median stays with the typical worker.</li>
+        <li>Min 60, max 90, range 30.</li>
+        <li>Variance is in squared units. The SD brings the spread back to the original units (marks, rupees, °C).</li>
+        <li>Any two: data analyst, DBA, data scientist, visualisation specialist, BI analyst, backend developer.</li>
+      </ol>
+      <h3>Long questions — model answers</h3>
+      <ol>
+        <li>Use the nine-step listing in 4.2 with two INSERTs. Label: sqlite3 = driver, connect = connection, cursor = cursor, execute strings = SQL, school.db = database.</li>
+        <li>Output is the three-row table with Total 165, 178, 148 and Average 82.5, 89.0, 74.0 (see the worked example).</li>
+        <li>isnull sum: Marks 1, Grade 1. Mean of 85, 78, 92 = 255/3 = 85.0. After fill: Sara Marks 85.0, Ahmed Grade "Not Assigned".</li>
+        <li>(a) column/bar — compare categories. (b) line — time. (c) pie — parts of a whole. (d) histogram — numeric distribution. (e) scatter — two numeric variables. (f) box — spread and outliers.</li>
+        <li>Sorted 2,4,6,8,10. Sum 30, mean 6, median 6, range 8. Deviations −4,−2,0,2,4. Squares 16,4,0,4,16 sum 40. σ² = 40/5 = 8. σ = √8 = 2.828 (3 d.p.). pandas <code>.std()</code> uses 40/4 = 10, √10 ≈ 3.162.</li>
+        <li>Nine salaries of 10 and one of 1000: mean 109, median 10. Draw a box plot — the 1000 appears as an outlier dot above the whisker, so the distortion is visible.</li>
+      </ol>
+    </div>
+    <h3>Self-assessment: I can…</h3>
+    <ul class="checklist">
+      <li>name the five connection components in order.</li>
+      <li>write SQLite connect / create / insert / commit / select / close.</li>
+      <li>build a DataFrame and add a calculated column.</li>
+      <li>find, fill and drop missing values.</li>
+      <li>choose bar, line, pie, histogram, scatter or box for a problem.</li>
+      <li>compute mean, median, mode, range, variance and SD by hand.</li>
+      <li>state that pandas std uses n−1.</li>
+    </ul>
+  </section>
+</section>

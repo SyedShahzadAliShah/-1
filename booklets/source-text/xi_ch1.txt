@@ -1,0 +1,707 @@
+##P1
+COMPUTER SCIENCE XI
+CHAPTER 1: COMPUTER SYSTEMS
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2026
+Page 1
+
+##P2
+TABLE OF CONTENTS
+1. 1.1.1 & 1.1.2 Discrete vs Continuous & Digital Systems
+2. 1.1.3 Analog and Digital Signals ★
+3. 1.1.4 - 1.1.6 Boolean Algebra, Operations & Truth Tables
+4. 1.1.7 Basic Logic Gates (AND, OR, NOT) ★
+5. 1.1.7 Universal & Advanced Logic Gates
+6. 1.1.8 - 1.1.11 Logic Expressions, Minterms & Diagrams
+7. 1.1.13 Karnaugh Maps (K-Maps) Simplification ★
+8. LogiSim Simulation Tool Guide
+9. 1.2.1 - 1.2.3 Software Development Life Cycle (SDLC) ★
+10. 1.2.4 - 1.2.7 Waterfall vs Agile Models & Case Studies
+11. 1.3.1 - 1.3.4 Communication Models & OSI 7-Layer Model ★
+12. 1.3.5 - 1.3.6 TCP/IP Model vs OSI Model
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XI (1 & 2).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P3
+1.1.1 Discrete and Continuous Quantities
+Discrete Quantities: Separate,
+countable items with specific values.
+They can be counted one by one.
+Number of students in a classroom
+Number of cars in a parking lot
+Continuous Quantities: Can take any
+value within a range. They flow
+smoothly without breaks.
+Temperature of water
+Speed of a moving car
+💡 Analogy: Stairs vs Ramp
+Stairs represent discrete data (fixed steps). A ramp represents continuous
+data (any point).
+Discrete (Stairs)
+Continuous (Ramp)
+Page 3
+
+##P4
+1.1.2 Introduction to Digital Systems
+A digital system is an electronic system that uses only two values: 0 and 1. These
+two values are called binary digits or bits.
+0 represents OFF, LOW, or FALSE.
+1 represents ON, HIGH, or TRUE.
+Advantage
+English Detail
+Reliable
+Less affected by noise and
+interference.
+Accurate
+No loss of quality when copying
+data.
+Easy to Design
+Only two states (0 and 1) to
+handle.
+Programmable
+Can be easily controlled by
+software.
+Examples of Digital Systems
+Computers: Processes data as 0s and 1s.
+Smartphones: Stores photos and music as binary data.
+Digital Cameras: Captures images as binary code.
+Page 4
+
+##P5
+1.1.3 Analog and Digital Signals
+★ GOLDEN TOPIC
+Analog Signals
+Continuous signals that change
+smoothly over time, like a sine wave.
+(e.g., Human voice, traditional
+thermometers).
+Digital Signals
+Have only two levels: HIGH (1) and LOW
+(0). They jump instantly between
+values, creating a square wave. (e.g.,
+Computer data).
+Analog Signal (Sine Wave)
+V
+t
+Digital Signal (Square Wave)
+V
+t
+HIGH(1)
+LOW(0)
+Feature
+Analog Data
+Digital Data
+Nature
+Continuous flow.
+Discrete, separate values (Bits).
+Reliability
+Low (affected by noise).
+High (resistant to noise).
+Page 5
+
+##P6
+1.1.4 Boolean Algebra
+Boolean algebra (developed by George Boole) deals with only two values: TRUE
+(1) and FALSE (0). It is the foundation of digital electronics and computer
+programming.
+Concept
+Description
+Example
+Variables
+Letters that hold values 0 or 1.
+A, B, C, X, Y
+Operations
+Actions performed on variables.
+AND, OR, NOT
+Expressions
+Combinations of variables & operations.
+A AND B, Y = A + B
+1.1.5 Boolean Operations
+1. AND Operation ( · )
+The AND operation gives output 1 ONLY when ALL inputs are 1.
+Expression: Y = A · B
+A door with two locks. The door opens only when BOTH locks are unlocked.
+Page 6
+
+##P7
+Boolean Operations (Continued)
+2. OR Operation ( + )
+The OR operation gives output 1 when ANY input is 1.
+Expression: Y = A + B
+A room with two doors. You can enter if EITHER door is open.
+3. NOT Operation ( ' or ¯ )
+The NOT operation inverts the input. It is a unary operation (operates on only
+one operand). If input is 1, output is 0.
+Expression: Y = A' or Y = A̅
+A room light switch. When switch is ON, room is lit. When OFF, room is dark.
+Page 7
+
+##P8
+1.1.6 Truth Tables
+A truth table shows all possible input combinations and their corresponding
+outputs for a logic gate or circuit.
+How to create a truth table:
+1. Count the number of inputs (n).
+2. Calculate total rows = 2ⁿ.
+3. List all input combinations in binary order.
+4. Calculate output for each combination.
+2-Input Example (n=2, Rows=4)
+A
+B
+Combinations
+0
+0
+Row 1
+0
+1
+Row 2
+1
+0
+Row 3
+1
+1
+Row 4
+3-Input Example (n=3, Rows=8)
+A
+B
+C
+0
+0
+0
+0
+0
+1
+0
+1
+0
+0
+1
+1
+1
+0
+0
+1
+0
+1
+1
+1
+0
+1
+1
+1
+Page 8
+
+##P9
+1.1.7 Logic Gates (Basic Gates)
+★ GOLDEN TOPIC
+Logic gates are electronic circuits that perform Boolean operations. They are the
+building blocks of all digital systems.
+Gate
+Symbol
+Expression
+Truth Table
+AND
+A
+B
+Y
+0
+0
+0
+0
+1
+0
+1
+0
+0
+1
+1
+1
+OR
+A
+B
+Y
+0
+0
+0
+0
+1
+1
+1
+0
+1
+1
+1
+1
+NOT
+Y = A'
+A
+Y
+0
+1
+1
+0
+Page 9
+
+##P10
+Universal Logic Gates (NAND & NOR)
+Explain that NAND and NOR are called Universal Gates because ANY logic
+circuit in the world can be built using only these gates.
+Gate
+Symbol
+Expression
+Truth Table
+NAND
+(NOT AND)
+Y = (A · B)'
+A
+B
+Y
+0
+0
+1
+0
+1
+1
+1
+0
+1
+1
+1
+0
+NOR
+(NOT OR)
+Y = (A + B)'
+A
+B
+Y
+0
+0
+1
+0
+1
+0
+1
+0
+0
+1
+1
+0
+Page 10
+
+##P11
+Advanced Logic Gates (XOR & XNOR)
+Gate
+Symbol
+Expression
+Truth Table
+XOR
+Y = A ⊕ B
+A
+B
+Y
+0
+0
+0
+0
+1
+1
+1
+0
+1
+1
+1
+0
+XNOR
+Y = (A ⊕ B)'
+A
+B
+Y
+0
+0
+1
+0
+1
+0
+1
+0
+0
+1
+1
+1
+Memory Trick: XOR outputs 1 when inputs are "eXclusively" different. XNOR outputs 1 when
+inputs are the SAME.
+Page 11
+
+##P12
+1.1.8 & 1.1.10 Expressions & Minterms
+Order of Precedence (Operations)
+1. Parentheses ( ), 2. NOT ( ' ), 3. AND ( · ), 4. OR ( + )
+Minterms (SOP - Sum of Products)
+A product (AND) of all variables that output a 1. Complemented if value is 0 (A'),
+uncomplemented if 1 (A).
+Maxterms (POS - Product of Sums)
+A sum (OR) of all variables that output a 0. Complemented if value is 1 (A'),
+uncomplemented if 0 (A).
+A
+B
+Output (Y)
+Minterm (SOP)
+Maxterm (POS)
+0
+0
+0
+-
+A + B
+0
+1
+1
+A'B
+-
+1
+0
+0
+-
+A' + B
+1
+1
+1
+AB
+-
+Final SOP Expression: Y = A'B + AB
+Page 12
+
+##P13
+1.1.11 Logic Diagrams
+★ GOLDEN TOPIC
+A logic diagram shows how logic gates are connected to create a circuit. Based
+on precedence, the operation with highest priority is drawn first.
+Example: Draw Logic Diagram for Y = A · B + C
+AND ( · ) has higher precedence than OR ( + ). So, draw AND gate first.
+A
+B
+C
+AND
+A · B
+OR
+Y
+Page 13
+
+##P14
+1.1.13 Karnaugh Maps (K-Maps)
+★ GOLDEN TOPIC
+A K-map is a graphical tool used to simplify Boolean expressions. It uses a grid
+where adjacent cells differ by only ONE bit (Gray code). We group 1s in powers of
+2 (1, 2, 4, 8) to simplify equations without complex algebra.
+Two-Variable K-Map (Variables: A, B)
+Needs 2² = 4 cells.
+B = 0
+B = 1
+A = 0
+Cell 0 (A'B')
+Cell 1 (A'B)
+A = 1
+Cell 2 (AB')
+Cell 3 (AB)
+👨‍🏫 Grouping Rule
+Make as large groups as possible (of size 1, 2, 4, 8). Overlapping is allowed.
+Variables that change state (0 to 1) within a group are eliminated.
+Page 14
+
+##P15
+Three-Variable K-Map (A, B, C)
+For 3 variables, we need 2³ = 8 cells. The columns follow Gray Code sequence:
+00, 01, 11, 10. This ensures adjacent cells differ by only one variable.
+BC = 00
+BC = 01
+BC = 11
+BC = 10
+A = 0
+m₀ (A'B'C')
+m₁ (A'B'C)
+m₃ (A'BC)
+m₂ (A'BC')
+A = 1
+m₄ (AB'C')
+m₅ (AB'C)
+m₇ (ABC)
+m₆ (ABC')
+Emphasize to students that wrapping around the edges is allowed! A cell on
+the far left can be grouped with a cell on the far right.
+Page 15
+
+##P16
+LogiSim Evolution: Simulation Tool
+LogiSim Evolution is a graphical tool for designing and simulating logic circuits. It
+allows students to visually build the truth tables and boolean expressions they
+learn in theory.
+1. The Interface Areas
+Menu Bar: Top bar for File, Edit, Project, Simulate.
+Toolbar: Quick access to standard tools (Wiring, Poke, AND, OR, NOT gates).
+Explorer Panel (Left): Contains component libraries (Gates, I/O, Wiring).
+Attribute Table (Bottom Left): Adjust properties of selected gates (e.g.,
+Number of Inputs, Facing direction).
+Drawing Canvas (Right): The dotted grid where you place and wire gates.
+💡 Wiring Colors during Simulation
+Bright Green: Logic 1 (HIGH)
+Dark Green: Logic 0 (LOW)
+Blue: Unknown / Unconnected pin
+Red: Error / Short circuit
+Page 16
+
+##P17
+Building a Circuit in LogiSim
+Step-by-Step: Building Y = A · B
+1. Select the AND Gate from the Toolbar or Gates library and place it on the
+canvas.
+2. Select the Input Pin (square icon with a 0) and place two pins to the left of the
+gate (label them A and B).
+3. Select the Output Pin (circle icon with a 0) and place it to the right (label it Y).
+4. Use the Wiring Tool to click and drag wires from the Input Pins to the AND
+gate's input ports. Wires must be horizontal or vertical.
+5. Wire the gate's output to the Output Pin Y.
+6. Select the Poke Tool (pointing finger) to toggle input A and B between 0 and 1
+to test the circuit!
+1
+A
+0
+B
+AND
+0
+Y
+Circuit testing with Poke Tool. Notice the bright green line (Logic 1) from Input A.
+Page 17
+
+##P18
+1.2 Software Development Life Cycle
+★ GOLDEN TOPIC
+SDLC is a structured process that guides software development from beginning
+to end. It ensures clear goals, better planning, risk reduction, and high quality.
+The 6 Phases of SDLC
+1. Requirement Analysis
+2. System Design
+3. Implementation
+4. Testing
+5. Deployment
+6. Maintenance
+Page 18
+
+##P19
+Detailed SDLC Phases (1-3)
+Phase
+Activities & Details
+Deliverable
+1. Requirement
+Analysis
+Meet clients, understand needs, list
+features. This is the most important
+phase.
+SRS Document
+(Software
+Requirements
+Specification)
+2. System Design
+Create High-Level Design (architecture),
+Low-Level Design (database, UI screens),
+Flowcharts.
+Design Document
+3. Implementation
+Write actual code in programming
+languages (Python, Java, etc.) based on
+the design docs.
+Working Source
+Code
+👨‍🏫 Teacher's Tip
+Use the analogy of building a house: Phase 1 is asking the family what rooms
+they need. Phase 2 is the architect drawing blueprints. Phase 3 is the builders
+laying bricks.
+Page 19
+
+##P20
+Detailed SDLC Phases (4-6)
+Phase
+Activities & Details
+Deliverable
+4. Testing
+Find and fix bugs. (See Black Box vs White
+Box below).
+Test Reports, Bug-
+free software
+5. Deployment
+Release software to end-users (Direct,
+Phased, or Pilot release).
+Live Software
+6. Maintenance
+Provide support, updates, and fix post-
+release issues.
+Patches, Updated
+Versions
+Testing Methods
+📦 Black Box Testing
+Tester does NOT see code.
+Tests functionality
+(Inputs/Outputs).
+Done by dedicated testers.
+📄 White Box Testing
+Tester CAN see the code.
+Tests internal logic/structure.
+Done by developers.
+Page 20
+
+##P21
+1.2.4 The Waterfall Model
+★ GOLDEN TOPIC
+A linear, sequential approach. Each phase must be completed before the next
+begins. There is no going back to a previous phase easily.
+When to use?
+Requirements are clear, fixed, and well-understood.
+Project is small to medium size.
+Technology is stable.
+Disadvantages (Cons)
+Advantages (Pros)
+Not flexible to changes.
+Simple to understand and manage.
+Testing happens very late in the process.
+Well-documented at every step.
+📚 Case Study Reference: Library System
+The textbook uses the "Al-Noor Library Management System" as a Waterfall
+case study because the requirements were 100% fixed before coding began.
+Page 21
+
+##P22
+1.2.4 The Agile Model
+★ GOLDEN TOPIC
+An iterative approach. Software is developed in small cycles called sprints
+(usually 2-4 weeks). Customer feedback is gathered continuously.
+When to use?
+Requirements are unclear or may change.
+Customer wants frequent progress updates (early delivery).
+Complex or innovative projects.
+Disadvantages (Cons)
+Advantages (Pros)
+Less documentation.
+Highly flexible to changes.
+Unpredictable end-time and cost.
+Early delivery of working software.
+📚 Case Study Reference: Mobile App
+The "Al-Noor Student Mobile Application" used Agile because teachers,
+parents, and students constantly requested new features during
+development.
+Page 22
+
+##P23
+Waterfall vs Agile Comparison
+Dimension
+Waterfall Model
+Agile Model
+Flexibility
+Rigid. Hard to make
+changes later.
+Very flexible. Adapts to
+changes easily in the next
+sprint.
+Customer
+Involvement
+Only at start
+(requirements) and end
+(delivery).
+Continuous throughout the
+project (after every sprint).
+Delivery of
+Software
+Single delivery at the very
+end.
+Frequent, partial deliveries
+after every sprint.
+Testing
+Done late, in a dedicated
+testing phase.
+Continuous testing within
+every sprint.
+Documentation
+Heavy documentation
+required.
+Light documentation. Focus is
+on working software.
+Page 23
+
+##P24
+1.3 Communication Models (OSI)
+★ GOLDEN TOPIC
+A communication model explains how data travels from one device to another
+through a network. The OSI (Open Systems Interconnection) Model was
+developed by ISO in 1984. It divides communication into 7 layers.
+"Please Do Not Throw Sausage Pizza Away" (Bottom to Top: Physical, Data
+Link, Network, Transport, Session, Presentation, Application).
+7. Application
+6. Presentation
+5. Session
+4. Transport
+3. Network
+2. Data Link
+1. Physical
+Page 24
+
+##P25
+OSI Model Layers (Top Layers)
+Layer
+7. Application
+Provides network services directly to user
+applications.
+HTTP, HTTPS, FTP,
+SMTP, DNS
+6. Presentation
+Data Translation, Encryption (security),
+and Compression.
+SSL/TLS, JPEG, MP3,
+ASCII
+5. Session
+Opens, maintains, and closes
+communication sessions.
+NetBIOS, RPC
+4. Transport
+Reliable end-to-end delivery, Error
+checking, Port numbering.
+TCP (reliable), UDP
+(fast)
+💡 TCP vs UDP at Transport Layer
+Use TCP when accuracy matters (Web browsing, Emails). Use UDP when
+speed matters more than perfection (Video streaming, online gaming).
+Page 25
+
+##P26
+OSI Bottom Layers & TCP/IP Model
+Layer
+Hardware
+3. Network
+Logical addressing (IP) and routing
+packets across networks.
+IP, ICMP (Ping),
+Routers
+2. Data Link
+Physical addressing (MAC) and error
+detection in frames.
+Ethernet, MAC,
+Switches
+1. Physical
+Transmits raw bits (0,1) over
+cables/wireless mediums.
+Cables, Hubs, Wi-Fi
+radio
+TCP/IP Model vs OSI Model
+The TCP/IP model is the practical model used on the real Internet. It condenses
+the 7 OSI layers into just 4 layers.
+TCP/IP Model (4 Layers)
+Corresponds to OSI Layers
+1. Application
+Application, Presentation, Session (7,6,5)
+2. Transport
+Transport (4)
+3. Internet
+Network (3)
+4. Network Access
+Data Link, Physical (2,1)
+Page 26

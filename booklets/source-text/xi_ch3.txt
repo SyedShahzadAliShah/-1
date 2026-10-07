@@ -1,0 +1,779 @@
+##P44
+COMPUTER SCIENCE XI
+CHAPTER 3:
+PROGRAMMING FUNDAMENTALS
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2026
+Page 1
+
+##P45
+TABLE OF CONTENTS
+1. 3.1 Programming & Language Types
+2. 3.2 Career Growth with Python
+3. 3.3 Integrated Development Environment (IDE) & VS Code
+4. 3.4 Fundamentals of Python Programming
+5. 3.4.1 Variables and Data Types ★
+6. 3.4.2 Input Output Handling
+7. 3.4.3 Operators and Operands (Arithmetic, Relational, Bitwise) ★
+8. 3.5 Control Structures Overview
+9. 3.5.1 Sequence
+10. 3.5.2 Selection Statements (if, if-else, if-elif-else, nested) ★
+11. 3.5.3 Repetition Statements (for loop, while loop) ★
+12. 3.6 Libraries in Python (Built-in & Third-Party)
+13. 3.7 Debugging Code in Python (Syntax, Runtime, Logical Errors)
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XI (3 & 4).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P46
+3.1 Programming
+Computers are dumb machines. They cannot think or do anything without
+instructions. A set of instructions is called a program, and the language used to
+give these instructions is a programming language.
+3.1.1 Programming Language Types
+Programming languages are classified into three main types:
+Type
+Description
+Examples
+Low
+Level
+Closer to the native language of the computer (binary
+0s & 1s). Very difficult for humans to understand.
+Machine
+Language
+(Binary)
+Mid
+Level
+Bridges the gap. Has hardware access capabilities but
+is easier to read than low-level code. Uses mnemonics.
+Assembly
+Language
+High
+Level
+Designed to be easy for humans to read and write. Uses
+English-like words.
+C++, Java,
+Python
+Low Level
+01010101
+Mid Level
+MOV AX, BX
+High Level
+print("Hello")
+Page 3
+
+##P47
+Common High-Level Languages
+C++
+Powerful, closer to
+hardware. Used for
+system software,
+operating systems, and
+high-performance
+computer games.
+Java
+"Write once, run
+anywhere". Used for
+large enterprise
+applications, Android
+mobile apps, and
+server programming.
+Python
+Simple, readable
+syntax. Widely used for
+Data Science, AI, Web
+Development, and by
+beginners.
+3.2 Career Growth with Python
+Software Development: Build desktop and web applications.
+Data Science and Data Analysis: Analyze data, create reports, and make
+predictions.
+Artificial Intelligence and Machine Learning: Develop intelligent systems,
+chatbots, and recommendation algorithms.
+Web Development: Use frameworks like Django and Flask to build websites.
+Automation and Scripting: Automate repetitive office or lab tasks.
+Cybersecurity and Networking: Write security tools and analyze network
+data.
+💡 Why Python?
+Remind students that Python allows them to focus on problem-solving and
+logic rather than memorizing complex syntax rules.
+Page 4
+
+##P48
+3.3 Integrated Development Environment (IDE)
+An IDE is a software tool that helps programmers write, run, and manage code in
+one place. It is a complete workspace for programming.
+Key Features of an IDE:
+Code Editor: Where you write and edit code.
+Syntax Highlighting: Colors the code to make it easier to read.
+Auto completion: Suggests code while you type.
+Run/Execute Tool: Executes the program.
+Debugger: Helps find and fix errors.
+3.3.1 Visual Studio Code (VS Code)
+VS Code is a free, lightweight, and powerful code editor widely used for Python. It
+is not a full IDE by default, but it can be turned into one by installing extensions.
+Visual Studio Code
+print ( "Hello, World!")
+Page 5
+
+##P49
+VS Code Interface Elements
+Element
+Description
+1. Top Menu Bar
+Control over files, editing, navigation, and workspace (File, Edit,
+Selection, View, Go, Run).
+2. Side Bar
+Contains core tools: Explorer, Search, Source Control, Run &
+Debug, and Extensions.
+3. Explorer
+Shows project files and folders. Helps create, open, and manage
+your Python files.
+4. Search Bar
+Finds and replaces text across your currently open file or entire
+project.
+5. Source Control
+Connects with Git (a version control system) to track changes,
+undo mistakes, and collaborate.
+6. Run & Debug
+Allows you to execute code, find errors, pause at specific lines,
+and inspect variables.
+7. Extensions
+Like an App Store for VS Code. Add features like the Python
+extension, Prettier, or Python Debugger.
+👨‍🏫 Teacher's Demo Setup
+Ensure you have the Python extension by Microsoft installed in VS Code
+before class to demonstrate syntax highlighting and the Run button.
+Page 6
+
+##P50
+3.4 Fundamentals of Python Programming
+★ GOLDEN TOPIC
+The basic structure of a Python program is simple and clear. It processes data
+using statements, and finally shows output. Programs run top-to-bottom
+sequentially.
+1. Comments (#)
+Comments are notes written in the code for humans. They start with the #
+symbol. The Python interpreter completely ignores them.
+2. Indentation (Spaces)
+Unlike C++ or Java which use curly brackets {} to define blocks of code, Python
+uses indentation (spaces at the beginning of a line). Indentation is mandatory!
+The standard is 4 spaces (or 1 tab).
+# This is a comment. It explains the code below.
+print("Hello, World!")
+if 5 > 2:
+# The space before 'print' is the Indentation
+print("Five is greater than two!")
+⚠️ Common Error
+If a student gets an IndentationError, tell them to check their spaces.
+Mixing tabs and spaces can break a Python program.
+Page 7
+
+##P51
+3.4.1 Variables
+★ GOLDEN TOPIC
+A variable is a named space in computer memory used to store data. Think of it
+as a container. In Python, you do not need to declare the type; Python figures it
+out automatically.
+Rules for Naming Variables:
+Can contain letters, numbers, and underscores ( _ ).
+MUST start with a letter or underscore, NOT a number. (e.g., 1name is invalid).
+Are case-sensitive (age and Age are completely different).
+Cannot use Python keywords (like if, for, while).
+Valid Names ✓
+name = "Ali"
+age = 16
+my_height = 5.7
+score1 = 100
+Invalid Names ✗
+1name = "Ali"   # starts with
+number
+my height = 5.7 # contains space
+if = 100        # keyword used
+Page 8
+
+##P52
+Data Types in Python
+Data types specify the kind of data a variable holds. Python has several built-in
+data types:
+Name
+Type
+Description & Example
+Integers
+int
+Whole numbers without decimals.
+age = 16
+Floating Point
+float
+Numbers with a decimal point.
+height = 5.7
+Strings
+str
+Text data, enclosed in quotes.
+name = "Sammy" or year = "2026"
+Boolean
+bool
+Logical value indicating True or False (Capital T/F).
+is_student = True
+Lists
+list
+Ordered, changeable collection [brackets].
+marks = [85, 90, 75]
+Tuples
+tup
+Ordered, unchangeable sequence (parentheses).
+coords = (10, 20)
+Dictionaries
+dict
+Unordered Key:Value pairs {curly braces}.
+student = {"name":"Ahmed", "age":16}
+Sets
+set
+Unordered collection of unique objects.
+vowels = {'a', 'e', 'i'}
+Page 9
+
+##P53
+3.4.2 Input and Output Handling
+Output: The print() function
+Displays information on the screen.
+# 1. Print only a string
+print("Hello Class!")
+# 2. Print a string and a variable (comma separates them)
+name = "Ali"
+print("Welcome,", name)
+# 3. f-strings (Fastest & most readable way to format)
+age = 16
+print(f"My name is {name} and I am {age} years old.")
+Input: The input() function
+Pauses the program and waits for the user to type something. Whatever the
+user types is always treated as a string (text) by default.
+# Taking text input
+user_name = input("Enter your name: ")
+# Type Casting: Converting string input to an integer (int)
+age = int(input("Enter your age: "))
+# Type Casting: Converting string input to a decimal (float)
+height = float(input("Enter your height: "))
+Page 10
+
+##P54
+3.4.3 Operators and Operands
+★ GOLDEN TOPIC
+An Operand is the value or variable. An Operator is the symbol that performs
+the action.
+10 (Operand) + (Operator) 20 (Operand)
+1. Arithmetic Operators (Math)
+Operator
+Purpose
+Example
+Result
++
+Addition
+5 + 3
+8
+-
+Subtraction
+10 - 4
+6
+*
+Multiplication
+4 * 2
+8
+/
+Division (always float)
+9 / 2
+4.5
+//
+Floor division (drops decimal)
+9 // 2
+4
+%
+Modulus (remainder)
+9 % 2
+1
+**
+Exponentiation (power)
+2 ** 3
+8
+2. Assignment Operators
+Used to assign values to variables, often updating them.
+Operator
+Example
+Equivalent To
+=
+x = 5
+Assign 5 to x
++=
+x += 2
+x = x + 2
+-=
+x -= 1
+x = x - 1
+*=
+x *= 3
+x = x * 3
+Page 11
+
+##P55
+Other Important Operators
+3. Relational (Comparison) Operators
+Compare two values and return a Boolean (True or False).
+Op
+Description
+Example (If a=10, b=5)
+Result
+==
+Equal to
+a == b
+False
+!=
+Not equal to
+a != b
+True
+>
+Greater than
+a > b
+True
+<
+Less than
+a < b
+False
+>=
+Greater/Equal
+a >= 10
+True
+4. Logical Operators
+Combine multiple conditions.
+Operator
+Description
+and
+True ONLY if both conditions are true.
+or
+True if at least one condition is true.
+not
+Reverses the result (True becomes False).
+5. Membership Operators
+Check if a value exists inside a sequence (like a string or list).
+name = "Python"
+print("P" in name)     # Output: True
+print("z" not in name) # Output: True
+Page 12
+
+##P56
+6. Bitwise Operators
+Bitwise operators treat numbers as binary digits (bits: 0s and 1s) and perform
+operations bit by bit. They act like switches turning bits ON (1) or OFF (0). Python
+uses the bin() function to see the binary form of a number.
+Bitwise AND ( & )
+Returns 1 ONLY if BOTH corresponding bits are
+1. Otherwise, 0.
+Bit A
+Bit B
+A & B
+0
+0
+0
+0
+1
+0
+1
+0
+0
+1
+1
+1
+Bitwise OR ( | )
+Returns 1 if AT LEAST ONE of the bits is 1.
+Bit A
+Bit B
+A | B
+0
+0
+0
+0
+1
+1
+1
+0
+1
+1
+1
+1
+Example: (a = 10, b = 6)
+# a = 10 (Binary: 1010)
+# b =  6 (Binary: 0110)
+print(10 & 6)  # AND: 0010 (Decimal 2)
+print(10 | 6)  # OR : 1110 (Decimal 14)
+Page 13
+
+##P57
+Bitwise Operators (Continued)
+Bitwise XOR ( ^ )
+Returns 1 if bits are DIFFERENT. Returns 0 if they
+are the SAME.
+Bit A
+Bit B
+A ^ B
+0
+0
+0
+0
+1
+1
+1
+0
+1
+1
+1
+0
+Bitwise NOT ( ~ )
+Inverts ALL bits. 0 becomes 1, 1 becomes 0.
+Also adds negative sign minus 1.
+Bit A
+~A
+0
+1
+1
+0
+~10 gives -11
+Bitwise Shifts
+Left Shift ( << ): Shifts bits left. Multiplies by 2 for each shift.
+Right Shift ( >> ): Shifts bits right. Divides by 2 (floor) for each shift.
+a = 5        # Binary: 0000 0101
+print(a << 1) # Left Shift 1: 0000 1010 (Decimal 10) - Adds 0 on right
+print(a << 2) # Left Shift 2: 0001 0100 (Decimal 20) - Adds 00 on right
+b = 20       # Binary: 0001 0100
+print(b >> 1) # Right Shift 1: 0000 1010 (Decimal 10) - Removes rightmost
+Page 14
+
+##P58
+3.5 Control Structures
+★ GOLDEN TOPIC
+Control structures decide the order in which statements are executed in a
+program. Almost every program uses three basic structures: Sequence,
+Selection, and Repetition.
+3.5.1 Sequence
+Sequence means that statements are executed one after another, strictly from
+top to bottom, in the exact order they are written. This is the default behavior of
+Python.
+print("Enter two numbers")
+a = int(input("Enter first number: "))  # Step 1: Input
+b = int(input("Enter second number: ")) # Step 2: Input
+total = a + b                       # Step 3: Process
+print("Sum =", total)               # Step 4: Output
+Start
+Statement 1
+Statement 2
+End
+Page 15
+
+##P59
+3.5.2 Selection Statements
+Selection alters the flow based on a condition (True/False). It helps programs
+respond intelligently.
+1. The if Statement
+Executes a block of code ONLY if the condition is True. If False, the block is
+completely skipped.
+age = int(input("Enter your age: "))
+if age >= 18:
+print("You are an Adult.")  # Runs only if >= 18
+print("Program continues...") # Runs every time
+2. The if-else Statement
+Provides TWO paths. IF true, do this. ELSE, do that. One of the blocks will always
+execute.
+age = int(input("Enter your age: "))
+if age >= 18:
+print("Apply for CNIC.")
+else:
+print("Apply for CRC (B-Form).")
+👨‍🏫 Formatting Rule
+Don't forget the colon ( : ) after if and else, and ensure the code inside the
+blocks is indented!
+Page 16
+
+##P60
+Selection Statements (Continued)
+3. The if-elif-else Statement
+Handles multiple conditions. It checks from top to bottom. As soon as it finds a
+True condition, it executes that block and ignores the rest.
+marks = int(input("Enter marks: "))
+if marks >= 80:
+print("A-1 Grade")
+elif marks >= 70:
+print("A Grade")
+elif marks >= 60:
+print("B Grade")
+else:
+print("Fail or below B")
+4. Nested if Statement
+An if inside another if. Used when a decision requires passing multiple levels
+of checks.
+age = 20
+salary = 35000
+if age >= 18:
+# Passed first check
+if salary >= 30000:
+# Passed second check
+print("Loan APPROVED!")
+else:
+print("Salary too low for loan.")
+else:
+print("Too young for loan.")
+Page 17
+
+##P61
+3.5.3 Repetition Statements (Loops)
+★ GOLDEN TOPIC
+A repetition statement (loop) allows a block of code to be executed repeatedly.
+This drastically reduces the need to write the same code over and over.
+1. The for Loop & range() function
+Used when the exact number of iterations is known. The range() function
+generates the sequence of numbers for the loop.
+Syntax
+How it works
+Code Example & Output
+range(stop)
+From 0 up to (but NOT including)
+the stop value.
+for i in range(3):
+print(i)
+Output: 0 1 2
+range(start, stop)
+From start up to (NOT including)
+stop.
+for i in range(2, 5):
+print(i)
+Output: 2 3 4
+range(start, stop,
+step)
+From start to stop, jumping by
+step amount.
+for i in range(1, 6, 2):
+print(i)
+Output: 1 3 5
+Example: Even & Odd Loop
+for i in range(0, 6, 2):
+print("Even:", i)
+# Output: 
+# Even: 0
+# Even: 2
+# Even: 4
+Page 18
+
+##P62
+Repetition Statements (Continued)
+2. The while Loop
+Repeats a block of code as long as a condition remains True. Used when the
+exact number of iterations is NOT known in advance.
+count = 1
+while count <= 3:
+print(count)
+count += 1   # VERY IMPORTANT: Update condition!
+# Output: 1 2 3
+Loop Control Statements
+These statements alter the normal flow of a loop.
+break
+Exits/Stops the loop entirely immediately.
+for i in range(5):
+if i == 3:
+break
+print(i)
+# Stops printing at 2
+continue
+Skips current iteration and jumps to the next.
+for i in range(5):
+if i == 3:
+continue
+print(i)
+# Skips 3 (Prints 0 1 2 4)
+Page 19
+
+##P63
+Nested Loops & Comparison
+Nested Loop
+A loop inside another loop. The inner loop runs completely from start to finish for
+every single iteration of the outer loop.
+for outer in range(1, 3):       # Runs 2 times (1, 2)
+for inner in range(1, 4):   # Runs 3 times per outer (1, 2, 3)
+print(f"Outer: {outer}, Inner: {inner}")
+Output:
+Outer: 1, Inner: 1
+Outer: 1, Inner: 2
+Outer: 1, Inner: 3
+Outer: 2, Inner: 1
+Outer: 2, Inner: 2
+Outer: 2, Inner: 3
+for Loop vs while Loop
+for Loop
+while Loop
+Used when the number of iterations is
+known.
+Used when the number of iterations is
+unknown (condition-based).
+Automatically updates the counter.
+Requires manual update of counter (risk
+of infinite loop).
+Cleaner and shorter for counting tasks.
+Better for dynamic scenarios (like "keep
+playing until user says Stop").
+Page 20
+
+##P64
+Practical Activity: Shopping Bill Calculator
+This program beautifully combines Sequence, Selection, and Repetition.
+print("===== SHOPPING BILL =====")
+total = 0.0
+count = 0
+shopping = True
+# REPETITION: Keep adding items
+while shopping:
+item = input("Enter Item Name (or 'done' to stop): ")
+# SELECTION: Check if user wants to stop
+if item.lower() == "done":
+shopping = False
+else:
+price = float(input(f"Enter Price of {item}: "))
+# SELECTION: Validate price
+if price <= 0:
+print("Invalid price!")
+else:
+total += price
+count += 1
+# Summary & Discount
+if total >= 5000:
+discount = total * 0.20  # 20% off
+else:
+discount = 0
+final = total - discount
+print(f"Total Items: {count}")
+print(f"Total Bill: {total}")
+print(f"Final to Pay: {final}")
+Page 21
+
+##P65
+3.6 Libraries in Python
+Libraries are pre-written code that offer helpful functions. Instead of writing
+complex code from scratch, programmers use libraries to solve common
+problems efficiently.
+How to Import Libraries
+There are mainly 5 ways to import a library:
+Syntax
+Code Example
+1. Import entire module
+Must use module.func()
+import math
+res = math.sqrt(25)
+2. Import with alias (nickname)
+import math as m
+res = m.sqrt(16)
+3. Import specific function
+No need to prefix module name.
+from math import sqrt
+res = sqrt(36)
+4. Import multiple functions
+from math import sqrt, pi
+5. Import everything (*)
+from math import *
+res = sqrt(64)
+👨‍🏫 Best Practice
+Advise students that importing specific functions (method 3) is better for
+memory and clarity than importing everything using the * wildcard.
+Page 22
+
+##P66
+3.6.1 Built-in Libraries
+These libraries come pre-installed with Python. You just need to import them to
+use them.
+1. math Library
+Provides mathematical operations and
+constants.
+import math
+print(math.pi)         # 3.14159...
+print(math.ceil(4.3))  # 5 (Round UP)
+print(math.floor(4.9)) # 4 (Round DOWN)
+print(math.pow(2,4))   # 16.0 (2 to
+power 4)
+print(math.sqrt(81))   # 9.0
+2. random Library
+Generates random numbers or selections.
+import random
+# Random int between 1 and 10
+num = random.randint(1, 10) 
+print(num)
+# Random float between 0.0 to 1.0
+print(random.random())
+3. datetime Library
+Provides classes for working with dates and times.
+import datetime
+# Get exact current date and time
+now = datetime.datetime.now()
+print(now)  # e.g., 2026-09-27 11:59:40
+# Format it beautifully (Day-Month-Year)
+formatted = now.strftime("%d-%m-%Y")
+print(formatted) # e.g., 27-09-2026
+Page 23
+
+##P67
+3.6.2 Third-Party Libraries
+Third-party libraries are NOT included with Python by default. They are built by
+the community and must be installed via terminal using: pip install
+library_name.
+Library Name
+Primary Use
+NumPy
+Heavy numerical computing and large arrays.
+Pandas
+Data analysis, handling table-like data (Excel/CSV).
+Matplotlib
+Data visualization, plotting graphs and charts.
+TensorFlow / PyTorch
+Artificial Intelligence and Machine Learning.
+3.7 Debugging Code in Python
+Debugging is the process of identifying, tracing, and resolving issues (bugs)
+within a program so it works correctly.
+Page 24
+
+##P68
+Types of Errors (Bugs)
+1. Syntax Errors
+Occur when the rules (grammar) of Python are violated. The program will NOT run
+at all until it is fixed.
+print("Hello World"
+# Missing closing parenthesis!
+2. Runtime Errors (Exceptions)
+The code is written correctly, so it starts running. But an impossible operation
+crashes it during execution.
+x = 10 / 0  # ZeroDivisionError: division by zero!
+3. Logical Errors
+The hardest to find. The program runs perfectly without crashing, but it produces the
+wrong output because the programmer's logic is flawed.
+area = length + width # Logical error: Should be multiplied (*), not added.
+Page 25
+
+##P69
+Reading Error Messages (Tracebacks)
+When Python crashes, it prints a Traceback. It is a roadmap to fix the bug. It tells
+you:
+1. What type of error occurred.
+2. Which file the error is in.
+3. Exactly which line number caused the crash.
+Traceback (most recent call last):
+  File "e:\Python Code\debug_program.py", line 1, in <module>
+    x = int("abc")
+ValueError: invalid literal for int() with base 10: 'abc'
+Diagnosis: The traceback clearly states that on Line 1, we tried to convert letters
+("abc") into an integer, which generated a ValueError.
+Summary
+Python is a High-Level, readable language great for AI, Data, and Web.
+VS Code is a popular editor made into an IDE via Extensions.
+Variables do not need explicit types in Python; types change dynamically.
+Data Types: int, float, str, bool, list, dict.
+Input/Output: print() outputs data; input() gets data as a string.
+Control Structures: Sequence (top-to-bottom), Selection (if/else), Repetition
+(for/while).
+Libraries: Extend Python's power. Built-in (math, random) or Third-party (NumPy).
+Errors: Syntax (Grammar), Runtime (Crash during run), Logical (Wrong output).
+Page 26

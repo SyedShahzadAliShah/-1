@@ -1,0 +1,733 @@
+##P76
+COMPUTER SCIENCE
+XII
+CHAPTER 4:
+DATA AND ANALYSIS
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2025-27
+Page 1
+
+##P77
+TABLE OF CONTENTS
+1. 4.1 Concept of Data Analysis
+2. 4.1.1 Data Sources and Need for Connectivity
+3. 4.1.2 Key Components of a Database Connection ★
+4. 4.2 Creating a SQLite Database in Python
+5. 4.2.1 Step-by-Step Code Explanation
+6. 4.3 Basic Operations on Data using Pandas ★
+7. 4.3.1 Introduction to DataFrames
+8. 4.3.2 Creating and Loading Data (CSV, Excel)
+9. 4.3.3 Handling Missing Values (NaN) ★
+10. 4.4 Data Organization and Representation
+11. 4.5 Data Visualization & Types of Graphs ★
+12. 4.5.1 Bar Graphs and Column Charts
+13. 4.5.2 Line Graphs
+14. 4.5.3 Pie Charts
+15. 4.5.4 Histograms
+16. 4.5.5 Scatter Plots
+17. 4.5.6 Box Plots
+18. 4.6 Descriptive Statistics ★
+19. 4.6.1 Measures of Central Tendency (Mean, Median, Mode)
+20. 4.6.2 Measures of Spread (Range, Variance, Std. Dev, Min, Max)
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XII (3 - 6).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P78
+4.1 Concept of Data Analysis
+Data analysis is the process of examining, organizing, and interpreting data to
+extract useful information. In real life, organizations use data analysis to make
+decisions, identify trends, and solve problems.
+Schools: Analyze student results to improve academic performance.
+Businesses: Analyze sales data to increase profits and understand customer
+behavior.
+Hospitals: Analyze patient records to improve diagnosis and treatment.
+Why use Python for Data Analysis?
+Python is one of the most popular programming languages for data analysis
+because it is simple, advanced, and supports powerful external libraries.
+It can read data from different sources such as files (CSV/Excel) and databases.
+It can organize data into structured formats.
+It performs complex statistical calculations effortlessly.
+It creates beautiful visual representations like graphs and charts.
+💡 Real-World Perspective
+Python acts as a bridge between the mathematical concept of data
+analysis and its real-world implementation, allowing users to write 5 lines of
+code to do what would take hours in traditional spreadsheet software.
+Page 3
+
+##P79
+4.1.1 Data Sources & 4.1.2 Connectivity
+★ GOLDEN TOPIC
+4.1.1 Data Sources and Need for Connectivity
+Data sources are the origins of information used for processing and analysis
+(e.g., schools, websites, sensors, databases). To use this data, a Python program
+must communicate with the data source. This communication is known as data
+connectivity, which enables applications to access, retrieve, and update data
+efficiently.
+4.1.2 Key Components of a Database Connection
+A database connection in Python requires five essential components working
+together:
+Component
+Description
+1. Database
+An organized collection of structured data.
+Examples: SQLite (built-in, lightweight), MySQL (for large web apps).
+2. Driver
+Software that acts as a translator, enabling communication
+between the Python program and the specific Database
+Management System.
+3. Connection
+Object
+Establishes, manages, and closes the physical connection. It acts as
+the pipeline between Python and the DB.
+4. Cursor Object
+Executes SQL queries and retrieves results. It acts like a "pointer"
+moving through the database rows.
+5. SQL Queries
+Structured commands used to CREATE, INSERT, SELECT, UPDATE, or
+DELETE data.
+Page 4
+
+##P80
+Flowchart of Python Connecting to Database
+The process of connecting a Python application to a database follows a strict
+sequence. If any component is missing or fails, the data cannot be accessed.
+Python Application
+1
+Driver
+Software
+translator
+2
+Connection
+Opens/Closes
+pipeline
+3
+Cursor
+Executes
+commands
+4
+SQL Query
+SELECT,
+INSERT
+5
+Database
+Page 5
+
+##P81
+4.2 Creating a SQLite Database in Python
+Python has a built-in lightweight database called SQLite. We do not need to
+install heavy servers to use it. The following sequence shows exactly how to
+connect, create a table, insert data, and retrieve it.
+Step
+Python Syntax
+Explanation
+1
+import sqlite3
+Loads the built-in SQLite library so Python can
+talk to the database.
+2
+conn =
+sqlite3.connect('school.db')
+Connection Object: Creates or opens a
+database file named school.db. If it doesn't
+exist, Python creates it.
+3
+cur = conn.cursor()
+Cursor Object: Created from the connection. It
+acts as the vehicle to execute queries and
+fetch results.
+4
+cur.execute("CREATE TABLE
+students (id INTEGER, name
+TEXT, marks INTEGER)")
+Create Table: Uses the cursor to run an SQL
+command that creates a table with three
+columns and their specific data types.
+👨‍🏫 Why SQLite?
+Explain to students that sqlite3 stores the entire database in a single `.db`
+file right next to their Python script. It's the easiest way to learn SQL in Python
+without configuring passwords or ports.
+Page 6
+
+##P82
+Creating a SQLite Database (Continued)
+Step
+Python Syntax
+Explanation
+5
+cur.execute("INSERT INTO
+students VALUES (1, 'Ali',
+85)")
+Insert Data: Adds one record to the table. Note
+that strings ('Ali') must be in quotes inside the
+SQL command.
+6
+conn.commit()
+Save Changes: Crucial step. If you do not
+commit, the inserted data will be lost when the
+program ends.
+7
+cur.execute("SELECT * FROM
+students")
+Retrieve Records: The asterisk (*) symbol
+means "Select ALL columns". The cursor now
+holds the result.
+8
+rows = cur.fetchall()
+for r in rows:
+  print(r)
+Display Results: fetchall() pulls all rows from
+the cursor into a Python List. The for loop prints
+each row.
+9
+conn.close()
+Close Connection: Ends communication safely,
+freeing up memory and unlocking the
+database file.
+Page 7
+
+##P83
+4.3 Basic Operations on Data using Pandas
+★ GOLDEN TOPIC
+In most real-world situations, raw data is not immediately useful because it may
+be unstructured, incomplete, or difficult to interpret.
+Python provides powerful tools for this purpose, particularly the Pandas library.
+Pandas is specifically designed for handling and analyzing structured data
+efficiently.
+💡 How to Install Pandas
+Pandas is a third-party library. It does not come with standard Python. You
+must install it using the terminal command:
+pip install pandas
+4.3.1 Introduction to DataFrames
+A DataFrame is the core data structure in Pandas. It is a 2D (Two-Dimensional)
+table that stores data in rows (records) and columns (attributes), exactly like an
+Excel sheet or an SQL database table.
+It organizes data in a structured format.
+It allows easy access to specific rows and columns.
+It supports rapid operations like filtering, sorting, and aggregation.
+Page 8
+
+##P84
+4.3.1 DataFrames (Syntax and Creation)
+To create a DataFrame manually from a Python dictionary, we use the
+pd.DataFrame() function.
+General Syntax:
+DataFrame_name = pd.DataFrame(data, index, columns, dtype, copy)
+Parameter
+Explanation
+pd
+A short alias (nickname) for the imported pandas library.
+data
+The input data (can be a dictionary, list, array, etc.).
+index (optional)
+Custom row labels (default is 0, 1, 2, 3...).
+columns (optional)
+Custom column names.
+dtype (optional)
+Forces a specific Data type (e.g., int, float, str).
+Example: Creating a DataFrame
+import pandas as pd
+# Create a dictionary of data
+data = {
+'Name': ['Ali', 'Sara', 'Ahmed'],
+'Math': [85, 90, 78],
+'Science': [80, 88, 70]
+}
+# Convert dictionary into a Pandas DataFrame
+df = pd.DataFrame(data)
+print(df)
+   Name  Math  Science
+0  Ali    85     80
+1  Sara   90     88
+2  Ahmed  78     70
+Page 9
+
+##P85
+4.3.2 Creating and Loading Data (Files)
+Typing data manually is fine for small examples, but in the real world, data is
+collected from files, spreadsheets, or online platforms. Pandas provides special
+functions to load massive datasets automatically.
+1. Load data from CSV file
+read_csv() reads data from a Comma Separated Values file and stores it directly into a
+DataFrame.
+import pandas as pd
+df = pd.read_csv('students.csv')
+# Display the first 5 rows for quick inspection
+print(df.head())
+2. Load data from Excel file
+read_excel() reads data from an Excel file (.xlsx, .xls). You can also specify which sheet to
+read.
+import pandas as pd
+df = pd.read_excel('students.xlsx', sheet_name='Sheet1')
+print(df.head())
+👨‍🏫 What is `df.head()`?
+If a file has 1 million rows, using `print(df)` will flood the screen. `df.head()` is
+extremely useful because it only prints the first 5 rows, allowing the analyst
+to quickly verify column names and data types without crashing the output
+console.
+Page 10
+
+##P86
+Creating New Variables (Data Manipulation)
+Data manipulation often involves deriving new information from existing data to
+extract deeper insights. In Pandas, you can easily perform arithmetic operations
+across entire columns without using a `for` loop.
+import pandas as pd
+data = {
+'Name': ['Ali', 'Sara', 'Ahmed', 'Ayesha'],
+'Math': [85, 90, 78, 92],
+'Science': [80, 88, 70, 95]
+}
+df = pd.DataFrame(data)
+# 1. Create a new column: Total Marks
+# Sum of Math and Science columns
+df['Total'] = df['Math'] + df['Science']
+# 2. Create a new column: Average Marks
+# Total divided by 2
+df['Average'] = df['Total'] / 2
+print(df)
+   Name   Math  Science  Total  Average
+0  Ali     85     80      165    82.5
+1  Sara    90     88      178    89.0
+2  Ahmed   78     70      148    74.0
+3  Ayesha  92     95      187    93.5
+Page 11
+
+##P87
+4.3.3 Handling Missing Values
+★ GOLDEN TOPIC
+Missing values occur when some data is unavailable or not entered. In Pandas,
+missing values are represented as NaN (Not a Number). Before analyzing data,
+missing values MUST be identified and handled, otherwise they will crash
+statistical calculations.
+import pandas as pd
+data = {
+"Name": ["Ali", "Sara", "Ahmed", "Ayesha"],
+"Marks": [85.0, None, 78.0, 92.0],  # Sara has missing marks
+"Grade": ["A", "A", None, "A"]        # Ahmed has missing grade
+}
+df = pd.DataFrame(data)
+Step 1: Check for Missing Values
+Use isnull() to identify them. It returns True if a value is missing.
+print(df.isnull())
+Step 2: Count Missing Values
+Use isnull().sum() to count exactly how many missing values exist in each column.
+print(df.isnull().sum())
+# Output will show Marks: 1, Grade: 1
+Page 12
+
+##P88
+Handling Missing Values (Continued)
+Once missing values are found, you have two choices: replace them (fill) or
+delete them (drop).
+Step 3: Replace Missing Values (Fill)
+Use fillna(). A common statistical trick is to replace a missing numeric value with the
+average (mean) of that column.
+# Replace missing Marks with the average of the Marks column
+avg_marks = df["Marks"].mean()
+df["Marks"] = df["Marks"].fillna(avg_marks)
+# Replace missing Grade with a custom text
+df["Grade"] = df["Grade"].fillna("Not Assigned")
+print(df)
+Alternative Step: Remove Rows (Drop)
+If replacing data is not safe, you can completely delete any row that contains a NaN value
+using dropna().
+# Removes ANY row that has at least one missing value
+df = df.dropna()
+print(df)
+Summary of Missing Value Functions
+isnull()
+Identifies missing values (True/False).
+sum()
+Counts missing values when combined with isnull().
+fillna(value)
+Replaces missing values with a specific value.
+dropna()
+Deletes entire rows containing missing values.
+Page 13
+
+##P89
+4.4 Data Organization and Representation
+Data organization and representation is the process of arranging collected data
+in a structured form to make it easier to understand, analyze, and
+communicate. Common methods include tables, frequency distributions, and
+graphs.
+4.4.1 Tabular Representation
+Tables organize data into rows and columns, making it easy to compare exact values.
+E.g., showing students' scores in different subjects side-by-side.
+4.4.2 Frequency Distribution Table
+When dealing with large amounts of data, grouping the data into intervals or ranges
+(bins) makes it easier to analyze. This table shows how many data points fall within each
+range.
+Range of
+Marks
+Frequency (No. of
+Students)
+50 - 59
+5
+60 - 69
+7
+70 - 79
+9
+80 - 89
+4
+90 - 100
+2
+This table helps us immediately see that most students scored between 70 and 79.
+Page 14
+
+##P90
+4.4.3 Graphical Representation
+The visual presentation of data using graphs and charts to make trends,
+patterns, and comparisons easier to understand is called graphical
+representation.
+Library for Data Visualization: Matplotlib
+Python uses powerful libraries for data visualization. Matplotlib (specifically
+matplotlib.pyplot) is the most common. It is widely used in education and
+research due to its simplicity.
+Basic Steps for Matplotlib:
+Import
+import matplotlib.pyplot as plt
+Create Figure
+plt.figure() (Creates the blank canvas)
+Plot Data
+plt.plot(x, y) or plt.bar(x, y)
+Add Labels
+plt.xlabel("..."), plt.ylabel("...")
+Add Title
+plt.title("...")
+Display
+plt.show() (Renders the graphic on screen)
+👨‍🏫 Why Visualize?
+A spreadsheet with 10,000 rows of temperature data means nothing to a
+human. A single line graph generated from those 10,000 rows instantly
+shows if the temperature is rising or falling over time.
+Page 15
+
+##P91
+4.5 Types of Graphs
+★ GOLDEN TOPIC
+1. Bar Graphs & Column Charts
+A bar graph uses rectangular bars to compare values across different discrete
+categories. The height (column chart) or length (bar chart) of each bar represents the
+value. It is best used for comparing subjects, months, or departments.
+import matplotlib.pyplot as plt
+subjects = ["English", "Math", "Science", "History"]
+marks = [64, 82, 71, 49]
+# Create Bar Chart (x-axis: subjects, y-axis: marks)
+plt.bar(subjects, marks, color='skyblue', edgecolor='black')
+plt.title("Marks vs Subjects")
+plt.xlabel("Subjects")
+plt.ylabel("Marks out of 100")
+plt.show()
+Marks vs Subjects
+Marks out of 100
+Subjects
+0
+50
+100
+English
+64
+Math
+82
+Science
+71
+History
+49
+Page 16
+
+##P92
+4.5.2 Line Graphs
+A line graph connects data points with straight lines. It is the absolute best
+choice for showing how data changes over time (trends). E.g., Average
+temperature per month, or stock market prices over a year.
+import matplotlib.pyplot as plt
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+temps = [12, 15, 20, 25, 30, 35]
+# Create Line Graph (marker='o' adds dots on data points)
+plt.plot(months, temps, marker='o', color='blue')
+plt.title("Average Monthly Temperature")
+plt.xlabel("Months")
+plt.ylabel("Temperature (°C)")
+plt.grid(True) # Adds background grid lines
+plt.show()
+Average Monthly Temperature
+Temperature (°C)
+Months
+10
+20
+30
+40
+Jan
+Feb
+Mar
+Apr
+May
+Jun
+Page 17
+
+##P93
+4.5.3 Pie Charts
+A pie chart divides a circle into slices to show percentages (parts of a whole). It
+is highly effective for showing proportions. Note: It is less suitable when there are
+too many categories or values are extremely similar.
+import matplotlib.pyplot as plt
+subjects = ['Math', 'Physics', 'Computer Science', 'Biology']
+students = [25, 15, 30, 10]
+# Create pie chart. 'autopct' displays the percentage on the slices
+plt.pie(students, labels=subjects, autopct='%1.1f%%', startangle=90)
+plt.title("Percentage of Students per Subject")
+plt.show()
+Percentage of Students per Subject
+31.2%
+Math
+18.8%
+Physics
+37.5%
+Computer Science
+12.5%
+Biology
+Page 18
+
+##P94
+4.5.4 Histograms
+A histogram shows the distribution of numerical data by grouping values into
+ranges (called bins). Unlike a bar graph (which separates different categories
+with spaces), the bars in a histogram touch each other because the data is a
+continuous numerical range.
+import matplotlib.pyplot as plt
+# Raw scores of students
+scores = [45, 50, 55, 60, 62, 65, 68, 70, 72, 75, 78, 80, 82, 85, 90, 95]
+# Define score ranges (bins)
+bins = [40, 50, 60, 70, 80, 90, 100]
+# Create Histogram
+plt.hist(scores, bins=bins, edgecolor='black', color='purple')
+plt.title("Distribution of Student Scores")
+plt.xlabel("Score Range (Bins)")
+plt.ylabel("Number of Students")
+plt.show()
+Distribution of Student Scores
+Number of Students
+Score Range (Bins)
+0
+2
+4
+40
+50
+60
+70
+80
+90
+100
+Page 19
+
+##P95
+4.5.5 Scatter Plots
+A scatter plot uses dots to show the relationship between two numerical
+variables. Each dot represents one data point on the X and Y axes. It is excellent
+for identifying correlation, trends, or outliers in scientific data.
+import matplotlib.pyplot as plt
+rainfall_mm = [10, 20, 30, 40, 50, 60, 70, 80]
+crop_yield = [2, 4, 5, 4, 7, 8, 9, 12]
+# Create Scatter Plot (alpha makes dots slightly transparent)
+plt.scatter(rainfall_mm, crop_yield, color='green', alpha=0.7)
+plt.title('Rainfall vs Crop Yield')
+plt.xlabel('Rainfall (mm)')
+plt.ylabel('Crop Yield (Tons)')
+plt.show()
+Rainfall vs Crop Yield
+Crop Yield (Tons)
+Rainfall (mm)
+Shows a positive correlation (more rain = mo
+Page 20
+
+##P96
+4.5.6 Box Plots
+★ GOLDEN TOPIC
+A box plot is an advanced graph used to summarize the statistical distribution
+of data. It visually displays five key values: minimum, first quartile (Q1), median
+(Q2), third quartile (Q3), and maximum. It is the best tool for spotting outliers
+(extreme unusual values).
+import matplotlib.pyplot as plt
+class_a = [55, 60, 65, 70, 75, 80, 85]
+class_b = [40, 65, 70, 72, 75, 80, 95] # wider spread, outliers
+# Create Box Plot
+plt.boxplot([class_a, class_b], labels=['Class A', 'Class B'])
+plt.title("Comparison of Class Scores")
+plt.ylabel("Scores")
+plt.show()
+Comparison of Class Scores
+Class A
+Class B
+← Median Line
+← Middle 50% (Box)
+← Maximum
+Page 21
+
+##P97
+4.6 Descriptive Statistics
+Descriptive statistics are mathematical techniques used to summarize,
+organize, and describe large amounts of data using simple numbers. Instead of
+examining thousands of individual records, we can use a single number to
+understand the big picture.
+4.6.1 Measures of Central Tendency
+These measures aim to find the center or typical value of a dataset. The three
+common measures are Mean, Median, and Mode.
+1. Mean (Average)
+The arithmetic average. It is calculated by adding all values together and dividing by
+the total number of observations. It uses every single data value.
+Mean = (Sum of all values) / (Total Number of values)
+Example: Marks are 70, 80, 90.
+Mean = (70 + 80 + 90) / 3 = 240 / 3 = 80
+⚠️ The Flaw of the Mean
+The mean is heavily distorted by extreme outliers. If 9 people earn $10, and 1
+person earns $1,000, the Mean is $109. This makes the group look wealthy,
+even though 90% are not! In such cases, Median is better.
+Page 22
+
+##P98
+Measures of Central Tendency (Continued)
+2. Median
+The exact middle value of a dataset when it is arranged in ascending (or
+descending) order. Unlike the Mean, the Median is not affected by extreme outlier
+values.
+Example (Odd count): Marks: 35, 10, 15, 70, 95.
+Step 1 (Sort): 10, 15, 35, 70, 95.
+Step 2: The exact middle is 35.
+3. Mode
+The value that appears most frequently in the dataset. A dataset may have one
+mode, multiple modes, or no mode at all if no value repeats.
+Example: Bottles sold: 20, 25, 20, 30, 20, 25, 20.
+The number 20 appears 4 times. Therefore, Mode = 20.
+Choosing the Right Measure
+Measure
+Best Used When...
+Example Scenario
+Mean
+Data values are close to each other
+without crazy extremes.
+Average student test scores.
+Median
+Data contains huge extremes (outliers)
+that would break the average.
+Average salary in a company where
+the CEO earns millions.
+Mode
+You want to find the most popular or
+common choice.
+Finding the most popular shoe size
+sold in a shop.
+Page 23
+
+##P99
+4.6.2 Measures of Spread (Dispersion)
+★ GOLDEN TOPIC
+While Central Tendency tells us where the center of the data is, Measures of
+Spread tell us how stretched or scattered the data is around that center. Are
+the values tightly packed together, or wildly unpredictable?
+1. Range
+The simplest measure of spread. It is the absolute difference between the highest and
+lowest values in the dataset.
+Range = Maximum Value - Minimum Value
+Example: Sales were 120, 150, 180. Range = 180 - 120 = 60.
+2. Variance (σ²)
+Variance measures exactly how far, on average, the data values are spread out from
+the Mean. A small variance means data is highly consistent. A large variance means
+data is fluctuating widely.
+ )Consistent(
+Mean
+Low Variance (Tight)
+High Variance (Scattered)
+Page 24
+
+##P100
+Measures of Spread (Continued)
+3. Standard Deviation (σ)
+Standard deviation is simply the square root of the Variance. It is the most commonly
+used measure of spread because it is expressed in the same units as the original
+data (e.g., "marks" instead of "marks-squared").
+A low standard deviation means scores are very close to the average (reliable,
+consistent).
+A high standard deviation means scores are spread out over a large range
+(unpredictable).
+4. Minimum Value (Min)
+The absolute smallest value recorded
+in the entire dataset. Important for
+finding the lower limit.
+Example: Marks [70, 80, 90, 60, 75] → Min
+= 60.
+5. Maximum Value (Max)
+The absolute largest value recorded in
+the entire dataset. Important for
+finding the upper limit.
+Example: Marks [70, 80, 90, 60, 75] → Max
+= 90.
+🧠 Concept Connection
+Remind students that Box Plots (learned earlier) visually display these exact
+statistical measures: The whiskers show Min and Max, the box shows the
+middle 50% spread, and the line inside the box is the Median.
+Page 25
+
+##P101
+Career Opportunities
+This unit covers data analysis with Python, database connectivity (SQLite),
+DataFrames (Pandas), data visualization (Matplotlib), and descriptive statistics.
+Mastery of these concepts is highly sought after in the modern job market.
+Data Analyst
+Collects, cleans, and analyzes data to
+uncover trends and support business
+decisions using tools like Python, Pandas,
+and Excel.
+Database Administrator (DBA)
+Designs, secures, and maintains
+databases (e.g., MySQL, Oracle) to
+ensure data is organized, secure, and
+accessible.
+Data Scientist
+Applies advanced statistics,
+programming, and modeling to extract
+deeper insights and AI predictions from
+massive datasets.
+Data Visualization Specialist
+Focuses on presenting complex data
+clearly through charts, graphs, and
+interactive dashboards using Matplotlib
+or PowerBI.
+Business Intelligence Analyst
+Builds reports that translate raw
+database records into visual insights
+that CEOs and managers can use to
+make decisions.
+Backend Developer
+Writes the server code (in Python/Java)
+that securely connects websites and
+apps to databases.
+Page 26
+
+##P102
+Summary of Chapter 4
+Data vs Information: Data consists of raw facts; Information is processed, organized,
+and meaningful data.
+Database Connectivity: Requires a Driver, a Connection Object, a Cursor to execute
+commands, and SQL queries to manage data. SQLite is Python's lightweight built-in
+database.
+Pandas Library: Essential for data manipulation. A DataFrame is its core 2D table
+structure. It can load data easily using read_csv() and read_excel().
+Handling Missing Data: Missing data (NaN) must be managed using isnull(), and
+either filled using fillna() (e.g., with averages) or removed using dropna().
+Data Visualization (Matplotlib): Transforms numbers into visuals.
+Bar Chart: Compares distinct categories.
+Line Graph: Shows trends over time.
+Pie Chart: Shows percentage parts of a whole.
+Histogram: Shows distribution of continuous data in bins.
+Scatter Plot: Shows relationships/correlation between two variables.
+Box Plot: Summarizes distribution and highlights outliers.
+Descriptive Statistics:
+Central Tendency: Mean (average), Median (exact middle, resistant to outliers),
+Mode (most frequent).
+Spread: Range (Max-Min), Variance (average squared deviation), Standard
+Deviation (square root of variance), Min, and Max.
+Page 27
