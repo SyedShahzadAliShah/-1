@@ -5,7 +5,9 @@ built from the bilingual teacher's lecture notes.
 
 ## Direct download
 
-Plain file URLs (save the PDF, no GitHub preview page):
+Plain file URLs (save the file, no GitHub preview page):
+
+- Android APK (Urdu lecture voice): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -98,6 +100,17 @@ Official Study Guide for students and teachers: imprint, bootcamp planner, chapt
 
 ```bash
 python3 booklets/build.py complete
+```
+
+## Android app — Urdu lecture voice
+
+College students read the English lecture note, then tap **اردو میں لیکچر سنیں**. The phone speaks a teacher-style Urdu explanation of that English topic (install Google Urdu TTS if prompted).
+
+- [CS Teach Yourself Urdu Lectures APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
+
+```bash
+python3 scripts/export_lecture_catalog.py
+./gradlew :lectures:assembleDebug
 ```
 
 ## AIO Self-Paced Teach Yourself Edition
