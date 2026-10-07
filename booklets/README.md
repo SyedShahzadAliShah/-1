@@ -91,7 +91,7 @@ python3 booklets/build.py notes
 
 ## Complete Teach Yourself (one file per grade)
 
-The combined book: Part I ★ Golden Topics, Part II every chapter lesson at readable type (each lesson starts on a new page and continues if it needs more room), Part III exam preparation (75-mark chapter papers + mock).
+The combined book: chapter-wise lecture notes at readable type (each lesson starts on a new page and continues if it needs more room). ★ Golden concepts are listed and taught first inside each chapter, then that chapter’s 75-mark exam. Blank leftover pages are dropped.
 
 - [CS XI Complete Teach Yourself (372 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf)
 - [CS XII Complete Teach Yourself (372 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf)

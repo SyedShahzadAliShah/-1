@@ -6,7 +6,7 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
 These `raw.githubusercontent.com` links return the file itself (`Content-Type: application/octet-stream`). They do not open a GitHub preview page.
 
-**Complete Teach Yourself** — one file per grade (XI 372 pages, XII 372 pages): every lesson at readable size (starts on its own page, continues if needed), ★ Golden topics in their own part, then chapter exams and the mock.
+**Complete Teach Yourself** — one file per grade: chapter-wise lecture notes at readable size (each lesson starts on its own page and continues if needed). ★ Golden concepts sit inside the chapter that teaches them, then that chapter’s exam. Blank leftover pages are dropped.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Complete-Teach-Yourself.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Complete-Teach-Yourself.pdf
 

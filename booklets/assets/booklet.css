@@ -743,6 +743,7 @@ body.paced-book .paced-lesson ul, body.paced-book .paced-lesson ol,
 .chapter-recap .glossary { font-size: 8.4pt; }
 .box.exam-rules::before { content: "Chapter exam rules"; color: #7c2d12; }
 .box.exam-rules { border-color: #7c2d12; background: #fff7ed; }
+.exam-open { break-inside: avoid; }
 .chapter-exam h2 { color: #7c2d12; }
 .exam-key { break-before: page; page-break-before: always; }
 
