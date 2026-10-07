@@ -1,0 +1,146 @@
+<section class="chapter" id="xii-final" data-num="7" data-title="Final Revision and Mock Paper">
+  <div class="ch-opener">
+    <div class="num">Final revision</div>
+    <h1>One-page recaps and a mock paper</h1>
+    <p>Use these pages in the last week before the exam. Read one recap aloud from memory, then sit the mock paper in 2 hours 30 minutes with no notes.</p>
+    <p class="ur">امتحان سے ایک ہفتہ پہلے خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔</p>
+  </div>
+
+  <h2>Chapter 1 recap — Human Computer Interaction</h2>
+  <ul class="summary">
+    <li>HCI = study of how people and computers work together so systems are usable, useful and satisfying.</li>
+    <li>Traditional interaction = keyboard, mouse, menus. Natural interaction = touch, voice, gesture, gaze.</li>
+    <li>Components: user, computer, interaction (input + output + feedback) inside an environment.</li>
+    <li>UI = how it looks and the controls. UX = how the whole experience feels. Wireframe → prototype (Figma) → test.</li>
+    <li>Evaluate with usability tests, heuristic evaluation, A/B tests and automated checks. Golden: accessibility, HCI problems, UI vs UX, testing methods.</li>
+  </ul>
+
+  <h2>Chapter 2 recap — Algorithms and Data Structures</h2>
+  <ul class="summary">
+    <li>Correctness: trace table (variable values after every step) or stepwise reasoning.</li>
+    <li>Clarity: modularity (small named parts) and readability (names, comments, indentation).</li>
+    <li>Efficiency: count steps, conditions, repetitions. Big O: O(1) constant, O(log n) binary search, O(n) linear, O(n log n) good sorts, O(n²) nested loops.</li>
+    <li>Linear DS: array, linked list, stack (LIFO, push/pop), queue (FIFO, enqueue/dequeue). Non-linear: tree (one root, parent-child), graph (nodes + edges).</li>
+    <li>Pick the structure from the problem: undo → stack; printer jobs → queue; hierarchy → tree; maps → graph; fast index → array.</li>
+  </ul>
+
+  <h2>Chapter 3 recap — Python Data Structures, Functions and Files</h2>
+  <ul class="summary">
+    <li>list [] ordered, mutable. tuple () ordered, immutable. set {} unordered, unique. dict {k:v} key-value, mutable.</li>
+    <li>Functions: def, parameters, return. Local vs global scope. Built-in vs user-defined.</li>
+    <li>Files: <code>"r"</code> read, <code>"w"</code> overwrite, <code>"a"</code> append. Always prefer <code>with open(...) as f</code> so the file closes itself.</li>
+    <li>Exceptions: <code>try / except / else / finally</code>. Catch specific errors (ValueError, FileNotFoundError).</li>
+  </ul>
+
+  <h2>Chapter 4 recap — Data and Analysis</h2>
+  <ul class="summary">
+    <li>SQLite in Python: connect → cursor → execute → commit → close. Always commit writes.</li>
+    <li>Pandas DataFrame = table. load CSV/Excel, <code>isnull</code>, <code>dropna</code>, <code>fillna</code>, sort, filter, groupby.</li>
+    <li>Charts: bar (categories), line (trend over time), pie (parts of a whole, few slices), histogram (distribution), scatter (relationship of two variables), box (spread and outliers).</li>
+    <li>Mean = average. Median = middle after sorting. Mode = most frequent. Range = max−min. Variance / std-dev measure spread. pandas <code>.std()</code> uses sample n−1.</li>
+  </ul>
+
+  <h2>Chapter 5 recap — AI, Security and Collaboration</h2>
+  <ul class="summary">
+    <li>AI ⊃ Machine Learning ⊃ Deep Learning. A neuron: weighted sum + bias, then an activation function. Deep = many hidden layers.</li>
+    <li>Secure collaboration: authentication (passwords, MFA), access control (who may do what).</li>
+    <li>Protect data: encryption, strong passwords, 3-2-1 backup, firewall. Threats: malware, phishing, DoS/DDoS, social engineering.</li>
+    <li>Equity: everyone can take part (devices, language, disability, bandwidth). Tools: shared docs, video, LMS, versioning.</li>
+  </ul>
+
+  <h2>Chapter 6 recap — Entrepreneurship in the Digital Age</h2>
+  <ul class="summary">
+    <li>Entrepreneur = person who turns a problem into a venture, taking risk. Digital tools make testing cheap (WhatsApp, Forms, a Facebook page).</li>
+    <li>Prototype = experimental model. Low / mid / high fidelity. Cycle: Design → Build → Test → Iterate.</li>
+    <li>MVP = smallest product that tests the riskiest assumption with real users. Prototype ≠ MVP (MVP is used in the real market).</li>
+    <li>Beachhead market = the first, narrow group you can win. Measure retention, not only sign-ups. Use data ethically.</li>
+  </ul>
+
+  <section class="review">
+    <h2>Mock paper — Computer Science XII</h2>
+    <p class="muted">Time: 2 hours 30 minutes &nbsp;|&nbsp; Total: 75 marks &nbsp;|&nbsp; Answer all of A and B; attempt three from C.</p>
+    <h3>Section A — Multiple choice (15 × 1 = 15)</h3>
+    <ol class="mcq">
+      <li>HCI stands for:
+        <ol class="opts"><li>Human Computer Interaction</li><li>High Code Interface</li><li>Hardware Control Input</li><li>Hybrid Computing Internet</li></ol></li>
+      <li>A wireframe is:
+        <ol class="opts"><li>the final coloured UI</li><li>a simple layout sketch of screens</li><li>a compiled program</li><li>an encryption key</li></ol></li>
+      <li>Which is O(log n)?
+        <ol class="opts"><li>Linear search</li><li>Nested for-loops</li><li>Binary search</li><li>Reading one array cell</li></ol></li>
+      <li>A stack is:
+        <ol class="opts"><li>FIFO</li><li>LIFO</li><li>random access only</li><li>unordered unique items</li></ol></li>
+      <li>Which Python type is immutable?
+        <ol class="opts"><li>list</li><li>dict</li><li>set</li><li>tuple</li></ol></li>
+      <li>The file mode that overwrites an existing file is:
+        <ol class="opts"><li>r</li><li>a</li><li>w</li><li>x+</li></ol></li>
+      <li><code>with open("t.txt") as f</code> is useful because:
+        <ol class="opts"><li>it encrypts the file</li><li>it closes the file automatically</li><li>it creates a DataFrame</li><li>it skips exceptions</li></ol></li>
+      <li>After INSERT in sqlite3 you must:
+        <ol class="opts"><li>rollback always</li><li>commit</li><li>drop the table</li><li>print the cursor</li></ol></li>
+      <li>A pie chart is a poor choice when:
+        <ol class="opts"><li>you have 3 parts of a total</li><li>you have 20 tiny slices</li><li>you show percentages of a whole</li><li>you label each slice</li></ol></li>
+      <li>pandas <code>df['x'].std()</code> uses:
+        <ol class="opts"><li>population n</li><li>sample n−1</li><li>median</li><li>mode</li></ol></li>
+      <li>Deep Learning is a subset of:
+        <ol class="opts"><li>only statistics</li><li>Machine Learning</li><li>only HCI</li><li>only networking</li></ol></li>
+      <li>MFA means:
+        <ol class="opts"><li>Many File Archives</li><li>Multi-Factor Authentication</li><li>Main Firewall Access</li><li>Minimum Function API</li></ol></li>
+      <li>A Caesar cipher is a form of:
+        <ol class="opts"><li>phishing</li><li>encryption</li><li>a firewall</li><li>a prototype</li></ol></li>
+      <li>An MVP is:
+        <ol class="opts"><li>the most polished version of a product</li><li>the smallest product that tests the riskiest assumption</li><li>a paper sketch only</li><li>a full company registration</li></ol></li>
+      <li>A printer job list is best modelled as a:
+        <ol class="opts"><li>stack</li><li>queue</li><li>binary tree</li><li>set</li></ol></li>
+    </ol>
+
+    <h3>Section B — Short questions (10 × 3 = 30)</h3>
+    <ol class="short">
+      <li>Differentiate UI and UX with one example.</li>
+      <li>What is a trace table? Why is it better than "it looks right"?</li>
+      <li>Draw a 3-node stack after push 10, push 20, pop. Label TOS.</li>
+      <li>Write one difference each: list vs tuple vs set vs dictionary.</li>
+      <li>Write a Python function <code>area(l, w)</code> that returns l*w, and a call that prints it.</li>
+      <li>Name the five steps of a database connection in Python.</li>
+      <li>When would you draw a scatter plot rather than a line graph?</li>
+      <li>Compute mean, median and range of 4, 8, 6, 10, 2.</li>
+      <li>List three signs of a phishing message.</li>
+      <li>Differentiate a prototype and an MVP.</li>
+    </ol>
+
+    <h3>Section C — Long questions (3 × 10 = 30). Attempt any three.</h3>
+    <ol class="long">
+      <li>A college wants a new student-portal. Describe need analysis, a low-fidelity wireframe of the login + timetable screens, three accessibility principles you would apply, and one usability test you would run.</li>
+      <li>Trace this algorithm with a table for n = 5: total=0; for i in 1..n: total = total + i; return total. State its Big O and rewrite it as a formula that is O(1).</li>
+      <li>Write a Python program that reads a text file of lines "name,marks", stores results in a dictionary, and writes "name: grade" to an output file using <code>with</code>. Grade A if marks ≥ 80 else B. Include exception handling if the file is missing.</li>
+      <li>Using the dataset 12, 18, 12, 20, 15, compute mean, median, mode, range, population variance and population standard deviation, showing every step. Then state which chart you would use to show the distribution and why.</li>
+      <li>A Karachi canteen wants a pre-order app. Identify the problem, the riskiest assumption, an MVP, a beachhead market, two test metrics, and one ethical rule for student data.</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Mock paper — answers</h2>
+      <h3>Section A</h3>
+      <ol class="inline"><li>a</li><li>b</li><li>c</li><li>b</li><li>d</li><li>c</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li><li>b</li></ol>
+      <h3>Section B</h3>
+      <ol>
+        <li>UI is the screens and controls (buttons, colours). UX is the whole journey (time to complete a task, frustration, trust). Example: a JazzCash send-money screen (UI) vs how safe and quick the payment felt (UX).</li>
+        <li>A trace table lists each variable after every instruction. It proves correctness on a chosen input; "it looks right" misses off-by-one and uninitialised variables.</li>
+        <li>After push 10, TOS=10. After push 20, TOS=20 (10 below). After pop, 20 removed, TOS=10.</li>
+        <li>list: ordered mutable. tuple: ordered immutable. set: unordered unique. dict: keyed pairs.</li>
+        <li><code>def area(l, w): return l * w</code> then <code>print(area(3, 4))</code> → 12.</li>
+        <li>connect, cursor, execute, commit, close.</li>
+        <li>Scatter: two measured variables (height vs marks) with no single time axis. Line: one quantity changing over an ordered time or sequence.</li>
+        <li>Sorted: 2,4,6,8,10. Mean = 30/5 = 6. Median = 6. Range = 10−2 = 8.</li>
+        <li>Unknown sender, urgent threat ("account will close today"), a link that does not match the real bank, request for OTP/password, poor Urdu/English, unexpected attachment.</li>
+        <li>A prototype is a model used to learn (often internal). An MVP is a real, usable product with just enough features to test the riskiest assumption with actual customers.</li>
+      </ol>
+      <h3>Section C — outline</h3>
+      <ol>
+        <li>Need analysis: who (students, teachers), tasks (view timetable, submit leave), constraints (mobile, slow internet). Wireframe: simple boxes for logo, fields, button, a second screen with a 5-day table. Accessibility: large tap targets, colour not the only signal, Urdu/English labels, screen-reader names. Test: five students think-aloud while logging in; record errors and time.</li>
+        <li>i=1 total=1; i=2 total=3; i=3 total=6; i=4 total=10; i=5 total=15. Loop body runs n times → O(n). Formula <code>n*(n+1)/2</code> is O(1).</li>
+        <li>try: with open(path) as f: for line in f: name, m = line.strip().split(","); d[name]=int(m) except FileNotFoundError: print("missing"). Then with open(out,"w") as g: write grades. Show one sample dictionary.</li>
+        <li>Sorted 12,12,15,18,20. Mean 77/5=15.4. Median 15. Mode 12. Range 8. Population variance: deviations −3.4,−3.4,−0.4,2.6,4.6; squares 11.56,11.56,0.16,6.76,21.16; sum 51.2; /5 = 10.24. std = 3.2. Histogram to show distribution (or bar of frequencies).</li>
+        <li>Problem: long canteen queues between periods. Riskiest assumption: students will pre-order 10 minutes before break. MVP: WhatsApp number + Google Form, pickup tokens, no app. Beachhead: one shift of first-year students. Metrics: % of orders picked up, time-to-collect, repeat use. Ethical: do not publish phone numbers; delete form responses after the term.</li>
+      </ol>
+    </div>
+  </section>
+</section>

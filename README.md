@@ -1,40 +1,38 @@
-# Intimacy Guide
+# Computer Science — 30-Day Coaching Academy Edition
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+The **Bilingual Teacher’s Edition** for Sindh Computer Science XI and XII, rebuilt as a
+30-day coaching-academy batch. One **90-minute class** a day. The coach runs the board;
+students copy, drill, and take stamped homework home.
 
-## Download
+This is not a 40-minute school period and not a 3-hour self-study crash course.
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+## Direct download
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+- [CS XI 30-Day Coaching Academy Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XI-30-Day-Coaching-Academy-Edition.pdf)
+- [CS XII 30-Day Coaching Academy Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XII-30-Day-Coaching-Academy-Edition.pdf)
+- [XI + XII complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/30-day-coaching-academy-9c8b/releases/CS-XI-and-XII-30-Day-Coaching-Academy-Edition-Complete.pdf)
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+## What is inside each book
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+- Cover, 30-day calendar, and a batch register for starter marks
+- How to run a 90-minute academy class (starter · concept lock · board working · drill · error clinic · homework)
+- **Days 1–23.** Every topic from the teacher’s notes as a board card. ★ Golden topics never skipped. Last day of each chapter is a 75-mark hall exam
+- **Days 24–26.** ★ Golden blitz (no new non-Golden topic)
+- **Day 27.** Oral recap at the board
+- **Day 28.** Mock paper, 2 hours 30 minutes, academy hall conditions
+- **Day 29.** Mark to the sealed key and fill the repair list
+- **Day 30.** Repair clinic, then stop
 
-## v3.2.1
+Full-mark recipes use **Define · Explain · Example · Diagram · Working**. Urdu classroom lines sit on every teaching day.
 
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
+Based on the New Sindh Curriculum (XI 2026, XII 2025–27). Topics marked ★ are high-yield for board exams.
 
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
-
-## Build
+## Rebuild
 
 ```bash
-python3 scripts/generate_posture_pictures.py
-export ANDROID_HOME=/path/to/android-sdk
-./gradlew assembleDebug
+python3 booklets/build.py academy30
 ```
 
-## Version 3.2.1
+Requires Google Chrome, Inter + Noto Naskh Arabic fonts, and `pymupdf` (for the combined XI+XII file).
+
+Chapter HTML lives in `booklets/src/xi` and `booklets/src/xii`. Authoring rules: `booklets/AUTHORING.md`.
