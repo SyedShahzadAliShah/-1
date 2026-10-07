@@ -57,11 +57,11 @@ Rebuild: `python3 booklets/build.py notes`
 
 ## AIO Self-Paced Teach Yourself Edition
 
-Published all-in-one: imprint, Steady/Term/Exam planner, numbered lessons, gates, sealed chapter answer keys.
+Published all-in-one: imprint, Steady/Term/Exam planner, one topic per A4 page, chapters isolated, then a thorough 75-mark closed-book chapter exam (15 MCQ + 10 short + any 3 long). Keys stay sealed.
 
-- [CS XI AIO Self-Paced Teach Yourself Edition (169 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [CS XI AIO Self-Paced Teach Yourself Edition (168 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
 - [CS XII AIO Self-Paced Teach Yourself Edition (169 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
-- [XI + XII AIO Self-Paced Teach Yourself Edition complete (338 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
+- [XI + XII AIO Self-Paced Teach Yourself Edition complete (337 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
 
 Rebuild: `python3 booklets/build.py paced`
 
