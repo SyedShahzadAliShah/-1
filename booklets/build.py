@@ -2670,9 +2670,9 @@ Each edition keeps **one topic on one A4 page** (academy classes stay a full 90-
 
 The published volume: imprint, three-track planner, numbered lessons at readable type, MathJax SVG formulae, inline SVG diagrams, Flexbox panels. ★ Golden lessons sit first inside each chapter. Then a 75-mark closed-book exam. Keys stay sealed.
 
-- [CS XI Ultimate Teach Yourself Edition]({z}/CS-XI-Ultimate-Teach-Yourself-Edition.pdf)
-- [CS XII Ultimate Teach Yourself Edition]({z}/CS-XII-Ultimate-Teach-Yourself-Edition.pdf)
-- [XI + XII Ultimate Teach Yourself Edition complete]({z}/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf)
+- [CS XI Ultimate Teach Yourself Edition (353 pages)]({z}/CS-XI-Ultimate-Teach-Yourself-Edition.pdf)
+- [CS XII Ultimate Teach Yourself Edition (376 pages)]({z}/CS-XII-Ultimate-Teach-Yourself-Edition.pdf)
+- [XI + XII Ultimate Teach Yourself Edition complete (729 pages)]({z}/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf)
 
 Rebuild: `python3 booklets/build.py ultimate`
 
@@ -3194,6 +3194,22 @@ def complete_final(final_html: str) -> str:
     return f'<div class="complete-chapter">{opener}{extra}</div>{review}'
 
 
+def compact_pdf(pdf_path: Path) -> None:
+    """Rewrite a Chrome PDF with deflate so MathJax SVG fonts do not bloat the file."""
+    try:
+        import pymupdf
+    except ImportError:
+        return
+    doc = pymupdf.open(pdf_path)
+    dest = pdf_path.with_suffix(".tmp.pdf")
+    doc.save(dest, deflate=True, garbage=4)
+    doc.close()
+    if dest.stat().st_size < pdf_path.stat().st_size:
+        dest.replace(pdf_path)
+    elif dest.exists():
+        dest.unlink()
+
+
 def drop_blank_pages(pdf_path: Path) -> int:
     """Delete leftover almost-empty A4 leaves. Returns how many pages were removed."""
     try:
@@ -3468,6 +3484,7 @@ def build_ultimate(key: str) -> Path:
     gone = drop_blank_pages(pdf_path)
     if gone:
         print(f"{key} ultimate edition dropped {gone} blank page(s)")
+    compact_pdf(pdf_path)
     print(f"{key} ultimate edition -> {pdf_path}")
     return pdf_path
 

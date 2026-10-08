@@ -120,9 +120,9 @@ python3 scripts/export_lecture_catalog.py
 
 The published volume: imprint, three-track study planner, numbered lessons at readable type. **MathJax SVG** formulae, **inline SVG** diagrams, **Flexbox** panels. ★ Golden lessons sit first inside each chapter. Then a 75-mark closed-book exam. Keys stay sealed. Blank leftover pages are dropped.
 
-- [CS XI Ultimate Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf)
-- [CS XII Ultimate Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf)
-- [XI + XII Ultimate Teach Yourself Edition complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf)
+- [CS XI Ultimate Teach Yourself Edition (353 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf)
+- [CS XII Ultimate Teach Yourself Edition (376 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf)
+- [XI + XII Ultimate Teach Yourself Edition complete (729 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf)
 
 ```bash
 python3 booklets/build.py ultimate

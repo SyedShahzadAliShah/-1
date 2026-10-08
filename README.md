@@ -6,7 +6,7 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
 These `raw.githubusercontent.com` links return the file itself (`Content-Type: application/octet-stream`). They do not open a GitHub preview page.
 
-**Ultimate Teach Yourself Edition** — the published volume for each grade. Numbered lessons at readable type. Formulae are **MathJax SVG**, diagrams are **inline SVG**, panels use **Flexbox**. ★ Golden lessons sit first inside each chapter. Then that chapter’s 75-mark exam. Keys stay sealed. Blank leftover pages are dropped.
+**Ultimate Teach Yourself Edition** — the published volume for each grade (XI 353 pages, XII 376 pages, both 729 pages). Numbered lessons at readable type. Formulae are **MathJax SVG**, diagrams are **inline SVG**, panels use **Flexbox**. ★ Golden lessons sit first inside each chapter. Then that chapter’s 75-mark exam. Keys stay sealed. Blank leftover pages are dropped.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
