@@ -7,7 +7,7 @@ built from the bilingual teacher's lecture notes.
 
 Plain file URLs (save the file, no GitHub preview page):
 
-- Android APK (lecture sketchnotes + Urdish voice): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
+- Android APK (cinematic English whiteboards + Urdish voice): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -102,9 +102,9 @@ Official Study Guide for students and teachers: imprint, bootcamp planner, chapt
 python3 booklets/build.py complete
 ```
 
-## Android app — lecture sketchnotes + Urdish voice
+## Android app — cinematic classroom whiteboards + Urdish voice
 
-Each topic embeds an in-depth classroom **sketchnote** of the whole lecture (MathJax formulae, SVG diagrams, flexbox flows and two-column layouts) explained in **Urdish**. Tap listen for the teacher voice (install Google Urdu TTS if prompted).
+Each topic is a cinematic classroom board: **English writes once**, SVG diagrams **draw on**, MathJax formulae typeset. The teacher voice is **Urdish** and does not re-read the English already on the board. Install Google Urdu TTS if prompted.
 
 - [CS Teach Yourself Urdu Lectures APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
 

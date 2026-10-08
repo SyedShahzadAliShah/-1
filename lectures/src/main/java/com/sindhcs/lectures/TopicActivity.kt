@@ -34,6 +34,7 @@ class TopicActivity : AppCompatActivity() {
         spoken = topic.spokenUrdu
 
         val board = binding.board
+        board.setBackgroundColor(0xFF07090D.toInt())
         board.webViewClient = WebViewClient()
         board.settings.javaScriptEnabled = true
         board.settings.domStorageEnabled = true

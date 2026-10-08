@@ -1,7 +1,7 @@
-/* Classroom whiteboard: marker ink, flexbox rows, SVG + MathJax */
+/* Cinematic classroom whiteboard — English marker writes once; diagrams draw. */
 :root {
-  --ink: #0f172a;
-  --marker: #0f766e;
+  --ink: #102033;
+  --marker: #0e7490;
   --gold: #ca8a04;
   --line: #cbd5e1;
   --learn: #1d4ed8;
@@ -14,28 +14,91 @@
   --warn-bg: #fef2f2;
   --check: #6d28d9;
   --check-bg: #f5f3ff;
-  --urdu: #0f766e;
-  --urdu-bg: #f0fdfa;
   --exam: #c2410c;
   --exam-bg: #fff7ed;
 }
 * { box-sizing: border-box; }
 html, body {
   margin: 0;
-  background: #94a3b8;
+  min-height: 100%;
+  background: #07090d;
   color: var(--ink);
-  font: 16px/1.55 system-ui, "Segoe UI", "Noto Naskh Arabic", sans-serif;
+  font: 16px/1.55 system-ui, "Segoe UI", Georgia, sans-serif;
+}
+body::before, body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #000;
+  z-index: 30;
+  pointer-events: none;
+}
+body::before { top: 0; }
+body::after { bottom: 0; }
+
+.cinema {
+  position: relative;
+  min-height: 100vh;
+  padding: 36px 12px 48px;
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(255, 214, 140, .12), transparent 36%),
+    radial-gradient(ellipse at 50% 18%, #243044 0%, #0b0f16 58%, #05070a 100%);
+  overflow: hidden;
+}
+.cinema::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 7px 7px;
+  opacity: .25;
+  pointer-events: none;
 }
 .board {
+  position: relative;
   max-width: 920px;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: calc(100vh - 90px);
+  padding: 18px 18px 36px;
   background:
-    linear-gradient(180deg, rgba(15, 23, 42, .04), transparent 48px),
-    repeating-linear-gradient(0deg, transparent, transparent 23px, #e8eef5 24px),
-    #f8fafc;
-  padding: 14px 16px 28px;
-  box-shadow: 0 0 0 10px #64748b, 0 12px 40px rgba(15, 23, 42, .35);
+    linear-gradient(180deg, rgba(255,255,255,.22), transparent 48px),
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(14, 116, 144, .06) 28px),
+    #f7f4ea;
+  border: 12px solid #1a120c;
+  box-shadow:
+    0 0 0 3px #4a321f,
+    0 0 0 6px #120c08,
+    0 28px 80px rgba(0, 0, 0, .55),
+    inset 0 0 90px rgba(255, 244, 214, .08);
+}
+.board::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 8px;
+  height: 10px;
+  background: linear-gradient(#6b4423, #3f2a16);
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.35);
+}
+.lamp {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 220px;
+  height: 22px;
+  margin-left: -110px;
+  background: radial-gradient(ellipse at center, #ffe7a3, transparent 70%);
+  opacity: .9;
+  pointer-events: none;
+  animation: lamp-glow 2.8s ease-in-out infinite alternate;
+}
+@keyframes lamp-glow {
+  from { opacity: .55; }
+  to { opacity: 1; }
 }
 .rail {
   display: flex;
@@ -51,15 +114,37 @@ html, body {
   border-radius: 999px;
   background: #ccfbf1;
   color: var(--marker);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .04em;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 .rail .chip.gold { background: #fef3c7; color: #92400e; }
-h1, h2, h3 { font-family: Georgia, "Noto Naskh Arabic", serif; color: var(--ink); }
-h1 { font-size: 1.55rem; margin: 4px 0 12px; border-bottom: 3px solid var(--marker); padding-bottom: 6px; }
-h2 { font-size: 1.2rem; margin: 14px 0 8px; }
+.rail .chip.live {
+  background: #0f172a;
+  color: #f8fafc;
+}
+.rail .chip.live::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, .7);
+  animation: live-pulse 1.4s ease-out infinite;
+}
+@keyframes live-pulse {
+  70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+h1, h2, h3 { font-family: Georgia, serif; color: var(--ink); }
+h1 {
+  font-size: 1.55rem;
+  margin: 4px 0 14px;
+  border-bottom: 3px solid var(--marker);
+  padding-bottom: 6px;
+}
 h3 { font-size: 1.05rem; margin: 12px 0 6px; }
 p { margin: 6px 0 10px; }
 .box {
@@ -86,24 +171,11 @@ p { margin: 6px 0 10px; }
 .box.warn::before { content: "Common mistake"; color: var(--warn); }
 .box.check { border-color: var(--check); background: var(--check-bg); }
 .box.check::before { content: "Check yourself"; color: var(--check); }
-.box.urdu {
-  border-left: none;
-  border-right: 5px solid var(--urdu);
-  background: var(--urdu-bg);
-}
-.box.urdu::before {
-  content: "اردو میں سمجھیں";
-  color: var(--urdu);
-  text-align: right;
-  letter-spacing: 0;
-  text-transform: none;
-  font-size: 14px;
-}
 .box.exam { border-color: var(--exam); background: var(--exam-bg); }
 .box.exam::before { content: "Exam tip"; color: var(--exam); }
 .box.golden { border-color: var(--gold); background: #fffbeb; }
+.box.urdu { display: none !important; }
 .ans { display: none !important; }
-.ur { direction: rtl; text-align: right; font-size: 1.1rem; line-height: 1.9; }
 .flow {
   display: flex;
   flex-wrap: wrap;
@@ -168,15 +240,6 @@ pre.code.output {
   color: #0f172a;
   border-left: 4px solid var(--example);
 }
-pre.code.output::before {
-  content: "OUTPUT";
-  display: block;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--example);
-  letter-spacing: .08em;
-  margin-bottom: 4px;
-}
 .checklist { list-style: none; padding-left: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .checklist li { padding-left: 22px; position: relative; flex: 1 1 220px; }
 .checklist li::before { content: "☐"; position: absolute; left: 0; color: var(--marker); }
@@ -189,184 +252,42 @@ p.math, mjx-container[jax="SVG"][display="true"] {
   overflow-x: auto;
 }
 mjx-container svg { max-width: 100%; }
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.legend { display: flex; flex-wrap: wrap; gap: 8px; }
 .legend .box { flex: 1 1 200px; margin: 0; }
 ul, ol { margin: 6px 0 12px; padding-left: 1.3rem; }
 li { margin: 3px 0; }
 
-/* Lecture-wise Urdish sketchnote */
-.sketchnote {
-  position: relative;
-  margin: 8px 0 22px;
-  padding: 16px 14px 18px;
-  background:
-    radial-gradient(circle at 12% 8%, #fff 0 7px, transparent 8px),
-    repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(14, 116, 144, .06) 28px),
-    #fbf3e4;
-  border: 2.5px solid #1e293b;
-  border-radius: 255px 18px 225px 12px / 12px 225px 18px 255px;
-  box-shadow: 7px 8px 0 rgba(15, 23, 42, .12);
+.enter {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: write-in .85s ease var(--d, 0s) forwards;
 }
-.sk-tape {
-  position: absolute;
-  top: -8px;
-  left: 28%;
-  width: 86px;
-  height: 16px;
-  background: rgba(250, 204, 21, .55);
-  transform: rotate(-2deg);
-  border-radius: 2px;
+.enter-now { opacity: 1; clip-path: none; animation: none; }
+@keyframes write-in {
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
 }
-.sk-head { margin-bottom: 12px; }
-.sk-badge-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 8px;
+.ink-draw {
+  animation: ink-draw 1.25s ease var(--d, .3s) forwards;
 }
-.sk-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 10px;
-  border: 2px solid #0f766e;
-  border-radius: 999px;
-  background: #ccfbf1;
-  color: #115e59;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+@keyframes ink-draw {
+  to { stroke-dashoffset: 0; }
 }
-.sk-badge.sk-ur { background: #fef9c3; border-color: #ca8a04; color: #854d0e; }
-.sk-badge.gold { background: #fff7ed; border-color: #c2410c; color: #9a3412; }
-.sk-kicker {
-  margin: 0 0 4px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #0f766e;
+.ink-fill {
+  animation: ink-fill .55s ease calc(var(--d, .3s) + .9s) forwards;
 }
-.sk-title {
-  font-family: Georgia, "Noto Naskh Arabic", serif;
-  font-size: 1.35rem;
-  margin: 0 0 8px;
-  border-bottom: 3px solid #0f766e;
-  padding-bottom: 6px;
+@keyframes ink-fill {
+  to { fill-opacity: 1; }
 }
-.sk-bigidea {
-  border: 2px dashed #0f766e;
-  background: #f0fdfa;
-  border-radius: 18px 8px 16px 10px;
-  padding: 10px 12px;
-  margin: 8px 0 12px;
+.ink-fade {
+  opacity: 0;
+  animation: write-in .8s ease var(--d, .3s) forwards;
 }
-.sk-bigidea .ur { margin: 0; font-size: 1.05rem; }
-.sk-bigidea [dir="ltr"] { unicode-bidi: isolate; }
-.sk-terms {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 8px 0 14px;
+@media (prefers-reduced-motion: reduce) {
+  .enter, .ink-draw, .ink-fade, .ink-fill, .lamp, .rail .chip.live::before {
+    animation: none !important;
+    opacity: 1;
+    clip-path: none;
+    stroke-dashoffset: 0 !important;
+    fill-opacity: 1 !important;
+  }
 }
-.sk-sticky {
-  flex: 1 1 120px;
-  min-width: 110px;
-  background: #fde68a;
-  border: 2px solid #1e293b;
-  border-radius: 2px 12px 4px 8px;
-  padding: 8px 10px;
-  font-weight: 800;
-  font-size: 13px;
-  transform: rotate(-1.2deg);
-  box-shadow: 2px 3px 0 rgba(15, 23, 42, .12);
-}
-.sk-sticky:nth-child(2n) { background: #a7f3d0; transform: rotate(1deg); }
-.sk-sticky:nth-child(3n) { background: #bae6fd; transform: rotate(-0.6deg); }
-.sk-sticky:nth-child(4n) { background: #fecaca; transform: rotate(0.8deg); }
-.sk-stack { display: flex; flex-direction: column; gap: 12px; }
-.sk-card {
-  background: #fffdf8;
-  border: 2px solid #1e293b;
-  border-radius: 255px 12px 225px 8px / 8px 225px 12px 255px;
-  padding: 10px 12px 8px;
-}
-.sk-card.learn { box-shadow: inset 6px 0 0 #1d4ed8; }
-.sk-card.example { box-shadow: inset 6px 0 0 #047857; }
-.sk-card.tip { box-shadow: inset 6px 0 0 #b45309; }
-.sk-card.warn { box-shadow: inset 6px 0 0 #b91c1c; }
-.sk-card.exam { box-shadow: inset 6px 0 0 #c2410c; }
-.sk-card.check { box-shadow: inset 6px 0 0 #6d28d9; }
-.sk-card.visual { box-shadow: inset 6px 0 0 #0f766e; }
-.sk-card h3 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 8px;
-  font-size: 1rem;
-  color: #0f766e;
-}
-.sk-n {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.4rem;
-  height: 1.4rem;
-  margin-inline-end: 6px;
-  border-radius: 999px;
-  background: #0f766e;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-}
-.urdish {
-  unicode-bidi: plaintext;
-  line-height: 1.75;
-  font-size: 1.02rem;
-}
-.urdish em {
-  display: block;
-  margin-top: 4px;
-  font-style: normal;
-  color: #0f766e;
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-.sk-split {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.sk-split > * { flex: 1 1 240px; min-width: 0; }
-.sk-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 8px;
-  margin: 8px 0;
-}
-.sk-cell {
-  flex: 1 1 160px;
-  background: #fff;
-  border: 2px dashed #64748b;
-  border-radius: 12px;
-  padding: 8px;
-}
-.sk-cell b { display: block; font-size: 11px; text-transform: uppercase; color: #64748b; }
-.sk-cell span { display: block; margin-top: 4px; }
-.sk-cell i.urdish {
-  display: block;
-  margin-top: 6px;
-  font-style: normal;
-  font-weight: 700;
-  color: #0f766e;
-  unicode-bidi: plaintext;
-}
-.sk-vs {
-  align-self: center;
-  font-weight: 800;
-  color: #0f766e;
-}
-.box.urdu::before { content: "Urdish میں سمجھو"; }

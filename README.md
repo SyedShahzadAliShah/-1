@@ -6,7 +6,7 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
 These `raw.githubusercontent.com` links return the file itself (`Content-Type: application/octet-stream`). They do not open a GitHub preview page.
 
-**Android APK — lecture sketchnotes + Urdish voice** — each topic embeds an in-depth classroom **sketchnote** (MathJax, SVG, flexbox) that explains the whole lecture in **Urdish**. Tap listen for the teacher voice (Google Urdu TTS).
+**Android APK — cinematic classroom whiteboards** — each lecture writes in **English** on an animated board, **draws diagrams**, and explains in **Urdish** (Google Urdu TTS). One copy of the content: the board is English, the voice is Urdish, nothing is restated twice.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 **Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers (XI 302 pages, XII 315 pages). Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.
