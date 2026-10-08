@@ -10,6 +10,9 @@ These notes are not an official BIEK or Sindh Textbook Board publication.
 
 - `pdf/BIEK-CS-XI-Lectures.pdf`
 - `pdf/BIEK-CS-XII-Lectures.pdf`
+- `apk/BIEK-CS-Lectures-v1.0.0.apk`
+
+The app reads each concept aloud. If the phone has an Urdu voice, it speaks Urdu and keeps terms such as AND, Python, SDLC, and TCP in English. If not, it speaks the same lesson in Roman Urdu with those English terms, and the screen explains how to install an Urdu voice.
 
 ## Rebuild
 

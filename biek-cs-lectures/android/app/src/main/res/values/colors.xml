@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navy">#0B3A5B</color>
+    <color name="navy_deep">#07263C</color>
+    <color name="teal">#0F6E6E</color>
+    <color name="gold">#C4A35A</color>
+    <color name="ink">#1C2430</color>
+    <color name="muted">#5C6B7A</color>
+    <color name="paper">#F4F7FB</color>
+    <color name="white">#FFFFFF</color>
+    <color name="speaking">#E7F4F4</color>
+</resources>

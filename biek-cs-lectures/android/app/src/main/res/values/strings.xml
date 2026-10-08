@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BIEK CS Lectures</string>
+    <string name="home_kicker">Board of Intermediate Education Karachi</string>
+    <string name="home_title">Computer Science XI &amp; XII</string>
+    <string name="home_subtitle">Version 1.0.0 — Urdu explanation, English terms</string>
+    <string name="play_lecture">پورا لیکچر سنیں</string>
+    <string name="stop">روکیں</string>
+    <string name="listen">سنیں</string>
+    <string name="open_pdf">مکمل نوٹس PDF</string>
+    <string name="tts_missing">اس فون پر Urdu voice نصب نہیں۔ ابھی Urdish انگریزی آواز میں چل رہی ہے۔ TTS settings میں Urdu voice لگا لیں۔</string>
+    <string name="install_voice">Urdu voice</string>
+    <string name="pdf_page">صفحہ %1$d / %2$d</string>
+    <string name="previous">پچھلا</string>
+    <string name="next">اگلا</string>
+</resources>
