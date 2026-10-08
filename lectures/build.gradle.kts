@@ -8,11 +8,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.sindhcs.teachyourself"
+        applicationId = "com.sindhcs.selftaughtbootcamp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 12
-        versionName = "3.0.0"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {

@@ -22,15 +22,9 @@ html, body {
   margin: 0;
   height: 100%;
   overflow: hidden;
-  scrollbar-width: none;
   background: #07090d;
   color: var(--ink);
-  font: 16px/1.55 system-ui, "Segoe UI", Georgia, sans-serif;
-}
-html::-webkit-scrollbar, body::-webkit-scrollbar, .cinema::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
+  font: 18px/1.6 system-ui, "Segoe UI", Georgia, sans-serif;
 }
 body::before, body::after {
   content: "";
@@ -47,13 +41,15 @@ body::after { bottom: 0; }
 
 .cinema {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   min-height: 100%;
-  padding: 36px 12px 48px;
+  padding: 28px 10px 16px;
   background:
     radial-gradient(ellipse at 50% 12%, rgba(255, 214, 140, .12), transparent 36%),
     radial-gradient(ellipse at 50% 18%, #243044 0%, #0b0f16 58%, #05070a 100%);
   overflow: hidden;
-  transform-origin: top center;
 }
 .cinema::before {
   content: "";
@@ -64,15 +60,46 @@ body::after { bottom: 0; }
   opacity: .25;
   pointer-events: none;
 }
+.note-bar {
+  flex: 0 0 auto;
+  margin: 0 8px 8px;
+  padding: 10px 12px;
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 12px;
+  max-height: 30%;
+  overflow: auto;
+}
+.note-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+.note-urdish {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.55;
+}
+.box.bootcamp {
+  border-color: #0e7490;
+  background: #ecfeff;
+}
+.box.bootcamp::before { content: "Self-Taught Bootcamp"; color: #0e7490; }
 .board {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 920px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  flex: 1 1 auto;
   min-height: 0;
-  padding: 18px 18px 36px;
+  margin: 0;
+  overflow: auto;
+  padding: 16px 16px 28px;
   background:
     linear-gradient(180deg, rgba(255,255,255,.22), transparent 48px),
     repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(14, 116, 144, .06) 28px),
@@ -283,6 +310,18 @@ li { margin: 3px 0; }
   animation: write-in .85s ease var(--d, 0s) forwards;
 }
 .enter-now { opacity: 1; clip-path: none; animation: none; }
+/* One synced note fills the board at full type size. The rest stay off-screen. */
+.board > [data-beat]:not(.live-beat) {
+  display: none !important;
+}
+.board > [data-beat].live-beat {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  opacity: 1 !important;
+  clip-path: none !important;
+  animation: none !important;
+}
 .live-beat {
   box-shadow: 0 0 0 3px #0e7490, 0 10px 28px rgba(14, 116, 144, 0.28);
   border-radius: 10px;
@@ -346,4 +385,6 @@ h1.live-beat {
     fill-opacity: 1 !important;
   }
   article.board { break-before: page; page-break-before: always; }
+  .board > [data-beat] { display: block !important; }
+  .board > table[data-beat] { display: table !important; }
 }

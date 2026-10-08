@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CS Teach Yourself</string>
-    <string name="app_tag">Urdish sketchnotes · Flexbox · MathJax · SVG</string>
-    <string name="welcome">Each lecture is one sketchnote: Flexbox panels, MathJax formulae, and SVG diagrams. Tap listen for a short Urdish explanation. CS terms stay in English.</string>
-    <string name="welcome_ur">Listen دباؤ: ہر sketchnote کے ساتھ Urdish وضاحت سنو — اصطلاحات English میں رہتی ہیں۔</string>
+    <string name="app_name">Self-Taught Bootcamp</string>
+    <string name="app_tag">Replaces the coaching academy · Urdish notes · full-scale sketchnotes</string>
+    <string name="welcome">Each coaching-academy class is now a bootcamp block you run yourself. The sketchnote stays full size on screen. Listen: the note under the voice is Urdish — Urdu explains the idea, CS terms stay in English.</string>
+    <string name="welcome_ur">Coaching class کی جگہ یہ bootcamp ہے۔ Sketchnote full-scale رہے گا۔ آواز Urdish ہے، terms English میں۔</string>
     <string name="grade_meta">%1$d chapters · %2$d lectures · %3$d ★ Golden</string>
-    <string name="chapters_hint">Open a lecture. Sketchnotes write in English; Urdish speaks in step with each panel.</string>
+    <string name="chapters_hint">Open a bootcamp block. The sketchnote stays full size. The Urdish note changes with each panel.</string>
     <string name="chapter_meta">%1$d classroom lectures · %2$d ★ Golden</string>
     <string name="golden_topic">★ Golden · high-yield</string>
     <string name="lecture_note">Classroom lecture</string>

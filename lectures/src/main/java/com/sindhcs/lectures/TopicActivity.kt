@@ -45,8 +45,9 @@ class TopicActivity : AppCompatActivity() {
         board.settings.javaScriptEnabled = true
         board.settings.domStorageEnabled = true
         board.settings.allowFileAccess = true
-        board.settings.loadWithOverviewMode = true
+        board.settings.loadWithOverviewMode = false
         board.settings.useWideViewPort = true
+        board.settings.textZoom = 100
         board.settings.setSupportZoom(false)
         board.settings.builtInZoomControls = false
         board.settings.displayZoomControls = false

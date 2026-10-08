@@ -158,6 +158,8 @@ def beat_kind(tag: str) -> str:
     low = tag.lower()
     if low.startswith("<h1"):
         return "title"
+    if "bootcamp" in low:
+        return "bootcamp"
     if "learn" in low:
         return "learn"
     if "example" in low:
@@ -210,35 +212,60 @@ def finish(line: str) -> str:
     return f"{line}۔" if line else ""
 
 
+def ensure_urdish(line: str, terms: str = "") -> str:
+    """Keep every vocal line mixed: Urdu wording plus at least one English term."""
+    text = re.sub(r"\s+", " ", line).strip()
+    has_urdu = bool(re.search(r"[\u0600-\u06FF]", text))
+    has_english = bool(re.search(r"[A-Za-z]", text))
+    if has_urdu and has_english:
+        return text if text.endswith(("۔", ".", "!", "?")) else text + "۔"
+    if has_urdu:
+        term = terms or "sketchnote"
+        return finish(f"{text.rstrip('۔. ')}، term English میں {term}")
+    if text:
+        return finish(f"مطلب Urdish میں سنو، الفاظ English میں رہتے ہیں: {text.rstrip('. ')}")
+    return "Sketchnote full-scale دیکھو، آواز Urdish ہے۔"
+
+
 def panel_fallback(kind: str, inner: str) -> str:
-    """Short Urdish when the Urdu note has no sentence left for this panel."""
-    local = [term.rstrip(".!? ") for term in bold_terms(inner, 4)]
-    terms = "، ".join(local)
-    point = clip_sentence(inner)
+    """Urdish line: Urdu explains, the CS term stays English. Never English-only or Urdu-only."""
+    local = [term.rstrip(".!? ") for term in bold_terms(inner, 3)]
+    if not local:
+        words = re.findall(r"[A-Za-z][A-Za-z0-9+\-]{2,24}", plain(inner))
+        skip = {"the", "and", "for", "with", "this", "that", "from", "your", "you", "are", "not"}
+        local = []
+        for word in words:
+            if word.lower() in skip or word in local:
+                continue
+            local.append(word)
+            if len(local) == 3:
+                break
+    terms = " ".join(local) or "sketchnote"
     if kind == "diagram":
         cap = plain(" ".join(re.findall(r"<figcaption>(.*?)</figcaption>", inner, flags=re.S)))
-        if cap:
-            return finish(f"Diagram: {cap}")
-        return finish(f"یہ SVG diagram {terms} دکھاتی ہے" if terms else "یہ SVG diagram دیکھو")
+        label = cap or terms
+        return finish(f"یہ SVG diagram دیکھو، label English میں ہے: {label}")
     if kind == "table":
         headers = [plain(x) for x in re.findall(r"<th[^>]*>(.*?)</th>", inner, flags=re.S)]
-        heads = "، ".join(h for h in headers if h)[:110]
-        return finish(f"Table میں {heads} کا فرق دیکھو" if heads else "یہ table فرق دکھاتی ہے")
+        heads = "، ".join(h for h in headers if h)[:90] or terms
+        return finish(f"Table کا فرق Urdish میں سنو، headings English میں: {heads}")
     if kind == "example":
-        return finish(f"Example: {point}" if point else "یہ worked example دیکھو")
+        return finish(f"Example sketchnote پر English میں ہے، میں Urdish میں steps سمجھا رہی ہوں: {terms}")
     if kind == "tip":
-        return finish(f"یاد رکھو: {point}" if point else "یہ نکتہ یاد رکھو")
+        return finish(f"یاد رکھو، یہ نکتہ English sketchnote پر ہے: {terms}")
     if kind == "warn":
-        return finish(f"غلطی سے بچو: {point}" if point else "یہ عام غلطی ہے")
+        return finish(f"عام غلطی سے بچو۔ غلط term English میں لکھا ہے: {terms}")
     if kind == "check":
-        return "اب خود چیک کرو۔"
+        return finish(f"اب خود check کرو، سوال English sketchnote پر ہے: {terms}")
     if kind == "exam":
-        return finish(f"امتحان: {point}" if point else "امتحان میں یہی نکتہ لکھنا ہے")
+        return finish(f"امتحان میں Define, Explain, Example, Diagram لکھنا ہے: {terms}")
     if kind == "code":
-        return "یہ code دیکھو۔"
+        return finish(f"یہ code English میں ہے، logic Urdish میں سنو: {terms}")
     if kind == "flow":
-        return finish(f"Steps: {terms}" if terms else "یہ steps دیکھو")
-    return finish(point or terms or "اگلا نکتہ دیکھو")
+        return finish(f"Steps English sketchnote پر ہیں، ترتیب Urdish میں: {terms}")
+    if kind == "bootcamp":
+        return finish(f"Self-Taught Bootcamp block، coaching class کی جگہ: {terms}")
+    return finish(f"Sketchnote full-scale دیکھو، وضاحت Urdish میں، term English میں: {terms}")
 
 
 def urdish_beat(
@@ -249,24 +276,35 @@ def urdish_beat(
     golden: bool,
     pool: list[str],
 ) -> str:
-    """One short Urdish line for one sketchnote panel. CS terms stay English."""
+    """One Urdish line: Urdu carries the meaning, CS terms stay English."""
     if kind == "title":
-        line = title.rstrip(".") + "."
-        if golden:
-            line += " یہ Golden topic ہے۔"
-        return line
+        star = " یہ Golden topic ہے، coaching class کی پوری block یہی لیتی ہے۔" if golden else ""
+        return (
+            f"Lecture {title}۔ Self-Taught Bootcamp، coaching academy کی جگہ۔"
+            f"{star} نوٹس Urdish میں، اصطلاحات English میں۔"
+        )
+    if kind == "bootcamp":
+        minutes = "90" if golden else "45"
+        return (
+            f"یہ {minutes} minute Self-Taught block ہے، coaching academy class کی جگہ خود پڑھو۔ "
+            f"Sketchnote full-scale screen پر رہے گا۔ آواز Urdish ہے، terms English میں: {title}۔"
+        )
     sentence = take_sentence(pool)
     if sentence:
-        return sentence if sentence.endswith(("۔", ".", "!", "?")) else sentence + "۔"
+        terms = "، ".join(term.rstrip(".!? ") for term in bold_terms(inner, 2))
+        return ensure_urdish(sentence, terms)
     return panel_fallback(kind, inner)
 
 
-def stamp_tag(tag: str, index: int) -> str:
+def stamp_tag(tag: str, index: int, note: str) -> str:
+    note_attr = html_lib.escape(note, quote=True)
     if "data-beat=" not in tag:
         if tag.endswith("/>"):
-            tag = f'{tag[:-2]} data-beat="{index}" />'
+            tag = f'{tag[:-2]} data-beat="{index}" data-note="{note_attr}" />'
         else:
-            tag = f'{tag[:-1]} data-beat="{index}">'
+            tag = f'{tag[:-1]} data-beat="{index}" data-note="{note_attr}">'
+    elif "data-note=" not in tag:
+        tag = tag[:-1] + f' data-note="{note_attr}">' if tag.endswith(">") else tag
     if 'class="' in tag:
         if "panel" not in tag.split('class="', 1)[1].split('"', 1)[0]:
             tag = tag.replace('class="', 'class="panel ', 1)
@@ -291,11 +329,11 @@ def stamp_beats(
     last = 0
     for i, match in enumerate(matches):
         chunks.append(article[last:match.start()])
-        chunks.append(stamp_tag(match.group(0), i))
         last = match.end()
         nxt = matches[i + 1].start() if i + 1 < len(matches) else len(article)
         inner = article[match.end():nxt]
         line = urdish_beat(beat_kind(match.group(0)), inner, title, chapter, golden, pool)
+        chunks.append(stamp_tag(match.group(0), i, line))
         if line:
             lines.append(line)
     chunks.append(article[last:])
@@ -333,12 +371,29 @@ def fallback_diagram(title: str, terms: list[str]) -> str:
     return f'<figure class="diagram">{svg}<figcaption>{caption}</figcaption></figure>'
 
 
+def bootcamp_box(item: dict, total_sessions: int) -> str:
+    """Student card for the block that used to be a coaching-academy class."""
+    minutes = 90 if item["golden"] or item["share"] == "full" else 45
+    star = ' <span class="star">★ Golden</span>' if item["golden"] else ""
+    partner = item.get("partner") or ""
+    if item["share"] == "first-half" and partner:
+        when = f"first {minutes} min of block {item['session']} · then {html_lib.escape(partner)}"
+    elif item["share"] == "second-half" and partner:
+        when = f"second half of block {item['session']} · after {html_lib.escape(partner)}"
+    else:
+        when = f"{minutes} min block {item['session']} of {total_sessions}"
+    return f"""<div class="box bootcamp">
+      <p><b>Self-Taught Bootcamp</b>{star} · {when}. This block replaces the coaching-academy class.</p>
+      <p>You: keep the sketchnote full size, listen to the Urdish note, then do the check with the book closed.</p>
+    </div>"""
+
+
 def board_html(title: str, chapter: str, golden: bool, article_inner: str) -> str:
     star = '<span class="chip gold">★ Golden</span>' if golden else ""
     return f"""<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>{html_lib.escape(title)}</title>
 <link rel="stylesheet" href="../../whiteboard.css">
 <script>
@@ -349,7 +404,7 @@ window.MathJax = {{
     processEscapes: true,
     processEnvironments: true
   }},
-  svg: {{ fontCache: 'global', displayAlign: 'left', scale: 0.95 }},
+  svg: {{ fontCache: 'global', displayAlign: 'left', scale: 1 }},
   options: {{
     skipHtmlTags: ['script','noscript','style','textarea','pre','code','svg'],
     ignoreHtmlClass: 'diagram'
@@ -361,10 +416,14 @@ window.MathJax = {{
 </head>
 <body>
 <div class="cinema">
+  <div class="note-bar">
+    <p class="note-label">Urdish note</p>
+    <p id="urdishNote" class="note-urdish" dir="rtl"></p>
+  </div>
 <article class="board sketchnote">
   <div class="lamp"></div>
   <div class="rail">
-    <span class="chip live">Live classroom</span>
+    <span class="chip live">Self-Taught Bootcamp</span>
     <span class="chip">{html_lib.escape(chapter)}</span>
     {star}
   </div>
@@ -380,10 +439,14 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
     rows = []
     ch_dir = WB_OUT / grade / str(ch_num)
     ch_dir.mkdir(parents=True, exist_ok=True)
-    for i, block in enumerate(b.extract_class_divs(fragment, "topic"), 1):
+    topics = list(b.extract_class_divs(fragment, "topic"))
+    items = b.assign_academy_sessions(topics) if topics else []
+    total_sessions = items[-1]["session"] if items else 0
+    for i, item in enumerate(items, 1):
+        block = item["block"]
         raw = b.topic_title(block)
         title = re.sub(r"\s*★.*", "", raw).strip()
-        golden = b.topic_is_golden(raw, block)
+        golden = bool(item["golden"])
         learn_html = "".join(box_inners(block, "learn"))
         learn = plain(learn_html)
         urdu = b.topic_urdu(block)
@@ -393,7 +456,11 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
         terms = bold_terms(learn_html)
         chapter_label = f"{grade.upper()} · Chapter {ch_num} · {ch_title}"
         rel = f"whiteboards/{grade}/{ch_num}/{i:02d}.html"
-        article = f"<h1>{html_lib.escape(title)}</h1>\n{english_stage(block)}"
+        article = (
+            f"<h1>{html_lib.escape(title)}</h1>\n"
+            f"{bootcamp_box(item, total_sessions)}\n"
+            f"{english_stage(block)}"
+        )
         if "<svg" not in article.lower():
             article += "\n" + fallback_diagram(title, terms)
         stamped, beats = stamp_beats(article, title, ch_title, golden, urdu)

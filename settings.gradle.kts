@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TeachYourselfCS"
+rootProject.name = "SelfTaughtBootcamp"
 include(":lectures")

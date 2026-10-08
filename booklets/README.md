@@ -10,7 +10,7 @@ Plain file URLs (save the file, no GitHub preview page):
 - Ultimate XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
-- Android APK (CS Teach Yourself, Urdish sketchnotes): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
+- Android APK (Self-Taught Bootcamp): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Self-Taught-Bootcamp.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -105,11 +105,11 @@ Official Study Guide for students and teachers: imprint, bootcamp planner, chapt
 python3 booklets/build.py complete
 ```
 
-## Android app — CS Teach Yourself
+## Android app — Self-Taught Bootcamp
 
-Each of 204 lectures is one sketchnote. Panels use **Flexbox**, formulae are **MathJax**, diagrams are **inline SVG**. Tap listen: a short **Urdish** line explains that panel. CS terms stay in **English**. Package `com.sindhcs.teachyourself`. Install Google Urdu TTS if prompted.
+Replaces the coaching-academy class. Each of 204 blocks keeps the sketchnote **full size** on screen (Flexbox, MathJax, SVG). Listen: the **dynamic note** is Urdish — Urdu explains the idea, CS terms stay in English. Package `com.sindhcs.selftaughtbootcamp`. Install Google Urdu TTS if prompted.
 
-- [CS Teach Yourself APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
+- [Self-Taught Bootcamp APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Self-Taught-Bootcamp.apk)
 
 ```bash
 python3 scripts/export_lecture_catalog.py

@@ -11,8 +11,8 @@ These `raw.githubusercontent.com` links return the file itself (`Content-Type: a
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
 
-**Android APK — CS Teach Yourself** — one sketchnote per lecture. Panels use **Flexbox**, formulae are **MathJax**, diagrams are **inline SVG**. Tap listen: a short **Urdish** line explains that panel. CS terms stay in **English**.
-- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
+**Android APK — Self-Taught Bootcamp** — replaces the coaching-academy class. Each block keeps its sketchnote **full size** on screen (Flexbox, MathJax, SVG). Listen: a **dynamic Urdish note** (Urdu explains, CS terms stay English) updates with that panel.
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Self-Taught-Bootcamp.apk
 
 **Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers (XI 302 pages, XII 315 pages). Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf

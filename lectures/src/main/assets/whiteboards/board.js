@@ -50,53 +50,47 @@
     draw(svg, 0.7 + i * 0.35);
   });
 
-  function fitBoard() {
-    var cinema = document.querySelector(".cinema");
-    var board = document.querySelector(".board");
-    if (!cinema || !board) return;
-    cinema.style.transform = "none";
-    var pad = 16;
-    var scaleW = (window.innerWidth - pad) / Math.max(board.scrollWidth, 1);
-    var scaleH = (window.innerHeight - pad) / Math.max(board.scrollHeight + 40, 1);
-    var scale = Math.min(scaleW, scaleH, 1);
-    cinema.style.transformOrigin = "top center";
-    cinema.style.transform = "scale(" + scale + ")";
+  function typeset(el) {
+    if (!window.MathJax || !MathJax.typesetPromise || !el) return;
+    MathJax.typesetClear && MathJax.typesetClear([el]);
+    MathJax.typesetPromise([el]).catch(function () {});
   }
-
-  if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
-    MathJax.startup.promise.then(function () {
-      document.querySelectorAll("mjx-container").forEach(function (el, i) {
-        el.classList.add("enter");
-        el.style.setProperty("--d", (0.12 * i) + "s");
-      });
-      fitBoard();
-    });
-  }
-  window.addEventListener("resize", fitBoard);
-  setTimeout(fitBoard, 80);
-  setTimeout(fitBoard, 600);
 
   window.LectureBoard = {
     showBeat: function (index) {
       var nodes = document.querySelectorAll("[data-beat]");
+      var current = null;
       nodes.forEach(function (el) {
         var n = parseInt(el.getAttribute("data-beat"), 10);
         var on = n === index;
         el.classList.toggle("live-beat", on);
         if (!on) return;
-        el.classList.remove("enter");
-        void el.offsetWidth;
-        el.classList.add("enter");
-        el.style.setProperty("--d", "0s");
-        var svg = el.tagName === "FIGURE" ? el.querySelector("svg") : null;
-        if (svg) draw(svg, 0.12);
+        current = el;
+        el.classList.add("enter-now");
+        var svg = el.querySelector("svg");
+        if (svg) draw(svg, 0.05);
       });
-      fitBoard();
+      var note = document.getElementById("urdishNote");
+      if (note) {
+        var raw = current ? (current.getAttribute("data-note") || "") : "";
+        var safe = raw.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+        note.innerHTML = safe.replace(/[A-Za-z0-9][A-Za-z0-9 .:+#\/-]*/g, function (word) {
+          return '<bdi dir="ltr">' + word + "</bdi>";
+        });
+      }
+      var board = document.querySelector(".board");
+      if (board) board.scrollTop = 0;
+      typeset(current);
     },
     clearLive: function () {
-      document.querySelectorAll(".live-beat").forEach(function (el) {
-        el.classList.remove("live-beat");
-      });
+      /* Keep the last note on screen at full size after the voice stops. */
     }
   };
+
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+    MathJax.startup.promise.then(function () {
+      window.LectureBoard.showBeat(0);
+    });
+  }
+  window.LectureBoard.showBeat(0);
 })();
