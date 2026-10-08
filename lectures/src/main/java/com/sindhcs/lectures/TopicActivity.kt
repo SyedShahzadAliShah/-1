@@ -15,7 +15,7 @@ class TopicActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTopicBinding
     private var narrator: UrduNarrator? = null
     private var speaking = false
-    private var spoken = ""
+    private var beats: List<String> = emptyList()
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,9 @@ class TopicActivity : AppCompatActivity() {
         val topic = LectureRepository.topic(this, gradeId, chNum, topicId) ?: return finish()
 
         title = getString(R.string.lecture)
-        spoken = topic.spokenUrdu
+        beats = topic.beats.ifEmpty {
+            listOf(topic.spokenUrdu).filter { it.isNotBlank() }
+        }
 
         val board = binding.board
         board.setBackgroundColor(0xFF07090D.toInt())
@@ -59,23 +61,36 @@ class TopicActivity : AppCompatActivity() {
             onSpeakingChanged = { on ->
                 speaking = on
                 binding.listenButton.text = getString(if (on) R.string.stop_lecture else R.string.listen_urdu)
+                if (!on) highlightBeat(-1)
             },
+            onBeat = { highlightBeat(it) },
             onLanguageIssue = { msg -> Toast.makeText(this, msg, Toast.LENGTH_LONG).show() }
         )
 
         binding.listenButton.setOnClickListener {
             if (speaking) {
                 narrator?.stop()
+                highlightBeat(-1)
             } else {
-                val ok = narrator?.speak(spoken) == true
+                val ok = narrator?.speakBeats(beats) == true
                 if (!ok) UrduNarrator.openTtsSettings(this)
             }
         }
         binding.ttsHelp.setOnClickListener { UrduNarrator.openTtsSettings(this) }
     }
 
+    private fun highlightBeat(index: Int) {
+        val js = if (index < 0) {
+            "window.LectureBoard&&LectureBoard.clearLive()"
+        } else {
+            "window.LectureBoard&&LectureBoard.showBeat($index)"
+        }
+        binding.board.evaluateJavascript(js, null)
+    }
+
     override fun onPause() {
         narrator?.stop()
+        highlightBeat(-1)
         binding.board.onPause()
         super.onPause()
     }

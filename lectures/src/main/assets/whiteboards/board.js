@@ -75,4 +75,28 @@
   window.addEventListener("resize", fitBoard);
   setTimeout(fitBoard, 80);
   setTimeout(fitBoard, 600);
+
+  window.LectureBoard = {
+    showBeat: function (index) {
+      var nodes = document.querySelectorAll("[data-beat]");
+      nodes.forEach(function (el) {
+        var n = parseInt(el.getAttribute("data-beat"), 10);
+        var on = n === index;
+        el.classList.toggle("live-beat", on);
+        if (!on) return;
+        el.classList.remove("enter");
+        void el.offsetWidth;
+        el.classList.add("enter");
+        el.style.setProperty("--d", "0s");
+        var svg = el.tagName === "FIGURE" ? el.querySelector("svg") : null;
+        if (svg) draw(svg, 0.12);
+      });
+      fitBoard();
+    },
+    clearLive: function () {
+      document.querySelectorAll(".live-beat").forEach(function (el) {
+        el.classList.remove("live-beat");
+      });
+    }
+  };
 })();

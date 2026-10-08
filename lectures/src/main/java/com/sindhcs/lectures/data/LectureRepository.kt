@@ -29,6 +29,13 @@ object LectureRepository {
                             terms.add(termsArr.getString(i))
                         }
                     }
+                    val beatArr = to.optJSONArray("beats")
+                    val beats = mutableListOf<String>()
+                    if (beatArr != null) {
+                        for (i in 0 until beatArr.length()) {
+                            beats.add(beatArr.getString(i))
+                        }
+                    }
                     tOut.add(
                         Topic(
                             id = to.getString("id"),
@@ -37,6 +44,7 @@ object LectureRepository {
                             learn = to.optString("learn"),
                             urdu = to.optString("urdu"),
                             spokenUrdu = to.optString("spokenUrdu"),
+                            beats = beats,
                             readSeconds = to.optInt("readSeconds"),
                             terms = terms,
                             board = to.optString("board")

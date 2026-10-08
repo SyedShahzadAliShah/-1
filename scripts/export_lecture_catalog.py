@@ -127,10 +127,10 @@ def spoken_urdu(
     terms: list[str],
     extra_on_board: bool,
 ) -> str:
-    """Urdu teacher voice. Critical CS terms stay English. Does not re-read the board."""
+    """Fallback single-block Urdish if a topic has no sketchnote beats."""
     bits = [
         "طلبہ، السلام علیکم۔",
-        "اس lecture کی وضاحت اردو میں ہے، مگر اہم اصطلاحات انگریزی میں رہیں گی۔",
+        "Sketchnote lecture Urdish میں سمجھا رہی ہوں، اصطلاحات English میں رہیں گی۔",
         f"موضوع: {title}۔ باب: {chapter}۔",
     ]
     if golden:
@@ -139,16 +139,135 @@ def spoken_urdu(
     if mixed:
         bits.append(mixed.rstrip("۔") + "۔")
     if terms:
-        bits.append("بورڈ پر یہ اصطلاحات انگریزی میں لکھی ہیں: " + "، ".join(terms) + "۔")
+        bits.append("Sketchnote پر یہ اصطلاحات English میں ہیں: " + "، ".join(terms) + "۔")
     if extra_on_board:
-        bits.append(
-            "یاد رکھو، عام غلطی اور exam note بورڈ پر انگریزی میں موجود ہیں۔ میں بورڈ کی انگریزی دوبارہ نہیں پڑھتی۔"
-        )
-    bits.append("تعریف، مثال اور diagram بورڈ پر دیکھو۔ اللہ حافظ۔")
+        bits.append("Remember-it اور common-mistake sketchnotes بورڈ پر English میں ہیں۔ میں English دوبارہ نہیں پڑھتی۔")
+    bits.append("Sketchnote کے ساتھ سنو۔ اللہ حافظ۔")
     return " ".join(bits)
 
 
-def board_html(title: str, chapter: str, golden: bool, stage: str) -> str:
+BEAT_TAG = re.compile(
+    r"<h1\b[^>]*>|<h3\b[^>]*>|<table\b[^>]*>|<pre\b[^>]*>|"
+    r"<figure\b[^>]*class=\"[^\"]*\bdiagram\b[^\"]*\"[^>]*>|"
+    r"<div\b[^>]*class=\"[^\"]*\b(?:box|flow|two-col)\b[^\"]*\"[^>]*>",
+    re.I,
+)
+
+
+def beat_kind(tag: str) -> str:
+    low = tag.lower()
+    if low.startswith("<h1"):
+        return "title"
+    if "learn" in low:
+        return "learn"
+    if "example" in low:
+        return "example"
+    if "tip" in low:
+        return "tip"
+    if "warn" in low:
+        return "warn"
+    if "check" in low:
+        return "check"
+    if "exam" in low:
+        return "exam"
+    if "diagram" in low:
+        return "diagram"
+    if low.startswith("<table"):
+        return "table"
+    if low.startswith("<pre"):
+        return "code"
+    if "flow" in low:
+        return "flow"
+    return "note"
+
+
+def urdish_beat(
+    kind: str,
+    inner: str,
+    title: str,
+    chapter: str,
+    golden: bool,
+    urdu: str,
+) -> str:
+    """One Urdish line locked to one sketchnote panel. English terms stay English."""
+    local = bold_terms(inner, 5)
+    if kind == "title":
+        bits = [
+            "طلبہ، السلام علیکم۔",
+            "Sketchnote lecture Urdish میں سمجھا رہی ہوں، اصطلاحات English میں رہیں گی۔",
+            f"موضوع: {title}۔ باب: {chapter}۔",
+        ]
+        if golden:
+            bits.append("یہ Golden topic ہے۔")
+        return " ".join(bits)
+    if kind == "learn":
+        expl = keep_english_terms(urdu) if urdu else ""
+        if expl:
+            return "Learn-it sketchnote بورڈ پر آ رہی ہے۔ " + expl.rstrip("۔") + "۔"
+        return "Learn-it sketchnote بورڈ پر English میں لکھی ہے۔"
+    if kind == "diagram":
+        cap = plain(" ".join(re.findall(r"<figcaption>(.*?)</figcaption>", inner, flags=re.S)))
+        extra = f" {cap}" if cap else ""
+        terms = f" اصطلاحات: {', '.join(local)}۔" if local else ""
+        return f"Diagram sketchnote draw ہو رہی ہے۔{extra}{terms}"
+    if kind == "table":
+        headers = [plain(x) for x in re.findall(r"<th[^>]*>(.*?)</th>", inner, flags=re.S)]
+        heads = "، ".join(h for h in headers if h)[:120]
+        return f"Table sketchnote دیکھو: {heads}۔" if heads else "Table sketchnote بورڈ پر ہے۔"
+    if kind == "example":
+        terms = f" Steps: {', '.join(local)}۔" if local else ""
+        return f"Worked-example sketchnote بورڈ پر English میں ہے۔{terms}"
+    if kind == "tip":
+        terms = f" {', '.join(local)} English میں circled کرو۔" if local else ""
+        return f"Remember-it sketchnote دیکھو۔{terms} میں English دوبارہ نہیں پڑھتی۔"
+    if kind == "warn":
+        return "Common-mistake sketchnote — غلط فہمی بورڈ پر English میں لکھی ہے۔"
+    if kind == "check":
+        return "Check-yourself sketchnote — سوالات English میں بورڈ پر ہیں۔ جواب سوچو۔"
+    if kind == "exam":
+        return "Exam sketchnote بورڈ پر English میں ہے۔"
+    if kind == "code":
+        return "Code sketchnote بورڈ پر English میں لکھا ہے۔"
+    if kind == "flow":
+        return "Flow sketchnote دیکھو — steps بورڈ پر English میں ہیں۔"
+    terms = f" {', '.join(local)}۔" if local else ""
+    return f"Sketchnote بورڈ پر آ رہی ہے۔{terms}"
+
+
+def stamp_beats(
+    article: str,
+    title: str,
+    chapter: str,
+    golden: bool,
+    urdu: str,
+) -> tuple[str, list[str]]:
+    matches = list(BEAT_TAG.finditer(article))
+    if not matches:
+        return article, []
+    chunks: list[str] = []
+    lines: list[str] = []
+    last = 0
+    for i, match in enumerate(matches):
+        chunks.append(article[last:match.start()])
+        tag = match.group(0)
+        if "data-beat=" in tag:
+            stamped = tag
+        elif tag.endswith("/>"):
+            stamped = f'{tag[:-2]} data-beat="{i}" />'
+        else:
+            stamped = f'{tag[:-1]} data-beat="{i}">'
+        chunks.append(stamped)
+        last = match.end()
+        nxt = matches[i + 1].start() if i + 1 < len(matches) else len(article)
+        inner = article[match.end():nxt]
+        line = urdish_beat(beat_kind(tag), inner, title, chapter, golden, urdu)
+        if line:
+            lines.append(line)
+    chunks.append(article[last:])
+    return "".join(chunks), lines
+
+
+def board_html(title: str, chapter: str, golden: bool, article_inner: str) -> str:
     star = '<span class="chip gold">★ Golden</span>' if golden else ""
     return f"""<!DOCTYPE html>
 <html lang="en"><head>
@@ -183,8 +302,7 @@ window.MathJax = {{
     <span class="chip">{html_lib.escape(chapter)}</span>
     {star}
   </div>
-  <h1>{html_lib.escape(title)}</h1>
-  {stage}
+  {article_inner}
 </article>
 </div>
 <script src="../../board.js" defer></script>
@@ -209,17 +327,14 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
         terms = bold_terms(learn_html)
         chapter_label = f"{grade.upper()} · Chapter {ch_num} · {ch_title}"
         rel = f"whiteboards/{grade}/{ch_num}/{i:02d}.html"
+        article = f"<h1>{html_lib.escape(title)}</h1>\n{english_stage(block)}"
+        stamped, beats = stamp_beats(article, title, ch_title, golden, urdu)
+        if not beats:
+            beats = [spoken_urdu(title, ch_title, golden, urdu, terms, bool(tip or warn or exam))]
+        spoken = " ".join(beats)
         (ch_dir / f"{i:02d}.html").write_text(
-            board_html(title, chapter_label, golden, english_stage(block)),
+            board_html(title, chapter_label, golden, stamped),
             encoding="utf-8",
-        )
-        spoken = spoken_urdu(
-            title,
-            ch_title,
-            golden,
-            urdu,
-            terms,
-            extra_on_board=bool(tip or warn or exam),
         )
         rows.append({
             "id": f"{grade}-{ch_num}-{i}",
@@ -228,6 +343,7 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             "learn": learn[:2500],
             "urdu": urdu,
             "spokenUrdu": spoken,
+            "beats": beats,
             "readSeconds": int(round(spoken_seconds(spoken))),
             "terms": terms,
             "board": rel,

@@ -24,8 +24,9 @@ data class Topic(
     val golden: Boolean,
     val learn: String,
     val urdu: String,
-    val spokenUrdu: String, // Urdu explanation; critical CS terms stay English
-    val readSeconds: Int, // estimated Urdu TTS time
+    val spokenUrdu: String, // Urdish explanation; critical CS terms stay English
+    val beats: List<String>, // one Urdish line per sketchnote panel
+    val readSeconds: Int,
     val terms: List<String>,
     val board: String
 )
