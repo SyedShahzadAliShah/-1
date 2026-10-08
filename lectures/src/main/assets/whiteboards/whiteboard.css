@@ -369,9 +369,4 @@ li { margin: 3px 0; }
   font-weight: 800;
   color: #0f766e;
 }
-.eng-board {
-  margin-top: 22px;
-  padding-top: 8px;
-  border-top: 3px dashed #94a3b8;
-}
 .box.urdu::before { content: "Urdish میں سمجھو"; }

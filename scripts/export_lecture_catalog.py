@@ -51,7 +51,7 @@ PAREN_TERM = re.compile(
     rf"(?<![\u0621-\u06D3])(?:(?!{AR_CONNECTOR}\s){AR_WORD}\s+){{0,3}}{AR_WORD}\s*\(\s*([A-Za-z0-9][^)]{{0,48}})\)"
 )
 URDISH_GLUE = (
-    "دیکھو، English board پہ لکھا ہے:",
+    "دیکھو، sketchnote پہ لکھا ہے:",
     "Matlab یہ ہوا کہ",
     "اگلی بات یہ ہے:",
     "Example سے سمجھو:",
@@ -277,7 +277,7 @@ def spoken_urdish(
         bits.append("Exam میں یہ terms English میں ہی لکھو: " + ", ".join(terms) + "۔")
         bits.append("ان کا مکمل Urdu ترجمہ examiner نہیں مانگتا۔")
     if exam:
-        bits.append("Board پہ سوال English میں یوں آتا ہے: " + exam.rstrip("۔.") + ".")
+        bits.append("Board پہ سوال یوں آتا ہے: " + exam.rstrip("۔.") + ".")
     bits.append(
         "Answer میں Definition، Explain، Example، Diagram اور Working لکھنا۔ اللہ حافظ۔"
     )
@@ -328,7 +328,7 @@ def sketchnote_html(
         extra_warns = "".join(sketch_card("warn", f"Common mistake {i+1}", x) for i, x in enumerate(warns[1:]))
         cards.append(f'<div class="sk-split">{t}{w}</div>{extra_tips}{extra_warns}')
     for html in exams:
-        cards.append(sketch_card("exam", "Board exam · English wording", html))
+        cards.append(sketch_card("exam", "Board exam", html))
     for html in checks:
         cards.append(sketch_card("check", "Check yourself", html))
     sketch = f"""
@@ -362,7 +362,7 @@ def topic_inner(block: str) -> str:
     return b.texify_math(inner.strip())
 
 
-def board_html(title: str, chapter: str, golden: bool, sketch: str, body: str) -> str:
+def board_html(title: str, chapter: str, golden: bool, sketch: str) -> str:
     star = '<span class="chip gold">★ Golden</span>' if golden else ""
     return f"""<!DOCTYPE html>
 <html lang="en"><head>
@@ -397,8 +397,6 @@ window.MathJax = {{
   </div>
   <h1>{html_lib.escape(title)}</h1>
   {sketch}
-  <h2 class="eng-board">English board · exam wording</h2>
-  {body}
 </article>
 </body></html>
 """
@@ -427,7 +425,7 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
         sketch = sketchnote_html(title, chapter_label, golden, block, urdu, terms)
         rel = f"whiteboards/{grade}/{ch_num}/{i:02d}.html"
         (ch_dir / f"{i:02d}.html").write_text(
-            board_html(title, chapter_label, golden, sketch, topic_inner(block)),
+            board_html(title, chapter_label, golden, sketch),
             encoding="utf-8",
         )
         rows.append({
