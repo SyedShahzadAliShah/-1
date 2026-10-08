@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Teach Yourself Sketchnotes</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+      svg: { fontCache: "local" },
+      options: { enableMenu: false }
+    };
+  </script>
+  <script src="vendor/mathjax/es5/tex-svg.js"></script>
+  <link rel="stylesheet" href="css/sketchnotes.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">✎</div>
+        <div>
+          <h1>Teach Yourself Sketchnotes</h1>
+          <p>Urdish TTS · MathJax · SVG · Flexbox</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="chip" id="btn-home">Home</button>
+        <button class="speak-btn" id="btn-speak">Urdish TTS</button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section id="view-home">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="kicker">Ultimate teaching APK</p>
+            <h2>See it. Hear it in Urdish. Draw it.</h2>
+            <p>Sketchnotes for Computer Science XI &amp; XII (Sindh). Every lesson is a visual note: Flexbox cards, SVG diagrams, MathJax formulas, and a voice that switches English ⇄ Urdu mid-sentence.</p>
+            <p class="ur">سکیچ نوٹس سے خود سیکھیں: تصویر، فارمولا، اور اردش آواز۔</p>
+            <div class="badge-row">
+              <span class="badge">Flexbox layout</span>
+              <span class="badge">Offline MathJax</span>
+              <span class="badge">SVG diagrams</span>
+              <span class="badge">Urdish TTS</span>
+            </div>
+          </div>
+          <div class="hero-note">
+            <p class="kicker">How a sketchnote thinks</p>
+            <p><b>Box</b> = one idea &nbsp; <b>Arrow</b> = flow &nbsp; <b>Star</b> = golden exam topic</p>
+            <div class="formula-strip">\[ rows = 2^{n} \qquad Y = A \cdot B \qquad O(n\log n) \]</div>
+            <p class="meta">Start with the Studio, then walk Class XI and XII chapter by chapter.</p>
+          </div>
+        </div>
+        <div class="track-grid" id="track-grid"></div>
+      </section>
+
+      <section id="view-chapters" class="hidden">
+        <button class="back-link" id="back-home">← All tracks</button>
+        <p class="kicker" id="chapter-kicker">Curriculum</p>
+        <h2 id="chapter-title">Chapters</h2>
+        <p class="ur" id="chapter-ur"></p>
+        <p class="meta" id="chapter-sub"></p>
+        <div class="chapter-grid" id="chapter-grid"></div>
+      </section>
+
+      <section id="view-lesson" class="hidden">
+        <div class="lesson">
+          <aside class="topic-rail" id="topic-rail"></aside>
+          <article class="canvas">
+            <button class="back-link" id="back-chapters">← Chapters</button>
+            <p class="kicker" id="lesson-kicker"></p>
+            <h2 id="lesson-title"></h2>
+            <div class="badge-row">
+              <button class="chip" id="btn-prev">Prev</button>
+              <button class="chip" id="btn-next">Next</button>
+              <button class="chip" id="btn-answers">Show answers</button>
+            </div>
+            <div class="lesson-body" id="lesson-body"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="tts-bar">
+    <div class="now" id="tts-now">Voice idle — tap Urdish TTS</div>
+    <div class="badge-row">
+      <button class="speak-btn" id="btn-speak-bar">Urdish TTS</button>
+      <button class="chip" id="btn-stop">Stop</button>
+    </div>
+  </div>
+
+  <script src="js/urdish.js"></script>
+  <script src="js/enhance-math.js"></script>
+  <script src="js/tts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<section class="chapter" id="studio-method" data-num="0" data-title="Teach Yourself Sketchnotes">
+  <div class="ch-opener">
+    <div class="num">Studio</div>
+    <h1>Teach Yourself Sketchnotes</h1>
+    <p>A sketchnote is a page that thinks in pictures. You mix a few words, a diagram, an arrow and a formula so your brain stores the idea twice — once as language, once as shape. This studio is the method. Computer Science XI and XII are the practice.</p>
+    <p class="ur">سکیچ نوٹ وہ صفحہ ہے جو تصویر میں سوچتا ہے۔ چند الفاظ، ایک خاکہ، ایک تیر اور ایک فارمولا — دماغ خیال کو دو بار محفوظ کرتا ہے۔</p>
+  </div>
+  <ul class="objectives">
+    <li>Use containers, connectors and stars as a visual vocabulary.</li>
+    <li>Lay notes with Flexbox: row, column, wrap and grow.</li>
+    <li>Hear Urdish — English terms inside Urdu explanation.</li>
+    <li>Keep formulas as MathJax, not as screenshots.</li>
+    <li>Zoom SVG diagrams without blur.</li>
+    <li>Study golden topics with the 1-3-7 day loop.</li>
+  </ul>
+
+  <div class="topic">
+    <h2>Visual vocabulary <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Every page in this APK is a sketchnote. Four marks do almost all the work:</p>
+      <ul>
+        <li><b>Container</b> — a sticky box that holds one idea.</li>
+        <li><b>Connector</b> — an arrow that shows sequence or cause.</li>
+        <li><b>Icon</b> — a tiny picture (gate, stack, phone, person).</li>
+        <li><b>Emphasis</b> — a star, underline or highlight for exam gold.</li>
+      </ul>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg" font-family="Patrick Hand, Segoe UI, sans-serif" font-size="16">
+        <rect x="16" y="30" width="140" height="90" rx="14" fill="#fff4c2" stroke="#1d2a44" stroke-width="3"/>
+        <text x="86" y="82" text-anchor="middle">BOX</text>
+        <path d="M170 75 H230" stroke="#e8590c" stroke-width="4" marker-end="url(#arrow)"/>
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#e8590c"/>
+          </marker>
+        </defs>
+        <polygon points="250,40 310,75 250,110" fill="#d7f0ea" stroke="#1d2a44" stroke-width="3"/>
+        <text x="268" y="80">icon</text>
+        <path d="M330 75 H390" stroke="#e8590c" stroke-width="4" marker-end="url(#arrow)"/>
+        <circle cx="470" cy="75" r="48" fill="#fde2e4" stroke="#1d2a44" stroke-width="3"/>
+        <text x="470" y="70" text-anchor="middle">★</text>
+        <text x="470" y="92" text-anchor="middle">golden</text>
+        <text x="320" y="175" text-anchor="middle">Idea → picture → exam mark</text>
+      </svg>
+      <figcaption>The four marks of a CS sketchnote. Copy this strip at the top of every paper revision page.</figcaption>
+    </figure>
+    <div class="box urdu"><p class="ur">خانہ خیال کو باندھتا ہے، تیر بہاؤ دکھاتا ہے، آئیکن یاد دلاتا ہے، ستارہ بورڈ کے گولڈن ٹاپک کو چنتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What does a connector show?</p>
+      <p><b>2.</b> When do you draw a star?</p>
+      <div class="ans">Answers: 1. Sequence or cause (flow). 2. On high-yield / golden exam topics.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>Flexbox is how the page thinks <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>This whole teaching APK is laid out with <b>CSS Flexbox</b>. Think of your desk: notes sit in a <b>row</b> until they run out of space, then they <b>wrap</b> to the next line. A wide idea can <b>grow</b>. A sidebar can stay a column while the canvas stays a row.</p>
+      <p>Four words to draw in the margin:</p>
+      <ul>
+        <li><code>flex-direction: row | column</code> — the main axis.</li>
+        <li><code>flex-wrap: wrap</code> — sticky notes overflow onto the next line.</li>
+        <li><code>gap</code> — breathing space between cards.</li>
+        <li><code>flex: 1 1 240px</code> — grow, shrink, basis.</li>
+      </ul>
+    </div>
+    <div class="badge-row">
+      <button class="chip" id="flex-row" type="button">Row (desk)</button>
+      <button class="chip" id="flex-col" type="button">Column (scroll)</button>
+    </div>
+    <div class="flex-demo" id="flex-playground">
+      <div class="flex-box">Learn</div>
+      <div class="flex-box">Example</div>
+      <div class="flex-box grow">Urdu recap grows</div>
+      <div class="flex-box">Check</div>
+    </div>
+    <div class="formula-strip">\[ \text{main axis} \rightarrow \quad \text{cross axis} \downarrow \]</div>
+    <div class="box example">
+      <p>A chapter opener is a <b>column</b> (title, then objectives). A comparison table lives in a <b>row</b> of two cards. Golden topics wrap on a phone because <code>flex-wrap</code> is on.</p>
+    </div>
+    <div class="box urdu"><p class="ur">فلیکس باکس صفحے کی سوچ ہے: قطار، کالم، لپیٹنا اور بڑھنا۔ یہی لے آؤٹ اس تدریسی ایپ کا انجن ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which property lets cards jump to the next line on a phone?</p>
+      <p><b>2.</b> What does <code>flex: 1 1 240px</code> mean in sketchnote language?</p>
+      <div class="ans">Answers: 1. flex-wrap. 2. Grow if there is space, shrink if needed, prefer about 240px as the starting width.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>Urdish voice</h2>
+    <div class="box learn">
+      <p><b>Urdish</b> is how a bilingual CS teacher actually talks: English for the term, Urdu for the meaning, in one breath.</p>
+      <p>Example spoken line:</p>
+      <p><i>Boolean algebra یعنی بولین الجبرا deals only with TRUE and FALSE یعنی درست اور غلط.</i></p>
+      <p>The APK splits that sentence by script. Latin letters go to an English voice. Nastaliq letters go to an Urdu voice. You hear one teacher, two engines.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg" font-size="15">
+        <rect x="20" y="30" width="180" height="70" rx="12" fill="#e4ecff" stroke="#1d2a44" stroke-width="2"/>
+        <text x="110" y="72" text-anchor="middle">Boolean algebra</text>
+        <text x="230" y="72">→ ur</text>
+        <rect x="280" y="30" width="150" height="70" rx="12" fill="#edf9f0" stroke="#1d2a44" stroke-width="2"/>
+        <text x="355" y="72" text-anchor="middle" font-family="Noto Naskh Arabic, serif">یعنی</text>
+        <text x="455" y="72">→ en</text>
+        <rect x="490" y="30" width="130" height="70" rx="12" fill="#e4ecff" stroke="#1d2a44" stroke-width="2"/>
+        <text x="555" y="72" text-anchor="middle">TRUE</text>
+      </svg>
+      <figcaption>Urdish TTS pipeline: segment by script, speak, swap voice, continue.</figcaption>
+    </figure>
+    <div class="box urdu"><p class="ur">اردش آواز انگریزی اصطلاح اور اردو وضاحت کو ایک لیکچر میں جوڑتی ہے۔ رسم الخط بدلتے ہی زبان بدل جاتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What triggers a voice-language switch?</p>
+      <div class="ans">Answers: 1. A change of writing script (Latin vs Arabic/Nastaliq).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>MathJax formulas</h2>
+    <div class="box learn">
+      <p>Never photograph a formula. Typeset it. MathJax keeps the algebra selectable, zoomable and identical to the board-exam notation.</p>
+    </div>
+    <div class="formula-strip">
+      \[
+        Y = A \cdot B, \quad
+        Y = A + B, \quad
+        Y = A', \quad
+        \text{rows} = 2^{n}, \quad
+        O(n^{2})
+      \]
+    </div>
+    <div class="box example">
+      <p>AND is 1 only when every input is 1:</p>
+      \[ Y = A \cdot B \cdot C = 1 \iff A=B=C=1 \]
+      <p>A truth table with four inputs has \(2^{4} = 16\) rows, not \(2 \times 4 = 8\).</p>
+    </div>
+    <div class="box urdu"><p class="ur">فارمولا تصویر نہیں، اصلی ریاضی ہے۔ ٹروتھ ٹیبل کی قطاریں \(2^{n}\) ہوتی ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> How many rows for 5 inputs?</p>
+      <div class="ans">Answers: 1. \(2^{5} = 32\).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>SVG diagrams</h2>
+    <div class="box learn">
+      <p>SVG is ink that can stretch. Logic-gate symbols, OSI stacks and neural nets stay sharp on a small phone and on a large tablet because they are vectors, not bitmaps.</p>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 620 170" xmlns="http://www.w3.org/2000/svg" font-size="13">
+        <g stroke="#1f2937" stroke-width="2" fill="none">
+          <line x1="40" y1="50" x2="70" y2="50"/><line x1="40" y1="80" x2="70" y2="80"/><line x1="120" y1="65" x2="155" y2="65"/>
+          <path d="M70,38 H95 A27,27 0 0 1 95,92 H70 Z" fill="#fff4c2"/>
+        </g>
+        <text x="28" y="54">A</text><text x="28" y="84">B</text><text x="162" y="70">Y</text>
+        <text x="95" y="125" text-anchor="middle">AND</text>
+        <rect x="220" y="18" width="360" height="22" fill="#1f3c88"/><text x="400" y="34" text-anchor="middle" fill="#fff">Application</text>
+        <rect x="220" y="42" width="360" height="22" fill="#3b5bdb"/><text x="400" y="58" text-anchor="middle" fill="#fff">Transport</text>
+        <rect x="220" y="66" width="360" height="22" fill="#0b7a75"/><text x="400" y="82" text-anchor="middle" fill="#fff">Internet</text>
+        <rect x="220" y="90" width="360" height="22" fill="#c5811a"/><text x="400" y="106" text-anchor="middle" fill="#fff">Network Access</text>
+        <text x="400" y="145" text-anchor="middle">TCP/IP as stacked SVG layers</text>
+      </svg>
+      <figcaption>Pinch-zoom these shapes — edges stay crisp. That is why every diagram in the booklets is SVG.</figcaption>
+    </figure>
+    <div class="box urdu"><p class="ur">ایس وی جی ویکٹر خاکہ ہے: زوم سے دھندلا نہیں ہوتا۔ لاجک گیٹ اور نیٹ ورک تہیں اسی لیے ایس وی جی میں ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Why SVG instead of PNG for a logic gate?</p>
+      <div class="ans">Answers: 1. Vectors stay sharp at any size and stay small in the APK.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>Board-exam sketchnote method</h2>
+    <div class="box learn">
+      <p>Use the same loop the booklets were written for:</p>
+      <ol>
+        <li><b>Preview</b> the title and the objective list (5 minutes).</li>
+        <li><b>Listen</b> once in Urdish with the diagram on screen.</li>
+        <li><b>Redraw</b> the SVG on paper from memory.</li>
+        <li><b>Check yourself</b> before revealing answers.</li>
+        <li><b>Spaced repeat</b> after 1 day, 3 days and 7 days. Golden stars first.</li>
+      </ol>
+    </div>
+    <div class="box exam">
+      <p>Short answers earn marks with <b>define + explain + example</b>. Differentiate questions want a table. Logic and HCI questions want a labelled diagram. This app already drew the diagram — your job is to steal the structure onto the answer sheet.</p>
+    </div>
+    <div class="box urdu"><p class="ur">عنوان دیکھو، اردش سنو، خاکہ کاغذ پر اتارو، سوال یاد سے حل کرو، ایک تین سات دن بعد دہراؤ۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What three parts make a strong short answer?</p>
+      <div class="ans">Answers: 1. Definition, explanation, real-life example.</div>
+    </div>
+  </div>
+</section>

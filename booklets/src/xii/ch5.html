@@ -1,0 +1,1152 @@
+<section class="chapter" id="xii-ch5" data-num="5" data-title="Application and Impacts of Computing">
+  <div class="ch-opener">
+    <div class="num">Chapter 5</div>
+    <h1>Application and Impacts of Computing</h1>
+    <p>This chapter shows you how computers learn from data with machine learning, neural networks and deep learning, how to collaborate online without leaking secrets, how to protect data and stop cyber threats, and how to keep digital teamwork fair for every student in Sindh.</p>
+    <p class="ur">اس باب میں آپ سیکھیں گے کہ مشین لرننگ، نیورل نیٹ ورکس اور ڈیپ لرننگ کمپیوٹر کو ڈیٹا سے کیسے سکھاتے ہیں، آن لائن کام کو محفوظ کیسے رکھا جائے، ڈیٹا کی حفاظت اور سائبر خطرات کا مقابلہ کیسے کیا جائے، اور ڈیجیٹل تعاون کو سب کے لیے منصفانہ کیسے بنایا جائے۔</p>
+  </div>
+
+  <h3>What you will learn</h3>
+  <ul class="objectives">
+    <li>Define <b>machine learning (ML)</b> and describe the three steps: data input, learning, prediction.</li>
+    <li>Explain a <b>neural network (NN)</b> as a brain-inspired model with an input layer, hidden layers and an output layer.</li>
+    <li>Define <b>deep learning (DL)</b> and draw the relationship <b>AI ⊃ ML ⊃ DL</b>.</li>
+    <li>Name the eight components of a neural network and compute a neuron’s output from given numbers.</li>
+    <li>List the six components of deep learning and give applications of NN and DL in daily life and in Pakistan.</li>
+    <li>Explain <b>secure collaboration</b>: authentication, multi-factor authentication (MFA) and access control.</li>
+    <li>Protect data using encryption (including a Caesar cipher), strong passwords, the 3-2-1 backup rule and a firewall.</li>
+    <li>Identify common threats (malware, phishing, DoS) and apply mitigation techniques.</li>
+    <li>Distinguish <b>equal access</b> from <b>equity</b> and describe the functions of equity in digital collaboration.</li>
+    <li>Name common collaboration tools and use them fairly and safely.</li>
+  </ul>
+
+  <!-- ===================== 5.1 ===================== -->
+  <div class="topic">
+    <h2>5.1 Machine Learning, Neural Networks and Deep Learning</h2>
+    <div class="box learn">
+      <p><b>Machine learning (ML)</b>, <b>neural networks (NN)</b> and <b>deep learning (DL)</b> are important areas of <b>artificial intelligence (AI)</b>. <b>AI</b> is the broad field in which computers perform tasks that normally need human thinking, such as recognising a face, understanding speech or making a decision.</p>
+      <p>These technologies help computers <b>learn from data</b> and make useful decisions <b>without being explicitly programmed for every single step</b>. You do not write a separate rule for every possible face or every Urdu accent. You show the computer many examples, and it finds the patterns itself.</p>
+      <p>They are used in many modern systems:</p>
+      <ul>
+        <li><b>Face unlock</b> on smartphones.</li>
+        <li><b>Speech recognition</b> (for example Siri, Alexa, or Urdu voice typing on a phone).</li>
+        <li><b>Photo search</b> categorisation (typing “car” in a gallery and seeing car photos).</li>
+        <li><b>Medical diagnosis</b> from X-rays and scans.</li>
+        <li><b>Language translation</b> (English to Urdu or Sindhi).</li>
+      </ul>
+      <p>Remember the nesting: <b>AI is the biggest set</b>. Inside AI sits <b>ML</b>. Inside ML sits <b>DL</b>. Every deep-learning system is a kind of machine learning, and every machine-learning system is a kind of AI — but not every AI system is deep learning.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 640 300" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="13">
+        <circle cx="210" cy="150" r="128" fill="#dbeafe" stroke="#1e3a8a" stroke-width="2.5"/>
+        <circle cx="210" cy="168" r="86" fill="#93c5fd" stroke="#1d4ed8" stroke-width="2.5"/>
+        <circle cx="210" cy="186" r="48" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="2"/>
+        <text x="210" y="48" text-anchor="middle" font-weight="700" fill="#1e3a8a">Artificial Intelligence (AI)</text>
+        <text x="210" y="100" text-anchor="middle" font-weight="700" fill="#1e40af">Machine Learning (ML)</text>
+        <text x="210" y="190" text-anchor="middle" font-weight="700" fill="#fff" font-size="12">Deep Learning</text>
+        <text x="210" y="206" text-anchor="middle" fill="#dbeafe" font-size="11">(DL)</text>
+        <line x1="360" y1="70" x2="400" y2="70" stroke="#1e3a8a" stroke-width="2"/>
+        <circle cx="360" cy="70" r="8" fill="#dbeafe" stroke="#1e3a8a"/>
+        <text x="412" y="75" fill="#1e3a8a">AI — the whole field of “thinking” machines</text>
+        <line x1="360" y1="120" x2="400" y2="120" stroke="#1d4ed8" stroke-width="2"/>
+        <circle cx="360" cy="120" r="8" fill="#93c5fd" stroke="#1d4ed8"/>
+        <text x="412" y="125" fill="#1e40af">ML — systems that learn from data</text>
+        <line x1="360" y1="170" x2="400" y2="170" stroke="#1e3a8a" stroke-width="2"/>
+        <circle cx="360" cy="170" r="8" fill="#1d4ed8"/>
+        <text x="412" y="175" fill="#1e3a8a">DL — ML with many hidden layers</text>
+        <text x="412" y="230" font-size="12" fill="#5b6577">AI ⊃ ML ⊃ DL</text>
+        <text x="412" y="250" font-size="11" fill="#5b6577">“contains” — DL is inside ML is inside AI</text>
+      </svg>
+      <figcaption>The set relationship AI ⊃ ML ⊃ DL. Deep learning is a method of machine learning; machine learning is a part of artificial intelligence.</figcaption>
+    </figure>
+
+    <div class="box example">
+      <p><b>Worked example: place each system in the correct set.</b> Sara in Karachi uses three features on her phone.</p>
+      <ol>
+        <li><b>A chess app that follows fixed if-then rules</b> written by a programmer (“if the queen is attacked, move it”). This is <b>AI</b> (the machine decides), but it is <b>not ML</b>, because it does not learn from data.</li>
+        <li><b>A JazzCash fraud filter</b> that was trained on thousands of past transactions and then flags a new unusual payment. This is <b>ML</b> (and therefore also AI). If it uses only a simple model with few layers, it may <b>not</b> be DL.</li>
+        <li><b>Face unlock</b> that studied millions of face images through many hidden layers. This is <b>DL</b> — and therefore also ML and AI.</li>
+      </ol>
+      <p>Exam sentence you can write: <i>All DL is ML, all ML is AI, but not all AI is ML, and not all ML is DL.</i></p>
+    </div>
+
+    <div class="box tip">
+      <p><b>Russian-doll memory trick.</b> Picture three boxes. The outer box is <b>AI</b>. Inside it is a smaller box <b>ML</b>. Inside that is the smallest box <b>DL</b>. You cannot take DL out of ML, and you cannot take ML out of AI.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “AI, ML and DL are three different, separate subjects.”</p>
+      <p><b>Fix:</b> They nest. DL ⊂ ML ⊂ AI. A deep-learning face-unlock system is all three at once.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">مصنوعی ذہانت (AI) سب سے بڑا میدان ہے۔ اس کے اندر مشین لرننگ (ML) ہے، اور مشین لرننگ کے اندر ڈیپ لرننگ (DL) ہے۔ یہ ٹیکنالوجیز کمپیوٹر کو ڈیٹا سے سکھاتی ہیں تاکہ ہر قدم الگ الگ پروگرام کیے بغیر فیصلے کیے جا سکیں، جیسے چہرے سے فون کھولنا یا آواز پہچاننا۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Which is the largest set: AI, ML or DL?</p>
+      <p><b>2.</b> Is every neural-network face-unlock system an example of AI? Why?</p>
+      <p><b>3.</b> Give one modern system from this section that uses these technologies.</p>
+      <div class="ans">Answers: 1. AI (AI ⊃ ML ⊃ DL). 2. Yes — DL is inside ML, and ML is inside AI. 3. Any of: face unlock, speech recognition, photo search, medical diagnosis, language translation.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.1.1 ===================== -->
+  <div class="topic">
+    <h2>5.1.1 Machine Learning (ML)</h2>
+    <div class="box learn">
+      <p>A <b>machine learning model</b> is the system that <b>learns from data and gives an output</b>. Think of it as the <b>trained brain</b> of a computer program.</p>
+      <p>In ordinary programming you write every rule yourself: <i>if marks ≥ 40 then “Pass”</i>. In machine learning you <b>do not list every rule</b>. You give the model many examples (data), it finds the patterns, and later it decides about new cases it has never seen.</p>
+      <p><b>How it works — three steps:</b></p>
+    </div>
+    <div class="flow"><span>1. Data input</span><i>→</i><span>2. Learning (find patterns)</span><i>→</i><span>3. Prediction on new data</span></div>
+    <ol>
+      <li><b>Data input.</b> The model is given massive amounts of data — for example thousands of past BISE marksheets, or millions of crop photos from Sindh fields.</li>
+      <li><b>Learning.</b> It studies the data and <b>learns patterns and rules automatically</b>. It might notice that students who scored low in Chapter 3 also failed the board exam, or that yellow spots on cotton leaves often mean a pest.</li>
+      <li><b>Prediction.</b> After training, it can make <b>accurate predictions or decisions</b> when given <b>new, unseen data</b> — a new student’s record, or a new leaf photograph.</li>
+    </ol>
+    <p><b>Note from the source:</b> there are many types of machine-learning models. A <b>neural network</b> is one important type. <b>Deep learning</b> is a highly advanced method of machine learning.</p>
+
+    <div class="box example">
+      <p><b>Worked example: a wheat-yield model for a farm near Sukkur.</b></p>
+      <p><b>Step 1 — Data input.</b> For 8 years the farm recorded: rainfall (mm), temperature, fertiliser bags used, and the actual yield (maunds per acre).</p>
+      <p><b>Step 2 — Learning.</b> The model studies those rows. It finds, for example, that yield rises with fertiliser up to a point, and falls when temperature is very high in April.</p>
+      <p><b>Step 3 — Prediction.</b> This year the farmer types in this season’s rainfall and temperature. The model has never seen this exact year before, but it predicts “about 32 maunds per acre.” The farmer plans storage and a buyer in advance.</p>
+      <p>Nobody wrote a giant list of “if rain = 120 and temp = 38 then yield = …”. The model learned the pattern from data.</p>
+    </div>
+    <div class="box tip">
+      <p><b>D-L-P.</b> Machine learning is <b>D</b>ata in, <b>L</b>earn patterns, <b>P</b>redict. “Data Learns to Predict.”</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “The computer is intelligent on day one.”</p>
+      <p><b>Fix:</b> An ML model is useful only <b>after training</b> on enough good data. Garbage data → garbage predictions. Also, neural networks are <i>one</i> type of ML, not the only type; deep learning is a <i>method</i> that uses deep neural networks.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">مشین لرننگ ماڈل وہ نظام ہے جو ڈیٹا سے سیکھ کر نتیجہ دیتا ہے — کمپیوٹر پروگرام کا تربیت یافتہ دماغ۔ پہلے بہت سا ڈیٹا دیا جاتا ہے، پھر ماڈل خود اصول اور پیٹرن سیکھتا ہے، اور تربیت کے بعد نئے ان دیکھے ڈیٹا پر پیش گوئی کرتا ہے۔ نیورل نیٹ ورک مشین لرننگ کی ایک اہم قسم ہے، اور ڈیپ لرننگ اس کا ایک اعلیٰ طریقہ ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What are the three steps of how an ML model works?</p>
+      <p><b>2.</b> What is a machine-learning model compared to in the source?</p>
+      <p><b>3.</b> After training, what kind of data can the model handle?</p>
+      <div class="ans">Answers: 1. Data input, learning, prediction. 2. The trained brain of a computer program. 3. New, unseen data.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.1.2 ===================== -->
+  <div class="topic">
+    <h2>5.1.2 Neural Networks (NN) <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>neural network</b> is a computer model that <b>learns patterns from data</b>. It is <b>directly inspired by the human brain</b>, but it works as a <b>mathematical computer system</b> — not as living tissue.</p>
+      <p>Your brain has billions of nerve cells (<b>neurons</b>) that pass signals to each other. A neural network copies this idea with small processing units also called <b>neurons</b> or <b>nodes</b>. These nodes are <b>connected</b> and <b>pass information from one layer to another</b>, performing calculations at each step.</p>
+      <p>A typical neural network has three kinds of layer:</p>
+      <ul>
+        <li><b>Input layer</b> — receives the raw data (pixels of a face, samples of a sound, marks of a student).</li>
+        <li><b>Hidden layer(s)</b> — the “thinking” in the middle. Nodes here combine the inputs and learn features (eye distance, nose shape, an edge in a photo).</li>
+        <li><b>Output layer</b> — gives the final answer (unlock / keep locked; “this is a cat”; “pass / fail”).</li>
+      </ul>
+    </div>
+    <div class="flow"><span>Input layer</span><i>→</i><span>Hidden layer(s)</span><i>→</i><span>Output layer</span></div>
+
+    <div class="box example">
+      <p><b>Practical example from the source: face unlock.</b></p>
+      <p><b>Step 1 — Input layer.</b> You look at your phone. The camera captures your face as numbers (brightness of each pixel). Those numbers enter the input layer.</p>
+      <p><b>Step 2 — Hidden layers.</b> The system studies face features such as <b>eye distance</b> and <b>nose shape</b>. Early hidden nodes may detect edges and shadows; later hidden nodes combine those into “this looks like Sara’s face.” It compares them with stored data from when you first set up the phone.</p>
+      <p><b>Step 3 — Output layer.</b> If the features match, the phone <b>unlocks</b>. If they do not (your brother holds the phone), it stays locked.</p>
+      <p>The same three-layer story works for an NADRA-style biometric gate at a college: camera (input) → feature matching (hidden) → open the turnstile or not (output).</p>
+    </div>
+    <div class="box tip">
+      <p><b>I-H-O.</b> <b>I</b>nput receives, <b>H</b>idden thinks, <b>O</b>utput decides. “In Hidden Out.” A neural network is a <b>brain-inspired maths machine</b>, not a copy of a living brain.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “A neural network is an actual human brain inside the computer.”</p>
+      <p><b>Fix:</b> It is only <b>inspired by</b> the brain. It is mathematics: numbers, multiplications and additions running on ordinary hardware.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">نیورل نیٹ ورک ایک کمپیوٹر ماڈل ہے جو ڈیٹا سے پیٹرن سیکھتا ہے۔ یہ انسانی دماغ سے متاثر ہے مگر ایک ریاضیاتی نظام کے طور پر کام کرتا ہے۔ چھوٹی اکائیاں نیورون یا نوڈ کہلاتی ہیں، جو تہوں میں جڑی ہوتی ہیں: ان پٹ تہہ ڈیٹا لیتی ہے، پوشیدہ تہہ سوچتی ہے، اور آؤٹ پٹ تہہ فیصلہ دیتی ہے — جیسے چہرے سے فون کھولنا۔</p>
+    </div>
+    <div class="box exam">
+      <p>Very common questions: “What is a neural network?” (2–3 marks), “Name its three layers and explain each with the face-unlock example” (5 marks), and “How is a neural network related to the human brain?”</p>
+      <p>Full-mark recipe: (1) definition — computer model that learns patterns from data, inspired by the brain, mathematical; (2) neurons/nodes connected across layers; (3) Input / Hidden / Output, each in one sentence; (4) walk the camera → features (eye distance, nose shape) → unlock path. Draw the three boxes if the paper asks for a diagram.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What are the small processing units of a neural network called?</p>
+      <p><b>2.</b> In face unlock, which layer studies eye distance and nose shape?</p>
+      <p><b>3.</b> Is a neural network a living brain? Explain in one sentence.</p>
+      <div class="ans">Answers: 1. Neurons or nodes. 2. Hidden layers. 3. No — it is inspired by the brain but works as a mathematical computer system.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.1.3 ===================== -->
+  <div class="topic">
+    <h2>5.1.3 Deep Learning (DL)</h2>
+    <div class="box learn">
+      <p><b>Deep learning</b> is a machine-learning method in which computers use <b>multi-layer neural networks</b> to learn <b>complex patterns</b> from data.</p>
+      <p>The word <b>“deep”</b> is used because data passes through <b>several hidden layers</b> before the system produces the final output. Each layer learns a <b>different level of detail</b>:</p>
+      <ul>
+        <li><b>Early layers</b> learn simple features — edges, shapes, colours.</li>
+        <li><b>Deeper layers</b> combine those simple features to understand complex patterns — a whole face, or a specific car model (a Cultus versus a Corolla).</li>
+      </ul>
+      <p>A network with only one or two hidden layers is a <b>shallow</b> neural network. Deep learning is always “deep”: it needs <b>huge amounts of data</b> and <b>processing power</b>.</p>
+    </div>
+
+    <h3>Neural network vs deep learning</h3>
+    <table>
+      <tr><th></th><th>Neural network (the model)</th><th>Deep learning (the method)</th></tr>
+      <tr><td><b>What it is</b></td><td>A system/model that has layers, nodes and connections to help it learn.</td><td>A specific method that trains neural networks containing <b>many hidden layers</b>.</td></tr>
+      <tr><td><b>Depth</b></td><td>Can be simple (<b>shallow</b>) with just one or two hidden layers.</td><td>Always “deep,” requiring huge amounts of data and processing power to learn complex patterns.</td></tr>
+      <tr><td><b>Role</b></td><td>The architecture (the “machine”).</td><td>The way we train a deep version of that machine.</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>Real-world example from the source: photo gallery search.</b></p>
+      <p>A modern gallery app on a smartphone uses deep learning to recognise faces, objects or places in thousands of photos.</p>
+      <p><b>Step 1.</b> During training (done by the company, using millions of images) early layers learned edges and colours; deeper layers learned “wheel”, “petal”, “minaret”.</p>
+      <p><b>Step 2.</b> The trained network has already scanned your phone’s photos and tagged them.</p>
+      <p><b>Step 3.</b> You type <b>“car”</b> or <b>“flower”</b> in the search bar. The app instantly shows related photos because its deep neural network has already learned visual patterns from millions of training images.</p>
+      <p>A student in Hyderabad can type “Ajrak” or “cricket” and jump to those pictures without scrolling for ten minutes.</p>
+    </div>
+    <div class="box tip">
+      <p><b>Deep = many hidden layers.</b> Shallow NN: 1–2 hidden layers. Deep NN: many hidden layers, huge data, strong computers. Simple features first, complex meaning later.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “Deep learning and neural networks are two names for the same thing.”</p>
+      <p><b>Fix:</b> A neural network is the <b>model</b> (layers + nodes + connections). Deep learning is the <b>method</b> of training networks that have <b>many</b> hidden layers. A small NN with one hidden layer is not deep learning.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ڈیپ لرننگ مشین لرننگ کا وہ طریقہ ہے جس میں کئی پوشیدہ تہوں والے نیورل نیٹ ورک استعمال ہوتے ہیں۔ "ڈیپ" اس لیے کہ ڈیٹا کئی تہوں سے گزر کر پیچیدہ پیٹرن سیکھتا ہے: پہلی تہیں کنارے اور رنگ سیکھتی ہیں، گہری تہیں پورا چہرہ یا گاڑی کی قسم پہچانتی ہیں۔ یہ طریقہ بہت سے ڈیٹا اور طاقتور کمپیوٹنگ کا طالب ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Why is the method called “deep” learning?</p>
+      <p><b>2.</b> What do early layers learn, and what do deeper layers learn?</p>
+      <p><b>3.</b> Can a neural network with one hidden layer be called deep learning?</p>
+      <div class="ans">Answers: 1. Because data passes through several hidden layers. 2. Early: simple features (edges, shapes, colours). Deeper: complex patterns (a whole face, a car model). 3. No — that is a shallow network; DL always uses many hidden layers.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.1.4 ===================== -->
+  <div class="topic">
+    <h2>5.1.4 Components of Neural Networks <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>The components of a neural network can be understood through its <b>layered architecture</b>. Data <b>enters</b>, gets <b>processed</b>, and <b>exits</b>, with mathematical adjustments happening inside.</p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Component</th><th>Description</th></tr>
+      <tr><td>1</td><td><b>Input layer</b></td><td>Receives the initial raw data (for example image pixels, sound waves, text).</td></tr>
+      <tr><td>2</td><td><b>Neurons / nodes</b></td><td>Small processing units that receive, calculate, and pass information forward.</td></tr>
+      <tr><td>3</td><td><b>Hidden layer(s)</b></td><td>The layers between input and output. They process the data and learn patterns from it.</td></tr>
+      <tr><td>4</td><td><b>Weights</b></td><td>Numbers that show the <b>importance or strength</b> of connections between neurons.</td></tr>
+      <tr><td>5</td><td><b>Bias</b></td><td>An extra <b>constant</b> value added to help the model adjust its result and improve accuracy.</td></tr>
+      <tr><td>6</td><td><b>Activation function</b></td><td>A mathematical <b>gate</b> that decides whether the information is important enough to move to the next layer.</td></tr>
+      <tr><td>7</td><td><b>Output layer</b></td><td>Gives the final computed result, decision or prediction (for example “This is a cat”).</td></tr>
+      <tr><td>8</td><td><b>Loss function</b></td><td>Checks the <b>error</b> (how much the model’s answer is wrong compared with reality) so the network can correct itself.</td></tr>
+    </table>
+
+    <h3>What happens inside one neuron</h3>
+    <p>Each neuron does a short calculation:</p>
+    <ol>
+      <li>Multiply each input <code>x</code> by its weight <code>w</code>.</li>
+      <li>Add those products together, then add the <b>bias</b> <code>b</code>. This total is the <b>weighted sum</b> <code>s</code>.</li>
+      <li>Pass <code>s</code> through an <b>activation function</b>. A simple exam-friendly gate is a <b>threshold (step) function</b>: if <code>s</code> is at least the threshold, the neuron <b>fires</b> (output = 1); otherwise output = 0.</li>
+    </ol>
+    <p>In symbols: <code>s = (x1 × w1) + (x2 × w2) + … + b</code>, then <code>y = 1</code> if <code>s ≥ threshold</code>, else <code>y = 0</code>.</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 640 220" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <text x="40" y="44" font-weight="700" fill="#1f3c88">x1</text>
+        <text x="40" y="114" font-weight="700" fill="#1f3c88">x2</text>
+        <text x="40" y="184" font-weight="700" fill="#1f3c88">x3</text>
+        <line x1="70" y1="40" x2="200" y2="110" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="70" y1="110" x2="200" y2="110" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="70" y1="180" x2="200" y2="110" stroke="#64748b" stroke-width="1.5"/>
+        <text x="118" y="62" font-size="11" fill="#e8590c">w1</text>
+        <text x="118" y="104" font-size="11" fill="#e8590c">w2</text>
+        <text x="118" y="158" font-size="11" fill="#e8590c">w3</text>
+        <circle cx="230" cy="110" r="32" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <text x="230" y="106" text-anchor="middle" font-weight="700">Σ</text>
+        <text x="230" y="122" text-anchor="middle" font-size="10">+ bias b</text>
+        <line x1="262" y1="110" x2="330" y2="110" stroke="#1f3c88" stroke-width="2"/>
+        <polygon points="330,104 342,110 330,116" fill="#1f3c88"/>
+        <rect x="350" y="86" width="110" height="48" rx="8" fill="#fff8e6" stroke="#b7791f" stroke-width="2"/>
+        <text x="405" y="106" text-anchor="middle" font-weight="700" font-size="11">Activation</text>
+        <text x="405" y="122" text-anchor="middle" font-size="10">function f(s)</text>
+        <line x1="460" y1="110" x2="530" y2="110" stroke="#0b7a75" stroke-width="2"/>
+        <polygon points="530,104 542,110 530,116" fill="#0b7a75"/>
+        <text x="575" y="106" text-anchor="middle" font-weight="700" fill="#0b7a75" font-size="16">y</text>
+        <text x="575" y="124" text-anchor="middle" font-size="10" fill="#5b6577">output</text>
+      </svg>
+      <figcaption>One neuron: inputs × weights are summed, bias is added, then an activation function decides the output y.</figcaption>
+    </figure>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 640 300" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="11">
+        <text x="70" y="22" text-anchor="middle" font-weight="700" fill="#1f3c88">Input layer</text>
+        <text x="300" y="22" text-anchor="middle" font-weight="700" fill="#1f3c88">Hidden layer</text>
+        <text x="530" y="22" text-anchor="middle" font-weight="700" fill="#1f3c88">Output layer</text>
+        <g stroke="#94a3b8" stroke-width="1" fill="none">
+          <line x1="90" y1="70" x2="270" y2="50"/><line x1="90" y1="70" x2="270" y2="120"/><line x1="90" y1="70" x2="270" y2="190"/><line x1="90" y1="70" x2="270" y2="260"/>
+          <line x1="90" y1="150" x2="270" y2="50"/><line x1="90" y1="150" x2="270" y2="120"/><line x1="90" y1="150" x2="270" y2="190"/><line x1="90" y1="150" x2="270" y2="260"/>
+          <line x1="90" y1="230" x2="270" y2="50"/><line x1="90" y1="230" x2="270" y2="120"/><line x1="90" y1="230" x2="270" y2="190"/><line x1="90" y1="230" x2="270" y2="260"/>
+          <line x1="330" y1="50" x2="500" y2="110"/><line x1="330" y1="50" x2="500" y2="200"/>
+          <line x1="330" y1="120" x2="500" y2="110"/><line x1="330" y1="120" x2="500" y2="200"/>
+          <line x1="330" y1="190" x2="500" y2="110"/><line x1="330" y1="190" x2="500" y2="200"/>
+          <line x1="330" y1="260" x2="500" y2="110"/><line x1="330" y1="260" x2="500" y2="200"/>
+        </g>
+        <circle cx="70" cy="70" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/><text x="70" y="74" text-anchor="middle">x1</text>
+        <circle cx="70" cy="150" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/><text x="70" y="154" text-anchor="middle">x2</text>
+        <circle cx="70" cy="230" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/><text x="70" y="234" text-anchor="middle">x3</text>
+        <circle cx="300" cy="50" r="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="300" y="54" text-anchor="middle">h1</text>
+        <circle cx="300" cy="120" r="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="300" y="124" text-anchor="middle">h2</text>
+        <circle cx="300" cy="190" r="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="300" y="194" text-anchor="middle">h3</text>
+        <circle cx="300" cy="260" r="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="300" y="264" text-anchor="middle">h4</text>
+        <circle cx="530" cy="110" r="20" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="530" y="114" text-anchor="middle">y1</text>
+        <circle cx="530" cy="200" r="20" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="530" y="204" text-anchor="middle">y2</text>
+        <text x="70" y="292" text-anchor="middle" fill="#5b6577">raw data</text>
+        <text x="300" y="292" text-anchor="middle" fill="#5b6577">patterns</text>
+        <text x="530" y="292" text-anchor="middle" fill="#5b6577">decision</text>
+      </svg>
+      <figcaption>A small neural network: 3 input nodes, 4 hidden nodes, 2 output nodes. Each line is a weighted connection.</figcaption>
+    </figure>
+
+    <div class="box example">
+      <p><b>Worked example: neuron calculation with numbers.</b> A college in Larkana uses a tiny network to guess whether a student is ready for a test. One hidden neuron receives two inputs:</p>
+      <table class="center compact">
+        <tr><th>Symbol</th><th>Meaning</th><th>Value</th></tr>
+        <tr><td>x1</td><td>Hours studied yesterday (scaled 0 to 1)</td><td>0.8</td></tr>
+        <tr><td>x2</td><td>Attendance this month (scaled 0 to 1)</td><td>0.5</td></tr>
+        <tr><td>w1</td><td>Weight of hours studied</td><td>0.4</td></tr>
+        <tr><td>w2</td><td>Weight of attendance</td><td>0.6</td></tr>
+        <tr><td>b</td><td>Bias</td><td>0.1</td></tr>
+        <tr><td>threshold</td><td>Activation gate</td><td>0.5</td></tr>
+      </table>
+      <p><b>Step 1 — weighted products.</b></p>
+      <p>x1 × w1 = 0.8 × 0.4 = <b>0.32</b></p>
+      <p>x2 × w2 = 0.5 × 0.6 = <b>0.30</b></p>
+      <p><b>Step 2 — add bias to get the weighted sum s.</b></p>
+      <p>s = 0.32 + 0.30 + 0.1 = <b>0.72</b></p>
+      <p><b>Step 3 — activation (threshold 0.5).</b> Is 0.72 ≥ 0.5? <b>Yes</b>, so the neuron fires: <b>y = 1</b> (ready for the test).</p>
+      <p><b>Step 4 — a second student</b> with x1 = 0.2 (almost no study) and x2 = 0.3:</p>
+      <p>s = (0.2 × 0.4) + (0.3 × 0.6) + 0.1 = 0.08 + 0.18 + 0.1 = <b>0.36</b></p>
+      <p>0.36 is <b>less than</b> 0.5, so <b>y = 0</b> (not ready). The same neuron, different inputs, different decision.</p>
+      <p>You can check the first student in Python 3:</p>
+      <pre class="code">x1, x2 = 0.8, 0.5
+w1, w2 = 0.4, 0.6
+b = 0.1
+s = x1 * w1 + x2 * w2 + b
+y = 1 if s &gt;= 0.5 else 0
+print(round(s, 2))
+print(y)</pre>
+      <pre class="code output">0.72
+1</pre>
+      <p><b>Loss function, briefly.</b> If the true answer for the first student was actually “not ready” (true y = 0) but the model said 1, the loss is high. Training then slightly changes weights and bias so the next guess is closer to reality.</p>
+    </div>
+    <div class="box tip">
+      <p><b>Weights = importance. Bias = extra nudge. Activation = yes/no gate. Loss = how wrong.</b> A large weight means that input matters more. Bias shifts the sum up or down so the gate can open at the right place.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Forgetting to add the bias, or multiplying instead of adding after the products.</p>
+      <p><b>Fix:</b> Always <b>multiply first</b> (each x by its w), <b>then add</b> the products, <b>then add b</b>, <b>then</b> apply the activation. Write the four lines in the exam as we did above.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">نیورل نیٹ ورک کے اجزاء ہیں: ان پٹ تہہ، نیورون، پوشیدہ تہہ، وزن (Weights)، بائیس (Bias)، ایکٹیویشن فنکشن، آؤٹ پٹ تہہ اور لاس فنکشن۔ ہر نیورون ان پٹ کو وزن سے ضرب دے کر جمع کرتا ہے، بائیس جوڑتا ہے، پھر ایک گیٹ فیصلہ کرتا ہے کہ سگنل آگے جائے یا نہیں۔ وزن تعلق کی طاقت بتاتا ہے؛ لاس فنکشن غلطی ناپتا ہے تاکہ ماڈل خود درست ہو سکے۔</p>
+    </div>
+    <div class="box exam">
+      <p>Golden questions: “List the components of a neural network” (often 8 names + one line each), “What are weights and bias?”, and a <b>numerical neuron</b>: given x, w, b and a threshold, find s and y.</p>
+      <p>Show every arithmetic step. Underline the final y. If asked for a diagram, draw Input → Hidden → Output with circles and connecting lines, and label weights on the lines. Mention the loss function as the component that measures error so the network can correct itself.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What do weights show?</p>
+      <p><b>2.</b> Using x1 = 1, x2 = 0, w1 = 0.5, w2 = 0.5, b = 0, threshold = 0.4, what is y?</p>
+      <p><b>3.</b> What does the loss function check?</p>
+      <div class="ans">Answers: 1. The importance or strength of connections between neurons. 2. s = 1×0.5 + 0×0.5 + 0 = 0.5; 0.5 ≥ 0.4 so y = 1. 3. The error — how much the model’s answer is wrong compared with reality.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.1.5 ===================== -->
+  <div class="topic">
+    <h2>5.1.5 Components of Deep Learning</h2>
+    <div class="box learn">
+      <p>Deep learning relies on specific advanced components to achieve its high accuracy. These components <b>differentiate it from basic machine learning</b>.</p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Component</th><th>What it means</th></tr>
+      <tr><td>1</td><td><b>Large input data</b></td><td>Deep learning is “<b>data hungry</b>.” It needs massive datasets (thousands or millions of records) for better learning and accuracy.</td></tr>
+      <tr><td>2</td><td><b>Many hidden layers</b></td><td>Uses dozens or hundreds of hidden layers to learn deeper, more intricate patterns.</td></tr>
+      <tr><td>3</td><td><b>Automatic feature learning</b></td><td>Unlike older models where humans had to manually highlight important features, deep learning <b>extracts important features by itself</b>.</td></tr>
+      <tr><td>4</td><td><b>Learning algorithm</b></td><td>Math routines (like <b>backpropagation</b>) that help the system reduce mistakes and improve learning continuously.</td></tr>
+      <tr><td>5</td><td><b>High computing power</b></td><td>Processing millions of data points across deep layers needs specialised, strong hardware, such as <b>GPUs</b> (Graphics Processing Units).</td></tr>
+      <tr><td>6</td><td><b>Training process</b></td><td>The model is trained again and again in loops called <b>epochs</b> to gradually improve its final performance.</td></tr>
+    </table>
+    <p>A <b>GPU</b> was originally made for video games’ graphics, but it can do thousands of small multiplications in parallel — exactly what deep networks need. An <b>epoch</b> is one full pass through the training data. Ten epochs means the model has seen every training example ten times, adjusting weights a little each time.</p>
+    <p><b>Backpropagation</b> means sending the error (from the loss function) <b>backwards</b> through the layers so each weight can be nudged in the direction that reduces the next error.</p>
+
+    <div class="box example">
+      <p><b>Worked example: cotton-leaf disease detector for a farm in Mirpurkhas.</b> Match each DL component.</p>
+      <ol>
+        <li><b>Large input data.</b> Researchers collect 80,000 labelled photos: healthy leaves and leaves with whitefly damage.</li>
+        <li><b>Many hidden layers.</b> The network has 20 hidden layers so it can go from “green edge” to “this exact pest pattern.”</li>
+        <li><b>Automatic feature learning.</b> No agronomist types in “look for yellow circles.” The network finds the useful spots itself.</li>
+        <li><b>Learning algorithm.</b> After a wrong guess (“healthy” when it was diseased), backpropagation lowers the weights that caused the mistake.</li>
+        <li><b>High computing power.</b> Training runs on a GPU workstation at a university lab in Karachi; a school laptop would take weeks.</li>
+        <li><b>Training process.</b> They train for 30 epochs. After epoch 1 accuracy is 62%; after epoch 30 it is 94% on photos it has not trained on.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p><b>D-L-A-L-G-T.</b> Data (lots), Layers (many), Automatic features, Learning algorithm, GPU power, Training epochs. “Deep Learners Always Love Good Training.”</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “Deep learning is just ‘a neural network’.”</p>
+      <p><b>Fix:</b> Name the six extras: huge data, many hidden layers, automatic features, a learning algorithm (backpropagation), GPUs, and repeated epochs. A shallow NN with a small spreadsheet is ordinary ML, not DL.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ڈیپ لرننگ کو عام مشین لرننگ سے یہ چیزیں الگ کرتی ہیں: بہت بڑا ڈیٹا، بہت سی پوشیدہ تہیں، خود بخود خصوصیات نکالنا، سیکھنے کا الگورتھم جیسے بیک پروپیگیشن (Backpropagation)، طاقتور ہارڈویئر جیسا کہ جی پی یو (GPU)، اور بار بار تربیت جسے ایپوک (Epoch) کہتے ہیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Why is deep learning called “data hungry”?</p>
+      <p><b>2.</b> What is an epoch?</p>
+      <p><b>3.</b> Name the hardware often used for DL, and the learning algorithm named in the source.</p>
+      <div class="ans">Answers: 1. It needs massive datasets (thousands or millions of records) for accuracy. 2. One training loop — one full pass through the training data. 3. GPUs (Graphics Processing Units); backpropagation.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Future in Pakistan ===================== -->
+  <div class="topic">
+    <h2>Future of AI, NN and DL in Pakistan</h2>
+    <div class="box learn">
+      <p>Machine learning, neural networks and deep learning will play a key role in Pakistan’s future. The <b>National AI Policy 2025</b> highlights how artificial intelligence is now part of national planning, focusing on <b>innovation, skill-building, ethical use and digital growth</b>.</p>
+    </div>
+    <table>
+      <tr><th>Sector</th><th>Potential impact in Pakistan</th></tr>
+      <tr><td><b>Education</b></td><td>Smart learning systems, online tutoring, automatic assessments, and finding where students need specific help.</td></tr>
+      <tr><td><b>Healthcare</b></td><td>Disease detection, medical image analysis, and managing hospital data. Crucial for rural areas lacking specialist doctors.</td></tr>
+      <tr><td><b>Agriculture</b></td><td>Monitoring crops, predicting weather, managing irrigation, and estimating yields — highly important for Pakistan’s economy.</td></tr>
+      <tr><td><b>Business and banking</b></td><td>Fraud detection, customer support (chatbots), market forecasting, and intelligent risk analysis.</td></tr>
+      <tr><td><b>Local languages</b></td><td>Speech recognition, translation and text-to-speech tools for <b>Urdu, Sindhi</b> and other regional languages.</td></tr>
+    </table>
+    <p>To benefit from this future, Pakistan needs skilled individuals. You should focus on <b>programming (such as Python)</b>, <b>mathematics</b>, <b>data analysis</b>, <b>problem-solving</b> and the <b>ethical use of technology</b>.</p>
+
+    <div class="box example">
+      <p><b>Worked example: pick a sector and write a three-line “impact paragraph” for 5 marks.</b></p>
+      <p><b>Agriculture:</b> A cotton grower in Sanghar photographs leaves on a cheap phone. A deep-learning model trained on Pakistani crop images flags whitefly early. The farmer sprays only the affected block, saves pesticide cost, and protects yield — which matters because agriculture is a large part of Pakistan’s economy.</p>
+    </div>
+    <div class="box tip">
+      <p><b>Five sectors: E-H-A-B-L.</b> Education, Healthcare, Agriculture, Business/banking, Local languages. Policy words: innovation, skills, ethics, digital growth.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Writing only “AI will make Pakistan modern” with no sector or example.</p>
+      <p><b>Fix:</b> Name the National AI Policy 2025, pick two sectors from the table, and give a local example (rural hospital without a specialist; Urdu/Sindhi speech tools; bank fraud).</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">قومی اے آئی پالیسی 2025 کے مطابق مصنوعی ذہانت پاکستان کی منصوبہ بندی کا حصہ ہے: جدت، مہارت، اخلاقی استعمال اور ڈیجیٹل ترقی۔ تعلیم، صحت، زراعت، بینکنگ اور اردو و سندھی جیسی مقامی زبانوں میں اس کے اثرات ہوں گے۔ طلبہ کو پائتھن، ریاضی، ڈیٹا کا تجزیہ، مسئلہ حل کرنا اور ٹیکنالوجی کا اخلاقی استعمال سیکھنا چاہیے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Name the national policy mentioned for AI in Pakistan.</p>
+      <p><b>2.</b> Why is AI in healthcare especially important for rural areas?</p>
+      <p><b>3.</b> List three skills students should learn to prepare for this future.</p>
+      <div class="ans">Answers: 1. National AI Policy 2025. 2. Those areas often lack specialist doctors; AI can help with disease detection and medical image analysis. 3. Any three of: programming (Python), mathematics, data analysis, problem-solving, ethical use of technology.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.2 ===================== -->
+  <div class="topic">
+    <h2>5.2 Applications of Neural Networks and Deep Learning</h2>
+    <div class="box learn">
+      <p>Neural networks and deep learning are widely used in modern life. Many intelligent systems use them in the background to <b>recognise information, make predictions and support users</b>.</p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Application</th><th>What it does</th><th>Example</th></tr>
+      <tr><td>1</td><td><b>Image recognition</b></td><td>Identifies objects, faces or patterns in images. Used in security cameras, photo search and biometric locks.</td><td>Unlocking a smartphone using face recognition; a camera at a Karachi plaza matching a face with a staff list.</td></tr>
+      <tr><td>2</td><td><b>Speech recognition</b></td><td>Converts spoken words into digital text or commands. Deep learning helps with accents, pronunciation and voice patterns.</td><td>A student speaks to Google Assistant or Alexa to set a morning alarm; Urdu voice search on a phone.</td></tr>
+      <tr><td>3</td><td><b>Natural Language Processing (NLP)</b></td><td>Helps computers understand, process and respond to human language grammatically and in context. Core of chatbots, translators and AI writers.</td><td>Using Google Translate to turn a difficult English paragraph into Urdu; a bank chatbot answering in Urdu.</td></tr>
+      <tr><td>4</td><td><b>Healthcare systems</b></td><td>Analyse complex medical images (X-rays, CT scans, MRIs) to detect diseases early and accurately.</td><td>A hospital system highlighting abnormal patterns in a lung X-ray that might indicate pneumonia or tumours — useful at a DHQ hospital that has few radiologists.</td></tr>
+      <tr><td>5</td><td><b>Recommendation systems</b></td><td>Analyse past behaviour and preferences to suggest content, products or services.</td><td>A student watches computer-science videos on YouTube; the platform recommends more programming tutorials.</td></tr>
+      <tr><td>6</td><td><b>Autonomous vehicles</b></td><td>Self-driving cars use neural networks to process real-time camera and radar data: roads, signals, pedestrians, obstacles.</td><td>A self-driving car detects a pedestrian crossing and automatically applies the brakes.</td></tr>
+      <tr><td>7</td><td><b>Fraud detection</b></td><td>Banks compare current activity with previous spending patterns to catch unusual transactions.</td><td>An HBL or Meezan app flags a sudden Rs 80,000 payment from a new city at 3 a.m.</td></tr>
+      <tr><td>8</td><td><b>Assistive technologies</b></td><td>AI supports people with disabilities.</td><td>Speech-to-text tools for users who have difficulty typing; screen readers that speak Urdu text aloud.</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>Worked example: match the app to the application name — a day in Ahmed’s life in Hyderabad.</b></p>
+      <ol>
+        <li>7:00 am — phone unlocks by face. → <b>Image recognition</b>.</li>
+        <li>7:05 am — “Ok Google, set alarm for Maghrib.” → <b>Speech recognition</b>.</li>
+        <li>8:00 am — Google Translate helps with an English article. → <b>NLP</b>.</li>
+        <li>4:00 pm — YouTube suggests a Python tutorial after he watched Chapter 5 notes. → <b>Recommendation system</b>.</li>
+        <li>9:00 pm — JazzCash texts “We blocked a payment that does not match your pattern.” → <b>Fraud detection</b>.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p><b>Eight applications: I-S-N-H-R-A-F-A.</b> Image, Speech, NLP, Healthcare, Recommendations, Autonomous vehicles, Fraud, Assistive tech. “I See New Hospitals Recommend Autonomous Fraud-Assist.”</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Mixing up speech recognition and NLP.</p>
+      <p><b>Fix:</b> Speech recognition turns <b>sound into text</b> (or a command). NLP understands the <b>meaning of language</b> (grammar, context, translation, chat replies). You can have NLP on typed text with no microphone at all.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">نیورل نیٹ ورکس اور ڈیپ لرننگ کی مشہور ایپلی کیشنز یہ ہیں: تصویر کی پہچان، آواز کی پہچان، قدرتی زبان کی پروسیسنگ (NLP)، صحت کے نظام، تجویز کرنے والے نظام، خود چلنے والی گاڑیاں، فراڈ کی نشاندہی اور معاون ٹیکنالوجیز۔ روزمرہ میں چہرے سے فون کھولنا، یوٹیوب کی تجاویز اور بینک کا مشکوک لین دین پکڑنا سب اسی خاندان سے ہیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Which application converts spoken words into text or commands?</p>
+      <p><b>2.</b> Give the source example of a recommendation system.</p>
+      <p><b>3.</b> How do self-driving cars use neural networks?</p>
+      <div class="ans">Answers: 1. Speech recognition. 2. YouTube recommending more programming tutorials after a student watches computer-science videos. 3. They process real-time camera and radar data to understand roads, traffic signals, pedestrians and obstacles (for example braking for a pedestrian).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.3.1 ===================== -->
+  <div class="topic">
+    <h2>5.3.1 Secure Collaboration (Authentication, MFA, Access Control) <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Digital tools allow people to <b>share files, attend online classes, edit documents and work together from different locations</b>. Collaboration is useful only when <b>data is protected</b> and <b>communication remains safe</b>.</p>
+      <p><b>Secure collaboration</b> means using digital tools to work together in a <b>safe, controlled and responsible</b> way. It depends on several key elements.</p>
+    </div>
+
+    <h3>i) Authentication / identity verification</h3>
+    <p><b>Authentication</b> is <b>confirming the identity of a user before allowing access</b>. Common methods:</p>
+    <ul>
+      <li><b>Username and password</b></li>
+      <li><b>PIN</b> (a short number code)</li>
+      <li><b>OTP</b> — <b>One-Time Password</b>, a code that works only once, usually sent by SMS or an authenticator app</li>
+      <li><b>Biometrics</b> — fingerprint or face</li>
+    </ul>
+    <p>Source example: a <b>banking app sending an OTP to your phone before login</b>.</p>
+
+    <h3>Multi-factor authentication (MFA) and two-factor authentication (2FA)</h3>
+    <p>A <b>factor</b> is a category of proof:</p>
+    <ul>
+      <li><b>Something you know</b> — password or PIN.</li>
+      <li><b>Something you have</b> — your phone, an OTP, a bank SMS.</li>
+      <li><b>Something you are</b> — fingerprint, face (biometrics).</li>
+    </ul>
+    <p><b>Multi-factor authentication (MFA)</b> means the system asks for <b>two or more different factors</b> before it trusts you. <b>Two-factor authentication (2FA)</b> is the common case of MFA that uses <b>exactly two</b> factors — usually password + OTP.</p>
+    <p>If a thief in another city steals only your password, MFA still blocks them because they do not have your phone (or your fingerprint).</p>
+
+    <h3>ii) Access control</h3>
+    <p><b>Access control</b> decides <b>what an authenticated user is allowed to do</b>: View, Edit, Comment, Download, Share.</p>
+    <p>Authentication answers “<b>Who are you?</b>” Access control answers “<b>What may you do?</b>”</p>
+    <p>Source example: a teacher shares a Google Doc with students as <b>“view only”</b>, but gives group leaders <b>“edit”</b> permissions.</p>
+
+    <h3>iii) Accountability and tracking</h3>
+    <p>User actions are linked to <b>verified accounts</b>. You can see who opened, edited, deleted or shared a file. Example: a school <b>LMS</b> (Learning Management System) tracks which teacher uploaded an assignment and which student submitted it.</p>
+
+    <h3>iv) Data privacy</h3>
+    <p><b>Data privacy</b> means protecting personal and sensitive information and using it <b>only for the purpose it was collected</b>. It involves:</p>
+    <ul>
+      <li><b>Protection</b> — keeping names, numbers, marks and passwords secure.</li>
+      <li><b>Controlled sharing</b> — sharing only with the right people.</li>
+      <li><b>Confidentiality</b> — data stays private during storage and transmission.</li>
+      <li><b>Compliance</b> — following legal and ethical rules for data handling.</li>
+    </ul>
+
+    <h3>v) Safe communication / transmission</h3>
+    <p>Exchanging information through digital platforms <b>securely</b>, protecting messages from unauthorised interception or wiretapping. Example: a teacher shares class instructions through an <b>official, encrypted LMS</b> rather than an open public forum or an unknown WhatsApp broadcast.</p>
+
+    <div class="box example">
+      <p><b>Worked example: a Class XII Google Classroom in Sukkur.</b></p>
+      <p><b>Step 1 — Authentication.</b> Each student signs in with a school email and password. The college turns on MFA: after the password, Google sends an OTP to the student’s registered Jazz/Zong number.</p>
+      <p><b>Step 2 — Access control.</b> All 40 students can <b>view</b> the assignment sheet. Only the four group leaders can <b>edit</b> the shared report. Nobody except the teacher can <b>delete</b> the class materials. A student who left the college is removed from the class (access revoked).</p>
+      <p><b>Step 3 — Accountability.</b> Version history shows that Ali edited paragraph 2 at 8:14 pm and that Hina submitted the PDF at 9:02 pm.</p>
+      <p><b>Step 4 — Privacy and safe transmission.</b> Marks stay inside Classroom; the teacher does not post CNIC numbers or phone numbers in a public Facebook group. Traffic to Google is encrypted, unlike an open public forum.</p>
+      <p>If Ali shares his password with a cousin, authentication is broken. If the teacher gives every student “edit” on the marksheet, access control is broken even though login still works.</p>
+    </div>
+    <div class="box tip">
+      <p><b>A-A-A-P-S.</b> Authentication, Access control, Accountability, Privacy, Safe transmission. MFA = at least two different factor types (know / have / are). 2FA is MFA with two factors.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Treating authentication and access control as the same thing.</p>
+      <p><b>Fix:</b> Login only proves identity. After login, access control still limits View / Edit / Comment / Download / Share. A student who is authenticated must not automatically get teacher rights.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">محفوظ تعاون کا مطلب ہے ڈیجیٹل ٹولز سے محفوظ، کنٹرول شدہ اور ذمہ دارانہ انداز میں ساتھ کام کرنا۔ تصدیق (Authentication) یہ جانچتی ہے کہ صارف کون ہے؛ رسائی کنٹرول (Access Control) یہ طے کرتا ہے کہ وہ کیا کر سکتا ہے (صرف دیکھنا، ترمیم، تبصرہ)۔ کثیر عنصری تصدیق (MFA) دو یا زیادہ مختلف ثبوت مانگتی ہے، جیسے پاس ورڈ اور او ٹی پی (OTP)۔ حساب دہی، ڈیٹا پرائیویسی اور محفوظ ترسیل بھی ضروری ہیں۔</p>
+    </div>
+    <div class="box exam">
+      <p>Typical items: “Define secure collaboration”, “Differentiate authentication and access control”, “What is MFA/2FA?”, “Explain five elements of secure collaboration with examples.”</p>
+      <p>Write the five headings (authentication, access control, accountability, privacy, safe transmission). For MFA, name the three factor types and say that 2FA is password + OTP in a banking app. Use the Google Doc “view only vs edit” example — examiners look for it.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> What question does authentication answer, and what question does access control answer?</p>
+      <p><b>2.</b> Password + OTP is an example of which idea?</p>
+      <p><b>3.</b> Give the source example of access control in a Google Doc.</p>
+      <div class="ans">Answers: 1. Authentication: who are you? Access control: what may you do? 2. Two-factor / multi-factor authentication (2FA/MFA). 3. Teacher shares the document as view-only with students but gives group leaders edit permission.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.3.2 ===================== -->
+  <div class="topic">
+    <h2>5.3.2 Data Protection (Encryption, Passwords, Backup, Firewall)</h2>
+    <div class="box learn">
+      <p><b>Data protection</b> means keeping digital information safe from <b>unauthorised access, misuse, loss, damage or accidental deletion</b>.</p>
+    </div>
+
+    <h3>1. Data encryption</h3>
+    <p><b>Encryption</b> changes readable data (<b>plaintext</b>) into a coded form called <b>ciphertext</b>. Unauthorised users cannot understand ciphertext without the key.</p>
+    <ul>
+      <li><b>Symmetric encryption</b> — the <b>same key</b> is used to encrypt and to decrypt.</li>
+      <li><b>Asymmetric encryption</b> — <b>two keys</b>: a <b>public key</b> to encrypt, a <b>private key</b> to decrypt.</li>
+    </ul>
+    <p>A simple exam cipher is the <b>Caesar cipher</b> (a symmetric substitution cipher). You shift every letter a fixed number of places along the alphabet. Shift 3 is the classic key: A → D, B → E, …, Z → C (the alphabet wraps around).</p>
+
+    <h3>2. Strong passwords</h3>
+    <p>A strong password includes <b>uppercase, lowercase, numbers and symbols</b>. It resists <b>brute-force</b> guessing (trying every possible combination). Source example: <code>Zk@2026#Pass</code>.</p>
+    <p>Weak: <code>ahmed123</code>, <code>pakistan</code>, <code>sindh</code>, your date of birth. Never reuse the same password on the college LMS and on JazzCash.</p>
+
+    <h3>3. Backup and recovery — the 3-2-1 rule</h3>
+    <p>A <b>backup</b> is a copy of data in a safe location (cloud or external drive) so you can <b>restore</b> it after hardware damage, ransomware or accidental deletion.</p>
+    <p>The <b>3-2-1 backup rule</b> is a practical standard:</p>
+    <ul>
+      <li><b>3</b> copies of the data (the original plus two backups).</li>
+      <li><b>2</b> different types of storage media (for example laptop disk + USB, or disk + cloud).</li>
+      <li><b>1</b> copy <b>off-site</b> (a different building or the cloud), so a fire or theft at home does not destroy every copy.</li>
+    </ul>
+
+    <h3>4. Firewall and antivirus software</h3>
+    <p>A <b>firewall</b> is a security <b>barrier</b> that <b>monitors network traffic</b> and <b>blocks suspicious internet access</b>. Think of it as a checkpoint on the road between your device (or college lab) and the internet.</p>
+    <p><b>Antivirus</b> software detects and removes harmful software (viruses, spyware and other malware) from the <b>local machine</b>.</p>
+    <p>Firewall ≈ guards the <b>door to the network</b>. Antivirus ≈ searches <b>inside the house</b> for intruders already present.</p>
+
+    <div class="box example">
+      <p><b>Worked example A — Caesar cipher, shift = 3.</b> Encrypt the plaintext <b>SINDH</b>, then decrypt the result.</p>
+      <p>Write the alphabet and count three letters forward. Wrap after Z back to A.</p>
+      <table class="center">
+        <tr><th>Plain</th><th>S</th><th>I</th><th>N</th><th>D</th><th>H</th></tr>
+        <tr><td>+3</td><td class="hl">V</td><td class="hl">L</td><td class="hl">Q</td><td class="hl">G</td><td class="hl">K</td></tr>
+      </table>
+      <p>Ciphertext = <b>VLQGK</b>.</p>
+      <p><b>Decrypt:</b> shift each letter <b>back</b> by 3: V → S, L → I, Q → N, G → D, K → H. You recover <b>SINDH</b>.</p>
+      <p>Spaces and punctuation are often left unchanged. The same key (3) is used both ways, so Caesar is <b>symmetric</b>.</p>
+      <p>Second check: <b>CAT</b> + 3 → C→F, A→D, T→W → <b>FDW</b>.</p>
+      <pre class="code">def caesar(text, shift):
+    result = ""
+    for ch in text:
+        if ch.isalpha():
+            base = ord("A") if ch.isupper() else ord("a")
+            result += chr((ord(ch) - base + shift) % 26 + base)
+        else:
+            result += ch
+    return result
+
+print(caesar("SINDH", 3))
+print(caesar("VLQGK", -3))
+print(caesar("CAT", 3))</pre>
+      <pre class="code output">VLQGK
+SINDH
+FDW</pre>
+      <p><b>Worked example B — 3-2-1 for Fatima’s Class XII project in Hyderabad.</b></p>
+      <ol>
+        <li><b>Copy 1 (original):</b> project folder on her laptop hard disk.</li>
+        <li><b>Copy 2 (different media):</b> the same folder on a USB drive she keeps in her bag.</li>
+        <li><b>Copy 3 (off-site):</b> uploaded to Google Drive (cloud servers are not in her house).</li>
+      </ol>
+      <p>That is 3 copies, 2 media types (internal disk + USB, with cloud as the off-site copy), 1 off-site. When her brother deletes the laptop folder, she restores from USB or Drive.</p>
+      <p><b>Password check:</b> <code>Zk@2026#Pass</code> has uppercase Z, lowercase letters, digits 2026, and symbols @ and #. <code>fatima</code> has none of those extras — reject it.</p>
+    </div>
+    <div class="flow"><span>3 copies</span><i>→</i><span>2 media types</span><i>→</i><span>1 copy off-site</span></div>
+    <div class="box tip">
+      <p><b>Cipher = lock the message. Password = lock the door. 3-2-1 = spare keys in three places. Firewall = gate. Antivirus = indoor search.</b> Caesar: shift letters; same key both ways (symmetric).</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake 1:</b> Shifting the wrong way, or forgetting wrap-around (X, Y, Z + 3 → A, B, C).</p>
+      <p><b>Mistake 2:</b> Two copies on the same laptop (Documents and Desktop) and calling it 3-2-1. That is still one disk in one house.</p>
+      <p><b>Fix:</b> Count letters on a written alphabet. For backups, different media and one copy that would survive a house fire.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ڈیٹا پروٹیکشن کا مطلب ہے معلومات کو غیر مجاز رسائی، غلط استعمال، نقصان یا حادثاتی حذف سے بچانا۔ انکرپشن پڑھے جانے والے متن کو سائفر ٹیکسٹ بنا دیتی ہے؛ سیزر سائفر میں ہر حرف کو مقررہ جگہوں سے آگے سرکایا جاتا ہے۔ مضبوط پاس ورڈ میں بڑے، چھوٹے حروف، عدد اور علامات ہوں۔ 3-2-1 بیک اپ: تین کاپیاں، دو قسم کے میڈیا، ایک کاپی باہر (آف سائٹ)۔ فائر وال نیٹ ورک ٹریفک روکتی ہے؛ اینٹی وائرس مقامی نقصان دہ سافٹ ویئر ہٹاتا ہے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Encrypt PAK with a Caesar shift of 3.</p>
+      <p><b>2.</b> What do the 3, the 2 and the 1 stand for in 3-2-1 backup?</p>
+      <p><b>3.</b> In asymmetric encryption, which key encrypts and which key decrypts?</p>
+      <div class="ans">Answers: 1. SDN (P→S, A→D, K→N). 2. 3 copies, 2 different media, 1 off-site copy. 3. Public key encrypts; private key decrypts.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.4.1 ===================== -->
+  <div class="topic">
+    <h2>5.4.1 Common Security Threats (Malware, Phishing, DoS) <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>security threat</b> is any action, event or weakness that can <b>harm a computer system or its data</b>. <b>Mitigation techniques</b> are protective measures used to prevent threats or reduce their impact. This section names the common threats; later sections show how to spot them and how to reduce the damage.</p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Threat</th><th>What it is</th><th>Example</th></tr>
+      <tr><td>1</td><td><b>Malware</b></td><td>Harmful software designed to damage a computer, steal data, or gain unauthorised access. Includes <b>viruses, worms, spyware, ransomware</b> and <b>Trojans</b>.</td><td>Installing cracked software that secretly corrupts files, or a “free game” USB that encrypts a college lab’s coursework (ransomware).</td></tr>
+      <tr><td>2</td><td><b>Phishing</b></td><td>A <b>social-engineering</b> trick that deceives users into sharing personal information (passwords, bank details, OTPs) using fake emails or websites that look genuine.</td><td>An SMS that looks like JazzCash or HBL asking you to “verify” by typing your OTP on a fake page.</td></tr>
+      <tr><td>3</td><td><b>Unauthorised access</b></td><td>Entering a system, account or file without permission. Often caused by weak passwords, shared passwords, or leaving devices unlocked.</td><td>A classmate using an unlocked lab PC to open someone else’s Google Classroom.</td></tr>
+      <tr><td>4</td><td><b>Data theft / identity theft</b></td><td><b>Data theft</b> is stealing or copying data without permission. <b>Identity theft</b> is using another person’s stolen details (name, CNIC, bank details) to pretend to be them online and commit fraud.</td><td>A leaked list of CNICs used to open a SIM or a wallet in someone else’s name.</td></tr>
+      <tr><td>5</td><td><b>Denial of Service (DoS)</b></td><td>A website or system is flooded with thousands of fake requests, causing it to slow down or crash, so real users cannot access the service.</td><td>Hackers flooding an online exam portal so students cannot log in on BISE result day or during an e-test.</td></tr>
+      <tr><td>6</td><td><b>Human error</b></td><td>Mistakes by legitimate users: accidentally deleting files, sending confidential data to the wrong email, or falling for a simple scam.</td><td>A teacher emailing the whole marksheet to the wrong parent; a student forwarding an OTP “to help the bank.”</td></tr>
+    </table>
+    <p><b>Malware types in one line each:</b> a <b>virus</b> attaches to files and spreads when you share them; a <b>worm</b> spreads by itself across a network; <b>spyware</b> secretly watches you; <b>ransomware</b> locks your files and demands money; a <b>Trojan</b> pretends to be useful software but hides harm.</p>
+    <p><b>Social engineering</b> means tricking a <b>person</b>, not breaking a lock with maths. Phishing is the most common exam example.</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 640 150" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <rect x="8" y="30" width="190" height="90" rx="10" fill="#fff0f0" stroke="#c92a2a" stroke-width="2"/>
+        <text x="103" y="62" text-anchor="middle" font-weight="700">Phishing</text>
+        <text x="103" y="84" text-anchor="middle" font-size="11">Fake bank email / SMS</text>
+        <text x="103" y="104" text-anchor="middle" font-size="11">steals password or OTP</text>
+        <rect x="225" y="30" width="190" height="90" rx="10" fill="#fff8e6" stroke="#b7791f" stroke-width="2"/>
+        <text x="320" y="62" text-anchor="middle" font-weight="700">DoS attack</text>
+        <text x="320" y="84" text-anchor="middle" font-size="11">Flood of fake requests</text>
+        <text x="320" y="104" text-anchor="middle" font-size="11">server overload / crash</text>
+        <rect x="442" y="30" width="190" height="90" rx="10" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <text x="537" y="62" text-anchor="middle" font-weight="700">Identity theft</text>
+        <text x="537" y="84" text-anchor="middle" font-size="11">Stolen CNIC / details</text>
+        <text x="537" y="104" text-anchor="middle" font-size="11">fraud in your name</text>
+      </svg>
+      <figcaption>Three high-yield threats: phishing (fake messages), DoS (server overload), identity theft (stolen CNIC or bank details).</figcaption>
+    </figure>
+
+    <div class="box example">
+      <p><b>Worked example: classify the incident.</b></p>
+      <ol>
+        <li>Bilal downloads a “cracked” Photoshop. Next day his project files are unreadable and a note asks for Bitcoin. → <b>Malware</b> (ransomware), started by cracked software.</li>
+        <li>Ayesha gets an email “Your Meezan account will close in 2 hours. Click here and send OTP.” The link is meezn-pk.tk, not the real bank. → <b>Phishing</b>.</li>
+        <li>On e-test morning the college portal spins forever; the admin graph shows 200,000 requests from one pattern of fake traffic. → <b>DoS</b>.</li>
+        <li>Someone opens a JazzCash wallet using Ahmed’s CNIC copy from a leaked form. → <b>Identity theft</b> (after data theft).</li>
+        <li>The lab assistant emails the password list to the whole staff by choosing the wrong group. → <b>Human error</b>.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p><b>Malware = bad program. Phishing = fake message. DoS = flood. Identity theft = stolen ‘you’. Human error = honest mistake.</b> Cracked software and unknown USBs are the usual door for malware in Pakistani colleges.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Calling every cyber problem a “virus”, or mixing phishing with malware.</p>
+      <p><b>Fix:</b> A virus is only one kind of malware. Phishing is a <b>trick against the user</b>; it may not install any file at all. DoS does not steal your password — it makes the service unusable for everyone.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">سیکیورٹی خطرہ وہ عمل یا کمزوری ہے جو نظام یا ڈیٹا کو نقصان پہنچاے۔ میلویئر نقصان دہ سافٹ ویئر ہے (وائرس، ورم، سپائی ویئر، رینسم ویئر، ٹروجن)۔ فشنگ جعلی ای میل یا ویب سائٹ سے پاس ورڈ اور او ٹی پی چھینتی ہے۔ ڈو ایس (DoS) جعلی درخواستوں کی بارش سے سائٹ کریش کر دیتا ہے۔ دیگر خطرات: غیر مجاز رسائی، ڈیٹا/شناخت کی چوری، اور انسانی غلطی۔</p>
+    </div>
+    <div class="box exam">
+      <p>Expect “Define a security threat”, “Explain malware / phishing / DoS with examples”, and “Differentiate data theft and identity theft.” List all six threats if the question says “common security threats.” For DoS, write: flood of fake requests → slowdown or crash → real users blocked, and quote the online exam portal. For phishing, write social engineering + fake genuine-looking email/site + passwords/OTPs.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Name five types of malware listed in the source.</p>
+      <p><b>2.</b> What does a DoS attack do to a website?</p>
+      <p><b>3.</b> How is identity theft different from data theft?</p>
+      <div class="ans">Answers: 1. Viruses, worms, spyware, ransomware, Trojans. 2. Floods it with thousands of fake requests so it slows down or crashes and real users cannot access it. 3. Data theft is stealing/copying data; identity theft is using stolen personal details (name, CNIC, bank) to pretend to be that person and commit fraud.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.4.2 ===================== -->
+  <div class="topic">
+    <h2>5.4.2 Identifying Security Threats</h2>
+    <div class="box learn">
+      <p><b>Identifying security threats</b> means <b>noticing signs</b> that data or systems may be at risk. Early identification helps you act before serious damage occurs.</p>
+    </div>
+    <table>
+      <tr><th>Sign / indicator</th><th>What it likely means</th></tr>
+      <tr><td>Slow performance, missing files, or random pop-ups.</td><td><b>Malware</b> or background unauthorised activity.</td></tr>
+      <tr><td>Failed login attempts or strange login locations.</td><td>Attempted <b>unauthorised access</b>.</td></tr>
+      <tr><td>Emails urging quick action, asking for an OTP, or containing bad grammar / strange links.</td><td>Classic <b>phishing</b>.</td></tr>
+      <tr><td>Unexpected deletion, copying or movement of records.</td><td><b>Data theft</b> or insider misuse.</td></tr>
+      <tr><td>Sudden massive spike in server requests or a very slow website.</td><td>An ongoing <b>DoS</b> attack.</td></tr>
+    </table>
+    <p>The first line of defence is also simple behaviour: avoid <b>unsafe downloads, cracked software, unverified websites and infected USB drives</b>.</p>
+
+    <div class="box example">
+      <p><b>Worked example: read the signs in a college computer lab in Khairpur.</b></p>
+      <ol>
+        <li>Three PCs show pop-ups and Word files have vanished after students used a “game” USB. → Treat as <b>malware</b>. Disconnect from the network; run antivirus; stop USB use.</li>
+        <li>Google Classroom emails: “Your account will be deleted in 30 minutes. Confirm password here.” Link spelling is go0gle. → <b>Phishing</b>. Do not click; report to the teacher.</li>
+        <li>The e-portal that was fine at 8:00 am is unreachable at 8:05; the technician sees a sudden spike in requests. → Suspect <b>DoS</b>.</li>
+        <li>Nadia’s Gmail security page shows a login from another country at 4 a.m. → <b>Unauthorised access</b> attempt. Change password; turn on MFA.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p><b>Slow/pop-ups → malware. Odd logins → unauthorised access. Urgent OTP email → phishing. Files moving → theft. Traffic spike → DoS.</b></p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Ignoring early signs (“the PC is just old”) until the ransomware note appears.</p>
+      <p><b>Fix:</b> One unusual login or one OTP email is enough to investigate. Early action is cheaper than recovery.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">خطرے کی جلد پہچان نقصان سے پہلے اقدام ممکن بناتی ہے۔ سست روی، غائب فائلیں یا پاپ اپ میلویئر کی علامت ہیں؛ عجیب لاگ ان غیر مجاز رسائی کی؛ فوری او ٹی پی والی ای میل فشنگ کی؛ ریکارڈ کا اچانک منتقل ہونا ڈیٹا چوری کی؛ سرور پر درخواستوں کا دھماکہ ڈو ایس کی۔ کریک سافٹ ویئر، نامعلوم یو ایس بی اور غیر تصدیق شدہ ویب سائٹوں سے بچیں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Random pop-ups and missing files most likely indicate what?</p>
+      <p><b>2.</b> An email with bad grammar that demands your OTP is a sign of what?</p>
+      <p><b>3.</b> Name four unsafe habits that invite these threats.</p>
+      <div class="ans">Answers: 1. Malware (or background unauthorised activity). 2. Phishing. 3. Unsafe downloads, cracked software, unverified websites, infected USB drives.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.4.3 ===================== -->
+  <div class="topic">
+    <h2>5.4.3 Apply Mitigation Techniques</h2>
+    <div class="box learn">
+      <p><b>Mitigation techniques</b> are actions taken to <b>prevent</b> security threats or <b>reduce their harmful effects</b> once identified. Technology helps, but it cannot stop all threats if the user is careless.</p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Technique</th><th>How it helps</th></tr>
+      <tr><td>1</td><td><b>Antivirus and firewalls</b></td><td>Antivirus scans and removes harmful software (for example from USB drives). A firewall monitors network traffic and blocks suspicious access from the internet.</td></tr>
+      <tr><td>2</td><td><b>Strong passwords and 2FA</b></td><td>Complex passwords slow brute-force guessing. 2FA adds an extra layer: an OTP on your phone as well as the password.</td></tr>
+      <tr><td>3</td><td><b>Data encryption</b></td><td>Converts data into unreadable code during transmission. Protects passwords and sensitive data if they are intercepted.</td></tr>
+      <tr><td>4</td><td><b>Regular backups</b></td><td>Copies on cloud or external drives allow quick recovery after a crash, human error or ransomware.</td></tr>
+      <tr><td>5</td><td><b>User awareness (the human factor)</b></td><td>Training users to avoid unknown links, suspicious attachments and password sharing. The human is often the weakest link — and the strongest defence when trained.</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>Worked example: match each threat to a mitigation — BISE e-test week at a college in Larkana.</b></p>
+      <table>
+        <tr><th>Threat seen</th><th>Mitigation to apply</th></tr>
+        <tr><td>USB games in the lab, pop-ups starting.</td><td>Scan with <b>antivirus</b>; block unknown USBs; enable the lab <b>firewall</b>.</td></tr>
+        <tr><td>Phishing SMS about “update your portal password.”</td><td><b>User awareness</b>: do not click; verify on the official site typed by hand. Turn on <b>2FA</b>.</td></tr>
+        <tr><td>Fear that intercepted Wi-Fi could show passwords.</td><td>Use sites with <b>encryption</b> (HTTPS / encrypted LMS); never send passwords in plain WhatsApp.</td></tr>
+        <tr><td>Ransomware risk to project files.</td><td><b>Regular 3-2-1 backups</b> so files can be restored without paying.</td></tr>
+        <tr><td>Shared passwords on a sticky note on the monitor.</td><td><b>Strong unique passwords</b> + 2FA; remove the note; awareness session.</td></tr>
+      </table>
+    </div>
+    <div class="box tip">
+      <p><b>Five shields: A-F, P-2, E, B, U.</b> Antivirus+Firewall, Passwords+2FA, Encryption, Backups, User awareness. Ransomware is why backups matter: if files are locked, a clean copy brings them back.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “If I installed antivirus I am 100% safe.”</p>
+      <p><b>Fix:</b> Antivirus does not stop you from typing an OTP into a fake page. Mitigation is a <b>set</b> of techniques plus human caution.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">تحفظ کی تدابیر خطرات کو روکتی یا ان کا نقصان کم کرتی ہیں: اینٹی وائرس اور فائر وال، مضبوط پاس ورڈ اور دو عنصری تصدیق (2FA)، انکرپشن، باقاعدہ بیک اپ، اور صارف کی آگاہی۔ ٹیکنالوجی تب ناکام ہو جاتی ہے جب صارف نامعلوم لنک کھولے یا پاس ورڈ بانٹے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> How does 2FA add a layer on top of a password?</p>
+      <p><b>2.</b> Why do regular backups help after ransomware?</p>
+      <p><b>3.</b> What three careless behaviours should awareness training stop?</p>
+      <div class="ans">Answers: 1. It also requires an OTP sent to your phone (a second factor). 2. You can restore a clean copy instead of losing the files (or paying). 3. Unknown links, suspicious attachments, and password sharing.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.5 ===================== -->
+  <div class="topic">
+    <h2>5.5 Equity and Equal Access in Digital Collaboration</h2>
+    <div class="box learn">
+      <p>Collaboration tools are vital for online learning and teamwork. To use these tools fairly, all users must participate <b>without barriers</b>. You must understand the difference between <b>equal access</b> and <b>equity</b>.</p>
+    </div>
+    <div class="two-col">
+      <div>
+        <p><b>Equal access</b></p>
+        <p>Giving everyone the <b>exact same</b> opportunity, tools and resources.</p>
+        <p>Example: providing every student with the <b>same login ID</b> to access a Zoom class.</p>
+      </div>
+      <div>
+        <p><b>Equity</b></p>
+        <p>Giving <b>additional, specific support</b> to users who need it, so they can reach the <b>same outcome</b>.</p>
+        <p>Example: turning on live <b>subtitles/captions</b> in Zoom specifically for a student who has hearing difficulties.</p>
+      </div>
+    </div>
+    <p>Equal access is the same starting kit. Equity is extra help so a person who faces a barrier can still finish the race with everyone else. Fair collaboration needs <b>both</b>: the same Zoom link for all (equal access) <b>and</b> captions, recorded lectures or a low-data app where needed (equity).</p>
+
+    <div class="box example">
+      <p><b>Worked example: one class, two ideas.</b> A teacher in Thatta starts online classes.</p>
+      <p><b>Equal access:</b> every student receives the same Zoom ID and password. That is fair in the sense of “same tool,” but a student with hearing loss still cannot follow the spoken lecture, and a student in a village with a weak 2G signal cannot join video.</p>
+      <p><b>Equity:</b> the teacher turns on captions, posts a low-size audio recording, and accepts the assignment as a Google Doc in the browser (not only through a heavy app). Now those two students can reach the <b>same learning outcome</b>.</p>
+    </div>
+    <div class="box tip">
+      <p><b>Equal = same tools. Equity = extra support for the same outcome.</b> Same shoes for all vs a ramp for the wheelchair user.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> “We gave everyone the same login, so the class is fair.”</p>
+      <p><b>Fix:</b> Same login is equal access only. If some students still cannot hear, see, afford a smartphone, or get electricity, you still need equity.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">مساوی رسائی (Equal Access) سب کو ایک جیسے اوزار دیتی ہے، جیسے ایک ہی زوم لاگ ان۔ انصاف (Equity) ضرورت مند کو اضافی مدد دیتی ہے تاکہ وہی نتیجہ نکل سکے، جیسے سماعت کی مشکل والے طالب علم کے لیے زندہ ذیلی عنوانات (Captions)۔ منصفانہ تعاون کے لیے دونوں چاہییں۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Define equal access in one sentence.</p>
+      <p><b>2.</b> Define equity in one sentence.</p>
+      <p><b>3.</b> Why are Zoom captions an example of equity, not merely equal access?</p>
+      <div class="ans">Answers: 1. Giving everyone the exact same opportunity, tools and resources. 2. Giving additional, specific support so users who need it can reach the same outcome. 3. Because they are extra support for a student with hearing difficulties, not the same identical tool given to all.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.5.1 ===================== -->
+  <div class="topic">
+    <h2>5.5.1 Functions of Equity and Equal Access <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Equity and equal access are not slogans. They <b>do work</b> in a digital classroom. The source lists four functions.</p>
+    </div>
+    <table>
+      <tr><th>Function</th><th>What it does</th><th>Pakistani example</th></tr>
+      <tr><td><b>1. Providing need-based support (equity)</b></td><td>Help tailored to individuals.</td><td>Audio descriptions for visually impaired students; a screen reader so a blind student in Karachi can hear a digital textbook.</td></tr>
+      <tr><td><b>2. Removing barriers</b></td><td>Help students in remote areas attend online classes.</td><td>Mobile-friendly, <b>low-data</b> apps so a student in Tharparkar or the katcha areas of Sindh can join without a fibre connection.</td></tr>
+      <tr><td><b>3. Enabling active participation</b></td><td>Students who miss live class can still take part.</td><td><b>Recorded lectures</b> so load-shedding or an internet outage in Hyderabad does not make a student fall behind.</td></tr>
+      <tr><td><b>4. Supporting different learning needs</b></td><td>Offer more than one format.</td><td>Videos, text notes and audio of the same Chapter 5 topic so each student learns in the way that suits them best.</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>Worked example: design four functions for one class WhatsApp + Classroom group in Nawabshah.</b></p>
+      <ol>
+        <li><b>Need-based support:</b> Ali is visually impaired — share materials as selectable text (not only photos) so a screen reader can speak them; add a short audio description of each diagram.</li>
+        <li><b>Remove barriers:</b> post a 5 MB audio summary instead of a 200 MB video for students on expensive mobile data.</li>
+        <li><b>Active participation:</b> upload the Zoom recording within an hour; students whose lights went out at 7 pm watch it at 11 pm.</li>
+        <li><b>Different learning needs:</b> the same lesson as (a) a 12-minute video, (b) a one-page PDF, (c) an Urdu audio note.</li>
+      </ol>
+      <p><b>Discussion from the source:</b> if a teacher <b>only</b> accepts assignments via an app that needs a <b>high-end smartphone</b>, is that equal access? <b>No.</b> It creates a <b>hardware barrier</b> for lower-income students. Web-based or light apps give better access.</p>
+    </div>
+    <div class="box tip">
+      <p><b>Four functions: Support, Remove, Participate, Formats.</b> “Some Rural Pupils Fail” without them — Support (need-based), Remove barriers, Participate via recordings, Formats (video/text/audio).</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Describing only captions and stopping.</p>
+      <p><b>Fix:</b> Examiners want all four functions. Include remote-area low-data apps, recorded lectures for power cuts, and multiple formats — these are in the Sindh source on purpose.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">انصاف اور مساوی رسائی کے چار کام ہیں: ضرورت کے مطابق مدد (جیسے نابینا طالب علم کے لیے آڈیو وضاحت)، رکاوٹیں ہٹانا (دور دراز علاقوں کے لیے کم ڈیٹا والی ایپس)، فعال شرکت ممکن بنانا (لوڈ شیڈنگ کے لیے ریکارڈ شدہ لیکچر)، اور مختلف اندازِ تعلم کی حمایت (ویڈیو، متن، آڈیو)۔ مہنگے فون والی ایپ پر صرف اسی طرح اسائنمنٹ لینا مساوی رسائی نہیں۔</p>
+    </div>
+    <div class="box exam">
+      <p>Golden question: “Explain the functions of equity and equal access in digital collaboration” (5–8 marks). Write the four headings in order, one example each, and add the hardware-barrier point (high-end app vs light/web app). Another favourite: “Differentiate equal access and equity with examples” — same login vs captions.</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> List the four functions of equity and equal access.</p>
+      <p><b>2.</b> How do recorded lectures enable active participation in Pakistan?</p>
+      <p><b>3.</b> Why is a high-end-smartphone-only assignment unfair?</p>
+      <div class="ans">Answers: 1. Need-based support; removing barriers; enabling active participation; supporting different learning needs. 2. Students who face power or internet outages can watch later and not fall behind. 3. It creates a hardware barrier for lower-income students; web-based or light apps give better access.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 5.5.2 ===================== -->
+  <div class="topic">
+    <h2>5.5.2 Collaboration Tools</h2>
+    <div class="box learn">
+      <p><b>Digital collaboration tools</b> are online platforms that support <b>communication, file sharing, learning and teamwork</b> across different locations.</p>
+    </div>
+    <table>
+      <tr><th>Tool</th><th>Primary function and educational use</th></tr>
+      <tr><td><b>Google Docs</b></td><td>Write, edit, comment and share documents in real time. Excellent for group assignments.</td></tr>
+      <tr><td><b>Zoom</b></td><td>Online meetings, virtual classes, screen sharing and video-based communication.</td></tr>
+      <tr><td><b>Microsoft Teams</b></td><td>A unified workspace for online meetings, file sharing, class groups and structured teamwork.</td></tr>
+      <tr><td><b>Google Classroom / LMS</b></td><td>Learning Management Systems help teachers manage lectures, distribute assignments, conduct quizzes and grade student activities.</td></tr>
+      <tr><td><b>WhatsApp</b></td><td>Quick class announcements, urgent reminders and instant group communication. Must be used responsibly.</td></tr>
+      <tr><td><b>Email</b></td><td>Formal communication, official notices, submitting large attachments, and keeping a professional written record.</td></tr>
+    </table>
+    <p><b>Responsibly</b> on WhatsApp means: no leaking of classmates’ marks or photos, no fake forwards, and no forcing a student who has no smartphone to miss official work that was never posted on the LMS.</p>
+
+    <div class="box example">
+      <p><b>Worked example: choose the right tool for each job in a Hyderabad college group project.</b></p>
+      <ol>
+        <li>Write the report together after school, from different houses. → <b>Google Docs</b> (real-time edit and comments).</li>
+        <li>Sunday 7 pm teacher explanation with slides. → <b>Zoom</b> or <b>Teams</b> (video + screen share). Turn on captions (equity).</li>
+        <li>Collect homework, quiz and grades in one place. → <b>Google Classroom / LMS</b>.</li>
+        <li>“Tomorrow’s test is postponed — tell everyone in the next ten minutes.” → <b>WhatsApp</b> class group (then repeat on Classroom so nobody is left out).</li>
+        <li>Send the principal a formal complaint with a 8 MB scanned letter. → <b>Email</b> (written record + attachment).</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p><b>Docs = write together. Zoom/Teams = meet. Classroom = official class hub. WhatsApp = fast but informal. Email = formal record.</b></p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Running the whole course only on WhatsApp.</p>
+      <p><b>Fix:</b> WhatsApp is for quick reminders. Assignments, marks and lectures belong on an LMS so there is access control, a record, and a path that does not depend on one person’s phone.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">ڈیجیٹل تعاون کے اوزار مختلف مقامات سے بات چیت، فائل شیئرنگ اور ٹیم ورک چلاتے ہیں: گوگل ڈاکس مشترکہ تحریر کے لیے، زوم اور مائیکروسافٹ ٹیمز میٹنگ کے لیے، گوگل کلاس روم یا ایل ایم ایس باقاعدہ پڑھائی کے لیے، واٹس ایپ فوری اطلاع کے لیے (ذمہ داری سے)، اور ای میل رسمی ریکارڈ کے لیے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Which tool is excellent for real-time group writing?</p>
+      <p><b>2.</b> What four jobs does an LMS / Google Classroom help a teacher do?</p>
+      <p><b>3.</b> What is email especially good for?</p>
+      <div class="ans">Answers: 1. Google Docs. 2. Manage lectures, distribute assignments, conduct quizzes, grade activities. 3. Formal communication, official notices, large attachments, and a professional written record.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Careers ===================== -->
+  <div class="topic">
+    <h2>Career Opportunities</h2>
+    <div class="box learn">
+      <p>This unit covers neural networks, deep learning, secure collaboration, data protection and digital equity. Mastery of these ideas opens high-demand careers in <b>Artificial Intelligence</b> and <b>Cybersecurity</b> — including in Pakistan’s banks, software houses, universities and public projects linked to the National AI Policy 2025.</p>
+    </div>
+    <table>
+      <tr><th>Career</th><th>What the person does</th></tr>
+      <tr><td><b>Machine Learning Engineer</b></td><td>Builds and trains machine-learning and neural-network models used in face recognition, NLP and recommendation systems.</td></tr>
+      <tr><td><b>Cybersecurity Analyst</b></td><td>Monitors systems for threats such as malware and phishing, and applies mitigation (firewalls, 2FA) to protect organisational data.</td></tr>
+      <tr><td><b>AI Researcher</b></td><td>Studies and develops new techniques in artificial intelligence and deep learning, often in university labs or high-tech R&amp;D centres.</td></tr>
+      <tr><td><b>Data Privacy Officer</b></td><td>Ensures the organisation’s data handling complies with legal privacy principles, protecting sensitive user information and secure collaboration.</td></tr>
+      <tr><td><b>Ethical Hacker</b></td><td>Legally tests systems and networks for vulnerabilities (penetration testing) before malicious attackers can exploit them via DoS or malware.</td></tr>
+    </table>
+    <div class="box example">
+      <p><b>Worked example: match the job.</b></p>
+      <ol>
+        <li>“Train a model that tags Urdu news headlines.” → <b>Machine Learning Engineer</b>.</li>
+        <li>“Watch the bank’s logs for phishing domains and turn on 2FA.” → <b>Cybersecurity Analyst</b>.</li>
+        <li>“With written permission, try to break the college portal before criminals do.” → <b>Ethical Hacker</b>.</li>
+      </ol>
+    </div>
+    <div class="box tip">
+      <p>AI careers lean on Python, maths and ethics. Cyber careers lean on threats, 2FA, firewalls and careful testing. Both need clear communication.</p>
+    </div>
+    <div class="box warn">
+      <p><b>Mistake:</b> Confusing an ethical hacker with a criminal hacker.</p>
+      <p><b>Fix:</b> An ethical hacker has <b>permission</b> and reports weaknesses so they can be fixed. Attacking without permission is a crime.</p>
+    </div>
+    <div class="box urdu">
+      <p class="ur">اس باب سے جڑے پیشے ہیں: مشین لرننگ انجینئر، سائبر سیکیورٹی اینالسٹ، اے آئی محقق، ڈیٹا پرائیویسی آفیسر اور اخلاقی ہیکر۔ اخلاقی ہیکر اجازت کے ساتھ کمزوریاں ڈھونڈتا ہے تاکہ مجرمانہ حملے سے پہلے انہیں ٹھیک کیا جا سکے۔</p>
+    </div>
+    <div class="box check">
+      <p><b>1.</b> Who legally tests a network for weaknesses before attackers do?</p>
+      <p><b>2.</b> Which career focuses on compliance and protecting sensitive user information?</p>
+      <div class="ans">Answers: 1. Ethical hacker. 2. Data Privacy Officer.</div>
+    </div>
+  </div>
+
+  <!-- ===================== REVIEW ===================== -->
+  <section class="review">
+    <h2>Chapter 5 Review</h2>
+    <h3>Chapter summary</h3>
+    <ul class="summary">
+      <li><b>ML</b> is a model (a trained brain) that learns from data in three steps: input, learning, prediction on new unseen data — without a hand-written rule for every case.</li>
+      <li><b>AI ⊃ ML ⊃ DL</b>: deep learning sits inside machine learning, which sits inside artificial intelligence.</li>
+      <li>A <b>neural network</b> is a brain-inspired mathematical model of connected neurons in an input layer, hidden layer(s) and output layer (face unlock: camera → features → unlock).</li>
+      <li><b>Deep learning</b> trains neural networks with many hidden layers; early layers learn simple features, deeper layers learn complex patterns. It needs huge data and computing power.</li>
+      <li>NN components: input layer, neurons, hidden layers, weights, bias, activation function, output layer, loss function. A neuron computes s = Σ(x × w) + b, then an activation gate.</li>
+      <li>DL components: large data, many hidden layers, automatic feature learning, learning algorithm (backpropagation), GPUs, training epochs. Pakistan’s National AI Policy 2025 covers education, health, agriculture, banking and local languages.</li>
+      <li>Applications: image and speech recognition, NLP, healthcare imaging, recommendations, autonomous vehicles, fraud detection, assistive tech.</li>
+      <li><b>Secure collaboration</b>: authentication (who), MFA/2FA (two or more factors), access control (what you may do), accountability, privacy, safe transmission.</li>
+      <li><b>Data protection</b>: encryption (plaintext → ciphertext; symmetric vs asymmetric; Caesar shift), strong passwords, 3-2-1 backup, firewall and antivirus.</li>
+      <li>Threats: malware, phishing, unauthorised access, data/identity theft, DoS, human error. Spot them by pop-ups, odd logins, urgent OTP emails, missing files, traffic spikes.</li>
+      <li>Mitigation: antivirus + firewall, strong passwords + 2FA, encryption, regular backups, user awareness.</li>
+      <li><b>Equal access</b> = same tools for all; <b>equity</b> = extra support for the same outcome. Functions: need-based support, removing barriers, recorded participation, multiple formats. Tools: Docs, Zoom, Teams, Classroom/LMS, WhatsApp, email.</li>
+    </ul>
+
+    <h3>Key terms</h3>
+    <table class="glossary">
+      <tr><th>Term</th><th>Meaning</th><th>اردو</th></tr>
+      <tr><td>Artificial intelligence (AI)</td><td>The broad field in which machines perform tasks that normally need human thinking.</td><td class="ur">مصنوعی ذہانت</td></tr>
+      <tr><td>Machine learning (ML)</td><td>A model that learns patterns from data and then predicts on new data.</td><td class="ur">مشین لرننگ</td></tr>
+      <tr><td>Neural network (NN)</td><td>A brain-inspired mathematical model of connected neurons in layers.</td><td class="ur">نیورل نیٹ ورک</td></tr>
+      <tr><td>Deep learning (DL)</td><td>An ML method that trains neural networks with many hidden layers.</td><td class="ur">ڈیپ لرننگ</td></tr>
+      <tr><td>Weight</td><td>A number showing the strength or importance of a connection between neurons.</td><td class="ur">وزن (وزنِ تعلق)</td></tr>
+      <tr><td>Bias</td><td>An extra constant added to a neuron’s sum to improve accuracy.</td><td class="ur">بائیس</td></tr>
+      <tr><td>Activation function</td><td>A gate that decides whether a signal is important enough to pass on.</td><td class="ur">ایکٹیویشن فنکشن</td></tr>
+      <tr><td>Loss function</td><td>A measure of how wrong the model’s answer is compared with reality.</td><td class="ur">لاس فنکشن</td></tr>
+      <tr><td>Epoch</td><td>One full training pass through the dataset.</td><td class="ur">ایپوک (تربیتی چکر)</td></tr>
+      <tr><td>GPU</td><td>Graphics Processing Unit — specialised hardware used to train deep networks.</td><td class="ur">جی پی یو</td></tr>
+      <tr><td>NLP</td><td>Natural Language Processing — computers understanding and producing human language.</td><td class="ur">قدرتی زبان کی پروسیسنگ</td></tr>
+      <tr><td>Authentication</td><td>Confirming a user’s identity before access (password, PIN, OTP, biometrics).</td><td class="ur">تصدیقِ شناخت</td></tr>
+      <tr><td>MFA / 2FA</td><td>Multi-/two-factor authentication: two or more different proofs of identity.</td><td class="ur">کثیر / دو عنصری تصدیق</td></tr>
+      <tr><td>Access control</td><td>Rules for what an authenticated user may do (view, edit, share, …).</td><td class="ur">رسائی پر قابو</td></tr>
+      <tr><td>Encryption</td><td>Turning plaintext into ciphertext so unauthorised people cannot read it.</td><td class="ur">رمز کاری (انکرپشن)</td></tr>
+      <tr><td>Caesar cipher</td><td>A symmetric cipher that shifts letters by a fixed number of places.</td><td class="ur">سیزر سائفر</td></tr>
+      <tr><td>3-2-1 backup</td><td>Three copies, two media types, one copy stored off-site.</td><td class="ur">3-2-1 بیک اپ</td></tr>
+      <tr><td>Firewall</td><td>A barrier that monitors network traffic and blocks suspicious access.</td><td class="ur">فائر وال</td></tr>
+      <tr><td>Malware</td><td>Harmful software such as viruses, worms, spyware, ransomware and Trojans.</td><td class="ur">میلویئر</td></tr>
+      <tr><td>Phishing</td><td>Fake messages or sites that trick people into giving passwords or OTPs.</td><td class="ur">فشنگ</td></tr>
+      <tr><td>Denial of Service (DoS)</td><td>Flooding a service with fake requests so real users cannot use it.</td><td class="ur">سروس سے انکار</td></tr>
+      <tr><td>Equal access</td><td>Giving everyone the same tools and opportunity.</td><td class="ur">مساوی رسائی</td></tr>
+      <tr><td>Equity</td><td>Giving extra, specific support so people facing barriers reach the same outcome.</td><td class="ur">انصاف (ایکویٹی)</td></tr>
+      <tr><td>LMS</td><td>Learning Management System — platform for lectures, assignments, quizzes and grades.</td><td class="ur">تعلیمی نظم کا نظام</td></tr>
+    </table>
+
+    <h3>Practice: multiple choice</h3>
+    <ol class="mcq">
+      <li>A machine-learning model works in which order?
+        <ol class="opts"><li>Prediction, then data input, then learning</li><li>Data input, learning, then prediction on new data</li><li>Only prediction, with no data</li><li>Writing a separate rule for every case</li></ol>
+      </li>
+      <li>A neural network is best described as:
+        <ol class="opts"><li>a living human brain placed in a computer</li><li>a backup disk</li><li>a brain-inspired mathematical model of connected neurons</li><li>a type of firewall</li></ol>
+      </li>
+      <li>The word “deep” in deep learning refers to:
+        <ol class="opts"><li>several hidden layers through which data passes</li><li>very loud speakers</li><li>using only one neuron</li><li>storing data underground</li></ol>
+      </li>
+      <li>In the relationship AI ⊃ ML ⊃ DL, the innermost set is:
+        <ol class="opts"><li>AI</li><li>ML</li><li>equal access</li><li>DL</li></ol>
+      </li>
+      <li>Weights in a neural network show the:
+        <ol class="opts"><li>colour of the screen</li><li>importance or strength of connections between neurons</li><li>size of the hard disk</li><li>student’s roll number</li></ol>
+      </li>
+      <li>For x1 = 1, x2 = 0, w1 = 0.5, w2 = 0.5, b = 0 and threshold 0.4, the neuron output y is:
+        <ol class="opts"><li>1</li><li>0</li><li>0.4</li><li>2</li></ol>
+      </li>
+      <li>Which of the following is a component of deep learning (not of a tiny shallow network)?
+        <ol class="opts"><li>Exactly one hidden layer and ten rows of data</li><li>Manual listing of every feature by a human, always</li><li>Many hidden layers, huge datasets and GPUs</li><li>A Caesar cipher</li></ol>
+      </li>
+      <li>Unlocking a phone by matching facial features is mainly an example of:
+        <ol class="opts"><li>a DoS attack</li><li>3-2-1 backup</li><li>equal access</li><li>image recognition</li></ol>
+      </li>
+      <li>Authentication means:
+        <ol class="opts"><li>choosing who may edit a file</li><li>confirming a user’s identity before allowing access</li><li>shifting letters in a cipher</li><li>flooding a server with requests</li></ol>
+      </li>
+      <li>Password plus an OTP sent to a phone is an example of:
+        <ol class="opts"><li>MFA / 2FA</li><li>a worm</li><li>a shallow neural network</li><li>equity captions</li></ol>
+      </li>
+      <li>With a Caesar cipher of shift 3, the plaintext CAT becomes:
+        <ol class="opts"><li>DBU</li><li>CAW</li><li>FDW</li><li>ZXQ</li></ol>
+      </li>
+      <li>The 3-2-1 backup rule requires:
+        <ol class="opts"><li>three passwords only</li><li>one copy on the same laptop twice</li><li>no off-site copy</li><li>three copies, two media types, one copy off-site</li></ol>
+      </li>
+      <li>Phishing is:
+        <ol class="opts"><li>a social-engineering trick using fake emails or sites to steal passwords or OTPs</li><li>a type of GPU</li><li>an activation function</li><li>a collaboration tool like Zoom</li></ol>
+      </li>
+      <li>A Denial of Service (DoS) attack:
+        <ol class="opts"><li>always steals a CNIC</li><li>floods a system with fake requests so it slows or crashes</li><li>is the same as a strong password</li><li>is a hidden layer</li></ol>
+      </li>
+      <li>Turning on live captions in Zoom for a student with hearing difficulties is an example of:
+        <ol class="opts"><li>malware</li><li>a DoS attack</li><li>equal access only, with no extra support</li><li>equity</li></ol>
+      </li>
+    </ol>
+
+    <h3>Practice: short questions</h3>
+    <ol class="short">
+      <li>Define a machine-learning model and state the three steps of how it works.</li>
+      <li>What is a neural network? Name its three kinds of layer and link them to face unlock.</li>
+      <li>Differentiate a neural network (the model) from deep learning (the method).</li>
+      <li>State the relationship AI ⊃ ML ⊃ DL in words.</li>
+      <li>List eight components of a neural network. What do weights and bias do?</li>
+      <li>Name six components of deep learning.</li>
+      <li>Differentiate authentication, MFA and access control with one example each.</li>
+      <li>Encrypt SINDH using a Caesar cipher with shift 3. State whether this cipher is symmetric or asymmetric.</li>
+      <li>Define malware, phishing and DoS. Give one Pakistani-style example of each.</li>
+      <li>Differentiate equal access and equity. List four functions of equity and equal access.</li>
+    </ol>
+
+    <h3>Practice: long / problem questions</h3>
+    <ol class="long">
+      <li>Explain machine learning, neural networks and deep learning. Draw and label the set diagram AI ⊃ ML ⊃ DL. Include the face-unlock walk-through and the photo-gallery example.</li>
+      <li>A neuron has inputs x1 = 0.8, x2 = 0.5, weights w1 = 0.4, w2 = 0.6, bias b = 0.1 and threshold 0.5. (a) Compute the weighted sum s and the output y. (b) Repeat for x1 = 0.2, x2 = 0.3. (c) Name all eight NN components and sketch a 3–4–2 network. (d) List the six DL components and map them onto a cotton-leaf disease detector in Sindh.</li>
+      <li>Describe eight applications of neural networks and deep learning with examples. Then discuss the future of AI in Pakistan with reference to the National AI Policy 2025 and five sectors.</li>
+      <li>What is secure collaboration? Explain authentication, MFA/2FA, access control, accountability, data privacy and safe transmission, using a Google Classroom / banking-app scenario from Pakistan.</li>
+      <li>Define data protection. Explain encryption (symmetric vs asymmetric) with a full Caesar-cipher working of SINDH (shift 3). Describe strong passwords, the 3-2-1 backup rule, firewall and antivirus.</li>
+      <li>Define a security threat. Explain malware, phishing, unauthorised access, data/identity theft, DoS and human error. Give a table of identifying signs and a matching set of mitigation techniques. End with equity versus equal access and a fair choice of collaboration tools.</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Answer key</h2>
+      <h3>Multiple choice</h3>
+      <ol class="inline"><li>b</li><li>c</li><li>a</li><li>d</li><li>b</li><li>a</li><li>c</li><li>d</li><li>b</li><li>a</li><li>c</li><li>d</li><li>a</li><li>b</li><li>d</li></ol>
+
+      <h3>Short questions — model answers</h3>
+      <ol>
+        <li>An ML model is the system that learns from data and gives an output — the trained brain of a program. Steps: (1) data input — massive data is given; (2) learning — it studies data and finds patterns/rules automatically; (3) prediction — after training it decides on new, unseen data.</li>
+        <li>A neural network is a computer model that learns patterns from data; it is inspired by the human brain but works as a mathematical system of connected neurons/nodes. Input layer receives the camera image; hidden layers study features such as eye distance and nose shape; output layer unlocks the phone if they match stored data.</li>
+        <li>A neural network is the model: layers, nodes and connections; it can be shallow (one or two hidden layers). Deep learning is the method of training networks that have many hidden layers, needing huge data and processing power for complex patterns.</li>
+        <li>Artificial intelligence is the largest set; machine learning is a part of AI; deep learning is a part of ML. All DL is ML and all ML is AI, but not all AI is ML and not all ML is DL.</li>
+        <li>Input layer; neurons/nodes; hidden layer(s); weights; bias; activation function; output layer; loss function. Weights show connection strength/importance. Bias is an extra constant that helps adjust the result and improve accuracy.</li>
+        <li>Large input data; many hidden layers; automatic feature learning; learning algorithm (e.g. backpropagation); high computing power (GPUs); training process (epochs).</li>
+        <li>Authentication confirms identity before access (password, PIN, OTP, biometrics — e.g. bank OTP). MFA/2FA requires two or more factor types, typically password + OTP. Access control decides what that user may do (view/edit/comment/download/share — e.g. Google Doc view-only for the class, edit for group leaders).</li>
+        <li>S→V, I→L, N→Q, D→G, H→K so ciphertext VLQGK. Caesar uses the same shift key to encrypt and decrypt, so it is symmetric.</li>
+        <li>Malware: harmful software (viruses, worms, spyware, ransomware, Trojans) — e.g. cracked software that corrupts files. Phishing: fake genuine-looking email/SMS/site stealing passwords or OTPs — e.g. fake JazzCash OTP page. DoS: flood of fake requests that slows or crashes a service — e.g. online exam portal students cannot enter.</li>
+        <li>Equal access: same tools/opportunity for everyone (same Zoom login). Equity: extra specific support so people with barriers reach the same outcome (captions for hearing difficulties). Functions: need-based support; removing barriers (low-data apps for remote areas); enabling participation (recorded lectures during load-shedding); supporting different learning needs (video, text, audio).</li>
+      </ol>
+
+      <h3>Long questions — model answers</h3>
+      <ol>
+        <li><b>ML:</b> trained-brain model; data → learn patterns → predict on unseen data; used in face unlock, speech, photo search, diagnosis, translation. <b>NN:</b> brain-inspired maths model; neurons pass information through Input, Hidden, Output; face unlock: camera (input), eye distance/nose shape (hidden), unlock (output). <b>DL:</b> ML method with multi-layer NNs; “deep” = several hidden layers; early layers: edges/shapes/colours; deeper: whole face or car model; gallery search example. <b>Diagram:</b> three nested sets labelled AI, ML, DL with AI outermost. Sentence: DL ⊂ ML ⊂ AI.</li>
+        <li><b>(a)</b> s = 0.8×0.4 + 0.5×0.6 + 0.1 = 0.32 + 0.30 + 0.1 = 0.72; 0.72 ≥ 0.5 so y = 1. <b>(b)</b> s = 0.2×0.4 + 0.3×0.6 + 0.1 = 0.08 + 0.18 + 0.1 = 0.36; 0.36 &lt; 0.5 so y = 0. <b>(c)</b> Eight components as in the table; sketch three input circles, four hidden, two output, labelled layers. <b>(d)</b> Huge labelled leaf photos; many hidden layers; features learned automatically; backpropagation; GPU training; many epochs until accuracy rises — cotton pest detector for a Sindh farm.</li>
+        <li>Cover all eight: image recognition (face lock, cameras); speech (assistant alarm, Urdu voice); NLP (Translate, chatbots); healthcare (X-ray/CT/MRI, pneumonia); recommendations (YouTube CS videos); autonomous vehicles (brake for pedestrian); fraud (unusual bank transaction); assistive (speech-to-text). Then Policy 2025: innovation, skills, ethics, digital growth. Sectors: education (tutoring, assessments); healthcare (rural diagnosis); agriculture (crops, irrigation, yield); business/banking (fraud, chatbots); local languages (Urdu, Sindhi). Students need Python, maths, data analysis, problem-solving, ethics.</li>
+        <li>Secure collaboration = working together with digital tools in a safe, controlled, responsible way. Authentication: prove identity (password/PIN/OTP/biometrics); bank OTP example. MFA: two or more of know/have/are; 2FA = password + phone OTP. Access control: view/edit/comment/download/share; teacher view-only vs group-leader edit. Accountability: LMS tracks who uploaded/submitted. Privacy: protect names, marks, passwords; share only with the right people; confidentiality; legal/ethical compliance. Safe transmission: encrypted official LMS, not an open public forum. Classroom scenario: school email + MFA, role permissions, version history, no CNICs on public WhatsApp.</li>
+        <li>Data protection = keeping digital information safe from unauthorised access, misuse, loss, damage or accidental deletion. Encryption: plaintext → ciphertext; symmetric = same key both ways; asymmetric = public encrypt, private decrypt. Caesar shift 3: SINDH → VLQGK; decrypt by −3; wrap-around at Z. Strong password: upper, lower, number, symbol (e.g. Zk@2026#Pass) against brute force. 3-2-1: three copies, two media, one off-site (laptop + USB + Google Drive). Firewall: barrier monitoring/blocking suspicious network traffic. Antivirus: detects/removes malware on the local machine.</li>
+        <li>A security threat is any action, event or weakness that can harm a system or its data. Malware (cracked software); phishing (fake bank mail); unauthorised access (unlocked PC, weak/shared passwords); data theft vs identity theft (stolen CNIC used for fraud); DoS (exam portal flood); human error (wrong email, deleting files, falling for a scam). Signs table: pop-ups/missing files → malware; odd logins → unauthorised access; urgent OTP/bad grammar → phishing; records moved → theft; traffic spike → DoS. Mitigation: antivirus+firewall; strong passwords+2FA; encryption in transit; regular backups; user awareness (no unknown links, attachments, or shared passwords). Equal access vs equity; do not require a high-end phone-only app. Tools: Docs, Zoom, Teams, Classroom/LMS, WhatsApp (responsible), email (formal record).</li>
+      </ol>
+    </div>
+
+    <h3>Self-assessment: I can…</h3>
+    <ul class="checklist">
+      <li>define ML and explain data input → learning → prediction.</li>
+      <li>draw AI ⊃ ML ⊃ DL and give a system that belongs in each layer.</li>
+      <li>describe a neural network and the face-unlock I-H-O path.</li>
+      <li>compute a neuron’s weighted sum and threshold output from numbers.</li>
+      <li>list eight NN components and six DL components.</li>
+      <li>give eight applications of NN/DL and Pakistan’s AI policy sectors.</li>
+      <li>explain authentication, MFA/2FA and access control with examples.</li>
+      <li>encrypt a short word with a Caesar cipher and apply the 3-2-1 backup rule.</li>
+      <li>identify malware, phishing and DoS from signs and name mitigations.</li>
+      <li>distinguish equal access from equity and state four functions of equity.</li>
+      <li>choose a fair collaboration tool (Docs, Zoom, Teams, LMS, WhatsApp, email).</li>
+    </ul>
+  </section>
+</section>

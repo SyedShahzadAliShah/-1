@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.couplesguide.postures"
+    namespace = "com.teachyourself.sketchnotes"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.couplesguide.postures"
+        applicationId = "com.teachyourself.sketchnotes"
         minSdk = 24
         targetSdk = 34
-        versionCode = 15
-        versionName = "3.2.1"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {
@@ -35,7 +35,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         buildConfig = true
     }
 }
@@ -44,8 +43,31 @@ dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+    implementation("androidx.webkit:webkit:1.11.0")
+}
+
+val fetchMathJax = tasks.register<Exec>("fetchMathJax") {
+    workingDir(rootDir)
+    commandLine("bash", "tools/fetch_mathjax.sh")
+}
+
+val buildContent = tasks.register<Exec>("buildContent") {
+    workingDir(rootDir)
+    commandLine("python3", "tools/build_content.py")
+}
+
+tasks.named("preBuild").configure {
+    dependsOn(fetchMathJax, buildContent)
+}
+
+tasks.register<Copy>("copyDebugApk") {
+    from(layout.buildDirectory.file("outputs/apk/debug/app-debug.apk"))
+    into(rootProject.file("releases"))
+    rename { "TeachYourselfSketchnotes-v${android.defaultConfig.versionName}-debug.apk" }
+}
+
+afterEvaluate {
+    tasks.named("assembleDebug").configure {
+        finalizedBy("copyDebugApk")
+    }
 }

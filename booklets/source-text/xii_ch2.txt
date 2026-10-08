@@ -1,0 +1,707 @@
+##P22
+COMPUTER SCIENCE
+XII
+CHAPTER 2:
+COMPUTATIONAL THINKING &
+ALGORITHMS
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2024 / 2025-27
+Page 1
+
+##P23
+TABLE OF CONTENTS
+1. 2.1 Analyze algorithms for correctness
+2. 2.1.1 - 2.1.3 Trace Tables vs Stepwise Reasoning ★
+3. 2.2 Evaluating the Clarity of an Algorithm
+4. 2.2.1 - 2.2.2 Modularity and Readability
+5. 2.3 Assess Algorithm Efficiency
+6. 2.3.1 Number of Steps (Big O Notation) ★
+7. 2.3.2 Number of Conditions
+8. 2.3.3 Number of Repetitions
+9. 2.3.4 The Efficiency Evaluation Framework
+10. 2.4 Refinements to improve clarity and efficiency
+11. 2.5 Concept of Data Structure ★
+12. 2.5.1 Linear Data Structures (Array, Linked List, Stack, Queue)
+13. 2.5.2 Non-Linear Data Structures (Tree, Graph)
+14. 2.5.3 Operations on Data Structures
+15. 2.6 Identify data structures in problem scenarios
+16. 2.7 Trace data retrieval in Array, List and Queue
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XII (1 & 2).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P24
+2.1 Analyze algorithms for correctness
+An algorithm is considered correct if its output matches the expected results for
+a given input. Analyzing an algorithm for correctness involves demonstrating
+that it consistently produces the intended output for all valid inputs.
+Two commonly used and effective methods for this analysis are:
+Trace Tables
+Stepwise Reasoning
+2.1.1 Trace Tables
+★ GOLDEN TOPIC
+A trace table is a technique used to monitor how the values of variables change
+during the execution of an algorithm. It is essentially a "paper execution" of the
+code, often referred to as a manual walkthrough or dry running.
+Purpose of Trace Tables:
+Dry Running: Manually acting as the computer to execute the algorithm
+line by line.
+Debugging: Identifying logical errors where an algorithm runs but
+produces incorrect outputs.
+Validation: Ensuring the algorithm does what it is intended to do.
+Components of a Trace Table:
+Line Number: The line of algorithm being executed.
+Variables: A column for every variable.
+Input/Output: A column(s) for user inputs and printed output.
+Condition Check: A space to evaluate conditions (IF, WHILE, FOR, etc.).
+Page 3
+
+##P25
+Trace Table Example
+Scenario: An algorithm counts the number of soldiers who meet the training
+eligibility criteria based on height requirements. To qualify, a soldier's height
+must be between 1.57 and 1.91 meters, inclusive.
+Inputs: All soldiers' heights.
+Output: Count of eligible soldiers.
+Step 1: Start
+Step 2: SET Total = 0
+Step 3: Set AllHeights = [1.91, 2.01, 1.87, 1.57, 1.48]
+Step 4: FOR EACH height FROM AllHeights DO
+Step 5:   IF height >= 1.57 AND height <= 1.91 THEN
+Step 6:     SET Total = Total + 1
+Step 7:   END IF
+Step 8: END FOR EACH
+Step 9: Print Total
+Step 10: End
+Trace Table:
+Step No.
+Variables
+Inputs
+Conditions
+Total
+Height
+All Heights
+Height between 1.57 and 1.91
+2
+0
+3
+1.91, 2.01, 1.87, 1.57, 1.48
+4
+1.91
+5
+True
+6
+1
+4
+2.01
+5
+False (Skip line 6)
+4
+1.87
+5
+True
+6
+2
+4
+1.57
+5
+True
+Page 4
+
+##P26
+2.1.2 Stepwise Reasoning
+Stepwise reasoning involves breaking an algorithm into logical sections and
+verifying the "state" of the algorithm at each stage. It is also known as logic
+verification.
+This method checks correctness by carefully thinking through the logic rather
+than using a detailed table row-by-row. The steps are:
+1. Analyze each step of the algorithm.
+2. Check:
+Does the algorithm start in a valid state?
+Does it handle all possible cases?
+Are the conditions correct?
+If the loop is correct at the start of an iteration, does it remain correct at the
+end?
+Example: Sum of N Numbers
+The following algorithm calculates the sum of numbers from 1 to N. Where N is an integer
+input number entered by the user.
+Step 1: Start
+Step 2: Input N
+Step 3: SET Sum = 0
+Step 4: For i = 1 to N
+Step 5:   Sum = Sum + i
+Step 6: END For
+Step 7: Print Sum
+Step 8: End
+Stepwise Reasoning Breakdown:
+Initial State: Initially, Sum = 0. This is valid.
+Loop Boundary: Loop runs exactly from 1 to
+N.
+Iteration: Each number is mathematically
+added to Sum.
+Final State: After loop ends, Sum correctly
+holds total.
+Edge Case: If N=0, the loop does not run,
+and Sum remains 0 (Correct). If N=5, Sum
+becomes 15 (Correct).
+Page 5
+
+##P27
+2.1.3 Comparing the Trace Table & Stepwise
+Reasoning
+Both methods are used to verify the correctness of an algorithm, but they are
+suited for different scenarios based on the complexity and length of the code.
+Feature
+Trace Table
+Stepwise Reasoning
+Best For
+Small algorithm blocks, complex
+loops, and beginners learning to
+track variables.
+Large systems, architectural
+logic, and abstract
+mathematical proofs.
+Effort Required
+High (Very tedious and
+impractical if a loop runs 1,000
+times).
+Moderate (Requires strong
+logical deduction and abstract
+thinking).
+Primary Goal
+Catching syntax
+misinterpretations or specific
+arithmetic errors line by line.
+Catching conceptual or
+structural flaws in the overall
+design.
+Trace Table
+Micro-Level (Line by Line)
+Checks exact values
+Stepwise Reasoning
+Macro-Level (Logic Blocks)
+Checks overall state
+Page 6
+
+##P28
+2.2 Evaluating the Clarity of an Algorithm
+Clarity in an algorithm means it is easy to read, understand, and modify. In
+many cases, evaluating clarity is even more important than optimizing for
+speed. A clear algorithm is easier to maintain, debug, and extend over time.
+The two key aspects of clarity are:
+Modularity
+Readability
+2.2.1 Modularity
+Modularity means breaking an algorithm into smaller, independent parts such
+as functions, classes, or modules. This makes the algorithm more organized and
+easier to work with.
+How to Evaluate Modularity:
+1. Single Responsibility Principle (SRP): The SRP suggests that each module should
+focus on one specific task. If a function is handling multiple tasks, it violates
+modularity.
+2. Coupling: Modules should be designed so they can be reused easily in different
+contexts. Good modularity means loose coupling, where changes in one part do
+not negatively affect others.
+3. Abstraction: A well-designed algorithm hides complex implementation details. For
+example, a user can call a sorting function without needing to know whether it uses
+Bubble Sort or Selection Sort internally.
+Page 7
+
+##P29
+Modularity Example: Average of an Array
+Poor Modularity (Monoblock)
+All logic is in a single block, making it harder to reuse and test.
+Step 1: Start
+Step 2: Set A = [1, 2, 3, 4, 5]
+Step 3: Set n = 5
+Step 4: Set total = 0
+Step 5: Set avg = 0
+Step 6: For I = 1 to n
+Step 7:   total = total + A[I]
+Step 8: End For
+Step 9: avg = total / n
+Step 10: Print avg
+Step 11: End
+Good Modularity (Using Functions)
+Divides the task into two clear functions: CalculateSum() and FindAverage().
+Step 1: Start
+Step 2: Set A = [1, 2, 3, 4, 5]
+Step 3: Set n = 5
+Step 4: Print FindAverage(A, n)
+Step 5: End
+Function FindAverage(A, n)
+Sum = CalculateSum(A, n)
+Avg = Sum / n
+Return Avg
+End Function
+Function CalculateSum(A, n)
+Set Total = 0
+For I = 1 to n
+Total = Total + A[I]
+End For
+Return Total
+End Function
+👨‍🏫
+i
+i
+Page 8
+
+##P30
+2.2.2 Readability
+Readability refers to how easily another person can understand the purpose
+and logic of an algorithm without actually running it. It is about how clear the
+text and flow are.
+How to evaluate readability:
+1. Naming conventions: Rules for naming variables in a consistent way. Good
+naming makes an algorithm easier to search and understand.
+✗ Bad: v = d / t
+✓ Good: velocity = distance / time
+2. Self-documentation: An algorithm should be written clearly enough to explain
+itself, reducing the need for excessive comments. Using meaningful names and
+clean formatting helps make the purpose obvious.
+3. Control flow simplicity: The logic should be straightforward. Avoid deep nesting
+(e.g., IF inside IF inside IF), limit unnecessary conditions, and keep functions focused
+on a single task.
+4. Consistency: Following a standard style throughout the algorithm, such as
+consistent indentation, spacing, and casing (like camelCase or snake_case),
+allows the logic to stand out clearly.
+Names
+Self-Doc
+Simple
+Flow
+Consistent
+Page 9
+
+##P31
+2.3 Assess Algorithm Efficiency
+★ GOLDEN TOPIC
+Algorithm efficiency is measured in terms of time and space—that is, how fast it
+runs and how much memory it uses.
+The key considerations for assessing efficiency are:
+Number of Steps (Big O Notation)
+Number of Conditions
+Number of Repetitions
+2.3.1 Number of Steps (Big O Notation)
+When discussing efficiency, we focus on how an algorithm's performance is
+affected as the input size (n) increases. Big O Notation is a mathematical
+method used to describe how the running time or memory usage grows as the
+input size increases.
+1. Constant Time - O(1)
+The execution time remains constant regardless of the input size. Whether the dataset has
+10 elements or 10 million, the operation takes the same time.
+Example: Accessing the first element of an array (arr[0]).
+2. Linear Time - O(n)
+The execution time increases proportionally with the input size. If the input doubles, the
+time doubles.
+Example: Linear search in an unsorted list (checking every item one by one).
+Page 10
+
+##P32
+Big O Notation (Continued)
+3. Logarithmic Time - O(log n)
+The execution time increases very slowly as the input grows. The algorithm repeatedly
+reduces the problem size by half, making it highly efficient for massive datasets.
+Example: Binary search on a sorted list.
+4. Quadratic Time - O(n²)
+The execution time increases proportionally to the square of the input size. Commonly
+occurs with nested loops. Highly inefficient for large datasets.
+Example: Bubble Sort or comparing every item in a list against every other item.
+Elements (n)
+Operations / Time
+O(1) Exce
+O(log n) G
+O(n) Fair
+O(n²) Poor
+2.3.2 Number of Conditions
+Conditions (IF statements) represent decision points. Excessive conditional branching
+reduces performance.
+Computational Cost: Every condition forces the CPU to evaluate true/false.
+Nested Conditions: IF inside IF indicates a brute-force approach, reducing readability and
+processing speed.
+Short-Circuiting (Optimization Goal): Terminate evaluation as soon as the result is found
+(e.g., using logical AND/OR optimally) rather than checking every branch.
+Page 11
+
+##P33
+2.3.3 Number of Repetitions
+Repetitions (loops) are the most significant factor in determining algorithm
+efficiency. The structure of the loop dictates how time grows relative to input
+size (n).
+Type of Repetition
+Conceptual Impact
+Efficiency
+Grade
+Linear Loop
+Processes each element exactly once. Time
+grows proportionally to size.
+Good (O(n))
+Logarithmic
+Repetition
+Reduces the problem size by half each
+iteration (e.g., Binary Search). Huge time
+savings.
+Excellent
+(O(log n))
+Nested Loops
+For each element, it processes all other
+elements. Number of operations explodes
+rapidly.
+Poor (O(n²))
+2.3.4 The Efficiency Evaluation Framework
+To evaluate an algorithm at a conceptual level, consider three fundamental
+questions:
+1. Does it scale? If input size grows 10x, does the running time jump 10x (linear) or 100x
+(quadratic)? Quadratic scaling fails for large datasets.
+2. What is the bottleneck? Focus on the most time-consuming section (usually the
+deepest loop). Try to optimize that specific part.
+3. Is the cost worth it? A theoretically faster O(log n) algorithm might be too complex to
+code and maintain. For a list of just 50 items, a simple O(n) linear search is practically
+better due to its simplicity.
+Page 12
+
+##P34
+2.4 Refinements to improve clarity
+Improving an algorithm involves reviewing it step by step—simplifying logic,
+removing redundant work, and picking smart data structures. A clear algorithm
+is easier to follow.
+i) Use Meaningful Names
+Replace vague variables with descriptive ones.
+Bad: a = b / c
+Good: average = totalSum / totalItems
+ii) Break into Modules
+Instead of a massive block of logic, divide the process into separate, manageable
+functions. (e.g., separating the CalculateSum() function from the main printing logic).
+iii) Improve Structure & Indentation
+Proper visual formatting reduces the mental effort needed to read the code. Deeply
+packed loops and IF statements become confusing without proper spacing.
+iv) Add Comments
+Keep comments short and meaningful. Explain why something is done, not just what is
+happening, especially for tricky logic sections.
+Page 13
+
+##P35
+2.4.2 Refinements to improve Efficiency
+i) Reduce Unnecessary Steps
+Eliminate redundant operations. For example, in Bubble Sort, after the first pass, the largest
+value settles at the end. The algorithm should be optimized to ignore that sorted portion in
+the next pass, shrinking the inner loop and saving operations.
+ii) Use Better Algorithms
+Pick the algorithm that fits the situation. If you need to search a list of 1 million sorted
+records, replacing Linear Search with Binary Search changes execution time from seconds
+to milliseconds.
+iii) Avoid Re-computing Values
+If a calculation results in a fixed value that won't change, do not calculate it inside a loop.
+Compute it once, store it in a variable, and reuse it (Memoization/Caching).
+# BAD: Re-computing C repeatedly
+For i = 1 to N
+C = A + B
+Print C * i
+End For
+# GOOD: Compute C once outside
+C = A + B
+For i = 1 to N
+Print C * i
+End For
+iv) Use Appropriate Data Structures
+Choosing the right data structure (Array, Linked List, Tree) is like picking the right tool for a
+job. If you need direct access, use an Array. If data is hierarchical, use a Tree. Do not force
+one structure everywhere.
+Page 14
+
+##P36
+2.5 Concept of Data Structure
+★ GOLDEN TOPIC
+A data structure is a systematic way of organizing, storing, and managing data
+to enable efficient access, modification, and processing within an algorithm.
+💡 Real-Life Analogy
+Books on a shelf are arranged in a specific order, making it easier to locate a
+particular book quickly. Files in folders are grouped systematically. Data
+structures do the same thing inside computer memory.
+Broad Classifications:
+1. Linear Data Structures
+Elements are arranged in a strict
+sequence, one after the other. Each
+element (except first/last) has exactly
+one predecessor and one successor.
+Examples: Array, Linked List, Stack,
+Queue.
+2. Non-Linear Data Structures
+Elements are connected in hierarchical
+or interconnected network ways. An
+element can be connected to multiple
+other elements simultaneously.
+Examples: Tree, Graph.
+Page 15
+
+##P37
+2.5.1 Linear Data Structures: Array
+An array is one of the simplest ways to store data; it holds a collection of similar
+items (same data type) placed right next to each other in contiguous memory.
+Each item has a position number, called an index, usually starting from 0. This
+index makes it incredibly fast to jump directly to any element (Direct Access).
+Array Name: A
+23
+76
+12
+90
+34
+68
+0
+1
+2
+3
+4
+5
+Index (Starts from 0)
+A[3] =
+⚠️ Limitations
+While extremely fast for searching by index, arrays are inflexible. If you want
+to insert a new element in the middle, you must shift all subsequent
+elements to the right to make room, which is very inefficient.
+Page 16
+
+##P38
+Linear Data Structures: Linked List
+A linked list stores data in a chain-like structure. Instead of being stored in one
+continuous block of memory like an array, a linked list is made up of separate
+elements scattered in memory, called nodes.
+Each node has two parts:
+1. The actual Data.
+2. A Link (or pointer) holding the memory address of the next node.
+HEAD
+23
+76
+12
+90
+NULL
+Data
+Link
+Real-life example: Web browser history. When you click "Back", it follows the pointer to
+the previous node (page).
+Page 17
+
+##P39
+Linear Data Structures: Stack
+★ GOLDEN TOPIC
+A Stack is a linear data structure that works on the LIFO (Last-In, First-Out)
+principle. The last element added to the structure is the very first one to be
+removed.
+Adding an item to the top is called PUSH.
+Removing an item from the top is called POP.
+You cannot pull items from the bottom or middle.
+Data 1
+Data 2
+Data 3
+PUSH (Add to Top)
+POP (Remove)
+TOP Pointer
+Real-life Example: Undo feature in text editors. Every action is piled on top. Pressing
+"Undo" removes the most recent action first.
+Page 18
+
+##P40
+Linear Data Structures: Queue
+★ GOLDEN TOPIC
+A Queue organizes data based on the FIFO (First-In, First-Out) principle. The
+order truly matters: whoever comes first gets served first.
+Adding an element to the "Rear" (back) is called ENQUEUE.
+Removing an element from the "Front" is called DEQUEUE.
+55
+76
+90
+ENQUEUE
+Adds to REAR
+DEQUEUE
+Removes FRONT
+REAR
+FRONT
+Real-life Example: Sending multiple documents to a printer. The printer handles them in
+a queue, printing the first document received before moving to the next.
+Page 19
+
+##P41
+2.5.2 Non-Linear Data Structures: Tree
+A tree is a way of organizing data in a hierarchy, where everything branches out
+from a single starting point called the Root.
+It creates a strict "one-to-many" (parent-child) relationship. It is an excellent
+way to visualize how roles and responsibilities flow in an organization.
+Principal (Root)
+Administrative Head
+Academic Dean
+Accounts
+HR
+HOD Math
+HOD CS
+Real-life Example: A family tree (Grandparents → Parents → Children) or folders inside
+folders on a computer drive.
+Page 20
+
+##P42
+Non-Linear Data Structures: Graph
+A graph organizes data when things are connected in a flexible, complex way.
+Unlike a tree, there is no strict hierarchy; any node can be connected to any
+other node.
+Nodes (Vertices): Represent the items (e.g., Cities, People).
+Edges: Represent the connections between them (e.g., Roads, Friendships).
+A
+B
+C
+D
+Examples: Social Networks (Facebook friends), GPS mapping (finding the fastest route
+between two cities).
+2.5.3 Operations on Data Structures
+Insertion: Adding a new item into the structure.
+Deletion: Removing an item when it is no longer needed.
+Traversal: Going through each item one by one.
+Searching: Finding a specific item inside the structure.
+Sorting: Arranging items in a proper order (Ascending/Descending).
+Page 21
+
+##P43
+2.6 Identify data structures in problem scenarios
+To select an appropriate data structure, understand how the data is organized.
+If each item has a clear "before and after" relationship, it is a linear structure. If it
+branches out or connects to multiple items, it is non-linear.
+2.6.1 Linear Data Structure Scenarios
+i) Storing Student Grades for a Class
+Structure: Array
+An array is used because we usually know how many students are in the class, and all
+grades are the same data type. It offers rapid lookup using indices.
+ii) Music Playlist / Browser History
+Structure: Linked List
+Every song knows what comes after it. When one song finishes, it follows the pointer to the
+next without searching. Great for frequent insertions/deletions.
+iii) Undo or Redo Functionality
+Structure: Stack (LIFO)
+Every time a user types or formats text, it is added to the top of the stack. Pressing "Undo"
+removes the most recent action first.
+iv) Printer Task Scheduling
+Structure: Queue (FIFO)
+Documents must be printed in the exact order they were received. First-come, first-served.
+Page 22
+
+##P44
+Non-Linear Scenarios & Decision Guide
+2.6.2 Non-Linear Data Structure Scenarios
+i) Organizational Chart of a College
+Structure: Tree
+Used for hierarchical data. The Principal acts as the root, branching out to Deans, then
+HODs, then Teachers. Creates a clear "parent-child" relationship.
+ii) GPS Navigation and Maps
+Structure: Graph
+Cities are nodes and roads are edges. There is no strict top-down hierarchy. You can take
+multiple different routes to arrive at the same destination.
+Quick Evaluation Decision Guide
+If the data...
+Then it is...
+Recommended
+Structure
+Follows a "Next" or "Previous" logic
+Linear
+Array, Linked List
+Follows a "Parent" & "Child" logic
+Non-Linear
+Tree
+Follows "First-come, First-served" logic
+Linear
+Queue
+Follows "Connections / Relationships"
+logic
+Non-Linear
+Graph
+Needs to be accessed in the reverse
+order of entry
+Linear
+Stack
+Page 23
+
+##P45
+2.7 Trace data retrieval in Array, List and Queue
+Tracing data retrieval means following the step-by-step path of how an
+algorithm finds or accesses data. Even though Array, Linked List, and Queue are
+all linear, the effort to find an item is very different based on internal
+organization.
+2.7.1 Retrieval in Array
+Every element has a fixed index (0 to n-1) pointing directly to a specific spot in memory.
+The algorithm does not "search" if it knows the index; it jumps directly there (Direct
+Access).
+Array = [10, 50, 20, 70, 90, 30]
+Direct Access: Array[2] = 20
+Loop Iteration
+Index
+Array Access
+Value
+1
+0
+Array[0]
+10
+2
+1
+Array[1]
+50
+3
+2
+Array[2]
+20
+2.7.2 Retrieval in Linked List
+Linked lists do not have index-based access. The only way to find something is by
+starting at the Head and following the links one node at a time (Sequential Access).
+Linked List: [12] -> [98] -> [23] -> [87] -> [56] -> NULL
+Search Key: 87
+Step 1: Check Node 1 (12). 12 != 87. Move Next.
+Step 2: Check Node 2 (98). 98 != 87. Move Next.
+Step 3: Check Node 3 (23). 23 != 87. Move Next.
+Step 4: Check Node 4 (87). 87 == 87. FOUND! Output: True.
+Page 24
+
+##P46
+2.7.3 Retrieval in Queue & Careers
+2.7.3 Retrieval in Queue
+A queue works on the FIFO (First-In, First-Out) principle. You cannot retrieve data
+from the middle or rear. The oldest item at the Front of the queue is always
+removed (Dequeued) first.
+A
+B
+C
+Enqueue (D)
+Dequeue (A)
+Front
+Rear
+Career Opportunities in Algorithms
+Software Engineer: Builds and maintains software relying heavily on data structures and
+efficient algorithms to solve logic problems.
+Backend Developer: Builds server-side logic where choosing the right data structure (Array,
+Queue) directly affects web performance.
+Algorithm Engineer: Specializes in optimizing algorithms for search engines, finance, or
+logistics.
+Systems Analyst: Evaluates and improves the efficiency and clarity of existing computer
+systems inside an organization.
+Competitive Programmer: Solves complex algorithmic problems under time limits,
+preparing for top tech industry roles.
+Page 25
+
+##P47
+Summary of Chapter 2
+Correctness: An algorithm is correct if its output matches expected results.
+Tested using Trace Tables (manual dry runs) or Stepwise Reasoning (logic
+verification).
+Clarity: Easy to read, understand, and modify. Key aspects are Modularity (Single
+Responsibility Principle) and Readability (Naming conventions, formatting).
+Efficiency: Measured in Time (speed) and Space (memory).
+Big O Notation: Describes performance scaling. O(1) is constant, O(log n) is
+logarithmic (excellent), O(n) is linear, and O(n²) is quadratic (poor, nested loops).
+Refinements: Improve clarity by using meaningful names and modules. Improve
+efficiency by reducing redundant steps and avoiding re-computing
+(memoization).
+Linear Data Structures: Data follows a sequence. Arrays (fast direct access via
+index), Linked Lists (nodes linked sequentially, good for insertion), Stacks (LIFO,
+undo feature), Queues (FIFO, printer tasks).
+Non-Linear Data Structures: Data connects hierarchically or randomly. Trees
+(Parent-child hierarchy like org charts), Graphs (Network of nodes and edges like
+GPS maps).
+Tracing Retrieval: Arrays jump directly to an index. Linked lists traverse
+sequentially from the Head. Queues remove data strictly from the Front.
+Page 26

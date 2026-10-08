@@ -1,40 +1,32 @@
-# Intimacy Guide
+# Teach Yourself Sketchnotes
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Ultimate teaching APK for **Computer Science XI & XII** (Sindh curriculum). Every lesson is a sketchnote: Flexbox cards, SVG diagrams, MathJax formulas, and **Urdish TTS** (English technical terms inside Urdu explanation, with the voice switching at each script change).
 
-## Download
+## What’s inside
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
-
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
-
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
-
-## v3.2.1
-
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
-
-## v3.2.0
-
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+- **Sketchnote Studio** — visual vocabulary, Flexbox layout engine, Urdish voice, MathJax, SVG, board-exam method
+- **CS XI** — Computer Systems, Computational Thinking, Python, Data & Analysis, Impacts of Computing, Digital Literacy + recap/mock
+- **CS XII** — HCI, Algorithms & Data Structures, Python structures/files, Data Analysis, AI/Security, Digital Entrepreneurship + recap/mock
+- Offline **MathJax 3** (`tex-svg`) and vector **SVG** diagrams
+- Progress ticks stored on-device
 
 ## Build
 
 ```bash
-python3 scripts/generate_posture_pictures.py
+python3 tools/build_content.py
+bash tools/fetch_mathjax.sh
 export ANDROID_HOME=/path/to/android-sdk
 ./gradlew assembleDebug
 ```
 
-## Version 3.2.1
+The debug APK is copied to `releases/TeachYourselfSketchnotes-v1.0.0-debug.apk`.
+
+## Tests
+
+```bash
+python3 tools/build_content.py
+python3 tests/test_curriculum.py
+node tests/js/urdish.test.js
+```
+
+Open `app/src/main/assets/www/index.html` in a browser (or serve the `www` folder) to walk the sketchnotes with the Web Speech API when Android TTS is not present.
