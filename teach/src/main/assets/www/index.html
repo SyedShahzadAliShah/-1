@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CS XII خود پڑھو</title>
+  <link rel="stylesheet" href="app.css" />
+  <script>
+    window.MathJax = {
+      startup: { typeset: false },
+      loader: { load: [] },
+      options: { enableMenu: false },
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true
+      },
+      svg: { fontCache: "local" }
+    };
+  </script>
+  <script src="mathjax/tex-svg.js" defer></script>
+</head>
+<body>
+  <div id="app" class="app"></div>
+  <script src="lectures.js"></script>
+  <script src="diagrams.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

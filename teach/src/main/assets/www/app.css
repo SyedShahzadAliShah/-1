@@ -1,0 +1,349 @@
+@font-face {
+  font-family: "Noto Naskh";
+  src: url("fonts/NotoNaskhArabic-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --ink: #14233a;
+  --muted: #4d5d73;
+  --paper: #f6f1e7;
+  --card: #fffdf8;
+  --line: #e2d6c4;
+  --teal: #0f6e6b;
+  --teal-deep: #0b4f4d;
+  --gold: #a15c12;
+  --gold-bg: #fff4e4;
+  --clay: #c4491d;
+  --ok: #1d7a45;
+  --bad: #9d2c2c;
+  --shadow: 0 10px 28px rgba(20, 35, 58, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Naskh", "Noto Naskh Arabic", "Noto Nastaliq Urdu", serif;
+  font-size: 18px;
+  line-height: 1.85;
+}
+
+button, input { font-family: inherit; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.app.reader {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.app.reader .screen {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 8px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(246, 241, 231, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.topbar h1 {
+  flex: 1 1 180px;
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.icon-btn, .text-btn, .choice, .card, .row-link {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 14px;
+}
+
+.icon-btn, .text-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.icon-btn { min-width: 44px; }
+
+.text-btn.primary, .icon-btn.primary {
+  background: var(--teal);
+  color: white;
+  border-color: var(--teal-deep);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px 16px 28px;
+}
+
+.lede, .muted { color: var(--muted); }
+
+.search {
+  display: flex;
+  flex: 1 1 220px;
+}
+
+.search input {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: white;
+  padding: 10px 14px;
+  font-size: 1rem;
+}
+
+.chips, .engine, .ttsbar, .meta, .choice-row, .stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 2px 10px;
+  background: #e7f3f2;
+  color: var(--teal-deep);
+  font-size: 0.82rem;
+}
+
+.chip.gold { background: var(--gold-bg); color: var(--gold); }
+.chip.warn { background: #fde8e4; color: var(--clay); }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card {
+  flex: 1 1 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  text-align: right;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.card h2, .card h3 { margin: 0; font-size: 1.15rem; }
+.card p { margin: 0; color: var(--muted); }
+
+.bar {
+  display: flex;
+  height: 8px;
+  border-radius: 99px;
+  background: #efe6d8;
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  background: var(--teal);
+  height: 100%;
+}
+
+.lecture {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lecture h2 { margin: 8px 0 0; font-size: 1.2rem; }
+.lecture h3 { margin: 8px 0 0; font-size: 1.05rem; }
+.lecture p { margin: 0; }
+.lecture ul, .lecture ol { margin: 0; padding-inline-start: 1.2rem; }
+
+.en, .code, pre, .math, mjx-container {
+  font-family: "Roboto", "Noto Sans", sans-serif;
+}
+
+.en { font-weight: 700; }
+
+.figure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.figure svg {
+  flex: 1 1 240px;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.figure figcaption {
+  flex: 1 1 200px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.compare, .steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.col, .step {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.col h3, .step strong { margin: 0; }
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: #e7f3f2;
+}
+
+.callout.gold { background: var(--gold-bg); }
+.callout.do { background: #eef6ea; }
+
+.math {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  padding: 8px;
+  direction: ltr;
+}
+
+pre.code {
+  direction: ltr;
+  text-align: left;
+  background: #14233a;
+  color: #f6f1e7;
+  border-radius: 14px;
+  padding: 12px;
+  overflow-x: auto;
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  direction: ltr;
+  font-family: "Roboto", "Noto Sans", sans-serif;
+  font-size: 0.92rem;
+}
+
+table.data th, table.data td {
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  text-align: center;
+}
+
+table.data th { background: #e7f3f2; }
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.check {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.choice {
+  display: flex;
+  text-align: right;
+  padding: 8px 12px;
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+.choice.picked { border-color: var(--teal); }
+.choice.good { background: #e5f6ec; border-color: var(--ok); }
+.choice.bad { background: #fdecec; border-color: var(--bad); }
+
+.why { margin: 0; color: var(--muted); }
+
+.ttsbar {
+  flex: 0 0 auto;
+  background: var(--ink);
+  color: white;
+  padding: 10px;
+  border-radius: 16px 16px 0 0;
+  margin-top: 8px;
+}
+
+.ttsbar button {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,.25);
+}
+
+.ttsbar .primary { background: var(--teal); }
+
+.ttsbar input[type="range"] { flex: 1 1 120px; }
+
+.speaking {
+  background: #fff4e4;
+  border-radius: 8px;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 640px) {
+  html { font-size: 17px; }
+  .card { flex-basis: 100%; }
+}

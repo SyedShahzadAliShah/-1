@@ -2,6 +2,8 @@
 /.gradle/
 /build/
 /app/build/
+/teach/build/
+__pycache__/
 /android-sdk/
 /gradle-8.7/
 *.iml
