@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1c3148" />
+  <title>Teach Yourself Sketchnotes</title>
+  <link rel="stylesheet" href="app.css" />
+  <script>
+    window.MathJax = {
+      loader: { load: [] },
+      options: {
+        enableMenu: false,
+        enableExplorer: false,
+        menuOptions: { settings: { enrich: false, speech: false, braille: false } },
+        renderActions: { assistiveMml: [] }
+      },
+      tex: {
+        inlineMath: [["\\(", "\\)"], ["$", "$"]]
+      },
+      svg: { fontCache: "global" },
+      startup: { typeset: false }
+    };
+  </script>
+</head>
+<body>
+  <div id="app" class="app-loading">Opening your sketchnotes…</div>
+  <script src="diagrams.js"></script>
+  <script src="app.js"></script>
+  <script src="vendor/mathjax/tex-svg.js" async></script>
+</body>
+</html>

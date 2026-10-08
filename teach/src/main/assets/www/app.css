@@ -1,0 +1,336 @@
+@font-face {
+  font-family: "Naskh";
+  src: url("fonts/NotoNaskhArabic-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --ink: #1c3148;
+  --navy: #243e73;
+  --teal: #0f766e;
+  --amber: #c4840a;
+  --rose: #c2415c;
+  --paper: #f3ecdf;
+  --card: #fffdf8;
+  --line: #d9d0c1;
+  --mint: #e5f6f3;
+  --cream: #fff6df;
+  --blush: #fdecef;
+  --sky: #e7eefc;
+  --shadow: 4px 5px 0 rgba(28, 49, 72, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", "Noto Sans", sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(transparent 31px, rgba(36, 62, 115, 0.045) 32px) 0 0 / 100% 32px,
+    var(--paper);
+  line-height: 1.45;
+}
+
+button, input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-loading {
+  padding: 32px 20px;
+  font-size: 1.1rem;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 16px 16px 40px;
+}
+
+.topbar, .row, .modes, .class-grid, .chapter-list, .lesson-list, .footer-nav, .stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topbar {
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: 8px 0 10px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar h1, .hero h1 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1:focus { outline: none; }
+
+.grow { flex: 1 1 180px; }
+
+.muted { color: #5d6b7a; }
+
+.urdu, .urdish {
+  font-family: "Naskh", "Noto Naskh Arabic", serif;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.9;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 2px 4px;
+}
+
+.eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--teal);
+  margin: 0;
+}
+
+.lede {
+  margin: 0;
+  max-width: 40rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--navy);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.badge.gold { background: var(--amber); color: #1c3148; }
+.badge.soft { background: var(--mint); color: var(--teal); }
+
+.card, .callout, .diagram, .code, .ftable, .recall, .plate, .search-hit, .class-card, .chapter-card, .lesson-card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.class-grid { align-items: stretch; }
+
+.class-card, .chapter-card, .lesson-card, .search-hit {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: start;
+  padding: 16px;
+  border-width: 1.5px;
+}
+
+.class-card { min-height: 150px; background: linear-gradient(160deg, #fffdf8, var(--sky)); }
+.class-card strong, .chapter-card strong { font-size: 1.15rem; }
+.class-card .urdu, .chapter-card .urdu { width: 100%; font-size: 1.2rem; }
+
+.chapter-card small, .lesson-card small, .search-hit small { color: #5d6b7a; }
+
+.lesson-card.golden { background: linear-gradient(180deg, #fff8e8, #fffdf8); }
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card, .callout {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card p, .callout p, .split-col p { margin: 0; }
+
+.split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.split-col {
+  flex: 1 1 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px dashed var(--line);
+}
+
+.card h2, .split-col h2, .callout h2, .flow-title {
+  margin: 0;
+  font-size: 1.02rem;
+  color: var(--navy);
+}
+
+.flow-title { margin: 2px 4px; }
+
+.callout.analogy { background: var(--mint); }
+.callout.reallife { background: var(--cream); }
+.callout.activity { background: var(--sky); }
+.callout.note { background: var(--blush); }
+
+.ftable {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  padding: 0;
+}
+
+.frow { display: flex; min-width: max-content; }
+.frow.head { background: var(--navy); color: white; }
+.fcell {
+  flex: 1 1 88px;
+  min-width: 72px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.fcell + .fcell { border-inline-start: 1px solid var(--line); }
+.frow.head .fcell { border-color: rgba(255, 255, 255, 0.2); }
+
+.code {
+  margin: 0;
+  padding: 12px 14px;
+  overflow-x: auto;
+  background: var(--ink);
+  color: #f6f1e8;
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.diagram { padding: 8px; }
+.diagram svg { width: 100%; height: auto; display: block; }
+
+.urdish {
+  padding: 12px 14px;
+  background: var(--mint);
+  border-radius: 16px;
+  border-inline-start: 6px solid var(--teal);
+  font-size: 1.15rem;
+}
+
+.modes button, .ghost, .solid, .tiny {
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: white;
+  min-height: 44px;
+  padding: 8px 14px;
+}
+
+.modes button[aria-pressed="true"], .solid {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
+.tiny { min-height: 36px; padding: 4px 10px; font-size: 0.85rem; }
+
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1.5px solid var(--line);
+  background: white;
+}
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search input[type="search"] {
+  flex: 1 1 200px;
+  min-height: 44px;
+  border-radius: 14px;
+  border: 1.5px solid var(--line);
+  background: white;
+  padding: 8px 12px;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 160px;
+}
+
+.rate input { flex: 1; }
+
+.golden-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--amber);
+  color: #1c3148;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 800;
+}
+
+.recall { padding: 14px; text-align: start; }
+.recall .answer[hidden], .plate[hidden] { display: none; }
+
+.plate { padding: 10px; }
+.plate img { width: 100%; height: auto; border-radius: 12px; display: block; }
+.plate figcaption { margin-top: 8px; color: #5d6b7a; font-size: 0.9rem; }
+
+.footer-nav { justify-content: space-between; }
+
+.toast {
+  position: sticky;
+  bottom: 8px;
+  background: var(--ink);
+  color: white;
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.list {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.speaking { outline: 3px solid var(--teal); }
+
+@media (max-width: 640px) {
+  .topbar h1 { font-size: 1.12rem; }
+  .class-card, .chapter-card, .lesson-card, .search-hit { flex-basis: 100%; }
+}
