@@ -7,6 +7,9 @@ built from the bilingual teacher's lecture notes.
 
 Plain file URLs (save the file, no GitHub preview page):
 
+- Ultimate XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
+- Ultimate XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
+- Ultimate XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
 - Android APK (cinematic English whiteboards + Urdish voice): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -111,6 +114,18 @@ Each topic is a cinematic classroom board: **English writes once**, SVG diagrams
 ```bash
 python3 scripts/export_lecture_catalog.py
 ./gradlew :lectures:assembleDebug
+```
+
+## Ultimate Teach Yourself Edition
+
+The published volume: imprint, three-track study planner, numbered lessons at readable type. **MathJax SVG** formulae, **inline SVG** diagrams, **Flexbox** panels. ★ Golden lessons sit first inside each chapter. Then a 75-mark closed-book exam. Keys stay sealed. Blank leftover pages are dropped.
+
+- [CS XI Ultimate Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf)
+- [CS XII Ultimate Teach Yourself Edition](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf)
+- [XI + XII Ultimate Teach Yourself Edition complete](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf)
+
+```bash
+python3 booklets/build.py ultimate
 ```
 
 ## AIO Self-Paced Teach Yourself Edition

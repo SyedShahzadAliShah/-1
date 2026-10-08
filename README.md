@@ -6,6 +6,11 @@ Printable **Teach Yourself** materials for Sindh Computer Science XI and XII.
 
 These `raw.githubusercontent.com` links return the file itself (`Content-Type: application/octet-stream`). They do not open a GitHub preview page.
 
+**Ultimate Teach Yourself Edition** — the published volume for each grade. Numbered lessons at readable type. Formulae are **MathJax SVG**, diagrams are **inline SVG**, panels use **Flexbox**. ★ Golden lessons sit first inside each chapter. Then that chapter’s 75-mark exam. Keys stay sealed. Blank leftover pages are dropped.
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
+
 **Android APK — cinematic classroom whiteboards** — each lecture writes in **English** on an animated board, **draws diagrams**, and explains in **Urdish** (Google Urdu TTS). One copy of the content: the board is English, the voice is Urdish, nothing is restated twice.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
@@ -73,7 +78,7 @@ These `raw.githubusercontent.com` links return the file itself (`Content-Type: a
 - [CS XII AIO Self-Paced Teach Yourself Edition (169 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
 - [XI + XII AIO Self-Paced Teach Yourself Edition complete (337 pages)](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
 
-Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`. Rebuild cheat sheets: `python3 booklets/build.py cheat`. Rebuild crash course: `python3 booklets/build.py crash`. Rebuild lecture notes: `python3 booklets/build.py notes`. Rebuild self-paced AIO: `python3 booklets/build.py paced`.
+Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md). Rebuild Ultimate Edition: `python3 booklets/build.py ultimate`. Rebuild editions: `python3 booklets/build.py editions`. Rebuild academy: `python3 booklets/build.py academy`. Rebuild cheat sheets: `python3 booklets/build.py cheat`. Rebuild crash course: `python3 booklets/build.py crash`. Rebuild lecture notes: `python3 booklets/build.py notes`. Rebuild self-paced AIO: `python3 booklets/build.py paced`.
 
 ---
 

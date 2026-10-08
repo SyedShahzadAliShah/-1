@@ -13,7 +13,8 @@ Usage:
   python3 booklets/build.py notes        # concise classroom lecture-notes study guide
   python3 booklets/build.py paced        # AIO Self-Paced Teach Yourself Edition
   python3 booklets/build.py complete     # Self-Taught / Academy Bootcamp combo Study Guide (one file per grade)
-  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes + paced
+  python3 booklets/build.py ultimate     # Ultimate Teach Yourself Edition (published volume, MathJax SVG + Flexbox)
+  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes + paced + ultimate
 """
 from __future__ import annotations
 
@@ -274,7 +275,10 @@ def extract_opener(fragment: str) -> str:
     # Drop the outer <section ...> opening tag; keep opener + objectives.
     head = re.sub(r"^<section[^>]*>", "", head, count=1).strip()
     head = re.sub(
-        r'^<div class="paced-chapter">(.*)</div>\s*$', r"\1", head, flags=re.S
+        r'^<div class="(?:paced-chapter|complete-chapter|ultimate-chapter)">(.*)</div>\s*$',
+        r"\1",
+        head,
+        flags=re.S,
     ).strip()
     return head
 
@@ -2662,6 +2666,16 @@ def edition_index_md() -> str:
 
 Each edition keeps **one topic on one A4 page** (academy classes stay a full 90-minute write-up) and ends every chapter with a thorough **75-mark closed-book exam**.
 
+## Ultimate Teach Yourself Edition
+
+The published volume: imprint, three-track planner, numbered lessons at readable type, MathJax SVG formulae, inline SVG diagrams, Flexbox panels. ★ Golden lessons sit first inside each chapter. Then a 75-mark closed-book exam. Keys stay sealed.
+
+- [CS XI Ultimate Teach Yourself Edition]({z}/CS-XI-Ultimate-Teach-Yourself-Edition.pdf)
+- [CS XII Ultimate Teach Yourself Edition]({z}/CS-XII-Ultimate-Teach-Yourself-Edition.pdf)
+- [XI + XII Ultimate Teach Yourself Edition complete]({z}/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py ultimate`
+
 ## AIO Self-Paced Teach Yourself Edition
 
 - [CS XI AIO Self-Paced Teach Yourself Edition (168 pages)]({z}/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
@@ -3215,6 +3229,269 @@ def drop_blank_pages(pdf_path: Path) -> int:
     return dropped
 
 
+def ultimate_cover(book, chapters, gold_n: int, lesson_n: int):
+    units = "".join(f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters)
+    return f"""
+<section class="cover ultimate-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">ULTIMATE TEACH YOURSELF EDITION</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">The published volume for the grade &mdash; numbered lessons at readable type,
+  MathJax SVG formulae, inline SVG diagrams, Flexbox layouts. ★ Golden lessons sit first inside each chapter.</p>
+  <p class="sub">{lesson_n} lessons · {gold_n} Golden · six chapter papers + mock</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">نهایی خودآموز ایڈیشن — فارمولے، خاکے، ترتیب؛ گولڈن اسی باب میں</div>
+  <div class="units">{units}</div>
+  <div class="foot">Ultimate Teach Yourself Edition &middot; {book['curriculum']} &middot;
+  Each lesson starts on a new page and continues at the same type size. No zoom-to-fit. No blank pages.</div>
+</section>"""
+
+
+def ultimate_imprint(book, chapters, gold_n: int, lesson_n: int, hours: str):
+    units = " · ".join(f"{n:02d} {t}" for n, t, _ in chapters)
+    return f"""
+<section class="front imprint">
+  <p class="series">Sindh Computer Science · Teach Yourself</p>
+  <h1>Imprint</h1>
+  <table>
+    <tr><td>Title</td><td>{html.escape(book['title'])} — Ultimate Teach Yourself Edition</td></tr>
+    <tr><td>Curriculum</td><td>{html.escape(book['curriculum'])}</td></tr>
+    <tr><td>Language</td><td>English with Urdu support</td></tr>
+    <tr><td>Structure</td><td>{lesson_n} numbered lessons · {gold_n} Golden · six chapters + final revision</td></tr>
+    <tr><td>Study time</td><td>About {html.escape(hours)} of lessons, papers and review (Steady, Term or Exam)</td></tr>
+    <tr><td>Format</td><td>A4 print / screen · MathJax SVG mathematics · inline SVG diagrams · Flexbox layouts</td></tr>
+    <tr><td>Series</td><td>{html.escape(units)}</td></tr>
+  </table>
+  <h2>What you hold</h2>
+  <p>The published Teach Yourself book for the grade. Formulae are typeset with MathJax and
+  drawn as SVG. Diagrams are inline SVG. Compare-and-contrast panels use Flexbox.
+  Each lesson starts on its own page and continues at readable 11-point type. Answers are
+  sealed at the end of the chapter so you practise first.</p>
+  <h2>What this edition is not</h2>
+  <p>Not the cramped one-topic-per-page pack. Not the Teacher’s Edition. Not the Coaching
+  Academy batch book. Not the 30-day crash course. Not the classroom Lecture-Notes pack.</p>
+  <p class="ur">یہ شائع شدہ خودآموز کتاب ہے۔ فارمولے SVG، خاکے SVG، ترتیب Flexbox۔ جوابات باب کے آخر میں ہیں۔</p>
+</section>"""
+
+
+def ultimate_planner(chapters_data: list[dict]):
+    rows = []
+    total_lessons = total_gold = total_mins = 0
+    for row in chapters_data:
+        n, title, topics = row["meta"]
+        gold = row["gold"]
+        mins = row["mins"]
+        lessons = len(topics)
+        total_lessons += lessons
+        total_gold += gold
+        total_mins += mins
+        rows.append(
+            f"<tr><td>Ch {n}</td><td>{html.escape(title)}</td>"
+            f"<td>{lessons}</td><td>{gold}</td><td>{fmt_hours(mins)}</td>"
+            f"<td>{PACE_STEADY.get(n, '—')}</td>"
+            f"<td>{PACE_TERM.get(n, '—')}</td>"
+            f"<td>{PACE_EXAM.get(n, '—')}</td></tr>"
+        )
+    rows.append(
+        "<tr><td>Final</td><td>Recaps + mock paper</td>"
+        "<td>—</td><td>—</td><td>6 h</td>"
+        "<td>Weeks 15–16</td><td>Weeks 7–8</td><td>Days 26–30</td></tr>"
+    )
+    return f"""
+<section class="front ultimate-planner">
+  <h1>Study planner</h1>
+  <p>Pick <b>one</b> track and stay on it. {total_lessons} lessons · {total_gold} Golden ·
+  about <b>{fmt_hours(total_mins)}</b> of chapter work, plus the final week.</p>
+  <p><b>Steady (16 weeks)</b> is the published default: two or three lessons a weekday,
+  chapter paper at the weekend. <b>Term (8 weeks)</b> is one chapter a week.
+  <b>Exam (4 weeks)</b> is Golden first, then papers, then the mock.</p>
+  <table class="planner">
+    <tr><th>Ch</th><th>Title</th><th>Lessons</th><th>★</th><th>Time</th>
+    <th>Steady</th><th>Term</th><th>Exam</th></tr>
+    {''.join(rows)}
+  </table>
+  <p class="ur">ایک ٹریک رکھیں۔ سٹیڈی سولہ ہفتے، ٹرم آٹھ ہفتے، امتحان چار ہفتے۔</p>
+</section>"""
+
+
+def ultimate_toc(chapters_src: list[tuple[int, str, str, list[str]]], has_final: bool, gold_n: int):
+    items = []
+    for ch_num, title, _frag, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        gold_lis = "".join(
+            f"<li>★ {html.escape(topic_clean_title(b))}</li>" for b in gold
+        )
+        rest_lis = "".join(
+            f"<li>{html.escape(topic_clean_title(b))}</li>" for b in rest
+        )
+        gold_block = (
+            f"<li><b>★ Golden lessons</b><ul>{gold_lis}</ul></li>" if gold else ""
+        )
+        notes_block = (
+            f"<li><b>Lessons</b><ul>{rest_lis}</ul></li>" if rest else ""
+        )
+        items.append(
+            f"<li><b>Chapter {ch_num}:</b> {html.escape(title)} — "
+            f"{len(topics)} lessons ({len(gold)} ★)"
+            f"<ul>{gold_block}{notes_block}"
+            f"<li>Exam preparation — recap + 75-mark paper + key</li></ul></li>"
+        )
+    if has_final:
+        items.append("<li><b>Final revision:</b> recaps and mock paper (75 marks, 2 h 30 min)</li>")
+    items.append("<li><b>Colophon</b></li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden lessons sit first inside the chapter that teaches them.
+  Formulae are MathJax SVG. Diagrams are inline SVG. Panels use Flexbox.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def ultimate_colophon(book, lesson_n: int, gold_n: int):
+    return f"""
+<section class="front colophon">
+  <h1>Colophon</h1>
+  <p>This <b>Ultimate Teach Yourself Edition</b> of {html.escape(book['title'])}
+  is assembled from the bilingual Sindh lecture notes for publication. Mathematics is
+  converted to TeX and rendered with MathJax as SVG. Figures remain inline SVG.
+  Two-column panels, legends and process steps use Flexbox. Lessons start on a new page
+  and continue at readable type. Check yourself answers stay sealed after the 75-mark
+  chapter exam. Leftover blank pages are dropped.</p>
+  <p>{lesson_n} lessons · {gold_n} Golden · {html.escape(book['curriculum'])} ·
+  English + اردو · A4 · MathJax SVG · SVG diagrams · Flexbox.</p>
+  <p>Companion volumes in the same series: Student's Edition, Teacher's Edition,
+  Coaching Academy Edition, Combo Study Guide, Cheat Sheets, 30-Day Crash Course,
+  Lecture-Notes Study Guide, AIO Self-Paced Edition.</p>
+  <p class="ur">یہ شائع شدہ خودآموز ایڈیشن ہے۔ فارمولے، خاکے اور ترتیب سب ویکٹر ہیں۔</p>
+</section>"""
+
+
+def as_ultimate_lesson(block: str, n: int, total: int) -> str:
+    block = hide_check_answers(block)
+    golden = topic_is_golden(topic_title(block), block)
+    head = lesson_head_html(n, total, block)
+    do_now = lesson_do_now(golden)
+    block = re.sub(
+        r"(<h2[^>]*>.*?</h2>)",
+        head + r"\1" + do_now,
+        block,
+        count=1,
+        flags=re.S,
+    )
+    block = append_inside_topic(block, lesson_gate(n, total))
+    cls = "topic ultimate-lesson"
+    if golden:
+        cls += " is-golden"
+    block = re.sub(r'<div class="topic[^"]*"', f'<div class="{cls}"', block, count=1)
+    return block
+
+
+def ultimate_chapters(chapters_src: list[tuple[int, str, str, list[str]]]) -> str:
+    chunks = []
+    for ch_num, title, fragment, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        ordered = gold + rest
+        opener = extract_opener(fragment)
+        start = (
+            f'<div class="ultimate-chapter">{opener}{golden_concepts_box(topics)}'
+            f"{chapter_pace_box(ch_num, topics)}</div>"
+        )
+        lessons = [
+            as_ultimate_lesson(block, i, len(ordered))
+            for i, block in enumerate(ordered, 1)
+        ]
+        chunks.append(
+            start + "".join(lessons) + chapter_exam_bundle(fragment, ch_num, title, topics)
+        )
+    return "".join(chunks)
+
+
+def ultimate_final(final_html: str) -> str:
+    if not final_html:
+        return ""
+    opener = extract_opener(final_html)
+    review = extract_review(final_html)
+    extra = """
+    <div class="box pace">
+      <p><b>Exam week.</b> Read each recap aloud, close the book, say it again.
+      Then sit the mock in 2 hours 30 minutes with no notes. Mark with the key.
+      Repair only the Golden lessons you missed.</p>
+      <p class="ur">ایک خلاصہ زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔ صرف کمزور گولڈن دوبارہ پڑھیں۔</p>
+    </div>"""
+    if review and "exam-head" not in review:
+        review = mock_exam_head() + review
+    return f'<div class="ultimate-chapter">{opener}{extra}</div>{review}'
+
+
+def build_ultimate(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-ultimate.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_src, goldens, planner = [], [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        topics = extract_class_divs(text, "topic")
+        gold = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+        chapters.append(meta)
+        chapters_src.append((meta[0], meta[1], text, topics))
+        planner.append({"meta": meta, "gold": gold, "mins": chapter_study_mins(topics)})
+        for block in topics:
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = final_path.read_text(encoding="utf-8") if final_path.exists() else ""
+    lesson_n = sum(len(row[3]) for row in chapters_src)
+    hours = fmt_hours(sum(p["mins"] for p in planner))
+    doc = wrap_html(
+        f"{book['title']} — Ultimate Teach Yourself Edition",
+        ultimate_cover(book, chapters, len(goldens), lesson_n)
+        + ultimate_imprint(book, chapters, len(goldens), lesson_n, hours)
+        + intro
+        + ultimate_planner(planner)
+        + '<div class="pagebreak"></div>'
+        + ultimate_toc(chapters_src, bool(final), len(goldens))
+        + cheat_golden_index(goldens)
+        + ultimate_chapters(chapters_src)
+        + ultimate_final(final)
+        + ultimate_colophon(book, lesson_n, len(goldens)),
+        body_class="ultimate-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-ultimate.html"
+    releases = ROOT.parent / "releases"
+    pdf_path = releases / f"CS-{book['grade']}-Ultimate-Teach-Yourself-Edition.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=80_000, budget_ms=240000)
+    gone = drop_blank_pages(pdf_path)
+    if gone:
+        print(f"{key} ultimate edition dropped {gone} blank page(s)")
+    print(f"{key} ultimate edition -> {pdf_path}")
+    return pdf_path
+
+
+def build_ultimate_editions(keys: list[str]):
+    paths = [build_ultimate(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip ultimate complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"ultimate complete -> {dest} ({pages} pages)")
+
+
 def combo_class_count(chapters_src: list[tuple[int, str, str, list[str]]]) -> int:
     total = 0
     for _n, _t, _f, topics in chapters_src:
@@ -3282,7 +3559,7 @@ def main(argv: list[str]):
     args = argv[1:]
     mode = "booklets"
     keys = []
-    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "complete", "all"):
+    if args and args[0] in ("lectures", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "complete", "ultimate", "all"):
         mode = args[0]
         args = args[1:]
     keys = [a for a in args if a in BOOKS] or list(BOOKS)
@@ -3306,6 +3583,8 @@ def main(argv: list[str]):
         build_paced_editions(keys)
     if mode == "complete":
         build_complete_books(keys)
+    if mode in ("ultimate", "all"):
+        build_ultimate_editions(keys)
 
 
 if __name__ == "__main__":

@@ -144,8 +144,8 @@ span.ur { display: inline; }
 .toc > li { padding: 7px 0; border-bottom: 1px dashed var(--line); }
 .toc > li > b { color: var(--brand); }
 .toc ul { font-size: 9pt; color: var(--muted); columns: 2; margin-top: 3px; }
-.legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.legend .box { margin: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; }
+.legend .box { flex: 1 1 240px; margin: 0; }
 
 /* ---------- Chapter ---------- */
 .chapter { break-before: page; }
@@ -253,8 +253,13 @@ ol.short > li, ol.long > li { margin: 5px 0; break-inside: avoid; }
 .pagebreak { break-before: page; }
 .muted { color: var(--muted); }
 .small { font-size: 8.8pt; }
-.two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.two-col > * { min-width: 0; }
+.two-col {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 12px;
+}
+.two-col > * { flex: 1 1 240px; min-width: 0; }
 
 /* ---------- Fit every block inside the A4 printable area ---------- */
 p, li, td, th, figcaption, .flow span {
@@ -807,3 +812,63 @@ body.complete-book .lesson-head { padding: 8px 14px; margin: 0 0 12px; }
 body.complete-book .lesson-head .num { font-size: 10.5pt; letter-spacing: .08em; }
 .box.exam-recipe::before { content: "Full-mark recipe"; color: #7c2d12; }
 .box.exam-recipe { border-color: #7c2d12; background: #fff7ed; }
+
+/* ---------- Ultimate Teach Yourself Edition (published volume) ---------- */
+.cover.ultimate-cover {
+  background: linear-gradient(160deg, #0c1220 0%, #1f3c88 52%, #2f5bd3 100%);
+}
+.cover.ultimate-cover .tag { background: #eab308; color: #111827; }
+.cover.ultimate-cover .units {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.cover.ultimate-cover .units div {
+  flex: 1 1 42%;
+  background: rgba(234,179,8,.16);
+  border-color: rgba(255,255,255,.3);
+}
+body.ultimate-book {
+  font-size: 11pt;
+  line-height: 1.58;
+}
+body.ultimate-book h2 { font-size: 16pt; margin: 10px 0 12px; }
+body.ultimate-book h3 { font-size: 12.5pt; }
+body.ultimate-book p { margin: 6px 0 10px; }
+body.ultimate-book .box { padding: 10px 12px; margin: 8px 0 12px; font-size: 10.8pt; }
+body.ultimate-book table { font-size: 10pt; }
+body.ultimate-book pre.code { font-size: 9.4pt; }
+body.ultimate-book .ur { font-size: 12pt; }
+body.ultimate-book .diagram svg { max-height: 240px; }
+body.ultimate-book .imprint { break-after: auto; }
+body.ultimate-book .ultimate-planner { break-before: page; page-break-before: always; }
+body.ultimate-book .objectives {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  columns: auto;
+}
+body.ultimate-book .objectives li { flex: 1 1 42%; }
+body.ultimate-book .checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  columns: auto;
+}
+body.ultimate-book .checklist li { flex: 1 1 220px; }
+body.ultimate-book ol.mcq ol.opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
+}
+body.ultimate-book ol.mcq ol.opts > li { flex: 1 1 42%; }
+.ultimate-lesson,
+.ultimate-chapter {
+  break-before: page;
+  page-break-before: always;
+}
+.ultimate-lesson.is-golden { border-left: 5px solid #eab308; padding-left: 10px; }
+body.ultimate-book .lesson-head { padding: 8px 14px; margin: 0 0 12px; }
+body.ultimate-book .lesson-head .num { font-size: 10.5pt; letter-spacing: .08em; }
+body.ultimate-book .studio .diagram { margin: 6px 0 0; }
+body.ultimate-book .studio .math { margin: 8px 0 2px; }
