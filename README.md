@@ -11,7 +11,7 @@ These `raw.githubusercontent.com` links return the file itself (`Content-Type: a
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
 
-**Android APK — cinematic classroom whiteboards** — each lecture writes in **English** on an animated board, **draws diagrams**, and explains in **Urdish** (Google Urdu TTS). One copy of the content: the board is English, the voice is Urdish, nothing is restated twice.
+**Android APK — Urdish lectures as built-in FLV** — each of 204 lectures is packed as an **FLV** of the English classroom board (MathJax SVG, diagrams, Flexbox). Tap play, then listen in **Urdish** (Google Urdu TTS). The voice does not re-read the board.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 **Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers (XI 302 pages, XII 315 pages). Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.

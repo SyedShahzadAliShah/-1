@@ -11,8 +11,8 @@ android {
         applicationId = "com.sindhcs.lectures"
         minSdk = 24
         targetSdk = 34
-        versionCode = 6
-        versionName = "2.0.0"
+        versionCode = 7
+        versionName = "2.1.0"
     }
 
     buildTypes {
@@ -38,6 +38,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    androidResources {
+        noCompress += "flv"
+    }
 }
 
 tasks.register<Exec>("exportLectureAssets") {
@@ -45,8 +49,14 @@ tasks.register<Exec>("exportLectureAssets") {
     commandLine("python3", "scripts/export_lecture_catalog.py")
 }
 
-tasks.named("preBuild") {
+tasks.register<Exec>("exportLectureFlv") {
+    workingDir = rootProject.projectDir
+    commandLine("python3", "scripts/export_lecture_flv.py")
     dependsOn("exportLectureAssets")
+}
+
+tasks.named("preBuild") {
+    dependsOn("exportLectureFlv")
 }
 
 dependencies {
@@ -56,4 +66,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.media3:media3-exoplayer:1.4.1")
+    implementation("androidx.media3:media3-ui:1.4.1")
 }

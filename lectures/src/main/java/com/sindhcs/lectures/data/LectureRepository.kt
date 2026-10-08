@@ -38,7 +38,8 @@ object LectureRepository {
                             urdu = to.optString("urdu"),
                             spokenUrdu = to.optString("spokenUrdu"),
                             terms = terms,
-                            board = to.optString("board")
+                            board = to.optString("board"),
+                            flv = to.optString("flv")
                         )
                     )
                 }

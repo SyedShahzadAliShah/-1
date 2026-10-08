@@ -291,3 +291,28 @@ li { margin: 3px 0; }
     fill-opacity: 1 !important;
   }
 }
+@media print {
+  body::before, body::after { display: none !important; }
+  html, body { background: #fff; }
+  .cinema {
+    min-height: 0;
+    padding: 6px;
+    background: #fff;
+    overflow: visible;
+  }
+  .cinema::before { display: none; }
+  .board {
+    min-height: 0;
+    box-shadow: none;
+    break-inside: auto;
+  }
+  .lamp { display: none; }
+  .enter, .ink-draw, .ink-fade, .ink-fill {
+    animation: none !important;
+    opacity: 1;
+    clip-path: none;
+    stroke-dashoffset: 0 !important;
+    fill-opacity: 1 !important;
+  }
+  article.board { break-before: page; page-break-before: always; }
+}

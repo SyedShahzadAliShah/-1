@@ -26,5 +26,6 @@ data class Topic(
     val urdu: String,
     val spokenUrdu: String, // classroom Urdish (Urdu grammar + English CS terms)
     val terms: List<String>,
-    val board: String
+    val board: String,
+    val flv: String
 )
