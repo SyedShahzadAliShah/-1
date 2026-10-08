@@ -1,40 +1,37 @@
-# Intimacy Guide
+# BIEK Computer Science XI & XII Lectures (PDF)
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Lecture notes for **Board of Intermediate Education, Karachi** — Computer Science Paper I (Class XI) and Paper II (Class XII).
 
-## Download
+Aligned to the **Sindh Curriculum 2019** and the official **BIEK Model Paper 2026**.
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+## Download the PDFs
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+| Book | Pages | File |
+| --- | --- | --- |
+| **CS XI lectures** (Paper I, 17 lectures) | 44 | [CS-XI-BIEK-Lectures.pdf](https://github.com/SyedShahzadAliShah/-1/raw/cursor/biek-cs-lectures-pdf-8fb7/releases/CS-XI-BIEK-Lectures.pdf) |
+| **CS XII lectures** (Paper II, 18 lectures) | 45 | [CS-XII-BIEK-Lectures.pdf](https://github.com/SyedShahzadAliShah/-1/raw/cursor/biek-cs-lectures-pdf-8fb7/releases/CS-XII-BIEK-Lectures.pdf) |
+| **XI + XII combined** | 88 | [CS-XI-and-XII-BIEK-Lectures.pdf](https://github.com/SyedShahzadAliShah/-1/raw/cursor/biek-cs-lectures-pdf-8fb7/releases/CS-XI-and-XII-BIEK-Lectures.pdf) |
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+Single-lecture PDFs: `releases/lectures/xi/` and `releases/lectures/xii/`.
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+## What is inside
 
-## v3.2.1
+**Class XI / Paper I (theory, 75 marks)**  
+Computer & IT, hardware, software & virus, memory (RAM/ROM), secondary storage, motherboard & ports, CPU / registers / fetch cycle, operating system, data communication, media & devices, networks & topologies, OSI & TCP/IP, abbreviations, programming bridge, mock paper with keys.
 
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
+**Class XII / Paper II (75 marks, choose one option)**  
+- Option I: C language (structure, I/O, operators, if/switch, loops, arrays, strings, functions, pointers)  
+- Option II: Visual Basic (forms, controls, events, loops, arrays)  
+- Both options: DBMS, ER, keys, normalisation, MS Access, SQL  
+- Sindh Grade XII units: SDLC, OOP in C++, file handling, multimedia, wireless & mobile  
+- Two mock papers (C and VB) in BIEK 2026 style
 
-## v3.2.0
+Each lecture has learning outcomes, explanations, comparison tables, SVG diagrams, C/VB programs, Urdu summaries, MCQs, short questions and model answers.
 
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
-
-## v2.4 fixes
-
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
-
-## Build
+## Rebuild
 
 ```bash
-python3 scripts/generate_posture_pictures.py
-export ANDROID_HOME=/path/to/android-sdk
-./gradlew assembleDebug
+python3 lectures/build.py
 ```
 
-## Version 3.2.1
+Needs Google Chrome for headless A4 printing. Source lives in `lectures/`.

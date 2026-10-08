@@ -1,0 +1,324 @@
+/* BIEK Computer Science lecture notes — A4 print */
+:root {
+  --navy: #0b3d5c;
+  --navy-2: #14557a;
+  --gold: #c9a227;
+  --ink: #1c2430;
+  --muted: #4a5564;
+  --paper: #ffffff;
+  --band: #eef5f9;
+  --learn: #e8f4ec;
+  --learn-b: #2e7d4f;
+  --ex: #eef3fb;
+  --ex-b: #2b5ea7;
+  --tip: #fff6d9;
+  --tip-b: #b8860b;
+  --warn: #fdeeee;
+  --warn-b: #b23b3b;
+  --exam: #f3eef8;
+  --exam-b: #6b3fa0;
+  --urdu: #f7f1e8;
+  --urdu-b: #8a5a2a;
+  --rule: #d5dde5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, "Liberation Sans", "DejaVu Sans", sans-serif;
+  font-size: 10.6pt;
+  line-height: 1.45;
+}
+
+@page {
+  size: A4;
+  margin: 14mm 13mm 16mm 13mm;
+}
+
+.cover {
+  min-height: 250mm;
+  padding: 8mm 4mm 12mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  page-break-after: always;
+  color: var(--ink);
+}
+
+.cover .hero {
+  background: var(--navy);
+  color: #fff;
+  padding: 16mm 12mm 12mm;
+  border-radius: 10px;
+}
+
+.cover .brand {
+  color: #d9e8f2;
+  letter-spacing: .12em;
+  font-size: 9.5pt;
+  text-transform: uppercase;
+}
+
+.cover h1 {
+  color: #fff;
+  font-size: 26pt;
+  line-height: 1.18;
+  margin: 10px 0 8px;
+  font-weight: 750;
+}
+
+.cover .sub {
+  color: #d9e8f2;
+  font-size: 12pt;
+  margin: 0;
+}
+
+.cover .badge-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.cover .badge {
+  background: var(--gold);
+  color: #1a1404;
+  font-weight: 700;
+  font-size: 8.5pt;
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+
+.cover .panel {
+  background: var(--band);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 28mm;
+}
+
+.cover .panel h2 {
+  margin: 0 0 8px;
+  font-size: 13pt;
+  color: var(--navy);
+}
+
+.cover table { width: 100%; border-collapse: collapse; font-size: 9.8pt; }
+.cover td { padding: 4px 6px; vertical-align: top; }
+.cover td:first-child { font-weight: 650; width: 34%; color: var(--navy); }
+
+.toc { page-break-after: always; }
+.toc h1 { color: var(--navy); font-size: 18pt; margin: 0 0 10px; }
+.toc h3 { color: var(--navy); font-size: 11pt; margin: 11px 0 4px; border: 0; }
+.toc ol { padding-left: 22px; margin: 0 0 6px; }
+.toc li { margin: 2px 0; }
+
+.lecture {
+  page-break-before: always;
+  break-before: page;
+}
+
+.lec-head {
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 12px 11px;
+  border-radius: 8px;
+  margin: 0 0 12px;
+}
+
+.lec-head .kicker {
+  font-size: 8.2pt;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .85;
+}
+
+.lec-head h1 {
+  margin: 2px 0 4px;
+  font-size: 15.5pt;
+  line-height: 1.25;
+}
+
+.lec-head .meta {
+  font-size: 8.6pt;
+  opacity: .92;
+}
+
+.star {
+  color: var(--gold);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+h2 {
+  color: var(--navy);
+  font-size: 12.4pt;
+  margin: 13px 0 6px;
+  border-bottom: 1.5px solid var(--gold);
+  padding-bottom: 2px;
+}
+
+h3 {
+  color: var(--navy-2);
+  font-size: 11pt;
+  margin: 10px 0 4px;
+}
+
+p { margin: 0 0 7px; }
+
+ul, ol { margin: 0 0 8px; padding-left: 18px; }
+li { margin: 2px 0; }
+
+.objectives {
+  background: var(--band);
+  border-left: 4px solid var(--gold);
+  padding: 8px 12px;
+  margin: 0 0 10px;
+}
+
+.box {
+  border-radius: 7px;
+  padding: 8px 11px 7px;
+  margin: 8px 0;
+  border: 1px solid var(--rule);
+  border-left-width: 5px;
+  break-inside: avoid;
+}
+
+.box::before {
+  display: block;
+  font-size: 7.8pt;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.box.learn { background: var(--learn); border-left-color: var(--learn-b); }
+.box.learn::before { content: "Learn it"; color: var(--learn-b); }
+.box.example { background: var(--ex); border-left-color: var(--ex-b); }
+.box.example::before { content: "Worked example / board style"; color: var(--ex-b); }
+.box.tip { background: var(--tip); border-left-color: var(--tip-b); }
+.box.tip::before { content: "Remember it"; color: var(--tip-b); }
+.box.warn { background: var(--warn); border-left-color: var(--warn-b); }
+.box.warn::before { content: "Common board mistake"; color: var(--warn-b); }
+.box.exam { background: var(--exam); border-left-color: var(--exam-b); }
+.box.exam::before { content: "How BIEK asks this"; color: var(--exam-b); }
+.box.urdu { background: var(--urdu); border-left-color: var(--urdu-b); }
+.box.urdu::before { content: "اردو میں سمجھیں"; color: var(--urdu-b); font-family: "Noto Naskh Arabic", "Noto Nastaliq Urdu", serif; letter-spacing: 0; text-transform: none; font-size: 9pt; }
+.box.check { background: #f4f6f8; border-left-color: var(--navy); }
+.box.check::before { content: "Check yourself"; color: var(--navy); }
+
+.ur, .box.urdu p, td.ur {
+  font-family: "Noto Naskh Arabic", "Noto Nastaliq Urdu", serif;
+  direction: rtl;
+  text-align: right;
+  font-size: 11.2pt;
+  line-height: 1.7;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 10px;
+  font-size: 9.6pt;
+  break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid #c5d0da;
+  padding: 4px 6px;
+  vertical-align: top;
+}
+
+th {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 650;
+  text-align: left;
+}
+
+tr:nth-child(even) td { background: #f5f8fb; }
+td.hl { background: #fff3c4 !important; font-weight: 650; }
+table.center td, table.center th { text-align: center; }
+
+pre.code {
+  font-family: "JetBrains Mono", "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 8.6pt;
+  line-height: 1.38;
+  background: #0f2433;
+  color: #e8f1f6;
+  padding: 8px 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  white-space: pre-wrap;
+  margin: 6px 0 10px;
+}
+
+pre.code.output {
+  background: #1e2a22;
+  color: #d6f0d6;
+}
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0;
+  font-size: 9pt;
+}
+.flow span {
+  background: var(--navy);
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.flow i { color: var(--gold); font-style: normal; font-weight: 800; }
+
+.two-col {
+  display: flex;
+  gap: 10px;
+}
+.two-col > div { flex: 1; min-width: 0; }
+
+figure.diagram {
+  margin: 8px 0 10px;
+  text-align: center;
+  break-inside: avoid;
+}
+figure.diagram svg { max-width: 100%; height: auto; }
+figcaption {
+  font-size: 8.5pt;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.ans { margin-top: 6px; font-size: 9.5pt; color: var(--navy); }
+.answers { page-break-inside: avoid; }
+
+.footer-note {
+  margin-top: 14px;
+  font-size: 8pt;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 6px;
+}
+
+.defn {
+  border: 1px dashed var(--navy-2);
+  padding: 7px 10px;
+  margin: 7px 0;
+  background: #f8fbfd;
+}
+.defn b { color: var(--navy); }
+
+ol.mcq > li { margin-bottom: 6px; }
+ol.opts { list-style: lower-alpha; margin-top: 2px; }
+
+.small { font-size: 9pt; color: var(--muted); }
