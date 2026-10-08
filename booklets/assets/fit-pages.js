@@ -335,10 +335,18 @@
 
     var placeCalls = 0;
     function isOnePageBlock(el) {
-      return el && el.matches && el.matches(".paced-lesson,.paced-chapter,.chapter-recap,.one-page-topic,.cheat-card,.note-block,.imprint,.combo-planner");
+      return el && el.matches && el.matches(".paced-lesson,.paced-chapter,.chapter-recap,.one-page-topic,.cheat-card,.note-block,.imprint,.combo-planner,.ultimate-planner");
+    }
+    function startsFreshPage(el) {
+      return el && el.matches && el.matches(
+        ".ultimate-lesson,.ultimate-chapter,.complete-lesson,.complete-chapter,.exam-key"
+      );
     }
     function placeGroup(nodes) {
       if (!nodes.length || ++placeCalls > 8000) return;
+      if (nodes.length === 1 && startsFreshPage(nodes[0]) && inner.childElementCount) {
+        seal();
+      }
       if (nodes.length === 1 && isOnePageBlock(nodes[0])) {
         if (inner.childElementCount) seal();
         inner.appendChild(nodes[0]);
