@@ -20,10 +20,8 @@
 * { box-sizing: border-box; }
 html, body {
   margin: 0;
-  min-height: 100%;
-  height: auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  overflow: hidden;
   background: #07090d;
   color: var(--ink);
   font: 16px/1.55 system-ui, "Segoe UI", Georgia, sans-serif;
@@ -48,7 +46,8 @@ body::after { bottom: 0; }
   background:
     radial-gradient(ellipse at 50% 12%, rgba(255, 214, 140, .12), transparent 36%),
     radial-gradient(ellipse at 50% 18%, #243044 0%, #0b0f16 58%, #05070a 100%);
-  overflow: visible;
+  overflow: hidden;
+  transform-origin: top center;
 }
 .cinema::before {
   content: "";

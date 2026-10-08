@@ -50,12 +50,29 @@
     draw(svg, 0.7 + i * 0.35);
   });
 
+  function fitBoard() {
+    var cinema = document.querySelector(".cinema");
+    var board = document.querySelector(".board");
+    if (!cinema || !board) return;
+    cinema.style.transform = "none";
+    var pad = 16;
+    var scaleW = (window.innerWidth - pad) / Math.max(board.scrollWidth, 1);
+    var scaleH = (window.innerHeight - pad) / Math.max(board.scrollHeight + 40, 1);
+    var scale = Math.min(scaleW, scaleH, 1);
+    cinema.style.transformOrigin = "top center";
+    cinema.style.transform = "scale(" + scale + ")";
+  }
+
   if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
     MathJax.startup.promise.then(function () {
       document.querySelectorAll("mjx-container").forEach(function (el, i) {
         el.classList.add("enter");
         el.style.setProperty("--d", (0.12 * i) + "s");
       });
+      fitBoard();
     });
   }
+  window.addEventListener("resize", fitBoard);
+  setTimeout(fitBoard, 80);
+  setTimeout(fitBoard, 600);
 })();

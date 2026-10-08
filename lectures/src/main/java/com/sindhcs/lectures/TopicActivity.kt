@@ -2,9 +2,7 @@ package com.sindhcs.lectures
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.SystemClock
+import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -18,18 +16,6 @@ class TopicActivity : AppCompatActivity() {
     private var narrator: UrduNarrator? = null
     private var speaking = false
     private var spoken = ""
-    private var readMs = 0L
-    private var usingRangeSync = false
-    private var speechStartedAt = 0L
-    private val main = Handler(Looper.getMainLooper())
-    private val clockSync = object : Runnable {
-        override fun run() {
-            if (!speaking || usingRangeSync || readMs <= 0) return
-            val elapsed = SystemClock.elapsedRealtime() - speechStartedAt
-            scrollBoard((elapsed.toFloat() / readMs).coerceIn(0f, 1f))
-            main.postDelayed(this, 250)
-        }
-    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,17 +33,20 @@ class TopicActivity : AppCompatActivity() {
 
         title = getString(R.string.lecture)
         spoken = topic.spokenUrdu
-        readMs = topic.readSeconds.coerceAtLeast(1) * 1000L
 
         val board = binding.board
         board.setBackgroundColor(0xFF07090D.toInt())
+        board.isVerticalScrollBarEnabled = false
+        board.isHorizontalScrollBarEnabled = false
+        board.overScrollMode = View.OVER_SCROLL_NEVER
         board.webViewClient = WebViewClient()
         board.settings.javaScriptEnabled = true
         board.settings.domStorageEnabled = true
         board.settings.allowFileAccess = true
         board.settings.loadWithOverviewMode = true
         board.settings.useWideViewPort = true
-        board.settings.builtInZoomControls = true
+        board.settings.setSupportZoom(false)
+        board.settings.builtInZoomControls = false
         board.settings.displayZoomControls = false
         board.settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
         board.settings.cacheMode = WebSettings.LOAD_DEFAULT
@@ -70,54 +59,23 @@ class TopicActivity : AppCompatActivity() {
             onSpeakingChanged = { on ->
                 speaking = on
                 binding.listenButton.text = getString(if (on) R.string.stop_lecture else R.string.listen_urdu)
-                if (!on) {
-                    main.removeCallbacks(clockSync)
-                    scrollBoard(1f)
-                }
-            },
-            onProgress = { fraction ->
-                usingRangeSync = true
-                scrollBoard(fraction)
             },
             onLanguageIssue = { msg -> Toast.makeText(this, msg, Toast.LENGTH_LONG).show() }
         )
 
         binding.listenButton.setOnClickListener {
-            if (speaking) stopLecture() else startLecture()
+            if (speaking) {
+                narrator?.stop()
+            } else {
+                val ok = narrator?.speak(spoken) == true
+                if (!ok) UrduNarrator.openTtsSettings(this)
+            }
         }
         binding.ttsHelp.setOnClickListener { UrduNarrator.openTtsSettings(this) }
     }
 
-    private fun startLecture() {
-        usingRangeSync = false
-        speechStartedAt = SystemClock.elapsedRealtime()
-        scrollBoard(0f)
-        val ok = narrator?.speak(spoken) == true
-        if (!ok) {
-            UrduNarrator.openTtsSettings(this)
-            return
-        }
-        main.removeCallbacks(clockSync)
-        main.postDelayed(clockSync, 250)
-    }
-
-    private fun stopLecture() {
-        main.removeCallbacks(clockSync)
-        narrator?.stop()
-    }
-
-    private fun scrollBoard(fraction: Float) {
-        val f = fraction.coerceIn(0f, 1f)
-        binding.board.evaluateJavascript(
-            "(function(f){var el=document.scrollingElement||document.documentElement;" +
-                "var max=Math.max(0,el.scrollHeight-window.innerHeight);" +
-                "window.scrollTo(0,max*f);})($f);",
-            null
-        )
-    }
-
     override fun onPause() {
-        stopLecture()
+        narrator?.stop()
         binding.board.onPause()
         super.onPause()
     }
@@ -128,7 +86,6 @@ class TopicActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        main.removeCallbacks(clockSync)
         narrator?.shutdown()
         binding.board.destroy()
         super.onDestroy()

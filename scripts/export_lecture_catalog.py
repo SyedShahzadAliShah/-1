@@ -51,8 +51,8 @@ PAREN_TERM = re.compile(
 )
 
 
-def urdishize_urdu(urdu: str) -> str:
-    """Classroom Urdish for the voice only — not printed on the board."""
+def keep_english_terms(urdu: str) -> str:
+    """Urdu explanation for the voice; critical CS terms stay English."""
     text = PAREN_TERM.sub(lambda m: m.group(1).strip(), urdu)
     for src, dst in (
         ("مقداریں", "quantities"),
@@ -67,6 +67,16 @@ def urdishize_urdu(urdu: str) -> str:
         ("قطاریں", "rows"),
         ("متغیرات", "variables"),
         ("ایکسپریشن", "expression"),
+        ("الگورتھم", "algorithm"),
+        ("فلو چارٹ", "flowchart"),
+        ("ڈیٹا بیس", "database"),
+        ("نیٹ ورک", "network"),
+        ("آپریٹنگ سسٹم", "operating system"),
+        ("پروگرامنگ", "programming"),
+        ("فنکشن", "function"),
+        ("لوپ", "loop"),
+        ("اریے", "array"),
+        ("آبجیکٹ", "object"),
     ):
         text = text.replace(src, dst)
     return re.sub(r"\s+", " ", text).strip()
@@ -109,7 +119,7 @@ def english_stage(block: str) -> str:
     return html.strip()
 
 
-def spoken_urdish(
+def spoken_urdu(
     title: str,
     chapter: str,
     golden: bool,
@@ -117,25 +127,24 @@ def spoken_urdish(
     terms: list[str],
     extra_on_board: bool,
 ) -> str:
-    """Urdish teacher voice. Does not re-read English already on the board."""
+    """Urdu teacher voice. Critical CS terms stay English. Does not re-read the board."""
     bits = [
-        "Students, السلام علیکم۔",
-        "Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain.",
-        "Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔",
-        f"Topic: {title}. Chapter: {chapter}.",
+        "طلبہ، السلام علیکم۔",
+        "اس lecture کی وضاحت اردو میں ہے، مگر اہم اصطلاحات انگریزی میں رہیں گی۔",
+        f"موضوع: {title}۔ باب: {chapter}۔",
     ]
     if golden:
-        bits.append("Yeh Golden topic hai — extra dhyan se dekho.")
-    mixed = urdishize_urdu(urdu) if urdu else ""
+        bits.append("یہ Golden topic ہے، اس پر خاص توجہ دو۔")
+    mixed = keep_english_terms(urdu) if urdu else ""
     if mixed:
         bits.append(mixed.rstrip("۔") + "۔")
     if terms:
-        bits.append("Board par yeh terms circle karo: " + ", ".join(terms) + ".")
+        bits.append("بورڈ پر یہ اصطلاحات انگریزی میں لکھی ہیں: " + "، ".join(terms) + "۔")
     if extra_on_board:
         bits.append(
-            "Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti."
+            "یاد رکھو، عام غلطی اور exam note بورڈ پر انگریزی میں موجود ہیں۔ میں بورڈ کی انگریزی دوبارہ نہیں پڑھتی۔"
         )
-    bits.append("Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.")
+    bits.append("تعریف، مثال اور diagram بورڈ پر دیکھو۔ اللہ حافظ۔")
     return " ".join(bits)
 
 
@@ -204,7 +213,7 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             board_html(title, chapter_label, golden, english_stage(block)),
             encoding="utf-8",
         )
-        spoken = spoken_urdish(
+        spoken = spoken_urdu(
             title,
             ch_title,
             golden,
