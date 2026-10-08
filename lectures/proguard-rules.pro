@@ -1,1 +1,1 @@
-# ProGuard rules for CS Teacher Edition
+# Teach Yourself CS lectures

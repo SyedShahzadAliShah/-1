@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.csteacher.edition"
+    namespace = "com.sindhcs.lectures"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.csteacher.edition"
+        applicationId = "com.sindhcs.teachyourself"
         minSdk = 24
         targetSdk = 34
-        versionCode = 20
-        versionName = "1.3.1"
+        versionCode = 12
+        versionName = "3.0.0"
     }
 
     buildTypes {
@@ -40,6 +40,15 @@ android {
     }
 }
 
+tasks.register<Exec>("exportLectureAssets") {
+    workingDir = rootProject.projectDir
+    commandLine("python3", "scripts/export_lecture_catalog.py")
+}
+
+tasks.named("preBuild") {
+    dependsOn("exportLectureAssets")
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -47,5 +56,4 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
 }

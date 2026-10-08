@@ -181,57 +181,98 @@ def beat_kind(tag: str) -> str:
     return "note"
 
 
+def urdu_sentences(urdu: str) -> list[str]:
+    text = keep_english_terms(urdu)
+    parts = re.split(r"(?<=[۔!?])\s+", text)
+    return [part.strip() for part in parts if part.strip()]
+
+
+def take_sentence(pool: list[str]) -> str:
+    if not pool:
+        return ""
+    sentence = pool.pop(0)
+    if len(sentence) < 42 and pool:
+        sentence = sentence.rstrip("۔") + "۔ " + pool.pop(0)
+    return sentence
+
+
+def clip_sentence(inner: str, limit: int = 140) -> str:
+    text = plain(re.sub(r'<div class="ans">.*?</div>', "", inner, flags=re.S))
+    parts = re.split(r"(?<=[.!?])\s+", text)
+    line = parts[0].strip() if parts else text
+    if len(line) > limit:
+        line = line[: limit - 1].rstrip() + "…"
+    return line.rstrip(".!? ")
+
+
+def finish(line: str) -> str:
+    line = re.sub(r"\s+", " ", line).strip().rstrip(".!?۔")
+    return f"{line}۔" if line else ""
+
+
+def panel_fallback(kind: str, inner: str) -> str:
+    """Short Urdish when the Urdu note has no sentence left for this panel."""
+    local = [term.rstrip(".!? ") for term in bold_terms(inner, 4)]
+    terms = "، ".join(local)
+    point = clip_sentence(inner)
+    if kind == "diagram":
+        cap = plain(" ".join(re.findall(r"<figcaption>(.*?)</figcaption>", inner, flags=re.S)))
+        if cap:
+            return finish(f"Diagram: {cap}")
+        return finish(f"یہ SVG diagram {terms} دکھاتی ہے" if terms else "یہ SVG diagram دیکھو")
+    if kind == "table":
+        headers = [plain(x) for x in re.findall(r"<th[^>]*>(.*?)</th>", inner, flags=re.S)]
+        heads = "، ".join(h for h in headers if h)[:110]
+        return finish(f"Table میں {heads} کا فرق دیکھو" if heads else "یہ table فرق دکھاتی ہے")
+    if kind == "example":
+        return finish(f"Example: {point}" if point else "یہ worked example دیکھو")
+    if kind == "tip":
+        return finish(f"یاد رکھو: {point}" if point else "یہ نکتہ یاد رکھو")
+    if kind == "warn":
+        return finish(f"غلطی سے بچو: {point}" if point else "یہ عام غلطی ہے")
+    if kind == "check":
+        return "اب خود چیک کرو۔"
+    if kind == "exam":
+        return finish(f"امتحان: {point}" if point else "امتحان میں یہی نکتہ لکھنا ہے")
+    if kind == "code":
+        return "یہ code دیکھو۔"
+    if kind == "flow":
+        return finish(f"Steps: {terms}" if terms else "یہ steps دیکھو")
+    return finish(point or terms or "اگلا نکتہ دیکھو")
+
+
 def urdish_beat(
     kind: str,
     inner: str,
     title: str,
     chapter: str,
     golden: bool,
-    urdu: str,
+    pool: list[str],
 ) -> str:
-    """One Urdish line locked to one sketchnote panel. English terms stay English."""
-    local = bold_terms(inner, 5)
+    """One short Urdish line for one sketchnote panel. CS terms stay English."""
     if kind == "title":
-        bits = [
-            "طلبہ، السلام علیکم۔",
-            "Sketchnote lecture Urdish میں سمجھا رہی ہوں، اصطلاحات English میں رہیں گی۔",
-            f"موضوع: {title}۔ باب: {chapter}۔",
-        ]
+        line = title.rstrip(".") + "."
         if golden:
-            bits.append("یہ Golden topic ہے۔")
-        return " ".join(bits)
-    if kind == "learn":
-        expl = keep_english_terms(urdu) if urdu else ""
-        if expl:
-            return "Learn-it sketchnote بورڈ پر آ رہی ہے۔ " + expl.rstrip("۔") + "۔"
-        return "Learn-it sketchnote بورڈ پر English میں لکھی ہے۔"
-    if kind == "diagram":
-        cap = plain(" ".join(re.findall(r"<figcaption>(.*?)</figcaption>", inner, flags=re.S)))
-        extra = f" {cap}" if cap else ""
-        terms = f" اصطلاحات: {', '.join(local)}۔" if local else ""
-        return f"Diagram sketchnote draw ہو رہی ہے۔{extra}{terms}"
-    if kind == "table":
-        headers = [plain(x) for x in re.findall(r"<th[^>]*>(.*?)</th>", inner, flags=re.S)]
-        heads = "، ".join(h for h in headers if h)[:120]
-        return f"Table sketchnote دیکھو: {heads}۔" if heads else "Table sketchnote بورڈ پر ہے۔"
-    if kind == "example":
-        terms = f" Steps: {', '.join(local)}۔" if local else ""
-        return f"Worked-example sketchnote بورڈ پر English میں ہے۔{terms}"
-    if kind == "tip":
-        terms = f" {', '.join(local)} English میں circled کرو۔" if local else ""
-        return f"Remember-it sketchnote دیکھو۔{terms} میں English دوبارہ نہیں پڑھتی۔"
-    if kind == "warn":
-        return "Common-mistake sketchnote — غلط فہمی بورڈ پر English میں لکھی ہے۔"
-    if kind == "check":
-        return "Check-yourself sketchnote — سوالات English میں بورڈ پر ہیں۔ جواب سوچو۔"
-    if kind == "exam":
-        return "Exam sketchnote بورڈ پر English میں ہے۔"
-    if kind == "code":
-        return "Code sketchnote بورڈ پر English میں لکھا ہے۔"
-    if kind == "flow":
-        return "Flow sketchnote دیکھو — steps بورڈ پر English میں ہیں۔"
-    terms = f" {', '.join(local)}۔" if local else ""
-    return f"Sketchnote بورڈ پر آ رہی ہے۔{terms}"
+            line += " یہ Golden topic ہے۔"
+        return line
+    sentence = take_sentence(pool)
+    if sentence:
+        return sentence if sentence.endswith(("۔", ".", "!", "?")) else sentence + "۔"
+    return panel_fallback(kind, inner)
+
+
+def stamp_tag(tag: str, index: int) -> str:
+    if "data-beat=" not in tag:
+        if tag.endswith("/>"):
+            tag = f'{tag[:-2]} data-beat="{index}" />'
+        else:
+            tag = f'{tag[:-1]} data-beat="{index}">'
+    if 'class="' in tag:
+        if "panel" not in tag.split('class="', 1)[1].split('"', 1)[0]:
+            tag = tag.replace('class="', 'class="panel ', 1)
+    elif tag.endswith(">"):
+        tag = tag[:-1] + ' class="panel">'
+    return tag
 
 
 def stamp_beats(
@@ -244,27 +285,52 @@ def stamp_beats(
     matches = list(BEAT_TAG.finditer(article))
     if not matches:
         return article, []
+    pool = urdu_sentences(urdu)
     chunks: list[str] = []
     lines: list[str] = []
     last = 0
     for i, match in enumerate(matches):
         chunks.append(article[last:match.start()])
-        tag = match.group(0)
-        if "data-beat=" in tag:
-            stamped = tag
-        elif tag.endswith("/>"):
-            stamped = f'{tag[:-2]} data-beat="{i}" />'
-        else:
-            stamped = f'{tag[:-1]} data-beat="{i}">'
-        chunks.append(stamped)
+        chunks.append(stamp_tag(match.group(0), i))
         last = match.end()
         nxt = matches[i + 1].start() if i + 1 < len(matches) else len(article)
         inner = article[match.end():nxt]
-        line = urdish_beat(beat_kind(tag), inner, title, chapter, golden, urdu)
+        line = urdish_beat(beat_kind(match.group(0)), inner, title, chapter, golden, pool)
         if line:
             lines.append(line)
     chunks.append(article[last:])
     return "".join(chunks), lines
+
+
+def fallback_diagram(title: str, terms: list[str]) -> str:
+    """One inline SVG sketchnote when the lesson has no authored diagram."""
+    labels = [term.strip() for term in terms if term.strip()][:3] or [title]
+    chunks: list[str] = []
+    x = 16
+    for index, label in enumerate(labels):
+        shown = label if len(label) <= 22 else label[:21] + "…"
+        chunks.append(
+            f'<rect x="{x}" y="28" width="148" height="52" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.4"/>'
+        )
+        chunks.append(
+            f'<text x="{x + 74}" y="59" text-anchor="middle" font-size="13" font-family="Inter, sans-serif">{html_lib.escape(shown)}</text>'
+        )
+        if index + 1 < len(labels):
+            chunks.append(
+                f'<line x1="{x + 152}" y1="54" x2="{x + 176}" y2="54" stroke="#0e7490" stroke-width="2.4"/>'
+            )
+            chunks.append(
+                f'<polygon points="{x + 176},48 {x + 188},54 {x + 176},60" fill="#0e7490"/>'
+            )
+        x += 196
+    width = 16 + 196 * len(labels)
+    svg = (
+        f'<svg viewBox="0 0 {width} 108" width="{width}" xmlns="http://www.w3.org/2000/svg">'
+        + "".join(chunks)
+        + "</svg>"
+    )
+    caption = html_lib.escape(title)
+    return f'<figure class="diagram">{svg}<figcaption>{caption}</figcaption></figure>'
 
 
 def board_html(title: str, chapter: str, golden: bool, article_inner: str) -> str:
@@ -295,7 +361,7 @@ window.MathJax = {{
 </head>
 <body>
 <div class="cinema">
-<article class="board">
+<article class="board sketchnote">
   <div class="lamp"></div>
   <div class="rail">
     <span class="chip live">Live classroom</span>
@@ -328,6 +394,8 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
         chapter_label = f"{grade.upper()} · Chapter {ch_num} · {ch_title}"
         rel = f"whiteboards/{grade}/{ch_num}/{i:02d}.html"
         article = f"<h1>{html_lib.escape(title)}</h1>\n{english_stage(block)}"
+        if "<svg" not in article.lower():
+            article += "\n" + fallback_diagram(title, terms)
         stamped, beats = stamp_beats(article, title, ch_title, golden, urdu)
         if not beats:
             beats = [spoken_urdu(title, ch_title, golden, urdu, terms, bool(tip or warn or exam))]
