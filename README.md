@@ -1,8 +1,31 @@
-# Intimacy Guide
+# CS XI Teach Yourself Edition (Urdish)
+
+Self-study Android app for **Computer Science XI** (Sindh Curriculum 2026). Lectures are **Urdish only** (Urdu with English CS terms), with offline **MathJax SVG**, **inline SVG** diagrams, **Flexbox** RTL layout, and **Urdu TTS**.
+
+## Download
+
+**Latest (v5.0.0-tye)** — خود سیکھو لیکچرز · چھ ابواب · سنہری موضوعات · خود آزمائی:
+
+https://github.com/SyedShahzadAliShah/-1/raw/cursor/cs-xi-teach-yourself-urdish-05c8/releases/CSXI-TeachYourself-Urdish-v5.0.0-tye-debug.apk
+
+Uninstall any older CS XI / handbook APK first. The launcher title is **CS XI خود سیکھو**.
+
+```bash
+python3 scripts/generate_ty_curriculum.py
+python3 scripts/validate_teach_yourself.py
+export ANDROID_HOME=/path/to/android-sdk
+./gradlew assembleDebug
+```
+
+Web preview: `python3 -m http.server 8765 --directory teach-yourself`
+
+See [teach-yourself/README.md](teach-yourself/README.md).
+
+## Intimacy Guide (previous)
 
 Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
 
-## Download
+## Download (handbook archive)
 
 **Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
 

@@ -11,8 +11,8 @@ android {
         applicationId = "com.couplesguide.postures"
         minSdk = 24
         targetSdk = 34
-        versionCode = 15
-        versionName = "3.2.1"
+        versionCode = 17
+        versionName = "5.0.0-tye"
     }
 
     buildTypes {
@@ -40,6 +40,20 @@ android {
     }
 }
 
+val teachYourselfRoot = rootProject.file("teach-yourself")
+val teachYourselfAssets = file("src/main/assets/teach-yourself")
+
+tasks.register<Copy>("copyTeachYourselfAssets") {
+    from(teachYourselfRoot) {
+        include("index.html", "css/**", "js/**", "vendor/**", "fonts/**")
+    }
+    into(teachYourselfAssets)
+}
+
+tasks.named("preBuild") {
+    dependsOn("copyTeachYourselfAssets")
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -48,4 +62,5 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
 }

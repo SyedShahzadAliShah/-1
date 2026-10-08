@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Intimacy Handbook</string>
+    <string name="app_name">CS XI خود سیکھو</string>
     <string name="app_subtitle">Ultimate Couples Sex Education</string>
     <string name="welcome_title">Your Anime-Illustrated Intimacy Handbook</string>
     <string name="welcome_message">The ultimate handbook for couples — anime-style educational illustrations, voice narration, printable PDF, and comfort tips for intimate postures. Learn together in English and Urdu. Every body is different; choose what feels right for both of you.</string>
@@ -50,5 +50,7 @@
     <string name="womans_role">Woman\'s Role</string>
     <string name="position_label">Position</string>
     <string name="guidance_label">Guidance</string>
-    <string name="version_badge">Version %1$s — Man/Woman roles + Sex Ed for Him &amp; Her</string>
+    <string name="version_badge">Version %1$s — Teach Yourself · Urdish lectures</string>
+    <string name="teach_yourself_title">CS XI خود سیکھو</string>
+    <string name="teach_yourself_tts_settings">اردو TTS سیٹنگز</string>
 </resources>

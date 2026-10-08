@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>کمپیوٹر سائنس XI — خود سیکھو ایڈیشن</title>
+  <meta name="description" content="Sindh Curriculum 2026 · Teach Yourself · اردو لیکچرز · MathJax SVG · Flexbox · TTS" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'local', scale: 1.05 },
+      startup: { typeset: false },
+      options: { enableMenu: false },
+      loader: { load: [] }
+    };
+  </script>
+  <script defer src="vendor/mathjax/tex-svg-full.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-badge">خود سیکھو</span>
+      <h1>کمپیوٹر سائنس XI</h1>
+      <p class="subtitle">سندھ نصاب 2026 · لیکچرز صرف اردو (Urdish) میں · MathJax SVG · TTS</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn icon" id="btnMenu" aria-label="سبق کی فہرست">☰ سبق</button>
+      <button type="button" class="btn primary" id="btnPlayPause" aria-pressed="false">
+        <span class="play-label">▶ سبق سنیں</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <section class="coach-card">
+        <p class="coach-kicker">آپ کا استاذِ خودآموز</p>
+        <p class="coach-msg" id="coachMessage">ایک سبق، ایک سلائیڈ — آج کا سنہری نکتہ پکڑیں۔</p>
+        <div class="progress-row">
+          <svg class="progress-ring" viewBox="0 0 36 36" aria-hidden="true">
+            <path class="progress-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            <path class="progress-fill" id="progressArc" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          </svg>
+          <div>
+            <strong id="progressPct">0%</strong>
+            <span>مکمل سلائیڈز</span>
+          </div>
+        </div>
+      </section>
+      <nav class="chapter-nav" id="chapterNav" aria-label="ابواب"></nav>
+    </aside>
+
+    <main class="stage" id="stage">
+      <div class="module-bar">
+        <span class="module-id" id="moduleId"></span>
+        <span class="golden-star" id="goldenBadge" hidden>★ سنہری موضوع</span>
+        <h2 class="module-title" id="moduleTitle"></h2>
+      </div>
+
+      <article class="slide-card" id="slideCard">
+        <div class="slide-meta" id="slideIndex"></div>
+        <div class="slide-body">
+          <div class="slide-content" id="slideContent"></div>
+          <figure class="diagram-frame" id="diagramFrame" hidden>
+            <div class="diagram-inner" id="diagramHost"></div>
+            <figcaption id="diagramCaption"></figcaption>
+          </figure>
+        </div>
+        <div class="quiz-box" id="quizBox" hidden></div>
+        <p class="karaoke-line" id="karaokeLine" aria-live="polite"></p>
+      </article>
+
+      <div class="transport">
+        <button type="button" class="btn ghost" id="btnPrevModule">⟨ موضوع</button>
+        <button type="button" class="btn ghost" id="btnPrevSlide">⟨ سلائیڈ</button>
+        <button type="button" class="btn accent" id="btnNextSlide">سلائیڈ ⟩</button>
+        <button type="button" class="btn accent" id="btnNextModule">موضوع ⟩</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <p>Teach Yourself Edition · لیکچرز صرف Urdish · ریاضی: <strong>MathJax SVG</strong> · خاکے: <strong>inline SVG</strong> · لے آؤٹ: <strong>Flexbox</strong> · آواز: <strong>TTS اردو</strong></p>
+  </footer>
+
+  <script src="js/curriculum.js"></script>
+  <script src="js/diagrams.js"></script>
+  <script src="js/tts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
