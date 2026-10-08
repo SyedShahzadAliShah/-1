@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.TeachYourself" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#243E73</item>
+        <item name="colorPrimaryVariant">#1C2430</item>
+        <item name="colorOnPrimary">#FFFDF8</item>
+        <item name="android:statusBarColor">#1C2430</item>
+        <item name="android:navigationBarColor">#1C2430</item>
+        <item name="android:windowBackground">#F4EFE4</item>
+    </style>
+</resources>

@@ -1,3 +1,15 @@
+# Computer Science XI — Teach Yourself Edition
+
+Urdish-only self-study APK for the Sindh Curriculum 2026 Computer Science XI lecture notes. Formulas render with embedded MathJax (SVG output), diagrams are inline SVG, the layout is CSS flexbox, and the Sunain control speaks each lecture with the on-device text-to-speech engine.
+
+```bash
+python3 scripts/build_teach_lectures.py
+export ANDROID_HOME=$HOME/android-sdk
+./gradlew :teachyourself:assembleDebug
+```
+
+The debug APK is `teachyourself/build/outputs/apk/debug/teachyourself-debug.apk`. A copy is published as `releases/CSXI-TeachYourself-v1.0.0-debug.apk`.
+
 # Intimacy Guide
 
 Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
