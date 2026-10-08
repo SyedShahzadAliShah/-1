@@ -29,6 +29,9 @@ assert xi1["svgCount"] >= 8
 assert xi1["goldenCount"] >= 5
 assert any("Boolean" in t["titleEn"] for t in xi1["topics"])
 assert any("Karnaugh" in t["titleEn"] for t in xi1["topics"])
+assert "کمپیوٹر" in xi1["titleUr"] or "اس باب" in xi1["titleUr"], xi1["titleUr"]
+final = next(ch for ch in data["tracks"][1]["chapters"] if ch["id"].endswith("final"))
+assert final["kind"] == "recap"
 
 xii1 = next(ch for ch in data["tracks"][2]["chapters"] if ch["id"].endswith("ch1"))
 assert any("HCI" in t["titleEn"] or "Human" in t["titleEn"] for t in xii1["topics"])

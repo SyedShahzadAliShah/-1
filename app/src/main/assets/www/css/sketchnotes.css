@@ -129,7 +129,7 @@ button, input {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 16px 16px 96px;
+  padding: 16px 16px 118px;
   gap: 16px;
   width: min(1100px, 100%);
   margin: 0 auto;
@@ -242,6 +242,10 @@ button, input {
   font-size: 18px;
   line-height: 1.45;
   font-family: "Segoe UI", "Naskh", sans-serif;
+}
+.lesson-body > h2:first-of-type,
+.lesson-body .ch-opener h1 {
+  display: none;
 }
 .lesson-body .box, .box {
   border-left: 7px solid var(--navy);

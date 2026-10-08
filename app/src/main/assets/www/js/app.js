@@ -63,8 +63,9 @@
     $("chapter-sub").textContent = track.subtitleEn;
     $("chapter-grid").innerHTML = track.chapters.map((ch) => {
       const done = doneCount(ch);
+      const kicker = ch.kind === "recap" ? "Recap & mock" : (ch.number ? "Chapter " + ch.number : "Studio");
       return `<button class="chapter-card ${ch.goldenCount ? "golden" : ""}" data-chapter="${ch.id}">
-        <span class="kicker">${ch.number ? "Chapter " + ch.number : "Studio"}</span>
+        <span class="kicker">${kicker}</span>
         <h3>${ch.titleEn}</h3>
         <p class="ur">${ch.titleUr}</p>
         <p class="meta">${ch.topicCount || ch.topics.length} topics · ${ch.svgCount || 0} SVGs

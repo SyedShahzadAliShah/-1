@@ -17,6 +17,7 @@
           "id": "studio-method",
           "file": "studio/sketchnotes.html",
           "number": 0,
+          "kind": "studio",
           "titleEn": "Sketchnote Studio",
           "titleUr": "سکیچ نوٹ اسٹوڈیو",
           "topicCount": 7,
@@ -108,8 +109,9 @@
           "id": "xi-ch1",
           "file": "content/xi/ch1.html",
           "number": 1,
+          "kind": "chapter",
           "titleEn": "Computer Systems",
-          "titleUr": "Computer Systems",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ کمپیوٹر صفر اور ایک کی زبان میں کیسے کام کرتا ہے، لاجک گیٹس فیص",
           "topicCount": 20,
           "goldenCount": 10,
           "svgCount": 12,
@@ -119,10 +121,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Computer Systems",
-              "titleUr": "Computer Systems",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ کمپیوٹر صفر اور ایک کی زبان میں کیسے کام کرتا ہے، لاج",
               "golden": false,
-              "speakEn": "Chapter 1",
-              "speakUr": ""
+              "speakEn": "This chapter shows you how a computer thinks in 0s and 1s, how logic gates turn those bits into decisions, how software is planned and built step by step, and how data travels across a network. These three ideas — digital logic, software development and communication models — are the foundation of everything else in Computer Science.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ کمپیوٹر صفر اور ایک کی زبان میں کیسے کام کرتا ہے، لاجک گیٹس فیصلے کیسے کرتے ہیں، سافٹ ویئر مرحلہ وار کیسے بنایا جاتا ہے، اور نیٹ ورک پر ڈیٹا ایک جگہ سے دوسری جگہ کیسے پہنچتا ہے۔"
             },
             {
               "id": "xi-ch1-t1",
@@ -330,8 +332,9 @@
           "id": "xi-ch2",
           "file": "content/xi/ch2.html",
           "number": 2,
+          "kind": "chapter",
           "titleEn": "Computational Thinking & Algorithm",
-          "titleUr": "Computational Thinking & Algorithm",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ کسی مسئلے کو کمپیوٹر سائنس دان کی طرح کیسے سوچ کر حل کیا جاتا ہ",
           "topicCount": 13,
           "goldenCount": 10,
           "svgCount": 1,
@@ -341,10 +344,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Computational Thinking & Algorithm",
-              "titleUr": "Computational Thinking & Algorithm",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ کسی مسئلے کو کمپیوٹر سائنس دان کی طرح کیسے سوچ کر حل ",
               "golden": false,
-              "speakEn": "Chapter 2",
-              "speakUr": ""
+              "speakEn": "This chapter teaches you how to think like a computer scientist: break a problem into parts, spot patterns, ignore what does not matter, and write clear step-by-step algorithms. You will then learn four famous algorithms — Bubble Sort, Selection Sort, Linear Search and Binary Search — and how to judge and choose between them.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ کسی مسئلے کو کمپیوٹر سائنس دان کی طرح کیسے سوچ کر حل کیا جاتا ہے: مسئلے کو چھوٹے حصوں میں توڑنا، پیٹرن پہچاننا، غیر ضروری باتوں کو نظر انداز کرنا اور مرحلہ وار الگورتھم لکھنا۔ اس کے بعد آپ ترتیب دینے (Sorting) اور تلاش کرنے (Searching) کے چار اہم الگورتھم سیکھیں گے۔"
             },
             {
               "id": "xi-ch2-t1",
@@ -482,8 +485,9 @@
           "id": "xi-ch3",
           "file": "content/xi/ch3.html",
           "number": 3,
+          "kind": "chapter",
           "titleEn": "Programming Fundamentals",
-          "titleUr": "Programming Fundamentals",
+          "titleUr": "اس باب میں آپ پائتھن (Python) میں حقیقی پروگرام لکھنا سیکھیں گے۔ آپ جانیں گے کہ پروگرام ڈی",
           "topicCount": 24,
           "goldenCount": 14,
           "svgCount": 5,
@@ -493,10 +497,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Programming Fundamentals",
-              "titleUr": "Programming Fundamentals",
+              "titleUr": "اس باب میں آپ پائتھن (Python) میں حقیقی پروگرام لکھنا سیکھیں گے۔ آپ جانیں گے کہ ",
               "golden": false,
-              "speakEn": "Chapter 3",
-              "speakUr": ""
+              "speakEn": "In this chapter you start writing real programs in Python. You will learn how programs store data, take input, make decisions, repeat work, use ready-made libraries, and how to find and fix your own mistakes.",
+              "speakUr": "اس باب میں آپ پائتھن (Python) میں حقیقی پروگرام لکھنا سیکھیں گے۔ آپ جانیں گے کہ پروگرام ڈیٹا کیسے محفوظ کرتا ہے، فیصلے کیسے کرتا ہے، کام کو کیسے دہراتا ہے، اور غلطیاں کیسے تلاش کی جاتی ہیں۔"
             },
             {
               "id": "xi-ch3-t1",
@@ -744,8 +748,9 @@
           "id": "xi-ch4",
           "file": "content/xi/ch4.html",
           "number": 4,
+          "kind": "chapter",
           "titleEn": "Data and Analysis",
-          "titleUr": "Data and Analysis",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ خام حقائق کو ڈیٹا بیس میں کیسے منظم کیا جاتا ہے، ٹیبلز کو کیز س",
           "topicCount": 15,
           "goldenCount": 4,
           "svgCount": 3,
@@ -755,10 +760,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Data and Analysis",
-              "titleUr": "Data and Analysis",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ خام حقائق کو ڈیٹا بیس میں کیسے منظم کیا جاتا ہے، ٹیبل",
               "golden": false,
-              "speakEn": "Chapter 4",
-              "speakUr": ""
+              "speakEn": "This chapter teaches you how raw facts become organised information in a database, how tables are linked with keys, how to draw an ER diagram, and how to build tables, forms, queries and charts in Microsoft Access. Banks, NADRA, college libraries and fee offices all run on these ideas.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ خام حقائق کو ڈیٹا بیس میں کیسے منظم کیا جاتا ہے، ٹیبلز کو کیز سے کیسے جوڑا جاتا ہے، ای آر خاکہ کیسے بنتا ہے، اور مائیکروسافٹ ایکسیس میں ٹیبل، فارم، کوئری اور چارٹ کیسے بنائے جاتے ہیں۔"
             },
             {
               "id": "xi-ch4-t1",
@@ -916,8 +921,9 @@
           "id": "xi-ch5",
           "file": "content/xi/ch5.html",
           "number": 5,
+          "kind": "chapter",
           "titleEn": "Application and Impacts of Computing",
-          "titleUr": "Application and Impacts of Computing",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ مصنوعی ذہانت (AI)، انٹرنیٹ آف تھنگز (IoT) اور ڈیٹا اینالیٹکس ہم",
           "topicCount": 13,
           "goldenCount": 5,
           "svgCount": 2,
@@ -927,10 +933,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Application and Impacts of Computing",
-              "titleUr": "Application and Impacts of Computing",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ مصنوعی ذہانت (AI)، انٹرنیٹ آف تھنگز (IoT) اور ڈیٹا ای",
               "golden": false,
-              "speakEn": "Chapter 5",
-              "speakUr": ""
+              "speakEn": "This chapter shows you how computing technologies such as Artificial Intelligence, the Internet of Things and Data Analytics are changing life in Pakistan — in cities, hospitals, farms and classrooms. You will also learn how to judge information sources, weigh the good and bad effects of computing, and see how assistive technologies give everyone an equal chance.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ مصنوعی ذہانت (AI)، انٹرنیٹ آف تھنگز (IoT) اور ڈیٹا اینالیٹکس ہماری روزمرہ زندگی کو کیسے بدل رہے ہیں۔ آپ معلومات کے ذرائع کو پرکھنا، کمپیوٹنگ کے مثبت اور منفی اثرات سمجھنا، اور معذور افراد کی مدد کرنے والی ٹیکنالوجی کے بارے میں بھی جانیں گے۔"
             },
             {
               "id": "xi-ch5-t1",
@@ -1068,8 +1074,9 @@
           "id": "xi-ch6",
           "file": "content/xi/ch6.html",
           "number": 6,
+          "kind": "chapter",
           "titleEn": "Digital Literacy",
-          "titleUr": "Digital Literacy",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ ڈیجیٹل آلات کی مدد سے معلومات کو محفوظ اور ذمہ دارانہ طریقے سے ",
           "topicCount": 17,
           "goldenCount": 15,
           "svgCount": 2,
@@ -1079,10 +1086,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Digital Literacy",
-              "titleUr": "Digital Literacy",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ ڈیجیٹل آلات کی مدد سے معلومات کو محفوظ اور ذمہ دارانہ",
               "golden": false,
-              "speakEn": "Chapter 6",
-              "speakUr": ""
+              "speakEn": "This chapter teaches you how to find, collect, organise and present information using digital tools, safely and responsibly. You will learn about types of data, ways to collect it, and how to turn it into a useful report, presentation or infographic. At the end you will follow a complete research project from the first question to the final product.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ ڈیجیٹل آلات کی مدد سے معلومات کو محفوظ اور ذمہ دارانہ طریقے سے کیسے تلاش کیا جائے، جمع کیا جائے، ترتیب دیا جائے اور پیش کیا جائے۔ آخر میں آپ ایک مکمل تحقیقی منصوبہ (Digital Inquiry Project) شروع سے آخر تک دیکھیں گے۔"
             },
             {
               "id": "xi-ch6-t1",
@@ -1260,8 +1267,9 @@
           "id": "xi-final",
           "file": "content/xi/final.html",
           "number": 0,
+          "kind": "recap",
           "titleEn": "One-page recaps and a mock paper",
-          "titleUr": "One-page recaps and a mock paper",
+          "titleUr": "امتحان سے ایک ہفتہ پہلے یہ خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔",
           "topicCount": 8,
           "goldenCount": 0,
           "svgCount": 0,
@@ -1271,10 +1279,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "One-page recaps and a mock paper",
-              "titleUr": "One-page recaps and a mock paper",
+              "titleUr": "امتحان سے ایک ہفتہ پہلے یہ خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کری",
               "golden": false,
-              "speakEn": "Final revision",
-              "speakUr": ""
+              "speakEn": "Use these pages in the last week before the exam. Read one recap, close the booklet, and say it aloud. Then sit the mock paper in 2 hours 30 minutes with no notes.",
+              "speakUr": "امتحان سے ایک ہفتہ پہلے یہ خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔"
             },
             {
               "id": "xi-final-h1",
@@ -1371,8 +1379,9 @@
           "id": "xii-ch1",
           "file": "content/xii/ch1.html",
           "number": 1,
+          "kind": "chapter",
           "titleEn": "Computer Systems (HCI)",
-          "titleUr": "Computer Systems (HCI)",
+          "titleUr": "اس باب میں آپ ہیومن کمپیوٹر انٹریکشن (HCI) سیکھیں گے: انسان اور کمپیوٹر آپس میں کیسے بات ک",
           "topicCount": 16,
           "goldenCount": 9,
           "svgCount": 5,
@@ -1382,10 +1391,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Computer Systems (HCI)",
-              "titleUr": "Computer Systems (HCI)",
+              "titleUr": "اس باب میں آپ ہیومن کمپیوٹر انٹریکشن (HCI) سیکھیں گے: انسان اور کمپیوٹر آپس میں ",
               "golden": false,
-              "speakEn": "Chapter 1",
-              "speakUr": ""
+              "speakEn": "This chapter teaches you Human-Computer Interaction (HCI): how people and computers talk to each other, how to design screens that are easy and fair to use, and how to test those designs before they go live. You will apply every idea to things you already use in Pakistan — a bank ATM, JazzCash, and a school portal.",
+              "speakUr": "اس باب میں آپ ہیومن کمپیوٹر انٹریکشن (HCI) سیکھیں گے: انسان اور کمپیوٹر آپس میں کیسے بات کرتے ہیں، اسکرینیں کیسے آسان اور منصفانہ بنائی جاتی ہیں، اور انہیں عوام تک پہنچانے سے پہلے کیسے جانچا جاتا ہے۔"
             },
             {
               "id": "xii-ch1-t1",
@@ -1553,8 +1562,9 @@
           "id": "xii-ch2",
           "file": "content/xii/ch2.html",
           "number": 2,
+          "kind": "chapter",
           "titleEn": "Computational Thinking & Algorithms",
-          "titleUr": "Computational Thinking & Algorithms",
+          "titleUr": "گیارہویں جماعت میں آپ نے الگورتھم لکھنا سیکھا۔ اس باب میں آپ سیکھیں گے کہ الگورتھم درست، و",
           "topicCount": 24,
           "goldenCount": 13,
           "svgCount": 10,
@@ -1564,10 +1574,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Computational Thinking & Algorithms",
-              "titleUr": "Computational Thinking & Algorithms",
+              "titleUr": "گیارہویں جماعت میں آپ نے الگورتھم لکھنا سیکھا۔ اس باب میں آپ سیکھیں گے کہ الگورت",
               "golden": false,
-              "speakEn": "Chapter 2",
-              "speakUr": ""
+              "speakEn": "Class XI taught you how to write algorithms. This chapter teaches you how to judge them: is the algorithm correct, clear and efficient? You will then learn the main data structures — array, linked list, stack, queue, tree and graph — so you can store data the smart way and trace how it is retrieved.",
+              "speakUr": "گیارہویں جماعت میں آپ نے الگورتھم لکھنا سیکھا۔ اس باب میں آپ سیکھیں گے کہ الگورتھم درست، واضح اور تیز ہے یا نہیں، اور ایرے، لنکڈ لسٹ، سٹیک، کیو، ٹری اور گراف جیسے ڈیٹا سٹرکچرز میں ڈیٹا کیسے رکھا اور نکالا جاتا ہے۔"
             },
             {
               "id": "xii-ch2-t1",
@@ -1815,8 +1825,9 @@
           "id": "xii-ch3",
           "file": "content/xii/ch3.html",
           "number": 3,
+          "kind": "chapter",
           "titleEn": "Programming Fundamentals",
-          "titleUr": "Programming Fundamentals",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ پائتھن (Python) ڈیٹا کو فہرست، ٹیپل، سیٹ اور ڈکشنری میں کیسے رک",
           "topicCount": 18,
           "goldenCount": 9,
           "svgCount": 5,
@@ -1826,10 +1837,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Programming Fundamentals",
-              "titleUr": "Programming Fundamentals",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ پائتھن (Python) ڈیٹا کو فہرست، ٹیپل، سیٹ اور ڈکشنری م",
               "golden": false,
-              "speakEn": "Chapter 3",
-              "speakUr": ""
+              "speakEn": "This chapter teaches you how Python stores collections of data, how you write reusable functions, and how you save information in files so it is still there after the program ends. You will build small programs — attendance, a word counter, a calculator, and a grade tracker — that you can type and run yourself.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ پائتھن (Python) ڈیٹا کو فہرست، ٹیپل، سیٹ اور ڈکشنری میں کیسے رکھتا ہے، فنکشن کیسے لکھے جاتے ہیں، اور فائلوں میں ڈیٹا کیسے محفوظ کیا جاتا ہے تاکہ پروگرام بند ہونے کے بعد بھی وہ موجود رہے۔"
             },
             {
               "id": "xii-ch3-t1",
@@ -2017,8 +2028,9 @@
           "id": "xii-ch4",
           "file": "content/xii/ch4.html",
           "number": 4,
+          "kind": "chapter",
           "titleEn": "Data and Analysis",
-          "titleUr": "Data and Analysis",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ پائتھن سے ایس کیو لائٹ ڈیٹا بیس کیسے جوڑا جاتا ہے، پینڈاز میں ڈ",
           "topicCount": 9,
           "goldenCount": 5,
           "svgCount": 1,
@@ -2028,10 +2040,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Data and Analysis",
-              "titleUr": "Data and Analysis",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ پائتھن سے ایس کیو لائٹ ڈیٹا بیس کیسے جوڑا جاتا ہے، پی",
               "golden": false,
-              "speakEn": "Chapter 4",
-              "speakUr": ""
+              "speakEn": "This chapter shows you how to pull data from a SQLite database with Python, clean it in Pandas, draw the right chart, and summarise a dataset with mean, median, mode and standard deviation. These are the same steps a data analyst uses every day.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ پائتھن سے ایس کیو لائٹ ڈیٹا بیس کیسے جوڑا جاتا ہے، پینڈاز میں ڈیٹا کیسے صاف ہوتا ہے، درست چارٹ کیسے بنتا ہے، اور اوسط، میڈین، موڈ اور معیاری انحراف سے خلاصہ کیسے نکلتا ہے۔"
             },
             {
               "id": "xii-ch4-t1",
@@ -2129,8 +2141,9 @@
           "id": "xii-ch5",
           "file": "content/xii/ch5.html",
           "number": 5,
+          "kind": "chapter",
           "titleEn": "Application and Impacts of Computing",
-          "titleUr": "Application and Impacts of Computing",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ مشین لرننگ، نیورل نیٹ ورکس اور ڈیپ لرننگ کمپیوٹر کو ڈیٹا سے کیس",
           "topicCount": 17,
           "goldenCount": 7,
           "svgCount": 4,
@@ -2140,10 +2153,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Application and Impacts of Computing",
-              "titleUr": "Application and Impacts of Computing",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ مشین لرننگ، نیورل نیٹ ورکس اور ڈیپ لرننگ کمپیوٹر کو ڈ",
               "golden": false,
-              "speakEn": "Chapter 5",
-              "speakUr": ""
+              "speakEn": "This chapter shows you how computers learn from data with machine learning, neural networks and deep learning, how to collaborate online without leaking secrets, how to protect data and stop cyber threats, and how to keep digital teamwork fair for every student in Sindh.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ مشین لرننگ، نیورل نیٹ ورکس اور ڈیپ لرننگ کمپیوٹر کو ڈیٹا سے کیسے سکھاتے ہیں، آن لائن کام کو محفوظ کیسے رکھا جائے، ڈیٹا کی حفاظت اور سائبر خطرات کا مقابلہ کیسے کیا جائے، اور ڈیجیٹل تعاون کو سب کے لیے منصفانہ کیسے بنایا جائے۔"
             },
             {
               "id": "xii-ch5-t1",
@@ -2321,8 +2334,9 @@
           "id": "xii-ch6",
           "file": "content/xii/ch6.html",
           "number": 6,
+          "kind": "chapter",
           "titleEn": "Entrepreneurship in the Digital Age",
-          "titleUr": "Entrepreneurship in the Digital Age",
+          "titleUr": "اس باب میں آپ سیکھیں گے کہ روزمرہ زندگی کے کسی حقیقی مسئلے کو کاروباری خیال میں کیسے بدلا ",
           "topicCount": 18,
           "goldenCount": 9,
           "svgCount": 3,
@@ -2332,10 +2346,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "Entrepreneurship in the Digital Age",
-              "titleUr": "Entrepreneurship in the Digital Age",
+              "titleUr": "اس باب میں آپ سیکھیں گے کہ روزمرہ زندگی کے کسی حقیقی مسئلے کو کاروباری خیال میں ",
               "golden": false,
-              "speakEn": "Chapter 6",
-              "speakUr": ""
+              "speakEn": "This chapter shows you how a real problem in your home, college or bazaar can become a business idea, and how you can test that idea cheaply with paper sketches, prototypes and a Minimum Viable Product (MVP) before you spend a lot of money. You will also learn how to choose your first users, the beachhead market, and how to collect feedback honestly and safely.",
+              "speakUr": "اس باب میں آپ سیکھیں گے کہ روزمرہ زندگی کے کسی حقیقی مسئلے کو کاروباری خیال میں کیسے بدلا جائے، اور پروٹوٹائپ (Prototype) اور ایم وی پی (MVP) کے ذریعے کم خرچ میں اس خیال کو کیسے آزمایا جائے۔"
             },
             {
               "id": "xii-ch6-t1",
@@ -2523,8 +2537,9 @@
           "id": "xii-final",
           "file": "content/xii/final.html",
           "number": 0,
+          "kind": "recap",
           "titleEn": "One-page recaps and a mock paper",
-          "titleUr": "One-page recaps and a mock paper",
+          "titleUr": "امتحان سے ایک ہفتہ پہلے خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔",
           "topicCount": 8,
           "goldenCount": 0,
           "svgCount": 0,
@@ -2534,10 +2549,10 @@
               "selector": ".ch-opener, .front, h3, ul.objectives",
               "kind": "opener",
               "titleEn": "One-page recaps and a mock paper",
-              "titleUr": "One-page recaps and a mock paper",
+              "titleUr": "امتحان سے ایک ہفتہ پہلے خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔",
               "golden": false,
-              "speakEn": "Final revision",
-              "speakUr": ""
+              "speakEn": "Use these pages in the last week before the exam. Read one recap aloud from memory, then sit the mock paper in 2 hours 30 minutes with no notes.",
+              "speakUr": "امتحان سے ایک ہفتہ پہلے خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔"
             },
             {
               "id": "xii-final-h1",

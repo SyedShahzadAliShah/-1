@@ -44,14 +44,11 @@ def parse_chapter(path: Path, grade: str) -> dict:
 
     h1 = text_of(re.search(r"<h1>(.*?)</h1>", raw, re.S).group(1)) if re.search(r"<h1>", raw) else path.stem
     opener_ur = ""
-    opener = re.search(r'<div class="ch-opener">(.*?)</div>', raw, re.S)
-    if opener:
-        ur = re.search(r'class="ur"[^>]*>(.*?)</p>', opener.group(1), re.S)
-        if ur:
-            opener_ur = text_of(ur.group(1))
-        opener_en = text_of(re.sub(r'<p class="ur".*?</p>', "", opener.group(1), flags=re.S))
-    else:
-        opener_en = h1
+    ur = re.search(r'<p class="ur"[^>]*>(.*?)</p>', raw, re.S)
+    if ur:
+        opener_ur = text_of(ur.group(1))
+    first_en = re.search(r'<p(?![^>]*class="ur")[^>]*>(.*?)</p>', raw, re.S)
+    opener_en = text_of(first_en.group(1)) if first_en else h1
 
     topics = [
         {
@@ -72,8 +69,9 @@ def parse_chapter(path: Path, grade: str) -> dict:
         "id": f"{grade}-{path.stem}",
         "file": f"content/{grade}/{path.name}",
         "number": 0 if path.stem == "final" else int(re.sub(r"\D", "", path.stem) or "0"),
+        "kind": "recap" if path.stem == "final" else "chapter",
         "titleEn": h1,
-        "titleUr": opener_ur[:120] if opener_ur else h1,
+        "titleUr": opener_ur[:90] if opener_ur else h1,
         "topicCount": max(0, len(topics) - 1),
         "goldenCount": golden_count,
         "svgCount": svg_count,
@@ -133,6 +131,7 @@ def studio_chapter() -> dict:
         "id": "studio-method",
         "file": "studio/sketchnotes.html",
         "number": 0,
+        "kind": "studio",
         "titleEn": "Sketchnote Studio",
         "titleUr": "سکیچ نوٹ اسٹوڈیو",
         "topicCount": 7,
