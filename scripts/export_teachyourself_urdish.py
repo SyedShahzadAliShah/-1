@@ -391,7 +391,7 @@ def stamp_beats(
 def board_html(title: str, chapter: str, golden: bool, article_inner: str) -> str:
     star = '<span class="chip gold">★ Golden</span>' if golden else ""
     return f"""<!DOCTYPE html>
-<html lang="ur" dir="rtl"><head>
+<html lang="ur"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html_lib.escape(title)}</title>
@@ -494,7 +494,7 @@ def write_preview(grades: list[dict]) -> None:
                 )
             items.append("</div>")
     html = f"""<!DOCTYPE html>
-<html lang="ur" dir="rtl"><head>
+<html lang="ur"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CS XII Teach Yourself — Urdish</title>

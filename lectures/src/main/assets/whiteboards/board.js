@@ -52,15 +52,7 @@
 
   function fitBoard() {
     var cinema = document.querySelector(".cinema");
-    var board = document.querySelector(".board");
-    if (!cinema || !board) return;
-    cinema.style.transform = "none";
-    var pad = 16;
-    var scaleW = (window.innerWidth - pad) / Math.max(board.scrollWidth, 1);
-    var scaleH = (window.innerHeight - pad) / Math.max(board.scrollHeight + 40, 1);
-    var scale = Math.min(scaleW, scaleH, 1);
-    cinema.style.transformOrigin = "top center";
-    cinema.style.transform = "scale(" + scale + ")";
+    if (cinema) cinema.style.transform = "none";
   }
 
   if (window.MathJax && MathJax.startup && MathJax.startup.promise) {

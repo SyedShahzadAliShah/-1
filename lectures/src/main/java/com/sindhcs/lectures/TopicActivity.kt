@@ -38,9 +38,9 @@ class TopicActivity : AppCompatActivity() {
 
         val board = binding.board
         board.setBackgroundColor(0xFF07090D.toInt())
-        board.isVerticalScrollBarEnabled = false
+        board.isVerticalScrollBarEnabled = true
         board.isHorizontalScrollBarEnabled = false
-        board.overScrollMode = View.OVER_SCROLL_NEVER
+        board.overScrollMode = View.OVER_SCROLL_IF_CONTENT_SCROLLS
         board.webViewClient = WebViewClient()
         board.settings.javaScriptEnabled = true
         board.settings.domStorageEnabled = true

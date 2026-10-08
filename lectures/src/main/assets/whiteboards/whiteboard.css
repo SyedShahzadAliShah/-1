@@ -26,39 +26,23 @@
 * { box-sizing: border-box; }
 html, body {
   margin: 0;
-  height: 100%;
-  overflow: hidden;
-  scrollbar-width: none;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: #07090d;
   color: var(--ink);
   font: 16px/1.7 "Naskh", "Noto Naskh Arabic", "Segoe UI", Georgia, sans-serif;
 }
-html::-webkit-scrollbar, body::-webkit-scrollbar, .cinema::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-}
-body::before, body::after {
-  content: "";
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 22px;
-  background: #000;
-  z-index: 30;
-  pointer-events: none;
-}
-body::before { top: 0; }
-body::after { bottom: 0; }
+body::before, body::after { display: none; }
 
 .cinema {
   position: relative;
   min-height: 100%;
-  padding: 36px 12px 48px;
+  padding: 16px 12px 28px;
   background:
     radial-gradient(ellipse at 50% 12%, rgba(255, 214, 140, .12), transparent 36%),
     radial-gradient(ellipse at 50% 18%, #243044 0%, #0b0f16 58%, #05070a 100%);
-  overflow: hidden;
+  overflow: visible;
   transform-origin: top center;
 }
 .cinema::before {
@@ -117,7 +101,6 @@ body::after { bottom: 0; }
 .rail {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row-reverse;
   gap: 8px;
   align-items: center;
   margin-bottom: 10px;
@@ -318,12 +301,11 @@ mjx-container svg { max-width: 100%; }
 ul, ol { margin: 6px 0 12px; padding-left: 1.3rem; }
 li { margin: 3px 0; }
 
-.enter {
-  opacity: 0;
-  clip-path: inset(0 100% 0 0);
-  animation: write-in .85s ease var(--d, 0s) forwards;
+.enter, .enter-now {
+  opacity: 1;
+  clip-path: none;
+  animation: none;
 }
-.enter-now { opacity: 1; clip-path: none; animation: none; }
 .live-beat {
   box-shadow: 0 0 0 3px #0e7490, 0 10px 28px rgba(14, 116, 144, 0.28);
   border-radius: 10px;
@@ -339,20 +321,22 @@ h1.live-beat {
   to { opacity: 1; clip-path: inset(0 0 0 0); }
 }
 .ink-draw {
-  animation: ink-draw 1.25s ease var(--d, .3s) forwards;
+  stroke-dashoffset: 0 !important;
+  animation: none;
 }
 @keyframes ink-draw {
   to { stroke-dashoffset: 0; }
 }
 .ink-fill {
-  animation: ink-fill .55s ease calc(var(--d, .3s) + .9s) forwards;
+  fill-opacity: 1 !important;
+  animation: none;
 }
 @keyframes ink-fill {
   to { fill-opacity: 1; }
 }
 .ink-fade {
-  opacity: 0;
-  animation: write-in .8s ease var(--d, .3s) forwards;
+  opacity: 1;
+  animation: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .enter, .ink-draw, .ink-fade, .ink-fill, .lamp, .rail .chip.live::before {
