@@ -1,0 +1,3428 @@
+#!/usr/bin/env python3
+"""Assemble BIEK Computer Science XI and XII lecture PDFs.
+
+Usage:
+  python3 booklets/build.py              # BIEK CS XI + XII lecture PDFs
+  python3 booklets/build.py lectures     # same as default
+  python3 booklets/build.py lectures xi  # Grade XI lectures only
+  python3 booklets/build.py merge        # stitch existing lecture packs into XI, XII, XI+XII PDFs
+  python3 booklets/build.py booklets     # full booklets (xi + xii)
+  python3 booklets/build.py editions     # Student's Edition + Teacher's Edition
+  python3 booklets/build.py academy      # Coaching Academy Edition
+  python3 booklets/build.py cheat        # Cheat-sheet booklet
+  python3 booklets/build.py crash        # 30-day crash course
+  python3 booklets/build.py notes        # concise classroom lecture-notes study guide
+  python3 booklets/build.py paced        # AIO Self-Paced Teach Yourself Edition
+  python3 booklets/build.py complete     # Self-Taught / Academy Bootcamp combo Study Guide (one file per grade)
+  python3 booklets/build.py all          # booklets + lectures + editions + academy + cheat + crash + notes + paced
+"""
+from __future__ import annotations
+
+import html
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+import zipfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+SRC = ROOT / "src"
+OUT = ROOT / "output"
+RELEASES = ROOT.parent / "releases" / "lectures"
+CSS = (ROOT / "assets" / "booklet.css").as_uri()
+FIT = (ROOT / "assets" / "fit-pages.js").as_uri()
+MJAX = (ROOT / "assets" / "mathjax" / "tex-svg.js").as_uri()
+CHROME = "google-chrome"
+BRANCH = "cursor/biek-cs-xi-xii-lectures-c6ef"
+RAW = f"https://raw.githubusercontent.com/SyedShahzadAliShah/-1/{BRANCH}/releases/lectures"
+ZIP_RAW = f"https://raw.githubusercontent.com/SyedShahzadAliShah/-1/{BRANCH}/releases"
+
+sys.path.insert(0, str(ROOT))
+from biek_map import lectures_for  # noqa: E402
+from extra_practice import extra_html, chapter_extra_html  # noqa: E402
+
+BOOKS = {
+    "xi": {
+        "grade": "XI",
+        "title": "BIEK Computer Science XI",
+        "urdu": "بی آئی ای کے کمپیوٹر سائنس — گیارہویں جماعت",
+        "curriculum": "BIEK / New Sindh Curriculum 2026",
+        "file": "CS-XI-BIEK-Lectures.pdf",
+    },
+    "xii": {
+        "grade": "XII",
+        "title": "BIEK Computer Science XII",
+        "urdu": "بی آئی ای کے کمپیوٹر سائنس — بارہویں جماعت",
+        "curriculum": "BIEK / New Sindh Curriculum 2025-27",
+        "file": "CS-XII-BIEK-Lectures.pdf",
+    },
+}
+
+DIV_OPEN = re.compile(r"<div\b", re.I)
+DIV_CLOSE = re.compile(r"</div>", re.I)
+SECTION_OPEN = re.compile(r"<section\b", re.I)
+SECTION_CLOSE = re.compile(r"</section>", re.I)
+
+
+def unescape(text: str) -> str:
+    return html.unescape(text)
+
+
+def strip_tags(text: str) -> str:
+    return re.sub(r"<[^>]+>", "", text)
+
+
+def chapter_meta(fragment: str):
+    num = re.search(r'data-num="(\d+)"', fragment)
+    title = re.search(r'data-title="([^"]+)"', fragment)
+    topics = re.findall(r"<h2[^>]*>(.*?)</h2>", fragment, flags=re.S)
+    clean = []
+    for t in topics:
+        t = unescape(strip_tags(t)).replace("★ Golden", "").replace("★", "").strip()
+        low = t.lower()
+        skip = (
+            low.startswith(("chapter review", "key terms", "practice", "answer",
+                            "self-assessment", "chapter summary"))
+            or re.match(r"chapter \d+ review", low)
+        )
+        if t and not skip:
+            clean.append(t)
+    return int(num.group(1)), unescape(title.group(1)), clean
+
+
+def cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">ULTIMATE TEACH YOURSELF BOOKLET</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Learn every chapter on your own &mdash; explanations, worked examples,
+  memory tricks, practice questions and full answer keys.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">{book['urdu']}</div>
+  <div class="units">{units}</div>
+  <div class="foot">Based on the Bilingual Teacher's Edition lecture notes &middot; {book['curriculum']} &middot;
+  ★ marks Golden (high-yield) exam topics.</div>
+</section>"""
+
+
+def contents(chapters, has_final):
+    items = []
+    for n, t, topics in chapters:
+        sub = "".join(f"<li>{html.escape(x)}</li>" for x in topics)
+        items.append(
+            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page topics '
+            f"+ 75-mark exam<ul>{sub}</ul></li>"
+        )
+    if has_final:
+        items.append("<li><b>Final Revision:</b> one-page recaps, mock paper and answers</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+PROTECTED_MATH = re.compile(
+    r"(<pre\b[^>]*>.*?</pre>|<code\b[^>]*>.*?</code>|"
+    r"<svg\b[^>]*>.*?</svg>|<script\b[^>]*>.*?</script>)",
+    re.S | re.I,
+)
+EXISTING_TEX = re.compile(r"(\\\(.*?\\\)|\\\[.*?\\\])", re.S)
+SUP_TEX = re.compile(r"(2|10|n|N)<sup>([^<]{1,12})</sup>")
+LOG_SUB = re.compile(r"log<sub>([^<]{1,8})</sub>")
+
+
+def _tidy_tex_script(text: str) -> str:
+    return (
+        unescape(strip_tags(text))
+        .replace("−", "-")
+        .replace("–", "-")
+        .replace("—", "-")
+    )
+
+
+def _texify_plain(chunk: str) -> str:
+    def sup(m: re.Match) -> str:
+        return f"\\({m.group(1)}^{{{_tidy_tex_script(m.group(2))}}}\\)"
+
+    def log_sub(m: re.Match) -> str:
+        return f"\\(\\log_{{{_tidy_tex_script(m.group(1))}}}\\)"
+
+    out = SUP_TEX.sub(sup, chunk)
+    out = LOG_SUB.sub(log_sub, out)
+    ordered = (
+        (r"O\(n\s*log\s*n\)", r"\\(O(n\\log n)\\)"),
+        (r"O\(log\s*n\)", r"\\(O(\\log n)\\)"),
+        (r"O\(n²\)", r"\\(O(n^{2})\\)"),
+        (r"O\(N²\)", r"\\(O(N^{2})\\)"),
+        (r"O\(1\)", r"\\(O(1)\\)"),
+        (r"O\(n\)", r"\\(O(n)\\)"),
+        (r"σ²", r"\\(\\sigma^{2}\\)"),
+        (r"(?<![A-Za-z])s²(?![A-Za-z])", r"\\(s^{2}\\)"),
+        (r"Σm\(([^)]{1,40})\)", r"\\(\\Sigma m(\1)\\)"),
+        (r"A ⊕ B", r"\\(A \\oplus B\\)"),
+        (r"Y = A · B · C", r"\\(Y = A \\cdot B \\cdot C\\)"),
+        (r"Y = A · B", r"\\(Y = A \\cdot B\\)"),
+        (r"√\(([^)]{1,24})\)", r"\\(\\sqrt{\1}\\)"),
+        (r"√(\d+(?:\.\d+)?)", r"\\(\\sqrt{\1}\\)"),
+    )
+    for pat, repl in ordered:
+        out = re.sub(pat, repl, out)
+    return out
+
+
+def texify_math(html_text: str) -> str:
+    """Turn common board-math into MathJax TeX, skipping code and SVG diagrams."""
+
+    def tex_region(region: str) -> str:
+        pieces = EXISTING_TEX.split(region)
+        return "".join(
+            piece if EXISTING_TEX.fullmatch(piece) else _texify_plain(piece)
+            for piece in pieces
+        )
+
+    parts = PROTECTED_MATH.split(html_text)
+    return "".join(
+        part if PROTECTED_MATH.fullmatch(part) else tex_region(part) for part in parts
+    )
+
+
+def wrap_html(title: str, body: str, body_class: str = "") -> str:
+    cls = f' class="{html.escape(body_class)}"' if body_class else ""
+    body = texify_math(body)
+    return f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>{html.escape(title)}</title>
+<link rel="stylesheet" href="{CSS}">
+<script>
+window.MathJax = {{
+  tex: {{
+    inlineMath: [['\\\\(', '\\\\)']],
+    displayMath: [['\\\\[', '\\\\]']],
+    processEscapes: true,
+    processEnvironments: true
+  }},
+    svg: {{ fontCache: 'global', displayAlign: 'left', scale: {1.05 if body_class == "study-guide" else 0.95} }},
+  options: {{
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code','svg'],
+    ignoreHtmlClass: 'diagram'
+  }},
+  startup: {{ typeset: true }}
+}};
+</script>
+<script src="{MJAX}"></script>
+</head><body{cls}>
+{body}
+<script src="{FIT}"></script>
+</body></html>"""
+
+
+def extract_balanced(html_text: str, start: int, open_re: re.Pattern, close_re: re.Pattern) -> str:
+    first = open_re.search(html_text, start)
+    if not first:
+        return ""
+    pos = first.end()
+    depth = 1
+    while pos < len(html_text) and depth:
+        nxt_open = open_re.search(html_text, pos)
+        nxt_close = close_re.search(html_text, pos)
+        if not nxt_close:
+            return html_text[start:]
+        if nxt_open and nxt_open.start() < nxt_close.start():
+            depth += 1
+            pos = nxt_open.end()
+        else:
+            depth -= 1
+            pos = nxt_close.end()
+    return html_text[start:pos]
+
+
+def extract_class_divs(html_text: str, class_name: str) -> list[str]:
+    blocks = []
+    for m in re.finditer(
+        rf'<div\s+class="[^"]*\b{re.escape(class_name)}\b[^"]*">', html_text
+    ):
+        blocks.append(extract_balanced(html_text, m.start(), DIV_OPEN, DIV_CLOSE))
+    return blocks
+
+
+def extract_tagged(html_text: str, tag: str, class_name: str) -> str:
+    open_re = re.compile(rf"<{re.escape(tag)}\b", re.I)
+    close_re = re.compile(rf"</{re.escape(tag)}>", re.I)
+    m = re.search(rf'<{re.escape(tag)}\s+class="{re.escape(class_name)}"', html_text, flags=re.I)
+    if not m:
+        return ""
+    return extract_balanced(html_text, m.start(), open_re, close_re)
+
+
+def extract_review(fragment: str) -> str:
+    m = re.search(r'<section\s+class="review">', fragment)
+    if not m:
+        return ""
+    return extract_balanced(fragment, m.start(), SECTION_OPEN, SECTION_CLOSE)
+
+
+H2_RE = re.compile(r"<h2[^>]*>.*?</h2>", re.S)
+
+
+def topic_body(block: str) -> str:
+    inner = re.sub(r"^<div[^>]*>", "", block.strip(), count=1)
+    inner = re.sub(r"</div>\s*$", "", inner)
+    inner = H2_RE.sub("", inner, count=1)
+    return inner.strip()
+
+
+def make_mapped_topic(title: str, golden: bool, source_blocks: list[str]) -> str:
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    bodies = "\n".join(topic_body(b) for b in source_blocks)
+    extra = extra_html(title, golden)
+    return (
+        f'<div class="topic">\n<h2>{html.escape(title)}{star}</h2>\n'
+        f"{bodies}\n{extra}\n</div>"
+    )
+
+
+def apply_biek_chapter(grade: str, fragment: str) -> str:
+    """Merge over-split pages, drop career extras, add extra MCQs/Q&A."""
+    ch_num, ch_title, _ = chapter_meta(fragment)
+    original = extract_class_divs(fragment, "topic")
+    mapped = lectures_for(grade, ch_num)
+    new_topics = []
+    for title, golden, idxs in mapped:
+        blocks = [original[i - 1] for i in idxs]
+        new_topics.append(make_mapped_topic(title, golden, blocks))
+    opener = extract_opener(fragment)
+    review = extract_review(fragment)
+    if review:
+        extra_ch = chapter_extra_html(grade, ch_num, ch_title)
+        if review.rstrip().endswith("</section>"):
+            cut = review.rstrip()[: -len("</section>")]
+            review = cut + extra_ch + "\n</section>"
+    open_tag = section_open_tag(fragment)
+    return f"{open_tag}\n{opener}\n{''.join(new_topics)}\n{review}\n</section>"
+
+
+def extract_opener(fragment: str) -> str:
+    topic_m = re.search(r'<div\s+class="[^"]*\btopic\b', fragment)
+    first_topic = topic_m.start() if topic_m else -1
+    review = fragment.find('<section class="review">')
+    end = first_topic if first_topic != -1 else (review if review != -1 else len(fragment))
+    head = fragment[:end]
+    # Drop the outer <section ...> opening tag; keep opener + objectives.
+    head = re.sub(r"^<section[^>]*>", "", head, count=1).strip()
+    head = re.sub(
+        r'^<div class="paced-chapter">(.*)</div>\s*$', r"\1", head, flags=re.S
+    ).strip()
+    return head
+
+
+def topic_title(block: str) -> str:
+    m = re.search(r"<h2[^>]*>(.*?)</h2>", block, flags=re.S)
+    raw = unescape(strip_tags(m.group(1))) if m else "Untitled"
+    return re.sub(r"\s+", " ", raw).strip()
+
+
+def topic_is_golden(title: str, block: str) -> bool:
+    return "★" in title or 'class="star"' in block[:800]
+
+
+def topic_urdu(block: str) -> str:
+    m = re.search(r'<p class="ur">(.*?)</p>', block, flags=re.S)
+    if not m:
+        return ""
+    return unescape(strip_tags(m.group(1))).strip()
+
+
+def slugify(title: str) -> str:
+    t = unescape(title).replace("★ Golden", "").replace("★", "")
+    t = t.replace("–", "-").replace("—", "-")
+    t = re.sub(r"[^\w\s.\-]+", "", t, flags=re.UNICODE)
+    t = re.sub(r"\s+", "-", t.strip())
+    t = re.sub(r"-{2,}", "-", t)
+    return t[:72].strip("-._") or "lecture"
+
+
+def print_pdf(html_path: Path, pdf_path: Path, profile: Path, min_bytes: int = 12_000, budget_ms: int = 45000):
+    pdf_path = Path(pdf_path)
+    pdf_path.parent.mkdir(parents=True, exist_ok=True)
+    if pdf_path.exists():
+        pdf_path.unlink()
+    proc = subprocess.Popen(
+        [
+            CHROME, "--headless=new", "--no-sandbox", "--disable-gpu",
+            f"--user-data-dir={profile}", "--no-first-run", "--disable-extensions",
+            "--no-pdf-header-footer",
+            "--run-all-compositor-stages-before-draw",
+            f"--virtual-time-budget={budget_ms}",
+            f"--print-to-pdf={pdf_path}", html_path.as_uri(),
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    last_size, stable = -1, 0
+    tries = max(40, budget_ms // 1000 + 15)
+    for _ in range(tries):
+        time.sleep(1.2)
+        if not pdf_path.exists():
+            if proc.poll() is not None:
+                raise RuntimeError(f"Chrome exited {proc.returncode} without writing {pdf_path}")
+            continue
+        size = pdf_path.stat().st_size
+        if size > min_bytes and size == last_size:
+            stable += 1
+            if stable >= 2:
+                break
+        else:
+            stable = 0
+            last_size = size
+    else:
+        proc.terminate()
+        try:
+            proc.wait(timeout=8)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        raise RuntimeError(f"Timed out waiting for {pdf_path}")
+    if proc.poll() is None:
+        proc.terminate()
+        try:
+            proc.wait(timeout=12)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+    if pdf_path.stat().st_size < min_bytes:
+        raise RuntimeError(f"PDF too small: {pdf_path.stat().st_size} bytes ({pdf_path})")
+
+
+def print_job(html_text: str, html_path: Path, pdf_path: Path, min_bytes: int, budget_ms: int):
+    html_path.parent.mkdir(parents=True, exist_ok=True)
+    html_path.write_text(html_text, encoding="utf-8")
+    last_err = None
+    for attempt in range(2):
+        with tempfile.TemporaryDirectory(prefix="chrome-pdf-", ignore_cleanup_errors=True) as profile:
+            try:
+                print_pdf(html_path, pdf_path, Path(profile), min_bytes=min_bytes, budget_ms=budget_ms)
+                return pdf_path
+            except Exception as exc:
+                last_err = exc
+                time.sleep(1.5)
+    raise last_err
+
+
+def build_booklet(key: str):
+    book = BOOKS[key]
+    folder = SRC / key
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters_html, chapters = [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        chapters.append(chapter_meta(text))
+        chapters_html.append(contentize_fragment(text))
+    intro = (SRC / "how-to-use.html").read_text(encoding="utf-8")
+    final_path = folder / "final.html"
+    final = contentize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+
+    doc = wrap_html(
+        f"{book['title']} — Ultimate Teach Yourself Booklet",
+        cover(book, chapters) + contents(chapters, bool(final)) + intro + "".join(chapters_html) + final,
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}.html"
+    pdf_path = OUT / book["file"]
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=180000)
+    dest = ROOT.parent / "releases" / book["file"]
+    dest.parent.mkdir(exist_ok=True)
+    shutil.copy2(pdf_path, dest)
+    all_in_one = ROOT.parent / "releases" / f"CS-{book['grade']}-Teach-Yourself-All-in-One.pdf"
+    shutil.copy2(pdf_path, all_in_one)
+    print(f"{key} booklet: {len(frags)} chapters -> {pdf_path}")
+    print(f"{key} all-in-one -> {all_in_one}")
+
+
+def merge_complete(keys: list[str]):
+    """Stitch grade all-in-one PDFs into one XI+XII complete file when pymupdf is available."""
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip XI+XII complete merge (pymupdf not installed)")
+        return
+    releases = ROOT.parent / "releases"
+    srcs = [releases / f"CS-{BOOKS[k]['grade']}-Teach-Yourself-All-in-One.pdf" for k in keys]
+    srcs = [p for p in srcs if p.exists()]
+    if len(srcs) < 2:
+        return
+    dest = releases / "CS-XI-and-XII-Teach-Yourself-Complete.pdf"
+    out = pymupdf.open()
+    for p in srcs:
+        out.insert_file(p)
+    dest.parent.mkdir(exist_ok=True)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"complete XI+XII -> {dest} ({pages} pages)")
+
+
+def section_open_tag(fragment: str) -> str:
+    m = re.search(r"<section[^>]*>", fragment)
+    return m.group(0) if m else '<section class="chapter">'
+
+
+def first_sentence(text: str) -> str:
+    text = re.sub(r"\s+", " ", unescape(strip_tags(text))).strip()
+    if not text:
+        return ""
+    parts = re.split(r"(?<=[.!?۔])\s+", text)
+    return (parts[0] if parts else text).strip()
+
+
+def box_inner(block: str, kind: str) -> str:
+    m = re.search(rf'<div class="box {re.escape(kind)}">(.*?)</div>', block, flags=re.S)
+    return m.group(1) if m else ""
+
+
+def check_prompts(block: str) -> list[str]:
+    m = re.search(r'<div class="box check">(.*?)<div class="ans">', block, flags=re.S)
+    if not m:
+        return []
+    found = re.findall(r"<p><b>\d+\.</b>\s*(.*?)</p>", m.group(1), flags=re.S)
+    return [unescape(strip_tags(q)).strip() for q in found if strip_tags(q).strip()]
+
+
+def studentize_fragment(fragment: str) -> str:
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    review = extract_review(fragment)
+    open_tag = section_open_tag(fragment)
+    items = []
+    new_topics = []
+    for block in topics:
+        title = re.sub(r"\s*★.*", "", topic_title(block)).strip()
+        ans_m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+        if ans_m:
+            items.append(f"<li><b>{html.escape(title)}.</b> {ans_m.group(1).strip()}</li>")
+            block = (
+                block[: ans_m.start()]
+                + '<div class="ans write-here">Write your answers in your notebook. '
+                "Check the Answer key at the end of this chapter.</div>"
+                + block[ans_m.end() :]
+            )
+        new_topics.append(block)
+    check_key = ""
+    if items:
+        check_key = f'<h3>Check yourself — answers</h3><ol class="check-key">{"".join(items)}</ol>'
+    seal = (
+        '<div class="answers-seal"><p><b>Answer key.</b> Finish the practice first, then mark your work. '
+        "Do not peek while you are still answering.</p>"
+        '<p class="ur">پہلے سوالات حل کریں، پھر اس کلید سے نمبر لگائیں۔</p></div>'
+    )
+    sealed = False
+    if review:
+        if '<div class="answers">' in review:
+            review = review.replace(
+                '<div class="answers">',
+                seal + '<div class="answers">' + check_key,
+                1,
+            )
+            sealed = True
+        else:
+            review = seal + check_key + review
+            sealed = True
+    elif check_key:
+        review = f'<section class="review">{seal}<div class="answers">{check_key}</div></section>'
+        sealed = True
+    if not topics:
+        review = extract_review(fragment)
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener)
+        body = start + (review or "")
+        if not sealed and '<div class="answers">' in body:
+            body = body.replace('<div class="answers">', seal + '<div class="answers">', 1)
+        return f"{open_tag}\n{body}\n</section>"
+    new_topics = [mark_one_page_topic(b) for b in new_topics]
+    start = chapter_divider(opener)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(new_topics)}{exam}\n</section>"
+
+
+def teacher_notes_box(block: str) -> str:
+    raw_title = topic_title(block)
+    title = re.sub(r"\s*★.*", "", raw_title).strip()
+    golden = topic_is_golden(raw_title, block)
+    mins = 25 if golden else 15
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    qs = check_prompts(block)
+    ask = ""
+    if qs:
+        ask = "<p><b>Ask the class:</b> " + " ".join(
+            f"{i}. {html.escape(q)}" for i, q in enumerate(qs, 1)
+        ) + "</p>"
+    board = first_sentence(box_inner(block, "learn"))
+    warn = first_sentence(box_inner(block, "warn"))
+    urdu = first_sentence(box_inner(block, "urdu"))
+    board_p = f"<p><b>On the board:</b> {html.escape(board)}</p>" if board else ""
+    warn_p = f"<p><b>Stop and correct:</b> {html.escape(warn)}</p>" if warn else ""
+    ur_p = f'<p class="ur"><b>اردو میں کہیں:</b> {html.escape(urdu)}</p>' if urdu else ""
+    return f"""
+    <div class="box teach">
+      <p><b>{html.escape(title)}</b>{star} · <b>{mins} minutes</b>
+      ({'one full period if you include practice' if golden else 'half to three-quarters of a period'}).</p>
+      {board_p}
+      {ask}
+      {warn_p}
+      {ur_p}
+      <p>End by asking Check yourself orally. Answers are printed in the purple box for you.</p>
+    </div>"""
+
+
+def teacherize_fragment(fragment: str) -> str:
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    review = extract_review(fragment)
+    open_tag = section_open_tag(fragment)
+    golden = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+    n = len(topics)
+    mins = sum(25 if topic_is_golden(topic_title(b), b) else 15 for b in topics) or 40
+    periods = max(1, round(mins / 40))
+    plan = ""
+    if n:
+        plan = f"""
+    <div class="box teach">
+      <p><b>Chapter plan:</b> {n} topics · {golden} Golden · about <b>{mins} minutes</b>
+      ({periods} period{'s' if periods != 1 else ''} of 40 minutes).</p>
+      <p>Teach every ★ Golden topic in full. If time is short, set non-Golden Check yourself as homework.
+      Sit the chapter exam (75 marks, 1 h 15 min) as a period test or weekend paper, then mark with the key.</p>
+      <p class="ur">گولڈن موضوعات پوری تفصیل سے پڑھائیں۔ وقت کم ہو تو باقی سوالات گھر کے کام دیں۔ باب کے مشقی سوالات ٹیسٹ یا ہوم ورک بنائیں۔</p>
+    </div>"""
+    new_topics = []
+    for block in topics:
+        notes = teacher_notes_box(block)
+        block = re.sub(r"(<h2[^>]*>.*?</h2>)", r"\1" + notes, block, count=1, flags=re.S)
+        new_topics.append(mark_one_page_topic(block))
+    if not topics:
+        plan = """
+    <div class="box teach">
+      <p><b>Final week:</b> students read one recap aloud, then sit the mock paper in 2 hours 30 minutes with no notes.
+      Mark with the key in this edition and re-teach any Golden topic they missed.</p>
+      <p class="ur">آخری ہفتے خلاصے زبانی سنیں، پھر ماک پیپر بغیر نوٹس کے کرائیں۔ غلط گولڈن موضوعات دوبارہ پڑھائیں۔</p>
+    </div>"""
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener, plan)
+        return f"{open_tag}\n{start}{review}\n</section>"
+    start = chapter_divider(opener, plan)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(new_topics)}{exam}\n</section>"
+
+
+def clip_text(text: str, limit: int = 180) -> str:
+    text = re.sub(r"\s+", " ", unescape(strip_tags(text))).strip()
+    if not text:
+        return ""
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0] + "…"
+
+
+def short_topic_name(title: str) -> str:
+    t = re.sub(r"\s*★.*", "", title).strip()
+    t = re.sub(r"^[\d.]+(?:\s*[–-]\s*[\d.]+)?\s+", "", t).strip()
+    return t or title
+
+
+def extract_box_html(block: str, kind: str) -> str:
+    m = re.search(rf'<div class="box {re.escape(kind)}">', block)
+    if not m:
+        return ""
+    return extract_balanced(block, m.start(), DIV_OPEN, DIV_CLOSE)
+
+
+def extract_box_text(block: str, kind: str) -> str:
+    raw = extract_box_html(block, kind)
+    if not raw:
+        return ""
+    inner = re.sub(r"^<div[^>]*>", "", raw, count=1)
+    inner = re.sub(r"</div>\s*$", "", inner)
+    return unescape(strip_tags(inner)).strip()
+
+
+def topic_points(block: str, limit: int = 4) -> list[str]:
+    html_box = extract_box_html(block, "learn")
+    items = [unescape(strip_tags(x)).strip() for x in re.findall(r"<li>(.*?)</li>", html_box, flags=re.S)]
+    items = [clip_text(x, 140) for x in items if strip_tags(x).strip()]
+    if len(items) >= 2:
+        return items[:limit]
+    text = unescape(strip_tags(html_box))
+    sents = [clip_text(s, 140) for s in re.split(r"(?<=[.!?])\s+", text) if len(s.strip()) > 24]
+    if len(sents) >= 2:
+        return sents[:limit]
+    bolds = [unescape(strip_tags(x)).strip() for x in re.findall(r"<b>(.*?)</b>", html_box, flags=re.S)]
+    bolds = [x for x in bolds if 8 < len(x) < 80]
+    return (sents or bolds)[:limit]
+
+
+def table_headers(block: str) -> str:
+    m = re.search(r"<table[^>]*>(.*?)</table>", block, flags=re.S)
+    if not m:
+        return ""
+    headers = [unescape(strip_tags(h)).strip() for h in re.findall(r"<th>(.*?)</th>", m.group(1), flags=re.S)]
+    headers = [h for h in headers if h]
+    return " / ".join(headers[:6])
+
+
+def working_kind(title: str, block: str) -> str:
+    blob = f"{title} {extract_box_text(block, 'learn')[:500]}".lower()
+    rules = [
+        (r"k-?map|karnaugh",
+         "a completed K-map with legal groups (1, 2, 4 or 8) and the simplified Boolean expression"),
+        (r"truth table|logic gate|boolean|nand|nor|xor|xnor|minterm|maxterm",
+         "a complete truth table and a labelled gate / logic diagram"),
+        (r"python|loop|function|list|tuple|dict|set |file handling|pandas|dataframe|sql",
+         "working code with correct indentation and a short trace of one example"),
+        (r"trace table|bubble sort|selection sort|linear search|binary search|stack|queue|linked list",
+         "a filled trace table with every variable on every line"),
+        (r"er[- ]?model|entity relationship|schema|rdbms|referential",
+         "a labelled ER diagram (rectangle / oval / diamond) or the relational schema"),
+        (r"osi|tcp/?ip",
+         "the layer table with one protocol or device on each layer"),
+        (r"sdlc|waterfall|agile",
+         "a comparison table plus a named local case (school portal / NADRA)"),
+        (r"hci|wireframe|figma|usability|accessibility|ui vs ux",
+         "a labelled wireframe and one accessibility fix"),
+        (r"neural|machine learning|deep learning",
+         "a labelled network: input layer → hidden layer → output layer"),
+        (r"encrypt|malware|phish|firewall|authentication",
+         "named threat + one mitigation + a local example"),
+        (r"prototype|mvp|beachhead|entrepreneur",
+         "a one-page canvas: problem, user, riskiest assumption, test"),
+        (r"interview|survey|primary|secondary|infographic",
+         "a four-row comparison table and one rewritten survey question"),
+    ]
+    for pat, hint in rules:
+        if re.search(pat, blob):
+            return hint
+    if re.search(r"<figure|<svg", block):
+        return "a fully labelled diagram copied from the board"
+    if "<table" in block:
+        return "the full comparison table with every cell filled"
+    if "<pre" in block:
+        return "working code or a filled trace of the example"
+    return "full working plus a one-line conclusion"
+
+
+def check_answer_text(block: str) -> str:
+    m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+    if not m:
+        return ""
+    text = unescape(strip_tags(m.group(1))).strip()
+    text = re.sub(r"^Answers?:\s*", "", text, flags=re.I)
+    return clip_text(text, 280)
+
+
+def first_check_answer(block: str) -> str:
+    text = check_answer_text(block)
+    m = re.search(r"1\.\s*(.*?)(?:\s*2\.|$)", text)
+    if m:
+        return m.group(1).strip().rstrip(".")
+    return text
+
+
+def assign_academy_sessions(topics: list[str]) -> list[dict]:
+    metas = []
+    for block in topics:
+        raw = topic_title(block)
+        title = re.sub(r"\s*★.*", "", raw).strip()
+        metas.append({
+            "block": block,
+            "title": title,
+            "golden": topic_is_golden(raw, block),
+        })
+    i, session, out = 0, 0, []
+    while i < len(metas):
+        if metas[i]["golden"]:
+            session += 1
+            out.append({**metas[i], "session": session, "share": "full", "partner": ""})
+            i += 1
+        elif i + 1 < len(metas) and not metas[i + 1]["golden"]:
+            session += 1
+            out.append({**metas[i], "session": session, "share": "first-half",
+                        "partner": metas[i + 1]["title"]})
+            out.append({**metas[i + 1], "session": session, "share": "second-half",
+                        "partner": metas[i]["title"]})
+            i += 2
+        else:
+            session += 1
+            out.append({**metas[i], "session": session, "share": "full", "partner": ""})
+            i += 1
+    return out
+
+
+def academy_session_box(item: dict, total: int) -> str:
+    title = item["title"]
+    short = short_topic_name(title)
+    golden = item["golden"]
+    share = item["share"]
+    partner = short_topic_name(item["partner"]) if item["partner"] else ""
+    board = clip_text(first_sentence(extract_box_text(item["block"], "learn")), 200)
+    warn = clip_text(first_sentence(extract_box_text(item["block"], "warn")), 160)
+    exam = clip_text(first_sentence(extract_box_text(item["block"], "exam")), 160)
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    if share == "first-half":
+        kind = f"45 minutes (first half) · paired with {html.escape(partner)}"
+        run = (f"<p><b>10–45 min — this topic.</b> Lock the definition and table for "
+               f"<b>{html.escape(short)}</b>. Starter (0–10) is from last class. "
+               f"Second half is {html.escape(partner)}.</p>")
+    elif share == "second-half":
+        kind = f"45 minutes (second half) · paired with {html.escape(partner)}"
+        run = (f"<p><b>45–75 min — this topic.</b> Board working for "
+               f"<b>{html.escape(short)}</b>, then a short drill. "
+               f"75–85 error clinic covers both topics in this class.</p>")
+    else:
+        kind = "90 minutes (full class)"
+        run = ("<p><b>Full 90-minute class:</b> 0–10 starter · 10–35 concept lock · "
+               "35–55 board working · 55–75 academy drill · 75–85 error clinic · "
+               "85–90 homework out.</p>")
+    board_p = f"<p><b>On the board:</b> {html.escape(board)}</p>" if board else ""
+    warn_p = f"<p><b>Error clinic:</b> {html.escape(warn)}</p>" if warn else ""
+    exam_p = f"<p><b>Exam wording to train:</b> {html.escape(exam)}</p>" if exam else ""
+    return f"""
+    <div class="box academy">
+      <p><b>Session {item['session']} of {total}</b>{star} · {kind}.</p>
+      {run}
+      {board_p}
+      {warn_p}
+      {exam_p}
+      <p class="ur">بورڈ پر تعریف، جدول اور خاکہ لکھیں؛ ڈرل کے بعد تین عام غلطیاں ایک خانے میں درست کریں۔</p>
+    </div>"""
+
+
+def academy_marks_box(item: dict) -> str:
+    block = item["block"]
+    short = short_topic_name(item["title"])
+    define = clip_text(first_sentence(extract_box_text(block, "learn")), 200)
+    points = topic_points(block, 4)
+    if len(points) >= 3:
+        pair = points[1], points[2]
+    elif len(points) == 2:
+        pair = points[0], points[1]
+    elif points:
+        pair = points[0], "Second distinct point (not a repeat of the definition)"
+    else:
+        pair = (f"First key fact about {short}", "Second distinct point (not a repeat of the definition)")
+    p1, p2 = html.escape(pair[0]), html.escape(pair[1])
+    headers = table_headers(block)
+    has_fig = bool(re.search(r"<figure|<svg", block))
+    visual = "labelled diagram" if has_fig else ("table: " + headers if headers else "four-point explanation")
+    work = working_kind(item["title"], block)
+    extra = ""
+    if item["golden"]:
+        extra = (f"<p><b>8–10 marks:</b> 5-mark structure + {html.escape(work)} + "
+                 "a one-line conclusion. Method marks are awarded for working.</p>")
+    define_bit = html.escape(define) if define else f"one exact sentence that defines {html.escape(short)}"
+    return f"""
+    <div class="box marks">
+      <p>Train this wording every class: <em>Define. Explain. Example. Diagram. Working.</em></p>
+      <p><b>1 mark:</b> Define <b>{html.escape(short)}</b>. Write: {define_bit}</p>
+      <p><b>2 marks:</b> definition + one local example (JazzCash, school portal, NADRA, load-shedding).</p>
+      <p><b>3 marks:</b> definition + two points — (1) {p1} (2) {p2} — + example.</p>
+      <p><b>5 marks:</b> 3-mark structure + {html.escape(visual)} + the worked example from this topic.</p>
+      {extra}
+    </div>"""
+
+
+def academy_drill_box(item: dict) -> str:
+    block = item["block"]
+    short = short_topic_name(item["title"])
+    qs = check_prompts(block)
+    q1 = qs[0] if qs else f"Define {short}."
+    ans1 = first_check_answer(block) or first_sentence(extract_box_text(block, "learn")) or "See Learn it."
+    points = topic_points(block, 4)
+    explain = points[1:3] if len(points) >= 3 else points[:2]
+    ptxt = "; ".join(explain) if explain else first_sentence(extract_box_text(block, "learn"))
+    q3 = f"Explain {short} with two clear points and one example."
+    a3 = clip_text(ptxt, 240)
+    exam = clip_text(extract_box_text(block, "exam"), 200)
+    if exam:
+        q5 = exam
+    else:
+        q5 = (f"Write a 5-mark answer on {short}: definition, two points, "
+              "a labelled diagram or table, and one example.")
+    a5 = (f"Use the recipe in the blue box. Model opening: "
+          f"{clip_text(first_sentence(extract_box_text(block, 'learn')), 160)}")
+    timed = "20 minutes" if item["golden"] else "10 minutes"
+    extra_q = extra_a = ""
+    if item["golden"]:
+        work = working_kind(item["title"], block)
+        extra_q = f"<p><b>8 marks.</b> {html.escape(short)}: 5-mark answer plus {html.escape(work)}.</p>"
+        extra_a = f" 8. Same 5-mark body + {work} + one-line conclusion."
+    return f"""
+    <div class="box drill">
+      <p><b>Timed {timed}.</b> Books closed. Mark at once with the answers in this box — this is class work, not homework.</p>
+      <p><b>1 mark.</b> {html.escape(q1)}</p>
+      <p><b>3 marks.</b> {html.escape(q3)}</p>
+      <p><b>5 marks.</b> {html.escape(q5)}</p>
+      {extra_q}
+      <div class="ans">Answers: 1. {html.escape(clip_text(ans1, 220))}
+      3. {html.escape(a3)}
+      5. {html.escape(a5)}{html.escape(extra_a)}</div>
+    </div>"""
+
+
+def academy_hw_box(item: dict) -> str:
+    short = short_topic_name(item["title"])
+    work = working_kind(item["title"], item["block"])
+    if item["golden"]:
+        task = (f"Write an 8-mark answer on <b>{html.escape(short)}</b> using the recipe in this topic. "
+                f"Include {html.escape(work)}. Then redraw the board work from memory on a fresh page — no notes.")
+        mark = "Mark to the 8–10 mark recipe. Any answer with no working is half marks."
+    else:
+        task = (f"Write a 5-mark answer on <b>{html.escape(short)}</b> using Define · Explain · Example · Diagram. "
+                "Learn the Check yourself questions so you can answer them in 60 seconds at the start of next class.")
+        mark = "Collect next class. Stamp full / half / zero against the 5-mark recipe."
+    return f"""
+    <div class="box hw">
+      <p>{task}</p>
+      <p><b>How you will mark it tomorrow:</b> {mark}</p>
+      <p class="ur">کل جمع کرائیں؛ بغیر ورکنگ کے جواب آدھے نمبر ہیں۔</p>
+    </div>"""
+
+
+def academy_calendar(items: list[dict]) -> str:
+    if not items:
+        return ""
+    total = items[-1]["session"]
+    golden = sum(1 for it in items if it["golden"])
+    rows = []
+    seen = set()
+    for it in items:
+        n = it["session"]
+        if n in seen:
+            continue
+        seen.add(n)
+        group = [x for x in items if x["session"] == n]
+        names = " + ".join(html.escape(short_topic_name(x["title"])) for x in group)
+        kind = "★ Golden · 90 min" if any(x["golden"] for x in group) else "Paired · 90 min"
+        if len(group) == 1 and not group[0]["golden"]:
+            kind = "Single · 90 min"
+        focus = clip_text(first_sentence(extract_box_text(group[0]["block"], "learn")), 90)
+        rows.append(
+            f"<tr><td>Class {n:02d}</td><td>{names}</td>"
+            f"<td>{kind}</td><td>{html.escape(focus)}</td></tr>"
+        )
+    return f"""
+    <div class="box plan">
+      <p><b>Academy calendar:</b> {len(items)} topics · {golden} Golden ·
+      <b>{total} classes of 90 minutes</b> + one 40-minute weekly test after this chapter.</p>
+      <table class="session-table">
+        <tr><th>Class</th><th>Topics</th><th>Kind</th><th>Board focus</th></tr>
+        {''.join(rows)}
+      </table>
+      <p><b>Chapter exam:</b> 75 marks · 1 h 15 min · 15 MCQ + 10 short + any 3 long.
+      Mark to the recipes. Re-teach any Golden below 60% in the next starter.</p>
+      <p class="ur">گولڈن موضوع پوری کلاس لیتا ہے۔ ہفتہ وار ٹیسٹ کے بعد کمزور گولڈن دوبارہ پڑھائیں۔</p>
+    </div>"""
+
+
+def append_inside_topic(block: str, extra: str) -> str:
+    block = block.rstrip()
+    if block.endswith("</div>"):
+        return block[:-6] + extra + "</div>"
+    return block + extra
+
+
+def academyize_fragment(fragment: str) -> str:
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    review = extract_review(fragment)
+    open_tag = section_open_tag(fragment)
+    items = assign_academy_sessions(topics)
+    total = items[-1]["session"] if items else 0
+    plan = academy_calendar(items)
+    new_topics = []
+    for item in items:
+        notes = academy_session_box(item, total) + academy_marks_box(item)
+        block = re.sub(
+            r"(<h2[^>]*>.*?</h2>)", r"\1" + notes, item["block"], count=1, flags=re.S
+        )
+        block = append_inside_topic(block, academy_drill_box(item) + academy_hw_box(item))
+        new_topics.append(block)
+    if not topics:
+        plan = """
+    <div class="box academy">
+      <p><b>Academy exam week — 7 days × 90 minutes.</b></p>
+      <p><b>Days 1–6:</b> one chapter recap as an error clinic. Starter test from that
+      chapter's Golden topics. Two students write a 5-mark answer on the board using the recipe.</p>
+      <p><b>Day 7:</b> sit the mock paper in 2 hours 30 minutes, academy hall conditions.
+      No notes, no phones. Invigilate as the board will.</p>
+      <p class="ur">چھ دن خلاصے اور ایرر کلینک، ساتویں دن ماک پیپر بغیر نوٹس کے کرائیں۔</p>
+    </div>
+    <div class="box hw">
+      <p>After the mock, students mark with the key in this book. Each student lists every
+      Golden topic they missed. Those topics become the last two 90-minute revision classes.</p>
+      <p>Collect the list next class. Re-teach any Golden that more than a third of the batch missed.</p>
+    </div>
+    <div class="box marks">
+      <p>Mark the mock to the same 1 / 3 / 5 / 8–10 recipes used all year.
+      An answer with no working, no diagram, or no example cannot score full marks.</p>
+    </div>"""
+    if not topics:
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener, plan)
+        return f"{open_tag}\n{start}{review}\n</section>"
+    start = chapter_divider(opener, plan)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(new_topics)}{exam}\n</section>"
+
+
+def edition_cover(book, chapters, edition: str):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    if edition == "teacher":
+        tag = "TEACHER'S EDITION"
+        cover_cls = "cover teacher-cover"
+        sub = ("For teachers &mdash; lesson timing, board questions, Urdu classroom cues "
+               "and full answers on the same page.")
+        urdu = "اساتذہ کے لیے — سبق کی منصوبہ بندی، بورڈ سوالات، اردو وضاحت اور مکمل جوابات"
+        foot = (f"Bilingual Teacher's Edition &middot; {book['curriculum']} &middot; "
+                "★ marks Golden (high-yield) exam topics. Not a student workbook.")
+    elif edition == "academy":
+        tag = "COACHING ACADEMY EDITION"
+        cover_cls = "cover academy-cover"
+        sub = ("For coaching academies &mdash; 90-minute batch plans, full-mark recipes, "
+               "timed drills with answers, and batch homework.")
+        urdu = "کوچنگ اکیڈمی کے لیے — 90 منٹ کلاس، مکمل نمبر، ڈرل اور ہوم ورک"
+        foot = (f"Coaching Academy Edition &middot; {book['curriculum']} &middot; "
+                "★ Golden topics take a full 90-minute class. Not a student workbook.")
+    else:
+        tag = "STUDENT'S EDITION"
+        cover_cls = "cover student-cover"
+        sub = ("For students &mdash; learn every chapter on your own. Practice first; "
+               "the answer key is at the end of each chapter.")
+        urdu = "طلبہ کے لیے — خود سیکھیں، سوالات پہلے حل کریں، جوابات باب کے آخر میں ہیں"
+        foot = (f"Student's Edition &middot; {book['curriculum']} &middot; "
+                "★ marks Golden (high-yield) exam topics.")
+    return f"""
+<section class="{cover_cls}">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">{tag}</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">{sub}</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">{urdu}</div>
+  <div class="units">{units}</div>
+  <div class="foot">{foot}</div>
+</section>"""
+
+
+def build_edition(key: str, edition: str):
+    book = BOOKS[key]
+    folder = SRC / key
+    how_name = {
+        "teacher": "how-to-use-teacher.html",
+        "academy": "how-to-use-academy.html",
+        "student": "how-to-use-student.html",
+    }[edition]
+    intro = (SRC / how_name).read_text(encoding="utf-8")
+    transform = {
+        "teacher": teacherize_fragment,
+        "academy": academyize_fragment,
+        "student": studentize_fragment,
+    }[edition]
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters_html, chapters = [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        chapters.append(chapter_meta(text))
+        chapters_html.append(transform(text))
+    final_path = folder / "final.html"
+    final = transform(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    label = {
+        "teacher": "Teacher's Edition",
+        "academy": "Coaching Academy Edition",
+        "student": "Student's Edition",
+    }[edition]
+    file_name = {
+        "teacher": f"CS-{book['grade']}-Teachers-Edition.pdf",
+        "academy": f"CS-{book['grade']}-Coaching-Academy-Edition.pdf",
+        "student": f"CS-{book['grade']}-Students-Edition.pdf",
+    }[edition]
+    doc = wrap_html(
+        f"{book['title']} — {label}",
+        edition_cover(book, chapters, edition)
+        + contents(chapters, bool(final))
+        + intro
+        + "".join(chapters_html)
+        + final,
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-{edition}.html"
+    pdf_path = ROOT.parent / "releases" / file_name
+    budget = 180000 if edition == "academy" else 120000
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=budget)
+    print(f"{key} {edition} edition -> {pdf_path}")
+    return pdf_path
+
+
+def merge_edition_pair(edition: str, paths: list[Path]):
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip edition complete merge (pymupdf not installed)")
+        return
+    name = {
+        "teacher": "CS-XI-and-XII-Teachers-Edition-Complete.pdf",
+        "academy": "CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf",
+        "student": "CS-XI-and-XII-Students-Edition-Complete.pdf",
+    }[edition]
+    dest = ROOT.parent / "releases" / name
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"{edition} complete -> {dest} ({pages} pages)")
+
+
+def build_editions(keys: list[str], editions: tuple[str, ...] | None = None):
+    for edition in editions or ("student", "teacher"):
+        paths = [build_edition(k, edition) for k in keys]
+        merge_edition_pair(edition, paths)
+
+
+def topic_definition(block: str) -> str:
+    text = extract_box_text(block, "learn")
+    sents = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+    if not sents:
+        return ""
+    if len(sents[0]) < 42 and len(sents) > 1:
+        return clip_text(sents[0] + " " + sents[1], 240)
+    return clip_text(sents[0], 220)
+
+
+def compact_table(block: str) -> tuple[str, bool]:
+    for m in re.finditer(r"<table\b[^>]*>.*?</table>", block, flags=re.S):
+        t = m.group(0)
+        if "glossary" in t:
+            continue
+        rows = t.count("<tr")
+        head = t.split("</tr>", 1)[0]
+        cols = head.count("<th") + head.count("<td")
+        if rows < 2 or rows > 9:
+            continue
+        return t, (cols >= 3 or rows >= 6)
+    return "", False
+
+
+def compact_diagram(block: str) -> str:
+    m = re.search(r'<figure class="diagram">.*?</figure>', block, flags=re.S)
+    if not m:
+        return ""
+    fig = m.group(0)
+    fig = re.sub(
+        r'\bwidth="(\d+)"',
+        lambda mm: f'width="{min(int(mm.group(1)), 520)}"',
+        fig,
+        count=1,
+    )
+    return fig.replace('class="diagram"', 'class="diagram cheat-fig"', 1)
+
+
+def compact_code(block: str) -> str:
+    m = re.search(r'<pre class="code">(.*?)</pre>', block, flags=re.S)
+    if not m:
+        return ""
+    body = m.group(1).strip("\n")
+    if 1 <= len(body.splitlines()) <= 8:
+        return f'<pre class="code">{body}</pre>'
+    return ""
+
+
+def flow_line(block: str) -> str:
+    m = re.search(r'<div class="flow">(.*?)</div>', block, flags=re.S)
+    if not m:
+        return ""
+    parts = [unescape(strip_tags(p)).strip() for p in re.findall(r"<span>(.*?)</span>", m.group(1), flags=re.S)]
+    parts = [p for p in parts if p]
+    if len(parts) >= 3:
+        return html.escape(" → ".join(parts))
+    return ""
+
+
+def extract_glossary(fragment: str) -> str:
+    m = re.search(r'(<table class="glossary">.*?</table>)', fragment, flags=re.S)
+    return m.group(1) if m else ""
+
+
+def extract_summary(fragment: str) -> str:
+    m = re.search(r'(<ul class="summary">.*?</ul>)', fragment, flags=re.S)
+    return m.group(1) if m else ""
+
+
+def cheat_card(block: str) -> str:
+    raw = topic_title(block)
+    title = re.sub(r"\s*★.*", "", raw).strip()
+    golden = topic_is_golden(raw, block)
+    define = topic_definition(block)
+    points = topic_points(block, 4)
+    if define:
+        stem = define[:36].lower()
+        points = [p for p in points if p[:36].lower() not in (stem, define[:36].lower())]
+    table, wide_table = compact_table(block)
+    code = compact_code(block)
+    diag = compact_diagram(block)
+    flow = flow_line(block)
+    tip = clip_text(extract_box_text(block, "tip"), 160)
+    exam = clip_text(extract_box_text(block, "exam"), 170)
+    warn = clip_text(first_sentence(extract_box_text(block, "warn")), 140)
+    urdu = short_urdu(extract_box_text(block, "urdu"), 130)
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    bits = [f"<h3>{html.escape(title)}{star}</h3>"]
+    if define:
+        bits.append(f"<p>{html.escape(define)}</p>")
+    if flow:
+        bits.append(f'<p class="flow-line">{flow}</p>')
+    if points:
+        bits.append("<ul>" + "".join(f"<li>{html.escape(p)}</li>" for p in points[:4]) + "</ul>")
+    if table:
+        bits.append(table)
+    if diag:
+        bits.append(diag)
+    if code:
+        bits.append(code)
+    if tip:
+        bits.append(f'<p class="mn"><b>Remember:</b> {html.escape(tip)}</p>')
+    elif warn:
+        bits.append(f'<p class="mn"><b>Trap:</b> {html.escape(warn)}</p>')
+    if exam:
+        bits.append(f'<p class="xq"><b>Exam:</b> {html.escape(exam)}</p>')
+    if urdu:
+        bits.append(f'<p class="ur">{html.escape(urdu)}</p>')
+    cls = "cheat-card one-page-topic"
+    if golden:
+        cls += " golden"
+    if wide_table or diag or (code and golden):
+        cls += " wide"
+    return f'<article class="{cls}">' + "".join(bits) + "</article>"
+
+
+def cheatsheetize_fragment(fragment: str) -> str:
+    topics = extract_class_divs(fragment, "topic")
+    num = re.search(r'data-num="(\d+)"', fragment)
+    title = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(num.group(1)) if num else 0
+    ch_title = unescape(title.group(1)) if title else "Chapter"
+    if not topics:
+        recaps = []
+        for m in re.finditer(
+            r"<h2>(.*?)</h2>\s*<ul class=\"summary\">(.*?)</ul>", fragment, flags=re.S
+        ):
+            recaps.append(
+                f"<h2>{m.group(1)}</h2><ul class=\"summary\">{m.group(2)}</ul>"
+            )
+        body = "".join(recaps) or extract_opener(fragment)
+        return f"""
+<section class="chapter cheat-chapter" data-num="{ch_num}">
+  <header class="cheat-head">
+    <div class="num">Night before</div>
+    <h1>One-page recaps</h1>
+    <p class="cheat-stars">Read each recap, close the booklet, say it aloud. Then stop.</p>
+  </header>
+  {body}
+</section>"""
+    goldens = []
+    cards = []
+    for block in topics:
+        raw = topic_title(block)
+        if topic_is_golden(raw, block):
+            goldens.append(re.sub(r"\s*★.*", "", raw).strip())
+        cards.append(cheat_card(block))
+    star_line = " · ".join(html.escape(short_topic_name(g)) for g in goldens) if goldens else "No Golden topics in this chapter — still learn the tables."
+    return f"""
+<section class="chapter cheat-chapter">
+  <header class="cheat-head">
+    <div class="num">Chapter {ch_num}</div>
+    <h1>{html.escape(ch_title)}</h1>
+    <p class="cheat-stars">★ {len(goldens)} Golden · {len(topics)} cards · {star_line}</p>
+  </header>
+  {"".join(cards)}
+  {chapter_exam_after(fragment)}
+</section>"""
+
+
+def cheat_cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover cheat-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">CHEAT SHEETS</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Exam revision cards &mdash; definitions, tables, mnemonics and ★ Golden topics
+  on one glance each.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">امتحانی چیٹ شیٹ — تعریفیں، جدول، یادداشت اور گولڈن موضوعات</div>
+  <div class="units">{units}</div>
+  <div class="foot">Cheat Sheets &middot; {book['curriculum']} &middot;
+  ★ Golden first if time is short. Not a textbook.</div>
+</section>"""
+
+
+def cheat_toc(chapters, gold_n: int):
+    items = []
+    for n, t, topics in chapters:
+        items.append(
+            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page cards + 75-mark exam</li>"
+        )
+    items.append("<li><b>Night-before recaps:</b> one-page summaries of every chapter</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden cards are listed below. Start there if you have less than two hours.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def cheat_golden_index(entries: list[tuple[int, str, str]]):
+    items = "".join(
+        f"<li>★ <b>Ch {ch}.</b> {html.escape(short_topic_name(title))}</li>"
+        for ch, _, title in entries
+    )
+    return f"""
+<section class="front">
+  <h1>★ Golden index — if you only have two hours</h1>
+  <p>These are the high-yield topics. Say each definition aloud, then draw the table or diagram from memory.</p>
+  <p class="ur">صرف دو گھنٹے ہوں تو یہ گولڈن کارڈز زبانی دہرائیں، پھر جدول حافظے سے بنائیں۔</p>
+  <ol class="golden-index">{items}</ol>
+</section>"""
+
+
+def build_cheatsheet(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-cheat.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_html, goldens = [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        chapters.append(meta)
+        chapters_html.append(cheatsheetize_fragment(text))
+        for block in extract_class_divs(text, "topic"):
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = cheatsheetize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    doc = wrap_html(
+        f"{book['title']} — Cheat Sheets",
+        cheat_cover(book, chapters)
+        + cheat_toc(chapters, len(goldens))
+        + cheat_golden_index(goldens)
+        + intro
+        + "".join(chapters_html)
+        + final,
+        body_class="cheat-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-cheat.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Cheat-Sheets.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=30_000, budget_ms=180000)
+    print(f"{key} cheat sheets -> {pdf_path}")
+    return pdf_path
+
+
+def build_cheatsheets(keys: list[str]):
+    paths = [build_cheatsheet(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip cheat complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-Cheat-Sheets-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"cheat complete -> {dest} ({pages} pages)")
+
+
+def extract_objectives(fragment: str, limit: int = 6) -> list[str]:
+    m = re.search(r'<ul class="objectives">(.*?)</ul>', fragment, flags=re.S)
+    if not m:
+        return []
+    items = [unescape(strip_tags(x)).strip() for x in re.findall(r"<li>(.*?)</li>", m.group(1), flags=re.S)]
+    return [x for x in items if x][:limit]
+
+
+def compact_glossary(fragment: str, limit: int = 12) -> str:
+    gloss = extract_glossary(fragment)
+    if not gloss:
+        return ""
+    rows = re.findall(r"<tr>.*?</tr>", gloss, flags=re.S)
+    if len(rows) <= 1:
+        return gloss
+    keep = rows[: limit + 1]
+    return '<table class="glossary">' + "".join(keep) + "</table>"
+
+
+def compact_summary(fragment: str, limit: int = 8) -> str:
+    m = re.search(r'<ul class="summary">(.*?)</ul>', fragment, flags=re.S)
+    if not m:
+        return ""
+    items = re.findall(r"<li>(.*?)</li>", m.group(1), flags=re.S)
+    items = [x for x in items if strip_tags(x).strip()][:limit]
+    if not items:
+        return ""
+    return '<ul class="summary">' + "".join(f"<li>{x}</li>" for x in items) + "</ul>"
+
+
+def note_block(block: str) -> str:
+    raw = topic_title(block)
+    title = re.sub(r"\s*★.*", "", raw).strip()
+    golden = topic_is_golden(raw, block)
+    define = topic_definition(block)
+    points = topic_points(block, 5)
+    if define:
+        stem = define[:36].lower()
+        points = [p for p in points if p[:36].lower() not in (stem, define[:36].lower())]
+    table, _ = compact_table(block)
+    code = compact_code(block)
+    diag = compact_diagram(block)
+    flow = flow_line(block)
+    tip = clip_text(extract_box_text(block, "tip"), 150)
+    exam = clip_text(extract_box_text(block, "exam"), 160)
+    warn = clip_text(first_sentence(extract_box_text(block, "warn")), 130)
+    urdu = short_urdu(extract_box_text(block, "urdu"), 120)
+    star = ' <span class="star">★ Golden</span>' if golden else ""
+    bits = [f"<h3>{html.escape(title)}{star}</h3>"]
+    if define:
+        bits.append(f'<p class="board"><b>Board.</b> {html.escape(define)}</p>')
+    if flow:
+        bits.append(f'<p class="flow-line">{flow}</p>')
+    if points:
+        bits.append("<ol>" + "".join(f"<li>{html.escape(p)}</li>" for p in points[:5]) + "</ol>")
+    if table:
+        bits.append(table)
+    if diag:
+        bits.append(diag)
+    if code:
+        bits.append(code)
+    if tip:
+        bits.append(f'<p class="mn"><b>Remember:</b> {html.escape(tip)}</p>')
+    elif warn:
+        bits.append(f'<p class="mn"><b>Trap:</b> {html.escape(warn)}</p>')
+    if exam:
+        bits.append(f'<p class="xq"><b>Exam:</b> {html.escape(exam)}</p>')
+    if urdu:
+        bits.append(f'<p class="ur">{html.escape(urdu)}</p>')
+    if golden:
+        bits.append(
+            "<p><b>Write.</b> 5-mark: Define · Explain · Example · Diagram · Working.</p>"
+        )
+    cls = "note-block one-page-topic golden" if golden else "note-block one-page-topic"
+    return f'<article class="{cls}">' + "".join(bits) + "</article>"
+
+
+def notesize_fragment(fragment: str) -> str:
+    topics = extract_class_divs(fragment, "topic")
+    num = re.search(r'data-num="(\d+)"', fragment)
+    title = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(num.group(1)) if num else 0
+    ch_title = unescape(title.group(1)) if title else "Chapter"
+    if not topics:
+        recaps = []
+        for m in re.finditer(
+            r"<h2>(.*?)</h2>\s*<ul class=\"summary\">(.*?)</ul>", fragment, flags=re.S
+        ):
+            recaps.append(f"<h2>{m.group(1)}</h2><ul class=\"summary\">{m.group(2)}</ul>")
+        body = "".join(recaps) or extract_opener(fragment)
+        return f"""
+<section class="chapter notes-chapter" data-num="{ch_num}">
+  <header class="notes-head">
+    <div class="num">Night before</div>
+    <h1>Chapter recaps</h1>
+    <p class="meta">Read each recap, close the booklet, say it aloud. Then stop.</p>
+  </header>
+  {body}
+</section>"""
+    goldens = []
+    notes = []
+    for block in topics:
+        raw = topic_title(block)
+        if topic_is_golden(raw, block):
+            goldens.append(re.sub(r"\s*★.*", "", raw).strip())
+        notes.append(note_block(block))
+    star_line = (
+        " · ".join(html.escape(short_topic_name(g)) for g in goldens)
+        if goldens
+        else "No Golden topics — still copy every table."
+    )
+    objs = extract_objectives(fragment, 6)
+    obj_h = (
+        "<h2>This chapter in class</h2><ul class=\"objectives\">"
+        + "".join(f"<li>{html.escape(o)}</li>" for o in objs)
+        + "</ul>"
+        if objs
+        else ""
+    )
+    period = f"""
+    <div class="box period">
+      <p><b>40 minutes.</b> 0–5 min yesterday ★ · 5–25 min board these notes
+      (Golden first) · 25–35 min closed-book definition + table ·
+      35–40 min one 5-mark homework.</p>
+      <p><b>★ Teach first:</b> {star_line}</p>
+      <p>If behind, skip non-Golden. Phones away. Copy every table.</p>
+    </div>"""
+    return f"""
+<section class="chapter notes-chapter">
+  <header class="notes-head">
+    <div class="num">Chapter {ch_num} · Lecture notes</div>
+    <h1>{html.escape(ch_title)}</h1>
+    <p class="meta">★ {len(goldens)} Golden · {len(topics)} notes · classroom study guide</p>
+  </header>
+  {period}
+  {obj_h}
+    {"".join(notes)}
+  {chapter_exam_after(fragment)}
+</section>"""
+
+
+def notes_cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover notes-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">LECTURE-NOTES STUDY GUIDE</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Concise classroom notes &mdash; board definitions, numbered points,
+  tables and diagrams, ★ Golden first, exam wording.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">کلاس روم لیکچر نوٹس — مختصر گائیڈ</div>
+  <div class="units">{units}</div>
+  <div class="foot">Lecture Notes &middot; {book['curriculum']} &middot;
+  40-minute period pack. Not a textbook.</div>
+</section>"""
+
+
+def notes_toc(chapters, gold_n: int):
+    items = []
+    for n, t, topics in chapters:
+        items.append(
+            f"<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page notes + 75-mark exam</li>"
+        )
+    items.append("<li><b>Night-before recaps:</b> one-page summaries of every chapter</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden notes. Teach those first in every 40-minute period.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def build_notes_guide(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-notes.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_html, goldens = [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        chapters.append(meta)
+        chapters_html.append(notesize_fragment(text))
+        for block in extract_class_divs(text, "topic"):
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = notesize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    doc = wrap_html(
+        f"{book['title']} — Lecture-Notes Study Guide",
+        notes_cover(book, chapters)
+        + notes_toc(chapters, len(goldens))
+        + cheat_golden_index(goldens)
+        + intro
+        + "".join(chapters_html)
+        + final,
+        body_class="notes-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-notes.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-Lecture-Notes-Study-Guide.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=30_000, budget_ms=180000)
+    print(f"{key} lecture-notes study guide -> {pdf_path}")
+    return pdf_path
+
+
+def build_notes_guides(keys: list[str]):
+    paths = [build_notes_guide(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip notes complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"notes complete -> {dest} ({pages} pages)")
+
+
+PACE_PREREQ = {
+    1: "None. Open Lesson 01 and start.",
+    2: "Chapter 1. You will reuse tables and step-by-step thinking.",
+    3: "Chapter 2. Algorithms in this chapter become working programs.",
+    4: "Chapter 3. You will store and query the data programs produce.",
+    5: "Chapters 1–4. Applications sit on systems, algorithms, code and data.",
+    6: "Chapters 1–5. This chapter closes the year.",
+}
+PACE_STEADY = {
+    1: "Weeks 1–3",
+    2: "Weeks 4–5",
+    3: "Weeks 6–8",
+    4: "Weeks 9–10",
+    5: "Weeks 11–12",
+    6: "Weeks 13–14",
+}
+PACE_TERM = {1: "Week 1", 2: "Week 2", 3: "Week 3", 4: "Week 4", 5: "Week 5", 6: "Week 6"}
+PACE_EXAM = {
+    1: "Days 1–4",
+    2: "Days 5–8",
+    3: "Days 9–13",
+    4: "Days 14–17",
+    5: "Days 18–21",
+    6: "Days 22–25",
+}
+
+
+def lesson_minutes(block: str) -> int:
+    return 25 if topic_is_golden(topic_title(block), block) else 15
+
+
+def fmt_hours(mins: int) -> str:
+    if mins < 60:
+        return f"{mins} min"
+    h, m = divmod(mins, 60)
+    if m == 0:
+        return f"{h} h"
+    return f"{h} h {m} min"
+
+
+def chapter_study_mins(topics: list[str]) -> int:
+    return sum(lesson_minutes(b) for b in topics) + 60
+
+
+def lesson_head_html(n: int, total: int, block: str) -> str:
+    golden = topic_is_golden(topic_title(block), block)
+    mins = 25 if golden else 15
+    star = ' · <span class="star">★ Golden</span>' if golden else ""
+    cls = "lesson-head golden" if golden else "lesson-head"
+    return (
+        f'<div class="{cls}"><div class="num">Lesson {n:02d} of {total:02d} · '
+        f"{mins} minutes{star}</div></div>"
+    )
+
+
+def lesson_do_now(golden: bool) -> str:
+    extra = " This is Golden — give it the full time." if golden else ""
+    return (
+        '<div class="box pace"><p><b>Do this now.</b> Read Learn it slowly. '
+        "Cover the example and reproduce it on paper. Write Check yourself in your "
+        f"notebook. Do not open the chapter Answer key.{extra}</p></div>"
+    )
+
+
+def lesson_gate(n: int, total: int) -> str:
+    if n >= total:
+        return """
+    <div class="box gate">
+      <p><b>Chapter gate.</b> If Check yourself was clean, turn to the Chapter Recap,
+      then sit the <b>Chapter Exam</b> (75 marks, 1 h 15 min, closed book). Mark only after the seal.</p>
+      <p class="ur">اگر خود آزمائی ٹھیک ہے تو خلاصہ پڑھیں، پھر باب کا امتحان بغیر نوٹس کے حل کریں۔</p>
+    </div>"""
+    return f"""
+    <div class="box gate">
+      <p><b>Can you go on?</b> If any Check yourself line was wrong, re-read this
+      lesson before Lesson {n + 1:02d}. If it was clean, turn the page.</p>
+      <p class="ur">غلط جواب ہو تو یہ سبق دوبارہ پڑھیں۔ ٹھیک ہو تو اگلا سبق شروع کریں۔</p>
+    </div>"""
+
+
+def chapter_pace_box(ch_num: int, topics: list[str]) -> str:
+    n = len(topics)
+    gold = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+    mins = chapter_study_mins(topics)
+    goldens = [
+        short_topic_name(re.sub(r"\s*★.*", "", topic_title(b)).strip())
+        for b in topics
+        if topic_is_golden(topic_title(b), b)
+    ]
+    stars = " · ".join(html.escape(g) for g in goldens) if goldens else "No Golden lessons — still do every check."
+    return f"""
+    <div class="box pace">
+      <p><b>Before you start.</b> {n} lessons · {gold} Golden · about
+      <b>{fmt_hours(mins)}</b> (lessons + chapter paper + review).</p>
+      <p><b>Need first:</b> {html.escape(PACE_PREREQ.get(ch_num, "The previous chapter."))}</p>
+      <p><b>★ Do first if time is short:</b> {stars}</p>
+      <p><b>Pace.</b> Steady: {PACE_STEADY.get(ch_num, "—")}.
+      Term: {PACE_TERM.get(ch_num, "—")}.
+      Exam: {PACE_EXAM.get(ch_num, "—")} (Golden lessons only if the calendar is short).</p>
+      <p>Close the Answer key. Work one single-page lesson at a time. After Lesson {n:02d},
+      sit the Chapter Exam. Tick “I can…” only after you mark it.</p>
+      <p class="ur">ایک سبق ایک صفحہ۔ آخری سبق کے بعد باب کا امتحان حل کریں۔</p>
+    </div>"""
+
+
+def check_key_from_topics(topics: list[str]) -> str:
+    items = []
+    for block in topics:
+        title = re.sub(r"\s*★.*", "", topic_title(block)).strip()
+        ans_m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+        if ans_m:
+            items.append(f"<li><b>{html.escape(title)}.</b> {ans_m.group(1).strip()}</li>")
+    if not items:
+        return ""
+    return f'<h3>Check yourself — answers</h3><ol class="check-key">{"".join(items)}</ol>'
+
+
+def mark_one_page_topic(block: str) -> str:
+    if re.search(r'\bone-page-topic\b', block[:180]):
+        return block
+    return re.sub(r'(<div class="topic)', r"\1 one-page-topic", block, count=1)
+
+
+def chapter_divider(opener: str, extra: str = "") -> str:
+    return f'<div class="paced-chapter">{opener}{extra}</div>'
+
+
+def mock_exam_head() -> str:
+    return (
+        '<header class="exam-head"><div class="num">Final mock · closed book</div>'
+        "<h1>Mock paper</h1>"
+        '<p class="meta">75 marks · 2 hours 30 minutes · no notes</p></header>'
+    )
+
+
+def chapter_nums(fragment: str) -> tuple[int, str]:
+    ch_num_m = re.search(r'data-num="(\d+)"', fragment)
+    title_m = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(ch_num_m.group(1)) if ch_num_m else 0
+    ch_title = unescape(title_m.group(1)) if title_m else "Chapter"
+    return ch_num, ch_title
+
+
+def chapter_exam_after(fragment: str, topics: list[str] | None = None) -> str:
+    ch_num, ch_title = chapter_nums(fragment)
+    raw = topics if topics is not None else extract_class_divs(fragment, "topic")
+    return chapter_exam_bundle(fragment, ch_num, ch_title, raw)
+
+
+def lecture_pack_fragment(fragment: str) -> str:
+    """Chapter pack for study guides: topics flow at full type across A4 pages."""
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    open_tag = section_open_tag(fragment)
+    start = chapter_divider(opener)
+    exam = chapter_exam_after(fragment, topics) if topics else (extract_review(fragment) or "")
+    return f"{open_tag}\n{start}{''.join(topics)}{exam}\n</section>"
+
+
+def contentize_fragment(fragment: str) -> str:
+    """All-in-one: one A4 page per topic, then a thorough chapter exam."""
+    opener = extract_opener(fragment)
+    topics = extract_class_divs(fragment, "topic")
+    open_tag = section_open_tag(fragment)
+    if not topics:
+        review = extract_review(fragment)
+        if review and "exam-head" not in review:
+            review = mock_exam_head() + review
+        start = chapter_divider(opener)
+        return f"{open_tag}\n{start}{review}\n</section>"
+    pages = [mark_one_page_topic(b) for b in topics]
+    start = chapter_divider(opener)
+    exam = chapter_exam_after(fragment, topics)
+    return f"{open_tag}\n{start}{''.join(pages)}{exam}\n</section>"
+
+
+def chapter_exam_bundle(fragment: str, ch_num: int, title: str, raw_topics: list[str]) -> str:
+    review = extract_review(fragment)
+    if not review:
+        return ""
+    summary = extract_tagged(review, "ul", "summary")
+    gloss = compact_glossary(review, 12)
+    mcq = extract_tagged(review, "ol", "mcq")
+    short = extract_tagged(review, "ol", "short")
+    long = extract_tagged(review, "ol", "long")
+    answers = extract_tagged(review, "div", "answers")
+    checklist = extract_tagged(review, "ul", "checklist")
+    n = len(raw_topics)
+    gold = sum(1 for b in raw_topics if topic_is_golden(topic_title(b), b))
+    recap_body = ""
+    if summary:
+        recap_body += "<h2>Chapter in one look</h2>" + summary
+    if gloss:
+        recap_body += "<h2>Key terms</h2>" + gloss
+    recap = f"""
+    <div class="chapter-recap">
+      <header class="exam-head">
+        <div class="num">Chapter {ch_num} · Recap</div>
+        <h1>{html.escape(title)}</h1>
+        <p class="meta">{n} single-page lessons · {gold} Golden · read, close, say aloud, then sit the exam</p>
+      </header>
+      {recap_body or extract_opener(fragment)}
+    </div>"""
+    exam = f"""
+    <div class="chapter-exam">
+      <div class="exam-open">
+      <header class="exam-head">
+        <div class="num">Chapter {ch_num} exam · closed book</div>
+        <h1>{html.escape(title)}</h1>
+        <p class="meta">75 marks · 1 hour 15 minutes · no notes · no phones</p>
+      </header>
+      <div class="box exam-rules">
+        <p><b>Instructions.</b> Sit this exam after Lesson {n:02d} and the recap.
+        <b>Section A</b> — all 15 MCQs (1 mark). <b>Section B</b> — all 10 short questions (3 marks).
+        <b>Section C</b> — attempt any <b>three</b> long questions (10 marks). At least one Section C
+        answer must be a ★ Golden topic. Write in your notebook. Do not open the key until time is up.</p>
+        <p><b>Marks.</b> 15 + 30 + 30 = 75. A 5-mark / 10-mark answer needs Define · Explain · Example ·
+        Diagram · Working.</p>
+        <p class="ur">سبق اور خلاصے کے بعد یہ امتحان بغیر نوٹس کے حل کریں۔ وقت پورا ہونے پر کلید کھولیں۔</p>
+      </div>
+      </div>
+      <h2>Section A — Multiple choice (15 × 1 = 15)</h2>
+      {mcq}
+      <h2>Section B — Short questions (10 × 3 = 30)</h2>
+      {short}
+      <h2>Section C — Long questions (attempt any 3 × 10 = 30)</h2>
+      {long}
+    </div>"""
+    seal = (
+        '<div class="answers-seal"><p><b>Answer key.</b> Finish the Chapter Exam first, then mark. '
+        "Do not peek while the clock is running.</p>"
+        '<p class="ur">پہلے امتحان مکمل کریں، پھر اس کلید سے نمبر لگائیں۔</p></div>'
+    )
+    key_inner = check_key_from_topics(raw_topics)
+    if answers:
+        key_inner += answers
+    if checklist:
+        key_inner += "<h3>Self-assessment: I can…</h3>" + checklist
+    key = f'<div class="exam-key">{seal}{key_inner}</div>'
+    return recap + exam + key
+
+
+def pacedize_fragment(fragment: str) -> str:
+    sealed = studentize_fragment(fragment)
+    opener = extract_opener(sealed)
+    topics = extract_class_divs(sealed, "topic")
+    raw_topics = extract_class_divs(fragment, "topic")
+    open_tag = section_open_tag(sealed)
+    ch_num_m = re.search(r'data-num="(\d+)"', fragment)
+    title_m = re.search(r'data-title="([^"]+)"', fragment)
+    ch_num = int(ch_num_m.group(1)) if ch_num_m else 0
+    ch_title = unescape(title_m.group(1)) if title_m else "Chapter"
+    if not topics:
+        review = extract_review(sealed)
+        if review:
+            review = (
+                '<header class="exam-head"><div class="num">Final mock · closed book</div>'
+                "<h1>Mock paper</h1>"
+                '<p class="meta">75 marks · 2 hours 30 minutes · no notes</p></header>'
+                + review
+            )
+        plan = """
+    <div class="box pace">
+      <p><b>Exam week — self-paced.</b> Steady: Weeks 15–16. Term: Weeks 7–8.
+      Exam track: Days 26–30.</p>
+      <p>Read each chapter recap aloud, close the book, say it again. Then sit the mock
+      in 2 hours 30 minutes with no notes. Mark with the key. Repair only the Golden lessons you missed.</p>
+      <p class="ur">ایک خلاصہ زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔ صرف کمزور گولڈن دوبارہ پڑھیں۔</p>
+    </div>"""
+        start = f'<div class="paced-chapter">{opener}{plan}</div>'
+        return f"{open_tag}\n{start}{review}\n</section>"
+    new_topics = []
+    total = len(topics)
+    for i, block in enumerate(topics, 1):
+        golden = topic_is_golden(topic_title(block), block)
+        head = lesson_head_html(i, total, block)
+        do_now = lesson_do_now(golden)
+        block = re.sub(
+            r"(<h2[^>]*>.*?</h2>)",
+            head + r"\1" + do_now,
+            block,
+            count=1,
+            flags=re.S,
+        )
+        block = append_inside_topic(block, lesson_gate(i, total))
+        if "paced-lesson" not in block[:180]:
+            block = re.sub(
+                r'(<div class="topic)',
+                r'\1 paced-lesson',
+                block,
+                count=1,
+            )
+        new_topics.append(block)
+    start = (
+        f'<div class="paced-chapter">{opener}'
+        f"{chapter_pace_box(ch_num, raw_topics or topics)}</div>"
+    )
+    exam = chapter_exam_bundle(fragment, ch_num, ch_title, raw_topics or topics)
+    body = start + "".join(new_topics) + exam
+    return f"{open_tag}\n{body}\n</section>"
+
+
+def paced_cover(book, chapters):
+    units = "".join(f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters)
+    return f"""
+<section class="cover paced-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">AIO SELF-PACED TEACH YOURSELF EDITION</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">The complete grade in one published volume &mdash; numbered lessons,
+  three study paces, practice first, answers after each chapter seal.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">سیلف پیسڈ — خود سیکھیں</div>
+  <div class="units">{units}</div>
+  <div class="foot">Self-Paced Edition &middot; {book['curriculum']} &middot;
+  ★ Golden lessons take 25 minutes. Not a teacher or academy book.</div>
+</section>"""
+
+
+def paced_imprint(book, chapters, gold_n: int, lesson_n: int, hours: str):
+    units = " · ".join(f"{n:02d} {t}" for n, t, _ in chapters)
+    return f"""
+<section class="front imprint">
+  <p class="series">Sindh Computer Science · Teach Yourself</p>
+  <h1>Imprint</h1>
+  <table>
+    <tr><td>Title</td><td>{html.escape(book['title'])} — AIO Self-Paced Teach Yourself Edition</td></tr>
+    <tr><td>Curriculum</td><td>{html.escape(book['curriculum'])}</td></tr>
+    <tr><td>Language</td><td>English with Urdu support</td></tr>
+    <tr><td>Structure</td><td>{lesson_n} numbered lessons · {gold_n} Golden · six chapters + final revision</td></tr>
+    <tr><td>Study time</td><td>About {html.escape(hours)} of lessons, papers and review (pick Steady, Term or Exam)</td></tr>
+    <tr><td>Format</td><td>A4 print / screen · MathJax SVG mathematics · inline SVG diagrams</td></tr>
+    <tr><td>Series</td><td>{html.escape(units)}</td></tr>
+  </table>
+  <h2>What you hold</h2>
+  <p>The complete grade as a self-study book. Each topic is a lesson with a time, a task,
+  and a gate. Answers are sealed at the end of the chapter so you practise first.</p>
+  <h2>What this edition is not</h2>
+  <p>Not the Teacher’s Edition (no classroom timing). Not the Coaching Academy Edition
+  (no 90-minute batches). Not the 30-day crash course. Not the classroom Lecture-Notes pack.</p>
+  <p class="ur">یہ خودآموز مکمل کتاب ہے۔ استاد، اکیڈمی یا کریش کورس کی کتاب نہیں۔</p>
+</section>"""
+
+
+def paced_planner(chapters_data: list[dict]):
+    rows = []
+    total_lessons = total_gold = total_mins = 0
+    for row in chapters_data:
+        n, title, topics = row["meta"]
+        gold = row["gold"]
+        mins = row["mins"]
+        lessons = len(topics)
+        total_lessons += lessons
+        total_gold += gold
+        total_mins += mins
+        rows.append(
+            f"<tr><td>Ch {n}</td><td>{html.escape(title)}</td>"
+            f"<td>{lessons}</td><td>{gold}</td><td>{fmt_hours(mins)}</td>"
+            f"<td>{PACE_STEADY.get(n, '—')}</td>"
+            f"<td>{PACE_TERM.get(n, '—')}</td>"
+            f"<td>{PACE_EXAM.get(n, '—')}</td></tr>"
+        )
+    rows.append(
+        "<tr><td>Final</td><td>Recaps + mock paper</td>"
+        "<td>—</td><td>—</td><td>6 h</td>"
+        "<td>Weeks 15–16</td><td>Weeks 7–8</td><td>Days 26–30</td></tr>"
+    )
+    return f"""
+<section class="front">
+  <h1>Study planner</h1>
+  <p>Pick <b>one</b> track and stay on it. {total_lessons} lessons · {total_gold} Golden ·
+  about <b>{fmt_hours(total_mins)}</b> of chapter work, plus the final week.</p>
+  <p><b>Steady (16 weeks)</b> is the published default: two or three lessons a weekday,
+  chapter paper at the weekend. <b>Term (8 weeks)</b> is one chapter a week.
+  <b>Exam (4 weeks)</b> is Golden first, then papers, then the mock.</p>
+  <table class="planner">
+    <tr><th>Ch</th><th>Title</th><th>Lessons</th><th>★</th><th>Time</th>
+    <th>Steady</th><th>Term</th><th>Exam</th></tr>
+    {''.join(rows)}
+  </table>
+  <p class="ur">ایک ٹریک رکھیں۔ سٹیڈی سولہ ہفتے، ٹرم آٹھ ہفتے، امتحان چار ہفتے۔</p>
+</section>"""
+
+
+def paced_toc(chapters, has_final: bool, gold_n: int):
+    items = []
+    for n, t, topics in chapters:
+        sub = "".join(
+            f"<li>L{i:02d} {html.escape(x)}</li>" for i, x in enumerate(topics, 1)
+        )
+        items.append(
+            f'<li><b>Chapter {n}:</b> {html.escape(t)} — {len(topics)} single-page lessons '
+            f"+ recap + 75-mark exam<ul>{sub}</ul></li>"
+        )
+    if has_final:
+        items.append("<li><b>Final revision:</b> one-page recaps, mock paper and answers</li>")
+    items.append("<li><b>Colophon:</b> how this edition was assembled</li>")
+    return f"""
+<section class="front">
+  <h1>Contents</h1>
+  <p>{gold_n} Golden lessons. On the Exam track, do those first.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def paced_colophon(book, lesson_n: int, gold_n: int):
+    return f"""
+<section class="front colophon">
+  <h1>Colophon</h1>
+  <p>This <b>AIO Self-Paced Teach Yourself Edition</b> of {html.escape(book['title'])}
+  is assembled from the bilingual Sindh lecture notes. It numbers every topic as a lesson,
+  adds a three-track study planner, seals Check yourself answers at the end of each chapter,
+  and keeps the worked explanations, tables, SVG diagrams and Urdu lines of the source.</p>
+  <p>{lesson_n} lessons · {gold_n} Golden · {html.escape(book['curriculum'])} ·
+  English + اردو · A4.</p>
+  <p>Companion volumes in the same series: Student's Edition, Teacher's Edition,
+  Coaching Academy Edition, Cheat Sheets, 30-Day Crash Course, Lecture-Notes Study Guide.</p>
+  <p class="ur">یہ خودآموز مکمل ایڈیشن ہے۔ سبق نمبر والے ہیں، منصوبہ تین رفتار کا ہے، جوابات باب کے آخر میں ہیں۔</p>
+</section>"""
+
+
+def build_paced(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-paced.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_html, goldens, planner = [], [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        topics = extract_class_divs(text, "topic")
+        gold = sum(1 for b in topics if topic_is_golden(topic_title(b), b))
+        chapters.append(meta)
+        chapters_html.append(pacedize_fragment(text))
+        planner.append({"meta": meta, "gold": gold, "mins": chapter_study_mins(topics)})
+        for block in topics:
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = pacedize_fragment(final_path.read_text(encoding="utf-8")) if final_path.exists() else ""
+    lesson_n = sum(len(m[2]) for m in chapters)
+    hours = fmt_hours(sum(p["mins"] for p in planner))
+    doc = wrap_html(
+        f"{book['title']} — AIO Self-Paced Teach Yourself Edition",
+        paced_cover(book, chapters)
+        + paced_imprint(book, chapters, len(goldens), lesson_n, hours)
+        + '<div class="pagebreak"></div>'
+        + intro
+        + '<div class="pagebreak"></div>'
+        + paced_planner(planner)
+        + '<div class="pagebreak"></div>'
+        + paced_toc(chapters, bool(final), len(goldens))
+        + cheat_golden_index(goldens)
+        + "".join(chapters_html)
+        + final
+        + paced_colophon(book, lesson_n, len(goldens)),
+        body_class="paced-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-paced.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-AIO-Self-Paced-Teach-Yourself-Edition.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=50_000, budget_ms=180000)
+    print(f"{key} self-paced AIO -> {pdf_path}")
+    return pdf_path
+
+
+def build_paced_editions(keys: list[str]):
+    paths = [build_paced(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip paced complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"paced complete -> {dest} ({pages} pages)")
+
+
+OL_OPEN = re.compile(r"<ol\b", re.I)
+OL_CLOSE = re.compile(r"</ol>", re.I)
+LI_OPEN = re.compile(r"<li\b", re.I)
+LI_CLOSE = re.compile(r"</li>", re.I)
+
+
+def extract_ol_items(html_text: str, class_name: str, limit: int = 8) -> list[str]:
+    m = re.search(rf'<ol class="{re.escape(class_name)}">', html_text)
+    if not m:
+        return []
+    ol = extract_balanced(html_text, m.start(), OL_OPEN, OL_CLOSE)
+    inner = re.sub(r"^<ol[^>]*>", "", ol, count=1)
+    inner = re.sub(r"</ol>\s*$", "", inner)
+    items, pos = [], 0
+    while len(items) < limit:
+        sm = LI_OPEN.search(inner, pos)
+        if not sm:
+            break
+        block = extract_balanced(inner, sm.start(), LI_OPEN, LI_CLOSE)
+        if not block:
+            break
+        items.append(block)
+        pos = sm.start() + len(block)
+    return items
+
+
+def mcq_key(fragment: str, n: int = 8) -> list[str]:
+    m = re.search(r'<ol class="inline">(.*?)</ol>', fragment, flags=re.S)
+    if not m:
+        return []
+    return [unescape(strip_tags(x)).strip() for x in re.findall(r"<li>(.*?)</li>", m.group(1), flags=re.S) if strip_tags(x).strip()][:n]
+
+
+def short_model_answers(fragment: str, n: int = 3) -> list[str]:
+    m = re.search(
+        r"Short questions — model answers</h3>\s*<ol>(.*?)</ol>", fragment, flags=re.S
+    )
+    if not m:
+        return []
+    items, pos = [], 0
+    inner = m.group(1)
+    while len(items) < n:
+        sm = LI_OPEN.search(inner, pos)
+        if not sm:
+            break
+        block = extract_balanced(inner, sm.start(), LI_OPEN, LI_CLOSE)
+        if not block:
+            break
+        items.append(unescape(strip_tags(block)).strip())
+        pos = sm.start() + len(block)
+    return items
+
+
+def allocate_chapter_days(counts: list[int], total: int = 23) -> list[int]:
+    n = len(counts)
+    s = sum(counts) or 1
+    days = [max(2, round(c / s * total)) for c in counts]
+    while sum(days) > total:
+        i = max(range(n), key=lambda i: days[i] / max(counts[i], 1))
+        if days[i] > 2:
+            days[i] -= 1
+        else:
+            j = max(range(n), key=lambda k: days[k])
+            if days[j] > 2:
+                days[j] -= 1
+            else:
+                break
+    while sum(days) < total:
+        i = max(range(n), key=lambda i: counts[i] / days[i])
+        days[i] += 1
+    return days
+
+
+def chunk_topics(topics: list, n_days: int) -> list[list]:
+    if n_days < 1 or not topics:
+        return []
+    n = len(topics)
+    n_days = min(n_days, n)
+    sizes = [n // n_days] * n_days
+    for i in range(n % n_days):
+        sizes[i] += 1
+    out, i = [], 0
+    for sz in sizes:
+        out.append(topics[i:i + sz])
+        i += sz
+    return out
+
+
+def crash_cover(book, chapters):
+    units = "".join(
+        f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters
+    )
+    return f"""
+<section class="cover crash-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">30-DAY CRASH COURSE</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Complete preparatory material in 30 days &mdash; daily 3-hour plans,
+  ★ Golden first, weekly checkpoints, mock paper and repair day.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">تیس دن کا کریش کورس — روزانہ منصوبہ، گولڈن، ماک پیپر</div>
+  <div class="units">{units}</div>
+  <div class="foot">Crash Course &middot; {book['curriculum']} &middot;
+  Days 1–23 teach · 24–30 revise, mock, repair. Not a textbook.</div>
+</section>"""
+
+
+def crash_calendar(rows: list[dict]) -> str:
+    body = []
+    last_week = 0
+    for r in rows:
+        wk = r["week"]
+        mark = f'<tr class="wk"><td colspan="4">Week {wk}</td></tr>' if wk != last_week else ""
+        last_week = wk
+        body.append(
+            f"{mark}<tr><td>Day {r['day']:02d}</td><td>{html.escape(r['focus'])}</td>"
+            f"<td>{html.escape(r['kind'])}</td><td>{html.escape(r['star'])}</td></tr>"
+        )
+    return f"""
+<section class="front">
+  <h1>30-day calendar</h1>
+  <p>Tick each day after the 3-hour block. Do not skip checkpoint or mock days.</p>
+  <table class="crash-cal">
+    <tr><th>Day</th><th>Focus</th><th>Kind</th><th>★ Golden today</th></tr>
+    {''.join(body)}
+  </table>
+</section>"""
+
+
+def day_plan_box(day: dict) -> str:
+    titles = [short_topic_name(t["title"]) for t in day.get("topics", [])]
+    names = " · ".join(html.escape(x) for x in titles[:8])
+    gold = [short_topic_name(t["title"]) for t in day.get("topics", []) if t["golden"]]
+    extra = day.get("extra", "")
+    kind = day.get("kind", "Teach")
+    if day.get("topics"):
+        gold_s = ", ".join(html.escape(x) for x in gold) if gold else "none — still copy every table"
+        behind = "<p>If behind, skip non-Golden. Phone in another room.</p>"
+    else:
+        gold_s = html.escape(day.get("star") or "—")
+        behind = "<p>Phone in another room.</p>"
+    if kind in ("Checkpoint", "Chapter exam"):
+        clock = (
+            "0–15 min recap yesterday ★ · 15–60 min remaining cards · "
+            "60–135 min closed-book chapter exam (75 marks) · 135–180 min mark and rewrite missed Goldens."
+        )
+    elif kind == "Golden blitz":
+        clock = (
+            "0–15 min recap · 15–150 min ★ Golden cards only (write every table from memory) · "
+            "150–180 min one 5-mark Golden answer."
+        )
+    elif kind == "Recap":
+        clock = (
+            "0–20 min skim the recap pages · 20–150 min say each chapter aloud, book closed · "
+            "150–180 min rewrite any line you could not say."
+        )
+    elif kind == "Mock":
+        clock = (
+            "Sit the mock in 2 hours 30 minutes. Hall conditions: no notes, no phone, no Day 29 peeking. "
+            "Use the leftover 30 minutes to pack the paper — do not mark it today."
+        )
+    elif kind == "Mark":
+        clock = (
+            "0–90 min mark the mock to the key · 90–150 min fill the repair list · "
+            "150–180 min rewrite one missed Golden from memory."
+        )
+    elif kind == "Repair":
+        clock = (
+            "Redo only the Day 29 repair list. Stop at 6 pm. Sleep by 10 pm. No new topic."
+        )
+    else:
+        clock = (
+            "0–15 min recap yesterday ★ · 15–105 min today's cards · "
+            "105–135 min closed-book drill · 135–180 min one 5-mark homework."
+        )
+    return f"""
+    <div class="box day">
+      <p><b>3 hours.</b> {clock}</p>
+      <p><b>Cover:</b> {names or html.escape(day['focus'])}</p>
+      <p><b>★ Must lock:</b> {gold_s}</p>
+      {behind}
+      {extra}
+    </div>"""
+
+
+def day_drill_box(topics: list[dict]) -> str:
+    qs, answers = [], []
+    for t in topics:
+        prompts = check_prompts(t["block"])
+        if prompts:
+            qs.append(prompts[0])
+            answers.append(first_check_answer(t["block"]) or first_sentence(extract_box_text(t["block"], "learn")))
+        if len(qs) >= 6:
+            break
+    if not qs:
+        return ""
+    items = "".join(f"<li>{html.escape(q)}</li>" for q in qs)
+    key = " ".join(f"{i}. {html.escape(clip_text(a, 120))}" for i, a in enumerate(answers, 1))
+    hw_topic = next((t for t in topics if t["golden"]), topics[0])
+    hw = short_topic_name(hw_topic["title"])
+    return f"""
+    <div class="box drill">
+      <p><b>Closed book, 30 minutes.</b> Then mark with the answers under this box.</p>
+      <ol>{items}</ol>
+      <div class="ans">Answers: {key}</div>
+    </div>
+    <div class="box hw">
+      <p>Write a 5-mark answer on <b>{html.escape(hw)}</b> using Define · Explain · Example · Diagram · Working.
+      Tomorrow's 0–15 min is you reciting it without notes.</p>
+      <p class="ur">پانچ نمبر کا جواب ترکیب کے ساتھ لکھیں؛ کل زبانی سنائیں۔</p>
+    </div>"""
+
+
+def checkpoint_box(ch: dict) -> str:
+    topics = [t["block"] for t in ch.get("topics", [])]
+    exam = chapter_exam_after(ch["fragment"], topics)
+    if not exam:
+        return ""
+    return exam
+
+
+def crash_day_html(day: dict) -> str:
+    cards = "".join(cheat_card(t["block"]) for t in day.get("topics", []))
+    drill = day_drill_box(day["topics"]) if day.get("topics") and day["kind"] in ("Teach", "Checkpoint") else ""
+    check = day.get("checkpoint", "")
+    extra_html = day.get("body", "")
+    return f"""
+<section class="chapter crash-chapter">
+  <header class="crash-head">
+    <div class="num">Day {day['day']:02d} of 30 · Week {day['week']}</div>
+    <h1>{html.escape(day['title'])}</h1>
+    <p class="meta">{html.escape(day['focus'])} · {html.escape(day['kind'])} · 3 hours</p>
+  </header>
+  {day_plan_box(day)}
+  <div class="cheat-grid">{cards}</div>
+  {drill}
+  {check}
+  {extra_html}
+</section>"""
+
+
+def extract_mock_parts(fragment: str) -> tuple[str, str]:
+    review = extract_review(fragment)
+    if not review:
+        return "", ""
+    parts = re.split(r'<div class="answers">', review, maxsplit=1)
+    questions = parts[0]
+    questions = re.sub(r"^<section[^>]*>", "", questions, count=1)
+    answers = ('<div class="answers">' + parts[1]) if len(parts) > 1 else ""
+    answers = re.sub(r"</section>\s*$", "", answers)
+    return questions, answers
+
+
+def extract_recaps_html(fragment: str) -> str:
+    recaps = []
+    for m in re.finditer(
+        r"<h2>(.*?)</h2>\s*<ul class=\"summary\">(.*?)</ul>", fragment, flags=re.S
+    ):
+        recaps.append(f"<h2>{m.group(1)}</h2><ul class=\"summary\">{m.group(2)}</ul>")
+    return "".join(recaps)
+
+
+def load_crash_chapters(key: str) -> list[dict]:
+    folder = SRC / key
+    out = []
+    for f in sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group())):
+        text = f.read_text(encoding="utf-8")
+        num, title, _ = chapter_meta(text)
+        topics = []
+        for block in extract_class_divs(text, "topic"):
+            raw = topic_title(block)
+            topics.append({
+                "title": re.sub(r"\s*★.*", "", raw).strip(),
+                "golden": topic_is_golden(raw, block),
+                "block": block,
+                "ch": num,
+            })
+        out.append({"num": num, "title": title, "fragment": text, "topics": topics})
+    return out
+
+
+def build_crash_days(chapters: list[dict], final_html: str) -> list[dict]:
+    counts = [len(c["topics"]) for c in chapters]
+    day_ns = allocate_chapter_days(counts, 23)
+    days = []
+    day_no = 1
+    for ch, n_days in zip(chapters, day_ns):
+        chunks = chunk_topics(ch["topics"], n_days)
+        for i, chunk in enumerate(chunks):
+            last = i == len(chunks) - 1
+            gold = [short_topic_name(t["title"]) for t in chunk if t["golden"]]
+            kind = "Chapter exam" if last else "Teach"
+            days.append({
+                "day": day_no,
+                "week": (day_no - 1) // 5 + 1,
+                "title": f"Chapter {ch['num']}: {ch['title']}",
+                "focus": f"{ch['title']} ({i + 1}/{len(chunks)})",
+                "kind": kind,
+                "star": ", ".join(gold) or "—",
+                "topics": chunk,
+                "checkpoint": checkpoint_box(ch) if last else "",
+            })
+            day_no += 1
+    groups = [(24, "Chapters 1–2", [1, 2]), (25, "Chapters 3–4", [3, 4]), (26, "Chapters 5–6", [5, 6])]
+    by_num = {c["num"]: c for c in chapters}
+    for d, label, nums in groups:
+        golds = []
+        for n in nums:
+            ch = by_num.get(n)
+            if not ch:
+                continue
+            golds.extend([t for t in ch["topics"] if t["golden"]] or ch["topics"][:2])
+        days.append({
+            "day": d,
+            "week": 5 if d == 24 else 6,
+            "title": f"Golden blitz — {label}",
+            "focus": f"★ only · {label}",
+            "kind": "Golden blitz",
+            "star": f"{len(golds)} Golden cards",
+            "topics": golds,
+            "extra": "<p>Write every table and diagram on this day from memory on scrap paper, then check the cards.</p>",
+        })
+    recaps = extract_recaps_html(final_html)
+    mock_q, mock_a = extract_mock_parts(final_html)
+    days.append({
+        "day": 27,
+        "week": 6,
+        "title": "Night-before recaps",
+        "focus": "Say every chapter recap aloud, book closed",
+        "kind": "Recap",
+        "star": "All chapters",
+        "topics": [],
+        "body": recaps or "<p>Use the chapter summaries in this book.</p>",
+        "extra": "<p>No new cards. Recite, close the booklet, recite again.</p>",
+    })
+    days.append({
+        "day": 28,
+        "week": 6,
+        "title": "Mock paper — hall conditions",
+        "focus": "2 hours 30 minutes · 75 marks · no notes",
+        "kind": "Mock",
+        "star": "Whole syllabus",
+        "topics": [],
+        "body": mock_q or "<p>Sit a past paper in 2 hours 30 minutes.</p>",
+        "extra": "<p>Invigilate yourself. No phone, no notes, no Day 29 peeking.</p>",
+    })
+    days.append({
+        "day": 29,
+        "week": 6,
+        "title": "Mark the mock · repair list",
+        "focus": "Mark to the key. List every ★ Golden you missed.",
+        "kind": "Mark",
+        "star": "Missed Goldens",
+        "topics": [],
+        "body": (mock_a or "") + """
+        <div class="box repair">
+          <p><b>Repair list.</b> Copy every Golden you scored 0 or half on.
+          Tomorrow you redo only this list — not the whole book.</p>
+          <table class="crash-cal">
+            <tr><th>#</th><th>Golden topic missed</th><th>What I will rewrite from memory</th></tr>
+            <tr><td>1</td><td></td><td></td></tr>
+            <tr><td>2</td><td></td><td></td></tr>
+            <tr><td>3</td><td></td><td></td></tr>
+            <tr><td>4</td><td></td><td></td></tr>
+            <tr><td>5</td><td></td><td></td></tr>
+            <tr><td>6</td><td></td><td></td></tr>
+          </table>
+        </div>""",
+        "extra": "<p>An answer with no working, no diagram or no example cannot score full marks.</p>",
+    })
+    days.append({
+        "day": 30,
+        "week": 6,
+        "title": "Repair day · then stop",
+        "focus": "Redo the Day 29 list only. Sleep by 10 pm.",
+        "kind": "Repair",
+        "star": "Missed Goldens only",
+        "topics": [],
+        "extra": """<p>No new chapter. No new non-Golden card. Redo each missed Golden:
+        say the definition, draw the table, write one 5-mark answer.</p>
+        <p>Stop at 6 pm. Pack your pen, ruler and this booklet's Golden cards in your head — not in the hall.</p>
+        <p class="ur">نیا باب نہ کھولیں۔ صرف چھوٹی گولڈن دہرائیں۔ دس بجے سو جائیں۔</p>""",
+    })
+    return days
+
+
+def build_crash(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    chapters = load_crash_chapters(key)
+    final = (folder / "final.html").read_text(encoding="utf-8") if (folder / "final.html").exists() else ""
+    days = build_crash_days(chapters, final)
+    intro = (SRC / "how-to-use-crash.html").read_text(encoding="utf-8")
+    cal_rows = [{
+        "day": d["day"], "week": d["week"], "focus": d["focus"],
+        "kind": d["kind"], "star": d["star"],
+    } for d in days]
+    meta = [(c["num"], c["title"], [t["title"] for t in c["topics"]]) for c in chapters]
+    doc = wrap_html(
+        f"{book['title']} — 30-Day Crash Course",
+        crash_cover(book, meta)
+        + crash_calendar(cal_rows)
+        + intro
+        + "".join(crash_day_html(d) for d in days),
+        body_class="crash-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-crash.html"
+    pdf_path = ROOT.parent / "releases" / f"CS-{book['grade']}-30-Day-Crash-Course.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=40_000, budget_ms=180000)
+    print(f"{key} crash course -> {pdf_path}")
+    return pdf_path
+
+
+def build_crash_courses(keys: list[str]):
+    paths = [build_crash(k) for k in keys]
+    paths = [p for p in paths if p and p.exists()]
+    if len(paths) < 2:
+        return
+    try:
+        import pymupdf
+    except ImportError:
+        print("skip crash complete merge (pymupdf not installed)")
+        return
+    dest = ROOT.parent / "releases" / "CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf"
+    out = pymupdf.open()
+    for p in paths:
+        out.insert_file(p)
+    out.save(dest, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    print(f"crash complete -> {dest} ({pages} pages)")
+
+
+def short_urdu(text: str, limit: int = 110) -> str:
+    text = re.sub(r"\s+", " ", text).strip()
+    if not text:
+        return ""
+    for sep in ("۔", "؟", "!"):
+        if sep in text:
+            piece = text.split(sep)[0].strip() + sep
+            if 12 <= len(piece) <= limit + 20:
+                return piece
+    if len(text) <= limit:
+        return text
+    return text[:limit].rstrip(" ،,") + "…"
+
+
+def lecture_banner(book, ch_num, ch_title, index, total, title, golden, urdu):
+    star = '<span class="chip golden">★ Golden</span>' if golden else ""
+    ur = f'<p class="ur">{html.escape(short_urdu(urdu))}</p>' if urdu else ""
+    return f"""
+<header class="lecture-banner">
+    <div class="kicker">BIEK Computer Science lecture</div>
+  <h1>{html.escape(title.replace("★ Golden", "").replace("★", "").strip())}</h1>
+  {ur}
+  <div class="chips">
+    <span class="chip">CS {book['grade']}</span>
+    <span class="chip">Chapter {ch_num}: {html.escape(ch_title)}</span>
+    <span class="chip">Lecture {index:02d} of {total}</span>
+    {star}
+  </div>
+</header>"""
+
+
+def chapter_cover(book, ch_num, ch_title, topics, kind="Chapter lecture"):
+    n = len(topics)
+    units = (
+        f"<div><b>{n:02d}</b> book lectures in this pack</div>"
+        f"<div><b>★</b>Golden topics, Urdu notes, review and answer key</div>"
+    )
+    return f"""
+<section class="cover lecture-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">BIEK COMPUTER SCIENCE LECTURE</span>
+  <h1>Lecture {ch_num:02d}<br>{html.escape(ch_title)}</h1>
+  <p class="sub">{html.escape(kind)} &mdash; {n} topics with explanations, worked examples,
+  Urdu notes, practice questions and a full answer key.</p>
+  <p class="sub">{book['title']} · Bilingual support: English + اردو</p>
+  <div class="ur">{book['urdu']}</div>
+  <div class="units">{units}</div>
+  <div class="foot">{book['curriculum']} · Based on the Bilingual Teacher's Edition lecture notes ·
+  ★ marks Golden (high-yield) exam topics.</div>
+</section>"""
+
+
+def chapter_contents(ch_num, ch_title, topics):
+    items = "".join(
+        f"<li><b>L{i:02d}.</b> {html.escape(t)}</li>" for i, t in enumerate(topics, 1)
+    )
+    return f"""
+  <h2>Lectures in this pack</h2>
+  <p>Chapter {ch_num}: {html.escape(ch_title)}. Study one lecture at a time, then use the chapter
+  review and answer key at the end of this PDF.</p>
+  <ol class="toc lecture-index">{items}</ol>
+"""
+
+
+def parse_book_lectures(key: str):
+    book = BOOKS[key]
+    folder = SRC / key
+    how = (SRC / "how-to-use-lecture.html").read_text(encoding="utf-8")
+    items = []
+    ch_files = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    for path in ch_files:
+        fragment = apply_biek_chapter(key, path.read_text(encoding="utf-8"))
+        ch_num, ch_title, _ = chapter_meta(fragment)
+        topics = extract_class_divs(fragment, "topic")
+        titles = [re.sub(r"\s*★.*", "", topic_title(b)).strip() for b in topics]
+        opener = extract_opener(fragment)
+        review = extract_review(fragment)
+        packed_how = how.replace("</section>", chapter_contents(ch_num, ch_title, titles) + "</section>", 1)
+        items.append({
+            "kind": "chapter",
+            "key": key,
+            "ch_num": ch_num,
+            "ch_title": ch_title,
+            "topics": titles,
+            "html_name": f"{key}-ch{ch_num:02d}.html",
+            "pdf_name": f"CS-{book['grade']}-Lecture-{ch_num:02d}-{slugify(ch_title)}.pdf",
+            "rel_dir": key,
+            "body": (
+                chapter_cover(book, ch_num, ch_title, titles)
+                + packed_how
+                + lecture_pack_fragment(fragment)
+            ),
+            "title": f"{book['title']} · Lecture {ch_num:02d}: {ch_title}",
+            "golden": False,
+            "index": ch_num,
+            "total": len(ch_files),
+            "budget": 180000,
+            "min_bytes": 30_000,
+        })
+        total = len(topics)
+        for i, block in enumerate(topics, 1):
+            raw_title = topic_title(block)
+            title = re.sub(r"\s*★.*", "", raw_title).strip()
+            golden = topic_is_golden(raw_title, block)
+            urdu = topic_urdu(block)
+            nxt = titles[i] if i < total else "Chapter exam (in the chapter lecture PDF)"
+            nxt_html = (
+                f'<p class="lecture-next">Next lecture: {html.escape(nxt)}</p>' if nxt else ""
+            )
+            body = (
+                lecture_banner(book, ch_num, ch_title, i, total, raw_title, golden, urdu)
+                + f'<section class="lecture-body">{block}{nxt_html}</section>'
+            )
+            items.append({
+                "kind": "topic",
+                "key": key,
+                "ch_num": ch_num,
+                "ch_title": ch_title,
+                "html_name": f"{key}-ch{ch_num:02d}-l{i:02d}.html",
+                "pdf_name": f"CS-{book['grade']}-Ch{ch_num:02d}-L{i:02d}-{slugify(title)}.pdf",
+                "rel_dir": f"{key}/ch{ch_num:02d}",
+                "body": body,
+                "title": title,
+                "golden": golden,
+                "index": i,
+                "total": total,
+            "budget": 60000,
+            "min_bytes": 12_000,
+                "topics": [title],
+            })
+    final_path = folder / "final.html"
+    if final_path.exists():
+        fragment = final_path.read_text(encoding="utf-8")
+        _n, final_title, _ = chapter_meta(fragment)
+        items.append({
+            "kind": "final",
+            "key": key,
+            "ch_num": 7,
+            "ch_title": final_title,
+            "topics": [final_title],
+            "html_name": f"{key}-final.html",
+            "pdf_name": f"CS-{book['grade']}-Lecture-07-{slugify(final_title)}.pdf",
+            "rel_dir": key,
+            "body": chapter_cover(book, 7, final_title, [final_title], kind="Final revision lecture")
+            + how
+            + fragment,
+            "title": f"{book['title']} · {final_title}",
+            "golden": False,
+            "index": 7,
+            "total": 7,
+            "budget": 60000,
+            "min_bytes": 20_000,
+        })
+    return items
+
+
+def catalog_html(key: str, items: list[dict]) -> str:
+    book = BOOKS[key]
+    rows = []
+    for it in items:
+        mark = "★" if it.get("golden") else ""
+        if it["kind"] == "topic":
+            code = f"Ch{it['ch_num']:02d}-L{it['index']:02d}"
+            label = it["title"]
+        elif it["kind"] == "final":
+            code = "Lecture 07"
+            label = it["ch_title"]
+        else:
+            code = f"Lecture {it['ch_num']:02d}"
+            label = it["ch_title"]
+        rows.append(
+            f"<tr><td>{html.escape(code)}</td><td>{html.escape(it['pdf_name'])}</td>"
+            f"<td>{html.escape(label)} {mark}</td></tr>"
+        )
+    body = f"""
+<section class="cover lecture-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">BIEK COMPUTER SCIENCE LECTURES</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">One PDF per lecture &mdash; plus a full chapter pack for each unit.</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">{book['urdu']}</div>
+  <div class="foot">{book['curriculum']} · {len(items)} lecture PDFs</div>
+</section>
+<section class="front catalog">
+  <h1>Lecture index</h1>
+  <p>Chapter packs are named <b>Lecture 01–06</b>. Individual topics are <b>ChNN-LNN</b>.
+  ★ marks Golden (high-yield) exam topics.</p>
+  <table>
+    <tr><th>Code</th><th>File</th><th>Title</th></tr>
+    {''.join(rows)}
+  </table>
+</section>"""
+    return wrap_html(f"{book['title']} — BIEK Computer Science Lectures", body, "study-guide")
+
+
+def edition_index_md() -> str:
+    z = ZIP_RAW
+    return f"""
+**Direct download (no GitHub preview):** use the `raw.githubusercontent.com` links below — they save the PDF.
+
+Each edition keeps **one topic on one A4 page** (academy classes stay a full 90-minute write-up) and ends every chapter with a thorough **75-mark closed-book exam**.
+
+## AIO Self-Paced Teach Yourself Edition
+
+- [CS XI AIO Self-Paced Teach Yourself Edition (168 pages)]({z}/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [CS XII AIO Self-Paced Teach Yourself Edition (169 pages)]({z}/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf)
+- [XI + XII AIO Self-Paced Teach Yourself Edition complete (337 pages)]({z}/CS-XI-and-XII-AIO-Self-Paced-Teach-Yourself-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py paced`
+
+## Student's Edition and Teacher's Edition
+
+- [CS XI Student's Edition (163 pages)]({z}/CS-XI-Students-Edition.pdf)
+- [CS XII Student's Edition (164 pages)]({z}/CS-XII-Students-Edition.pdf)
+- [CS XI Teacher's Edition (163 pages)]({z}/CS-XI-Teachers-Edition.pdf)
+- [CS XII Teacher's Edition (164 pages)]({z}/CS-XII-Teachers-Edition.pdf)
+- [XI + XII Student's Edition complete (327 pages)]({z}/CS-XI-and-XII-Students-Edition-Complete.pdf)
+- [XI + XII Teacher's Edition complete (327 pages)]({z}/CS-XI-and-XII-Teachers-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py editions`
+
+## Coaching Academy Edition
+
+- [CS XI Coaching Academy Edition (298 pages)]({z}/CS-XI-Coaching-Academy-Edition.pdf)
+- [CS XII Coaching Academy Edition (302 pages)]({z}/CS-XII-Coaching-Academy-Edition.pdf)
+- [XI + XII Coaching Academy Edition complete (600 pages)]({z}/CS-XI-and-XII-Coaching-Academy-Edition-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py academy`
+
+## Cheat Sheets
+
+- [CS XI Cheat Sheets (153 pages)]({z}/CS-XI-Cheat-Sheets.pdf)
+- [CS XII Cheat Sheets (154 pages)]({z}/CS-XII-Cheat-Sheets.pdf)
+- [XI + XII Cheat Sheets complete (307 pages)]({z}/CS-XI-and-XII-Cheat-Sheets-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py cheat`
+
+## 30-Day Crash Course
+
+- [CS XI 30-Day Crash Course (248 pages)]({z}/CS-XI-30-Day-Crash-Course.pdf)
+- [CS XII 30-Day Crash Course (235 pages)]({z}/CS-XII-30-Day-Crash-Course.pdf)
+- [XI + XII 30-Day Crash Course complete (483 pages)]({z}/CS-XI-and-XII-30-Day-Crash-Course-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py crash`
+
+## Lecture-Notes Study Guide
+
+- [CS XI Lecture-Notes Study Guide (159 pages)]({z}/CS-XI-Lecture-Notes-Study-Guide.pdf)
+- [CS XII Lecture-Notes Study Guide (159 pages)]({z}/CS-XII-Lecture-Notes-Study-Guide.pdf)
+- [XI + XII Lecture-Notes Study Guide complete (318 pages)]({z}/CS-XI-and-XII-Lecture-Notes-Study-Guide-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py notes`
+
+## All-in-one PDFs (whole grade in one file)
+
+- [CS XI Teach Yourself — All-in-One (163 pages)]({z}/CS-XI-Teach-Yourself-All-in-One.pdf)
+- [CS XII Teach Yourself — All-in-One (164 pages)]({z}/CS-XII-Teach-Yourself-All-in-One.pdf)
+- [CS XI + XII complete (327 pages)]({z}/CS-XI-and-XII-Teach-Yourself-Complete.pdf)
+
+Rebuild: `python3 booklets/build.py`
+"""
+
+
+def write_index_md(all_items: dict[str, list[dict]]):
+    RELEASES.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# BIEK Computer Science Lectures (PDF)",
+        "",
+        "Standalone **BIEK Computer Science** lecture PDFs for Class XI and XII "
+        "(New Sindh Curriculum / STBB textbooks). Each PDF follows one textbook lecture; each chapter also has "
+        "a packed lecture PDF. Extra MCQs / short / long questions sit after the book notes. "
+        "Career-only extras that were not in the book lecture list are omitted.",
+        "",
+        "Rebuild: `python3 booklets/build.py lectures`",
+        "",
+        "## Combined lecture books",
+        "",
+        f"- [CS XI BIEK Lectures]({ZIP_RAW}/CS-XI-BIEK-Lectures.pdf)",
+        f"- [CS XII BIEK Lectures]({ZIP_RAW}/CS-XII-BIEK-Lectures.pdf)",
+        f"- [XI + XII complete]({ZIP_RAW}/CS-XI-and-XII-BIEK-Lectures.pdf)",
+        "",
+        "## Chapter lecture packs",
+        "",
+    ]
+    for key, items in all_items.items():
+        book = BOOKS[key]
+        lines.append(f"### {book['title']}")
+        lines.append("")
+        for it in items:
+            if it["kind"] not in ("chapter", "final"):
+                continue
+            url = f"{RAW}/{it['rel_dir']}/{it['pdf_name']}"
+            lines.append(f"- [Lecture {it['ch_num']:02d}: {it['ch_title']}]({url})")
+        lines.append("")
+        lines.append(f"- [Lecture index PDF]({RAW}/{key}/CS-{book['grade']}-Lecture-Index.pdf)")
+        lines.append(f"- [All {book['grade']} lectures (zip)]({ZIP_RAW}/CS-{book['grade']}-BIEK-Lectures.zip)")
+        lines.append("")
+        lines.append("<details><summary>Individual topic lectures</summary>")
+        lines.append("")
+        current = None
+        for it in items:
+            if it["kind"] != "topic":
+                continue
+            if it["ch_num"] != current:
+                current = it["ch_num"]
+                lines.append(f"**Chapter {current}: {it['ch_title']}**")
+                lines.append("")
+            star = " ★" if it["golden"] else ""
+            url = f"{RAW}/{it['rel_dir']}/{it['pdf_name']}"
+            lines.append(f"- [L{it['index']:02d} {it['title']}]({url}){star}")
+        lines.append("")
+        lines.append("</details>")
+        lines.append("")
+    (RELEASES / "README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def stitch_pdfs(paths: list[Path], dest: Path) -> int:
+    """Concatenate existing PDFs into dest. Returns page count."""
+    import pymupdf
+
+    missing = [p for p in paths if not p.exists()]
+    if missing:
+        raise FileNotFoundError("Missing PDFs to merge:\n" + "\n".join(str(p) for p in missing))
+    out = pymupdf.open()
+    for p in paths:
+        src = pymupdf.open(p)
+        out.insert_pdf(src)
+        src.close()
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(".tmp.pdf")
+    out.save(tmp, deflate=True, garbage=3)
+    pages = out.page_count
+    out.close()
+    tmp.replace(dest)
+    return pages
+
+
+def grade_pack_paths(key: str, items: list[dict]) -> list[Path]:
+    """Index + chapter packs + final (not per-topic PDFs, which would duplicate)."""
+    book = BOOKS[key]
+    paths = [RELEASES / key / f"CS-{book['grade']}-Lecture-Index.pdf"]
+    for it in items:
+        if it["kind"] in ("chapter", "final"):
+            paths.append(RELEASES / it["rel_dir"] / it["pdf_name"])
+    return paths
+
+
+def merge_lecture_books(keys: list[str], parsed: dict[str, list[dict]] | None = None):
+    """One lecture book PDF per grade, plus XI+XII complete."""
+    if parsed is None:
+        parsed = {key: parse_book_lectures(key) for key in keys}
+    grade_pdfs = []
+    for key in keys:
+        dest = ROOT.parent / "releases" / BOOKS[key]["file"]
+        pages = stitch_pdfs(grade_pack_paths(key, parsed[key]), dest)
+        print(f"merged {key} lectures -> {dest} ({pages} pages)")
+        grade_pdfs.append(dest)
+    if len(grade_pdfs) >= 2:
+        dest = ROOT.parent / "releases" / "CS-XI-and-XII-BIEK-Lectures.pdf"
+        pages = stitch_pdfs(grade_pdfs, dest)
+        print(f"merged XI+XII lectures -> {dest} ({pages} pages)")
+
+
+def zip_grade(key: str, pdf_paths: list[Path]):
+    book = BOOKS[key]
+    zip_path = RELEASES.parent / f"CS-{book['grade']}-BIEK-Lectures.zip"
+    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for p in pdf_paths:
+            zf.write(p, arcname=f"{book['grade']}/{p.relative_to(RELEASES)}")
+    print(f"zip -> {zip_path} ({zip_path.stat().st_size} bytes)")
+
+
+def build_lectures(keys: list[str], workers: int = 3):
+    how_exists = (SRC / "how-to-use-lecture.html").exists()
+    if not how_exists:
+        raise SystemExit("missing booklets/src/how-to-use-lecture.html")
+    OUT.mkdir(exist_ok=True)
+    html_root = OUT / "lectures"
+    html_root.mkdir(exist_ok=True)
+    RELEASES.mkdir(parents=True, exist_ok=True)
+
+    parsed = {key: parse_book_lectures(key) for key in keys}
+    jobs = []
+    copied: dict[str, list[Path]] = {k: [] for k in keys}
+
+    for key, items in parsed.items():
+        catalog_name = f"CS-{BOOKS[key]['grade']}-Lecture-Index.pdf"
+        cat_html = html_root / f"{key}-index.html"
+        cat_pdf = RELEASES / key / catalog_name
+        jobs.append({
+            "html": catalog_html(key, items),
+            "html_path": cat_html,
+            "pdf_path": cat_pdf,
+            "min_bytes": 20_000,
+            "budget": 60000,
+            "label": f"{key} index",
+            "key": key,
+        })
+        copied[key].append(cat_pdf)
+        for it in items:
+            jobs.append({
+                "html": wrap_html(it["title"], it["body"], "study-guide"),
+                "html_path": html_root / it["html_name"],
+                "pdf_path": RELEASES / it["rel_dir"] / it["pdf_name"],
+                "min_bytes": it["min_bytes"],
+                "budget": it["budget"],
+                "label": it["pdf_name"],
+                "key": key,
+            })
+            copied[key].append(RELEASES / it["rel_dir"] / it["pdf_name"])
+
+    print(f"Printing {len(jobs)} lecture PDFs with {workers} Chrome workers…")
+    failed = []
+
+    def run(job):
+        print_job(job["html"], job["html_path"], job["pdf_path"], job["min_bytes"], job["budget"])
+        drop_blank_pages(job["pdf_path"])
+        return job["label"], job["pdf_path"].stat().st_size
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futs = {pool.submit(run, job): job for job in jobs}
+        done = 0
+        for fut in as_completed(futs):
+            job = futs[fut]
+            done += 1
+            try:
+                label, size = fut.result()
+                print(f"  [{done}/{len(jobs)}] {label} ({size} bytes)")
+            except Exception as exc:
+                failed.append((job["label"], str(exc)))
+                print(f"  [{done}/{len(jobs)}] FAIL {job['label']}: {exc}")
+
+    if failed:
+        print(f"Retrying {len(failed)} failed jobs serially…")
+        still = []
+        lookup = {j["label"]: j for j in jobs}
+        for label, _ in failed:
+            job = lookup[label]
+            try:
+                print_job(job["html"], job["html_path"], job["pdf_path"], job["min_bytes"], job["budget"])
+                print(f"  recovered {label}")
+            except Exception as exc:
+                still.append((label, str(exc)))
+        if still:
+            raise SystemExit("Failed PDFs:\n" + "\n".join(f"- {a}: {b}" for a, b in still))
+
+    write_index_md(parsed)
+    for key in keys:
+        existing = [p for p in copied[key] if p.exists()]
+        zip_grade(key, existing)
+    merge_lecture_books(keys, parsed)
+    print("Lecture PDFs ready in", RELEASES)
+
+
+def hide_check_answers(block: str) -> str:
+    ans_m = re.search(r'<div class="ans">(.*?)</div>', block, flags=re.S)
+    if not ans_m:
+        return block
+    return (
+        block[: ans_m.start()]
+        + '<div class="ans write-here">Write your answers in your notebook. '
+        "The key follows this chapter’s exam.</div>"
+        + block[ans_m.end() :]
+    )
+
+
+def combo_session_kind(item: dict) -> str:
+    share = item.get("share") or "full"
+    partner = short_topic_name(item["partner"]) if item.get("partner") else ""
+    if share == "first-half":
+        return f"45 min · first half · with {partner}"
+    if share == "second-half":
+        return f"45 min · second half · with {partner}"
+    if item.get("golden"):
+        return "90 min · full Golden class"
+    return "90 min · single class"
+
+
+def combo_track_box(block: str, n: int, total: int, item: dict, session_total: int) -> str:
+    golden = topic_is_golden(topic_title(block), block)
+    mins = 25 if golden else 15
+    board = first_sentence(extract_box_text(block, "learn"))
+    qs = check_prompts(block)
+    ask = ""
+    if qs:
+        ask = " Ask: " + " ".join(f"{i}. {html.escape(q)}" for i, q in enumerate(qs[:3], 1))
+    board_bit = html.escape(board) if board else "definition + table or diagram"
+    kind = combo_session_kind(item)
+    star = " ★" if golden else ""
+    return f"""
+    <div class="box combo-track">
+      <div class="two-col">
+        <div>
+          <p><b>Self-taught.</b> {mins} minutes{star}. Read Learn it. Cover the example
+          and redo it. Write Check yourself in your notebook. Do not open the chapter key.</p>
+        </div>
+        <div>
+          <p><b>Coach / teacher.</b> Class {item['session']:02d} of {session_total:02d} · {html.escape(kind)}.
+          Board: {board_bit}.{ask}</p>
+        </div>
+      </div>
+      <p><b>Full-mark recipe.</b> Define · Explain · Example · Diagram · Working.</p>
+    </div>"""
+
+
+def as_complete_lesson(
+    block: str, n: int, total: int, ch_num: int, part: str, item: dict, session_total: int
+) -> str:
+    block = hide_check_answers(block)
+    golden = topic_is_golden(topic_title(block), block)
+    star = ' · <span class="star">★ Golden</span>' if golden else ""
+    label = "Golden topic" if part == "golden" else "Lesson"
+    mins = 25 if golden else 15
+    head = (
+        f'<div class="lesson-head{" golden" if golden else ""}">'
+        f'<div class="num">{label} {n:02d} of {total:02d} · Chapter {ch_num} · '
+        f"Class {item['session']:02d} · {mins} minutes{star}</div></div>"
+    )
+    strip = combo_track_box(block, n, total, item, session_total)
+    block = re.sub(r"(<h2[^>]*>.*?</h2>)", head + r"\1" + strip, block, count=1, flags=re.S)
+    cls = "topic complete-lesson"
+    if golden:
+        cls += " is-golden"
+    block = re.sub(r'<div class="topic[^"]*"', f'<div class="{cls}"', block, count=1)
+    return block
+
+
+def complete_cover(book, chapters, gold_n: int, lesson_n: int, class_n: int):
+    units = "".join(f"<div><b>{n:02d}</b>{html.escape(t)}</div>" for n, t, _ in chapters)
+    return f"""
+<section class="cover complete-cover combo-cover">
+  <div class="grade">{book['grade']}</div>
+  <span class="tag">COMBO EDITION · STUDY GUIDE</span>
+  <h1>{book['title']}</h1>
+  <p class="sub">Self-Taught / Coaching-Academy Bootcamp &mdash; one official book for students and teachers.
+  Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside each chapter, then that chapter’s exam.</p>
+  <p class="sub">{lesson_n} lecture notes · {gold_n} Golden concepts · {class_n} academy classes · six papers + mock</p>
+  <p class="sub">Bilingual support: English + اردو</p>
+  <div class="ur">مشترکہ اسٹڈی گائیڈ — خود سیکھیں یا اکیڈمی بوٹ کیمپ، گولڈن اسی باب میں</div>
+  <div class="units">{units}</div>
+  <div class="foot">Combo Study Guide &middot; {book['curriculum']} &middot;
+  Each lesson starts on a new page. Long topics continue at the same type size. No blank pages.</div>
+</section>"""
+
+
+def combo_imprint(book, chapters, gold_n: int, lesson_n: int, class_n: int, hours: str):
+    units = " · ".join(f"{n:02d} {t}" for n, t, _ in chapters)
+    return f"""
+<section class="front imprint">
+  <p class="series">Sindh Computer Science · Official Study Guide</p>
+  <h1>Imprint</h1>
+  <table>
+    <tr><td>Title</td><td>{html.escape(book['title'])} — Self-Taught / Coaching-Academy Bootcamp (Combo Edition)</td></tr>
+    <tr><td>Audience</td><td>Students (self-taught) and teachers / academy coaches</td></tr>
+    <tr><td>Curriculum</td><td>{html.escape(book['curriculum'])}</td></tr>
+    <tr><td>Language</td><td>English with Urdu support</td></tr>
+    <tr><td>Structure</td><td>{lesson_n} lecture notes · {gold_n} Golden concepts · {class_n} academy classes · six chapter papers + mock</td></tr>
+    <tr><td>Study time</td><td>About {html.escape(hours)} self-taught, or the academy calendar (90-minute classes)</td></tr>
+    <tr><td>Format</td><td>A4 print / screen · MathJax SVG mathematics · inline SVG diagrams</td></tr>
+    <tr><td>Series</td><td>{html.escape(units)}</td></tr>
+  </table>
+  <h2>What you hold</h2>
+  <p>The published combo Study Guide for the grade. The same pages serve a student working alone
+  and a coach running a bootcamp. ★ Golden concepts are taught first inside each chapter.
+  Check yourself answers stay sealed after the chapter exam.</p>
+  <p class="ur">یہ جماعت کی آفیشل مشترکہ اسٹڈی گائیڈ ہے۔ طالب علم اور استاد ایک ہی صفحات استعمال کرتے ہیں۔</p>
+</section>"""
+
+
+def combo_planner(chapters_src: list[tuple[int, str, str, list[str]]]):
+    rows = []
+    total_notes = total_gold = total_mins = total_class = 0
+    for ch_num, title, _frag, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        ordered = gold + rest
+        sessions = assign_academy_sessions(ordered)
+        n_class = sessions[-1]["session"] if sessions else 0
+        mins = chapter_study_mins(topics)
+        total_notes += len(topics)
+        total_gold += len(gold)
+        total_mins += mins
+        total_class += n_class
+        rows.append(
+            f"<tr><td>Ch {ch_num}</td><td>{html.escape(title)}</td>"
+            f"<td>{len(topics)}</td><td>{len(gold)}</td>"
+            f"<td>{fmt_hours(mins)}</td><td>{n_class} × 90 min</td>"
+            f"<td>75 marks · 1 h 15 min</td></tr>"
+        )
+    rows.append(
+        "<tr><td>Final</td><td>Recaps + mock paper</td>"
+        "<td>—</td><td>—</td><td>6 h</td><td>Exam week</td>"
+        "<td>75 marks · 2 h 30 min</td></tr>"
+    )
+    return f"""
+<section class="front combo-planner">
+  <h1>Bootcamp planner</h1>
+  <p><b>Self-taught:</b> {total_notes} notes · {total_gold} ★ · about <b>{fmt_hours(total_mins)}</b>
+  plus the mock week. <b>Academy:</b> {total_class} classes of 90 minutes, then chapter papers.
+  <b>School teacher:</b> ★ Golden = one 40-minute period; other notes = half to three-quarters of a period.</p>
+  <table class="planner">
+    <tr><th>Ch</th><th>Title</th><th>Notes</th><th>★</th><th>Self-taught</th>
+    <th>Academy</th><th>Exam</th></tr>
+    {''.join(rows)}
+  </table>
+  <p class="ur">ایک ٹریک رکھیں۔ طالب علم نوٹس اور امتحان؛ اکیڈمی 90 منٹ کلاس؛ استاد 40 منٹ پیراڈ۔</p>
+</section>"""
+
+
+def combo_colophon(book, lesson_n: int, gold_n: int, class_n: int):
+    return f"""
+<section class="front colophon">
+  <h1>Colophon</h1>
+  <p>This <b>Self-Taught / Coaching-Academy Bootcamp (Combo Edition)</b> of {html.escape(book['title'])}
+  is the official Study Guide for students and teachers. It keeps chapter-wise lecture notes at readable type,
+  embeds ★ Golden concepts inside each chapter, prints a Student · Coach strip on every lesson,
+  and seals the key after the 75-mark chapter exam.</p>
+  <p>{lesson_n} lecture notes · {gold_n} Golden concepts · {class_n} academy classes ·
+  {html.escape(book['curriculum'])} · English + اردو · A4.</p>
+  <p class="ur">یہ طلبہ اور اساتذہ کی آفیشل مشترکہ اسٹڈی گائیڈ ہے۔</p>
+</section>"""
+
+
+def topic_clean_title(block: str) -> str:
+    return re.sub(r"\s*★.*", "", topic_title(block)).strip()
+
+
+def split_gold_rest(topics: list[str]) -> tuple[list[str], list[str]]:
+    gold = [b for b in topics if topic_is_golden(topic_title(b), b)]
+    rest = [b for b in topics if not topic_is_golden(topic_title(b), b)]
+    return gold, rest
+
+
+def golden_concepts_box(topics: list[str]) -> str:
+    gold, _ = split_gold_rest(topics)
+    if not gold:
+        return ""
+    items = []
+    for block in gold:
+        title = topic_clean_title(block)
+        idea = first_sentence(extract_box_text(block, "learn"))
+        bit = f"<b>★ {html.escape(title)}.</b>"
+        if idea:
+            bit += " " + html.escape(idea)
+        items.append(f"<li>{bit}</li>")
+    return f"""
+    <div class="box golden golden-concepts">
+      <p><b>★ Golden concepts in this chapter.</b> These ideas are taught first as lecture notes.
+      If time is short, lock these before the other notes, then sit the chapter exam.</p>
+      <ul>{''.join(items)}</ul>
+      <p class="ur">اس باب کے گولڈن تصورات پہلے پڑھیں۔ باقی نوٹس بعد میں۔</p>
+    </div>"""
+
+
+def complete_toc(chapters_src: list[tuple[int, str, str, list[str]]], has_final: bool):
+    items = []
+    for ch_num, title, _frag, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        gold_lis = "".join(
+            f"<li>★ {html.escape(topic_clean_title(b))}</li>" for b in gold
+        )
+        rest_lis = "".join(
+            f"<li>{html.escape(topic_clean_title(b))}</li>" for b in rest
+        )
+        gold_block = (
+            f"<li><b>★ Golden concepts</b><ul>{gold_lis}</ul></li>" if gold else ""
+        )
+        notes_block = (
+            f"<li><b>Lecture notes</b><ul>{rest_lis}</ul></li>" if rest else ""
+        )
+        items.append(
+            f"<li><b>Chapter {ch_num}:</b> {html.escape(title)} — "
+            f"{len(topics)} lecture notes ({len(gold)} ★)"
+            f"<ul>{gold_block}{notes_block}"
+            f"<li>Exam preparation — recap + 75-mark paper + key</li></ul></li>"
+        )
+    if has_final:
+        items.append("<li><b>Final revision:</b> recaps and mock paper (75 marks, 2 h 30 min)</li>")
+    items.append("<li><b>Colophon</b></li>")
+    return f"""
+<section class="front combo-toc">
+  <h1>Contents</h1>
+  <p>Chapter-wise lecture notes. ★ Golden concepts sit under the chapter that teaches them.
+  Self-taught and academy tracks share these same pages.</p>
+  <ol class="toc">{''.join(items)}</ol>
+</section>"""
+
+
+def combo_chapter_card(ch_num: int, topics: list[str], sessions: list[dict]) -> str:
+    gold, rest = split_gold_rest(topics)
+    n_class = sessions[-1]["session"] if sessions else 0
+    mins = chapter_study_mins(topics)
+    rows = []
+    seen = set()
+    for it in sessions:
+        n = it["session"]
+        if n in seen:
+            continue
+        seen.add(n)
+        group = [x for x in sessions if x["session"] == n]
+        names = " + ".join(html.escape(short_topic_name(x["title"])) for x in group)
+        kind = "★ 90 min" if any(x["golden"] for x in group) else "90 min"
+        rows.append(f"<tr><td>Class {n:02d}</td><td>{names}</td><td>{kind}</td></tr>")
+    return f"""
+    <div class="box combo-track">
+      <div class="two-col">
+        <div>
+          <p><b>Self-taught.</b> {len(topics)} notes · {len(gold)} ★ first · about {fmt_hours(mins)}.
+          After the last note, sit the chapter exam (75 marks, 1 h 15 min).</p>
+        </div>
+        <div>
+          <p><b>Coach / teacher.</b> {n_class} academy classes of 90 minutes
+          (each ★ Golden is a full class; other notes pair). School: ★ = one 40-minute period.</p>
+        </div>
+      </div>
+    </div>
+    <div class="box plan">
+      <p><b>Chapter {ch_num} academy calendar.</b></p>
+      <table class="session-table">
+        <tr><th>Class</th><th>Topics</th><th>Kind</th></tr>
+        {''.join(rows)}
+      </table>
+    </div>"""
+
+
+def complete_chapters(chapters_src: list[tuple[int, str, str, list[str]]]) -> str:
+    chunks = []
+    for ch_num, title, fragment, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        ordered = gold + rest
+        sessions = assign_academy_sessions(ordered)
+        session_total = sessions[-1]["session"] if sessions else 0
+        opener = extract_opener(fragment)
+        start = (
+            f'<div class="complete-chapter">{opener}{golden_concepts_box(topics)}'
+            f"{combo_chapter_card(ch_num, topics, sessions)}</div>"
+        )
+        lessons = []
+        for i, (block, item) in enumerate(zip(ordered, sessions), 1):
+            lessons.append(
+                as_complete_lesson(
+                    block,
+                    i,
+                    len(ordered),
+                    ch_num,
+                    "golden" if topic_is_golden(topic_title(block), block) else "chapter",
+                    item,
+                    session_total,
+                )
+            )
+        chunks.append(start + "".join(lessons) + chapter_exam_bundle(fragment, ch_num, title, topics))
+    return "".join(chunks)
+
+
+def complete_final(final_html: str) -> str:
+    if not final_html:
+        return ""
+    opener = extract_opener(final_html)
+    review = extract_review(final_html)
+    extra = """
+    <div class="box combo-track">
+      <div class="two-col">
+        <div>
+          <p><b>Self-taught.</b> Read each recap aloud, close the book, say it again.
+          Then sit the mock in 2 hours 30 minutes with no notes. Mark with the key. Repair only the Golden notes you missed.</p>
+        </div>
+        <div>
+          <p><b>Coach / teacher.</b> Exam week: six 90-minute recap clinics, then the mock under hall conditions.
+          Re-teach any Golden that more than a third of the batch missed.</p>
+        </div>
+      </div>
+    </div>"""
+    if review and "exam-head" not in review:
+        review = mock_exam_head() + review
+    return f'<div class="complete-chapter">{opener}{extra}</div>{review}'
+
+
+def drop_blank_pages(pdf_path: Path) -> int:
+    """Delete leftover almost-empty A4 leaves. Returns how many pages were removed."""
+    try:
+        import pymupdf
+    except ImportError:
+        return 0
+    doc = pymupdf.open(pdf_path)
+    keep = []
+    dropped = 0
+    for i, page in enumerate(doc):
+        raw = page.get_text()
+        body = re.sub(r"^\s*\d+\s*", "", raw).strip()
+        words = [w for w in re.split(r"\s+", body) if w]
+        has_fig = bool(page.get_images()) or len(page.get_drawings()) > 8
+        if not has_fig and (
+            (len(words) <= 3 and len(body) < 40)
+            or (len(words) <= 8 and len(body) < 80)
+        ):
+            dropped += 1
+            continue
+        keep.append(i)
+    if not dropped or not keep:
+        doc.close()
+        return 0
+    out = pymupdf.open()
+    for i in keep:
+        out.insert_pdf(doc, from_page=i, to_page=i)
+    dest = pdf_path.with_suffix(".tmp.pdf")
+    out.save(dest, deflate=True, garbage=3)
+    out.close()
+    doc.close()
+    dest.replace(pdf_path)
+    return dropped
+
+
+def combo_class_count(chapters_src: list[tuple[int, str, str, list[str]]]) -> int:
+    total = 0
+    for _n, _t, _f, topics in chapters_src:
+        gold, rest = split_gold_rest(topics)
+        sessions = assign_academy_sessions(gold + rest)
+        if sessions:
+            total += sessions[-1]["session"]
+    return total
+
+
+def build_complete(key: str) -> Path:
+    book = BOOKS[key]
+    folder = SRC / key
+    intro = (SRC / "how-to-use-complete.html").read_text(encoding="utf-8")
+    frags = sorted(folder.glob("ch*.html"), key=lambda p: int(re.search(r"\d+", p.stem).group()))
+    chapters, chapters_src, goldens = [], [], []
+    for f in frags:
+        text = f.read_text(encoding="utf-8")
+        meta = chapter_meta(text)
+        topics = extract_class_divs(text, "topic")
+        chapters.append(meta)
+        chapters_src.append((meta[0], meta[1], text, topics))
+        for block in topics:
+            raw = topic_title(block)
+            if topic_is_golden(raw, block):
+                goldens.append((meta[0], meta[1], re.sub(r"\s*★.*", "", raw).strip()))
+    final_path = folder / "final.html"
+    final = final_path.read_text(encoding="utf-8") if final_path.exists() else ""
+    lesson_n = sum(len(row[3]) for row in chapters_src)
+    class_n = combo_class_count(chapters_src)
+    hours = fmt_hours(sum(chapter_study_mins(row[3]) for row in chapters_src))
+    doc = wrap_html(
+        f"{book['title']} — Self-Taught / Academy Bootcamp Study Guide",
+        complete_cover(book, chapters, len(goldens), lesson_n, class_n)
+        + combo_imprint(book, chapters, len(goldens), lesson_n, class_n, hours)
+        + intro
+        + combo_planner(chapters_src)
+        + '<div class="pagebreak"></div>'
+        + complete_toc(chapters_src, bool(final))
+        + complete_chapters(chapters_src)
+        + complete_final(final)
+        + combo_colophon(book, lesson_n, len(goldens), class_n),
+        body_class="complete-book",
+    )
+    OUT.mkdir(exist_ok=True)
+    html_path = OUT / f"{key}-complete.html"
+    releases = ROOT.parent / "releases"
+    pdf_path = releases / f"CS-{book['grade']}-Bootcamp-Combo-StudyGuide.pdf"
+    alias = releases / f"CS-{book['grade']}-Complete-Teach-Yourself.pdf"
+    print_job(doc, html_path, pdf_path, min_bytes=80_000, budget_ms=240000)
+    gone = drop_blank_pages(pdf_path)
+    if gone:
+        print(f"{key} combo study guide dropped {gone} blank page(s)")
+    shutil.copy2(pdf_path, alias)
+    print(f"{key} combo study guide -> {pdf_path}")
+    return pdf_path
+
+
+def build_complete_books(keys: list[str]):
+    for k in keys:
+        build_complete(k)
+
+
+def main(argv: list[str]):
+    args = argv[1:]
+    mode = "lectures"
+    keys = []
+    if args and args[0] in ("lectures", "studyguides", "booklets", "editions", "academy", "cheat", "crash", "notes", "paced", "complete", "merge", "all"):
+        mode = "lectures" if args[0] == "studyguides" else args[0]
+        args = args[1:]
+    keys = [a for a in args if a in BOOKS] or list(BOOKS)
+    if mode in ("booklets", "all"):
+        for k in keys:
+            build_booklet(k)
+        merge_complete(keys)
+    if mode in ("lectures", "all"):
+        build_lectures(keys)
+    if mode in ("editions", "all"):
+        build_editions(keys)
+    if mode in ("academy", "all"):
+        build_editions(keys, ("academy",))
+    if mode in ("cheat", "all"):
+        build_cheatsheets(keys)
+    if mode in ("crash", "all"):
+        build_crash_courses(keys)
+    if mode in ("notes", "all"):
+        build_notes_guides(keys)
+    if mode in ("paced", "all"):
+        build_paced_editions(keys)
+    if mode == "complete":
+        build_complete_books(keys)
+    if mode == "merge":
+        parsed = {key: parse_book_lectures(key) for key in keys}
+        merge_lecture_books(keys, parsed)
+        write_index_md(parsed)
+
+
+if __name__ == "__main__":
+    main(sys.argv)

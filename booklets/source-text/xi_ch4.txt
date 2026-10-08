@@ -1,0 +1,614 @@
+##P70
+COMPUTER SCIENCE XI
+CHAPTER 4:
+DATA AND ANALYSIS
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2026
+Page 1
+
+##P71
+TABLE OF CONTENTS
+1. 4.1.1 Data, Information and Database
+2. 4.1.2 Database Management System (DBMS)
+3. 4.2 Database Components (Tables, Records, Fields)
+4. 4.3.1 Keys and Integrity Constraints ★
+5. 4.3 Relational Database Management System (RDBMS)
+6. 4.4 Entity Relationship Model (ER-Model) ★
+7. 4.5 Referential Integrity (Cascade Update & Delete) ★
+8. 4.6 Relational Schema Development
+9. 4.7 Case Study - Library Management System
+10. 4.8 Different Database Objects (Tables, Forms, Queries, Reports)
+11. 4.9 Creation of Tables in Microsoft Access
+12. 4.10 Designing Forms for Data Manipulation
+13. 4.11 Creating Queries in MS Access ★
+14. 4.11.4 Data Summarization & Statistical Analysis
+15. 4.11.6 Data Visualization in MS Access (Charts)
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XI (3 & 4).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P72
+4.1 Concepts of Database and Elements
+4.1.1 Data, Information and Database
+Data are unprocessed facts, figures, or
+observations collected from different
+sources. It can be quantitative
+(numerical) or qualitative
+(descriptive).
+Example: 80, 75, 90, 70, 85
+Example: The color of cars in a parking lot.
+When we organize, process, and
+interpret data, it becomes information
+which provides meaning and supports
+decision-making.
+Example: The average score of the class is
+80%.
+Data
+Processing
+Information
+Used for
+Decision
+Making
+Aspect
+Data
+Information
+Definition
+Raw facts and figures
+Processed and Meaningful data
+Example
+85, 90, 75
+Average Marks = 83.3%
+Usefulness
+Less useful on its own
+Useful for decision making
+Page 3
+
+##P73
+Database and DBMS
+A database is an organized collection of related data that is stored in a
+structured manner so that it can be easily accessed, managed, and updated. In
+traditional systems, data was stored in files or books, making it difficult to
+search. A database solves these problems.
+4.1.2 Database Management System (DBMS)
+A DBMS is software that allows users to create, manage, and interact with
+databases. It acts as a bridge between the user and the database. Instead of
+directly handling data files, users interact with DBMS.
+Advantages of DBMS:
+The same data is not stored multiple
+times unnecessarily. E.g., Department
+name is stored once, not in every student
+record.
+Ensures all users see the same correct
+data. Updating a phone number once
+updates it everywhere.
+Allows only authorized users to access
+sensitive info. (Admin sees marks, staff
+sees only names).
+Ensures stored data is accurate and
+reliable. (E.g., preventing duplicate Roll
+Numbers).
+Page 4
+
+##P74
+4.2 Database Components
+A database is made up of several important components that help organize
+data effectively. The most basic structure is a table.
+Component
+Description
+Stores data in rows and columns, similar to a spreadsheet. Each
+table stores information about a specific entity (e.g., Students,
+Teachers).
+Record / Row
+A complete set of related data about ONE specific instance.
+(e.g., One entire row containing Ali's Name, Roll No, and Marks).
+Field / Column
+A single piece of information or attribute. (e.g., The entire column
+that holds ONLY "Names" or ONLY "Marks").
+Roll No
+Name
+Course
+Grade
+101
+Ali
+CS
+A
+102
+Sara
+IT
+B+
+103
+Ahmed
+CS
+A
+Record (Row)
+Field (Column)
+Page 5
+
+##P75
+4.3.1 Keys and Integrity Constraints
+★ GOLDEN TOPIC
+A key field is an attribute (or set of attributes) that helps uniquely identify
+records and link tables together. Understanding keys is essential for designing
+efficient databases.
+Any field (or set of fields) that has the potential to uniquely identify a record. A table
+may have multiple candidate keys, but only ONE is selected as the primary key.
+Must contain unique values.
+Cannot contain NULL (empty) values.
+Example: In an Employee table: EmpID, EmpLicense#, and EmpPassport are all Candidate
+Keys.
+The one specific field chosen from the Candidate Keys to uniquely identify every
+record in the table. It ensures no two records are exactly alike.
+Must contain unique values.
+Cannot contain NULL values.
+Each table has ONLY ONE Primary Key.
+Example: We select EmpID as the Primary Key.
+💡 Analogy
+In a classroom, students have a Roll Number, a B-Form Number, and a
+Phone Number. All three are Candidate Keys. The school chooses Roll
+Number as the main identifier, making it the Primary Key.
+Page 6
+
+##P76
+Keys (Continued) & RDBMS
+The Candidate Keys that were NOT selected as the Primary Key. They still hold unique
+values but are left as alternates.
+Derived from Candidate Keys.
+Example: Since EmpID became the Primary Key, EmpLicense# and EmpPassport become
+Alternate Keys.
+A field in one table that refers to the Primary Key of another table. It is used to create
+relationships (links) between tables.
+CAN contain duplicate values (e.g., many employees in one department).
+CAN contain NULL values (in some cases).
+Example: DeptID in the Employee table links to the Primary Key DeptID in the
+Department table.
+4.3 Relational Database Management System (RDBMS)
+An RDBMS stores data in multiple tables and uses keys (like Primary and Foreign
+keys) to maintain relationships between those tables. It is powerful, structured,
+and used by banks and universities.
+Reduces data redundancy (duplication).
+Supports multi-user access securely.
+Easy to query using SQL (Structured Query Language).
+Page 7
+
+##P77
+4.4 Entity Relationship Model (ER-Model)
+★ GOLDEN TOPIC
+The ER Model is a conceptual tool used to design databases before they are
+created. It helps designers understand what data needs to be stored and how
+different pieces are related. It acts like an architect's blueprint for the database.
+Components of an ER Model
+Component
+Description & Symbol
+1. Entities
+Any real-world object or concept about which data is stored.
+(e.g., Student, Teacher, Course).
+Symbol: Rectangle 
+STUDENT
+2. Attributes
+The properties or characteristics of an entity. (e.g., StudentID,
+Name, Class).
+Symbol: Oval 
+Name
+(Primary Key attributes have an underline)
+3. Relationships
+How entities are connected to each other. (e.g., A Student
+"Enrolls in" a Course).
+Symbol: Diamond 
+Enrolls
+Page 8
+
+##P78
+Types of Relationships in ER Model
+Understanding relationships is essential for designing efficient and accurate
+databases. There are three main types:
+1. One-to-One (1:1)
+One record is related to ONLY ONE record in another entity. This is rare and often used for
+security.
+Example: One Student has One ID Card.
+STUDENT (1) — HAS — (1) ID CARD
+2. One-to-Many (1:M)
+One record in Entity A relates to MULTIPLE records in Entity B. This is the most common
+relationship.
+Example: One Teacher teaches Many Students.
+TEACHER (1) — TEACHES — (N) STUDENT
+3. Many-to-Many (M:N)
+Multiple records in Entity A relate to multiple records in Entity B.
+Example: Many Students enroll in Many Classes.
+STUDENT (M) — ENROLLS — (N) CLASS
+⚠️ The M:N Database Rule
+Relational databases cannot directly support Many-to-Many relationships.
+It causes data duplication. To fix this, we must break it into two 1:M
+relationships using a Junction Table (e.g., an "Enrollment" table).
+Page 9
+
+##P79
+4.5 Referential Integrity
+★ GOLDEN TOPIC
+Referential integrity is a fundamental concept that ensures the accuracy and
+consistency of data across related tables. It ensures that a Foreign Key in one
+table always refers to an existing and valid Primary Key in another table.
+Why is it Important?
+Imagine a Student Table and a Result Table. The Result table uses StudentID as
+a Foreign Key. If Referential Integrity is turned ON:
+You cannot enter a result for StudentID "999" if "999" does not exist in the main
+Student table. (Prevents orphan records).
+You cannot delete a student from the Student table if they still have marks in
+the Result table, unless you handle the related records first.
+STUDENT (Parent)
+ID: 101 (Ali)
+ID: 102 (Sara)
+Enforces Rule
+RESULT (Child)
+ID: 101 | A Grade
+ID: 999 | FAILED!
+(Rejected! 999 not in Parent)
+Page 10
+
+##P80
+Referential Integrity Operations
+To maintain consistency automatically without manual effort, DBMS provides
+two powerful operations.
+1. Cascade Update
+If a Primary Key value is changed in the parent table, that exact change is
+automatically updated in all related child tables.
+Example: If Ali's StudentID changes from 101 to 201 in the Student table, his ID will
+automatically change to 201 in the Enrollments table. No data is lost or disconnected.
+2. Cascade Delete
+If a record is deleted from the parent table, all related records in child tables
+are also deleted automatically.
+Example: If student Sara (ID 102) leaves the school and is deleted from the Student table, all
+her records in the Enrollments and Results tables are instantly wiped out. This prevents
+"ghost" data from clogging the system.
+Benefits of Referential Integrity
+Maintains complete data consistency.
+Saves time and manual effort for admins.
+Reduces errors and prevents orphan
+records.
+Ensures reliable and accurate reporting.
+Page 11
+
+##P81
+4.6 Relational Schema Development
+A relational schema is a formal representation of the structure of a database. It
+acts as the design or blueprint of the database before it is actually
+implemented in software like MS Access.
+What does a Schema define?
+How data is organized into Tables.
+What Fields (columns) each table contains.
+Which fields are Primary Keys and Foreign Keys.
+How different tables are related to each other.
+Why develop a Schema?
+Developing a relational schema is an important step because:
+1. It reduces redundancy (duplication of data).
+2. It improves data integrity by planning keys in advance.
+3. It makes the database easier to manage and scale in the future.
+👨‍🏫 Teacher's Tip
+Remind students that skipping the schema design phase is like trying to
+build a house without an architectural drawing. It leads to messy, broken
+structures.
+Page 12
+
+##P82
+4.7 Case Study: Library Management System
+This case study demonstrates the step-by-step development of an ER schema,
+from requirement analysis to the final ER diagram for a college library.
+Step 1: Requirement Analysis
+What does the system need to do?
+- A book has an ID, title, author, and publisher.
+- A member (student/teacher) has an ID, name, and contact info.
+- A member can borrow multiple books; a book can be borrowed by different members
+over time.
+- The system must record Issue Date and Return Date.
+Step 2: Identification of Entities
+From the requirements, we identify two main real-world objects (Entities):
+1. Book
+2. Member
+Step 3: Identification of Attributes
+Book Entity
+Member Entity
+BookID (Primary Key)
+Title
+Author
+Publisher
+MemberID (Primary Key)
+Name
+ContactInfo
+Page 13
+
+##P83
+Library Case Study (Continued)
+Step 4: Identification of Relationships
+We need to understand how the entities interact. The primary interaction is:
+"A Member borrows a Book"
+Step 5: Determine Cardinality
+Cardinality defines the nature of the relationship (1:1, 1:M, M:N).
+A single member can borrow many books over time.
+A single book can be borrowed by many different members over time.
+Conclusion: The relationship is Many-to-Many (M:N)
+MEMBER
+BOOK
+Borrows
+M
+N
+Page 14
+
+##P84
+Library Case Study (Continued)
+Step 6: Resolving Many-to-Many Relationship
+As discussed earlier, relational databases cannot directly support M:N
+relationships. It leads to data redundancy. We must resolve it by introducing a
+Junction Entity (Bridge Table).
+We create a new entity called: BorrowRecord
+Instead of linking Member and Book directly, each borrowing activity is recorded as a
+separate entry in the BorrowRecord entity. This breaks the M:N relationship into two 1:M
+relationships.
+BorrowRecord Entity Attributes:
+BorrowID (Primary Key): Unique ID for this specific transaction.
+MemberID (Foreign Key): Links to the Member who borrowed it.
+BookID (Foreign Key): Links to the specific Book being borrowed.
+IssueDate (Standard Attribute)
+ReturnDate (Standard Attribute)
+Page 15
+
+##P85
+Library Case Study (Final ER Schema)
+Step 7: Final ER Diagram
+The final structure shows:
+1. One Member → Many BorrowRecords (1:M)
+2. One Book → Many BorrowRecords (1:M)
+MEMBER
+PK: MemberID
+BorrowRecord
+PK: BorrowID
+FK: MemberID
+FK: BookID
+BOOK
+PK: BookID
+1
+M
+M
+1
+Page 16
+
+##P86
+4.8 Different Database Objects
+In a DBMS, data is managed and presented using different tools known as
+database objects. These objects help users interact with the database
+efficiently. The four main objects are Tables, Forms, Queries, and Reports.
+1. Tables
+The most important object; it is where data is actually stored. A table is organized into
+rows (records) and columns (fields). Tables are the foundation of a database
+because all other objects depend on them.
+2. Forms
+A Form provides a user-friendly interface for entering and updating data. Instead of
+typing directly into scary-looking tables, users use clean forms (like a web registration
+page) with text boxes, drop-downs, and buttons. Forms reduce data entry errors.
+Page 17
+
+##P87
+Database Objects (Continued)
+★ KEY CONCEPT
+3. Queries
+A Query is a request to retrieve specific data from the database. Queries allow you to
+"ask questions" of your database. For example: "Show me all students who scored
+above 80%." Queries are incredibly powerful because they filter, sort, and calculate
+data.
+4. Reports
+A Report is used to present data in a structured, formatted, and visually appealing
+way, usually for printing or sharing. For example, a school generates a printed report
+card or a fee summary. You do not enter data into a report; you only read it.
+💡 Quick Summary for Students
+Tables: Store the data.
+Forms: Enter the data.
+Queries: Search the data.
+Reports: Print the data.
+Page 18
+
+##P88
+4.9 Creation of Tables in MS Access
+Creating tables is the fundamental step in developing a database. A carefully
+designed table ensures data accuracy, improves query speed, and saves
+storage.
+4.9.1 Planning the Table Structure
+Before touching the software, you must plan:
+Purpose: What will this table store?
+Fields: What exact columns do I need?
+Data Types: Is it Text, a Number, or a Date?
+Primary Key: Which field is the unique identifier?
+4.9.2 Creating Table using Datasheet View
+Datasheet View is the fast, easy, spreadsheet-like way to create tables. It is
+great for beginners but offers limited control.
+1. Go to the Create tab and select Table.
+2. A blank grid appears (like Excel).
+3. Double-click the column headers (Field1, Field2) to rename them.
+4. Start typing data directly into the cells. MS Access tries to guess the data type
+automatically.
+⚠️ Limitations of Datasheet View
+While fast, Datasheet view doesn't let you set strict validation rules (like
+"Marks cannot be over 100") easily. Professional developers prefer Design
+View.
+Page 19
+
+##P89
+Table Creation (Design View)
+4.9.3 Creating Table using Design View
+Design View provides full, structured control over your table before you enter
+any data. This is the professional way to build tables.
+1. Go to the Create tab and select Table Design.
+2. Enter the Field Name (e.g., StudentID, Name).
+3. Select the exact Data Type from the dropdown.
+4. Right-click the field that should be unique and select Primary Key (a small
+key icon will appear).
+5. Save the table.
+4.9.4 Selecting Appropriate Data Types
+Choosing the right data type prevents errors and saves memory space.
+Data Type
+Used For
+Short Text
+Names, addresses, phone numbers (even though phone
+numbers look like math, you don't add or subtract them). Up to
+255 chars.
+Number
+Numeric values used in mathematical calculations (e.g., Age,
+Marks, Quantity).
+Date/Time
+Dates of birth, admission dates, appointment times.
+Currency
+Financial values like Fees or Salary.
+AutoNumber
+Automatically generates a new unique sequential number for
+every new record. Perfect for Primary Keys.
+Page 20
+
+##P90
+4.10 Designing Forms
+Forms serve as an interface to enter, modify, and view records. They minimize
+input errors and enforce validation rules visually.
+4.10.2 Identifying the Data Source
+Every form MUST be linked to a data source (a Table or a Query). A form cannot
+exist without knowing where to save or retrieve its data.
+4.10.3 Designing forms using Form Wizard
+The Form Wizard provides a guided, step-by-step approach to creating clean
+forms.
+1. Go to the Create tab and select Form Wizard.
+2. Select Table: Choose your data source (e.g., Table: Student) from the
+dropdown.
+3. Select Fields: Use the > button to move fields you want on the form, or >> for
+all fields.
+4. Choose Layout: Select how the form looks. Columnar shows one record at a
+time and is best for data entry.
+5. Name & Finish: Give the form a title (e.g., "Student Registration") and click
+Finish.
+Student Registration Form
+Student ID:
+[AutoNumber]
+Full Name:
+Page 21
+
+##P91
+4.11 Creating Queries in MS Access
+★ GOLDEN TOPIC
+Queries are the most powerful feature of Access. They retrieve, filter, and analyze
+data without changing the original tables.
+4.11.2 Creating a Simple SELECT Query
+A SELECT query simply picks and shows data. Steps to create one:
+1. Go to the Create tab and click Query Design.
+2. The "Show Table" dialog box appears. Select the table you want (e.g., Student)
+and click Add.
+3. Double-click the fields you want to view (e.g., Name, Department). They will
+drop down into the design grid at the bottom.
+4. Click the red Run (!) button in the ribbon to execute the query.
+Field:
+Table:
+Criteria:
+StudentName
+Student
+Department
+Student
+Page 22
+
+##P92
+Filtering Query Data
+4.11.3 Filtering Data
+By default, a query shows ALL rows. To see only specific records (e.g., only
+students in "Computer Science"), we type rules into the Criteria row of the
+design grid.
+Single Criteria
+Type "Computer Science" under the Department column. Only those students
+will appear.
+Multiple Criteria (Logical AND)
+If you want students who are named "Ali" AND are in "Computer Science", you
+put both criteria on the SAME row in the grid.
+Field: Name
+Field: Department
+Criteria:
+"Ali"
+"Computer Science"
+or:
+Multiple Criteria (Logical OR)
+If you want students who are in "IT" OR "Computer Science", you put the criteria
+on DIFFERENT rows (using the "or:" row).
+Field: Department
+Criteria:
+"IT"
+or:
+"Computer Science"
+Page 23
+
+##P93
+Data Summarization & Statistics
+4.11.4 Data Summarization and Grouping
+Grouping allows you to combine records with similar values (e.g., Grouping by
+Department) to calculate totals. In MS Access, click the Totals (Σ) button in the
+ribbon to enable the "Total" row in the grid.
+Aggregate
+Function
+What it calculates
+COUNT()
+Counts the number of records (e.g., How many students in IT?)
+SUM()
+Adds total values together (e.g., Total fees collected)
+AVG()
+Calculates the mathematical mean (average)
+MAX() / MIN()
+Finds the highest / lowest value in a group
+4.11.5 Statistical Analysis Example
+To find the Average Marks of students in each Department:
+1. Create Query, add Student table.
+2. Add Department and Marks fields to the grid.
+3. Click the Totals (Σ) button.
+4. Under Department, set Total to Group By.
+5. Under Marks, set Total to Avg.
+6. Run!
+Department
+Avg of Marks
+Computer Science
+82.5
+IT
+76.0
+Page 24
+
+##P94
+4.11.6 Data Visualization (Charts)
+Data visualization transforms raw numbers into graphical representations,
+making patterns and trends instantly obvious.
+1. Bar Chart
+Uses horizontal bars. Great when category
+names are long.
+Eng
+Math
+Sci
+2. Column Chart
+Uses vertical bars. Excellent for comparing
+categories side-by-side.
+2024
+2025
+2026
+Page 25
+
+##P95
+Data Visualization (Continued)
+3. Pie Chart
+Divides a circle into slices to show
+percentages (parts of a whole). Best for
+showing proportions.
+25%
+4. Line Chart
+Connects data points with lines. The absolute
+best choice for showing trends over time
+(e.g., website visitors per month).
+Summary
+Data vs Info: Data is raw facts; Information is processed data.
+DBMS: Software to create and manage databases securely and efficiently.
+Table Components: Rows are Records; Columns are Fields.
+Keys: Primary Key is unique for each record. Foreign Key links tables together.
+ER Model: Conceptual blueprint using Entities (rectangles), Attributes (ovals), Relationships
+(diamonds).
+Many-to-Many: Requires a Junction Table to resolve in relational databases.
+Referential Integrity: Ensures relationships stay valid via Cascade Update/Delete.
+Access Objects: Tables (store), Forms (enter), Queries (search/filter), Reports (print).
+Data Vis: Bar/Column for category comparison, Pie for parts of a whole, Line for trends.
+Page 26

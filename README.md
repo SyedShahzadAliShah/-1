@@ -1,40 +1,54 @@
-# Intimacy Guide
+# BIEK Computer Science XI & XII Lectures (PDF)
 
-Bilingual (English & Urdu) couples sex-education app with embedded diagram pictures, imagination postures, voice narration, and PDF export.
+Classroom lecture notes for **Board of Intermediate Education, Karachi (BIEK)**
+Computer Science Class XI and Class XII. Content follows the Sindh Textbook Board
+books (New Sindh Curriculum 2024, aligned with the National Curriculum of Pakistan
+2022–23). Language is English with Urdu support.
 
-## Download
+These notes are original teaching material. They are **not** a scan or copy of the
+STBB textbook.
 
-**Latest (v3.2.1)** — man/woman posture roles + sex education for him & her:
+## Download the lecture books
 
-https://github.com/SyedShahzadAliShah/-1/raw/main/releases/IntimacyHandbook-v3.2.1-debug.apk
+Use the `raw.githubusercontent.com` links (they save the PDF):
 
-Branch copy: https://github.com/SyedShahzadAliShah/-1/raw/cursor/couples-posture-guide-ed65/releases/IntimacyHandbook-v3.2.1-debug.apk
+- **Class XI** — `releases/CS-XI-BIEK-Lectures.pdf`
+- **Class XII** — `releases/CS-XII-BIEK-Lectures.pdf`
+- **XI + XII complete** — `releases/CS-XI-and-XII-BIEK-Lectures.pdf`
 
-> **Important:** Uninstall any older version first, then install v3.2.1. On the home screen you should see **"Version 3.2.1 — Man/Woman roles + Sex Ed for Him & Her"** below the subtitle.
+Per-lecture and per-chapter PDFs live in `releases/lectures/` (see
+`releases/lectures/README.md` after a rebuild). Zips:
 
-## v3.2.1
+- `releases/CS-XI-BIEK-Lectures.zip`
+- `releases/CS-XII-BIEK-Lectures.zip`
 
-- **Fix:** Sex Education and chapter lists now display correctly inside the scroll view
-- **Fix:** Version badge on home screen so you can confirm the correct build is installed
+## Syllabus map
 
-## v3.2.0
+**Class XI**
 
-- **Man & woman roles** — each posture defines the man's and woman's position and guidance
-- **Sex education for him** — 4 chapters on arousal, pleasuring partner, stamina, confidence
-- **Sex education for her** — 4 chapters on arousal, pleasure, comfort, confidence
-- Diagram labels updated to Man/Woman
+1. Computer Systems — digital logic, SDLC, OSI / TCP/IP
+2. Computational Thinking & Algorithms
+3. Programming Fundamentals (Python)
+4. Data and Analysis (databases / MS Access)
+5. Application and Impacts of Computing
+6. Digital Literacy
+7. Final revision and mock paper
 
-## v2.4 fixes
+**Class XII**
 
-- **PDF export fixed** — proper image loading, multi-page pagination, Urdu font embedding, reliable sharing
-- **Upgraded pictures** — 960×600 educational diagrams with Partner A/B labels and position annotations
+1. Computer Systems (Human–Computer Interaction)
+2. Computational Thinking & Algorithms (correctness, efficiency, data structures)
+3. Programming Fundamentals (Python collections, functions, files)
+4. Data and Analysis (SQLite, Pandas, visualisation)
+5. Application and Impacts of Computing (ML, security, collaboration)
+6. Entrepreneurship in the Digital Age
+7. Final revision and mock paper
 
-## Build
+## Rebuild
 
 ```bash
-python3 scripts/generate_posture_pictures.py
-export ANDROID_HOME=/path/to/android-sdk
-./gradlew assembleDebug
+python3 -m pip install --user pymupdf
+python3 booklets/build.py lectures
 ```
 
-## Version 3.2.1
+Requires Google Chrome (headless print) and Python 3.10+.

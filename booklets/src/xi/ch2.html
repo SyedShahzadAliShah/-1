@@ -1,0 +1,1464 @@
+<section class="chapter" id="xi-ch2" data-num="2" data-title="Computational Thinking &amp; Algorithm">
+  <div class="ch-opener">
+    <div class="num">Chapter 2</div>
+    <h1>Computational Thinking &amp; Algorithm</h1>
+    <p>This chapter teaches you how to think like a computer scientist: break a problem into parts, spot patterns, ignore what does not matter, and write clear step-by-step algorithms. You will then learn four famous algorithms — Bubble Sort, Selection Sort, Linear Search and Binary Search — and how to judge and choose between them.</p>
+    <p class="ur">اس باب میں آپ سیکھیں گے کہ کسی مسئلے کو کمپیوٹر سائنس دان کی طرح کیسے سوچ کر حل کیا جاتا ہے: مسئلے کو چھوٹے حصوں میں توڑنا، پیٹرن پہچاننا، غیر ضروری باتوں کو نظر انداز کرنا اور مرحلہ وار الگورتھم لکھنا۔ اس کے بعد آپ ترتیب دینے (Sorting) اور تلاش کرنے (Searching) کے چار اہم الگورتھم سیکھیں گے۔</p>
+  </div>
+
+  <h3>What you will learn</h3>
+  <ul class="objectives">
+    <li>Define computational thinking and name its four parts: decomposition, pattern recognition, abstraction and algorithms.</li>
+    <li>Define an algorithm and state five reasons why algorithms are important.</li>
+    <li>Compare an algorithm with pseudocode on at least five points.</li>
+    <li>Apply decomposition, pattern recognition and abstraction to real-life problems.</li>
+    <li>Dry-run Bubble Sort and Selection Sort pass by pass on a given list, and write them in pseudocode and Python.</li>
+    <li>Trace Linear Search step by step and Binary Search using a low / mid / high table.</li>
+    <li>List the advantages and disadvantages of each sorting and searching algorithm.</li>
+    <li>State the best-case and worst-case time complexity of the four algorithms.</li>
+    <li>Evaluate an algorithm for correctness (using a trace table), efficiency and clarity.</li>
+    <li>Choose the right algorithm for a situation and justify your choice.</li>
+  </ul>
+
+  <!-- ===================== 2.1 ===================== -->
+  <div class="topic">
+    <h2>2.1 Computational Thinking</h2>
+    <div class="box learn">
+      <p><b>Computational Thinking (CT)</b> is a systematic approach to solving problems. "Systematic" means you follow a fixed, organised method instead of guessing. CT involves four activities:</p>
+      <ul>
+        <li><b>Decomposition</b> — breaking a big problem down into smaller parts.</li>
+        <li><b>Pattern recognition</b> — identifying things that repeat or follow a rule.</li>
+        <li><b>Abstraction</b> — hiding (ignoring) details that do not matter.</li>
+        <li><b>Algorithms</b> — developing clear step-by-step instructions to solve the problem.</li>
+      </ul>
+      <p>CT is not "thinking like a computer". It is thinking in a way that lets <i>you</i> describe a solution so clearly that a computer (or another person) could carry it out.</p>
+    </div>
+
+    <div class="flow"><span>Problem</span><i>→</i><span>Decomposition</span><i>→</i><span>Pattern recognition</span><i>→</i><span>Abstraction</span><i>→</i><span>Algorithm</span><i>→</i><span>Program</span></div>
+
+    <p>You already use computational thinking in daily life. When you plan your exam preparation, you split the syllabus into chapters (decomposition), notice that every chapter needs the same routine of reading, making notes and practising (pattern recognition), ignore things that are not in the syllabus (abstraction), and make a day-by-day timetable (algorithm).</p>
+
+    <div class="box learn">
+      <p><b>Did you know?</b> <b>Pseudocode</b> is a human-readable representation of an algorithm using plain English and structured programming keywords. It is the bridge between human logic and machine code. You will study it in detail in section 2.2.2.</p>
+    </div>
+
+    <div class="box tip">
+      <p>Remember the four parts of CT with the phrase <b>"Don't Pick Any Apple"</b>: <b>D</b>ecomposition, <b>P</b>attern recognition, <b>A</b>bstraction, <b>A</b>lgorithm.</p>
+    </div>
+
+    <div class="box warn">
+      <p>Students sometimes think computational thinking means "writing code". It does not. CT happens <i>before</i> coding. You can do all four steps with pen and paper, without a computer.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">کمپیوٹیشنل تھنکنگ (Computational Thinking) مسائل حل کرنے کا ایک منظم طریقہ ہے۔ اس کے چار حصے ہیں: مسئلے کو چھوٹے حصوں میں توڑنا (Decomposition)، دہرائی جانے والی باتوں کو پہچاننا (Pattern Recognition)، غیر ضروری تفصیلات کو چھپانا (Abstraction) اور مرحلہ وار حل لکھنا (Algorithm)۔ یہ سوچنے کا طریقہ ہے، کوڈ لکھنا نہیں۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Name the four parts of computational thinking.</p>
+      <p><b>2.</b> Is computational thinking done before or after writing code?</p>
+      <p><b>3.</b> What is pseudocode called a "bridge" between?</p>
+      <div class="ans">Answers: 1. Decomposition, pattern recognition, abstraction, algorithms. 2. Before coding (it is planning the solution). 3. Between human logic and machine code.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.2 ===================== -->
+  <div class="topic">
+    <h2>2.2 Algorithm <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>An <b>algorithm</b> is a step-by-step logical procedure used to solve a problem. It is <b>conceptual</b> in nature (it is an idea, a plan) and completely <b>independent of any programming language</b>. The same algorithm can be written later in Python, C++ or Java.</p>
+      <p>A good algorithm has:</p>
+      <ul>
+        <li><b>Input</b> — the data it starts with.</li>
+        <li><b>Clear steps</b> — each step has only one meaning.</li>
+        <li><b>A definite end</b> — it must finish after a limited number of steps.</li>
+        <li><b>Output</b> — the result it produces.</li>
+      </ul>
+    </div>
+
+    <div class="box example">
+      <p><b>Algorithm to find the larger of two numbers</b></p>
+      <p>Step 1: Start<br>
+      Step 2: Read A and B<br>
+      Step 3: If A &gt; B, print "A is larger"<br>
+      Step 4: Else print "B is larger or equal"<br>
+      Step 5: End</p>
+      <p>Notice: there is no Python or C++ here. Anyone — even a non-programmer — can follow these steps. That is what "language-independent" means.</p>
+    </div>
+
+    <h3>2.2.1 Importance of Algorithms</h3>
+    <table>
+      <tr><th>Reason</th><th>What it means for you</th></tr>
+      <tr><td>Structured approach</td><td>Algorithms provide a structured approach to problem-solving, making complex tasks manageable.</td></tr>
+      <tr><td>Optimisation</td><td>They optimise time and memory usage, which is crucial for large-scale applications (for example, searching millions of records).</td></tr>
+      <tr><td>Reusability</td><td>They can be reused for similar problems, saving time and effort. A sorting algorithm for marks can also sort prices.</td></tr>
+      <tr><td>Accuracy and consistency</td><td>They ensure accuracy and consistency, reducing human error. The same steps always give the same result.</td></tr>
+      <tr><td>Blueprint</td><td>They act as a blueprint (a plan) before actual code implementation, just like an architect's map before building a house.</td></tr>
+    </table>
+
+    <div class="box tip">
+      <p>Remember the five reasons as <b>S-O-R-A-B</b>: <b>S</b>tructured, <b>O</b>ptimised, <b>R</b>eusable, <b>A</b>ccurate, <b>B</b>lueprint.</p>
+    </div>
+
+    <div class="box warn">
+      <p>Do not write "an algorithm is a program". A program is the algorithm <i>written in a programming language</i> so that a computer can run it. The algorithm itself is only the logic.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">الگورتھم (Algorithm) کسی مسئلے کو حل کرنے کا مرحلہ وار منطقی طریقہ ہے۔ یہ ایک تصور ہے اور کسی بھی پروگرامنگ زبان پر منحصر نہیں۔ الگورتھم کام کو منظم بناتے ہیں، وقت اور میموری بچاتے ہیں، دوبارہ استعمال ہو سکتے ہیں، غلطیاں کم کرتے ہیں اور کوڈ لکھنے سے پہلے نقشے کا کام دیتے ہیں۔</p>
+    </div>
+
+    <div class="box exam">
+      <p>Very common short question: "Define algorithm and write its importance." Write the definition word for word — <i>a step-by-step logical procedure used to solve a problem; conceptual and independent of any programming language</i> — then list at least four of the five importance points. If asked to "write an algorithm", always begin with <b>Step 1: Start</b> and finish with <b>End</b>, and number every step.</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Why is an algorithm called "language-independent"?</p>
+      <p><b>2.</b> Give two reasons why algorithms are important.</p>
+      <p><b>3.</b> Write a 5-step algorithm to find the sum of two numbers.</p>
+      <div class="ans">Answers: 1. Because it describes only the logic; it is not tied to Python, C++ or any other language. 2. Any two: structured approach, optimise time/memory, reusable, accurate and consistent, blueprint before coding. 3. Step 1: Start; Step 2: Read A and B; Step 3: SUM = A + B; Step 4: Print SUM; Step 5: End.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.2.2 ===================== -->
+  <div class="topic">
+    <h2>2.2.2 Algorithm vs Pseudocode <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>Both algorithms and pseudocode are used in problem-solving, but they serve different purposes in the design phase. The <b>algorithm</b> says <i>what</i> must be done. The <b>pseudocode</b> shows <i>how</i> it could be implemented, using programming-like keywords such as <code>IF</code>, <code>FOR</code> and <code>WHILE</code>, but it still cannot be run on a computer.</p>
+    </div>
+
+    <table>
+      <tr><th>Point</th><th>Algorithm</th><th>Pseudocode</th></tr>
+      <tr><td>Definition</td><td>A step-by-step logical procedure to solve a problem.</td><td>A human-readable representation of an algorithm using plain English &amp; keywords.</td></tr>
+      <tr><td>Nature</td><td>Conceptual and language-independent.</td><td>Semi-formal and structured, but not executable code.</td></tr>
+      <tr><td>Purpose</td><td>To define <b>what</b> needs to be done logically.</td><td>To present <b>how</b> it can be implemented in a readable format.</td></tr>
+      <tr><td>Form</td><td>Usually described in plain steps, bullets or numbered points.</td><td>Written using structured constructs (IF, FOR, WHILE) like programming.</td></tr>
+      <tr><td>Focus</td><td>Focuses on the logic and steps of the problem.</td><td>Focuses on representing steps clearly before coding.</td></tr>
+      <tr><td>Audience</td><td>For anyone trying to understand the logic (including non-programmers).</td><td>Mainly for programmers or students preparing for coding.</td></tr>
+      <tr><td>Format rules</td><td>No fixed format; can be informal.</td><td>Follows standard pseudocode conventions for clarity.</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>The same problem written both ways: print whether a number is even or odd.</b></p>
+      <div class="two-col">
+        <div>
+          <p><b>Algorithm</b></p>
+          <p>Step 1: Start<br>
+          Step 2: Read a number N<br>
+          Step 3: Divide N by 2 and find the remainder<br>
+          Step 4: If the remainder is 0, print "Even", otherwise print "Odd"<br>
+          Step 5: End</p>
+        </div>
+        <div>
+          <p><b>Pseudocode</b></p>
+<pre class="code">START
+INPUT N
+SET R TO N MOD 2
+IF R = 0 THEN
+    PRINT "Even"
+ELSE
+    PRINT "Odd"
+END IF
+END</pre>
+        </div>
+      </div>
+      <p>The equivalent Python program (real, executable code):</p>
+<pre class="code">n = 7
+if n % 2 == 0:
+    print("Even")
+else:
+    print("Odd")</pre>
+<pre class="code output">Odd</pre>
+    </div>
+
+    <div class="flow"><span>Problem</span><i>→</i><span>Algorithm (what)</span><i>→</i><span>Pseudocode (how)</span><i>→</i><span>Program (code)</span><i>→</i><span>Output</span></div>
+
+    <div class="box tip">
+      <p>Teacher's analogy: an <b>algorithm</b> is like a recipe ("Bake a cake at 350 degrees"). <b>Pseudocode</b> is like a structured kitchen manual using standard verbs (<code>SET temperature TO 350; WHILE cake is not baked, WAIT</code>). The program is the oven actually doing it.</p>
+    </div>
+
+    <div class="box warn">
+      <p>Pseudocode is <b>not</b> executable. If you type pseudocode into Python, it will give errors. Also, do not mix exact Python syntax (colons, brackets) into pseudocode answers unless asked — use keywords like <code>IF … THEN … END IF</code>.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">الگورتھم بتاتا ہے کہ کیا کرنا ہے، جبکہ سوڈو کوڈ (Pseudocode) بتاتا ہے کہ اسے کیسے کیا جا سکتا ہے۔ الگورتھم سادہ مرحلوں میں لکھا جاتا ہے اور ہر کوئی اسے سمجھ سکتا ہے۔ سوڈو کوڈ میں IF، FOR اور WHILE جیسے الفاظ استعمال ہوتے ہیں اور یہ زیادہ تر پروگرامرز کے لیے ہوتا ہے، لیکن اسے کمپیوٹر پر چلایا نہیں جا سکتا۔</p>
+    </div>
+
+    <div class="box exam">
+      <p>"Differentiate between algorithm and pseudocode" is a favourite 4–5 mark question. Draw a two-column table and give at least <b>five</b> points (definition, nature, purpose, form, audience). Adding the recipe vs kitchen-manual analogy and one small example of each earns full marks.</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Which one — algorithm or pseudocode — uses keywords like FOR and WHILE?</p>
+      <p><b>2.</b> Which one is meant for non-programmers too?</p>
+      <p><b>3.</b> Can pseudocode be executed by a computer?</p>
+      <div class="ans">Answers: 1. Pseudocode. 2. Algorithm. 3. No; it is semi-formal and not executable.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.1 ===================== -->
+  <div class="topic">
+    <h2>2.3.1 Decomposition <span class="star">★ Golden</span></h2>
+    <p><b>2.3 Algorithmic Strategies for Problem Solving.</b> An <b>algorithmic strategy</b> is a general method that helps you design an algorithm. The three strategies in your syllabus are decomposition, pattern recognition and abstraction.</p>
+    <div class="box learn">
+      <p><b>Decomposition</b> is a problem-solving technique in which a complex task or system is broken down into smaller, manageable parts. By dividing a big problem into simpler steps, it becomes easier to understand, develop and solve.</p>
+      <p>Each small part is called a <b>sub-task</b> (or sub-problem). You solve each sub-task separately, then join the solutions to solve the whole problem.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 600 170" width="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="14">
+        <rect x="210" y="15" width="180" height="40" rx="6" fill="#e8eaf6" stroke="#3f51b5"/>
+        <text x="300" y="40" text-anchor="middle">Complex Problem</text>
+        <line x1="300" y1="55" x2="100" y2="110" stroke="#3f51b5"/>
+        <line x1="300" y1="55" x2="300" y2="110" stroke="#3f51b5"/>
+        <line x1="300" y1="55" x2="500" y2="110" stroke="#3f51b5"/>
+        <rect x="30" y="110" width="140" height="40" rx="6" fill="#fff8e1" stroke="#f9a825"/>
+        <text x="100" y="135" text-anchor="middle">Sub-task 1</text>
+        <rect x="230" y="110" width="140" height="40" rx="6" fill="#fff8e1" stroke="#f9a825"/>
+        <text x="300" y="135" text-anchor="middle">Sub-task 2</text>
+        <rect x="430" y="110" width="140" height="40" rx="6" fill="#fff8e1" stroke="#f9a825"/>
+        <text x="500" y="135" text-anchor="middle">Sub-task 3</text>
+      </svg>
+      <figcaption>Decomposition: one complex problem is split into smaller sub-tasks.</figcaption>
+    </figure>
+
+    <div class="box example">
+      <p><b>Real-life example: Learning a new language</b></p>
+      <p>"Learn English" (or any language) is too big to do in one go. Decompose it:</p>
+      <table>
+        <tr><th>Sub-task</th><th>Description</th></tr>
+        <tr><td>Learn vocabulary</td><td>Learn the words for people, actions and things (e.g., "I", "eat", "apple").</td></tr>
+        <tr><td>Grammar rules</td><td>Learn the sentence structure: Subject → Verb → Object.</td></tr>
+        <tr><td>Learn tenses</td><td>Present, past, future (e.g., "I eat" vs. "I ate").</td></tr>
+        <tr><td>Sentence building</td><td>Combine words using the rules to create valid sentences: "I ate an apple."</td></tr>
+      </table>
+      <div class="flow"><span>Vocabulary</span><i>→</i><span>Grammar rules</span><i>→</i><span>Tenses</span><i>→</i><span>Sentence building</span></div>
+    </div>
+
+    <div class="box example">
+      <p><b>Computing example: a "Student Result" program</b></p>
+      <p>Problem: read the marks of a student in 5 subjects and print the total, percentage and grade.</p>
+      <ul>
+        <li>Sub-task 1: Input marks of 5 subjects.</li>
+        <li>Sub-task 2: Calculate total = sum of the 5 marks.</li>
+        <li>Sub-task 3: Calculate percentage = total ÷ 500 × 100.</li>
+        <li>Sub-task 4: Decide the grade from the percentage.</li>
+        <li>Sub-task 5: Print the result card.</li>
+      </ul>
+      <p>Each sub-task is now so small that you can write it in two or three lines of code.</p>
+    </div>
+
+    <h3>Why is decomposition useful?</h3>
+    <ul>
+      <li><b>Reduces complexity:</b> you focus on one piece at a time.</li>
+      <li><b>Helps in debugging:</b> you can find exactly where the mistake is (e.g., in the language example, is the error in the verb tense or the word order?).</li>
+      <li><b>Promotes reusability:</b> once you learn or build a small part, you can apply it elsewhere (the "calculate percentage" part can be reused in an attendance program).</li>
+    </ul>
+
+    <div class="box tip">
+      <p>Think of eating a big <i>roti</i>: you cannot eat it in one bite, so you break it into small pieces. Decomposition = "break the roti".</p>
+    </div>
+
+    <div class="box warn">
+      <p>Do not break a problem into random pieces. Each sub-task must be a meaningful, clear job, and all sub-tasks together must solve the <i>whole</i> problem. If one part is missing (e.g., "print result"), the solution is incomplete.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">ڈیکمپوزیشن (Decomposition) کا مطلب ہے کسی بڑے اور پیچیدہ مسئلے کو چھوٹے اور آسان حصوں میں تقسیم کرنا۔ مثلاً نئی زبان سیکھنے کو الفاظ، گرامر، زمانے (Tenses) اور جملہ سازی میں تقسیم کیا جا سکتا ہے۔ اس سے پیچیدگی کم ہوتی ہے، غلطی ڈھونڈنا آسان ہوتا ہے اور حصے دوبارہ استعمال ہو سکتے ہیں۔</p>
+    </div>
+
+    <div class="box exam">
+      <p>Expect "Define decomposition with a real-life example" or "Explain the benefits of decomposition". Give the definition, draw the small tree (Complex Problem → Sub-task 1, 2, 3), show the language-learning table, and list the three benefits: reduces complexity, helps debugging, promotes reusability.</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> What is each smaller part of a decomposed problem called?</p>
+      <p><b>2.</b> Decompose "Making a school timetable" into three sub-tasks.</p>
+      <p><b>3.</b> State the three benefits of decomposition.</p>
+      <div class="ans">Answers: 1. A sub-task (sub-problem). 2. Example: list subjects and teachers; decide periods per subject per week; place periods in days so no teacher has two classes at once. 3. Reduces complexity, helps in debugging, promotes reusability.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.2 ===================== -->
+  <div class="topic">
+    <h2>2.3.2 Pattern Recognition</h2>
+    <div class="box learn">
+      <p><b>Pattern recognition</b> is the process of identifying regularities, repetitions or rules in data. It helps in reducing the overall complexity of an algorithm and forms the foundation of concepts such as <b>loops</b>.</p>
+      <p>How it works — ask yourself three questions:</p>
+      <ul>
+        <li>What is repeating?</li>
+        <li>What changes in a predictable way?</li>
+        <li>Can I generalise this (write one rule that works for every case)?</li>
+      </ul>
+    </div>
+
+    <div class="box example">
+      <p><b>Example: Triangle of stars</b></p>
+<pre class="code output">*
+**
+***
+****
+*****</pre>
+      <p><b>Step 1 — What repeats?</b> Every row prints stars.</p>
+      <p><b>Step 2 — What changes predictably?</b> Each row adds 1 star to the previous row's count.</p>
+      <table class="center">
+        <tr><th>Row</th><th>Stars</th></tr>
+        <tr><td>1</td><td>1</td></tr>
+        <tr><td>2</td><td>2</td></tr>
+        <tr><td>3</td><td>3</td></tr>
+        <tr><td>…</td><td>…</td></tr>
+        <tr><td class="hl">N</td><td class="hl">N</td></tr>
+      </table>
+      <p><b>Step 3 — Generalise:</b> Row N = N stars. Recognising this pattern lets us write one generic loop instead of 5 separate print statements.</p>
+      <div class="two-col">
+        <div>
+          <p><b>Without the pattern (5 statements)</b></p>
+<pre class="code">print("*")
+print("**")
+print("***")
+print("****")
+print("*****")</pre>
+        </div>
+        <div>
+          <p><b>With the pattern (one loop)</b></p>
+<pre class="code">n = 5
+for row in range(1, n + 1):
+    print("*" * row)</pre>
+        </div>
+      </div>
+      <p>Both programs print exactly the same triangle. But if you want 100 rows, the loop version needs only one change (<code>n = 100</code>), while the first version needs 100 lines.</p>
+    </div>
+
+    <div class="box tip">
+      <p>Whenever you see "the same thing again and again, with a small change each time", think <b>loop</b>. Pattern recognition is the habit of spotting that.</p>
+    </div>
+
+    <div class="box warn">
+      <p>Do not generalise from too few cases. Check your rule on several rows (or items) before trusting it. "Row N = N stars" is correct here; a different triangle (1, 3, 5, 7 stars) follows the rule "Row N = 2N − 1 stars".</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">پیٹرن ریکگنیشن (Pattern Recognition) کا مطلب ہے ڈیٹا میں دہرائی جانے والی چیزوں یا اصولوں کو پہچاننا۔ ستاروں کی تکون میں ہر قطار میں پچھلی قطار سے ایک ستارہ زیادہ ہے، یعنی قطار N میں N ستارے۔ یہ پیٹرن پہچان کر ہم پانچ الگ پرنٹ کے بجائے ایک لوپ (Loop) لکھ سکتے ہیں۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Which programming concept is based on pattern recognition?</p>
+      <p><b>2.</b> How many stars will row 8 of the triangle have?</p>
+      <p><b>3.</b> Find the rule: 2, 4, 6, 8, …</p>
+      <div class="ans">Answers: 1. Loops. 2. 8 stars (Row N = N stars). 3. Term N = 2 × N (each term adds 2).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.3.3 ===================== -->
+  <div class="topic">
+    <h2>2.3.3 Abstraction</h2>
+    <div class="box learn">
+      <p><b>Abstraction</b> means hiding unnecessary features and focusing only on the essential ones needed to solve a problem. It reduces complexity by ignoring what is not important (the <b>noise</b>).</p>
+      <p>When you apply abstraction you sort details into three groups:</p>
+      <ul>
+        <li><b>Necessary steps</b> — the core logic that never changes.</li>
+        <li><b>Changes based on the situation</b> — these become <b>variables</b> (inputs) in the algorithm.</li>
+        <li><b>Abstraction items (noise)</b> — details you can ignore completely.</li>
+      </ul>
+    </div>
+
+    <div class="box example">
+      <p><b>Example: applying abstraction to "Making Tea"</b></p>
+      <p>To make an algorithm for tea, we separate the necessary steps from the situational changes and the noise.</p>
+      <table>
+        <tr><th>1. Necessary steps (core logic)</th><th>2. Changes based on situation (variables)</th><th>3. Abstraction items (ignore / noise)</th></tr>
+        <tr><td>1. Boil water<br>2. Add tea leaves/bag<br>3. Steep for a few minutes<br>4. Pour into cup<br>5. Serve</td>
+            <td>Ingredients (black, green, milk)<br>Additions (sugar, lemon)<br>Tools (stove vs kettle)</td>
+            <td>Brand of kettle<br>Cup colour or design<br>Where tea is made (kitchen, office)</td></tr>
+      </table>
+      <p>The core abstracted logic, independent of cup colour or kettle brand:</p>
+      <div class="flow"><span>Boil water</span><i>→</i><span>Add tea</span><i>→</i><span>Steep</span><i>→</i><span>Pour</span><i>→</i><span>Serve</span></div>
+      <p>This one algorithm now works for green tea in an office kettle and for milk tea on a kitchen stove. The middle column simply becomes inputs: <code>tea_type</code>, <code>addition</code>, <code>tool</code>.</p>
+    </div>
+
+    <p>Computers use abstraction everywhere. When you call <code>print("Hello")</code> in Python, you do not think about how the screen lights up each pixel — those details are hidden from you. A map of Karachi shows roads and landmarks but hides every tree and car: it is an abstraction of the city.</p>
+
+    <div class="box tip">
+      <p>Abstraction = "<b>Keep the skeleton, drop the decoration.</b>" Ask: "If I remove this detail, does the solution still work?" If yes, it is noise.</p>
+    </div>
+
+    <div class="box warn">
+      <p>Do not confuse abstraction with decomposition. Decomposition <i>splits</i> a problem into parts. Abstraction <i>removes</i> unimportant details. Also, do not throw away details that really matter — "boil water" can never be ignored, but kettle brand can.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">ایبسٹریکشن (Abstraction) کا مطلب ہے غیر ضروری تفصیلات کو چھپا کر صرف ضروری باتوں پر توجہ دینا۔ چائے بنانے کی مثال میں پانی ابالنا، پتی ڈالنا، دم دینا، کپ میں ڈالنا اور پیش کرنا ضروری مراحل ہیں؛ چائے کی قسم یا چینی متغیرات (Variables) ہیں؛ جبکہ کیتلی کا برانڈ یا کپ کا رنگ فالتو باتیں (Noise) ہیں جنہیں نظر انداز کیا جاتا ہے۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> What is "noise" in abstraction?</p>
+      <p><b>2.</b> In the tea example, is "sugar or lemon" a necessary step, a variable, or noise?</p>
+      <p><b>3.</b> How is abstraction different from decomposition?</p>
+      <div class="ans">Answers: 1. Unnecessary details that do not affect the solution. 2. A variable (it changes with the situation). 3. Decomposition breaks a problem into parts; abstraction hides details that are not important.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.4 intro ===================== -->
+  <div class="topic">
+    <h2>2.4 Sorting and Searching Algorithms</h2>
+    <div class="box learn">
+      <p>Sorting and searching are both fundamental techniques of computer science. They work on <b>lists of the same data type</b> (for example, a list of all integers or a list of all names).</p>
+      <table>
+        <tr><th>Sorting</th><th>Searching</th></tr>
+        <tr><td>Arranging a collection of items in an order. The order may be <b>ascending</b> (0–9, A–Z) or <b>descending</b> (9–0, Z–A). Used to organise data.</td>
+            <td>Locating a specific element within a list to find its <b>position</b> or check its <b>existence</b> (is it there or not?).</td></tr>
+        <tr><td>Examples: Bubble Sort, Selection Sort</td><td>Examples: Linear Search, Binary Search</td></tr>
+        <tr><td>Real life: merit list arranged from highest to lowest marks.</td><td>Real life: finding your roll number in the merit list.</td></tr>
+      </table>
+    </div>
+
+    <h3>Notation you will see</h3>
+    <ul>
+      <li><b>DATA</b> — the list (array). <code>DATA[1]</code> is the 1st element in the textbook algorithms (counting starts at 1).</li>
+      <li>In <b>pseudocode and Python</b> counting starts at <b>0</b>: <code>DATA[0]</code> is the 1st element. This is called an <b>index</b>.</li>
+      <li><b>N</b> — the number of elements in the list.</li>
+      <li><b>PTR</b> (pointer) — a variable that holds the current position.</li>
+      <li><b>temp</b> — a temporary variable used to <b>swap</b> (exchange) two values.</li>
+      <li><b>Pass</b> — one complete run of the inner loop over the list.</li>
+    </ul>
+
+    <div class="box example">
+      <p><b>How a swap works with temp.</b> Suppose A = 8 and B = 4. To exchange them:</p>
+      <div class="flow"><span>temp = A (temp = 8)</span><i>→</i><span>A = B (A = 4)</span><i>→</i><span>B = temp (B = 8)</span></div>
+      <p>Without <code>temp</code>, writing A = B first would destroy the 8. In Python you may also write <code>a, b = b, a</code>.</p>
+    </div>
+
+    <div class="box warn">
+      <p>Position 1 in the textbook algorithm is index 0 in Python. In exams, if a question uses DATA[1], count from 1; if it uses Python, count from 0. State clearly which one you use.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">سارٹنگ (Sorting) کا مطلب ہے ڈیٹا کو صعودی (چھوٹے سے بڑے) یا نزولی (بڑے سے چھوٹے) ترتیب میں رکھنا۔ سرچنگ (Searching) کا مطلب ہے فہرست میں کسی خاص چیز کو تلاش کرنا تاکہ اس کی جگہ یا موجودگی معلوم ہو سکے۔ دونوں ایک ہی قسم کے ڈیٹا کی فہرست پر کام کرتے ہیں۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Arrange C, A, D, B in descending order.</p>
+      <p><b>2.</b> What is the purpose of the variable temp?</p>
+      <div class="ans">Answers: 1. D, C, B, A. 2. It temporarily holds one value so that two values can be swapped without losing either.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Bubble sort ===================== -->
+  <div class="topic">
+    <h2>2.4.1 Sorting Algorithms: Bubble Sort <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Bubble Sort</b> is an elementary sorting algorithm that works by repeatedly comparing <b>adjacent</b> (side-by-side) elements and swapping them if they are in the wrong order.</p>
+      <p>In each pass, the largest remaining value "bubbles up" to the end of the list, like an air bubble rising to the top of water. So after pass 1 the largest value is in the last place, after pass 2 the second largest is in second-last place, and so on. A list of N items needs <b>N − 1 passes</b>, and pass K makes <b>N − K comparisons</b>.</p>
+    </div>
+
+    <div class="flow"><span>Compare DATA[j] and DATA[j+1]</span><i>→</i><span>Left &gt; Right?</span><i>→</i><span>Yes: swap</span><i>→</i><span>Move one step right</span><i>→</i><span>End of pass: largest is at the end</span><i>→</i><span>Repeat N−1 passes</span></div>
+
+    <div class="two-col">
+      <div>
+        <p><b>Algorithm (textbook)</b></p>
+<pre class="code">Step 1: Start
+Step 2: Set DATA := {8,4,1,9,3}
+Step 3: Set N := 5
+Step 4: Repeat Step 5 and 6 for
+        K = 1 to N-1
+Step 5: Set PTR := 1
+Step 6: Repeat while PTR &lt;= N-K:
+   a: If DATA[PTR] &gt; DATA[PTR+1]:
+      1. Set temp = DATA[PTR]
+      2. Set DATA[PTR] = DATA[PTR+1]
+      3. Set DATA[PTR+1] = temp
+   b: Set PTR := PTR + 1
+Step 7: End</pre>
+      </div>
+      <div>
+        <p><b>Pseudocode</b></p>
+<pre class="code">Start
+DATA = {8,4,1,9,3}
+N = 5
+For outer = 0 to N-1
+  For inner = 0 to N-2-outer
+    IF DATA[inner] &gt; DATA[inner+1]
+      Temp = DATA[inner]
+      DATA[inner] = DATA[inner+1]
+      DATA[inner+1] = Temp
+    End If
+  End For
+End For
+End</pre>
+      </div>
+    </div>
+
+    <div class="box example">
+      <p><b>Worked example: sort 8, 4, 1, 9, 3 in ascending order.</b> The pair in brackets [ ] is being compared. Positions are counted from 1.</p>
+      <h3>Pass 1 (K = 1, 4 comparisons)</h3>
+      <table>
+        <tr><th>Comparison</th><th>Pair</th><th>Left &gt; Right?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>1st vs 2nd</td><td>[8, 4], 1, 9, 3</td><td>8 &gt; 4 Yes</td><td>Swap</td><td>4, 8, 1, 9, 3</td></tr>
+        <tr><td>2nd vs 3rd</td><td>4, [8, 1], 9, 3</td><td>8 &gt; 1 Yes</td><td>Swap</td><td>4, 1, 8, 9, 3</td></tr>
+        <tr><td>3rd vs 4th</td><td>4, 1, [8, 9], 3</td><td>8 &gt; 9 No</td><td>No change</td><td>4, 1, 8, 9, 3</td></tr>
+        <tr><td>4th vs 5th</td><td>4, 1, 8, [9, 3]</td><td>9 &gt; 3 Yes</td><td>Swap</td><td>4, 1, 8, 3, <b>9</b></td></tr>
+      </table>
+      <p>9 is now at its correct (final) place.</p>
+      <h3>Pass 2 (K = 2, 3 comparisons)</h3>
+      <table>
+        <tr><th>Comparison</th><th>Pair</th><th>Left &gt; Right?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>1st vs 2nd</td><td>[4, 1], 8, 3, 9</td><td>4 &gt; 1 Yes</td><td>Swap</td><td>1, 4, 8, 3, 9</td></tr>
+        <tr><td>2nd vs 3rd</td><td>1, [4, 8], 3, 9</td><td>4 &gt; 8 No</td><td>No change</td><td>1, 4, 8, 3, 9</td></tr>
+        <tr><td>3rd vs 4th</td><td>1, 4, [8, 3], 9</td><td>8 &gt; 3 Yes</td><td>Swap</td><td>1, 4, 3, <b>8, 9</b></td></tr>
+      </table>
+      <h3>Pass 3 (K = 3, 2 comparisons)</h3>
+      <table>
+        <tr><th>Comparison</th><th>Pair</th><th>Left &gt; Right?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>1st vs 2nd</td><td>[1, 4], 3, 8, 9</td><td>1 &gt; 4 No</td><td>No change</td><td>1, 4, 3, 8, 9</td></tr>
+        <tr><td>2nd vs 3rd</td><td>1, [4, 3], 8, 9</td><td>4 &gt; 3 Yes</td><td>Swap</td><td>1, 3, <b>4, 8, 9</b></td></tr>
+      </table>
+      <h3>Pass 4 (K = 4, 1 comparison)</h3>
+      <table>
+        <tr><th>Comparison</th><th>Pair</th><th>Left &gt; Right?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>1st vs 2nd</td><td>[1, 3], 4, 8, 9</td><td>1 &gt; 3 No</td><td>No change</td><td><b>1, 3, 4, 8, 9</b></td></tr>
+      </table>
+      <p><b>Sorted list: 1, 3, 4, 8, 9.</b> Totals: 4 + 3 + 2 + 1 = <b>10 comparisons</b> and <b>6 swaps</b>.</p>
+      <table class="center">
+        <tr><th>Pass</th><th>List after pass</th><th>Fixed at the end</th></tr>
+        <tr><td>Start</td><td>8, 4, 1, 9, 3</td><td>—</td></tr>
+        <tr><td>1</td><td>4, 1, 8, 3, 9</td><td>9</td></tr>
+        <tr><td>2</td><td>1, 4, 3, 8, 9</td><td>8, 9</td></tr>
+        <tr><td>3</td><td>1, 3, 4, 8, 9</td><td>4, 8, 9</td></tr>
+        <tr><td>4</td><td>1, 3, 4, 8, 9</td><td>all</td></tr>
+      </table>
+    </div>
+
+    <div class="box example">
+      <p><b>Bubble Sort in Python</b> (follows the pseudocode exactly; Python indexes start at 0):</p>
+<pre class="code">data = [8, 4, 1, 9, 3]
+n = len(data)
+for outer in range(n - 1):
+    for inner in range(n - 1 - outer):
+        if data[inner] &gt; data[inner + 1]:
+            temp = data[inner]
+            data[inner] = data[inner + 1]
+            data[inner + 1] = temp
+    print("After pass", outer + 1, ":", data)
+print("Sorted list:", data)</pre>
+<pre class="code output">After pass 1 : [4, 1, 8, 3, 9]
+After pass 2 : [1, 4, 3, 8, 9]
+After pass 3 : [1, 3, 4, 8, 9]
+After pass 4 : [1, 3, 4, 8, 9]
+Sorted list: [1, 3, 4, 8, 9]</pre>
+      <p><code>range(n - 1 - outer)</code> gives inner = 0 … N−2−outer, exactly as in the pseudocode. Notice the list was already sorted after pass 3, but the plain algorithm still does pass 4.</p>
+    </div>
+
+    <h3>Advantages and disadvantages</h3>
+    <table>
+      <tr><th>Advantages</th><th>Disadvantages</th></tr>
+      <tr><td>Easiest algorithm to visualise and explain.</td><td>Uses nested loops, so the time grows very fast as the list grows (about N² comparisons).</td></tr>
+      <tr><td>Does not need extra memory (in-place sorting).</td><td>Performs a massive number of swaps.</td></tr>
+      <tr><td>Stable (equal items stay in their original order).</td><td>Useless for real-world "Big Data".</td></tr>
+    </table>
+
+    <div class="box tip">
+      <p><b>Bubble = neighbours.</b> Bubble Sort only ever compares <i>neighbours</i> (j and j+1). Each pass pushes the biggest bubble to the end. For <b>descending</b> order, just change <code>&gt;</code> to <code>&lt;</code> in the comparison.</p>
+    </div>
+
+    <div class="box warn">
+      <p>The slides say the time grows "exponentially". Strictly, Bubble Sort's time grows <b>quadratically</b>: for N items it makes N(N−1)/2 comparisons, which is O(N²). Doubling the list makes it about 4 times slower — bad, but not exponential. Another common mistake: students forget that pass K does only N − K comparisons; the sorted tail is never compared again.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">ببل سارٹ (Bubble Sort) میں ساتھ ساتھ موجود دو عناصر کا موازنہ کیا جاتا ہے اور اگر وہ غلط ترتیب میں ہوں تو ان کی جگہ بدل دی جاتی ہے۔ ہر پاس (Pass) کے بعد سب سے بڑا عدد آخر میں پہنچ جاتا ہے۔ N عناصر کے لیے N−1 پاس درکار ہوتے ہیں۔ یہ سمجھنے میں آسان اور مستحکم (Stable) ہے لیکن بڑے ڈیٹا کے لیے بہت سست ہے۔</p>
+    </div>
+
+    <div class="box exam">
+      <p>The most common question: "Sort the list … using Bubble Sort. Show each pass." Draw one table per pass with columns <i>Pair, Compare, Action, List after</i>. Mark the element fixed at the end after every pass. Also be ready to write the algorithm (with PTR and K) or the pseudocode (with outer/inner), and to list two advantages and two disadvantages.</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> How many passes and comparisons does Bubble Sort need for 6 elements?</p>
+      <p><b>2.</b> Show the list 5, 1, 4 after pass 1 of Bubble Sort.</p>
+      <p><b>3.</b> Sort 2, 9, 4, 7 in descending order with Bubble Sort: give the list after each pass.</p>
+      <div class="ans">Answers: 1. 5 passes; 5 + 4 + 3 + 2 + 1 = 15 comparisons. 2. (5,1) swap → 1, 5, 4; (5,4) swap → 1, 4, 5. 3. Pass 1: 9, 4, 7, 2; Pass 2: 9, 7, 4, 2; Pass 3: 9, 7, 4, 2.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Selection sort ===================== -->
+  <div class="topic">
+    <h2>2.4.1 Sorting Algorithms: Selection Sort <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Selection Sort</b> is a simple sorting algorithm that works by repeatedly <b>selecting the smallest element</b> from the unsorted portion of the list and moving it to its correct position at the front.</p>
+      <p>Think of it as filling seats from the front: first find who belongs in position 1, then position 2, and so on. In the textbook version, the element at position K is compared with every element after it; whenever a smaller one is found, the two are swapped. So at the end of pass K, the K-th smallest value sits in position K.</p>
+    </div>
+
+    <div class="flow"><span>Fix position K</span><i>→</i><span>Compare DATA[K] with DATA[PTR], PTR = K+1 … N</span><i>→</i><span>DATA[K] &gt; DATA[PTR]? swap</span><i>→</i><span>End of pass: smallest is at K</span><i>→</i><span>K = K + 1</span></div>
+
+    <div class="two-col">
+      <div>
+        <p><b>Algorithm (textbook)</b></p>
+<pre class="code">Step 1: Start
+Step 2: Set DATA := {8,4,1,9,3}
+Step 3: Set N := 5
+Step 4: Repeat Step 5 and 6 for
+        K = 1 to N
+Step 5: Set PTR := K+1
+Step 6: Repeat while PTR &lt;= N:
+   a: If DATA[K] &gt; DATA[PTR]:
+      1. Set temp = DATA[K]
+      2. Set DATA[K] = DATA[PTR]
+      3. Set DATA[PTR] = temp
+   b: Set PTR := PTR + 1
+Step 7: End</pre>
+      </div>
+      <div>
+        <p><b>Pseudocode</b></p>
+<pre class="code">Start
+DATA = {8,4,1,9,3}
+N = 5
+For outer = 0 to N-1
+  For inner = outer+1 to N-1
+    IF DATA[outer] &gt; DATA[inner]
+      Temp = DATA[outer]
+      DATA[outer] = DATA[inner]
+      DATA[inner] = Temp
+    End If
+  End For
+End For
+End</pre>
+      </div>
+    </div>
+
+    <div class="box tip">
+      <p><b>Teacher's tip — spot the difference:</b> in Selection Sort the inner loop starts at <code>outer + 1</code> and compares with the <i>fixed</i> position <code>DATA[outer]</code>. In Bubble Sort the inner loop always starts at <code>0</code> and compares <i>neighbours</i> <code>DATA[inner]</code> and <code>DATA[inner+1]</code>. Bubble pushes the largest to the <b>end</b>; Selection brings the smallest to the <b>front</b>.</p>
+    </div>
+
+    <div class="box example">
+      <p><b>Worked example: sort 8, 4, 1, 9, 3 in ascending order (textbook method).</b> The two positions in brackets are being compared.</p>
+      <h3>Pass 1 — find the smallest for Position 1</h3>
+      <table>
+        <tr><th>Compare</th><th>List</th><th>Pos1 &gt; PosX?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>Pos1 vs Pos2</td><td>[8], [4], 1, 9, 3</td><td>8 &gt; 4 Yes</td><td>Swap</td><td>4, 8, 1, 9, 3</td></tr>
+        <tr><td>Pos1 vs Pos3</td><td>[4], 8, [1], 9, 3</td><td>4 &gt; 1 Yes</td><td>Swap</td><td>1, 8, 4, 9, 3</td></tr>
+        <tr><td>Pos1 vs Pos4</td><td>[1], 8, 4, [9], 3</td><td>1 &gt; 9 No</td><td>No change</td><td>1, 8, 4, 9, 3</td></tr>
+        <tr><td>Pos1 vs Pos5</td><td>[1], 8, 4, 9, [3]</td><td>1 &gt; 3 No</td><td>No change</td><td><b>1</b>, 8, 4, 9, 3</td></tr>
+      </table>
+      <p>1 is now permanently in Position 1.</p>
+      <h3>Pass 2 — find the smallest for Position 2</h3>
+      <table>
+        <tr><th>Compare</th><th>List</th><th>Pos2 &gt; PosX?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>Pos2 vs Pos3</td><td>1, [8], [4], 9, 3</td><td>8 &gt; 4 Yes</td><td>Swap</td><td>1, 4, 8, 9, 3</td></tr>
+        <tr><td>Pos2 vs Pos4</td><td>1, [4], 8, [9], 3</td><td>4 &gt; 9 No</td><td>No change</td><td>1, 4, 8, 9, 3</td></tr>
+        <tr><td>Pos2 vs Pos5</td><td>1, [4], 8, 9, [3]</td><td>4 &gt; 3 Yes</td><td>Swap</td><td><b>1, 3</b>, 8, 9, 4</td></tr>
+      </table>
+      <h3>Pass 3 — find the smallest for Position 3</h3>
+      <table>
+        <tr><th>Compare</th><th>List</th><th>Pos3 &gt; PosX?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>Pos3 vs Pos4</td><td>1, 3, [8], [9], 4</td><td>8 &gt; 9 No</td><td>No change</td><td>1, 3, 8, 9, 4</td></tr>
+        <tr><td>Pos3 vs Pos5</td><td>1, 3, [8], 9, [4]</td><td>8 &gt; 4 Yes</td><td>Swap</td><td><b>1, 3, 4</b>, 9, 8</td></tr>
+      </table>
+      <h3>Pass 4 — find the smallest for Position 4</h3>
+      <table>
+        <tr><th>Compare</th><th>List</th><th>Pos4 &gt; PosX?</th><th>Action</th><th>List after</th></tr>
+        <tr><td>Pos4 vs Pos5</td><td>1, 3, 4, [9], [8]</td><td>9 &gt; 8 Yes</td><td>Swap</td><td><b>1, 3, 4, 8, 9</b></td></tr>
+      </table>
+      <p><b>Sorted list: 1, 3, 4, 8, 9.</b> Totals: 4 + 3 + 2 + 1 = <b>10 comparisons</b>, <b>6 swaps</b> in this textbook method.</p>
+      <table class="center">
+        <tr><th>Pass</th><th>List after pass</th><th>Fixed at the front</th></tr>
+        <tr><td>Start</td><td>8, 4, 1, 9, 3</td><td>—</td></tr>
+        <tr><td>1</td><td>1, 8, 4, 9, 3</td><td>1</td></tr>
+        <tr><td>2</td><td>1, 3, 8, 9, 4</td><td>1, 3</td></tr>
+        <tr><td>3</td><td>1, 3, 4, 9, 8</td><td>1, 3, 4</td></tr>
+        <tr><td>4</td><td>1, 3, 4, 8, 9</td><td>all</td></tr>
+      </table>
+    </div>
+
+    <div class="box example">
+      <p><b>Selection Sort in Python</b> (follows the textbook pseudocode):</p>
+<pre class="code">data = [8, 4, 1, 9, 3]
+n = len(data)
+for outer in range(n - 1):
+    for inner in range(outer + 1, n):
+        if data[outer] &gt; data[inner]:
+            temp = data[outer]
+            data[outer] = data[inner]
+            data[inner] = temp
+    print("After pass", outer + 1, ":", data)
+print("Sorted list:", data)</pre>
+<pre class="code output">After pass 1 : [1, 8, 4, 9, 3]
+After pass 2 : [1, 3, 8, 9, 4]
+After pass 3 : [1, 3, 4, 9, 8]
+After pass 4 : [1, 3, 4, 8, 9]
+Sorted list: [1, 3, 4, 8, 9]</pre>
+    </div>
+
+    <div class="box example">
+      <p><b>The "classic" Selection Sort (one swap per pass).</b> Many books first <i>find the position of the smallest</i> value in the unsorted part, and swap only once at the end of each pass. The result is the same; only the swaps are fewer.</p>
+<pre class="code">data = [8, 4, 1, 9, 3]
+n = len(data)
+for outer in range(n - 1):
+    smallest = outer
+    for inner in range(outer + 1, n):
+        if data[inner] &lt; data[smallest]:
+            smallest = inner
+    data[outer], data[smallest] = data[smallest], data[outer]
+    print("After pass", outer + 1, ":", data)</pre>
+<pre class="code output">After pass 1 : [1, 4, 8, 9, 3]
+After pass 2 : [1, 3, 8, 9, 4]
+After pass 3 : [1, 3, 4, 9, 8]
+After pass 4 : [1, 3, 4, 8, 9]</pre>
+      <p>Here only 4 swaps are made (at most N − 1). This is why Selection Sort is said to perform fewer swaps than Bubble Sort. In exams, use the textbook method unless the question asks otherwise.</p>
+    </div>
+
+    <h3>Advantages and disadvantages</h3>
+    <table>
+      <tr><th>Advantages</th><th>Disadvantages</th></tr>
+      <tr><td>Very easy to code.</td><td>Time grows very fast with list size (nested loops, about N² comparisons).</td></tr>
+      <tr><td>Performs fewer swaps overall compared to Bubble Sort.</td><td>Must finish every single loop — it is "blind" to an already sorted list.</td></tr>
+      <tr><td>Does not need extra memory.</td><td>Not stable (it might change the relative positions of equal items).</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>Why "not stable"?</b> Take two equal marks, 5<sub>a</sub> (Ali) and 5<sub>b</sub> (Bilal), in the list 5<sub>a</sub>, 5<sub>b</sub>, 2. Pass 1 compares 5<sub>a</sub> with 5<sub>b</sub> (no swap), then 5<sub>a</sub> with 2 → swap → 2, 5<sub>b</sub>, 5<sub>a</sub>. Now Bilal is before Ali, although Ali came first originally. Bubble Sort never does this, because it swaps only neighbours that are strictly out of order.</p>
+    </div>
+
+    <div class="box warn">
+      <p>In the textbook method, the comparison is always with the <b>fixed position</b> DATA[K] (Pos1 in pass 1, Pos2 in pass 2), not with the neighbour. Students often mix this up with Bubble Sort and compare neighbours. Also, after a swap, the <i>new</i> value at Pos K is used for the next comparison.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">سلیکشن سارٹ (Selection Sort) میں فہرست کے غیر ترتیب شدہ حصے سے سب سے چھوٹا عدد چن کر اسے سامنے اس کی درست جگہ پر رکھا جاتا ہے۔ ہر پاس میں ایک مقررہ جگہ (Position) کا موازنہ اس کے بعد والے تمام عناصر سے ہوتا ہے۔ اس کا کوڈ آسان ہے اور ببل سارٹ سے کم تبادلے (Swaps) ہوتے ہیں، لیکن یہ مستحکم (Stable) نہیں اور ترتیب شدہ فہرست پر بھی پورے لوپ چلاتا ہے۔</p>
+    </div>
+
+    <div class="box exam">
+      <p>Typical questions: "Sort … using Selection Sort, showing all steps", "Differentiate between Bubble Sort and Selection Sort" and "Why is Selection Sort not stable?" In the difference question mention: what is compared (neighbours vs fixed position), where the inner loop starts (0 vs outer+1), where items settle (end vs front), stability, and number of swaps.</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> In Selection Sort, where does the inner loop start?</p>
+      <p><b>2.</b> Using the textbook method, show 7, 2, 5 after pass 1.</p>
+      <p><b>3.</b> Which of the two sorts is stable?</p>
+      <div class="ans">Answers: 1. At outer + 1 (PTR = K + 1). 2. Pos1 vs Pos2: 7 &gt; 2 swap → 2, 7, 5; Pos1 vs Pos3: 2 &gt; 5 no → 2, 7, 5. 3. Bubble Sort.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Linear search ===================== -->
+  <div class="topic">
+    <h2>2.4.2 Searching Algorithms: Linear Search</h2>
+    <div class="box learn">
+      <p><b>Linear Search</b>, also known as <b>sequential search</b>, works by examining each element in the list one by one, from the start, until the target is found (or the list ends). It works on both <b>sorted and unsorted</b> data.</p>
+      <p>A <b>flag</b> variable (here <code>ValueFound</code>) starts at 0 and becomes 1 when the item is found. After the loop, the flag tells us whether to print the item or "Not Found".</p>
+    </div>
+
+    <div class="flow"><span>PTR = first</span><i>→</i><span>DATA[PTR] = FindValue?</span><i>→</i><span>Yes: ValueFound = 1, exit</span><i>→</i><span>No: PTR = PTR + 1</span><i>→</i><span>List ended? print "Not Found"</span></div>
+
+    <div class="two-col">
+      <div>
+        <p><b>Algorithm (textbook)</b></p>
+<pre class="code">Step 1: Start
+Step 2: DATA := {8,3,6,1,7,2,4,5}
+Step 3: N := 8
+Step 4: FindValue := 7
+Step 5: ValueFound := 0
+Step 6: Repeat for PTR = 1 to N
+Step 7:   If DATA[PTR] = FindValue:
+            a. ValueFound = 1
+            b. Goto Step 8
+Step 8: If ValueFound = 1:
+          Print DATA[PTR]
+        Else:
+          Print "Not Found"
+Step 9: End</pre>
+      </div>
+      <div>
+        <p><b>Pseudocode</b></p>
+<pre class="code">Start
+DATA = {8, 3, 6, 1, 7, 2, 4, 5}
+N = 8
+FindValue = 7
+ValueFound = 0
+For PTR = 0 to N-1
+  If DATA[PTR] == FindValue then
+    ValueFound = 1
+    Exit Loop
+  End If
+End For
+If ValueFound == 1 then
+  Print DATA[PTR]
+Else
+  Print "Data Not Found"
+End If
+End</pre>
+      </div>
+    </div>
+
+    <div class="box example">
+      <p><b>Worked example.</b> Data list: 8, 3, 6, 1, 7, 2, 4, 5. Searching item: 7.</p>
+      <table class="center">
+        <tr><th>Step</th><th>Element checked</th><th>Condition (== 7)</th><th>Result</th></tr>
+        <tr><td>1</td><td>8</td><td>8 == 7 ?</td><td>Not found</td></tr>
+        <tr><td>2</td><td>3</td><td>3 == 7 ?</td><td>Not found</td></tr>
+        <tr><td>3</td><td>6</td><td>6 == 7 ?</td><td>Not found</td></tr>
+        <tr><td>4</td><td>1</td><td>1 == 7 ?</td><td>Not found</td></tr>
+        <tr><td class="hl">5</td><td class="hl">7</td><td class="hl">7 == 7 ?</td><td class="hl">Found! (Exit loop)</td></tr>
+      </table>
+      <p>7 is found at position 5 (index 4) after 5 comparisons. The remaining items 2, 4, 5 are never checked.</p>
+      <p><b>If the item is missing</b> — e.g., search for 9 — all 8 elements are checked, the flag stays 0, and "Data Not Found" is printed. This is the <b>worst case</b>: N comparisons.</p>
+    </div>
+
+    <div class="box example">
+      <p><b>Linear Search in Python</b></p>
+<pre class="code">data = [8, 3, 6, 1, 7, 2, 4, 5]
+find_value = 7
+value_found = 0
+for ptr in range(len(data)):
+    print("Step", ptr + 1, ": checking", data[ptr])
+    if data[ptr] == find_value:
+        value_found = 1
+        break
+if value_found == 1:
+    print("Found", data[ptr], "at position", ptr + 1)
+else:
+    print("Data Not Found")</pre>
+<pre class="code output">Step 1 : checking 8
+Step 2 : checking 3
+Step 3 : checking 6
+Step 4 : checking 1
+Step 5 : checking 7
+Found 7 at position 5</pre>
+      <p><code>break</code> is Python's "Exit Loop".</p>
+    </div>
+
+    <h3>Advantages and disadvantages</h3>
+    <table>
+      <tr><th>Advantages</th><th>Disadvantages</th></tr>
+      <tr><td>Does not care whether data is scrambled or sorted.</td><td>If the target is at the end of 1 million items, it does 1 million checks.</td></tr>
+      <tr><td>Extremely simple code (one loop, one if statement).</td><td>Time grows linearly (double the list = double the time).</td></tr>
+      <tr><td>Faster for very small lists (no setup time, such as sorting).</td><td>Inefficient if you need to search the same list thousands of times.</td></tr>
+      <tr><td>Does not require any extra space.</td><td></td></tr>
+    </table>
+
+    <div class="box tip">
+      <p>Linear Search is like looking for your friend in a queue by checking every face from the front. Best case: 1 check (first person). Worst case: N checks (last person or not there).</p>
+    </div>
+
+    <div class="box warn">
+      <p>Do not print "Not Found" inside the loop after every mismatch — that would print it many times. Decide only <b>after</b> the loop ends, using the flag. And remember to <b>exit the loop</b> once the item is found, or you waste comparisons.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">لینیئر سرچ (Linear Search) کو ترتیب وار تلاش (Sequential Search) بھی کہتے ہیں۔ اس میں فہرست کے ہر عنصر کو شروع سے ایک ایک کر کے چیک کیا جاتا ہے جب تک مطلوبہ چیز نہ مل جائے۔ یہ ترتیب شدہ اور غیر ترتیب شدہ دونوں قسم کے ڈیٹا پر کام کرتی ہے اور بہت سادہ ہے، لیکن بڑی فہرست میں بہت وقت لیتی ہے۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> What is another name for Linear Search?</p>
+      <p><b>2.</b> In 8, 3, 6, 1, 7, 2, 4, 5, how many comparisons are needed to find 2?</p>
+      <p><b>3.</b> What is the purpose of the variable ValueFound?</p>
+      <div class="ans">Answers: 1. Sequential search. 2. 6 comparisons (2 is in position 6). 3. It is a flag: 0 means not found yet, 1 means found; it decides what to print after the loop.</div>
+    </div>
+  </div>
+
+  <!-- ===================== Binary search ===================== -->
+  <div class="topic">
+    <h2>2.4.2 Searching Algorithms: Binary Search <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Binary Search</b> is a highly efficient search algorithm that works by repeatedly dividing the search interval in half. <b>Crucial limitation: it only works on a SORTED list.</b></p>
+      <p>Three variables mark the part of the list still being searched:</p>
+      <ul>
+        <li><b>BEG</b> (low) — first position of the current part.</li>
+        <li><b>END</b> (high) — last position of the current part.</li>
+        <li><b>MID</b> = INT((BEG + END) / 2) — the middle position. INT means "drop the decimal part".</li>
+      </ul>
+      <p>At each step compare the item with DATA[MID]:</p>
+      <ul>
+        <li>Equal → found, stop.</li>
+        <li>Item &lt; DATA[MID] → the item can only be in the <b>left</b> half: set END = MID − 1.</li>
+        <li>Item &gt; DATA[MID] → the item can only be in the <b>right</b> half: set BEG = MID + 1.</li>
+      </ul>
+      <p>If BEG becomes greater than END, the part is empty and the item is <b>not in the list</b>.</p>
+    </div>
+
+    <div class="flow"><span>BEG = first, END = last</span><i>→</i><span>MID = INT((BEG+END)/2)</span><i>→</i><span>Item = DATA[MID]? Found</span><i>→</i><span>Item &lt; DATA[MID]: END = MID−1</span><i>→</i><span>Else: BEG = MID+1</span><i>→</i><span>Repeat while BEG ≤ END</span></div>
+
+    <div class="two-col">
+      <div>
+        <p><b>Algorithm (textbook summary)</b></p>
+<pre class="code">Step 1: Start
+Step 2: DATA := {1,2,3,4,5,6,7,8,9}
+        (Sorted)
+Step 3: BEG = 1, END = 9
+Step 4: MID = INT((BEG+END)/2)
+Step 5: Item = 7
+Step 6: LOC = 0
+Step 7: Repeat while BEG &lt;= END AND
+        DATA[MID] != Item
+Step 8:   If Item &lt; DATA[MID]:
+            END = MID - 1
+          Else:
+            BEG = MID + 1
+Step 9:   MID = INT((BEG+END)/2)
+Step 10: [End loop]
+Step 11: If DATA[MID] == Item:
+           LOC = MID
+         Else:
+           LOC = 0
+Step 12: Print result based on LOC
+Step 13: End</pre>
+      </div>
+      <div>
+        <p><b>Pseudocode</b></p>
+<pre class="code">Start
+DATA = {1,2,3,4,5,6,7,8,9}
+BEG = 1, END = 9
+MID = INT((BEG+END)/2)
+Item = 7
+LOC = NULL
+While BEG &lt;= END AND DATA[MID] != Item
+  IF Item &lt; DATA[MID] then
+    END = MID - 1
+  Else
+    BEG = MID + 1
+  End If
+  MID = INT((BEG+END)/2)
+End While
+If DATA[MID] == Item then
+  LOC = MID
+Else
+  LOC = NULL
+End If
+If LOC != NULL then
+  Print DATA[MID]
+Else
+  Print "Not Found"
+End If
+End</pre>
+      </div>
+    </div>
+
+    <div class="box warn">
+      <p>The slide's pseudocode writes the loop condition as <code>BEG &lt;= END OR DATA[MID] != Item</code>. That is a slip: with OR the loop would never stop once the item is found while BEG ≤ END. The textbook algorithm (Step 7) correctly uses <b>AND</b> — keep going only while the part is not empty <i>and</i> the item is not yet found. Likewise, the slide sets LOC = NULL but then tests "LOC &gt;= 0"; the check should simply be "LOC is not NULL" (or, with LOC = 0 meaning not found, "LOC &gt; 0"). The pseudocode above shows the corrected form.</p>
+    </div>
+
+    <div class="box example">
+      <p><b>Worked example 1 (textbook algorithm).</b> DATA = 1, 2, 3, 4, 5, 6, 7, 8, 9; Item = 7. Positions 1 to 9.</p>
+      <table class="center">
+        <tr><th>Step</th><th>BEG (low)</th><th>END (high)</th><th>MID</th><th>DATA[MID]</th><th>Compare</th><th>Action</th></tr>
+        <tr><td>1</td><td>1</td><td>9</td><td>INT(10/2) = 5</td><td>5</td><td>7 &gt; 5</td><td>BEG = 6 (go right)</td></tr>
+        <tr><td class="hl">2</td><td class="hl">6</td><td class="hl">9</td><td class="hl">INT(15/2) = 7</td><td class="hl">7</td><td class="hl">7 = 7</td><td class="hl">Found, LOC = 7</td></tr>
+      </table>
+      <p>Only <b>2 comparisons</b>. Linear Search would need 7.</p>
+    </div>
+
+    <div class="box example">
+      <p><b>Worked example 2 (slide example).</b> Sorted list: 1, 2, 3, 4, 5, 6, 7, 8. Searching item: 3.</p>
+      <table class="center">
+        <tr><th>Step</th><th>BEG (low)</th><th>END (high)</th><th>MID</th><th>DATA[MID]</th><th>Compare</th><th>Action</th></tr>
+        <tr><td>1</td><td>1</td><td>8</td><td>INT(9/2) = 4</td><td>4</td><td>3 &lt; 4</td><td>END = 3 (go left)</td></tr>
+        <tr><td>2</td><td>1</td><td>3</td><td>INT(4/2) = 2</td><td>2</td><td>3 &gt; 2</td><td>BEG = 3 (go right)</td></tr>
+        <tr><td class="hl">3</td><td class="hl">3</td><td class="hl">3</td><td class="hl">INT(6/2) = 3</td><td class="hl">3</td><td class="hl">3 = 3</td><td class="hl">FOUND at position 3</td></tr>
+      </table>
+      <p>Picture the list shrinking (the highlighted cell is MID):</p>
+      <table class="center">
+        <tr><th>Step</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+        <tr><td>1</td><td>1</td><td>2</td><td>3</td><td class="hl">4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+        <tr><td>2</td><td>1</td><td class="hl">2</td><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td class="hl">3</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <p>The slide describes the same steps using the size of each sub-list: Step 1 MID = 8/2 = 4 (value 4), 3 &lt; 4, go left; Step 2 sub-list [1, 2, 3], middle = 3/2 = 1.5 → 2nd item (value 2), 3 &gt; 2, go right; Step 3 sub-list [3], middle = 1st item (value 3), FOUND. Both ways land on the same values 4 → 2 → 3.</p>
+    </div>
+
+    <div class="box example">
+      <p><b>Binary Search in Python</b> (index starts at 0, so positions 1–8 become indexes 0–7):</p>
+<pre class="code">data = [1, 2, 3, 4, 5, 6, 7, 8]
+item = 3
+beg = 0
+end = len(data) - 1
+loc = -1
+step = 0
+while beg &lt;= end:
+    mid = (beg + end) // 2
+    step = step + 1
+    print("Step", step, ": beg =", beg, "mid =", mid, "end =", end, "value =", data[mid])
+    if data[mid] == item:
+        loc = mid
+        break
+    elif item &lt; data[mid]:
+        end = mid - 1
+    else:
+        beg = mid + 1
+if loc &gt;= 0:
+    print("Found", item, "at index", loc)
+else:
+    print("Not Found")</pre>
+<pre class="code output">Step 1 : beg = 0 mid = 3 end = 7 value = 4
+Step 2 : beg = 0 mid = 1 end = 2 value = 2
+Step 3 : beg = 2 mid = 2 end = 2 value = 3
+Found 3 at index 2</pre>
+      <p><code>//</code> is integer division, the same as INT(). Index 2 is position 3. Here <code>loc = -1</code> means "not found", so the test <code>loc &gt;= 0</code> is correct.</p>
+    </div>
+
+    <h3>Why is it so fast?</h3>
+    <p>Every comparison throws away half of the remaining list. 1,000,000 → 500,000 → 250,000 → … → 1 takes about 20 halvings, because 2<sup>20</sup> = 1,048,576. So Binary Search finds an item among 1 million elements in at most about <b>20 steps</b>, while Linear Search may need 1,000,000.</p>
+
+    <h3>Advantages and disadvantages</h3>
+    <table>
+      <tr><th>Advantages</th><th>Disadvantages</th></tr>
+      <tr><td>Extremely fast for "Big Data": finds an item in 1M elements in just ~20 steps.</td><td>The list must be sorted first; it fails on scrambled data.</td></tr>
+      <tr><td>Massive time savings for static lists that are searched repeatedly.</td><td>Requires random access to elements (works on arrays, not easily on linked lists).</td></tr>
+      <tr><td></td><td>More complex code, prone to logic errors (off-by-one).</td></tr>
+    </table>
+
+    <div class="box tip">
+      <p>Binary Search is how you find a word in a dictionary: open the middle, decide "before or after?", and throw away half the book each time. <b>"Sorted first, then split."</b></p>
+    </div>
+
+    <div class="box warn">
+      <p>Common errors: (1) using Binary Search on an unsorted list — the answer will be wrong; (2) setting END = MID instead of MID − 1 (or BEG = MID instead of MID + 1), which can cause an infinite loop — this is the "off-by-one" error; (3) forgetting INT, so MID becomes a decimal like 4.5.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">بائنری سرچ (Binary Search) ایک تیز رفتار طریقہ ہے جو ہر قدم پر تلاش کے حصے کو آدھا کر دیتا ہے۔ یہ صرف ترتیب شدہ (Sorted) فہرست پر کام کرتا ہے۔ درمیانی عنصر (MID) سے موازنہ کیا جاتا ہے: اگر مطلوبہ چیز چھوٹی ہو تو بائیں آدھے حصے میں، اور بڑی ہو تو دائیں آدھے حصے میں تلاش جاری رہتی ہے۔ دس لاکھ عناصر میں بھی تقریباً بیس قدموں میں نتیجہ مل جاتا ہے۔</p>
+    </div>
+
+    <div class="box exam">
+      <p>You will usually be given a sorted list and an item and asked to "search using Binary Search, showing all steps". Always draw a table with <b>BEG, END, MID, DATA[MID], comparison, action</b>. Show the INT calculation for MID. If the item is absent, continue until BEG &gt; END and write "Not Found". Also learn: "Why must the list be sorted?" and "Compare Linear and Binary Search".</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> What is the crucial condition for Binary Search to work?</p>
+      <p><b>2.</b> BEG = 6, END = 9. What is MID?</p>
+      <p><b>3.</b> In 1, 2, 3, 4, 5, 6, 7, 8 (positions 1–8), list the MID values visited when searching for 8.</p>
+      <div class="ans">Answers: 1. The list must be sorted. 2. INT(15/2) = 7. 3. MID = 4 (value 4, go right, BEG = 5) → MID = INT(13/2) = 6 (value 6, go right, BEG = 7) → MID = INT(15/2) = 7 (value 7, go right, BEG = 8) → MID = 8 (value 8, found). Four comparisons.</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.5 ===================== -->
+  <div class="topic">
+    <h2>2.5 Evaluation Criteria of Algorithm</h2>
+    <div class="box learn">
+      <p>Many algorithms can solve the same problem. To judge which is better, we evaluate them on three criteria: <b>correctness</b>, <b>efficiency</b> and <b>clarity</b>.</p>
+    </div>
+
+    <h3>2.5.1 Correctness</h3>
+    <p>An algorithm is <b>correct</b> if:</p>
+    <ul>
+      <li>its output matches the expected outcomes;</li>
+      <li>it handles <b>edge cases</b> gracefully (unusual inputs such as an empty list, 0, a negative number, or an item that is not present);</li>
+      <li>it is guaranteed to finish — no infinite loops.</li>
+    </ul>
+    <p>We test correctness with a <b>trace table</b> (dry run): we feed sample inputs and record every value by hand, then compare the result with what we expect.</p>
+
+    <div class="box example">
+      <p><b>Trace table example: Even/Odd checker.</b> Rule: divide the number by 2; if the remainder is 0 it is Even, otherwise Odd.</p>
+      <table class="center">
+        <tr><th>Input</th><th>Operation (divide by 2, find remainder)</th><th>Remainder == 0?</th><th>Result</th></tr>
+        <tr><td>3</td><td>3 / 2 (Quotient = 1, Remainder = 1)</td><td>No</td><td>Odd</td></tr>
+        <tr><td>6</td><td>6 / 2 (Quotient = 3, Remainder = 0)</td><td>Yes</td><td>Even</td></tr>
+        <tr><td>15</td><td>15 / 2 (Quotient = 7, Remainder = 1)</td><td>No</td><td>Odd</td></tr>
+      </table>
+      <p>All three results match what we expect, so the algorithm is correct for these inputs. The same check in Python:</p>
+<pre class="code">for number in [3, 6, 15]:
+    remainder = number % 2
+    if remainder == 0:
+        print(number, "remainder", remainder, "-&gt; Even")
+    else:
+        print(number, "remainder", remainder, "-&gt; Odd")</pre>
+<pre class="code output">3 remainder 1 -&gt; Odd
+6 remainder 0 -&gt; Even
+15 remainder 1 -&gt; Odd</pre>
+      <p>A good tester would also try the edge case 0 (remainder 0 → Even, which is correct).</p>
+    </div>
+
+    <h3>2.5.2 Efficiency</h3>
+    <p>We measure algorithm efficiency through <b>time</b> (speed) and <b>space</b> (memory). The key question is: how fast does it run as the input size grows — does it <b>scale</b> well?</p>
+    <p>Computer scientists describe growth with <b>Big O notation</b>. It counts roughly how many steps are needed for N items:</p>
+    <ul>
+      <li><b>O(1)</b> — constant: same time, whatever N is.</li>
+      <li><b>O(log N)</b> — logarithmic: grows very slowly (Binary Search).</li>
+      <li><b>O(N)</b> — linear: double N, double the time (Linear Search).</li>
+      <li><b>O(N²)</b> — quadratic: double N, four times the time (Bubble and Selection Sort).</li>
+    </ul>
+    <div class="box example">
+      <p><b>How the worst-case number of comparisons grows</b></p>
+      <table class="center">
+        <tr><th>N (items)</th><th>Linear Search (N)</th><th>Binary Search (about log₂N)</th><th>Bubble/Selection Sort N(N−1)/2</th></tr>
+        <tr><td>10</td><td>10</td><td>4</td><td>45</td></tr>
+        <tr><td>100</td><td>100</td><td>7</td><td>4,950</td></tr>
+        <tr><td>1,000</td><td>1,000</td><td>10</td><td>499,500</td></tr>
+        <tr><td>1,000,000</td><td>1,000,000</td><td>20</td><td>499,999,500,000</td></tr>
+      </table>
+      <p>This is why Binary Search is called excellent for Big Data and the simple sorts are called useless for it.</p>
+    </div>
+
+    <h3>2.5.3 Clarity (Readability)</h3>
+    <p>An algorithm must be easy to read, understand and modify. It should use <b>clear steps</b>, <b>meaningful variable names</b> and <b>good indentation</b>.</p>
+    <div class="two-col">
+      <div>
+        <p><b>Unclear</b></p>
+<pre class="code">a=[3,6,15]
+for x in a:
+ if x%2==0:print(x,"E")
+ else:print(x,"O")</pre>
+      </div>
+      <div>
+        <p><b>Clear</b></p>
+<pre class="code">numbers = [3, 6, 15]
+for number in numbers:
+    if number % 2 == 0:
+        print(number, "Even")
+    else:
+        print(number, "Odd")</pre>
+      </div>
+    </div>
+    <p>Both work, but the second is far easier for another person (or you, a month later) to understand and change.</p>
+
+    <div class="box tip">
+      <p>Remember <b>C-E-C</b>: <b>C</b>orrect (right answer, always finishes), <b>E</b>fficient (fast and light), <b>C</b>lear (easy to read).</p>
+    </div>
+
+    <div class="box warn">
+      <p>Testing only "normal" inputs is not enough to prove correctness. Always include edge cases in your trace table, e.g., the first item, the last item, a missing item, or an empty list in a search.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">کسی الگورتھم کو تین معیارات پر پرکھا جاتا ہے: درستگی (Correctness) یعنی درست نتیجہ دے، غیر معمولی صورتوں کو سنبھالے اور ہمیشہ ختم ہو؛ کارکردگی (Efficiency) یعنی کم وقت اور کم میموری استعمال کرے؛ اور وضاحت (Clarity) یعنی پڑھنے، سمجھنے اور تبدیل کرنے میں آسان ہو۔ درستگی جانچنے کے لیے ٹریس ٹیبل (Trace Table) بنایا جاتا ہے۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Name the three evaluation criteria of an algorithm.</p>
+      <p><b>2.</b> Give one example of an edge case for a search algorithm.</p>
+      <p><b>3.</b> Efficiency is measured in terms of which two resources?</p>
+      <div class="ans">Answers: 1. Correctness, efficiency, clarity. 2. The item is not in the list (or the list is empty, or the item is the last element). 3. Time (speed) and space (memory).</div>
+    </div>
+  </div>
+
+  <!-- ===================== 2.6 ===================== -->
+  <div class="topic">
+    <h2>2.6 How to Decide Which Algorithm to Use</h2>
+    <div class="box learn">
+      <p>Before choosing an algorithm, ask three questions:</p>
+      <ul>
+        <li><b>What is the input size?</b> (10 items or 10 million?)</li>
+        <li><b>Is the data sorted?</b></li>
+        <li><b>Do we need speed or memory efficiency?</b></li>
+      </ul>
+      <p><b>Simple decision guide:</b></p>
+      <ul>
+        <li>If searching on <b>unsorted</b> data → use <b>Linear Search</b>.</li>
+        <li>If searching on <b>sorted</b> data → use <b>Binary Search</b>.</li>
+        <li>If data needs <b>ordering</b> → use a <b>sorting</b> algorithm.</li>
+      </ul>
+    </div>
+
+    <div class="flow"><span>What is the task?</span><i>→</i><span>Need order? → Sorting algorithm</span><i>→</i><span>Need to find? Is data sorted?</span><i>→</i><span>No → Linear Search</span><i>→</i><span>Yes → Binary Search</span></div>
+
+    <h3>Comparison of the four algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Type</th><th>Best case</th><th>Worst case</th><th>Extra memory</th><th>Needs sorted data?</th><th>Stable?</th></tr>
+      <tr><td>Bubble Sort</td><td>Sorting</td><td>O(N²) as written; O(N) with an early-stop check</td><td>O(N²)</td><td>None — O(1)</td><td>—</td><td>Yes</td></tr>
+      <tr><td>Selection Sort</td><td>Sorting</td><td>O(N²)</td><td>O(N²)</td><td>None — O(1)</td><td>—</td><td>No</td></tr>
+      <tr><td>Linear Search</td><td>Searching</td><td>O(1) (first item)</td><td>O(N) (last item / absent)</td><td>None — O(1)</td><td>No</td><td>—</td></tr>
+      <tr><td>Binary Search</td><td>Searching</td><td>O(1) (item at first MID)</td><td>O(log N)</td><td>None — O(1)</td><td>Yes</td><td>—</td></tr>
+    </table>
+
+    <table>
+      <tr><th>Point</th><th>Bubble Sort</th><th>Selection Sort</th></tr>
+      <tr><td>What is compared</td><td>Adjacent elements (j and j+1)</td><td>Fixed position K with every later element</td></tr>
+      <tr><td>Inner loop starts at</td><td>0</td><td>outer + 1</td></tr>
+      <tr><td>After each pass</td><td>Largest moves to the end</td><td>Smallest moves to the front</td></tr>
+      <tr><td>Swaps</td><td>Many</td><td>Fewer</td></tr>
+      <tr><td>Stable</td><td>Yes</td><td>No</td></tr>
+    </table>
+
+    <table>
+      <tr><th>Point</th><th>Linear Search</th><th>Binary Search</th></tr>
+      <tr><td>Method</td><td>Checks one by one</td><td>Splits the list in half each step</td></tr>
+      <tr><td>Data required</td><td>Sorted or unsorted</td><td>Sorted only</td></tr>
+      <tr><td>Worst case (1M items)</td><td>1,000,000 checks</td><td>About 20 checks</td></tr>
+      <tr><td>Code</td><td>Very simple</td><td>More complex, off-by-one risk</td></tr>
+      <tr><td>Best for</td><td>Small or unsorted lists, one-off searches</td><td>Large, sorted lists searched many times</td></tr>
+    </table>
+
+    <div class="box example">
+      <p><b>Choosing in practice</b></p>
+      <ul>
+        <li><b>A shopkeeper's list of 15 items, written in random order, searched once:</b> Linear Search — the list is unsorted and tiny; sorting first would waste time.</li>
+        <li><b>NADRA looking up a CNIC number among millions of sorted records, thousands of times a day:</b> Binary Search — data is sorted, huge, and searched repeatedly.</li>
+        <li><b>A teacher arranging 40 students' marks into a merit list:</b> a sorting algorithm; for 40 items even Bubble or Selection Sort is acceptable.</li>
+        <li><b>An unsorted list of 1 million records that will be searched thousands of times:</b> sort it once, then use Binary Search for every search.</li>
+      </ul>
+    </div>
+
+    <div class="box tip">
+      <p>Two keywords decide most exam answers: <b>"sorted?"</b> and <b>"how big?"</b>. Unsorted or small → Linear. Sorted and big → Binary.</p>
+    </div>
+
+    <div class="box warn">
+      <p>"Binary Search is always better" is wrong. On unsorted data it does not work at all, and for a single search on a small unsorted list, sorting first costs more than a simple Linear Search.</p>
+    </div>
+
+    <div class="box urdu">
+      <p class="ur">الگورتھم چننے سے پہلے دیکھیں کہ ڈیٹا کتنا بڑا ہے، ترتیب شدہ ہے یا نہیں، اور ہمیں رفتار چاہیے یا میموری کی بچت۔ غیر ترتیب شدہ ڈیٹا میں تلاش کے لیے لینیئر سرچ، ترتیب شدہ ڈیٹا میں تلاش کے لیے بائنری سرچ، اور ڈیٹا کو ترتیب دینے کے لیے سارٹنگ الگورتھم استعمال کریں۔</p>
+    </div>
+
+    <div class="box check">
+      <p><b>1.</b> Which search would you use on an unsorted list of phone contacts?</p>
+      <p><b>2.</b> What is the worst-case time complexity of Binary Search?</p>
+      <p><b>3.</b> Which sort has the same time complexity in its best and worst case?</p>
+      <div class="ans">Answers: 1. Linear Search. 2. O(log N). 3. Selection Sort (O(N²) in both).</div>
+    </div>
+  </div>
+
+  <!-- ===================== Review ===================== -->
+  <section class="review">
+    <h2>Chapter 2 Review</h2>
+    <h3>Chapter summary</h3>
+    <ul class="summary">
+      <li><b>Computational thinking</b> is systematic problem solving using decomposition, pattern recognition, abstraction and algorithms.</li>
+      <li>An <b>algorithm</b> is a step-by-step logical procedure to solve a problem; it is conceptual and language-independent.</li>
+      <li>Algorithms give structure, optimise time and memory, are reusable, ensure accuracy and act as a blueprint for code.</li>
+      <li><b>Pseudocode</b> is a human-readable, structured representation of an algorithm using keywords like IF, FOR and WHILE; it is not executable.</li>
+      <li>An algorithm defines <i>what</i> to do; pseudocode shows <i>how</i> to implement it.</li>
+      <li><b>Decomposition</b> breaks a big problem into smaller sub-tasks; it reduces complexity, helps debugging and promotes reusability.</li>
+      <li><b>Pattern recognition</b> finds repetitions and rules (Row N = N stars) and is the foundation of loops.</li>
+      <li><b>Abstraction</b> hides noise and keeps only essential steps; situational details become variables.</li>
+      <li>Sorting arranges data (ascending or descending); searching locates an element's position or existence.</li>
+      <li><b>Bubble Sort</b> compares and swaps adjacent elements; the largest value moves to the end each pass; N − 1 passes; stable; O(N²).</li>
+      <li><b>Selection Sort</b> brings the smallest remaining value to the front each pass; inner loop starts at outer + 1; fewer swaps; not stable; O(N²).</li>
+      <li><b>Linear Search</b> checks items one by one; works on unsorted data; O(N) worst case.</li>
+      <li><b>Binary Search</b> halves the search range using BEG, MID and END; needs sorted data; O(log N) — about 20 steps for 1 million items.</li>
+      <li>Algorithms are evaluated on <b>correctness</b> (checked with trace tables and edge cases), <b>efficiency</b> (time and space) and <b>clarity</b>.</li>
+      <li>Choose by asking: input size, sorted or not, speed or memory? Unsorted → Linear; sorted → Binary; needs order → sort.</li>
+    </ul>
+
+    <h3>Key terms</h3>
+    <table class="glossary">
+      <tr><th>Term</th><th>Meaning</th><th>اردو</th></tr>
+      <tr><td>Computational thinking</td><td>A systematic approach to solving problems using decomposition, patterns, abstraction and algorithms.</td><td class="ur">کمپیوٹیشنل سوچ</td></tr>
+      <tr><td>Algorithm</td><td>A step-by-step logical procedure to solve a problem, independent of any language.</td><td class="ur">الگورتھم، مرحلہ وار طریقۂ حل</td></tr>
+      <tr><td>Pseudocode</td><td>A human-readable, structured but non-executable representation of an algorithm.</td><td class="ur">سوڈو کوڈ، فرضی کوڈ</td></tr>
+      <tr><td>Decomposition</td><td>Breaking a complex problem into smaller, manageable parts.</td><td class="ur">تقسیم کاری</td></tr>
+      <tr><td>Sub-task</td><td>One small part of a decomposed problem.</td><td class="ur">ذیلی کام</td></tr>
+      <tr><td>Pattern recognition</td><td>Identifying regularities, repetitions or rules in data.</td><td class="ur">نمونے کی پہچان</td></tr>
+      <tr><td>Abstraction</td><td>Hiding unnecessary details and focusing on essentials.</td><td class="ur">تجرید، غیر ضروری تفصیل چھپانا</td></tr>
+      <tr><td>Noise</td><td>Details that do not affect the solution and can be ignored.</td><td class="ur">فالتو تفصیلات</td></tr>
+      <tr><td>Sorting</td><td>Arranging items in ascending or descending order.</td><td class="ur">ترتیب دینا</td></tr>
+      <tr><td>Searching</td><td>Locating an element in a list to find its position or existence.</td><td class="ur">تلاش کرنا</td></tr>
+      <tr><td>Ascending order</td><td>Smallest to largest (0–9, A–Z).</td><td class="ur">صعودی ترتیب</td></tr>
+      <tr><td>Descending order</td><td>Largest to smallest (9–0, Z–A).</td><td class="ur">نزولی ترتیب</td></tr>
+      <tr><td>Bubble Sort</td><td>Sort that repeatedly compares and swaps adjacent elements.</td><td class="ur">ببل سارٹ</td></tr>
+      <tr><td>Selection Sort</td><td>Sort that repeatedly selects the smallest element and puts it at the front.</td><td class="ur">سلیکشن سارٹ</td></tr>
+      <tr><td>Pass</td><td>One full run of the inner loop through the list.</td><td class="ur">ایک چکر</td></tr>
+      <tr><td>Swap</td><td>Exchanging the values of two positions, usually with a temp variable.</td><td class="ur">جگہ کا تبادلہ</td></tr>
+      <tr><td>In-place sorting</td><td>Sorting without needing extra memory for another list.</td><td class="ur">اضافی میموری کے بغیر ترتیب</td></tr>
+      <tr><td>Stable sort</td><td>A sort that keeps equal items in their original order.</td><td class="ur">مستحکم ترتیب</td></tr>
+      <tr><td>Linear (sequential) search</td><td>Checking each element one by one until the target is found.</td><td class="ur">ترتیب وار تلاش</td></tr>
+      <tr><td>Binary search</td><td>Search that halves a sorted list at each step.</td><td class="ur">دو حصی تلاش</td></tr>
+      <tr><td>BEG / MID / END</td><td>First, middle and last positions of the part being searched in Binary Search.</td><td class="ur">آغاز / درمیان / اختتام</td></tr>
+      <tr><td>Flag</td><td>A variable (like ValueFound) that records whether something has happened.</td><td class="ur">نشان دہی کرنے والا متغیر</td></tr>
+      <tr><td>Correctness</td><td>Giving expected output, handling edge cases and always finishing.</td><td class="ur">درستگی</td></tr>
+      <tr><td>Efficiency</td><td>How well an algorithm uses time and memory as input grows.</td><td class="ur">کارکردگی</td></tr>
+      <tr><td>Clarity</td><td>How easy an algorithm is to read, understand and modify.</td><td class="ur">وضاحت</td></tr>
+      <tr><td>Trace table</td><td>A table recording values step by step during a dry run.</td><td class="ur">ٹریس ٹیبل، جانچ جدول</td></tr>
+      <tr><td>Edge case</td><td>An unusual or extreme input used to test an algorithm.</td><td class="ur">انتہائی صورت</td></tr>
+      <tr><td>Time complexity (Big O)</td><td>A measure of how the number of steps grows with input size, e.g. O(N), O(log N).</td><td class="ur">وقتی پیچیدگی</td></tr>
+    </table>
+
+    <h3>Practice: multiple choice</h3>
+    <ol class="mcq">
+      <li>An algorithm is best defined as:
+        <ol class="opts"><li>a programming language</li><li>a step-by-step logical procedure to solve a problem</li><li>a type of computer hardware</li><li>compiled machine code</li></ol>
+      </li>
+      <li>Pseudocode is:
+        <ol class="opts"><li>executable machine code</li><li>a symbol used in flowcharts</li><li>a Python library</li><li>a human-readable representation of an algorithm using plain English and keywords</li></ol>
+      </li>
+      <li>Breaking a complex problem into smaller, manageable parts is called:
+        <ol class="opts"><li>decomposition</li><li>abstraction</li><li>pattern recognition</li><li>compilation</li></ol>
+      </li>
+      <li>In the "making tea" example, ignoring the brand of the kettle is an example of:
+        <ol class="opts"><li>decomposition</li><li>sorting</li><li>abstraction</li><li>searching</li></ol>
+      </li>
+      <li>Pattern recognition forms the foundation of:
+        <ol class="opts"><li>variables</li><li>loops</li><li>comments</li><li>input devices</li></ol>
+      </li>
+      <li>Bubble Sort works by comparing:
+        <ol class="opts"><li>the first and last elements</li><li>every element with the middle element</li><li>adjacent elements</li><li>random pairs of elements</li></ol>
+      </li>
+      <li>After the first pass of Bubble Sort (ascending) on 8, 4, 1, 9, 3, the list is:
+        <ol class="opts"><li>1, 3, 4, 8, 9</li><li>4, 8, 1, 9, 3</li><li>1, 8, 4, 9, 3</li><li>4, 1, 8, 3, 9</li></ol>
+      </li>
+      <li>Binary Search works only on a list that is:
+        <ol class="opts"><li>sorted</li><li>unsorted</li><li>stored in a linked list</li><li>of strings only</li></ol>
+      </li>
+      <li>Linear Search is also known as:
+        <ol class="opts"><li>binary search</li><li>sequential search</li><li>bubble search</li><li>random search</li></ol>
+      </li>
+      <li>How many passes does Bubble Sort need to sort N elements?
+        <ol class="opts"><li>N</li><li>N + 1</li><li>N − 1</li><li>2N</li></ol>
+      </li>
+      <li>In Selection Sort pseudocode, the inner loop starts at:
+        <ol class="opts"><li>0</li><li>N − 1</li><li>outer − 1</li><li>outer + 1</li></ol>
+      </li>
+      <li>The worst-case time complexity of Binary Search is:
+        <ol class="opts"><li>O(log N)</li><li>O(N)</li><li>O(N²)</li><li>O(1)</li></ol>
+      </li>
+      <li>About how many steps does Binary Search need, at most, to find an item among 1 million sorted elements?
+        <ol class="opts"><li>2</li><li>20</li><li>1,000</li><li>1,000,000</li></ol>
+      </li>
+      <li>Which sorting algorithm is NOT stable?
+        <ol class="opts"><li>Bubble Sort</li><li>Both are stable</li><li>Selection Sort</li><li>Neither sorts data</li></ol>
+      </li>
+      <li>Which of the following is NOT an evaluation criterion of an algorithm?
+        <ol class="opts"><li>Correctness</li><li>Efficiency</li><li>Clarity</li><li>Popularity</li></ol>
+      </li>
+    </ol>
+
+    <h3>Practice: short questions</h3>
+    <ol class="short">
+      <li>Define computational thinking and name its four components.</li>
+      <li>Write any four points on the importance of algorithms.</li>
+      <li>Give three differences between an algorithm and pseudocode.</li>
+      <li>What is decomposition? Explain it with the example of learning a new language.</li>
+      <li>What three questions should you ask during pattern recognition? Apply them to the triangle of stars.</li>
+      <li>Define abstraction. In the "making tea" example, name two variables and two noise items.</li>
+      <li>Differentiate between sorting and searching.</li>
+      <li>Why does Binary Search require a sorted list? State two disadvantages of Binary Search.</li>
+      <li>Give two differences between Bubble Sort and Selection Sort.</li>
+      <li>Name the three evaluation criteria of an algorithm. What is a trace table used for?</li>
+    </ol>
+
+    <h3>Practice: long / problem questions</h3>
+    <ol class="long">
+      <li>Sort the list <b>5, 2, 7, 1, 6</b> in ascending order using Bubble Sort. Show every comparison of every pass in a table, and state the total number of comparisons and swaps. Then write the Python code for Bubble Sort.</li>
+      <li>Sort the list <b>6, 2, 9, 5, 1</b> in ascending order using Selection Sort (textbook method). Show every comparison of every pass and count the swaps. Also state why Selection Sort is called "blind" to an already sorted list.</li>
+      <li>The sorted list is <b>3, 8, 12, 17, 23, 31, 40, 52, 66</b> (Python indexes 0–8). Using Binary Search, show a low / mid / high table to search for (a) 40 and (b) 20. For each, state how many comparisons Linear Search would need.</li>
+      <li>Write the algorithm and pseudocode for Linear Search. Dry-run it on <b>8, 3, 6, 1, 7, 2, 4, 5</b> for FindValue = 2 and for FindValue = 9, and give two advantages and two disadvantages of Linear Search.</li>
+      <li>A school wants a program that reads the marks of 5 subjects for every student and prints each student's total, percentage and grade. Apply decomposition, pattern recognition and abstraction to this problem, and write a short algorithm.</li>
+      <li>A library has 50,000 book IDs stored in sorted order, and the librarian searches it hundreds of times a day. (a) Which search algorithm should be used and why? (b) What is the maximum number of comparisons for Linear and for Binary Search? (c) Explain the three evaluation criteria you would use to judge the chosen program.</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Answer key</h2>
+      <h3>Multiple choice</h3>
+      <ol class="inline"><li>b</li><li>d</li><li>a</li><li>c</li><li>b</li><li>c</li><li>d</li><li>a</li><li>b</li><li>c</li><li>d</li><li>a</li><li>b</li><li>c</li><li>d</li></ol>
+
+      <h3>Short questions — model answers</h3>
+      <ol>
+        <li>Computational thinking is a systematic approach to solving problems. Its four components are decomposition (breaking down), pattern recognition (finding repetitions), abstraction (hiding unnecessary details) and algorithms (writing step-by-step solutions).</li>
+        <li>Algorithms (1) provide a structured approach that makes complex tasks manageable; (2) optimise time and memory usage, crucial for large applications; (3) can be reused for similar problems; (4) ensure accuracy and consistency, reducing human error; (5) act as a blueprint before coding. (Any four.)</li>
+        <li>(1) An algorithm is a step-by-step logical procedure; pseudocode is a human-readable representation of it using English and keywords. (2) An algorithm is conceptual and language-independent; pseudocode is semi-formal and structured but not executable. (3) An algorithm has no fixed format and is for anyone; pseudocode uses IF/FOR/WHILE, follows conventions and is mainly for programmers.</li>
+        <li>Decomposition is breaking a complex task into smaller, manageable parts. Learning a language is decomposed into: vocabulary (words like "I", "eat", "apple"), grammar rules (Subject → Verb → Object), tenses ("I eat" vs "I ate") and sentence building (combining words with rules).</li>
+        <li>Ask: What is repeating? What changes in a predictable way? Can I generalise this? For the star triangle: stars repeat in every row; each row has one more star than the previous; generalisation: Row N = N stars, so one loop can print it.</li>
+        <li>Abstraction means hiding unnecessary features and focusing on the essential ones. Variables: type of tea (black, green, milk), additions (sugar, lemon), tool (stove or kettle) — any two. Noise: brand of kettle, cup colour or design, where tea is made — any two.</li>
+        <li>Sorting arranges a collection of items in ascending or descending order to organise data (e.g., Bubble Sort, Selection Sort). Searching locates a specific element in a list to find its position or whether it exists (e.g., Linear Search, Binary Search).</li>
+        <li>Binary Search decides to go left or right by comparing with the middle value; this decision is only valid if all smaller values are on the left and larger on the right, i.e., the list is sorted. Disadvantages: needs sorted data; needs random access (arrays, not linked lists); code is more complex and prone to off-by-one errors. (Any two.)</li>
+        <li>(1) Bubble Sort compares adjacent elements; Selection Sort compares a fixed position with all later elements. (2) Bubble Sort moves the largest to the end each pass; Selection Sort moves the smallest to the front. Also: Bubble Sort is stable, Selection Sort is not; Selection Sort makes fewer swaps.</li>
+        <li>Correctness, efficiency (time and space) and clarity (readability). A trace table records the values of variables step by step during a dry run, so we can check that the output matches the expected result and so prove correctness.</li>
+      </ol>
+
+      <h3>Long questions — model answers</h3>
+      <ol>
+        <li>
+          <p><b>Bubble Sort on 5, 2, 7, 1, 6</b></p>
+          <table>
+            <tr><th>Pass</th><th>Pair</th><th>Left &gt; Right?</th><th>List after</th></tr>
+            <tr><td>1</td><td>[5, 2]</td><td>Yes, swap</td><td>2, 5, 7, 1, 6</td></tr>
+            <tr><td>1</td><td>[5, 7]</td><td>No</td><td>2, 5, 7, 1, 6</td></tr>
+            <tr><td>1</td><td>[7, 1]</td><td>Yes, swap</td><td>2, 5, 1, 7, 6</td></tr>
+            <tr><td>1</td><td>[7, 6]</td><td>Yes, swap</td><td>2, 5, 1, 6, <b>7</b></td></tr>
+            <tr><td>2</td><td>[2, 5]</td><td>No</td><td>2, 5, 1, 6, 7</td></tr>
+            <tr><td>2</td><td>[5, 1]</td><td>Yes, swap</td><td>2, 1, 5, 6, 7</td></tr>
+            <tr><td>2</td><td>[5, 6]</td><td>No</td><td>2, 1, 5, <b>6, 7</b></td></tr>
+            <tr><td>3</td><td>[2, 1]</td><td>Yes, swap</td><td>1, 2, 5, 6, 7</td></tr>
+            <tr><td>3</td><td>[2, 5]</td><td>No</td><td>1, 2, <b>5, 6, 7</b></td></tr>
+            <tr><td>4</td><td>[1, 2]</td><td>No</td><td><b>1, 2, 5, 6, 7</b></td></tr>
+          </table>
+          <p>Total comparisons = 4 + 3 + 2 + 1 = 10; total swaps = 3 + 1 + 1 + 0 = 5. Sorted list: 1, 2, 5, 6, 7.</p>
+<pre class="code">data = [5, 2, 7, 1, 6]
+n = len(data)
+for outer in range(n - 1):
+    for inner in range(n - 1 - outer):
+        if data[inner] &gt; data[inner + 1]:
+            temp = data[inner]
+            data[inner] = data[inner + 1]
+            data[inner + 1] = temp
+print(data)</pre>
+<pre class="code output">[1, 2, 5, 6, 7]</pre>
+        </li>
+        <li>
+          <p><b>Selection Sort (textbook method) on 6, 2, 9, 5, 1</b></p>
+          <table>
+            <tr><th>Pass</th><th>Compare</th><th>Values</th><th>Action</th><th>List after</th></tr>
+            <tr><td>1</td><td>Pos1 vs Pos2</td><td>6 &gt; 2</td><td>Swap</td><td>2, 6, 9, 5, 1</td></tr>
+            <tr><td>1</td><td>Pos1 vs Pos3</td><td>2 &gt; 9</td><td>No</td><td>2, 6, 9, 5, 1</td></tr>
+            <tr><td>1</td><td>Pos1 vs Pos4</td><td>2 &gt; 5</td><td>No</td><td>2, 6, 9, 5, 1</td></tr>
+            <tr><td>1</td><td>Pos1 vs Pos5</td><td>2 &gt; 1</td><td>Swap</td><td><b>1</b>, 6, 9, 5, 2</td></tr>
+            <tr><td>2</td><td>Pos2 vs Pos3</td><td>6 &gt; 9</td><td>No</td><td>1, 6, 9, 5, 2</td></tr>
+            <tr><td>2</td><td>Pos2 vs Pos4</td><td>6 &gt; 5</td><td>Swap</td><td>1, 5, 9, 6, 2</td></tr>
+            <tr><td>2</td><td>Pos2 vs Pos5</td><td>5 &gt; 2</td><td>Swap</td><td><b>1, 2</b>, 9, 6, 5</td></tr>
+            <tr><td>3</td><td>Pos3 vs Pos4</td><td>9 &gt; 6</td><td>Swap</td><td>1, 2, 6, 9, 5</td></tr>
+            <tr><td>3</td><td>Pos3 vs Pos5</td><td>6 &gt; 5</td><td>Swap</td><td><b>1, 2, 5</b>, 9, 6</td></tr>
+            <tr><td>4</td><td>Pos4 vs Pos5</td><td>9 &gt; 6</td><td>Swap</td><td><b>1, 2, 5, 6, 9</b></td></tr>
+          </table>
+          <p>10 comparisons, 7 swaps. Sorted list: 1, 2, 5, 6, 9. (With the classic one-swap-per-pass method the passes give 1, 2, 9, 5, 6 → 1, 2, 9, 5, 6 → 1, 2, 5, 9, 6 → 1, 2, 5, 6, 9.)</p>
+          <p>Selection Sort is "blind" to a sorted list because its loops have fixed limits: it always makes all N(N−1)/2 comparisons, even if the list is already in order. It has no way to notice that no swaps were needed and stop early.</p>
+        </li>
+        <li>
+          <p><b>(a) Search for 40</b></p>
+          <table class="center">
+            <tr><th>Step</th><th>low</th><th>high</th><th>mid</th><th>data[mid]</th><th>Compare</th><th>Action</th></tr>
+            <tr><td>1</td><td>0</td><td>8</td><td>(0+8)//2 = 4</td><td>23</td><td>40 &gt; 23</td><td>low = 5</td></tr>
+            <tr><td>2</td><td>5</td><td>8</td><td>(5+8)//2 = 6</td><td>40</td><td>40 = 40</td><td>Found at index 6</td></tr>
+          </table>
+          <p>Binary: 2 comparisons. Linear Search: 40 is the 7th item, so 7 comparisons.</p>
+          <p><b>(b) Search for 20</b></p>
+          <table class="center">
+            <tr><th>Step</th><th>low</th><th>high</th><th>mid</th><th>data[mid]</th><th>Compare</th><th>Action</th></tr>
+            <tr><td>1</td><td>0</td><td>8</td><td>4</td><td>23</td><td>20 &lt; 23</td><td>high = 3</td></tr>
+            <tr><td>2</td><td>0</td><td>3</td><td>(0+3)//2 = 1</td><td>8</td><td>20 &gt; 8</td><td>low = 2</td></tr>
+            <tr><td>3</td><td>2</td><td>3</td><td>(2+3)//2 = 2</td><td>12</td><td>20 &gt; 12</td><td>low = 3</td></tr>
+            <tr><td>4</td><td>3</td><td>3</td><td>3</td><td>17</td><td>20 &gt; 17</td><td>low = 4</td></tr>
+            <tr><td>—</td><td>4</td><td>3</td><td colspan="4">low &gt; high, so the loop stops: <b>Not Found</b></td></tr>
+          </table>
+          <p>Binary: 4 comparisons. Linear Search must check all 9 items before saying "Not Found".</p>
+        </li>
+        <li>
+          <p>Algorithm and pseudocode: as in section 2.4.2 (Start; DATA, N, FindValue, ValueFound := 0; repeat for PTR = 1 to N: if DATA[PTR] = FindValue then ValueFound = 1 and exit; after the loop print DATA[PTR] if ValueFound = 1, else "Not Found"; End).</p>
+          <p><b>FindValue = 2:</b></p>
+          <table class="center">
+            <tr><th>Step</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
+            <tr><td>Element</td><td>8</td><td>3</td><td>6</td><td>1</td><td>7</td><td class="hl">2</td></tr>
+            <tr><td>== 2?</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td><td class="hl">Yes — exit</td></tr>
+          </table>
+          <p>Found at position 6 after 6 comparisons; ValueFound = 1; prints 2.</p>
+          <p><b>FindValue = 9:</b> 8, 3, 6, 1, 7, 2, 4, 5 are all checked (8 comparisons), none equals 9, ValueFound stays 0, so "Data Not Found" is printed.</p>
+          <p>Advantages: works on sorted and unsorted data; very simple code; fast for small lists; no extra space. Disadvantages: up to N checks (1 million for 1 million items); time grows linearly; inefficient if the same list is searched thousands of times. (Any two of each.)</p>
+        </li>
+        <li>
+          <p><b>Decomposition:</b> (1) input a student's 5 marks; (2) calculate total; (3) calculate percentage = total ÷ 500 × 100; (4) decide grade; (5) print result; (6) repeat for the next student.</p>
+          <p><b>Pattern recognition:</b> the same steps repeat for every student, and the same "add a mark" step repeats for every subject — so use a loop over students and a loop over subjects.</p>
+          <p><b>Abstraction:</b> keep only roll number, marks, total, percentage and grade; ignore noise such as the student's address, uniform or the colour of the result card. The number of students can be a variable.</p>
+          <p><b>Algorithm:</b> Step 1: Start. Step 2: Read number of students S. Step 3: Repeat Steps 4–8 for each student. Step 4: TOTAL = 0. Step 5: Repeat 5 times: read MARK, TOTAL = TOTAL + MARK. Step 6: PER = TOTAL / 500 × 100. Step 7: If PER &gt;= 80 grade "A1", else if PER &gt;= 70 "A", else if PER &gt;= 60 "B", else if PER &gt;= 50 "C", else "Fail" (school's own grading scale). Step 8: Print TOTAL, PER, GRADE. Step 9: End.</p>
+        </li>
+        <li>
+          <p>(a) <b>Binary Search</b>, because the data is already sorted, it is large (50,000 items) and it is searched many times a day, so the time saved per search adds up; Linear Search would be far slower.</p>
+          <p>(b) Linear Search worst case: 50,000 comparisons. Binary Search worst case: 16 comparisons, because 2<sup>15</sup> = 32,768 &lt; 50,000 ≤ 2<sup>16</sup> = 65,536, so 16 halvings are enough to reduce 50,000 items to one.</p>
+          <p>(c) <b>Correctness:</b> it must return the right position for IDs that exist, say "Not Found" for missing IDs (edge cases: first ID, last ID, missing ID), and always stop. <b>Efficiency:</b> time O(log N) and no extra memory (O(1)). <b>Clarity:</b> meaningful names like <code>low</code>, <code>mid</code>, <code>high</code>, clear steps and good indentation so another programmer can maintain it.</p>
+        </li>
+      </ol>
+    </div>
+
+    <h3>Self-assessment: I can…</h3>
+    <ul class="checklist">
+      <li>define computational thinking and name its four parts.</li>
+      <li>define an algorithm and give five reasons it is important.</li>
+      <li>draw a table comparing algorithm and pseudocode on at least five points.</li>
+      <li>decompose a real-life problem into sub-tasks and explain three benefits.</li>
+      <li>find a pattern in data and turn it into a loop.</li>
+      <li>separate necessary steps, variables and noise using abstraction.</li>
+      <li>dry-run Bubble Sort pass by pass and count comparisons and swaps.</li>
+      <li>dry-run Selection Sort pass by pass and explain why it is not stable.</li>
+      <li>trace Linear Search with a step table, including the "not found" case.</li>
+      <li>trace Binary Search with a BEG / MID / END table and explain why it needs sorted data.</li>
+      <li>state best and worst time complexity for all four algorithms.</li>
+      <li>evaluate an algorithm for correctness, efficiency and clarity, and choose the right algorithm for a situation.</li>
+    </ul>
+  </section>
+</section>
