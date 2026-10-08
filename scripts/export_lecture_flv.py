@@ -28,7 +28,10 @@ FLV_OUT = Path(os.environ.get("FLV_OUT", ROOT / "lectures" / "src" / "main" / "a
 CSS = (WB / "whiteboard.css").as_uri()
 MJAX = (WB / "mathjax" / "tex-svg.js").as_uri()
 FFMPEG = shutil.which("ffmpeg") or "ffmpeg"
+FFPROBE = shutil.which("ffprobe") or "ffprobe"
 FORCE = os.environ.get("FORCE_FLV") == "1"
+SKIP_PRINT = os.environ.get("SKIP_PRINT") == "1"
+REPRINT = os.environ.get("REPRINT_FLV") == "1"
 
 
 def article_from(html_path: Path) -> str:
@@ -85,32 +88,64 @@ window.MathJax = {{
 """
 
 
-def hold_seconds(n_pages: int) -> float:
-    if n_pages <= 1:
-        return 6.0
-    return max(2.2, min(3.4, 14.0 / n_pages))
+def speech_seconds(text: str) -> float:
+    return max(24.0, float(catalog.spoken_seconds(text or "")))
 
 
-def encode_flv(pngs: list[Path], dest: Path) -> None:
+def page_holds(total: float, weights: list[int]) -> list[float]:
+    if not weights:
+        return [total]
+    safe = [max(8, w) for w in weights]
+    s = float(sum(safe))
+    return [round(total * w / s, 2) for w in safe]
+
+
+def flv_duration(path: Path) -> float:
+    if not path.exists():
+        return 0.0
+    proc = subprocess.run(
+        [FFPROBE, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+        capture_output=True,
+        text=True,
+    )
+    try:
+        return float((proc.stdout or "0").strip() or 0)
+    except ValueError:
+        return 0.0
+
+
+def needs_encode(dest: Path, spoken: str) -> bool:
+    if FORCE or not dest.exists() or dest.stat().st_size < 4000:
+        return True
+    want = speech_seconds(spoken)
+    have = flv_duration(dest)
+    return have < want * 0.72 or have > want * 1.35
+
+
+def encode_flv(pngs: list[Path], dest: Path, holds: list[float]) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
-    hold = hold_seconds(len(pngs))
-    vf = "scale=720:-2:flags=lanczos,scale=720:trunc(ih/2)*2,fps=12,format=yuv420p"
+    if len(holds) != len(pngs):
+        holds = page_holds(sum(holds) if holds else speech_seconds(""), [1] * len(pngs))
+    vf = "scale=720:-2:flags=lanczos,scale=720:trunc(ih/2)*2,format=yuv420p"
     with tempfile.TemporaryDirectory(prefix="flv-enc-") as tmp:
         tmp_path = Path(tmp)
         inputs: list[str] = []
         for i, png in enumerate(pngs):
+            hold = max(4.0, holds[i])
             clip = tmp_path / f"c{i:02d}.flv"
             subprocess.run(
                 [
-                    FFMPEG, "-y", "-loop", "1", "-t", f"{hold:.2f}", "-i", str(png),
-                    "-f", "lavfi", "-t", f"{hold:.2f}", "-i", "anullsrc=r=44100:cl=mono",
-                    "-vf", vf, "-c:v", "libx264", "-preset", "veryfast", "-crf", "29",
-                    "-c:a", "aac", "-b:a", "32k", "-shortest", "-pix_fmt", "yuv420p",
-                    "-f", "flv", str(clip),
+                    FFMPEG, "-y",
+                    "-loop", "1", "-framerate", "1", "-t", f"{hold:.2f}", "-i", str(png),
+                    "-vf", vf,
+                    "-an",
+                    "-c:v", "libx264", "-tune", "stillimage", "-preset", "veryfast", "-crf", "32",
+                    "-g", "250", "-bf", "0", "-pix_fmt", "yuv420p",
+                    "-max_interleave_delta", "0", "-f", "flv", str(clip),
                 ],
                 check=True,
                 stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
             )
             inputs.append(str(clip))
         if len(inputs) == 1:
@@ -153,21 +188,26 @@ def pages_for_topics(pdf_path: Path, topic_ids: list[str]) -> dict[str, list[int
     return found
 
 
-def render_pages(pdf_path: Path, indexes: list[int], dest_dir: Path) -> list[Path]:
+def render_pages(pdf_path: Path, indexes: list[int], dest_dir: Path, topic_id: str) -> tuple[list[Path], list[int]]:
     import pymupdf
 
     dest_dir.mkdir(parents=True, exist_ok=True)
     doc = pymupdf.open(pdf_path)
     zoom = pymupdf.Matrix(1.45, 1.45)
-    pngs = []
+    pngs: list[Path] = []
+    weights: list[int] = []
+    mark = f"FLV|{topic_id}|"
     for n, idx in enumerate(indexes, 1):
         if idx < 0 or idx >= doc.page_count:
             continue
         png = dest_dir / f"{n:02d}.png"
-        doc[idx].get_pixmap(matrix=zoom, alpha=False).save(png)
+        page = doc[idx]
+        page.get_pixmap(matrix=zoom, alpha=False).save(png)
+        body = page.get_text().replace(mark, "")
         pngs.append(png)
+        weights.append(max(8, len(body.split())))
     doc.close()
-    return pngs
+    return pngs, weights
 
 
 def topics_of(catalog: dict, grade_id: str) -> list[dict]:
@@ -186,21 +226,19 @@ def flv_path(topic: dict) -> Path:
 
 
 def pack_chapter(grade_id: str, ch_num: int, topics: list[dict]) -> int:
-    needed = []
-    for t in topics:
-        dest = flv_path(t)
-        if dest.exists() and dest.stat().st_size > 4000 and not FORCE:
-            continue
-        needed.append(t)
+    needed = [t for t in topics if needs_encode(flv_path(t), t.get("spokenUrdu") or "")]
     if not needed:
         return 0
-    html = print_document(f"{grade_id}-ch{ch_num}", topics)
     work = ROOT / "booklets" / "output"
     work.mkdir(parents=True, exist_ok=True)
     html_path = work / f"{grade_id}-ch{ch_num:02d}-flv-pack.html"
     pdf_path = work / f"{grade_id}-ch{ch_num:02d}-flv-pack.pdf"
-    print(f"{grade_id} ch{ch_num}: printing {len(topics)} boards for FLV…")
-    b.print_job(html, html_path, pdf_path, min_bytes=20_000, budget_ms=120000)
+    if REPRINT or not pdf_path.exists():
+        html = print_document(f"{grade_id}-ch{ch_num}", topics)
+        print(f"{grade_id} ch{ch_num}: printing {len(topics)} boards for FLV…")
+        b.print_job(html, html_path, pdf_path, min_bytes=20_000, budget_ms=120000)
+    else:
+        print(f"{grade_id} ch{ch_num}: re-timing {len(needed)} FLV from printed boards")
     mapping = pages_for_topics(pdf_path, [t["id"] for t in topics])
     built = 0
     with tempfile.TemporaryDirectory(prefix="flv-pages-") as tmp:
@@ -210,13 +248,20 @@ def pack_chapter(grade_id: str, ch_num: int, topics: list[dict]) -> int:
             if not pages:
                 print(f"  skip {t['id']} (no printed pages)")
                 continue
-            pngs = render_pages(pdf_path, pages, tmp_path / t["id"])
+            pngs, weights = render_pages(pdf_path, pages, tmp_path / t["id"], t["id"])
             if not pngs:
                 continue
             dest = flv_path(t)
-            encode_flv(pngs, dest)
+            total = speech_seconds(t.get("spokenUrdu") or t.get("readSeconds") and str(t.get("readSeconds")) or "")
+            if t.get("readSeconds"):
+                total = max(total, float(t["readSeconds"]))
+            holds = page_holds(total, weights)
+            encode_flv(pngs, dest, holds)
             built += 1
-            print(f"  {t['id']} -> {dest.name} ({dest.stat().st_size} bytes, {len(pngs)} page(s))")
+            print(
+                f"  {t['id']} -> {dest.name} ({dest.stat().st_size} bytes, "
+                f"{len(pngs)} page(s), {sum(holds):.0f}s TTS)"
+            )
     return built
 
 

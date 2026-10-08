@@ -3,6 +3,8 @@ package com.sindhcs.lectures.util
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.speech.tts.Voice
@@ -12,6 +14,7 @@ class UrduNarrator(
     context: Context,
     private val onReadyChanged: (Boolean) -> Unit,
     private val onSpeakingChanged: (Boolean) -> Unit,
+    private val onProgress: (Float) -> Unit = {},
     private val onLanguageIssue: ((String) -> Unit)? = null
 ) : TextToSpeech.OnInitListener {
 
@@ -19,11 +22,14 @@ class UrduNarrator(
     private var isReady = false
     private val pending = mutableListOf<String>()
     private var activeUtterances = 0
+    private var chunkOffsets: IntArray = intArrayOf()
+    private var totalChars = 1
+    private val main = Handler(Looper.getMainLooper())
 
     override fun onInit(status: Int) {
         isReady = status == TextToSpeech.SUCCESS
         if (isReady) {
-            tts?.setSpeechRate(0.88f)
+            tts?.setSpeechRate(SPEECH_RATE)
             tts?.setPitch(1.0f)
             attachListener()
         }
@@ -43,25 +49,36 @@ class UrduNarrator(
     private fun attachListener() {
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
-                onSpeakingChanged(true)
+                val index = indexOf(utteranceId)
+                if (index >= 0) report((chunkOffsets[index]).toFloat() / totalChars)
+                main.post { onSpeakingChanged(true) }
+            }
+
+            override fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) {
+                val index = indexOf(utteranceId)
+                if (index < 0) return
+                report((chunkOffsets[index] + start).toFloat() / totalChars)
             }
 
             override fun onDone(utteranceId: String?) {
                 if (utteranceId?.startsWith(PREFIX) == true) {
                     activeUtterances = (activeUtterances - 1).coerceAtLeast(0)
                 }
-                if (activeUtterances == 0) onSpeakingChanged(false)
+                if (activeUtterances == 0) {
+                    report(1f)
+                    main.post { onSpeakingChanged(false) }
+                }
             }
 
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
                 activeUtterances = 0
-                onSpeakingChanged(false)
+                main.post { onSpeakingChanged(false) }
             }
 
             override fun onError(utteranceId: String?, errorCode: Int) {
                 activeUtterances = 0
-                onSpeakingChanged(false)
+                main.post { onSpeakingChanged(false) }
             }
         })
     }
@@ -75,21 +92,39 @@ class UrduNarrator(
         }
         if (!applyUrdu()) {
             onLanguageIssue?.invoke(
-                "Urdu voice دستیاب نہیں۔ Urdish lecture سننے کے لیے Google Urdu TTS install کرو۔"
+                "Urdu voice دستیاب نہیں۔ Urdish lecture سننے کے لیے Google Urdu TTS install کرو。"
             )
             return false
         }
         val chunks = chunk(text)
+        chunkOffsets = IntArray(chunks.size)
+        var running = 0
+        chunks.forEachIndexed { i, part ->
+            chunkOffsets[i] = running
+            running += part.length
+        }
+        totalChars = running.coerceAtLeast(1)
         activeUtterances = chunks.size
-        chunks.forEachIndexed { index, chunk ->
+        report(0f)
+        chunks.forEachIndexed { index, part ->
             val id = "$PREFIX$index"
             val params = Bundle().apply {
                 putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, id)
             }
             val mode = if (index == 0) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
-            engine.speak(chunk, mode, params, id)
+            engine.speak(part, mode, params, id)
         }
         return true
+    }
+
+    private fun report(fraction: Float) {
+        val clamped = fraction.coerceIn(0f, 1f)
+        main.post { onProgress(clamped) }
+    }
+
+    private fun indexOf(utteranceId: String?): Int {
+        if (utteranceId == null || !utteranceId.startsWith(PREFIX)) return -1
+        return utteranceId.removePrefix(PREFIX).toIntOrNull() ?: -1
     }
 
     private fun applyUrdu(): Boolean {
@@ -161,6 +196,7 @@ class UrduNarrator(
     companion object {
         private const val MAX = 2800
         private const val PREFIX = "urdu_lecture_"
+        const val SPEECH_RATE = 0.88f
 
         fun openTtsSettings(context: Context) {
             val intents = listOf(

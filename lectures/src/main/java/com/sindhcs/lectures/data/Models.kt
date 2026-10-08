@@ -25,6 +25,7 @@ data class Topic(
     val learn: String,
     val urdu: String,
     val spokenUrdu: String, // classroom Urdish (Urdu grammar + English CS terms)
+    val readSeconds: Int, // estimated Urdish TTS time; FLV is timed to this
     val terms: List<String>,
     val board: String,
     val flv: String

@@ -2,11 +2,11 @@
 <resources>
     <string name="app_name">Teach Yourself CS</string>
     <string name="app_tag">Urdish lectures · built-in FLV</string>
-    <string name="welcome">Each lecture is a built-in FLV of the English classroom board. Tap play, then listen in Urdish. The voice does not re-read the board.</string>
-    <string name="welcome_ur">Lecture FLV میں English board دیکھو — explanation Urdish میں سنو۔</string>
+    <string name="welcome">Tap listen: the built-in FLV board turns with the Urdish explanation. Pages follow the time it takes to read the lecture. The voice does not re-read the board.</string>
+    <string name="welcome_ur">Listen دباؤ: FLV board Urdish explanation کے ساتھ چلتا ہے — reading کے وقت کے مطابق pages بدلتے ہیں۔</string>
     <string name="grade_meta">%1$d chapters · %2$d lectures · %3$d ★ Golden</string>
-    <string name="chapters_hint">Open a chapter, then a lecture. Watch the built-in FLV; listen in Urdish.</string>
-    <string name="replay_flv">Replay FLV</string>
+    <string name="chapters_hint">Open a chapter, then a lecture. Tap listen — the FLV turns while Urdish is read.</string>
+    <string name="replay_flv">Replay lecture</string>
     <string name="open_board">Scrollable board</string>
     <string name="show_flv">Show FLV</string>
     <string name="chapter_meta">%1$d classroom lectures · %2$d ★ Golden</string>

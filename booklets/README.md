@@ -107,7 +107,7 @@ python3 booklets/build.py complete
 
 ## Android app — cinematic classroom whiteboards + Urdish voice
 
-Each of 204 topics is a **built-in FLV** of the English classroom board (MathJax SVG, diagrams, Flexbox). Tap play, then listen in **Urdish**. The teacher voice does not re-read the board. Install Google Urdu TTS if prompted.
+Each of 204 topics is a **built-in FLV** of the English classroom board (MathJax SVG, diagrams, Flexbox). Tap listen: the FLV turns with the **Urdish** read-aloud, timed to the explanation. The teacher voice does not re-read the board. Install Google Urdu TTS if prompted.
 
 - [CS Teach Yourself Urdu Lectures APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
 

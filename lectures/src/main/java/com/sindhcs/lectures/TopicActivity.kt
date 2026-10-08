@@ -2,6 +2,9 @@ package com.sindhcs.lectures
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
@@ -19,7 +22,20 @@ class TopicActivity : AppCompatActivity() {
     private var flvPlayer: FlvLecturePlayer? = null
     private var speaking = false
     private var spoken = ""
+    private var readMs = 0L
     private var showingBoard = false
+    private var hasFlv = false
+    private var usingRangeSync = false
+    private var speechStartedAt = 0L
+    private val main = Handler(Looper.getMainLooper())
+    private val clockSync = object : Runnable {
+        override fun run() {
+            if (!speaking || usingRangeSync || readMs <= 0) return
+            val elapsed = SystemClock.elapsedRealtime() - speechStartedAt
+            flvPlayer?.followSpeech((elapsed.toFloat() / readMs).coerceIn(0f, 1f))
+            main.postDelayed(this, 250)
+        }
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +53,7 @@ class TopicActivity : AppCompatActivity() {
 
         title = getString(R.string.lecture)
         spoken = topic.spokenUrdu
+        readMs = topic.readSeconds.coerceAtLeast(1) * 1000L
 
         val board = binding.board
         board.setBackgroundColor(0xFF07090D.toInt())
@@ -53,11 +70,11 @@ class TopicActivity : AppCompatActivity() {
         val boardPath = topic.board.ifBlank { "whiteboards/missing.html" }
         board.loadUrl("file:///android_asset/$boardPath")
 
-        val hasFlv = topic.flv.isNotBlank() && assetExists(topic.flv)
+        hasFlv = topic.flv.isNotBlank() && assetExists(topic.flv)
         if (hasFlv) {
             flvPlayer = FlvLecturePlayer(this, binding.player)
             showVideo(replay = false)
-            flvPlayer?.playAsset(topic.flv)
+            flvPlayer?.prepareAsset(topic.flv)
         } else {
             showBoard()
         }
@@ -68,29 +85,55 @@ class TopicActivity : AppCompatActivity() {
             onSpeakingChanged = { on ->
                 speaking = on
                 binding.listenButton.text = getString(if (on) R.string.stop_lecture else R.string.listen_urdu)
+                if (!on) {
+                    main.removeCallbacks(clockSync)
+                    flvPlayer?.followSpeech(1f)
+                    flvPlayer?.pause()
+                }
+            },
+            onProgress = { fraction ->
+                usingRangeSync = true
+                if (hasFlv) flvPlayer?.followSpeech(fraction)
             },
             onLanguageIssue = { msg -> Toast.makeText(this, msg, Toast.LENGTH_LONG).show() }
         )
 
         binding.listenButton.setOnClickListener {
             if (speaking) {
-                narrator?.stop()
+                stopLecture()
             } else {
-                val ok = narrator?.speak(spoken) == true
-                if (!ok) UrduNarrator.openTtsSettings(this)
+                startSyncedLecture()
             }
         }
         binding.replayVideo.setOnClickListener {
-            if (hasFlv) {
-                showVideo(replay = true)
-            }
+            startSyncedLecture()
         }
         binding.toggleBoard.setOnClickListener {
-            if (showingBoard && hasFlv) showVideo(replay = true) else showBoard()
+            if (showingBoard && hasFlv) showVideo(replay = false) else showBoard()
         }
         binding.ttsHelp.setOnClickListener { UrduNarrator.openTtsSettings(this) }
         binding.replayVideo.visibility = if (hasFlv) View.VISIBLE else View.GONE
         binding.toggleBoard.visibility = if (hasFlv) View.VISIBLE else View.GONE
+    }
+
+    private fun startSyncedLecture() {
+        if (showingBoard && hasFlv) showVideo(replay = false)
+        usingRangeSync = false
+        speechStartedAt = SystemClock.elapsedRealtime()
+        flvPlayer?.followSpeech(0f)
+        val ok = narrator?.speak(spoken) == true
+        if (!ok) {
+            UrduNarrator.openTtsSettings(this)
+            return
+        }
+        main.removeCallbacks(clockSync)
+        main.postDelayed(clockSync, 250)
+    }
+
+    private fun stopLecture() {
+        main.removeCallbacks(clockSync)
+        narrator?.stop()
+        flvPlayer?.pause()
     }
 
     private fun assetExists(path: String): Boolean {
@@ -107,20 +150,19 @@ class TopicActivity : AppCompatActivity() {
         binding.player.visibility = View.VISIBLE
         binding.board.visibility = View.GONE
         binding.toggleBoard.text = getString(R.string.open_board)
-        if (replay) flvPlayer?.replay()
+        if (replay) startSyncedLecture()
     }
 
     private fun showBoard() {
         showingBoard = true
-        flvPlayer?.pause()
+        stopLecture()
         binding.player.visibility = View.GONE
         binding.board.visibility = View.VISIBLE
         binding.toggleBoard.text = getString(R.string.show_flv)
     }
 
     override fun onPause() {
-        narrator?.stop()
-        flvPlayer?.pause()
+        stopLecture()
         binding.board.onPause()
         super.onPause()
     }
@@ -131,6 +173,7 @@ class TopicActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        main.removeCallbacks(clockSync)
         narrator?.shutdown()
         flvPlayer?.release()
         binding.board.destroy()

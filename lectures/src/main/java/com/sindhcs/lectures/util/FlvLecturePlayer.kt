@@ -13,26 +13,37 @@ class FlvLecturePlayer(
 ) {
     private val player: ExoPlayer = ExoPlayer.Builder(context.applicationContext).build().also {
         it.repeatMode = Player.REPEAT_MODE_OFF
-        it.playWhenReady = true
+        it.playWhenReady = false
         view.player = it
     }
 
-    fun playAsset(assetPath: String): Boolean {
+    fun prepareAsset(assetPath: String): Boolean {
         if (assetPath.isBlank()) return false
         val uri = Uri.parse("asset:///$assetPath")
         player.setMediaItem(MediaItem.fromUri(uri))
         player.prepare()
-        player.play()
+        player.seekTo(0)
+        player.playWhenReady = false
         return true
     }
 
-    fun replay() {
+    fun playFree() {
         player.seekTo(0)
+        player.playWhenReady = true
         player.play()
+    }
+
+    fun followSpeech(fraction: Float) {
+        val duration = player.duration
+        if (duration <= 0) return
+        val position = (duration * fraction.coerceIn(0f, 1f)).toLong().coerceAtMost(duration - 40)
+        player.playWhenReady = false
+        player.seekTo(position)
     }
 
     fun pause() {
         player.pause()
+        player.playWhenReady = false
     }
 
     fun release() {

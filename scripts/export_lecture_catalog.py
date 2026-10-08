@@ -72,6 +72,14 @@ def urdishize_urdu(urdu: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def spoken_seconds(text: str) -> float:
+    """Wall-clock for Google Urdu TTS at speech rate 0.88 (Urdish classroom pace)."""
+    words = max(1, len(text.split()))
+    pauses = len(re.findall(r"[۔.!?]", text)) * 0.32
+    pauses += len(re.findall(r"[،,;:]", text)) * 0.12
+    return round(words / 112.0 * 60.0 + pauses + 0.8, 1)
+
+
 def box_inners(block: str, kind: str) -> list[str]:
     out: list[str] = []
     for div in b.extract_class_divs(block, kind):
@@ -196,20 +204,22 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             board_html(title, chapter_label, golden, english_stage(block)),
             encoding="utf-8",
         )
+        spoken = spoken_urdish(
+            title,
+            ch_title,
+            golden,
+            urdu,
+            terms,
+            extra_on_board=bool(tip or warn or exam),
+        )
         rows.append({
             "id": f"{grade}-{ch_num}-{i}",
             "title": title,
             "golden": golden,
             "learn": learn[:2500],
             "urdu": urdu,
-            "spokenUrdu": spoken_urdish(
-                title,
-                ch_title,
-                golden,
-                urdu,
-                terms,
-                extra_on_board=bool(tip or warn or exam),
-            ),
+            "spokenUrdu": spoken,
+            "readSeconds": int(round(spoken_seconds(spoken))),
             "terms": terms,
             "board": rel,
             "flv": f"flv/{grade}/{ch_num}/{i:02d}.flv",
