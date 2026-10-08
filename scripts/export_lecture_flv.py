@@ -49,7 +49,7 @@ def print_document(grade_id: str, topics: list[dict]) -> str:
         mark = html_lib.escape(t["id"])
         parts.append(
             f'<div class="flv-pack" data-id="{mark}">'
-            f'<div class="flv-mark">FLV:{mark}</div>'
+            f'<p class="flv-mark">FLV|{mark}|</p>'
             f"{article_from(html_file)}</div>"
         )
     body = "\n".join(parts)
@@ -60,7 +60,8 @@ def print_document(grade_id: str, topics: list[dict]) -> str:
 <style>
 @page {{ size: A4; margin: 9mm; }}
 .flv-pack {{ break-before: page; page-break-before: always; }}
-.flv-mark {{ font: 9px/1.2 ui-monospace, monospace; color: #64748b; margin: 0 0 6px; }}
+article.board {{ break-before: auto; page-break-before: auto; min-height: 0; }}
+.flv-mark {{ font: 11pt/1.3 ui-monospace, monospace; color: #111827; margin: 0 0 8px; }}
 .cinema {{ display: none; }}
 </style>
 <script>
@@ -137,12 +138,15 @@ def pages_for_topics(pdf_path: Path, topic_ids: list[str]) -> dict[str, list[int
     for i, page in enumerate(doc):
         text = page.get_text()
         hit = None
-        for tid in topic_ids:
-            if f"FLV:{tid}" in text:
+        for tid in sorted(topic_ids, key=len, reverse=True):
+            if f"FLV|{tid}|" in text:
                 hit = tid
                 break
         if hit:
             current = hit
+            body = text.replace(f"FLV|{hit}|", "").strip()
+            if not body:
+                continue
         if current:
             found[current].append(i)
     doc.close()
@@ -224,7 +228,8 @@ def pack_grade(grade: dict) -> int:
         total += len(topics)
         built += pack_chapter(grade["id"], ch["num"], topics)
     if built == 0:
-        print(f"{grade['id']}: {total} FLV already packed")
+        have = sum(1 for ch in grade["chapters"] for t in ch["topics"] if flv_path(t).exists())
+        print(f"{grade['id']}: packed {have}/{total} FLV on disk")
     return built
 
 
