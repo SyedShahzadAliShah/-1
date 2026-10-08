@@ -6,7 +6,7 @@ import java.util.Locale
 
 object LocaleHelper {
 
-    private const val PREFS = "intimacy_guide_prefs"
+    private const val PREFS = "cs_teacher_prefs"
     private const val KEY_LANGUAGE = "language"
 
     const val LANG_EN = "en"

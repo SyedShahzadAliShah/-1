@@ -4,7 +4,6 @@ plugins {
 }
 
 android {
-    // Unique from :app (Intimacy Guide). Kotlin packages stay com.couplesguide.postures.
     namespace = "com.csteacher.edition"
     compileSdk = 34
 
