@@ -146,6 +146,22 @@ def esc(text: str) -> str:
     return html_lib.escape(text, quote=True)
 
 
+LATIN_RUN = re.compile(r"[A-Za-z][A-Za-z0-9 +/._'()%-]{0,48}")
+
+
+def bidi_mix(text: str) -> str:
+    """Keep English CS terms LTR inside RTL Urdish sentences."""
+    parts: list[str] = []
+    last = 0
+    for m in LATIN_RUN.finditer(text):
+        if m.start() > last:
+            parts.append(esc(text[last:m.start()]))
+        parts.append(f'<span dir="ltr">{esc(m.group(0))}</span>')
+        last = m.end()
+    parts.append(esc(text[last:]))
+    return "".join(parts)
+
+
 def urdish_depth(units: list[str]) -> str:
     parts = []
     for i, unit in enumerate(units):
@@ -285,9 +301,8 @@ def sketchnote_html(
     checks = box_inners(block, "check")
     leftover = strip_boxes(topic_inner(block))
     leftover = re.sub(r"<h2[^>]*>.*?</h2>", "", leftover, flags=re.S)
-    mixed = urdishize_urdu(urdu) if urdu else ""
     first = text_units(learns[0])[0] if learns and text_units(learns[0]) else title
-    big = mixed or first
+    big_visual = urdu if urdu else first
     stickies = "".join(f'<span class="sk-sticky">{esc(t)}</span>' for t in terms[:10])
     cards = []
     for i, html in enumerate(learns, 1):
@@ -328,7 +343,7 @@ def sketchnote_html(
     </div>
     <p class="sk-kicker">Poora topic class sketchnote — har point, example, table aur diagram.</p>
     <h2 class="sk-title">{esc(title)}</h2>
-    <div class="sk-bigidea urdish"><b>Big idea:</b> {esc(big)}</div>
+    <div class="sk-bigidea"><p class="sk-kicker" dir="ltr">Big idea · Urdish</p><p class="ur">{esc(big_visual)}</p></div>
     <div class="sk-terms">{stickies}</div>
   </header>
   <div class="sk-stack">

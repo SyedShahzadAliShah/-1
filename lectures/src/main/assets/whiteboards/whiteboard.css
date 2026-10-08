@@ -263,6 +263,8 @@ li { margin: 3px 0; }
   padding: 10px 12px;
   margin: 8px 0 12px;
 }
+.sk-bigidea .ur { margin: 0; font-size: 1.05rem; }
+.sk-bigidea [dir="ltr"] { unicode-bidi: isolate; }
 .sk-terms {
   display: flex;
   flex-wrap: wrap;
@@ -353,6 +355,15 @@ li { margin: 3px 0; }
   padding: 8px;
 }
 .sk-cell b { display: block; font-size: 11px; text-transform: uppercase; color: #64748b; }
+.sk-cell span { display: block; margin-top: 4px; }
+.sk-cell i.urdish {
+  display: block;
+  margin-top: 6px;
+  font-style: normal;
+  font-weight: 700;
+  color: #0f766e;
+  unicode-bidi: plaintext;
+}
 .sk-vs {
   align-self: center;
   font-weight: 800;
