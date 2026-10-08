@@ -2,6 +2,11 @@
 /.gradle/
 /build/
 /app/build/
+/lectures/build/
+lectures/src/main/assets/lectures.json
+lectures/src/main/assets/preview.html
+lectures/src/main/assets/whiteboards/xii/
+lectures/src/main/assets/whiteboards/mathjax/
 /android-sdk/
 /gradle-8.7/
 *.iml
@@ -11,3 +16,5 @@ captures/
 *.apk
 !releases/*.apk
 *.aab
+**/__pycache__/
+*.pyc

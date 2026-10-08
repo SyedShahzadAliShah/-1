@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CS XII خود سیکھو</string>
+    <string name="app_tag">Teach Yourself Edition · Urdish only</string>
+    <string name="welcome">Sindh Curriculum XII — Human-Computer Interaction سے Entrepreneurship تک۔ ہر lecture صرف Urdish میں ہے: سنو، Flexbox board دیکھو، MathJax SVG formulae پڑھو۔</string>
+    <string name="welcome_ur">Listen دباؤ: ہر panel کے ساتھ Urdish وضاحت سنو۔ CS اصطلاحات English میں رہتی ہیں۔ Google Urdu TTS لگاؤ۔</string>
+    <string name="grade_meta">%1$d ابواب · %2$d lectures · %3$d ★ Golden</string>
+    <string name="chapters_hint">باب کھولو۔ Lecture Urdish میں چلے گی — MathJax SVG اور Flexbox board کے ساتھ۔</string>
+    <string name="chapter_meta">%1$d Urdish lectures · %2$d ★ Golden</string>
+    <string name="golden_topic">★ Golden · high-yield</string>
+    <string name="lecture_note">Teach Yourself lecture</string>
+    <string name="lecture">Urdish Lecture</string>
+    <string name="listen_urdu">Urdish میں سنیں</string>
+    <string name="stop_lecture">روکیں</string>
+    <string name="tts_help">اگر آواز نہ چلے تو Google Urdu TTS install کرو — settings یہاں کھولیں</string>
+    <string name="open_xii">Computer Science XII کھولیں</string>
+    <string name="home_title">CS XII Teach Yourself</string>
+</resources>
