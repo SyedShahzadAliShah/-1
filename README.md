@@ -12,9 +12,11 @@ STBB textbook.
 
 Use the `raw.githubusercontent.com` links (they save the PDF):
 
-- **Class XI** — `releases/CS-XI-BIEK-Lectures.pdf`
-- **Class XII** — `releases/CS-XII-BIEK-Lectures.pdf`
-- **XI + XII complete** — `releases/CS-XI-and-XII-BIEK-Lectures.pdf`
+- **Class XI** (408 pages) — `releases/CS-XI-BIEK-Lectures.pdf`
+- **Class XII** (517 pages) — `releases/CS-XII-BIEK-Lectures.pdf`
+- **XI + XII complete** (925 pages) — `releases/CS-XI-and-XII-BIEK-Lectures.pdf`
+
+180 files in all: 14 chapter packs + 2 indexes + 164 topic lectures, plus the three merged books.
 
 Per-lecture and per-chapter PDFs live in `releases/lectures/` (see
 `releases/lectures/README.md` after a rebuild). Zips:
