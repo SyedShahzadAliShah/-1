@@ -197,3 +197,170 @@ mjx-container svg { max-width: 100%; }
 .legend .box { flex: 1 1 200px; margin: 0; }
 ul, ol { margin: 6px 0 12px; padding-left: 1.3rem; }
 li { margin: 3px 0; }
+
+/* Lecture-wise Urdish sketchnote */
+.sketchnote {
+  position: relative;
+  margin: 8px 0 22px;
+  padding: 16px 14px 18px;
+  background:
+    radial-gradient(circle at 12% 8%, #fff 0 7px, transparent 8px),
+    repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(14, 116, 144, .06) 28px),
+    #fbf3e4;
+  border: 2.5px solid #1e293b;
+  border-radius: 255px 18px 225px 12px / 12px 225px 18px 255px;
+  box-shadow: 7px 8px 0 rgba(15, 23, 42, .12);
+}
+.sk-tape {
+  position: absolute;
+  top: -8px;
+  left: 28%;
+  width: 86px;
+  height: 16px;
+  background: rgba(250, 204, 21, .55);
+  transform: rotate(-2deg);
+  border-radius: 2px;
+}
+.sk-head { margin-bottom: 12px; }
+.sk-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.sk-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 2px solid #0f766e;
+  border-radius: 999px;
+  background: #ccfbf1;
+  color: #115e59;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.sk-badge.sk-ur { background: #fef9c3; border-color: #ca8a04; color: #854d0e; }
+.sk-badge.gold { background: #fff7ed; border-color: #c2410c; color: #9a3412; }
+.sk-kicker {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f766e;
+}
+.sk-title {
+  font-family: Georgia, "Noto Naskh Arabic", serif;
+  font-size: 1.35rem;
+  margin: 0 0 8px;
+  border-bottom: 3px solid #0f766e;
+  padding-bottom: 6px;
+}
+.sk-bigidea {
+  border: 2px dashed #0f766e;
+  background: #f0fdfa;
+  border-radius: 18px 8px 16px 10px;
+  padding: 10px 12px;
+  margin: 8px 0 12px;
+}
+.sk-terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 14px;
+}
+.sk-sticky {
+  flex: 1 1 120px;
+  min-width: 110px;
+  background: #fde68a;
+  border: 2px solid #1e293b;
+  border-radius: 2px 12px 4px 8px;
+  padding: 8px 10px;
+  font-weight: 800;
+  font-size: 13px;
+  transform: rotate(-1.2deg);
+  box-shadow: 2px 3px 0 rgba(15, 23, 42, .12);
+}
+.sk-sticky:nth-child(2n) { background: #a7f3d0; transform: rotate(1deg); }
+.sk-sticky:nth-child(3n) { background: #bae6fd; transform: rotate(-0.6deg); }
+.sk-sticky:nth-child(4n) { background: #fecaca; transform: rotate(0.8deg); }
+.sk-stack { display: flex; flex-direction: column; gap: 12px; }
+.sk-card {
+  background: #fffdf8;
+  border: 2px solid #1e293b;
+  border-radius: 255px 12px 225px 8px / 8px 225px 12px 255px;
+  padding: 10px 12px 8px;
+}
+.sk-card.learn { box-shadow: inset 6px 0 0 #1d4ed8; }
+.sk-card.example { box-shadow: inset 6px 0 0 #047857; }
+.sk-card.tip { box-shadow: inset 6px 0 0 #b45309; }
+.sk-card.warn { box-shadow: inset 6px 0 0 #b91c1c; }
+.sk-card.exam { box-shadow: inset 6px 0 0 #c2410c; }
+.sk-card.check { box-shadow: inset 6px 0 0 #6d28d9; }
+.sk-card.visual { box-shadow: inset 6px 0 0 #0f766e; }
+.sk-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #0f766e;
+}
+.sk-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  margin-inline-end: 6px;
+  border-radius: 999px;
+  background: #0f766e;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.urdish {
+  unicode-bidi: plaintext;
+  line-height: 1.75;
+  font-size: 1.02rem;
+}
+.urdish em {
+  display: block;
+  margin-top: 4px;
+  font-style: normal;
+  color: #0f766e;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.sk-split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sk-split > * { flex: 1 1 240px; min-width: 0; }
+.sk-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 8px;
+  margin: 8px 0;
+}
+.sk-cell {
+  flex: 1 1 160px;
+  background: #fff;
+  border: 2px dashed #64748b;
+  border-radius: 12px;
+  padding: 8px;
+}
+.sk-cell b { display: block; font-size: 11px; text-transform: uppercase; color: #64748b; }
+.sk-vs {
+  align-self: center;
+  font-weight: 800;
+  color: #0f766e;
+}
+.eng-board {
+  margin-top: 22px;
+  padding-top: 8px;
+  border-top: 3px dashed #94a3b8;
+}
+.box.urdu::before { content: "Urdish میں سمجھو"; }
