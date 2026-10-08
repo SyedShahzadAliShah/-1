@@ -43,24 +43,97 @@ def bold_terms(html: str) -> list[str]:
     return out
 
 
-def spoken_urdu(title: str, chapter: str, golden: bool, urdu: str, terms: list[str], exam: str) -> str:
+SENT_SPLIT = re.compile(r"(?<=[.!?۔])\s+")
+# Only the short Arabic label immediately before "(English Term)".
+AR_WORD = r"[\u0621-\u065F\u0670-\u06D3]+"
+AR_CONNECTOR = r"(?:اور|یا|کہ|کا|کی|کے|میں|سے|پہ|پر|ہے|ہیں|اس|یہ|جیسے|یعنی|مثلا)"
+PAREN_TERM = re.compile(
+    rf"(?<![\u0621-\u06D3])(?:(?!{AR_CONNECTOR}\s){AR_WORD}\s+){{0,3}}{AR_WORD}\s*\(\s*([A-Za-z0-9][^)]{{0,48}})\)"
+)
+URDISH_GLUE = (
+    "دیکھو، English board پہ لکھا ہے:",
+    "Matlab یہ ہوا کہ",
+    "اگلی بات یہ ہے:",
+    "Example سے سمجھو:",
+    "یاد رکھنا:",
+    "ایک اور point:",
+    "Board کے لیے یہ line important ہے:",
+)
+
+
+def sentences(text: str, limit: int = 7) -> list[str]:
+    parts = SENT_SPLIT.split(re.sub(r"\s+", " ", text).strip())
+    out: list[str] = []
+    for part in parts:
+        part = part.strip(" ;")
+        if len(part) > 12:
+            out.append(part)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def urdishize_urdu(urdu: str) -> str:
+    """Classroom Urdish: keep Urdu verbs, promote English CS terms out of parentheses."""
+    text = PAREN_TERM.sub(lambda m: m.group(1).strip(), urdu)
+    for src, dst in (
+        ("مقداریں", "quantities"),
+        ("مقدار", "quantity"),
+        ("درجۂ حرارت", "temperature"),
+        ("درجہ حرارت", "temperature"),
+        ("ڈیجیٹل نظام", "digital system"),
+        ("منفصل", "Discrete"),
+        ("مسلسل", "Continuous"),
+        ("بِٹ", "bit"),
+        ("سچائی جدول", "truth table"),
+        ("قطاریں", "rows"),
+        ("متغیرات", "variables"),
+        ("ایکسپریشن", "expression"),
+    ):
+        text = text.replace(src, dst)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def spoken_urdish(
+    title: str,
+    chapter: str,
+    golden: bool,
+    learn: str,
+    urdu: str,
+    terms: list[str],
+    exam: str,
+) -> str:
+    """College-teacher Urdish: Urdu grammar + English computer terms, not literary Urdu."""
     bits = [
-        "طلبہ، السلام علیکم۔",
-        "آج ہم کالج کے طالب علموں کو انگریزی لیکچر نوٹس اردو میں سمجھا رہے ہیں۔",
-        f"سبق کا عنوان ہے: {title}۔",
-        f"یہ باب {chapter} سے ہے۔",
-        "بورڈ پر خاکے، جدول اور فارمولے دیکھتے رہو۔",
+        "Students, السلام علیکم۔",
+        "آج ہم English lecture کو Urdish میں explain کر رہے ہیں۔",
+        "Urdish یعنی class والی language: بات Urdu میں، computer کی terms English میں — formal Urdu ترجمہ نہیں۔",
+        f"Topic کا title ہے: {title}۔",
+        f"یہ chapter {chapter} سے ہے۔",
+        "Whiteboard پر diagrams، tables اور formulae دیکھتے رہو۔",
     ]
     if golden:
-        bits.append("یہ گولڈن موضوع ہے۔ بورڈ امتحان میں زیادہ نمبر اسی سے آتے ہیں۔ پوری توجہ سے سنو۔")
-    if urdu:
-        bits.append("اب سبق کی وضاحت سنو۔")
-        bits.append(urdu.rstrip("۔") + "۔")
+        bits.append(
+            "یہ Golden topic ہے۔ Board exam میں زیادہ marks اسی سے آتے ہیں۔ دھیان سے سنو۔"
+        )
+    bits.append("اب lecture Urdish میں سنو۔")
+    mixed = urdishize_urdu(urdu) if urdu else ""
+    if mixed:
+        bits.append(mixed.rstrip("۔") + "۔")
+    learn_sents = sentences(learn, 6)
+    if learn_sents:
+        bits.append("English note کی key lines یہ ہیں:")
+        for i, sent in enumerate(learn_sents):
+            prefix = URDISH_GLUE[i] if i < len(URDISH_GLUE) else "اور:"
+            bits.append(f"{prefix} {sent}")
     if terms:
-        bits.append("انگریزی نوٹ میں یہ اصطلاحات یاد رکھو: " + "، ".join(terms) + "۔")
+        bits.append("Exam میں یہ terms English میں ہی لکھو: " + ", ".join(terms) + "۔")
+        bits.append("ان کا مکمل Urdu ترجمہ examiner نہیں مانگتا۔")
     if exam:
-        bits.append("بورڈ میں یہ یوں پوچھا جاتا ہے: " + exam.rstrip("۔") + "۔")
-    bits.append("جواب میں تعریف، وضاحت، مثال، خاکہ اور ورکنگ لکھنا۔ اللہ حافظ۔")
+        bits.append("Board پہ سوال English میں یوں آتا ہے: " + exam.rstrip("۔.") + ".")
+    bits.append(
+        "Answer میں Definition، Explain، Example، Diagram اور Working لکھنا۔ اللہ حافظ۔"
+    )
     return " ".join(bits)
 
 
@@ -136,7 +209,7 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             "golden": golden,
             "learn": learn,
             "urdu": urdu,
-            "spokenUrdu": spoken_urdu(title, ch_title, golden, urdu, terms, exam),
+            "spokenUrdu": spoken_urdish(title, ch_title, golden, learn, urdu, terms, exam),
             "terms": terms,
             "board": rel,
         })

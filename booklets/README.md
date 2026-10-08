@@ -7,7 +7,7 @@ built from the bilingual teacher's lecture notes.
 
 Plain file URLs (save the file, no GitHub preview page):
 
-- Android APK (whiteboard + Urdu lecture voice): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
+- Android APK (whiteboard + Urdish lecture voice): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -102,9 +102,9 @@ Official Study Guide for students and teachers: imprint, bootcamp planner, chapt
 python3 booklets/build.py complete
 ```
 
-## Android app — Urdu lecture voice
+## Android app — Urdish lecture voice
 
-Each topic opens as a classroom **whiteboard** (MathJax formulae, SVG diagrams, flexbox flows and two-column layouts). Students read the English board, then tap listen. The phone speaks a teacher-style Urdu explanation (install Google Urdu TTS if prompted).
+Each topic opens as a classroom **whiteboard** (MathJax formulae, SVG diagrams, flexbox flows and two-column layouts). Students read the English board, then tap listen. The phone speaks a college-teacher **Urdish** explanation — Urdu grammar with English computer terms, not a formal Urdu translation (install Google Urdu TTS if prompted).
 
 - [CS Teach Yourself Urdu Lectures APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
 

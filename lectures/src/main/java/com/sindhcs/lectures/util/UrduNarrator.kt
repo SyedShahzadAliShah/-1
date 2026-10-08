@@ -35,7 +35,7 @@ class UrduNarrator(
         }
         if (isReady && !applyUrdu()) {
             onLanguageIssue?.invoke(
-                "اس فون پر اردو آواز نصب نہیں۔ Settings → Language → Text-to-speech میں Urdu (Google) انسٹال کریں۔"
+                "اس phone پر Urdu voice install نہیں۔ Settings → Language → Text-to-speech میں Google Urdu TTS لگائیں — Urdish lecture اسی voice سے چلتی ہے۔"
             )
         }
     }
@@ -75,7 +75,7 @@ class UrduNarrator(
         }
         if (!applyUrdu()) {
             onLanguageIssue?.invoke(
-                "اردو آواز دستیاب نہیں۔ لیکچر سننے کے لیے Urdu TTS انسٹال کریں۔"
+                "Urdu voice دستیاب نہیں۔ Urdish lecture سننے کے لیے Google Urdu TTS install کرو۔"
             )
             return false
         }

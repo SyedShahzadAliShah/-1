@@ -2,21 +2,21 @@
 <resources>
     <string name="app_name">Teach Yourself CS</string>
     <string name="app_tag">Self-Taught / Academy Bootcamp</string>
-    <string name="welcome">Open a lecture whiteboard (MathJax, SVG diagrams, flexbox). Tap listen to hear a college teacher explain the English note in Urdu.</string>
-    <string name="welcome_ur">انگریزی نوٹ پڑھیں، اردو میں لیکچر سنیں۔</string>
+    <string name="welcome">Open a lecture whiteboard (MathJax, SVG diagrams, flexbox). Tap listen to hear a college teacher explain the English note in Urdish — Urdu grammar with English computer terms.</string>
+    <string name="welcome_ur">English note پڑھو، Urdish میں lecture سنو۔</string>
     <string name="grade_meta">%1$d chapters · %2$d notes · %3$d ★ Golden</string>
-    <string name="chapters_hint">Open a chapter, then a lecture. Urdu voice explains the English note.</string>
+    <string name="chapters_hint">Open a chapter, then a lecture. Urdish voice explains the English note.</string>
     <string name="chapter_meta">%1$d lecture notes · %2$d ★ Golden</string>
     <string name="golden_topic">★ Golden · high-yield</string>
     <string name="lecture_note">Lecture note</string>
     <string name="lecture">Lecture</string>
     <string name="learn_en">English lecture note</string>
-    <string name="explain_ur">اردو وضاحت</string>
-    <string name="listen_urdu">وائیٹ بورڈ دیکھیں · اردو میں سنیں</string>
+    <string name="explain_ur">Urdish وضاحت</string>
+    <string name="listen_urdu">وائیٹ بورڈ دیکھیں · Urdish میں سنیں</string>
     <string name="stop_lecture">روکیں</string>
-    <string name="tts_help">Install Urdu TTS if the voice does not start</string>
+    <string name="tts_help">Install Google Urdu TTS if the Urdish lecture voice does not start</string>
     <string name="no_english">No English note in this topic.</string>
-    <string name="no_urdu">اردو وضاحت اس سبق میں نہیں۔</string>
+    <string name="no_urdu">Urdish explanation اس topic میں نہیں۔</string>
     <string name="open_xi">Open Grade XI</string>
     <string name="open_xii">Open Grade XII</string>
 </resources>
