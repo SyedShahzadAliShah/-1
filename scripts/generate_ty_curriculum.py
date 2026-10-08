@@ -3,7 +3,14 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
+
+_MATH = re.compile(r"(\\\(.+?\\\))")
+
+
+def isolate_ltr(html: str) -> str:
+    return _MATH.sub(r'<span class="ltr">\1</span>', html)
 
 COACH = [
     "آپ آ گئے — یہ سب سے مشکل قدم تھا۔ ایک سلائیڈ، ایک تصور۔",
@@ -22,9 +29,13 @@ def S(headline, body, narrator=None, diagram=None, quiz=None, tip=None, coach=No
         .replace('<p class="objectives">', " ").replace('<div class="objectives">', " ")
         .replace("</div>", " ")
     )
+    if quiz:
+        quiz = dict(quiz)
+        quiz["q"] = isolate_ltr(quiz["q"])
+        quiz["explain"] = isolate_ltr(quiz.get("explain") or "")
     return {
         "headline": headline,
-        "body": body,
+        "body": isolate_ltr(body),
         "narrator": narrator or f"{headline}۔ {html_free}",
         "diagram": diagram,
         "quiz": quiz,
@@ -88,9 +99,9 @@ def chapter1():
               "<p>Boolean algebra صرف TRUE (1) اور FALSE (0) پر کام کرتی ہے — digital electronics اور programming کی بنیاد۔</p>"
               "<p>Variables: A, B, C حروف جو 0 یا 1 رکھتے ہیں۔ Operations: AND، OR، NOT۔ Expression: متغیرات + عملیات، جیسے \\(Y = A + B\\)۔</p>"),
             S("تین بنیادی عملیات",
-              "<p>AND \\(Y = A \\cdot B\\): آؤٹ پٹ 1 صرف جب تمام ان پٹ 1 — دو تالے والا دروازہ دونوں کھلیں تو کھلتا ہے۔</p>"
-              "<p>OR \\(Y = A + B\\): کوئی ایک ان پٹ 1 — کمرے کے دو دروازوں میں سے کوئی کھلا ہو۔</p>"
-              "<p>NOT \\(Y = A'\\): unary، ان پٹ الٹ — سوئچ ON تو روشنی، OFF تو اندھیرا۔</p>",
+              "<p><span class='ltr'>AND: \\(Y = A \\cdot B\\)</span> — آؤٹ پٹ 1 صرف جب تمام ان پٹ 1؛ دو تالے والا دروازہ دونوں کھلیں تو کھلتا ہے۔</p>"
+              "<p><span class='ltr'>OR: \\(Y = A + B\\)</span> — کوئی ایک ان پٹ 1؛ کمرے کے دو دروازوں میں سے کوئی کھلا ہو۔</p>"
+              "<p><span class='ltr'>NOT: \\(Y = A'\\)</span> — unary ان پٹ الٹ؛ سوئچ ON تو روشنی، OFF تو اندھیرا۔</p>",
               diagram="gateAND"),
             S("Truth table کیسے بنے",
               "<p>1) ان پٹ گنیں \\(n\\)۔ 2) قطاریں \\(2^n\\)۔ 3) binary ترتیب میں تمام combinations۔ 4) ہر قطار کا آؤٹ پٹ۔ دو ان پٹ = 4 قطاریں؛ تین = 8۔</p>",
@@ -101,7 +112,9 @@ def chapter1():
         M("1.1.7", "بنیادی Logic Gates (AND, OR, NOT)", True, [
             S("★ گیٹس یعنی سرکٹ کی اینٹیں",
               "<p>Logic gates الیکٹرانک سرکٹس ہیں جو Boolean عملیات کرتے ہیں۔ تمام digital systems انہی سے بنتے ہیں۔</p>"
-              "<p>AND: \\(Y = A \\cdot B\\)۔ OR: \\(Y = A + B\\)۔ NOT: \\(Y = A'\\)۔</p>",
+              "<p class='ltr'>AND: \\(Y = A \\cdot B\\)</p>"
+              "<p class='ltr'>OR: \\(Y = A + B\\)</p>"
+              "<p class='ltr'>NOT: \\(Y = A'\\)</p>",
               diagram="gatesOverview",
               tip="گیٹ کا نام، علامت، expression، اور 4-قطار truth table — چاروں یاد کریں۔"),
             S("AND تفصیل",
@@ -116,10 +129,10 @@ def chapter1():
         ]),
         M("1.1.7u", "یونیورسل اور اعلیٰ گیٹس", False, [
             S("NAND اور NOR یونیورسل ہیں",
-              "<p>NAND یعنی NOT AND: \\(Y = (A \\cdot B)'\\)۔ NOR یعنی NOT OR: \\(Y = (A + B)'\\)۔ دنیا کا کوئی بھی logic circuit صرف NAND یا صرف NOR سے بنایا جا سکتا ہے — اس لیے Universal Gates۔</p>",
+              "<p>NAND یعنی NOT AND: <span class='ltr'>\\(Y = (A \\cdot B)'\\)</span>۔ NOR یعنی NOT OR: <span class='ltr'>\\(Y = (A + B)'\\)</span>۔ دنیا کا کوئی بھی logic circuit صرف NAND یا صرف NOR سے بنایا جا سکتا ہے — اس لیے Universal Gates۔</p>",
               diagram="gateNAND"),
             S("XOR اور XNOR",
-              "<p>XOR: ان پٹ <em>eXclusively</em> مختلف ہوں تو 1، \\(Y = A \\oplus B\\)۔ XNOR: ان پٹ ایک جیسے ہوں تو 1، \\(Y = (A \\oplus B)'\\)۔</p>",
+              "<p>XOR: ان پٹ <em>eXclusively</em> مختلف ہوں تو 1، <span class='ltr'>\\(Y = A \\oplus B\\)</span>۔ XNOR: ان پٹ ایک جیسے ہوں تو 1، <span class='ltr'>\\(Y = (A \\oplus B)'\\)</span>۔</p>",
               diagram="gateXOR",
               quiz=q("کون سے گیٹس Universal ہیں؟",
                      ["AND اور OR", "NAND اور NOR", "XOR اور XNOR", "NOT صرف"], 1,
@@ -142,7 +155,7 @@ def chapter1():
               "<p>دو متغیر: \\(2^2 = 4\\) خانے۔ تین متغیر: \\(2^3 = 8\\) خانے۔ کالم ترتیب: 00, 01, 11, 10۔</p>",
               diagram="kmap3var",
               tip="گروپ میں wrap-around (کنارے جوڑ) جائز ہے۔",
-              quiz=q("3-variable K-map میں خانے؟",
+              quiz=q('<span class="ltr">3-variable K-map</span> میں کتنے خانے ہیں؟',
                      ["3", "4", "6", "8"], 3, "\\(2^3 = 8\\)۔")),
         ]),
         M("logisim", "Logisim Evolution گائیڈ", False, [

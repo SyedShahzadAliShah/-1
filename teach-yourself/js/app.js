@@ -1,9 +1,3 @@
-const CURRICULUM = window.CURRICULUM;
-const COACH_LINES = window.COACH_LINES;
-const allModules = window.allModules;
-const renderDiagram = window.renderDiagram;
-const LectureTTS = window.LectureTTS;
-
 const STORAGE_KEY = "csxi-tye-progress-v1";
 
 const state = {

@@ -388,14 +388,27 @@ body {
   text-align: center;
 }
 
+mjx-container,
 .mjx-container {
-  direction: ltr;
+  direction: ltr !important;
+  unicode-bidi: isolate;
+  display: inline-block !important;
+  margin: 0 0.15em;
 }
 
 code,
 .ltr {
   direction: ltr;
   unicode-bidi: isolate;
+  display: inline-block;
+}
+
+p.ltr {
+  display: block;
+  text-align: left;
+}
+
+code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 

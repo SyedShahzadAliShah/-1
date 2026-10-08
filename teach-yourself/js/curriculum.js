@@ -131,7 +131,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "George Boole کی الجبرا",
-              "body": "<p>Boolean algebra صرف TRUE (1) اور FALSE (0) پر کام کرتی ہے — digital electronics اور programming کی بنیاد۔</p><p>Variables: A, B, C حروف جو 0 یا 1 رکھتے ہیں۔ Operations: AND، OR، NOT۔ Expression: متغیرات + عملیات، جیسے \\(Y = A + B\\)۔</p>",
+              "body": "<p>Boolean algebra صرف TRUE (1) اور FALSE (0) پر کام کرتی ہے — digital electronics اور programming کی بنیاد۔</p><p>Variables: A, B, C حروف جو 0 یا 1 رکھتے ہیں۔ Operations: AND، OR، NOT۔ Expression: متغیرات + عملیات، جیسے <span class=\"ltr\">\\(Y = A + B\\)</span>۔</p>",
               "narrator": "George Boole کی الجبرا۔  Boolean algebra صرف TRUE (1) اور FALSE (0) پر کام کرتی ہے — digital electronics اور programming کی بنیاد۔  Variables: A, B, C حروف جو 0 یا 1 رکھتے ہیں۔ Operations: AND، OR، NOT۔ Expression: متغیرات + عملیات، جیسے \\(Y = A + B\\)۔ ",
               "diagram": null,
               "quiz": null,
@@ -140,8 +140,8 @@ const CURRICULUM = {
             },
             {
               "headline": "تین بنیادی عملیات",
-              "body": "<p>AND \\(Y = A \\cdot B\\): آؤٹ پٹ 1 صرف جب تمام ان پٹ 1 — دو تالے والا دروازہ دونوں کھلیں تو کھلتا ہے۔</p><p>OR \\(Y = A + B\\): کوئی ایک ان پٹ 1 — کمرے کے دو دروازوں میں سے کوئی کھلا ہو۔</p><p>NOT \\(Y = A'\\): unary، ان پٹ الٹ — سوئچ ON تو روشنی، OFF تو اندھیرا۔</p>",
-              "narrator": "تین بنیادی عملیات۔  AND \\(Y = A \\cdot B\\): آؤٹ پٹ 1 صرف جب تمام ان پٹ 1 — دو تالے والا دروازہ دونوں کھلیں تو کھلتا ہے۔  OR \\(Y = A + B\\): کوئی ایک ان پٹ 1 — کمرے کے دو دروازوں میں سے کوئی کھلا ہو۔  NOT \\(Y = A'\\): unary، ان پٹ الٹ — سوئچ ON تو روشنی، OFF تو اندھیرا۔ ",
+              "body": "<p><span class='ltr'>AND: <span class=\"ltr\">\\(Y = A \\cdot B\\)</span></span> — آؤٹ پٹ 1 صرف جب تمام ان پٹ 1؛ دو تالے والا دروازہ دونوں کھلیں تو کھلتا ہے۔</p><p><span class='ltr'>OR: <span class=\"ltr\">\\(Y = A + B\\)</span></span> — کوئی ایک ان پٹ 1؛ کمرے کے دو دروازوں میں سے کوئی کھلا ہو۔</p><p><span class='ltr'>NOT: <span class=\"ltr\">\\(Y = A'\\)</span></span> — unary ان پٹ الٹ؛ سوئچ ON تو روشنی، OFF تو اندھیرا۔</p>",
+              "narrator": "تین بنیادی عملیات۔  <span class='ltr'>AND: \\(Y = A \\cdot B\\)</span> — آؤٹ پٹ 1 صرف جب تمام ان پٹ 1؛ دو تالے والا دروازہ دونوں کھلیں تو کھلتا ہے۔  <span class='ltr'>OR: \\(Y = A + B\\)</span> — کوئی ایک ان پٹ 1؛ کمرے کے دو دروازوں میں سے کوئی کھلا ہو۔  <span class='ltr'>NOT: \\(Y = A'\\)</span> — unary ان پٹ الٹ؛ سوئچ ON تو روشنی، OFF تو اندھیرا۔ ",
               "diagram": "gateAND",
               "quiz": null,
               "tip": null,
@@ -149,7 +149,7 @@ const CURRICULUM = {
             },
             {
               "headline": "Truth table کیسے بنے",
-              "body": "<p>1) ان پٹ گنیں \\(n\\)۔ 2) قطاریں \\(2^n\\)۔ 3) binary ترتیب میں تمام combinations۔ 4) ہر قطار کا آؤٹ پٹ۔ دو ان پٹ = 4 قطاریں؛ تین = 8۔</p>",
+              "body": "<p>1) ان پٹ گنیں <span class=\"ltr\">\\(n\\)</span>۔ 2) قطاریں <span class=\"ltr\">\\(2^n\\)</span>۔ 3) binary ترتیب میں تمام combinations۔ 4) ہر قطار کا آؤٹ پٹ۔ دو ان پٹ = 4 قطاریں؛ تین = 8۔</p>",
               "narrator": "Truth table کیسے بنے۔  1) ان پٹ گنیں \\(n\\)۔ 2) قطاریں \\(2^n\\)۔ 3) binary ترتیب میں تمام combinations۔ 4) ہر قطار کا آؤٹ پٹ۔ دو ان پٹ = 4 قطاریں؛ تین = 8۔ ",
               "diagram": "truthTable2",
               "quiz": {
@@ -161,7 +161,7 @@ const CURRICULUM = {
                   "9"
                 ],
                 "answer": 2,
-                "explain": "\\(2^3 = 8\\)۔"
+                "explain": "<span class=\"ltr\">\\(2^3 = 8\\)</span>۔"
               },
               "tip": null,
               "coach": null
@@ -175,8 +175,8 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "★ گیٹس یعنی سرکٹ کی اینٹیں",
-              "body": "<p>Logic gates الیکٹرانک سرکٹس ہیں جو Boolean عملیات کرتے ہیں۔ تمام digital systems انہی سے بنتے ہیں۔</p><p>AND: \\(Y = A \\cdot B\\)۔ OR: \\(Y = A + B\\)۔ NOT: \\(Y = A'\\)۔</p>",
-              "narrator": "★ گیٹس یعنی سرکٹ کی اینٹیں۔  Logic gates الیکٹرانک سرکٹس ہیں جو Boolean عملیات کرتے ہیں۔ تمام digital systems انہی سے بنتے ہیں۔  AND: \\(Y = A \\cdot B\\)۔ OR: \\(Y = A + B\\)۔ NOT: \\(Y = A'\\)۔ ",
+              "body": "<p>Logic gates الیکٹرانک سرکٹس ہیں جو Boolean عملیات کرتے ہیں۔ تمام digital systems انہی سے بنتے ہیں۔</p><p class='ltr'>AND: <span class=\"ltr\">\\(Y = A \\cdot B\\)</span></p><p class='ltr'>OR: <span class=\"ltr\">\\(Y = A + B\\)</span></p><p class='ltr'>NOT: <span class=\"ltr\">\\(Y = A'\\)</span></p>",
+              "narrator": "★ گیٹس یعنی سرکٹ کی اینٹیں۔  Logic gates الیکٹرانک سرکٹس ہیں جو Boolean عملیات کرتے ہیں۔ تمام digital systems انہی سے بنتے ہیں۔ <p class='ltr'>AND: \\(Y = A \\cdot B\\) <p class='ltr'>OR: \\(Y = A + B\\) <p class='ltr'>NOT: \\(Y = A'\\) ",
               "diagram": "gatesOverview",
               "quiz": null,
               "tip": "گیٹ کا نام، علامت، expression، اور 4-قطار truth table — چاروں یاد کریں۔",
@@ -219,8 +219,8 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "NAND اور NOR یونیورسل ہیں",
-              "body": "<p>NAND یعنی NOT AND: \\(Y = (A \\cdot B)'\\)۔ NOR یعنی NOT OR: \\(Y = (A + B)'\\)۔ دنیا کا کوئی بھی logic circuit صرف NAND یا صرف NOR سے بنایا جا سکتا ہے — اس لیے Universal Gates۔</p>",
-              "narrator": "NAND اور NOR یونیورسل ہیں۔  NAND یعنی NOT AND: \\(Y = (A \\cdot B)'\\)۔ NOR یعنی NOT OR: \\(Y = (A + B)'\\)۔ دنیا کا کوئی بھی logic circuit صرف NAND یا صرف NOR سے بنایا جا سکتا ہے — اس لیے Universal Gates۔ ",
+              "body": "<p>NAND یعنی NOT AND: <span class='ltr'><span class=\"ltr\">\\(Y = (A \\cdot B)'\\)</span></span>۔ NOR یعنی NOT OR: <span class='ltr'><span class=\"ltr\">\\(Y = (A + B)'\\)</span></span>۔ دنیا کا کوئی بھی logic circuit صرف NAND یا صرف NOR سے بنایا جا سکتا ہے — اس لیے Universal Gates۔</p>",
+              "narrator": "NAND اور NOR یونیورسل ہیں۔  NAND یعنی NOT AND: <span class='ltr'>\\(Y = (A \\cdot B)'\\)</span>۔ NOR یعنی NOT OR: <span class='ltr'>\\(Y = (A + B)'\\)</span>۔ دنیا کا کوئی بھی logic circuit صرف NAND یا صرف NOR سے بنایا جا سکتا ہے — اس لیے Universal Gates۔ ",
               "diagram": "gateNAND",
               "quiz": null,
               "tip": null,
@@ -228,8 +228,8 @@ const CURRICULUM = {
             },
             {
               "headline": "XOR اور XNOR",
-              "body": "<p>XOR: ان پٹ <em>eXclusively</em> مختلف ہوں تو 1، \\(Y = A \\oplus B\\)۔ XNOR: ان پٹ ایک جیسے ہوں تو 1، \\(Y = (A \\oplus B)'\\)۔</p>",
-              "narrator": "XOR اور XNOR۔  XOR: ان پٹ <em>eXclusively</em> مختلف ہوں تو 1، \\(Y = A \\oplus B\\)۔ XNOR: ان پٹ ایک جیسے ہوں تو 1، \\(Y = (A \\oplus B)'\\)۔ ",
+              "body": "<p>XOR: ان پٹ <em>eXclusively</em> مختلف ہوں تو 1، <span class='ltr'><span class=\"ltr\">\\(Y = A \\oplus B\\)</span></span>۔ XNOR: ان پٹ ایک جیسے ہوں تو 1، <span class='ltr'><span class=\"ltr\">\\(Y = (A \\oplus B)'\\)</span></span>۔</p>",
+              "narrator": "XOR اور XNOR۔  XOR: ان پٹ <em>eXclusively</em> مختلف ہوں تو 1، <span class='ltr'>\\(Y = A \\oplus B\\)</span>۔ XNOR: ان پٹ ایک جیسے ہوں تو 1، <span class='ltr'>\\(Y = (A \\oplus B)'\\)</span>۔ ",
               "diagram": "gateXOR",
               "quiz": {
                 "q": "کون سے گیٹس Universal ہیں؟",
@@ -254,7 +254,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "ترتیبِ اولویت",
-              "body": "<p>Order of precedence: 1) Parentheses \\((\\,\\)\\) 2) NOT \\((\\,'\\,)\\) 3) AND \\((\\cdot)\\) 4) OR \\((+)\\)۔ پہلے اونچی اولویت کا گیٹ کھینچیں۔</p><p>Minterm (SOP): وہ product جو truth table کی ایک قطار پر 1 ہو۔ Maxterm (POS): وہ sum جو 0 والی قطار پر ہو۔ مثال SOP: \\(Y = A'B + AB\\)۔</p>",
+              "body": "<p>Order of precedence: 1) Parentheses <span class=\"ltr\">\\((\\,\\)</span>\\) 2) NOT <span class=\"ltr\">\\((\\,'\\,)\\)</span> 3) AND <span class=\"ltr\">\\((\\cdot)\\)</span> 4) OR <span class=\"ltr\">\\((+)\\)</span>۔ پہلے اونچی اولویت کا گیٹ کھینچیں۔</p><p>Minterm (SOP): وہ product جو truth table کی ایک قطار پر 1 ہو۔ Maxterm (POS): وہ sum جو 0 والی قطار پر ہو۔ مثال SOP: <span class=\"ltr\">\\(Y = A'B + AB\\)</span>۔</p>",
               "narrator": "ترتیبِ اولویت۔  Order of precedence: 1) Parentheses \\((\\,\\)\\) 2) NOT \\((\\,'\\,)\\) 3) AND \\((\\cdot)\\) 4) OR \\((+)\\)۔ پہلے اونچی اولویت کا گیٹ کھینچیں۔  Minterm (SOP): وہ product جو truth table کی ایک قطار پر 1 ہو۔ Maxterm (POS): وہ sum جو 0 والی قطار پر ہو۔ مثال SOP: \\(Y = A'B + AB\\)۔ ",
               "diagram": null,
               "quiz": null,
@@ -263,7 +263,7 @@ const CURRICULUM = {
             },
             {
               "headline": "★ Logic diagram",
-              "body": "<p>مثال \\(Y = A \\cdot B + C\\)۔ AND کی اولویت OR سے زیادہ، اس لیے پہلے AND گیٹ، اس کا آؤٹ پٹ C کے ساتھ OR۔</p>",
+              "body": "<p>مثال <span class=\"ltr\">\\(Y = A \\cdot B + C\\)</span>۔ AND کی اولویت OR سے زیادہ، اس لیے پہلے AND گیٹ، اس کا آؤٹ پٹ C کے ساتھ OR۔</p>",
               "narrator": "★ Logic diagram۔  مثال \\(Y = A \\cdot B + C\\)۔ AND کی اولویت OR سے زیادہ، اس لیے پہلے AND گیٹ، اس کا آؤٹ پٹ C کے ساتھ OR۔ ",
               "diagram": "logicDiagram",
               "quiz": {
@@ -289,11 +289,11 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "★ K-Map کیا ہے؟",
-              "body": "<p>K-map Boolean expression کو سادہ کرنے کا گرافیکل ٹول ہے۔ Grid میں ملحق خانے Gray code سے صرف ایک bit مختلف ہوتے ہیں۔ 1s کو 2 کی طاقتوں (1, 2, 4, 8) میں گروپ کریں — الجبرا کے بغیر سادہ term ملتی ہے۔</p><p>دو متغیر: \\(2^2 = 4\\) خانے۔ تین متغیر: \\(2^3 = 8\\) خانے۔ کالم ترتیب: 00, 01, 11, 10۔</p>",
+              "body": "<p>K-map Boolean expression کو سادہ کرنے کا گرافیکل ٹول ہے۔ Grid میں ملحق خانے Gray code سے صرف ایک bit مختلف ہوتے ہیں۔ 1s کو 2 کی طاقتوں (1, 2, 4, 8) میں گروپ کریں — الجبرا کے بغیر سادہ term ملتی ہے۔</p><p>دو متغیر: <span class=\"ltr\">\\(2^2 = 4\\)</span> خانے۔ تین متغیر: <span class=\"ltr\">\\(2^3 = 8\\)</span> خانے۔ کالم ترتیب: 00, 01, 11, 10۔</p>",
               "narrator": "★ K-Map کیا ہے؟۔  K-map Boolean expression کو سادہ کرنے کا گرافیکل ٹول ہے۔ Grid میں ملحق خانے Gray code سے صرف ایک bit مختلف ہوتے ہیں۔ 1s کو 2 کی طاقتوں (1, 2, 4, 8) میں گروپ کریں — الجبرا کے بغیر سادہ term ملتی ہے۔  دو متغیر: \\(2^2 = 4\\) خانے۔ تین متغیر: \\(2^3 = 8\\) خانے۔ کالم ترتیب: 00, 01, 11, 10۔ ",
               "diagram": "kmap3var",
               "quiz": {
-                "q": "3-variable K-map میں خانے؟",
+                "q": "<span class=\"ltr\">3-variable K-map</span> میں کتنے خانے ہیں؟",
                 "options": [
                   "3",
                   "4",
@@ -301,7 +301,7 @@ const CURRICULUM = {
                   "8"
                 ],
                 "answer": 3,
-                "explain": "\\(2^3 = 8\\)۔"
+                "explain": "<span class=\"ltr\">\\(2^3 = 8\\)</span>۔"
               },
               "tip": "گروپ میں wrap-around (کنارے جوڑ) جائز ہے۔",
               "coach": null
@@ -315,7 +315,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "پہلے simulate، پھر سرکٹ",
-              "body": "<p>Logisim Evolution گرافیکل ٹول ہے: گیٹس رکھیں، تار جوڑیں، truth table آنکھوں سے چیک کریں — ہارڈویئر کے بغیر۔</p><p>\\(Y = A \\cdot B\\): Toolbar سے AND، دو Input pins، ایک Output، تار جوڑیں، Poke tool سے 0/1 بدلیں۔</p>",
+              "body": "<p>Logisim Evolution گرافیکل ٹول ہے: گیٹس رکھیں، تار جوڑیں، truth table آنکھوں سے چیک کریں — ہارڈویئر کے بغیر۔</p><p><span class=\"ltr\">\\(Y = A \\cdot B\\)</span>: Toolbar سے AND، دو Input pins، ایک Output، تار جوڑیں، Poke tool سے 0/1 بدلیں۔</p>",
               "narrator": "پہلے simulate، پھر سرکٹ۔  Logisim Evolution گرافیکل ٹول ہے: گیٹس رکھیں، تار جوڑیں، truth table آنکھوں سے چیک کریں — ہارڈویئر کے بغیر۔  \\(Y = A \\cdot B\\): Toolbar سے AND، دو Input pins، ایک Output، تار جوڑیں، Poke tool سے 0/1 بدلیں۔ ",
               "diagram": "logisim",
               "quiz": {
@@ -582,7 +582,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "★ ملحق swap",
-              "body": "<p>Bubble sort ملحق عناصر موازنہ کر کے غلط ترتیب پر swap کرتا ہے، پاس دہراتا ہے۔ فہرست: 8, 4, 1, 9, 3۔ سادہ شکل کی پیچیدگی \\(O(n^2)\\)۔</p>",
+              "body": "<p>Bubble sort ملحق عناصر موازنہ کر کے غلط ترتیب پر swap کرتا ہے، پاس دہراتا ہے۔ فہرست: 8, 4, 1, 9, 3۔ سادہ شکل کی پیچیدگی <span class=\"ltr\">\\(O(n^2)\\)</span>۔</p>",
               "narrator": "★ ملحق swap۔  Bubble sort ملحق عناصر موازنہ کر کے غلط ترتیب پر swap کرتا ہے، پاس دہراتا ہے۔ فہرست: 8, 4, 1, 9, 3۔ سادہ شکل کی پیچیدگی \\(O(n^2)\\)۔ ",
               "diagram": "bubbleSort",
               "quiz": {
@@ -634,7 +634,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "ایک ایک کر کے",
-              "body": "<p>Linear (sequential) search ہر عنصر چیک کرتی ہے جب تک ہدف نہ ملے۔ Sorted اور unsorted دونوں پر چلتی ہے؛ بدترین \\(O(n)\\)۔</p>",
+              "body": "<p>Linear (sequential) search ہر عنصر چیک کرتی ہے جب تک ہدف نہ ملے۔ Sorted اور unsorted دونوں پر چلتی ہے؛ بدترین <span class=\"ltr\">\\(O(n)\\)</span>۔</p>",
               "narrator": "ایک ایک کر کے۔  Linear (sequential) search ہر عنصر چیک کرتی ہے جب تک ہدف نہ ملے۔ Sorted اور unsorted دونوں پر چلتی ہے؛ بدترین \\(O(n)\\)۔ ",
               "diagram": null,
               "quiz": {
@@ -660,7 +660,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "★ آدھا کاٹو",
-              "body": "<p>Binary search صرف <strong>sorted</strong> فہرست پر۔ mid دیکھو؛ چھوٹا ہو تو بائیں، بڑا تو دائیں — پیچیدگی \\(O(\\log n)\\)۔ مثال: [1..8] میں 3 تلاش، mid=4، 3&lt;4 اس لیے بائیں۔</p>",
+              "body": "<p>Binary search صرف <strong>sorted</strong> فہرست پر۔ mid دیکھو؛ چھوٹا ہو تو بائیں، بڑا تو دائیں — پیچیدگی <span class=\"ltr\">\\(O(\\log n)\\)</span>۔ مثال: [1..8] میں 3 تلاش، mid=4، 3&lt;4 اس لیے بائیں۔</p>",
               "narrator": "★ آدھا کاٹو۔  Binary search صرف sorted فہرست پر۔ mid دیکھو؛ چھوٹا ہو تو بائیں، بڑا تو دائیں — پیچیدگی \\(O(\\log n)\\)۔ مثال: [1..8] میں 3 تلاش، mid=4، 3&lt;4 اس لیے بائیں۔ ",
               "diagram": "binarySearch",
               "quiz": {
@@ -686,7 +686,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "صحیح، تیز، مناسب",
-              "body": "<p>Correctness: متوقع نتیجہ، edge cases۔ پھر وقت، میموری، ڈیٹا سائز، sorted ہے یا نہیں، اور پڑھنے کی آسانی۔ چھوٹی فہرست پر \\(O(n^2)\\) بھی ٹھیک؛ بڑی sorted تلاش پر binary۔</p>",
+              "body": "<p>Correctness: متوقع نتیجہ، edge cases۔ پھر وقت، میموری، ڈیٹا سائز، sorted ہے یا نہیں، اور پڑھنے کی آسانی۔ چھوٹی فہرست پر <span class=\"ltr\">\\(O(n^2)\\)</span> بھی ٹھیک؛ بڑی sorted تلاش پر binary۔</p>",
               "narrator": "صحیح، تیز، مناسب۔  Correctness: متوقع نتیجہ، edge cases۔ پھر وقت، میموری، ڈیٹا سائز، sorted ہے یا نہیں، اور پڑھنے کی آسانی۔ چھوٹی فہرست پر \\(O(n^2)\\) بھی ٹھیک؛ بڑی sorted تلاش پر binary۔ ",
               "diagram": null,
               "quiz": {
@@ -698,7 +698,7 @@ const CURRICULUM = {
                   "NOT gate"
                 ],
                 "answer": 1,
-                "explain": "\\(O(\\log n)\\) بہتر۔"
+                "explain": "<span class=\"ltr\">\\(O(\\log n)\\)</span> بہتر۔"
               },
               "tip": null,
               "coach": null
@@ -865,7 +865,7 @@ const CURRICULUM = {
           "slides": [
             {
               "headline": "★ عمل اور قیمت",
-              "body": "<p>Operand قیمت/متغیر؛ Operator علامت۔ \\(10 + 20\\) میں 10,20 operands، + operator۔ Arithmetic: + − * / // % **۔ Relational: == != &gt; &lt;۔ Logical: and or not۔ Bitwise bits پر: AND &amp;، OR |، XOR ^، NOT ~، shifts۔</p><p>Bitwise XOR bits مختلف ہوں تو 1 — منطق XOR گیٹ جیسی۔</p>",
+              "body": "<p>Operand قیمت/متغیر؛ Operator علامت۔ <span class=\"ltr\">\\(10 + 20\\)</span> میں 10,20 operands، + operator۔ Arithmetic: + − * / // % **۔ Relational: == != &gt; &lt;۔ Logical: and or not۔ Bitwise bits پر: AND &amp;، OR |، XOR ^، NOT ~، shifts۔</p><p>Bitwise XOR bits مختلف ہوں تو 1 — منطق XOR گیٹ جیسی۔</p>",
               "narrator": "★ عمل اور قیمت۔  Operand قیمت/متغیر؛ Operator علامت۔ \\(10 + 20\\) میں 10,20 operands، + operator۔ Arithmetic: + − * / // % **۔ Relational: == != &gt; &lt;۔ Logical: and or not۔ Bitwise bits پر: AND &amp;، OR |، XOR ^، NOT ~، shifts۔  Bitwise XOR bits مختلف ہوں تو 1 — منطق XOR گیٹ جیسی۔ ",
               "diagram": null,
               "quiz": {
