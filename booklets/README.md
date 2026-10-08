@@ -10,7 +10,7 @@ Plain file URLs (save the file, no GitHub preview page):
 - Ultimate XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
-- Android APK (Urdish lectures as built-in FLV): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
+- Android APK (Urdish TTS + scrollable English boards): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -107,7 +107,7 @@ python3 booklets/build.py complete
 
 ## Android app — cinematic classroom whiteboards + Urdish voice
 
-Each of 204 topics is a **built-in FLV** of the English classroom board (MathJax SVG, diagrams, Flexbox). Tap listen: the FLV turns with the **Urdish** read-aloud, timed to the explanation. The teacher voice does not re-read the board. Install Google Urdu TTS if prompted.
+Each of 204 topics is a **scrollable English classroom board** (MathJax SVG, diagrams, Flexbox). Tap listen: **Urdish** TTS explains while the board scrolls with the reading. The teacher voice does not re-read the board. Install Google Urdu TTS if prompted.
 
 - [CS Teach Yourself Urdu Lectures APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
 

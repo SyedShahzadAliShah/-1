@@ -21,6 +21,9 @@
 html, body {
   margin: 0;
   min-height: 100%;
+  height: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: #07090d;
   color: var(--ink);
   font: 16px/1.55 system-ui, "Segoe UI", Georgia, sans-serif;
@@ -40,12 +43,12 @@ body::after { bottom: 0; }
 
 .cinema {
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
   padding: 36px 12px 48px;
   background:
     radial-gradient(ellipse at 50% 12%, rgba(255, 214, 140, .12), transparent 36%),
     radial-gradient(ellipse at 50% 18%, #243044 0%, #0b0f16 58%, #05070a 100%);
-  overflow: hidden;
+  overflow: visible;
 }
 .cinema::before {
   content: "";
@@ -60,7 +63,7 @@ body::after { bottom: 0; }
   position: relative;
   max-width: 920px;
   margin: 0 auto;
-  min-height: calc(100vh - 90px);
+  min-height: 0;
   padding: 18px 18px 36px;
   background:
     linear-gradient(180deg, rgba(255,255,255,.22), transparent 48px),

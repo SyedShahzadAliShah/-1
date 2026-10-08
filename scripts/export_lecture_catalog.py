@@ -222,7 +222,6 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             "readSeconds": int(round(spoken_seconds(spoken))),
             "terms": terms,
             "board": rel,
-            "flv": f"flv/{grade}/{ch_num}/{i:02d}.flv",
         })
     return rows
 

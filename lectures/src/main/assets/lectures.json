@@ -23,8 +23,7 @@
                 "Discrete quantities",
                 "Continuous quantities"
               ],
-              "board": "whiteboards/xi/1/01.html",
-              "flv": "flv/xi/1/01.flv"
+              "board": "whiteboards/xi/1/01.html"
             },
             {
               "id": "xi-1-2",
@@ -39,8 +38,7 @@
                 "binary digits",
                 "bits"
               ],
-              "board": "whiteboards/xi/1/02.html",
-              "flv": "flv/xi/1/02.flv"
+              "board": "whiteboards/xi/1/02.html"
             },
             {
               "id": "xi-1-3",
@@ -59,8 +57,7 @@
                 "LOW (0)",
                 "square wave"
               ],
-              "board": "whiteboards/xi/1/03.html",
-              "flv": "flv/xi/1/03.flv"
+              "board": "whiteboards/xi/1/03.html"
             },
             {
               "id": "xi-1-4",
@@ -76,8 +73,7 @@
                 "TRUE (1)",
                 "FALSE (0)"
               ],
-              "board": "whiteboards/xi/1/04.html",
-              "flv": "flv/xi/1/04.flv"
+              "board": "whiteboards/xi/1/04.html"
             },
             {
               "id": "xi-1-5",
@@ -97,8 +93,7 @@
                 "3. NOT operation ( ' or ¯ )",
                 "inverts"
               ],
-              "board": "whiteboards/xi/1/05.html",
-              "flv": "flv/xi/1/05.flv"
+              "board": "whiteboards/xi/1/05.html"
             },
             {
               "id": "xi-1-6",
@@ -113,8 +108,7 @@
                 "all possible input combinations",
                 "How to create a truth table:"
               ],
-              "board": "whiteboards/xi/1/06.html",
-              "flv": "flv/xi/1/06.flv"
+              "board": "whiteboards/xi/1/06.html"
             },
             {
               "id": "xi-1-7",
@@ -132,8 +126,7 @@
                 "NOT gate",
                 "inverter"
               ],
-              "board": "whiteboards/xi/1/07.html",
-              "flv": "flv/xi/1/07.flv"
+              "board": "whiteboards/xi/1/07.html"
             },
             {
               "id": "xi-1-8",
@@ -148,8 +141,7 @@
                 "NOR",
                 "universal gates"
               ],
-              "board": "whiteboards/xi/1/08.html",
-              "flv": "flv/xi/1/08.flv"
+              "board": "whiteboards/xi/1/08.html"
             },
             {
               "id": "xi-1-9",
@@ -167,8 +159,7 @@
                 "same",
                 "Y = (A ⊕ B)'"
               ],
-              "board": "whiteboards/xi/1/09.html",
-              "flv": "flv/xi/1/09.flv"
+              "board": "whiteboards/xi/1/09.html"
             },
             {
               "id": "xi-1-10",
@@ -188,8 +179,7 @@
                 "Maxterm (used in POS — Product of Sums):",
                 "sum (OR)"
               ],
-              "board": "whiteboards/xi/1/10.html",
-              "flv": "flv/xi/1/10.flv"
+              "board": "whiteboards/xi/1/10.html"
             },
             {
               "id": "xi-1-11",
@@ -203,8 +193,7 @@
                 "logic diagram",
                 "highest priority is drawn first"
               ],
-              "board": "whiteboards/xi/1/11.html",
-              "flv": "flv/xi/1/11.flv"
+              "board": "whiteboards/xi/1/11.html"
             },
             {
               "id": "xi-1-12",
@@ -224,8 +213,7 @@
                 "as few groups as possible",
                 "Overlapping is allowed"
               ],
-              "board": "whiteboards/xi/1/12.html",
-              "flv": "flv/xi/1/12.flv"
+              "board": "whiteboards/xi/1/12.html"
             },
             {
               "id": "xi-1-13",
@@ -239,8 +227,7 @@
                 "LogiSim Evolution",
                 "designing and simulating logic circuits"
               ],
-              "board": "whiteboards/xi/1/13.html",
-              "flv": "flv/xi/1/13.flv"
+              "board": "whiteboards/xi/1/13.html"
             },
             {
               "id": "xi-1-14",
@@ -251,8 +238,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: Building a Circuit in LogiSim. Chapter: Computer Systems. لاجی سِم میں Y = A·B بنانے کے لیے AND گیٹ رکھیں، بائیں جانب دو ان پٹ پن (چوکور) اور دائیں جانب ایک آؤٹ پٹ پن (گول) رکھیں، پھر وائرنگ ٹول سے تاریں جوڑیں۔ آخر میں پوک ٹول (انگلی) سے ان پٹ کو 0 اور 1 کرکے سرکٹ کو جانچیں۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 72,
               "terms": [],
-              "board": "whiteboards/xi/1/14.html",
-              "flv": "flv/xi/1/14.flv"
+              "board": "whiteboards/xi/1/14.html"
             },
             {
               "id": "xi-1-15",
@@ -266,8 +252,7 @@
                 "Software Development Life Cycle (SDLC)",
                 "6 phases"
               ],
-              "board": "whiteboards/xi/1/15.html",
-              "flv": "flv/xi/1/15.flv"
+              "board": "whiteboards/xi/1/15.html"
             },
             {
               "id": "xi-1-16",
@@ -281,8 +266,7 @@
                 "Waterfall model",
                 "linear, sequential"
               ],
-              "board": "whiteboards/xi/1/16.html",
-              "flv": "flv/xi/1/16.flv"
+              "board": "whiteboards/xi/1/16.html"
             },
             {
               "id": "xi-1-17",
@@ -298,8 +282,7 @@
                 "sprints",
                 "Customer feedback is gathered continuously"
               ],
-              "board": "whiteboards/xi/1/17.html",
-              "flv": "flv/xi/1/17.flv"
+              "board": "whiteboards/xi/1/17.html"
             },
             {
               "id": "xi-1-18",
@@ -314,8 +297,7 @@
                 "once",
                 "many times"
               ],
-              "board": "whiteboards/xi/1/18.html",
-              "flv": "flv/xi/1/18.flv"
+              "board": "whiteboards/xi/1/18.html"
             },
             {
               "id": "xi-1-19",
@@ -334,8 +316,7 @@
                 "7 layers",
                 "down"
               ],
-              "board": "whiteboards/xi/1/19.html",
-              "flv": "flv/xi/1/19.flv"
+              "board": "whiteboards/xi/1/19.html"
             },
             {
               "id": "xi-1-20",
@@ -351,8 +332,7 @@
                 "practical model used on the real Internet",
                 "4 layers"
               ],
-              "board": "whiteboards/xi/1/20.html",
-              "flv": "flv/xi/1/20.flv"
+              "board": "whiteboards/xi/1/20.html"
             }
           ]
         },
@@ -377,8 +357,7 @@
                 "Did you know?",
                 "Pseudocode"
               ],
-              "board": "whiteboards/xi/2/01.html",
-              "flv": "flv/xi/2/01.flv"
+              "board": "whiteboards/xi/2/01.html"
             },
             {
               "id": "xi-2-2",
@@ -397,8 +376,7 @@
                 "A definite end",
                 "Output"
               ],
-              "board": "whiteboards/xi/2/02.html",
-              "flv": "flv/xi/2/02.flv"
+              "board": "whiteboards/xi/2/02.html"
             },
             {
               "id": "xi-2-3",
@@ -412,8 +390,7 @@
                 "algorithm",
                 "pseudocode"
               ],
-              "board": "whiteboards/xi/2/03.html",
-              "flv": "flv/xi/2/03.flv"
+              "board": "whiteboards/xi/2/03.html"
             },
             {
               "id": "xi-2-4",
@@ -427,8 +404,7 @@
                 "Decomposition",
                 "sub-task"
               ],
-              "board": "whiteboards/xi/2/04.html",
-              "flv": "flv/xi/2/04.flv"
+              "board": "whiteboards/xi/2/04.html"
             },
             {
               "id": "xi-2-5",
@@ -442,8 +418,7 @@
                 "Pattern recognition",
                 "loops"
               ],
-              "board": "whiteboards/xi/2/05.html",
-              "flv": "flv/xi/2/05.flv"
+              "board": "whiteboards/xi/2/05.html"
             },
             {
               "id": "xi-2-6",
@@ -461,8 +436,7 @@
                 "variables",
                 "Abstraction items (noise)"
               ],
-              "board": "whiteboards/xi/2/06.html",
-              "flv": "flv/xi/2/06.flv"
+              "board": "whiteboards/xi/2/06.html"
             },
             {
               "id": "xi-2-7",
@@ -479,8 +453,7 @@
                 "position",
                 "existence"
               ],
-              "board": "whiteboards/xi/2/07.html",
-              "flv": "flv/xi/2/07.flv"
+              "board": "whiteboards/xi/2/07.html"
             },
             {
               "id": "xi-2-8",
@@ -496,8 +469,7 @@
                 "N − 1 passes",
                 "N − K comparisons"
               ],
-              "board": "whiteboards/xi/2/08.html",
-              "flv": "flv/xi/2/08.flv"
+              "board": "whiteboards/xi/2/08.html"
             },
             {
               "id": "xi-2-9",
@@ -511,8 +483,7 @@
                 "Selection Sort",
                 "selecting the smallest element"
               ],
-              "board": "whiteboards/xi/2/09.html",
-              "flv": "flv/xi/2/09.flv"
+              "board": "whiteboards/xi/2/09.html"
             },
             {
               "id": "xi-2-10",
@@ -528,8 +499,7 @@
                 "sorted and unsorted",
                 "flag"
               ],
-              "board": "whiteboards/xi/2/10.html",
-              "flv": "flv/xi/2/10.flv"
+              "board": "whiteboards/xi/2/10.html"
             },
             {
               "id": "xi-2-11",
@@ -548,8 +518,7 @@
                 "right",
                 "not in the list"
               ],
-              "board": "whiteboards/xi/2/11.html",
-              "flv": "flv/xi/2/11.flv"
+              "board": "whiteboards/xi/2/11.html"
             },
             {
               "id": "xi-2-12",
@@ -564,8 +533,7 @@
                 "efficiency",
                 "clarity"
               ],
-              "board": "whiteboards/xi/2/12.html",
-              "flv": "flv/xi/2/12.flv"
+              "board": "whiteboards/xi/2/12.html"
             },
             {
               "id": "xi-2-13",
@@ -585,8 +553,7 @@
                 "sorted",
                 "Binary Search"
               ],
-              "board": "whiteboards/xi/2/13.html",
-              "flv": "flv/xi/2/13.flv"
+              "board": "whiteboards/xi/2/13.html"
             }
           ]
         },
@@ -609,8 +576,7 @@
                 "programming",
                 "programmer"
               ],
-              "board": "whiteboards/xi/3/01.html",
-              "flv": "flv/xi/3/01.flv"
+              "board": "whiteboards/xi/3/01.html"
             },
             {
               "id": "xi-3-2",
@@ -623,8 +589,7 @@
               "terms": [
                 "three main types"
               ],
-              "board": "whiteboards/xi/3/02.html",
-              "flv": "flv/xi/3/02.flv"
+              "board": "whiteboards/xi/3/02.html"
             },
             {
               "id": "xi-3-3",
@@ -644,8 +609,7 @@
                 "Automation and Scripting:",
                 "Cybersecurity and Networking:"
               ],
-              "board": "whiteboards/xi/3/03.html",
-              "flv": "flv/xi/3/03.flv"
+              "board": "whiteboards/xi/3/03.html"
             },
             {
               "id": "xi-3-4",
@@ -665,8 +629,7 @@
                 "Run/Execute Tool:",
                 "Debugger:"
               ],
-              "board": "whiteboards/xi/3/04.html",
-              "flv": "flv/xi/3/04.flv"
+              "board": "whiteboards/xi/3/04.html"
             },
             {
               "id": "xi-3-5",
@@ -683,8 +646,7 @@
                 "extensions",
                 "Python extension by Microsoft"
               ],
-              "board": "whiteboards/xi/3/05.html",
-              "flv": "flv/xi/3/05.flv"
+              "board": "whiteboards/xi/3/05.html"
             },
             {
               "id": "xi-3-6",
@@ -704,8 +666,7 @@
                 "ignores",
                 "2. Indentation (spaces)"
               ],
-              "board": "whiteboards/xi/3/06.html",
-              "flv": "flv/xi/3/06.flv"
+              "board": "whiteboards/xi/3/06.html"
             },
             {
               "id": "xi-3-7",
@@ -725,8 +686,7 @@
                 "Must start with a letter or underscore",
                 "case-sensitive"
               ],
-              "board": "whiteboards/xi/3/07.html",
-              "flv": "flv/xi/3/07.flv"
+              "board": "whiteboards/xi/3/07.html"
             },
             {
               "id": "xi-3-8",
@@ -740,8 +700,7 @@
                 "data type",
                 "kind of data"
               ],
-              "board": "whiteboards/xi/3/08.html",
-              "flv": "flv/xi/3/08.flv"
+              "board": "whiteboards/xi/3/08.html"
             },
             {
               "id": "xi-3-9",
@@ -761,8 +720,7 @@
                 "always a string",
                 "Type casting"
               ],
-              "board": "whiteboards/xi/3/09.html",
-              "flv": "flv/xi/3/09.flv"
+              "board": "whiteboards/xi/3/09.html"
             },
             {
               "id": "xi-3-10",
@@ -778,8 +736,7 @@
                 "expression",
                 "1. Arithmetic operators"
               ],
-              "board": "whiteboards/xi/3/10.html",
-              "flv": "flv/xi/3/10.flv"
+              "board": "whiteboards/xi/3/10.html"
             },
             {
               "id": "xi-3-11",
@@ -793,8 +750,7 @@
                 "3. Relational (comparison) operators",
                 "Boolean"
               ],
-              "board": "whiteboards/xi/3/11.html",
-              "flv": "flv/xi/3/11.flv"
+              "board": "whiteboards/xi/3/11.html"
             },
             {
               "id": "xi-3-12",
@@ -814,8 +770,7 @@
                 "at least one",
                 "XOR (^)"
               ],
-              "board": "whiteboards/xi/3/12.html",
-              "flv": "flv/xi/3/12.flv"
+              "board": "whiteboards/xi/3/12.html"
             },
             {
               "id": "xi-3-13",
@@ -832,8 +787,7 @@
                 "Selection",
                 "Repetition"
               ],
-              "board": "whiteboards/xi/3/13.html",
-              "flv": "flv/xi/3/13.flv"
+              "board": "whiteboards/xi/3/13.html"
             },
             {
               "id": "xi-3-14",
@@ -848,8 +802,7 @@
                 "one after another, strictly from top to bottom",
                 "default behaviour"
               ],
-              "board": "whiteboards/xi/3/14.html",
-              "flv": "flv/xi/3/14.flv"
+              "board": "whiteboards/xi/3/14.html"
             },
             {
               "id": "xi-3-15",
@@ -868,8 +821,7 @@
                 "two paths",
                 "else"
               ],
-              "board": "whiteboards/xi/3/15.html",
-              "flv": "flv/xi/3/15.flv"
+              "board": "whiteboards/xi/3/15.html"
             },
             {
               "id": "xi-3-16",
@@ -887,8 +839,7 @@
                 "4. Nested if",
                 "several levels of checks"
               ],
-              "board": "whiteboards/xi/3/16.html",
-              "flv": "flv/xi/3/16.flv"
+              "board": "whiteboards/xi/3/16.html"
             },
             {
               "id": "xi-3-17",
@@ -907,8 +858,7 @@
                 "loop variable",
                 "range()"
               ],
-              "board": "whiteboards/xi/3/17.html",
-              "flv": "flv/xi/3/17.flv"
+              "board": "whiteboards/xi/3/17.html"
             },
             {
               "id": "xi-3-18",
@@ -928,8 +878,7 @@
                 "infinite loop",
                 "Loop control statements"
               ],
-              "board": "whiteboards/xi/3/18.html",
-              "flv": "flv/xi/3/18.flv"
+              "board": "whiteboards/xi/3/18.html"
             },
             {
               "id": "xi-3-19",
@@ -942,8 +891,7 @@
               "terms": [
                 "nested loop"
               ],
-              "board": "whiteboards/xi/3/19.html",
-              "flv": "flv/xi/3/19.flv"
+              "board": "whiteboards/xi/3/19.html"
             },
             {
               "id": "xi-3-20",
@@ -959,8 +907,7 @@
                 "repetition",
                 "flag"
               ],
-              "board": "whiteboards/xi/3/20.html",
-              "flv": "flv/xi/3/20.flv"
+              "board": "whiteboards/xi/3/20.html"
             },
             {
               "id": "xi-3-21",
@@ -974,8 +921,7 @@
                 "library",
                 "module"
               ],
-              "board": "whiteboards/xi/3/21.html",
-              "flv": "flv/xi/3/21.flv"
+              "board": "whiteboards/xi/3/21.html"
             },
             {
               "id": "xi-3-22",
@@ -988,8 +934,7 @@
               "terms": [
                 "Built-in libraries"
               ],
-              "board": "whiteboards/xi/3/22.html",
-              "flv": "flv/xi/3/22.flv"
+              "board": "whiteboards/xi/3/22.html"
             },
             {
               "id": "xi-3-23",
@@ -1003,8 +948,7 @@
                 "Third-party libraries",
                 "not"
               ],
-              "board": "whiteboards/xi/3/23.html",
-              "flv": "flv/xi/3/23.flv"
+              "board": "whiteboards/xi/3/23.html"
             },
             {
               "id": "xi-3-24",
@@ -1017,8 +961,7 @@
               "terms": [
                 "Debugging"
               ],
-              "board": "whiteboards/xi/3/24.html",
-              "flv": "flv/xi/3/24.flv"
+              "board": "whiteboards/xi/3/24.html"
             }
           ]
         },
@@ -1042,8 +985,7 @@
                 "database",
                 "related"
               ],
-              "board": "whiteboards/xi/4/01.html",
-              "flv": "flv/xi/4/01.flv"
+              "board": "whiteboards/xi/4/01.html"
             },
             {
               "id": "xi-4-2",
@@ -1060,8 +1002,7 @@
                 "Security.",
                 "Integrity."
               ],
-              "board": "whiteboards/xi/4/02.html",
-              "flv": "flv/xi/4/02.flv"
+              "board": "whiteboards/xi/4/02.html"
             },
             {
               "id": "xi-4-3",
@@ -1076,8 +1017,7 @@
                 "record",
                 "field"
               ],
-              "board": "whiteboards/xi/4/03.html",
-              "flv": "flv/xi/4/03.flv"
+              "board": "whiteboards/xi/4/03.html"
             },
             {
               "id": "xi-4-4",
@@ -1095,8 +1035,7 @@
                 "Alternate key.",
                 "Foreign key (FK)."
               ],
-              "board": "whiteboards/xi/4/04.html",
-              "flv": "flv/xi/4/04.flv"
+              "board": "whiteboards/xi/4/04.html"
             },
             {
               "id": "xi-4-5",
@@ -1110,8 +1049,7 @@
                 "RDBMS",
                 "SQL"
               ],
-              "board": "whiteboards/xi/4/05.html",
-              "flv": "flv/xi/4/05.flv"
+              "board": "whiteboards/xi/4/05.html"
             },
             {
               "id": "xi-4-6",
@@ -1124,8 +1062,7 @@
               "terms": [
                 "ER model"
               ],
-              "board": "whiteboards/xi/4/06.html",
-              "flv": "flv/xi/4/06.flv"
+              "board": "whiteboards/xi/4/06.html"
             },
             {
               "id": "xi-4-7",
@@ -1139,8 +1076,7 @@
                 "Referential integrity",
                 "orphan records"
               ],
-              "board": "whiteboards/xi/4/07.html",
-              "flv": "flv/xi/4/07.flv"
+              "board": "whiteboards/xi/4/07.html"
             },
             {
               "id": "xi-4-8",
@@ -1153,8 +1089,7 @@
               "terms": [
                 "relational schema"
               ],
-              "board": "whiteboards/xi/4/08.html",
-              "flv": "flv/xi/4/08.flv"
+              "board": "whiteboards/xi/4/08.html"
             },
             {
               "id": "xi-4-9",
@@ -1174,8 +1109,7 @@
                 "Step 6 — Resolve M:N.",
                 "BorrowRecord"
               ],
-              "board": "whiteboards/xi/4/09.html",
-              "flv": "flv/xi/4/09.flv"
+              "board": "whiteboards/xi/4/09.html"
             },
             {
               "id": "xi-4-10",
@@ -1186,8 +1120,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 4.8 Database Objects (Tables, Forms, Queries, Reports). Chapter: Data and Analysis. ٹیبل ڈیٹا رکھتی ہے، فارم سے اندراج ہوتا ہے، کوئری سوال پوچھ کر چھانتی ہے، رپورٹ چھپائی کے لیے سنواری ہوئی پیشکش ہے — اس میں ڈیٹا بھرا نہیں جاتا۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 64,
               "terms": [],
-              "board": "whiteboards/xi/4/10.html",
-              "flv": "flv/xi/4/10.flv"
+              "board": "whiteboards/xi/4/10.html"
             },
             {
               "id": "xi-4-11",
@@ -1202,8 +1135,7 @@
                 "Datasheet View",
                 "Design View"
               ],
-              "board": "whiteboards/xi/4/11.html",
-              "flv": "flv/xi/4/11.flv"
+              "board": "whiteboards/xi/4/11.html"
             },
             {
               "id": "xi-4-12",
@@ -1218,8 +1150,7 @@
                 "Form Wizard",
                 "Columnar"
               ],
-              "board": "whiteboards/xi/4/12.html",
-              "flv": "flv/xi/4/12.flv"
+              "board": "whiteboards/xi/4/12.html"
             },
             {
               "id": "xi-4-13",
@@ -1233,8 +1164,7 @@
                 "without changing the original tables",
                 "Criteria"
               ],
-              "board": "whiteboards/xi/4/13.html",
-              "flv": "flv/xi/4/13.flv"
+              "board": "whiteboards/xi/4/13.html"
             },
             {
               "id": "xi-4-14",
@@ -1248,8 +1178,7 @@
                 "Grouping",
                 "aggregate"
               ],
-              "board": "whiteboards/xi/4/14.html",
-              "flv": "flv/xi/4/14.flv"
+              "board": "whiteboards/xi/4/14.html"
             },
             {
               "id": "xi-4-15",
@@ -1260,8 +1189,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 4.11.6 Data Visualization in MS Access (Charts). Chapter: Data and Analysis. بار لمبے ناموں والی اقسام، کالم سادہ موازنہ، پائی حصوں کا تناسب، لائن وقت کے ساتھ رجحان۔ چارٹ کوئری یا ٹیبل کے اعداد کو تصویر بناتا ہے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 63,
               "terms": [],
-              "board": "whiteboards/xi/4/15.html",
-              "flv": "flv/xi/4/15.flv"
+              "board": "whiteboards/xi/4/15.html"
             }
           ]
         },
@@ -1287,8 +1215,7 @@
                 "Industries",
                 "impact"
               ],
-              "board": "whiteboards/xi/5/01.html",
-              "flv": "flv/xi/5/01.flv"
+              "board": "whiteboards/xi/5/01.html"
             },
             {
               "id": "xi-5-2",
@@ -1308,8 +1235,7 @@
                 "YouTube suggesting videos",
                 "Chatbots"
               ],
-              "board": "whiteboards/xi/5/02.html",
-              "flv": "flv/xi/5/02.flv"
+              "board": "whiteboards/xi/5/02.html"
             },
             {
               "id": "xi-5-3",
@@ -1327,8 +1253,7 @@
                 "Source example:",
                 "smartwatch"
               ],
-              "board": "whiteboards/xi/5/03.html",
-              "flv": "flv/xi/5/03.flv"
+              "board": "whiteboards/xi/5/03.html"
             },
             {
               "id": "xi-5-4",
@@ -1344,8 +1269,7 @@
                 "Information",
                 "Source example:"
               ],
-              "board": "whiteboards/xi/5/04.html",
-              "flv": "flv/xi/5/04.flv"
+              "board": "whiteboards/xi/5/04.html"
             },
             {
               "id": "xi-5-5",
@@ -1356,8 +1280,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: Comparison: IoT vs AI vs Data Analytics. Chapter: Application and Impacts of Computing. IoT جسمانی آلات (ہارڈویئر) کا نیٹ ورک ہے جو ماحول سے خام ڈیٹا جمع کرتا ہے۔ AI ذہین سافٹ ویئر ہے جو فیصلے اور پیش گوئیاں کرتا ہے۔ ڈیٹا اینالیٹکس ڈیٹا کا جائزہ لے کر رپورٹس اور گراف بناتا ہے۔ تینوں مل کر ایک اسمارٹ نظام بناتے ہیں۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 75,
               "terms": [],
-              "board": "whiteboards/xi/5/05.html",
-              "flv": "flv/xi/5/05.flv"
+              "board": "whiteboards/xi/5/05.html"
             },
             {
               "id": "xi-5-6",
@@ -1373,8 +1296,7 @@
                 "enhances the overall quality of life",
                 "infrastructure"
               ],
-              "board": "whiteboards/xi/5/06.html",
-              "flv": "flv/xi/5/06.flv"
+              "board": "whiteboards/xi/5/06.html"
             },
             {
               "id": "xi-5-7",
@@ -1394,8 +1316,7 @@
                 "AI-based career counselling",
                 "Benefits:"
               ],
-              "board": "whiteboards/xi/5/07.html",
-              "flv": "flv/xi/5/07.flv"
+              "board": "whiteboards/xi/5/07.html"
             },
             {
               "id": "xi-5-8",
@@ -1415,8 +1336,7 @@
                 "Key skills needed:",
                 "Programming"
               ],
-              "board": "whiteboards/xi/5/08.html",
-              "flv": "flv/xi/5/08.flv"
+              "board": "whiteboards/xi/5/08.html"
             },
             {
               "id": "xi-5-9",
@@ -1436,8 +1356,7 @@
                 "summarise or analyse primary data",
                 "3. Tertiary sources"
               ],
-              "board": "whiteboards/xi/5/09.html",
-              "flv": "flv/xi/5/09.flv"
+              "board": "whiteboards/xi/5/09.html"
             },
             {
               "id": "xi-5-10",
@@ -1452,8 +1371,7 @@
                 "privacy risks",
                 "technology addiction"
               ],
-              "board": "whiteboards/xi/5/10.html",
-              "flv": "flv/xi/5/10.flv"
+              "board": "whiteboards/xi/5/10.html"
             },
             {
               "id": "xi-5-11",
@@ -1470,8 +1388,7 @@
                 "participate equally",
                 "four categories"
               ],
-              "board": "whiteboards/xi/5/11.html",
-              "flv": "flv/xi/5/11.flv"
+              "board": "whiteboards/xi/5/11.html"
             },
             {
               "id": "xi-5-12",
@@ -1486,8 +1403,7 @@
                 "Independence in daily life:",
                 "Social inclusion:"
               ],
-              "board": "whiteboards/xi/5/12.html",
-              "flv": "flv/xi/5/12.flv"
+              "board": "whiteboards/xi/5/12.html"
             },
             {
               "id": "xi-5-13",
@@ -1504,8 +1420,7 @@
                 "UX/UI Accessibility Expert",
                 "Accessibility"
               ],
-              "board": "whiteboards/xi/5/13.html",
-              "flv": "flv/xi/5/13.flv"
+              "board": "whiteboards/xi/5/13.html"
             }
           ]
         },
@@ -1531,8 +1446,7 @@
                 "communicate",
                 "produce"
               ],
-              "board": "whiteboards/xi/6/01.html",
-              "flv": "flv/xi/6/01.flv"
+              "board": "whiteboards/xi/6/01.html"
             },
             {
               "id": "xi-6-2",
@@ -1552,8 +1466,7 @@
                 "understand",
                 "manage"
               ],
-              "board": "whiteboards/xi/6/02.html",
-              "flv": "flv/xi/6/02.flv"
+              "board": "whiteboards/xi/6/02.html"
             },
             {
               "id": "xi-6-3",
@@ -1573,8 +1486,7 @@
                 "categories",
                 "count"
               ],
-              "board": "whiteboards/xi/6/03.html",
-              "flv": "flv/xi/6/03.flv"
+              "board": "whiteboards/xi/6/03.html"
             },
             {
               "id": "xi-6-4",
@@ -1589,8 +1501,7 @@
                 "original",
                 "data-collection strategy"
               ],
-              "board": "whiteboards/xi/6/04.html",
-              "flv": "flv/xi/6/04.flv"
+              "board": "whiteboards/xi/6/04.html"
             },
             {
               "id": "xi-6-5",
@@ -1610,8 +1521,7 @@
                 "qualitative",
                 "Strength:"
               ],
-              "board": "whiteboards/xi/6/05.html",
-              "flv": "flv/xi/6/05.flv"
+              "board": "whiteboards/xi/6/05.html"
             },
             {
               "id": "xi-6-6",
@@ -1631,8 +1541,7 @@
                 "Example:",
                 "observation"
               ],
-              "board": "whiteboards/xi/6/06.html",
-              "flv": "flv/xi/6/06.flv"
+              "board": "whiteboards/xi/6/06.html"
             },
             {
               "id": "xi-6-7",
@@ -1647,8 +1556,7 @@
                 "control",
                 "confidently"
               ],
-              "board": "whiteboards/xi/6/07.html",
-              "flv": "flv/xi/6/07.flv"
+              "board": "whiteboards/xi/6/07.html"
             },
             {
               "id": "xi-6-8",
@@ -1668,8 +1576,7 @@
                 "Select suitable methods",
                 "Choose the sample or target group"
               ],
-              "board": "whiteboards/xi/6/08.html",
-              "flv": "flv/xi/6/08.flv"
+              "board": "whiteboards/xi/6/08.html"
             },
             {
               "id": "xi-6-9",
@@ -1689,8 +1596,7 @@
                 "Apple Numbers",
                 "rows"
               ],
-              "board": "whiteboards/xi/6/09.html",
-              "flv": "flv/xi/6/09.flv"
+              "board": "whiteboards/xi/6/09.html"
             },
             {
               "id": "xi-6-10",
@@ -1710,8 +1616,7 @@
                 "Simplify",
                 "Highlight"
               ],
-              "board": "whiteboards/xi/6/10.html",
-              "flv": "flv/xi/6/10.flv"
+              "board": "whiteboards/xi/6/10.html"
             },
             {
               "id": "xi-6-11",
@@ -1729,8 +1634,7 @@
                 "help",
                 "waste time"
               ],
-              "board": "whiteboards/xi/6/11.html",
-              "flv": "flv/xi/6/11.flv"
+              "board": "whiteboards/xi/6/11.html"
             },
             {
               "id": "xi-6-12",
@@ -1750,8 +1654,7 @@
                 "educational websites",
                 "Other useful operators (background):"
               ],
-              "board": "whiteboards/xi/6/12.html",
-              "flv": "flv/xi/6/12.flv"
+              "board": "whiteboards/xi/6/12.html"
             },
             {
               "id": "xi-6-13",
@@ -1771,8 +1674,7 @@
                 "permission",
                 "consent"
               ],
-              "board": "whiteboards/xi/6/13.html",
-              "flv": "flv/xi/6/13.flv"
+              "board": "whiteboards/xi/6/13.html"
             },
             {
               "id": "xi-6-14",
@@ -1792,8 +1694,7 @@
                 "find averages",
                 "visuals"
               ],
-              "board": "whiteboards/xi/6/14.html",
-              "flv": "flv/xi/6/14.flv"
+              "board": "whiteboards/xi/6/14.html"
             },
             {
               "id": "xi-6-15",
@@ -1813,8 +1714,7 @@
                 "educational purposes",
                 "A clear trend:"
               ],
-              "board": "whiteboards/xi/6/15.html",
-              "flv": "flv/xi/6/15.flv"
+              "board": "whiteboards/xi/6/15.html"
             },
             {
               "id": "xi-6-16",
@@ -1832,8 +1732,7 @@
                 "conclusions",
                 "dashboard"
               ],
-              "board": "whiteboards/xi/6/16.html",
-              "flv": "flv/xi/6/16.flv"
+              "board": "whiteboards/xi/6/16.html"
             },
             {
               "id": "xi-6-17",
@@ -1849,8 +1748,7 @@
                 "Data Journalist",
                 "Digital Marketing Specialist"
               ],
-              "board": "whiteboards/xi/6/17.html",
-              "flv": "flv/xi/6/17.flv"
+              "board": "whiteboards/xi/6/17.html"
             }
           ]
         }
@@ -1880,8 +1778,7 @@
                 "CHI",
                 "MMI"
               ],
-              "board": "whiteboards/xii/1/01.html",
-              "flv": "flv/xii/1/01.flv"
+              "board": "whiteboards/xii/1/01.html"
             },
             {
               "id": "xii-1-2",
@@ -1900,8 +1797,7 @@
                 "Voice:",
                 "Body and gesture:"
               ],
-              "board": "whiteboards/xii/1/02.html",
-              "flv": "flv/xii/1/02.flv"
+              "board": "whiteboards/xii/1/02.html"
             },
             {
               "id": "xii-1-3",
@@ -1916,8 +1812,7 @@
                 "human-centred solutions",
                 "users, tasks and risks"
               ],
-              "board": "whiteboards/xii/1/03.html",
-              "flv": "flv/xii/1/03.flv"
+              "board": "whiteboards/xii/1/03.html"
             },
             {
               "id": "xii-1-4",
@@ -1928,8 +1823,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 1.3 Components of HCI. Chapter: Computer Systems (HCI). ایچ سی آئی کے چار بنیادی اجزاء ہیں: صارف (اینڈ یوزر جو خود سسٹم چلاتا ہے اور اسٹیک ہولڈر جس کا نتیجے میں مفاد ہے)، کمپیوٹر سسٹم (ان پٹ، آؤٹ پٹ اور فیڈبیک کا پلیٹ فارم)، صارف کا تعامل (کلک، ٹیپ، ٹائپ، بولنا) اور کام (ٹاسک) جس کی پیچیدگی، مطلوبہ مہارت اور وقت مختلف ہوتا ہے۔ اے ٹی ایم سے رقم نکالنا آسان اور مختصر کام ہے؛ پاسپورٹ کی آن لائن درخواست لمبا کام ہے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 87,
               "terms": [],
-              "board": "whiteboards/xii/1/04.html",
-              "flv": "flv/xii/1/04.flv"
+              "board": "whiteboards/xii/1/04.html"
             },
             {
               "id": "xii-1-5",
@@ -1940,8 +1834,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: Types of User Interaction. Chapter: Computer Systems (HCI). تعامل کی اقسام میں براہِ راست ہیرا پھیری، کمانڈ، مینو، فارم، گفتگو (چیٹ بوٹ)، اشارہ، آواز، سیاق و سباق سے آگاہ نظام، بایومیٹرک، ہیپٹک اور ملٹی موڈل شامل ہیں۔ جاز کیش میں فنگر پرنٹ بایومیٹرک ہے، \"رقم بھیجیں\" مینو ہے، نمبر لکھنا فارم ہے، اور آواز کے ساتھ ٹیپ ملٹی موڈل ہے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 75,
               "terms": [],
-              "board": "whiteboards/xii/1/05.html",
-              "flv": "flv/xii/1/05.flv"
+              "board": "whiteboards/xii/1/05.html"
             },
             {
               "id": "xii-1-6",
@@ -1961,8 +1854,7 @@
                 "environment",
                 "Physical conditions"
               ],
-              "board": "whiteboards/xii/1/06.html",
-              "flv": "flv/xii/1/06.flv"
+              "board": "whiteboards/xii/1/06.html"
             },
             {
               "id": "xii-1-7",
@@ -1976,8 +1868,7 @@
                 "Good design",
                 "Poor design"
               ],
-              "board": "whiteboards/xii/1/07.html",
-              "flv": "flv/xii/1/07.flv"
+              "board": "whiteboards/xii/1/07.html"
             },
             {
               "id": "xii-1-8",
@@ -1991,8 +1882,7 @@
                 "Accessibility principles",
                 "all"
               ],
-              "board": "whiteboards/xii/1/08.html",
-              "flv": "flv/xii/1/08.flv"
+              "board": "whiteboards/xii/1/08.html"
             },
             {
               "id": "xii-1-9",
@@ -2008,8 +1898,7 @@
                 "desired outcome",
                 "before"
               ],
-              "board": "whiteboards/xii/1/09.html",
-              "flv": "flv/xii/1/09.flv"
+              "board": "whiteboards/xii/1/09.html"
             },
             {
               "id": "xii-1-10",
@@ -2023,8 +1912,7 @@
                 "HCI problems",
                 "Cognitive limits"
               ],
-              "board": "whiteboards/xii/1/10.html",
-              "flv": "flv/xii/1/10.flv"
+              "board": "whiteboards/xii/1/10.html"
             },
             {
               "id": "xii-1-11",
@@ -2044,8 +1932,7 @@
                 "Use multimodal interaction:",
                 "Continuous testing:"
               ],
-              "board": "whiteboards/xii/1/11.html",
-              "flv": "flv/xii/1/11.flv"
+              "board": "whiteboards/xii/1/11.html"
             },
             {
               "id": "xii-1-12",
@@ -2060,8 +1947,7 @@
                 "visual elements",
                 "UI is what you see; UX is how it feels."
               ],
-              "board": "whiteboards/xii/1/12.html",
-              "flv": "flv/xii/1/12.flv"
+              "board": "whiteboards/xii/1/12.html"
             },
             {
               "id": "xii-1-13",
@@ -2077,8 +1963,7 @@
                 "Low-fidelity wireframes (Lo-Fi)",
                 "High-fidelity prototypes (Hi-Fi)"
               ],
-              "board": "whiteboards/xii/1/13.html",
-              "flv": "flv/xii/1/13.flv"
+              "board": "whiteboards/xii/1/13.html"
             },
             {
               "id": "xii-1-14",
@@ -2092,8 +1977,7 @@
                 "Testing",
                 "Evaluation"
               ],
-              "board": "whiteboards/xii/1/14.html",
-              "flv": "flv/xii/1/14.flv"
+              "board": "whiteboards/xii/1/14.html"
             },
             {
               "id": "xii-1-15",
@@ -2113,8 +1997,7 @@
                 "A/B testing:",
                 "Compatibility testing:"
               ],
-              "board": "whiteboards/xii/1/15.html",
-              "flv": "flv/xii/1/15.flv"
+              "board": "whiteboards/xii/1/15.html"
             },
             {
               "id": "xii-1-16",
@@ -2125,8 +2008,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: Career Opportunities in UI/UX. Chapter: Computer Systems (HCI). اس باب سے ملازمتیں: یو ایکس ڈیزائنر صارف کی ضرورت تحقیق کرتا ہے، یو آئی ڈیزائنر فگما میں رنگ اور بٹن بناتا ہے، انٹریکشن ڈیزائنر اسکرینوں کا بہاؤ سنبھالتا ہے، یوزیبیلٹی ریسرچر SUS، NPS اور اے/بی ٹیسٹ چلاتا ہے، اور ایکسیسبیلٹی ماہر سب کے لیے رسائی یقینی بناتا ہے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 72,
               "terms": [],
-              "board": "whiteboards/xii/1/16.html",
-              "flv": "flv/xii/1/16.flv"
+              "board": "whiteboards/xii/1/16.html"
             }
           ]
         },
@@ -2147,8 +2029,7 @@
                 "output matches the expected results",
                 "all valid inputs"
               ],
-              "board": "whiteboards/xii/2/01.html",
-              "flv": "flv/xii/2/01.flv"
+              "board": "whiteboards/xii/2/01.html"
             },
             {
               "id": "xii-2-2",
@@ -2168,8 +2049,7 @@
                 "Validation:",
                 "Components of a trace table"
               ],
-              "board": "whiteboards/xii/2/02.html",
-              "flv": "flv/xii/2/02.flv"
+              "board": "whiteboards/xii/2/02.html"
             },
             {
               "id": "xii-2-3",
@@ -2189,8 +2069,7 @@
                 "conditions correct",
                 "start"
               ],
-              "board": "whiteboards/xii/2/03.html",
-              "flv": "flv/xii/2/03.flv"
+              "board": "whiteboards/xii/2/03.html"
             },
             {
               "id": "xii-2-4",
@@ -2203,8 +2082,7 @@
               "terms": [
                 "complexity and length"
               ],
-              "board": "whiteboards/xii/2/04.html",
-              "flv": "flv/xii/2/04.flv"
+              "board": "whiteboards/xii/2/04.html"
             },
             {
               "id": "xii-2-5",
@@ -2219,8 +2097,7 @@
                 "read, understand and modify",
                 "maintain, debug and extend"
               ],
-              "board": "whiteboards/xii/2/05.html",
-              "flv": "flv/xii/2/05.flv"
+              "board": "whiteboards/xii/2/05.html"
             },
             {
               "id": "xii-2-6",
@@ -2240,8 +2117,7 @@
                 "loose coupling",
                 "Abstraction."
               ],
-              "board": "whiteboards/xii/2/06.html",
-              "flv": "flv/xii/2/06.flv"
+              "board": "whiteboards/xii/2/06.html"
             },
             {
               "id": "xii-2-7",
@@ -2260,8 +2136,7 @@
                 "Control-flow simplicity",
                 "Consistency"
               ],
-              "board": "whiteboards/xii/2/07.html",
-              "flv": "flv/xii/2/07.flv"
+              "board": "whiteboards/xii/2/07.html"
             },
             {
               "id": "xii-2-8",
@@ -2280,8 +2155,7 @@
                 "Number of conditions",
                 "Number of repetitions"
               ],
-              "board": "whiteboards/xii/2/08.html",
-              "flv": "flv/xii/2/08.flv"
+              "board": "whiteboards/xii/2/08.html"
             },
             {
               "id": "xii-2-9",
@@ -2297,8 +2171,7 @@
                 "grows",
                 "log n"
               ],
-              "board": "whiteboards/xii/2/09.html",
-              "flv": "flv/xii/2/09.flv"
+              "board": "whiteboards/xii/2/09.html"
             },
             {
               "id": "xii-2-10",
@@ -2314,8 +2187,7 @@
                 "Nested conditions.",
                 "Short-circuiting"
               ],
-              "board": "whiteboards/xii/2/10.html",
-              "flv": "flv/xii/2/10.flv"
+              "board": "whiteboards/xii/2/10.html"
             },
             {
               "id": "xii-2-11",
@@ -2329,8 +2201,7 @@
                 "Repetitions",
                 "structure of the loop"
               ],
-              "board": "whiteboards/xii/2/11.html",
-              "flv": "flv/xii/2/11.flv"
+              "board": "whiteboards/xii/2/11.html"
             },
             {
               "id": "xii-2-12",
@@ -2345,8 +2216,7 @@
                 "What is the bottleneck?",
                 "Is the cost worth it?"
               ],
-              "board": "whiteboards/xii/2/12.html",
-              "flv": "flv/xii/2/12.flv"
+              "board": "whiteboards/xii/2/12.html"
             },
             {
               "id": "xii-2-13",
@@ -2366,8 +2236,7 @@
                 "Use better algorithms.",
                 "sorted"
               ],
-              "board": "whiteboards/xii/2/13.html",
-              "flv": "flv/xii/2/13.flv"
+              "board": "whiteboards/xii/2/13.html"
             },
             {
               "id": "xii-2-14",
@@ -2382,8 +2251,7 @@
                 "organising, storing and managing",
                 "Real-life analogy."
               ],
-              "board": "whiteboards/xii/2/14.html",
-              "flv": "flv/xii/2/14.flv"
+              "board": "whiteboards/xii/2/14.html"
             },
             {
               "id": "xii-2-15",
@@ -2400,8 +2268,7 @@
                 "index",
                 "direct access"
               ],
-              "board": "whiteboards/xii/2/15.html",
-              "flv": "flv/xii/2/15.flv"
+              "board": "whiteboards/xii/2/15.html"
             },
             {
               "id": "xii-2-16",
@@ -2421,8 +2288,7 @@
                 "HEAD",
                 "NULL"
               ],
-              "board": "whiteboards/xii/2/16.html",
-              "flv": "flv/xii/2/16.flv"
+              "board": "whiteboards/xii/2/16.html"
             },
             {
               "id": "xii-2-17",
@@ -2441,8 +2307,7 @@
                 "POP",
                 "Real-life example:"
               ],
-              "board": "whiteboards/xii/2/17.html",
-              "flv": "flv/xii/2/17.flv"
+              "board": "whiteboards/xii/2/17.html"
             },
             {
               "id": "xii-2-18",
@@ -2462,8 +2327,7 @@
                 "Front",
                 "Real-life example:"
               ],
-              "board": "whiteboards/xii/2/18.html",
-              "flv": "flv/xii/2/18.flv"
+              "board": "whiteboards/xii/2/18.html"
             },
             {
               "id": "xii-2-19",
@@ -2480,8 +2344,7 @@
                 "one-to-many (parent–child)",
                 "Real-life examples:"
               ],
-              "board": "whiteboards/xii/2/19.html",
-              "flv": "flv/xii/2/19.flv"
+              "board": "whiteboards/xii/2/19.html"
             },
             {
               "id": "xii-2-20",
@@ -2498,8 +2361,7 @@
                 "Edges",
                 "Examples:"
               ],
-              "board": "whiteboards/xii/2/20.html",
-              "flv": "flv/xii/2/20.flv"
+              "board": "whiteboards/xii/2/20.html"
             },
             {
               "id": "xii-2-21",
@@ -2510,8 +2372,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 2.5.3 Operations on Data Structures. Chapter: Computational Thinking & Algorithms. ہر ڈیٹا سٹرکچر پر پانچ عمل ہوتے ہیں: Insertion، Deletion، ایک ایک کر کے Traversal، Searching اور Sorting، صعودی یا نزولی۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 59,
               "terms": [],
-              "board": "whiteboards/xii/2/21.html",
-              "flv": "flv/xii/2/21.flv"
+              "board": "whiteboards/xii/2/21.html"
             },
             {
               "id": "xii-2-22",
@@ -2531,8 +2392,7 @@
                 "Organisational chart of a college → Tree.",
                 "GPS navigation and maps → Graph."
               ],
-              "board": "whiteboards/xii/2/22.html",
-              "flv": "flv/xii/2/22.flv"
+              "board": "whiteboards/xii/2/22.html"
             },
             {
               "id": "xii-2-23",
@@ -2546,8 +2406,7 @@
                 "Tracing data retrieval",
                 "effort"
               ],
-              "board": "whiteboards/xii/2/23.html",
-              "flv": "flv/xii/2/23.flv"
+              "board": "whiteboards/xii/2/23.html"
             },
             {
               "id": "xii-2-24",
@@ -2558,8 +2417,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: Career Opportunities in Algorithms. Chapter: Computational Thinking & Algorithms. اس باب کی مہارتیں سافٹ ویئر انجینئر، بیک اینڈ ڈیولپر، الگورتھم انجینئر، سسٹمز اینالسٹ اور کمپیٹیٹو پروگرامر کے کام میں روز استعمال ہوتی ہیں: درست منطق، صاف ماڈیول، بگ او اور درست ڈیٹا سٹرکچر۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 65,
               "terms": [],
-              "board": "whiteboards/xii/2/24.html",
-              "flv": "flv/xii/2/24.flv"
+              "board": "whiteboards/xii/2/24.html"
             }
           ]
         },
@@ -2583,8 +2441,7 @@
                 "many",
                 "lists, tuples, sets, dictionaries"
               ],
-              "board": "whiteboards/xii/3/01.html",
-              "flv": "flv/xii/3/01.flv"
+              "board": "whiteboards/xii/3/01.html"
             },
             {
               "id": "xii-3-2",
@@ -2601,8 +2458,7 @@
                 "square brackets",
                 "Why use a list?"
               ],
-              "board": "whiteboards/xii/3/02.html",
-              "flv": "flv/xii/3/02.flv"
+              "board": "whiteboards/xii/3/02.html"
             },
             {
               "id": "xii-3-3",
@@ -2618,8 +2474,7 @@
                 "read-only list",
                 "parentheses"
               ],
-              "board": "whiteboards/xii/3/03.html",
-              "flv": "flv/xii/3/03.flv"
+              "board": "whiteboards/xii/3/03.html"
             },
             {
               "id": "xii-3-4",
@@ -2637,8 +2492,7 @@
                 "mutable",
                 "immutable"
               ],
-              "board": "whiteboards/xii/3/04.html",
-              "flv": "flv/xii/3/04.flv"
+              "board": "whiteboards/xii/3/04.html"
             },
             {
               "id": "xii-3-5",
@@ -2658,8 +2512,7 @@
                 "Mutable",
                 "Keys are unique"
               ],
-              "board": "whiteboards/xii/3/05.html",
-              "flv": "flv/xii/3/05.flv"
+              "board": "whiteboards/xii/3/05.html"
             },
             {
               "id": "xii-3-6",
@@ -2670,8 +2523,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 3.1.5 Common Built-in Functions (min, max, len, sum). Chapter: Programming Fundamentals. len() عناصر گنتا ہے، min() سب سے چھوٹا، max() سب سے بڑا، sum() اعداد کا مجموعہ، اور sorted() نئی ترتیب شدہ فہرست دیتا ہے بغیر اصل کو بدلے ہیں۔ ڈکشنری پر min اور max کلیدوں پر چلتے ہیں؛ قدروں کا مجموعہ sum(d.values()) سے نکالیں۔ .sort() صرف فہرست کا میتھڈ ہے جو اصل فہرست بدل دیتا ہے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 80,
               "terms": [],
-              "board": "whiteboards/xii/3/06.html",
-              "flv": "flv/xii/3/06.flv"
+              "board": "whiteboards/xii/3/06.html"
             },
             {
               "id": "xii-3-7",
@@ -2684,8 +2536,7 @@
               "terms": [
                 "list"
               ],
-              "board": "whiteboards/xii/3/07.html",
-              "flv": "flv/xii/3/07.flv"
+              "board": "whiteboards/xii/3/07.html"
             },
             {
               "id": "xii-3-8",
@@ -2698,8 +2549,7 @@
               "terms": [
                 "dictionary"
               ],
-              "board": "whiteboards/xii/3/08.html",
-              "flv": "flv/xii/3/08.flv"
+              "board": "whiteboards/xii/3/08.html"
             },
             {
               "id": "xii-3-9",
@@ -2714,8 +2564,7 @@
                 "function",
                 "once"
               ],
-              "board": "whiteboards/xii/3/09.html",
-              "flv": "flv/xii/3/09.flv"
+              "board": "whiteboards/xii/3/09.html"
             },
             {
               "id": "xii-3-10",
@@ -2730,8 +2579,7 @@
                 "b) User-defined functions",
                 "you"
               ],
-              "board": "whiteboards/xii/3/10.html",
-              "flv": "flv/xii/3/10.flv"
+              "board": "whiteboards/xii/3/10.html"
             },
             {
               "id": "xii-3-11",
@@ -2745,8 +2593,7 @@
                 "print",
                 "return"
               ],
-              "board": "whiteboards/xii/3/11.html",
-              "flv": "flv/xii/3/11.flv"
+              "board": "whiteboards/xii/3/11.html"
             },
             {
               "id": "xii-3-12",
@@ -2759,8 +2606,7 @@
               "terms": [
                 "separate function"
               ],
-              "board": "whiteboards/xii/3/12.html",
-              "flv": "flv/xii/3/12.flv"
+              "board": "whiteboards/xii/3/12.html"
             },
             {
               "id": "xii-3-13",
@@ -2778,8 +2624,7 @@
                 "global variable",
                 "read"
               ],
-              "board": "whiteboards/xii/3/13.html",
-              "flv": "flv/xii/3/13.flv"
+              "board": "whiteboards/xii/3/13.html"
             },
             {
               "id": "xii-3-14",
@@ -2795,8 +2640,7 @@
                 "hard disk or SSD",
                 "persistent"
               ],
-              "board": "whiteboards/xii/3/14.html",
-              "flv": "flv/xii/3/14.flv"
+              "board": "whiteboards/xii/3/14.html"
             },
             {
               "id": "xii-3-15",
@@ -2810,8 +2654,7 @@
                 "context manager",
                 "always closes"
               ],
-              "board": "whiteboards/xii/3/15.html",
-              "flv": "flv/xii/3/15.flv"
+              "board": "whiteboards/xii/3/15.html"
             },
             {
               "id": "xii-3-16",
@@ -2825,8 +2668,7 @@
                 "exception",
                 "stops"
               ],
-              "board": "whiteboards/xii/3/16.html",
-              "flv": "flv/xii/3/16.flv"
+              "board": "whiteboards/xii/3/16.html"
             },
             {
               "id": "xii-3-17",
@@ -2837,8 +2679,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 3.9 Mini File Handling Project: Grade Tracker. Chapter: Programming Fundamentals. گریڈ ٹریکر پہلے 'w' سے فائل بناتا ہے، پھر 'a' سے نیا طالب علم جوڑتا ہے، پھر 'r' سے تمام سطریں پڑھ کر اوسط نکالتا ہے۔ ہر سطر کو strip اور split(\":\") سے نام اور نمبر میں توڑا جاتا ہے۔ اوسط = کل نمبر ÷ طلبہ کی تعداد۔ 'w' دوبارہ استعمال کرنے سے پرانے ریکارڈ مٹ جائیں گے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 79,
               "terms": [],
-              "board": "whiteboards/xii/3/17.html",
-              "flv": "flv/xii/3/17.flv"
+              "board": "whiteboards/xii/3/17.html"
             },
             {
               "id": "xii-3-18",
@@ -2854,8 +2695,7 @@
                 "Automation engineer",
                 "Game developer"
               ],
-              "board": "whiteboards/xii/3/18.html",
-              "flv": "flv/xii/3/18.flv"
+              "board": "whiteboards/xii/3/18.html"
             }
           ]
         },
@@ -2874,8 +2714,7 @@
               "terms": [
                 "Data analysis"
               ],
-              "board": "whiteboards/xii/4/01.html",
-              "flv": "flv/xii/4/01.flv"
+              "board": "whiteboards/xii/4/01.html"
             },
             {
               "id": "xii-4-2",
@@ -2889,8 +2728,7 @@
                 "Data sources",
                 "Connectivity"
               ],
-              "board": "whiteboards/xii/4/02.html",
-              "flv": "flv/xii/4/02.flv"
+              "board": "whiteboards/xii/4/02.html"
             },
             {
               "id": "xii-4-3",
@@ -2901,8 +2739,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 4.2 Creating a SQLite Database in Python. Chapter: Data and Analysis. ایس کیو لائٹ پائتھن کے ساتھ آتی ہے، پورا ڈیٹا بیس ایک فائل ہے۔ ترتیب: امپورٹ، کنکٹ، کرسر، EXECUTE، COMMIT، SELECT، FETCALL، CLOSE۔ COMMIT نہ ہو تو اندراج ضائع ہو جاتا ہے۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 66,
               "terms": [],
-              "board": "whiteboards/xii/4/03.html",
-              "flv": "flv/xii/4/03.flv"
+              "board": "whiteboards/xii/4/03.html"
             },
             {
               "id": "xii-4-4",
@@ -2916,8 +2753,7 @@
                 "Pandas",
                 "DataFrame"
               ],
-              "board": "whiteboards/xii/4/04.html",
-              "flv": "flv/xii/4/04.flv"
+              "board": "whiteboards/xii/4/04.html"
             },
             {
               "id": "xii-4-5",
@@ -2930,8 +2766,7 @@
               "terms": [
                 "NaN"
               ],
-              "board": "whiteboards/xii/4/05.html",
-              "flv": "flv/xii/4/05.flv"
+              "board": "whiteboards/xii/4/05.html"
             },
             {
               "id": "xii-4-6",
@@ -2946,8 +2781,7 @@
                 "Frequency distribution",
                 "Graph"
               ],
-              "board": "whiteboards/xii/4/06.html",
-              "flv": "flv/xii/4/06.flv"
+              "board": "whiteboards/xii/4/06.html"
             },
             {
               "id": "xii-4-7",
@@ -2958,8 +2792,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 4.5 Data Visualization and Types of Graphs. Chapter: Data and Analysis. Yeh Golden topic hai — extra dhyan se dekho. بار/کالم اقسام کا موازنہ، لائن وقت کا رجحان، پائی حصے، ہسٹوگرام Continuous تقسیم (بار آپس میں لگے)، اسکیٹر دو variables کا تعلق، باکس پلاٹ پانچ اعداد اور آؤٹ لائر۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 68,
               "terms": [],
-              "board": "whiteboards/xii/4/07.html",
-              "flv": "flv/xii/4/07.flv"
+              "board": "whiteboards/xii/4/07.html"
             },
             {
               "id": "xii-4-8",
@@ -2974,8 +2807,7 @@
                 "Central tendency",
                 "Spread"
               ],
-              "board": "whiteboards/xii/4/08.html",
-              "flv": "flv/xii/4/08.flv"
+              "board": "whiteboards/xii/4/08.html"
             },
             {
               "id": "xii-4-9",
@@ -2986,8 +2818,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: Career Opportunities. Chapter: Data and Analysis. یہ باب ڈیٹا اینالسٹ، ڈیٹا بیس ایڈمن، ڈیٹا سائنسدان، ویژولائزیشن اور بیک اینڈ ڈویلپر جیسے کیریئرز کی بنیاد ہے۔ Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 43,
               "terms": [],
-              "board": "whiteboards/xii/4/09.html",
-              "flv": "flv/xii/4/09.flv"
+              "board": "whiteboards/xii/4/09.html"
             }
           ]
         },
@@ -3013,8 +2844,7 @@
                 "Speech recognition",
                 "Photo search"
               ],
-              "board": "whiteboards/xii/5/01.html",
-              "flv": "flv/xii/5/01.flv"
+              "board": "whiteboards/xii/5/01.html"
             },
             {
               "id": "xii-5-2",
@@ -3031,8 +2861,7 @@
                 "do not list every rule",
                 "How it works — three steps:"
               ],
-              "board": "whiteboards/xii/5/02.html",
-              "flv": "flv/xii/5/02.flv"
+              "board": "whiteboards/xii/5/02.html"
             },
             {
               "id": "xii-5-3",
@@ -3052,8 +2881,7 @@
                 "connected",
                 "pass information from one layer to another"
               ],
-              "board": "whiteboards/xii/5/03.html",
-              "flv": "flv/xii/5/03.flv"
+              "board": "whiteboards/xii/5/03.html"
             },
             {
               "id": "xii-5-4",
@@ -3073,8 +2901,7 @@
                 "Early layers",
                 "Deeper layers"
               ],
-              "board": "whiteboards/xii/5/04.html",
-              "flv": "flv/xii/5/04.flv"
+              "board": "whiteboards/xii/5/04.html"
             },
             {
               "id": "xii-5-5",
@@ -3090,8 +2917,7 @@
                 "processed",
                 "exits"
               ],
-              "board": "whiteboards/xii/5/05.html",
-              "flv": "flv/xii/5/05.flv"
+              "board": "whiteboards/xii/5/05.html"
             },
             {
               "id": "xii-5-6",
@@ -3104,8 +2930,7 @@
               "terms": [
                 "differentiate it from basic machine learning"
               ],
-              "board": "whiteboards/xii/5/06.html",
-              "flv": "flv/xii/5/06.flv"
+              "board": "whiteboards/xii/5/06.html"
             },
             {
               "id": "xii-5-7",
@@ -3118,8 +2943,7 @@
               "terms": [
                 "National AI Policy 2025"
               ],
-              "board": "whiteboards/xii/5/07.html",
-              "flv": "flv/xii/5/07.flv"
+              "board": "whiteboards/xii/5/07.html"
             },
             {
               "id": "xii-5-8",
@@ -3130,8 +2954,7 @@
               "spokenUrdu": "Students, السلام علیکم۔ Cinematic classroom: English lecture board par write ho raha hai, diagrams draw ho rahe hain. Main Urdish میں explain karti hon — Urdu grammar, computer terms English میں. Formal Urdu ترجمہ نہیں۔ Topic: 5.2 Applications of Neural Networks and Deep Learning. Chapter: Application and Impacts of Computing. نیورل نیٹ ورکس اور ڈیپ لرننگ کی مشہور ایپلی کیشنز یہ ہیں: تصویر کی پہچان، آواز کی پہچان، قدرتی زبان کی NLP، صحت کے نظام، تجویز کرنے والے نظام، خود چلنے والی گاڑیاں، فراڈ کی نشاندہی اور معاون ٹیکنالوجیز۔ روزمرہ میں چہرے سے فون کھولنا، یوٹیوب کی تجاویز اور بینک کا مشکوک لین دین پکڑنا سب اسی خاندان سے ہیں۔ Remember-it, common-mistake aur exam note English میں board par already written hain. Unhe copy karo — main English dobara nahi padhti. Copy Definition, Explain, Example, Diagram aur Working. اللہ حافظ.",
               "readSeconds": 82,
               "terms": [],
-              "board": "whiteboards/xii/5/08.html",
-              "flv": "flv/xii/5/08.flv"
+              "board": "whiteboards/xii/5/08.html"
             },
             {
               "id": "xii-5-9",
@@ -3147,8 +2970,7 @@
                 "Secure collaboration",
                 "safe, controlled and responsible"
               ],
-              "board": "whiteboards/xii/5/09.html",
-              "flv": "flv/xii/5/09.flv"
+              "board": "whiteboards/xii/5/09.html"
             },
             {
               "id": "xii-5-10",
@@ -3161,8 +2983,7 @@
               "terms": [
                 "Data protection"
               ],
-              "board": "whiteboards/xii/5/10.html",
-              "flv": "flv/xii/5/10.flv"
+              "board": "whiteboards/xii/5/10.html"
             },
             {
               "id": "xii-5-11",
@@ -3177,8 +2998,7 @@
                 "harm a computer system or its data",
                 "Mitigation techniques"
               ],
-              "board": "whiteboards/xii/5/11.html",
-              "flv": "flv/xii/5/11.flv"
+              "board": "whiteboards/xii/5/11.html"
             },
             {
               "id": "xii-5-12",
@@ -3192,8 +3012,7 @@
                 "Identifying security threats",
                 "noticing signs"
               ],
-              "board": "whiteboards/xii/5/12.html",
-              "flv": "flv/xii/5/12.flv"
+              "board": "whiteboards/xii/5/12.html"
             },
             {
               "id": "xii-5-13",
@@ -3208,8 +3027,7 @@
                 "prevent",
                 "reduce their harmful effects"
               ],
-              "board": "whiteboards/xii/5/13.html",
-              "flv": "flv/xii/5/13.flv"
+              "board": "whiteboards/xii/5/13.html"
             },
             {
               "id": "xii-5-14",
@@ -3224,8 +3042,7 @@
                 "equal access",
                 "equity"
               ],
-              "board": "whiteboards/xii/5/14.html",
-              "flv": "flv/xii/5/14.flv"
+              "board": "whiteboards/xii/5/14.html"
             },
             {
               "id": "xii-5-15",
@@ -3238,8 +3055,7 @@
               "terms": [
                 "do work"
               ],
-              "board": "whiteboards/xii/5/15.html",
-              "flv": "flv/xii/5/15.flv"
+              "board": "whiteboards/xii/5/15.html"
             },
             {
               "id": "xii-5-16",
@@ -3252,8 +3068,7 @@
               "terms": [
                 "Digital collaboration tools"
               ],
-              "board": "whiteboards/xii/5/16.html",
-              "flv": "flv/xii/5/16.flv"
+              "board": "whiteboards/xii/5/16.html"
             },
             {
               "id": "xii-5-17",
@@ -3267,8 +3082,7 @@
                 "Artificial Intelligence",
                 "Cybersecurity"
               ],
-              "board": "whiteboards/xii/5/17.html",
-              "flv": "flv/xii/5/17.flv"
+              "board": "whiteboards/xii/5/17.html"
             }
           ]
         },
@@ -3292,8 +3106,7 @@
                 "They take calculated risks.",
                 "They improve their idea step by step."
               ],
-              "board": "whiteboards/xii/6/01.html",
-              "flv": "flv/xii/6/01.flv"
+              "board": "whiteboards/xii/6/01.html"
             },
             {
               "id": "xii-6-2",
@@ -3308,8 +3121,7 @@
                 "digital tools",
                 "start, test, improve, and grow"
               ],
-              "board": "whiteboards/xii/6/02.html",
-              "flv": "flv/xii/6/02.flv"
+              "board": "whiteboards/xii/6/02.html"
             },
             {
               "id": "xii-6-3",
@@ -3322,8 +3134,7 @@
               "terms": [
                 "ordinary problems"
               ],
-              "board": "whiteboards/xii/6/03.html",
-              "flv": "flv/xii/6/03.flv"
+              "board": "whiteboards/xii/6/03.html"
             },
             {
               "id": "xii-6-4",
@@ -3342,8 +3153,7 @@
                 "Can technology help in a simple way?",
                 "What? Who? How often? Current fix? Tech help?"
               ],
-              "board": "whiteboards/xii/6/04.html",
-              "flv": "flv/xii/6/04.flv"
+              "board": "whiteboards/xii/6/04.html"
             },
             {
               "id": "xii-6-5",
@@ -3360,8 +3170,7 @@
                 "NOT the final product",
                 "test the idea and collect feedback"
               ],
-              "board": "whiteboards/xii/6/05.html",
-              "flv": "flv/xii/6/05.flv"
+              "board": "whiteboards/xii/6/05.html"
             },
             {
               "id": "xii-6-6",
@@ -3375,8 +3184,7 @@
                 "three types",
                 "fidelity"
               ],
-              "board": "whiteboards/xii/6/06.html",
-              "flv": "flv/xii/6/06.flv"
+              "board": "whiteboards/xii/6/06.html"
             },
             {
               "id": "xii-6-7",
@@ -3392,8 +3200,7 @@
                 "iteration",
                 "Design, Build, Test, and Iterate"
               ],
-              "board": "whiteboards/xii/6/07.html",
-              "flv": "flv/xii/6/07.flv"
+              "board": "whiteboards/xii/6/07.html"
             },
             {
               "id": "xii-6-8",
@@ -3413,8 +3220,7 @@
                 "test it with classmates",
                 "improve it"
               ],
-              "board": "whiteboards/xii/6/08.html",
-              "flv": "flv/xii/6/08.flv"
+              "board": "whiteboards/xii/6/08.html"
             },
             {
               "id": "xii-6-9",
@@ -3434,8 +3240,7 @@
                 "Viable:",
                 "usable enough"
               ],
-              "board": "whiteboards/xii/6/09.html",
-              "flv": "flv/xii/6/09.flv"
+              "board": "whiteboards/xii/6/09.html"
             },
             {
               "id": "xii-6-10",
@@ -3452,8 +3257,7 @@
                 "MVP",
                 "test real use and market demand"
               ],
-              "board": "whiteboards/xii/6/10.html",
-              "flv": "flv/xii/6/10.flv"
+              "board": "whiteboards/xii/6/10.html"
             },
             {
               "id": "xii-6-11",
@@ -3472,8 +3276,7 @@
                 "identify and test the riskiest assumption early",
                 "saves time and money"
               ],
-              "board": "whiteboards/xii/6/11.html",
-              "flv": "flv/xii/6/11.flv"
+              "board": "whiteboards/xii/6/11.html"
             },
             {
               "id": "xii-6-12",
@@ -3493,8 +3296,7 @@
                 "main feature",
                 "basic design"
               ],
-              "board": "whiteboards/xii/6/12.html",
-              "flv": "flv/xii/6/12.flv"
+              "board": "whiteboards/xii/6/12.html"
             },
             {
               "id": "xii-6-13",
@@ -3511,8 +3313,7 @@
                 "whether students will place orders before break",
                 "whether the canteen can manage these orders"
               ],
-              "board": "whiteboards/xii/6/13.html",
-              "flv": "flv/xii/6/13.flv"
+              "board": "whiteboards/xii/6/13.html"
             },
             {
               "id": "xii-6-14",
@@ -3532,8 +3333,7 @@
                 "planned before the MVP is launched",
                 "How many users"
               ],
-              "board": "whiteboards/xii/6/14.html",
-              "flv": "flv/xii/6/14.flv"
+              "board": "whiteboards/xii/6/14.html"
             },
             {
               "id": "xii-6-15",
@@ -3550,8 +3350,7 @@
                 "likely to try the product early",
                 "first focus on one small group"
               ],
-              "board": "whiteboards/xii/6/15.html",
-              "flv": "flv/xii/6/15.flv"
+              "board": "whiteboards/xii/6/15.html"
             },
             {
               "id": "xii-6-16",
@@ -3567,8 +3366,7 @@
                 "complete journey",
                 "Suggested project ideas:"
               ],
-              "board": "whiteboards/xii/6/16.html",
-              "flv": "flv/xii/6/16.flv"
+              "board": "whiteboards/xii/6/16.html"
             },
             {
               "id": "xii-6-17",
@@ -3585,8 +3383,7 @@
                 "Fairness",
                 "not collect unnecessary personal information"
               ],
-              "board": "whiteboards/xii/6/17.html",
-              "flv": "flv/xii/6/17.flv"
+              "board": "whiteboards/xii/6/17.html"
             },
             {
               "id": "xii-6-18",
@@ -3599,8 +3396,7 @@
               "terms": [
                 "startups and digital innovation"
               ],
-              "board": "whiteboards/xii/6/18.html",
-              "flv": "flv/xii/6/18.flv"
+              "board": "whiteboards/xii/6/18.html"
             }
           ]
         }
