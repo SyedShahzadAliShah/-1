@@ -34,6 +34,7 @@ LECTURE = lecture(
             "p",
             "If you measure a model on the same rows it learned from, it can memorise them and look brilliant. A **train-test split** holds some rows back. The model learns only on the training rows. The test rows estimate how it behaves on data it has not memorised. A common classroom split is most of the rows for training and the rest for testing, chosen so that both parts still contain the kinds of cases you care about. Splitting one student’s repeated rows into both sides can leak the answer. Say how you split.",
         ),
+        ("figure", "train-test", "Figure 13. Keep the test rows out of training, or the score flatters the model."),
         (
             "p",
             "A **confusion matrix** counts the test predictions against the truth. For a yes/no prediction:",
@@ -54,6 +55,9 @@ LECTURE = lecture(
             "p",
             "**Accuracy** is (TP + TN) / all rows. **Precision** is TP / (TP + FP): of the rows you called positive, how many were. **Recall** is TP / (TP + FN): of the truly positive rows, how many you caught. A model can have high accuracy and still be useless if the event is rare and it never predicts the rare event. Choose the metric the decision needs. A scholarship screen that must not miss a qualifying student cares about recall. A screen that triggers an expensive interview cares about precision.",
         ),
+        ("math", r"\mathrm{Precision}=\frac{TP}{TP+FP}"),
+        ("math", r"\mathrm{Recall}=\frac{TP}{TP+FN}"),
+        ("math", r"\mathrm{Accuracy}=\frac{TP+TN}{TP+TN+FP+FN}"),
         (
             "callout",
             {

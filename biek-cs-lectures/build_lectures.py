@@ -4,7 +4,8 @@ from pathlib import Path
 
 from content import XI_LECTURES, XII_LECTURES
 from content.front import XI_CLOSING, XI_FRONT, XII_CLOSING, XII_FRONT
-from render_pdf import build_pdf
+from mathjax_svg import render_formulas
+from render_pdf import build_pdf, collect_formulas, install_math
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "pdf"
@@ -56,8 +57,10 @@ def main():
     )
     xi_path = OUT / "BIEK-CS-XI-Lectures.pdf"
     xii_path = OUT / "BIEK-CS-XII-Lectures.pdf"
-    build_pdf(xi, xi_path)
-    build_pdf(xii, xii_path)
+    formulas = collect_formulas(xi) | collect_formulas(xii)
+    install_math(render_formulas(sorted(formulas)))
+    build_pdf(xi, xi_path, math_ready=True)
+    build_pdf(xii, xii_path, math_ready=True)
     print(xi_path)
     print(xii_path)
 

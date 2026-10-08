@@ -53,6 +53,7 @@ LECTURE = lecture(
             "p",
             "A **queue** is first-in, first-out. Enqueue at the back, dequeue at the front. A printer queue, a lab signup, and the waiting list for breadth-first search are queues. A stack would print the most recent file first, which is the wrong promise.",
         ),
+        ("figure", "stack-queue", "Figure 11. A stack removes the latest item. A queue removes the earliest item."),
         ("h2", "Trees"),
         (
             "p",
@@ -62,19 +63,7 @@ LECTURE = lecture(
             "p",
             "A **binary search tree** (BST) keeps an order. Every value in the left subtree is less than the node, and every value in the right subtree is greater. Duplicates need a stated policy; the trees in this lecture have none. The order is what makes a search able to ignore a whole subtree, the same idea as binary search.",
         ),
-        (
-            "code",
-            {
-                "lang": "Tree",
-                "text": (
-                    "           50\n"
-                    "         /    \\\n"
-                    "       30      70\n"
-                    "      /  \\    /  \\\n"
-                    "    20   40  60   80"
-                ),
-            },
-        ),
+        ("figure", "bst", "Figure 10. Left child smaller, right child larger. Inorder of this tree is sorted."),
         (
             "p",
             "That tree is a BST: 30 and its children are less than 50; 70 and its children are greater; the same rule holds at 30 and at 70. Searching for 60 starts at 50, goes right because 60 is greater, and goes left from 70 because 60 is smaller. Two comparisons reach it. Searching for 25 goes left from 50 to 30, then left to 20, and stops: 25 is not there, and there is no further child to open.",
@@ -116,22 +105,10 @@ LECTURE = lecture(
             "On a general tree or a small graph drawn as a hierarchy, two walks appear in questions. **Breadth-first search (BFS)** uses a queue. Visit the start, then its children left to right, then their children. **Depth-first search (DFS)** uses a stack, or recursion. Follow one child as far as it goes before the next sibling. If you visit a node when you first reach it, and you try children left to right, DFS matches preorder on a tree.",
         ),
         (
-            "code",
-            {
-                "lang": "Tree",
-                "text": (
-                    "            CEO\n"
-                    "           /   \\\n"
-                    "         HR     IT\n"
-                    "         |     /  \\\n"
-                    "       Staff Dev  Accounts"
-                ),
-            },
-        ),
-        (
             "p",
             "BFS from CEO: CEO, HR, IT, Staff, Dev, Accounts. The queue after visiting CEO holds HR then IT. DFS from CEO, children left to right, recording the node when first seen: CEO, HR, Staff, IT, Dev, Accounts. If a question says “search the Security department”, walk until the node named Security is visited and write the nodes in the order visited up to and including that node. Do not skip the nodes on the way. They are the trace.",
         ),
+        ("figure", "org-chart", "Figure 12. BFS visits level by level. DFS follows HR all the way to Staff before it opens IT."),
         (
             "callout",
             {

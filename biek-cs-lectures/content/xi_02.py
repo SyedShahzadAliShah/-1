@@ -70,6 +70,7 @@ LECTURE = lecture(
             "p",
             "A **flowchart** is the same algorithm in symbols. An oval starts and stops. A parallelogram is input or output. A rectangle is a process. A diamond is a decision, and every diamond needs two labelled exits. Arrows must not vanish. Tracing means writing the value of each variable after every step, on a fresh row, until you reach the end. A trace that skips the false branch has not tested the algorithm.",
         ),
+        ("figure", "grade-flowchart", "Figure 7. The diamond is the decision. Every decision in a flowchart needs two labelled exits."),
         ("h2", "Correctness, clarity, and efficiency"),
         (
             "p",
@@ -134,6 +135,7 @@ LECTURE = lecture(
                 ),
             },
         ),
+        ("figure", "binary-search", "Figure 8. Grey cells have been discarded. The gold cell is the middle value compared on that step."),
         (
             "p",
             "If the item is absent, low eventually passes high and you stop. Searching for 10 in the same list ends with the middle values 12, then 8, then 12’s neighbour is exhausted, and the result is not found. Show that stopping condition in a trace if the question asks for a missing item.",

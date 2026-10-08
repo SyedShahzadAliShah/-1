@@ -73,6 +73,16 @@ LECTURE = lecture(
             },
         ),
         (
+            "math",
+            r"\begin{aligned}"
+            r"A+0 &= A & A\cdot 1 &= A \\"
+            r"A+1 &= 1 & A\cdot 0 &= 0 \\"
+            r"A+\overline{A} &= 1 & A\cdot\overline{A} &= 0 \\"
+            r"\overline{A+B} &= \overline{A}\cdot\overline{B} & \overline{A\cdot B} &= \overline{A}+\overline{B} \\"
+            r"A\oplus B &= \overline{A}B + A\overline{B}"
+            r"\end{aligned}",
+        ),
+        (
             "p",
             "**Duality** swaps the operators and the constants: every OR becomes AND, every AND becomes OR, every 0 becomes 1, and every 1 becomes 0. Variables are left as they are. The dual of a true identity is another true identity. The dual of `A + 0 = A` is `A · 1 = A`. The dual of `A + A' = 1` is `A · A' = 0`. Duality does not mean the dual expression has the same output as the original. It means the dual *law* is also a law.",
         ),
@@ -103,6 +113,7 @@ LECTURE = lecture(
             },
         ),
         ("h2", "Logic gates and truth tables"),
+        ("figure", "logic-gates", "Figure 1. The gate shapes used when a question asks for a logic diagram."),
         (
             "p",
             "A **logic gate** is the hardware for one operator. A **switch** is an older picture of the same idea: two switches in series act as AND (both must be closed), and two switches in parallel act as OR (either one is enough). You may be asked to recognise a gate from its shape or from its table. Learn both the two-input table and the name of the gate that inverts it.",
@@ -148,6 +159,7 @@ LECTURE = lecture(
             "p",
             "To **draw a logic diagram** from an expression, start inside the brackets. For `F = (A AND B) OR (NOT C)` draw an AND gate for A and B, a NOT gate for C, and feed both results into an OR gate. To **read an expression from a diagram**, label the wire after every gate and combine those labels at the next gate. The final wire is F.",
         ),
+        ("figure", "sample-circuit", r"Figure 2. One AND, one NOT, and one OR for \(F = (A \cdot B) + \overline{C}\)."),
         ("h3", "A first look at Karnaugh maps"),
         (
             "p",
@@ -166,6 +178,7 @@ LECTURE = lecture(
                 ),
             },
         ),
+        ("figure", "kmap-b", r"Figure 3. The gold outline is the group of four. It simplifies to \(F = \overline{B}\)."),
         ("h2", "The software development life cycle"),
         (
             "p",
@@ -213,6 +226,7 @@ LECTURE = lecture(
             "p",
             "A basic **communication model** has a sender, an encoder that turns the message into a signal, a medium, a decoder, and a receiver. **Noise** is anything that damages the signal on the way: electrical interference, a damaged cable, or too many devices talking at once. A **protocol** is a shared rulebook: the order of messages, the addresses, and what to do when a piece is lost. Without a protocol, the bits arrive and neither side knows what they mean.",
         ),
+        ("figure", "comm-model", "Figure 4. Encoder and decoder sit on either side of the medium, which is where noise acts."),
         (
             "p",
             "The **OSI model** of ISO splits the work into seven layers so that a change in the cable does not force a change in the email program. Learn the order from the wire upward, and one job plus one example for each layer.",
@@ -238,6 +252,7 @@ LECTURE = lecture(
             "p",
             "The **TCP/IP model** used on the real Internet folds those seven layers into four: Link (OSI 1–2), Internet (OSI 3), Transport (OSI 4), and Application (OSI 5–7). **IP** moves packets using IP addresses. **TCP** adds reliability: numbering, acknowledgements, and retransmission. **UDP** sends datagrams without that handshake, which is why it is used when a late packet is useless, such as a live voice call. A **port** number tells the receiving computer which program should get the segment.",
         ),
+        ("figure", "osi-tcp", "Figure 5. The TCP/IP application layer covers OSI layers 5, 6, and 7. The link layer covers OSI layers 1 and 2."),
         (
             "callout",
             {
@@ -251,6 +266,8 @@ LECTURE = lecture(
             "p",
             "A **network topology** is the shape of the connections. The shape decides how easily the network grows (**scalability**) and how well it survives a fault (**reliability**). **Availability** is the share of time the service is actually usable: uptime divided by uptime plus downtime. A design can be fast and still unreliable if one small part stops everything.",
         ),
+        ("math", r"\mathrm{Availability}=\frac{\mathrm{uptime}}{\mathrm{uptime}+\mathrm{downtime}}"),
+        ("figure", "topologies", "Figure 6. Bus, star, ring, and mesh. A tree is a hierarchy of stars, and a hybrid mixes these shapes."),
         (
             "table",
             {

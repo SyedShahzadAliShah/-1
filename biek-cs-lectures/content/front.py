@@ -11,6 +11,7 @@ XI_FRONT = [
     (
         "p",
         "Each lecture states what a student should be able to do, teaches the idea with a worked example, and then gives board-style questions with model answers. "
+        "Equations are typeset with MathJax and the figures are SVG drawings embedded in the PDF. "
         "Read the example before the answer key. In class, cover the model answer until the attempt is on paper. "
         "The practicals match the 25 practical marks: keep a journal with the aim, the steps, the output, and one fault you fixed.",
     ),

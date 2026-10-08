@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
+import hashlib
 import re
+import tempfile
 from pathlib import Path
 
+import cairosvg
+from reportlab.graphics import renderPDF
 from reportlab.lib.colors import HexColor, white
+from reportlab.lib.utils import ImageReader
+from svglib.svglib import svg2rlg
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
@@ -15,6 +21,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     BaseDocTemplate,
     CondPageBreak,
+    Flowable,
     Frame,
     HRFlowable,
     ListFlowable,
@@ -45,6 +52,8 @@ PAGE_W, PAGE_H = A4
 LEFT = 16 * mm
 RIGHT = 16 * mm
 CONTENT_W = PAGE_W - LEFT - RIGHT
+MATH_RE = re.compile(r"\\\((.+?)\\\)", re.S)
+MATH = {"svg": {}, "png": {}, "dir": None}
 
 CALLOUT = {
     "define": (NAVY, HexColor("#E7EEF6"), "Definition"),
@@ -293,19 +302,126 @@ def escape(text: str) -> str:
     )
 
 
+def markup(text: str) -> str:
+    chunk = escape(text)
+    chunk = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", chunk)
+    chunk = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<i>\1</i>", chunk)
+    return chunk
+
+
+def math_image(latex: str) -> str:
+    key = latex.strip()
+    path, width, height, valign = MATH["png"][key]
+    return (
+        f'<img src="{path}" width="{width:.2f}" height="{height:.2f}" '
+        f'valign="{valign:.2f}"/>'
+    )
+
+
 def inline(text: str) -> str:
     parts = re.split(r"(`[^`]+`)", text)
     out: list[str] = []
     for part in parts:
         if len(part) >= 2 and part.startswith("`") and part.endswith("`"):
-            inner = escape(part[1:-1])
-            out.append(f'<font name="JetBrainsMono" size="8.5">{inner}</font>')
-        else:
-            chunk = escape(part)
-            chunk = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", chunk)
-            chunk = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<i>\1</i>", chunk)
-            out.append(chunk)
+            out.append(f'<font name="JetBrainsMono" size="8.5">{escape(part[1:-1])}</font>')
+            continue
+        cursor = 0
+        for match in MATH_RE.finditer(part):
+            out.append(markup(part[cursor:match.start()]))
+            out.append(math_image(match.group(1)))
+            cursor = match.end()
+        out.append(markup(part[cursor:]))
     return "".join(out)
+
+
+def collect_formulas(book: dict) -> set[str]:
+    found: set[str] = set()
+
+    def walk(value):
+        if isinstance(value, str):
+            for match in MATH_RE.finditer(value):
+                found.add(match.group(1).strip())
+            return
+        if isinstance(value, tuple) and value and value[0] == "code":
+            return
+        if isinstance(value, tuple) and len(value) >= 2 and value[0] == "math":
+            found.add(value[1].strip())
+            return
+        if isinstance(value, dict):
+            for item in value.values():
+                walk(item)
+            return
+        if isinstance(value, (list, tuple)):
+            for item in value:
+                walk(item)
+
+    walk(book)
+    return found
+
+
+def install_math(rendered: dict[str, str]) -> None:
+    directory = Path(tempfile.mkdtemp(prefix="biek-math-"))
+    MATH["svg"] = rendered
+    MATH["dir"] = directory
+    pngs = {}
+    for formula, svg in rendered.items():
+        digest = hashlib.sha1(formula.encode()).hexdigest()[:12]
+        png_path = directory / f"{digest}.png"
+        cairosvg.svg2png(bytestring=svg.encode(), write_to=str(png_path), scale=4)
+        pixels_w, pixels_h = ImageReader(str(png_path)).getSize()
+        width = pixels_w / 4 * 0.75
+        height = pixels_h / 4 * 0.75
+        if height > 22:
+            width *= 22 / height
+            height = 22
+        pngs[formula] = (str(png_path), width, height, -height * 0.22)
+    MATH["png"] = pngs
+
+
+class ScaledDrawing(Flowable):
+    def __init__(self, drawing, max_width: float):
+        super().__init__()
+        scale = 1.0
+        if drawing.width > max_width:
+            scale = max_width / drawing.width
+        elif drawing.width < max_width * 0.42:
+            scale = min(1.25, max_width * 0.62 / drawing.width)
+        self.drawing = drawing
+        self.scale = scale
+        self.width = drawing.width * scale
+        self.height = drawing.height * scale
+
+    def draw(self):
+        self.canv.saveState()
+        self.canv.scale(self.scale, self.scale)
+        renderPDF.draw(self.drawing, self.canv, 0, 0)
+        self.canv.restoreState()
+
+
+def drawing_from_svg(svg: str) -> object:
+    path = MATH["dir"] / f"fig-{hashlib.sha1(svg.encode()).hexdigest()[:12]}.svg"
+    path.write_text(svg, encoding="utf-8")
+    drawing = svg2rlg(str(path))
+    if drawing is None:
+        raise RuntimeError("Could not draw an SVG figure.")
+    return drawing
+
+
+def centered(flowable) -> Table:
+    table = Table([[flowable]], colWidths=[CONTENT_W])
+    table.setStyle(
+        TableStyle(
+            [
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 2),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+            ]
+        )
+    )
+    return table
 
 
 class TocMark(Spacer):
@@ -532,6 +648,21 @@ def blocks_to_flowables(blocks: list, styles, key_prefix: str) -> list:
             flow.append(Spacer(1, 2))
             flow.append(make_callout(spec["kind"], spec.get("title"), spec["text"], styles))
             flow.append(Spacer(1, 6))
+        elif kind == "math":
+            svg = MATH["svg"][block[1].strip()]
+            flow.append(Spacer(1, 3))
+            flow.append(centered(ScaledDrawing(drawing_from_svg(svg), CONTENT_W)))
+            flow.append(Spacer(1, 4))
+        elif kind == "figure":
+            from diagrams import svg_for
+
+            svg = svg_for(block[1])
+            flow.append(Spacer(1, 3))
+            flow.append(centered(ScaledDrawing(drawing_from_svg(svg), CONTENT_W)))
+            if len(block) > 2 and block[2]:
+                flow.append(Paragraph(inline(block[2]), styles["caption"]))
+            else:
+                flow.append(Spacer(1, 6))
         else:
             raise ValueError(f"Unknown block {kind}")
     return flow
@@ -641,7 +772,13 @@ def lecture_story(lecture: dict, styles) -> list:
     return story
 
 
-def build_pdf(book: dict, destination: Path) -> None:
+def build_pdf(book: dict, destination: Path, math_ready: bool = False) -> None:
+    if not math_ready:
+        from mathjax_svg import render_formulas
+
+        install_math(render_formulas(sorted(collect_formulas(book))))
+    if MATH["dir"] is None:
+        MATH["dir"] = Path(tempfile.mkdtemp(prefix="biek-figures-"))
     register_fonts()
     styles = make_styles()
     destination.parent.mkdir(parents=True, exist_ok=True)

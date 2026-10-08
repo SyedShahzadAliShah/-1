@@ -82,6 +82,7 @@ LECTURE = lecture(
                 ),
             },
         ),
+        ("figure", "library-er", "Figure 9. Student to Loan is one-to-many, and Book to Loan is one-to-many."),
         (
             "callout",
             {
@@ -129,8 +130,9 @@ LECTURE = lecture(
         ("h2", "A straight line, and what it does not prove"),
         (
             "p",
-            "When a scatter plot looks roughly straight, a simple model is the line **y = mx + c**. Here x is the input you use to predict, y is the value you predict, **m** is the slope (how much y changes when x increases by 1), and **c** is the intercept (the predicted y when x is 0). A spreadsheet can fit the line and also report a **correlation** number. Correlation near 1 means the points rise together. Near −1 they move in opposite directions. Near 0 there is little straight-line relationship.",
+            "When a scatter plot looks roughly straight, a simple model is the line below. Here \\(x\\) is the input you use to predict, \\(y\\) is the value you predict, \\(m\\) is the slope (how much \\(y\\) changes when \\(x\\) increases by 1), and \\(c\\) is the intercept (the predicted \\(y\\) when \\(x\\) is 0). A spreadsheet can fit the line and also report a **correlation** number. Correlation near 1 means the points rise together. Near −1 they move in opposite directions. Near 0 there is little straight-line relationship.",
         ),
+        ("math", r"y = mx + c"),
         (
             "p",
             "**Correlation is not causation.** Ice-cream sales and the use of fans rise together because summer drives both, not because ice-cream switches fans on. A model can still be useful for prediction: if study hours and quiz scores move together in your class data, the line is a summary of that association. It does not, by itself, prove that forcing extra hours will raise scores. Other factors — the test’s difficulty, who was absent — may be the real drivers. Those hidden factors are **confounding** factors.",

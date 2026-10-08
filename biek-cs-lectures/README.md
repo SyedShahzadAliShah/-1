@@ -2,7 +2,7 @@
 
 Original classroom lectures for Board of Intermediate Education Karachi Computer Science, Class XI and Class XII.
 
-The chapter order is the Sindh Textbook Board scheme used with the New Sindh Curriculum of Computer Science 2024, which is aligned with the National Curriculum of Pakistan 2022–23. Each lecture has worked examples, short and long answers, and a practical. Theory is treated as 75 marks and the practical as 25, matching the BIEK scheme of studies.
+The chapter order is the Sindh Textbook Board scheme used with the New Sindh Curriculum of Computer Science 2024, which is aligned with the National Curriculum of Pakistan 2022–23. Each lecture has worked examples, short and long answers, a practical, MathJax equations, and SVG figures. Theory is treated as 75 marks and the practical as 25, matching the BIEK scheme of studies.
 
 These notes are not an official BIEK or Sindh Textbook Board publication.
 
