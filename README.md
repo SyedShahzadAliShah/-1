@@ -11,8 +11,9 @@ These `raw.githubusercontent.com` links return the file itself (`Content-Type: a
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
 
-**Android APK — Self-Taught Bootcamp** — replaces the coaching-academy class. Each block keeps its sketchnote **full size** on screen (Flexbox, MathJax, SVG). Listen: a **dynamic Urdish note** (Urdu explains, CS terms stay English) updates with that panel.
-- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Self-Taught-Bootcamp.apk
+**Android APK — CS Teacher Edition v1.3.1** — bilingual teacher's study guide. English descriptive notes on screen; **Urdu** narrative vocals play in step with each animated sketchnote frame.
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CSTeacherEdition-v1.3.1-sync-fix-debug.apk
+- https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 **Self-Taught / Coaching-Academy Bootcamp (Combo Edition) Study Guide** — one official file per grade for students and teachers (XI 302 pages, XII 315 pages). Chapter-wise lecture notes at readable size. ★ Golden concepts sit inside the chapter that teaches them. Each lesson has a Student · Coach strip. Then that chapter’s exam. Blank leftover pages are dropped.
 - https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Bootcamp-Combo-StudyGuide.pdf
@@ -84,6 +85,5 @@ Individual lectures: [`releases/lectures/README.md`](releases/lectures/README.md
 
 ```bash
 export ANDROID_HOME=/path/to/android-sdk
-python3 scripts/export_lecture_catalog.py
 ./gradlew :lectures:assembleDebug
 ```

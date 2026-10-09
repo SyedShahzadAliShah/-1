@@ -1,1 +1,1 @@
-# Teach Yourself CS lectures
+# Default ProGuard rules for Intimacy Guide

@@ -10,7 +10,7 @@ Plain file URLs (save the file, no GitHub preview page):
 - Ultimate XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
-- Android APK (Self-Taught Bootcamp): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Self-Taught-Bootcamp.apk
+- Android APK (CS Teacher Edition v1.3.1): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CSTeacherEdition-v1.3.1-sync-fix-debug.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -105,14 +105,13 @@ Official Study Guide for students and teachers: imprint, bootcamp planner, chapt
 python3 booklets/build.py complete
 ```
 
-## Android app — Self-Taught Bootcamp
+## Android app — CS Teacher Edition v1.3.1
 
-Replaces the coaching-academy class. Each of 204 blocks keeps the sketchnote **full size** on screen (Flexbox, MathJax, SVG). Listen: the **dynamic note** is Urdish — Urdu explains the idea, CS terms stay in English. Package `com.sindhcs.selftaughtbootcamp`. Install Google Urdu TTS if prompted.
+Bilingual teacher's study guide for CS XI and XII. English descriptive notes stay on screen; **Urdu** narrative vocals stay in step with each animated sketchnote frame. Package `com.csteacher.edition`. Install Google Urdu TTS if prompted.
 
-- [Self-Taught Bootcamp APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Self-Taught-Bootcamp.apk)
+- [CS Teacher Edition v1.3.1 APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CSTeacherEdition-v1.3.1-sync-fix-debug.apk)
 
 ```bash
-python3 scripts/export_lecture_catalog.py
 ./gradlew :lectures:assembleDebug
 ```
 
