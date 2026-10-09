@@ -10,7 +10,7 @@ Plain file URLs (save the file, no GitHub preview page):
 - Ultimate XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-Ultimate-Teach-Yourself-Edition.pdf
 - Ultimate XI+XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-and-XII-Ultimate-Teach-Yourself-Edition-Complete.pdf
-- Android APK (CS Teacher Edition v1.3.1): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CSTeacherEdition-v1.3.1-sync-fix-debug.apk
+- Android APK (v1.3.1 sketchnotes Urdish): https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk
 
 - Paced XI: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XI-AIO-Self-Paced-Teach-Yourself-Edition.pdf
 - Paced XII: https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-XII-AIO-Self-Paced-Teach-Yourself-Edition.pdf
@@ -105,11 +105,11 @@ Official Study Guide for students and teachers: imprint, bootcamp planner, chapt
 python3 booklets/build.py complete
 ```
 
-## Android app — CS Teacher Edition v1.3.1
+## Android app — v1.3.1 sketchnotes Urdish edition
 
-Bilingual teacher's study guide for CS XI and XII. English descriptive notes stay on screen; **Urdu** narrative vocals stay in step with each animated sketchnote frame. Package `com.csteacher.edition`. Install Google Urdu TTS if prompted.
+Each lecture is an in-depth classroom **sketchnote** (MathJax, SVG, flexbox) that explains the topic in **Urdish**: Urdu classroom language, CS terms in English. Package `com.sindhcs.lectures`, versionName `1.3.1`. Install Google Urdu TTS if prompted.
 
-- [CS Teacher Edition v1.3.1 APK](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CSTeacherEdition-v1.3.1-sync-fix-debug.apk)
+- [CS Teach Yourself Urdish Sketchnotes v1.3.1](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
 
 ```bash
 ./gradlew :lectures:assembleDebug

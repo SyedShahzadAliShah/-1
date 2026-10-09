@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CSTeacherEdition"
+rootProject.name = "TeachYourselfCS"
 include(":lectures")
