@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Teach Yourself CS</string>
     <string name="app_tag">Self-Taught / Academy Bootcamp</string>
-    <string name="welcome">Each lecture is a sketchnote. Tap listen: the teacher explains the idea in Urdish for an intermediate student. She does not read the board.</string>
+    <string name="welcome">Each lecture is a sketchnote. Tap listen: a 15-minute Urdish explanation for an intermediate student. The teacher does not read the board.</string>
     <string name="welcome_ur">Sketchnote دیکھو۔ آواز board نہیں پڑھتی، Urdish میں idea explain کرتی ہے۔</string>
     <string name="grade_meta">%1$d chapters · %2$d notes · %3$d ★ Golden</string>
     <string name="chapters_hint">Open a chapter, then a lecture. The sketchnote explains the whole topic in Urdish.</string>

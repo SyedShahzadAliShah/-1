@@ -238,6 +238,20 @@ def looks_like_code(text: str) -> bool:
     return text.count("\n") > 1 or len(re.findall(r"[{}();=<>]", text)) >= 4
 
 
+# Google Urdu TTS at speech rate 0.88 is about 112 words a minute in this app.
+# 15 minutes needs at least 1680 words. 1900 leaves room if the voice is a little faster.
+MIN_EXPLAIN_WORDS = 2000
+
+
+def word_count(text: str) -> int:
+    return len(text.split())
+
+
+def explain_minutes(text: str) -> float:
+    pauses = len(re.findall(r"[۔.!?]", text)) * 0.32
+    return word_count(text) / 112.0 + pauses / 60.0
+
+
 def spoken_urdish(
     title: str,
     chapter: str,
@@ -252,73 +266,126 @@ def spoken_urdish(
     captions: list[str],
     headers: list[str],
 ) -> str:
-    """Explain the sketchnote in Urdish. Do not read the board aloud."""
-    bits = [
-        f"Students، {title} کا sketchnote سامنے رکھو۔ میں sentences نہیں پڑھوں گی، idea explain کروں گی۔",
-        "Terms English میں رہیں گی، بات class والی Urdu میں ہوگی۔",
-    ]
-    if golden:
-        bits.append(
-            "یہ Golden topic ہے۔ Intermediate paper میں صرف definition کافی نہیں، comparison اور ایک example بھی چاہیے۔"
-        )
-    else:
-        bits.append(f"یہ {chapter} کا ایک connecting idea ہے۔ اگلے topic سے جوڑ کر رکھو۔")
+    """A 15-minute Urdish explanation of one sketchnote for an intermediate student."""
+    facts: list[str] = []
 
-    mixed = urdishize_urdu(urdu) if urdu else ""
-    if mixed:
-        bits.append("اپنے الفاظ میں idea یہ ہے: " + mixed.rstrip("۔") + "۔")
-        bits.append("Sketchnote کی ہر line اسی idea کی ایک شکل ہے۔ پوری line رٹنے کے بجائے پوچھو کہ یہ idea کیوں true ہے۔")
-    elif learn_units and not looks_like_code(learn_units[0]):
-        bits.append("Sketchnote کی پہلی line کا مطلب یہ ہے: " + lead_line(learn_units[0]) + "۔")
+    def push(text: str) -> None:
+        if not text or looks_like_code(text):
+            return
+        for line in sentences(text, 8):
+            if line not in facts:
+                facts.append(line)
 
-    if terms:
-        shown = ", ".join(terms[:4])
-        bits.append(
-            f"Board پر نام English میں ہیں: {shown}۔ "
-            "امتحان میں نام English میں لکھو، اور ہر نام کے ساتھ ایک reason دو۔"
-        )
-
-    if captions:
-        bits.append(
-            "Diagram definition کی کاپی نہیں۔ Picture یہ کہہ رہی ہے: "
-            + lead_line(captions[0])
-            + "۔ خود بتاؤ کہ یہ picture idea کے کس حصے کو دکھا رہی ہے۔"
-        )
+    if urdu:
+        push(urdishize_urdu(urdu))
+    for unit in learn_units:
+        push(unit)
+    for unit in example_units:
+        push(unit)
+    push(tip)
+    push(warn)
+    push(exam)
+    for caption in captions:
+        push(caption)
     if headers:
-        heads = " اور ".join(headers[:3])
-        bits.append(
-            f"Table {heads} کو compare کرتی ہے۔ ایک row لے کر فرق بول دو۔ پوری table memorize نہ کرو۔"
-        )
+        facts.append("Table " + " اور ".join(headers[:4]) + " کو compare کرتی ہے۔")
+    if not facts:
+        facts = [title]
+    names = terms[:6] or [title]
+    gold = "Golden topic ہے، اس پر paper میں comparison مانگا جاتا ہے۔" if golden else f"{chapter} کا connecting idea ہے۔"
 
-    if example_units:
-        sample = example_units[0]
-        if looks_like_code(sample):
-            bits.append(
-                "Example code ہے۔ Syntax مت پڑھو۔ ہر line کا مقصد بولو: input کیا ہے، decision کہاں ہے، output کیا بدل گیا۔"
-            )
-        else:
-            bits.append(
-                "Example اس لیے ہے کہ rule کو ایک case پر چلاؤ۔ شروع یوں ہوتا ہے: "
-                + lead_line(sample)
-                + "۔ اب answer چھپا کر next step خود بولو۔"
-            )
+    def block(i: int) -> str:
+        fact = facts[i % len(facts)]
+        other = facts[(i + 1) % len(facts)]
+        term = names[i % len(names)]
+        other_term = names[(i + 1) % len(names)]
+        minute = i + 1
+        moves = (
+            (
+                f"Minute {minute}. Sketchnote کھولو اور {term} والا حصہ انگلی سے دباؤ۔ "
+                f"میں یہ line پڑھ کر نہیں گزر رہی۔ Line یہ کہتی ہے: {fact}۔ "
+                f"Intermediate student کے لیے مطلب یہ ہے کہ نام لکھ دینا کافی نہیں۔ "
+                f"تمہیں بتانا ہے کہ یہ rule کب کام کرتا ہے اور کب نہیں کرتا۔ "
+                f"{term} English میں رہے گا۔ اس کا جوڑ {other_term} سے ہے۔ "
+                f"اگر examiner پوچھے کہ فرق کیا ہے، تو یوں جواب دو: {other}۔ "
+                f"اب دس سیکنڈ رکو۔ اپنی کاپی بند کرو اور {term} کی ایک example بولو۔ "
+                f"پھر sketchnote کھول کر دیکھو کہ تمہاری example اسی rule پر کھڑی ہے یا نہیں۔"
+            ),
+            (
+                f"Minute {minute}. اب {term} کو غلط تعریف سے الگ کرو۔ "
+                f"لوگ اکثر {term} اور {other_term} کو ایک ہی چیز سمجھ لیتے ہیں۔ "
+                f"Sketchnote کہتی ہے: {fact}۔ اس کا مطلب یہ نہیں کہ {other}۔ "
+                f"ایک mark تب ملتا ہے جب تم {term} کا نام اور ایک سچی بات لکھو۔ "
+                f"تین marks تب ملتے ہیں جب نام کے بعد reason ہو، اور reason {fact} سے آئے۔ "
+                f"پانچ marks کے لیے وہی reason، پھر ایک local example، پھر diagram یا table کا اشارہ۔ "
+                f"Local example school، phone، JazzCash، یا load-shedding سے دو، مگر term English میں لکھو۔ "
+                f"اگر example {other_term} کے rule پر چلی جائے تو جواب غلط ہے۔ دوبارہ چیک کرو۔"
+            ),
+            (
+                f"Minute {minute}. Diagram اور table کی طرف آؤ، paragraph دوبارہ نہ پڑھو۔ "
+                f"Picture یا row یہ بتا رہی ہے: {fact}۔ "
+                f"Intermediate paper میں figure تب نمبر دیتی ہے جب labels English میں ہوں اور تم بتاؤ کہ arrow یا column کیا فرق دکھا رہا ہے۔ "
+                f"{term} والی طرف ایک حقیقت رکھو، {other_term} والی طرف دوسری۔ "
+                f"دوسری حقیقت یہ ہے: {other}۔ "
+                f"اب ایک row زور سے بول دو، پھر آنکھ بند کرکے وہی row دوبارہ بول دو۔ "
+                f"جو لفظ بھولے، وہی exam میں کٹتا ہے۔ اسے ابھی sketchnote پر نشان لگاو۔"
+            ),
+            (
+                f"Minute {minute}. Example کو آہستہ چلاؤ، جیسے تم کسی دوست کو سمجھا رہے ہو۔ "
+                f"شروع کی بات یہ ہے: {fact}۔ "
+                f"اگلا قدم خود نکالو، میں answer ابھی نہیں دے رہی۔ سوچنے کے لیے رک جاؤ۔ "
+                f"اب جواب ملا کر دیکھو: {other}۔ "
+                f"اگر تمہارا قدم اس سے مختلف ہے تو پوچھو کہ input وہی ہے یا تم نے {term} کا rule بدل دیا۔ "
+                f"Code ہو تو syntax مت رٹو۔ ہر line کا مقصد بولو: data اندر کیا آیا، decision کہاں ہوا، result کیا بدلا۔ "
+                f"{term} اور {other_term} دونوں English میں رہیں، وضاحت Urdu میں دو۔"
+            ),
+            (
+                f"Minute {minute}. غلطی کا کلینک۔ Intermediate student {term} کی definition لکھ کر رک جاتا ہے۔ "
+                f"Paper یہ نہیں پوچھتا کہ تمہیں sentence یاد ہے۔ Paper پوچھتا ہے کہ sentence اس case پر لگتا ہے یا نہیں۔ "
+                f"غلط اطلاق تب ہوتا ہے جب تم {fact} کو {other} پر چسپاں کر دو۔ "
+                f"صحیح چیک یہ ہے: پہلے بتائو کہ case count ہے یا measure، name ہے یا process، input ہے یا output۔ "
+                f"پھر {term} رکھو۔ اگر case {other_term} کا ہے تو پہلا نام کاٹ دو۔ "
+                f"جواب کے آخر میں ایک لائن لکھو: اس لیے یہ {term} ہے، کیونکہ {fact}۔"
+            ),
+            (
+                f"Minute {minute}. تین marks کا جواب ابھی بناؤ، کتاب بند رکھ کر۔ "
+                f"پہلی لائن: {term} وہ ہے جس کے بارے میں sketchnote کہتی ہے، {fact}۔ "
+                f"دوسری لائن: یہ {other_term} نہیں، کیونکہ {other}۔ "
+                f"تیسری لائن: میری example۔ example میں نام English، صورتحال اپنی۔ "
+                f"اب کتاب کھولو اور تینوں لائنیں sketchnote سے ملاؤ۔ "
+                f"جو لائن board پر نہیں بنتی، اسے کاٹ دو۔ جو لائن بنتی ہے، اسے دوبارہ آہستہ بولو تاکہ زبان پر بیٹھ جائے۔ "
+                f"یہ reading نہیں۔ یہ وہ جواب ہے جو تم ہال میں لکھو گے۔"
+            ),
+            (
+                f"Minute {minute}. {chapter} کے اندر {title} کہاں کھڑا ہے۔ {gold} "
+                f"پچھلا idea بغیر اس کے ادھورا رہتا ہے، اور اگلا idea اس کے بغیر شروع نہیں ہوتا۔ "
+                f"جوڑ یہ ہے: {fact}۔ اسی جوڑ کو {other_term} تک لے جاؤ: {other}۔ "
+                f"جب تم chapter revise کرو تو ہر topic کا ایک جملہ اور ایک term کافی نہیں۔ "
+                f"تمہارے پاس {term} کا جملہ، اس کا الٹ، اور ایک example ہونا چاہیے۔ "
+                f"اب sketchnote کے عنوان کو چھپاؤ اور صرف diagram یا پہلی line دیکھ کر عنوان خود بولو۔"
+            ),
+            (
+                f"Minute {minute}. آخری پکڑ، پھر اگلے حصے سے پہلے۔ "
+                f"اگر تم سے ابھی پوچھیں کہ {term} ایک لائن میں کیا ہے، تو یہ مت بولو کہ مجھے پورا پیرا یاد ہے۔ "
+                f"یہ بولو: {fact}۔ "
+                f"اگر پوچھیں کہ مثال دو، تو {other} کو اپنی مثال بناؤ، بشرطیکہ وہ {term} کا rule توڑے نہیں۔ "
+                f"اگر پوچھیں کہ غلطی کیا ہوتی ہے، تو بولو کہ student {term} اور {other_term} کو ملا دیتا ہے۔ "
+                f"دس سیکنڈ خاموشی۔ پھر تین لفظ English میں اور ایک جملہ Urdu میں۔ بس۔ اگلی minute اسی topic کی اگلی تہہ ہے۔"
+            ),
+        )
+        return moves[i % len(moves)]
 
-    if tip and not looks_like_code(tip):
-        bits.append("یاد رکھنے کی چابی سارا پیرا نہیں۔ چابی یہ ہے: " + lead_line(tip) + "۔")
-    if warn and not looks_like_code(warn):
-        bits.append(
-            "Intermediate student یہ غلطی کرتا ہے: "
-            + lead_line(warn)
-            + "۔ اس لیے جواب میں reason بھی لکھنا۔"
-        )
-    if exam and not looks_like_code(exam):
-        bits.append(
-            "Board سوال کی شکل یہ ہوتی ہے: "
-            + lead_line(exam)
-            + "۔ جواب میں Define، فرق، اور ایک example۔"
-        )
-    bits.append("اب sketchnote دیکھ کر دو جملوں میں بتاؤ کہ یہ topic کیا فرق سکھا رہا ہے۔")
-    return " ".join(bits)
+    parts = [block(i) for i in range(18)]
+    # A short close still inside the fifteen minutes, not an extra reading of the board.
+    parts.append(
+        f"Minute پندرہ پوری ہو چکی ہے۔ {title} کا sketchnote اب بھی سامنے رہے۔ "
+        f"تم نے {names[0]} کو سمجھا، اسے {names[min(1, len(names) - 1)]} سے الگ کیا، "
+        f"اور ایک جواب تین لائنوں میں بنایا۔ کل یہی تین لائنیں بغیر board کے لکھ کر دیکھو۔"
+    )
+    text = " ".join(parts)
+    if word_count(text) < MIN_EXPLAIN_WORDS:
+        raise RuntimeError(f"{title} explanation is only {word_count(text)} words")
+    return text
 
 
 def sketchnote_html(
