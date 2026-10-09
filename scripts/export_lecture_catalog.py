@@ -225,6 +225,19 @@ def sketch_card(kind: str, heading: str, html: str, seen: set[str]) -> str:
     )
 
 
+def lead_line(text: str, limit: int = 160) -> str:
+    parts = sentences(text, 1)
+    line = parts[0] if parts else text
+    line = re.sub(r"\s+", " ", line).strip()
+    if len(line) > limit:
+        line = line[:limit].rsplit(" ", 1)[0]
+    return line.rstrip(".۔")
+
+
+def looks_like_code(text: str) -> bool:
+    return text.count("\n") > 1 or len(re.findall(r"[{}();=<>]", text)) >= 4
+
+
 def spoken_urdish(
     title: str,
     chapter: str,
@@ -236,28 +249,75 @@ def spoken_urdish(
     urdu: str,
     terms: list[str],
     exam: str,
-    leftover: str,
+    captions: list[str],
+    headers: list[str],
 ) -> str:
-    """College-teacher Urdish covering the full lecture sketchnote."""
-    seen: set[str] = set()
-    bits = [f"Lecture {title}۔ Chapter {chapter}۔"]
+    """Explain the sketchnote in Urdish. Do not read the board aloud."""
+    bits = [
+        f"Students، {title} کا sketchnote سامنے رکھو۔ میں sentences نہیں پڑھوں گی، idea explain کروں گی۔",
+        "Terms English میں رہیں گی، بات class والی Urdu میں ہوگی۔",
+    ]
     if golden:
-        bits.append("یہ Golden topic ہے۔")
-    mixed = urdishize_urdu(urdu) if urdu else ""
-    said_idea = bool(mixed) and fresh(mixed, seen)
-    if said_idea:
-        bits.append(mixed.rstrip("۔") + "۔")
+        bits.append(
+            "یہ Golden topic ہے۔ Intermediate paper میں صرف definition کافی نہیں، comparison اور ایک example بھی چاہیے۔"
+        )
     else:
-        for unit in unique_units(learn_units, seen):
-            bits.append(unit)
-    for unit in unique_units(example_units, seen):
-        bits.append("Example: " + unit)
-    if tip and fresh(tip, seen):
-        bits.append("Yaad rakhna: " + tip)
-    if warn and fresh(warn, seen):
-        bits.append("Common mistake: " + warn)
-    if exam and fresh(exam, seen):
-        bits.append(exam.rstrip("۔.") + ".")
+        bits.append(f"یہ {chapter} کا ایک connecting idea ہے۔ اگلے topic سے جوڑ کر رکھو۔")
+
+    mixed = urdishize_urdu(urdu) if urdu else ""
+    if mixed:
+        bits.append("اپنے الفاظ میں idea یہ ہے: " + mixed.rstrip("۔") + "۔")
+        bits.append("Sketchnote کی ہر line اسی idea کی ایک شکل ہے۔ پوری line رٹنے کے بجائے پوچھو کہ یہ idea کیوں true ہے۔")
+    elif learn_units and not looks_like_code(learn_units[0]):
+        bits.append("Sketchnote کی پہلی line کا مطلب یہ ہے: " + lead_line(learn_units[0]) + "۔")
+
+    if terms:
+        shown = ", ".join(terms[:4])
+        bits.append(
+            f"Board پر نام English میں ہیں: {shown}۔ "
+            "امتحان میں نام English میں لکھو، اور ہر نام کے ساتھ ایک reason دو۔"
+        )
+
+    if captions:
+        bits.append(
+            "Diagram definition کی کاپی نہیں۔ Picture یہ کہہ رہی ہے: "
+            + lead_line(captions[0])
+            + "۔ خود بتاؤ کہ یہ picture idea کے کس حصے کو دکھا رہی ہے۔"
+        )
+    if headers:
+        heads = " اور ".join(headers[:3])
+        bits.append(
+            f"Table {heads} کو compare کرتی ہے۔ ایک row لے کر فرق بول دو۔ پوری table memorize نہ کرو۔"
+        )
+
+    if example_units:
+        sample = example_units[0]
+        if looks_like_code(sample):
+            bits.append(
+                "Example code ہے۔ Syntax مت پڑھو۔ ہر line کا مقصد بولو: input کیا ہے، decision کہاں ہے، output کیا بدل گیا۔"
+            )
+        else:
+            bits.append(
+                "Example اس لیے ہے کہ rule کو ایک case پر چلاؤ۔ شروع یوں ہوتا ہے: "
+                + lead_line(sample)
+                + "۔ اب answer چھپا کر next step خود بولو۔"
+            )
+
+    if tip and not looks_like_code(tip):
+        bits.append("یاد رکھنے کی چابی سارا پیرا نہیں۔ چابی یہ ہے: " + lead_line(tip) + "۔")
+    if warn and not looks_like_code(warn):
+        bits.append(
+            "Intermediate student یہ غلطی کرتا ہے: "
+            + lead_line(warn)
+            + "۔ اس لیے جواب میں reason بھی لکھنا۔"
+        )
+    if exam and not looks_like_code(exam):
+        bits.append(
+            "Board سوال کی شکل یہ ہوتی ہے: "
+            + lead_line(exam)
+            + "۔ جواب میں Define، فرق، اور ایک example۔"
+        )
+    bits.append("اب sketchnote دیکھ کر دو جملوں میں بتاؤ کہ یہ topic کیا فرق سکھا رہا ہے۔")
     return " ".join(bits)
 
 
@@ -391,7 +451,8 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
         exam = " ".join(u for html in box_inners(block, "exam") for u in text_units(html))
         tip = " ".join(u for html in box_inners(block, "tip") for u in text_units(html))
         warn = " ".join(u for html in box_inners(block, "warn") for u in text_units(html))
-        leftover_plain = plain(strip_boxes(topic_inner(block)))[:1200]
+        captions = [plain(x) for x in re.findall(r"<figcaption>(.*?)</figcaption>", block, flags=re.S)]
+        headers = [plain(x) for x in re.findall(r"<th\b[^>]*>(.*?)</th>", block, flags=re.S)]
         terms = bold_terms("".join(learn_htmls) + "".join(example_htmls))
         chapter_label = f"{grade.upper()} · Chapter {ch_num} · {ch_title}"
         sketch = sketchnote_html(title, chapter_label, golden, block, urdu, terms)
@@ -408,7 +469,7 @@ def topics_from(fragment: str, grade: str, ch_num: int, ch_title: str) -> list[d
             "urdu": urdu,
             "spokenUrdu": spoken_urdish(
                 title, ch_title, golden, learn_units, example_units,
-                tip, warn, urdu, terms, exam, leftover_plain,
+                tip, warn, urdu, terms, exam, captions, headers[:4],
             ),
             "terms": terms,
             "board": rel,
