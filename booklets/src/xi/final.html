@@ -1,0 +1,153 @@
+<section class="chapter" id="xi-final" data-num="7" data-title="Final Revision and Mock Paper">
+  <div class="ch-opener">
+    <div class="num">Final revision</div>
+    <h1>One-page recaps and a mock paper</h1>
+    <p>Use these pages in the last week before the exam. Read one recap, close the booklet, and say it aloud. Then sit the mock paper in 2 hours 30 minutes with no notes.</p>
+    <p class="ur">امتحان سے ایک ہفتہ پہلے یہ خلاصے زبانی دہرائیں، پھر ماک پیپر بغیر نوٹس کے حل کریں۔</p>
+  </div>
+
+  <h2>Chapter 1 recap — Computer Systems</h2>
+  <ul class="summary">
+    <li>Discrete = counted (stairs). Continuous = measured (ramp). Digital systems use bits 0 and 1; they are reliable, accurate, easy to design and programmable.</li>
+    <li>Analog signal = smooth sine wave. Digital signal = square wave HIGH/LOW. Digital data resists noise.</li>
+    <li>AND · output 1 only if all inputs 1. OR + output 1 if any input 1. NOT ' inverts. NAND = NOT-AND, NOR = NOT-OR (universal). XOR 1 when inputs differ. XNOR 1 when inputs same.</li>
+    <li>Truth table rows = 2<sup>n</sup>. SOP = sum of minterms where output is 1. POS = product of maxterms where output is 0.</li>
+    <li>K-map: group 1, 2, 4, 8 adjacent 1s (power of 2, wrap-around allowed). Each group drops the variables that change.</li>
+    <li>SDLC: requirement → design → implementation → testing → deployment → maintenance. Waterfall = sequential; Agile = short sprints and feedback.</li>
+    <li>OSI 7: Physical, Data Link, Network, Transport, Session, Presentation, Application. Mnemonic: Please Do Not Throw Sausage Pizza Away. TCP/IP 4: Network Access, Internet, Transport, Application.</li>
+  </ul>
+
+  <h2>Chapter 2 recap — Computational Thinking &amp; Algorithm</h2>
+  <ul class="summary">
+    <li>CT pillars: decomposition, pattern recognition, abstraction, algorithms.</li>
+    <li>Algorithm = finite, ordered, unambiguous steps. Pseudocode = structured English, not a programming language.</li>
+    <li>Bubble Sort: compare neighbours, swap if out of order; largest "bubbles" to the end each pass. O(n²).</li>
+    <li>Selection Sort: find the minimum in the unsorted part and swap it to the front. O(n²).</li>
+    <li>Linear Search: check one by one. Works on unsorted data. O(n).</li>
+    <li>Binary Search: list MUST be sorted. Repeatedly test the middle. O(log n). Trace with low / mid / high.</li>
+    <li>Judge an algorithm on correctness, efficiency (time and space) and clarity. Prefer binary search on large sorted lists; linear search on small or unsorted lists.</li>
+  </ul>
+
+  <h2>Chapter 3 recap — Programming Fundamentals</h2>
+  <ul class="summary">
+    <li>Python: high-level, interpreted. Variables are names; types int, float, str, bool, list, dict. <code>input()</code> returns str.</li>
+    <li>Arithmetic <code>+ - * / // % **</code>. Relational. Logical <code>and or not</code>. Bitwise <code>&amp; | ^ ~ &lt;&lt; &gt;&gt;</code>.</li>
+    <li>Selection: if / if-else / if-elif-else / nested. Test from the top; first True wins.</li>
+    <li>for = known count + range. while = unknown count; always update the condition. break leaves; continue skips one.</li>
+    <li>Libraries: import math / random / datetime. Third-party via pip: NumPy, Pandas, Matplotlib.</li>
+    <li>Syntax = will not run. Runtime = crash + traceback. Logical = runs, wrong answer.</li>
+  </ul>
+
+  <h2>Chapter 4 recap — Data and Analysis</h2>
+  <ul class="summary">
+    <li>Data = raw facts. Information = processed data used for decisions. Database = organised related data. DBMS = software that manages it (reduces redundancy, improves security, sharing, integrity).</li>
+    <li>Table / relation; row / record / tuple; column / field / attribute. Primary key uniquely identifies a row. Foreign key refers to another table's primary key.</li>
+    <li>ER model: entity (rectangle), attribute (oval), relationship (diamond), cardinality 1:1, 1:M, M:N.</li>
+    <li>Referential integrity: you cannot orphan a child row. Cascade Update / Cascade Delete copy or remove matching child rows.</li>
+    <li>Access objects: tables, forms, queries, reports. Queries filter with criteria, wildcards (*, ?), AND/OR. Totals: Count, Sum, Avg, Group By. Charts visualise the result.</li>
+  </ul>
+
+  <h2>Chapter 5 recap — Application and Impacts of Computing</h2>
+  <ul class="summary">
+    <li>IoT = connected devices. Six parts: sensor, actuator, connectivity, processing, cloud, UI. AI = machines that learn and decide. Analytics = collect → store → clean → analyse → visualise.</li>
+    <li>Together: IoT (eyes) → Analytics (sort) → AI (brain) → actuator (action).</li>
+    <li>Sources: primary (firsthand), secondary (explained by others), tertiary (summaries). No author / date / references → do not trust.</li>
+    <li>Assistive tech: mobility, sensory, communication, cognitive. Goal: equal access, independence, inclusion.</li>
+  </ul>
+
+  <h2>Chapter 6 recap — Digital Literacy</h2>
+  <ul class="summary">
+    <li>Digital literacy = find, evaluate, create and share information with digital tools, safely.</li>
+    <li>Qualitative = words/descriptions. Quantitative = numbers. Strategies: interview, survey, prototype, observation, simulation.</li>
+    <li>Primary data you collect; secondary data already exists. Good survey questions are clear, single-idea, unbiased.</li>
+    <li>Present with spreadsheets (formulas such as <code>=AVERAGE()</code>), slides, infographics and reports. Cite sources. Follow the 12-step inquiry project from question to artefact.</li>
+  </ul>
+
+  <section class="review">
+    <h2>Mock paper — Computer Science XI</h2>
+    <p class="muted">Time: 2 hours 30 minutes &nbsp;|&nbsp; Total: 75 marks &nbsp;|&nbsp; Answer all questions. Calculators allowed. Write Python with correct indentation.</p>
+    <h3>Section A — Multiple choice (15 × 1 = 15)</h3>
+    <ol class="mcq">
+      <li>Which quantity is discrete?
+        <ol class="opts"><li>Room temperature</li><li>Number of desks</li><li>Car speed</li><li>Time of day</li></ol></li>
+      <li>NAND is called universal because:
+        <ol class="opts"><li>it has two inputs</li><li>any gate can be built from it</li><li>its output is always 1</li><li>it is faster than AND</li></ol></li>
+      <li>The Boolean expression for XOR is:
+        <ol class="opts"><li>A · B</li><li>A + B</li><li>A ⊕ B</li><li>(A · B)'</li></ol></li>
+      <li>OSI layer that chooses the best path (IP addresses) is:
+        <ol class="opts"><li>Transport</li><li>Network</li><li>Data Link</li><li>Session</li></ol></li>
+      <li>Which SDLC model delivers working software in short sprints?
+        <ol class="opts"><li>Waterfall</li><li>Agile</li><li>Spiral only</li><li>Big Bang</li></ol></li>
+      <li>Binary Search requires the list to be:
+        <ol class="opts"><li>unsorted</li><li>sorted</li><li>all unique and unsorted</li><li>of even length</li></ol></li>
+      <li>Worst-case time of Bubble Sort is:
+        <ol class="opts"><li>O(n)</li><li>O(log n)</li><li>O(n²)</li><li>O(1)</li></ol></li>
+      <li><code>input()</code> in Python returns a:
+        <ol class="opts"><li>int</li><li>str</li><li>float</li><li>bool</li></ol></li>
+      <li><code>17 // 5</code> equals:
+        <ol class="opts"><li>3.4</li><li>3</li><li>2</li><li>3.0</li></ol></li>
+      <li>A program that runs but prints the wrong total has a:
+        <ol class="opts"><li>syntax error</li><li>runtime error</li><li>logical error</li><li>hardware fault</li></ol></li>
+      <li>A field that uniquely identifies each record is a:
+        <ol class="opts"><li>foreign key</li><li>primary key</li><li>composite description</li><li>query</li></ol></li>
+      <li>An actuator in IoT:
+        <ol class="opts"><li>collects temperature</li><li>opens a water valve</li><li>stores cloud files</li><li>draws a chart</li></ol></li>
+      <li>Wikipedia is a:
+        <ol class="opts"><li>primary source</li><li>secondary source</li><li>tertiary source</li><li>sensor</li></ol></li>
+      <li>Marks out of 100 are:
+        <ol class="opts"><li>qualitative data</li><li>quantitative data</li><li>tertiary data</li><li>metadata only</li></ol></li>
+      <li>Which Access object is best for printing a formatted class list?
+        <ol class="opts"><li>Table</li><li>Form</li><li>Query</li><li>Report</li></ol></li>
+    </ol>
+
+    <h3>Section B — Short questions (10 × 3 = 30)</h3>
+    <ol class="short">
+      <li>Differentiate analog and digital signals with one example of each.</li>
+      <li>Draw the symbol and truth table of a 2-input NOR gate.</li>
+      <li>List the four pillars of computational thinking in one sentence each.</li>
+      <li>Why can you not use Binary Search on an unsorted attendance list?</li>
+      <li>Write a Python <code>if-elif-else</code> that prints Pass if marks ≥ 40, else Fail.</li>
+      <li>Define primary key and foreign key.</li>
+      <li>Name the six components of IoT.</li>
+      <li>Classify: (a) a photograph you took, (b) a textbook, (c) an encyclopedia.</li>
+      <li>Give two good and two bad survey questions about mobile-phone use in college.</li>
+      <li>State three advantages of a DBMS over paper files.</li>
+    </ol>
+
+    <h3>Section C — Long questions (3 × 10 = 30). Attempt any three.</h3>
+    <ol class="long">
+      <li>Simplify F(A,B,C) = Σ(1,3,5,7) using a 3-variable K-map. Show the grouping and the final expression. Draw the logic diagram.</li>
+      <li>Dry-run Bubble Sort on the list [5, 1, 4, 2]. Show every pass. Then search for 4 using Binary Search on the sorted result, with a low/mid/high table.</li>
+      <li>Write a complete Python program that reads n subject marks, prints the average, and prints "A" if average ≥ 80, "B" if ≥ 70, "C" if ≥ 60, else "D". Include a sample run of four marks: 80, 70, 90, 60.</li>
+      <li>Design an ER diagram and relational schema for a school library (Student, Book, Issue). Mark keys. Write one Access/SQL query that lists all books issued to roll number 101.</li>
+      <li>Explain how IoT, Data Analytics and AI work together on a Sindh farm. Then discuss two positive and two negative impacts of computing on education in Pakistan.</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Mock paper — answers</h2>
+      <h3>Section A</h3>
+      <ol class="inline"><li>b</li><li>b</li><li>c</li><li>b</li><li>b</li><li>b</li><li>c</li><li>b</li><li>b</li><li>c</li><li>b</li><li>b</li><li>c</li><li>b</li><li>d</li></ol>
+      <h3>Section B</h3>
+      <ol>
+        <li>Analog: continuous, sine wave, e.g. human voice. Digital: two levels 0/1, square wave, e.g. computer data. Digital resists noise.</li>
+        <li>NOR symbol: OR-gate shape with a bubble on the output. Y = (A+B)'. Truth: 00→1, 01→0, 10→0, 11→0.</li>
+        <li>Decomposition = split a problem. Pattern recognition = reuse similarities. Abstraction = ignore extra detail. Algorithms = write ordered steps.</li>
+        <li>Binary Search repeatedly halves a sorted range. If the list is unsorted, the middle value does not tell you which half to keep, so the method is invalid.</li>
+        <li><code>m = int(input("Marks: "))</code> then <code>if m &gt;= 40: print("Pass")</code> else <code>print("Fail")</code>.</li>
+        <li>Primary key: unique identifier of a row (e.g. StudentID). Foreign key: a field that refers to the primary key of another table (e.g. StudentID in Issuance).</li>
+        <li>Sensors, actuators, connectivity, data processing, cloud computing, user interface.</li>
+        <li>(a) primary (b) secondary (c) tertiary.</li>
+        <li>Good: "How many hours per day do you use a phone for study?" / "Which apps do you use for class notes?" Bad: "Don't you agree phones are destroying students?" (leading) / "Do you like phones and also use laptops?" (double-barrelled).</li>
+        <li>Less redundancy, easier search and update, better security and multi-user access, integrity constraints. (Any three.)</li>
+      </ol>
+      <h3>Section C — outline</h3>
+      <ol>
+        <li>K-map 1s at m1, m3, m5, m7 form one group of 4 covering B=1 (or C=1 depending on labelling — with standard ABC order the 1s are all cells where C=1). F = C. Diagram: a single wire C to output (or a buffer). Show the map with the group circled.</li>
+        <li>Pass 1: [1,4,2,5]; Pass 2: [1,2,4,5]; Pass 3: already sorted. Sorted [1,2,4,5]. Search 4: low=0 high=3 mid=1 (2&lt;4) → low=2; mid=2 (4=4) found at index 2.</li>
+        <li>Read n, loop n times adding <code>float(input())</code>, avg = total/n, then if-elif for A/B/C/D. Sample: total 300, avg 75.0, grade B.</li>
+        <li>Entities Student(StudentID PK, Name, Class), Book(BookID PK, Title, Author), Issue(IssueID PK, StudentID FK, BookID FK, Date). Query: <code>SELECT Book.Title FROM Issue INNER JOIN Book ON Issue.BookID = Book.BookID WHERE StudentID = 101;</code></li>
+        <li>Soil sensor (IoT) → cloud spreadsheet of moisture (Analytics) → model decides "too dry" (AI) → pump (actuator). Education +: LMS, remote classes. Education −: screen addiction, urban/rural device gap.</li>
+      </ol>
+    </div>
+  </section>
+</section>

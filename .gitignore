@@ -1,9 +1,14 @@
 /local.properties
 /.gradle/
 /build/
-/app/build/
+/lectures/build/
+/lectures/src/main/assets/whiteboards/xi/
+/lectures/src/main/assets/whiteboards/xii/
+/lectures/src/main/assets/whiteboards/mathjax/
+/lectures/src/main/assets/flv/
 /android-sdk/
 /gradle-8.7/
+scripts/__pycache__/
 *.iml
 .idea/
 .DS_Store

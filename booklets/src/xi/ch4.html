@@ -1,0 +1,652 @@
+<section class="chapter" id="xi-ch4" data-num="4" data-title="Data and Analysis">
+  <div class="ch-opener">
+    <div class="num">Chapter 4</div>
+    <h1>Data and Analysis</h1>
+    <p>This chapter teaches you how raw facts become organised information in a database, how tables are linked with keys, how to draw an ER diagram, and how to build tables, forms, queries and charts in Microsoft Access. Banks, NADRA, college libraries and fee offices all run on these ideas.</p>
+    <p class="ur">اس باب میں آپ سیکھیں گے کہ خام حقائق کو ڈیٹا بیس میں کیسے منظم کیا جاتا ہے، ٹیبلز کو کیز سے کیسے جوڑا جاتا ہے، ای آر خاکہ کیسے بنتا ہے، اور مائیکروسافٹ ایکسیس میں ٹیبل، فارم، کوئری اور چارٹ کیسے بنائے جاتے ہیں۔</p>
+  </div>
+
+  <h3>What you will learn</h3>
+  <ul class="objectives">
+    <li>Distinguish data, information and a database, and explain what a DBMS does.</li>
+    <li>Identify tables, records and fields in a given example.</li>
+    <li>Choose candidate, primary, alternate and foreign keys and state integrity rules.</li>
+    <li>Draw ER diagrams (entities, attributes, relationships) and give cardinality 1:1, 1:M, M:N.</li>
+    <li>Explain referential integrity, Cascade Update and Cascade Delete with before/after tables.</li>
+    <li>Write a relational schema and resolve an M:N relationship with a junction table.</li>
+    <li>Develop the college-library case study from requirements to the final ER schema.</li>
+    <li>State the job of tables, forms, queries and reports.</li>
+    <li>Create tables in Access (Datasheet and Design view) and pick data types.</li>
+    <li>Build a form with the Form Wizard and a SELECT query with criteria, AND/OR, totals and charts.</li>
+  </ul>
+
+  <div class="topic">
+    <h2>4.1.1 Data, Information and Database</h2>
+    <div class="box learn">
+      <p><b>Data</b> are unprocessed facts, figures or observations. They can be <b>quantitative</b> (numbers: 80, 75, 90) or <b>qualitative</b> (descriptions: the colours of cars in a parking lot). Data on its own is not very useful — a list of marks does not yet tell you whether the class is strong.</p>
+      <p>When you organise, process and interpret data, it becomes <b>information</b>. Information has meaning and supports a decision. Example: “The class average is 80%, so we can move to the next chapter.”</p>
+      <p>A <b>database</b> is an organised collection of <b>related</b> data, stored in a structured way so it can be accessed, managed and updated easily. Paper registers and loose files make searching painful; a database is built for search, update and sharing.</p>
+    </div>
+    <div class="flow"><span>Data</span><i>→</i><span>Processing</span><i>→</i><span>Information</span><i>→</i><span>Decision</span></div>
+    <table>
+      <tr><th>Aspect</th><th>Data</th><th>Information</th></tr>
+      <tr><td>Definition</td><td>Raw facts and figures</td><td>Processed, meaningful data</td></tr>
+      <tr><td>Example</td><td>85, 90, 75</td><td>Average marks = 83.3%</td></tr>
+      <tr><td>Usefulness</td><td>Little, on its own</td><td>Useful for decisions</td></tr>
+    </table>
+    <div class="box example">
+      <p>Five CS XI marks: 80, 75, 90, 70, 85. Sum = 400. Average = 400 ÷ 5 = <b>80%</b>. The numbers are data; “the class average is 80%” is information; a <b>Student</b> table holding every student’s marks is a database.</p>
+    </div>
+    <div class="box tip"><p>Exam line: <i>Data is raw; information is processed data used for decision-making.</i> Always add one pair of examples.</p></div>
+    <div class="box warn"><p>Do not call a jumble of WhatsApp numbers a database. Related + structured + easy to update is what makes it a database.</p></div>
+    <div class="box urdu"><p class="ur">ڈیٹا خام حقائق ہیں، معلومات وہی حقائق ہیں جب انہیں ترتیب دے کر معنی دے دیا جائے۔ ڈیٹا بیس متعلقہ ڈیٹا کا منظم ذخیرہ ہے جسے آسانی سے تلاش اور تبدیل کیا جا سکتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Is “Nadia, Class 11, 72 marks” data or information?</p>
+      <p><b>2.</b> Why is a stack of unmarked answer sheets not a database?</p>
+      <div class="ans">Answers: 1. Data (raw facts about one student). 2. It is not organised in a structured, searchable, updatable collection of related records.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.1.2 Database Management System (DBMS)</h2>
+    <div class="box learn">
+      <p>A <b>DBMS</b> is software that lets you create, manage and interact with databases. It sits between the user and the stored files. You never edit raw data files by hand — you talk to the DBMS (Access, MySQL, Oracle, SQLite) and it handles storage, security and consistency.</p>
+      <p>Advantages you must be able to list:</p>
+      <ul>
+        <li><b>Less redundancy.</b> The department name is stored once, not in every student row.</li>
+        <li><b>Consistency.</b> Change a phone number once; every screen that uses it shows the new number.</li>
+        <li><b>Security.</b> Only authorised users see sensitive fields (an admin sees marks; office staff see names).</li>
+        <li><b>Integrity.</b> Rules stop duplicate roll numbers and empty primary keys.</li>
+      </ul>
+    </div>
+    <div class="box example">
+      <p>In a paper register, Ali’s address is written on the admission page, the fee page and the sports page. If he moves house, two of the three pages stay wrong. In a DBMS, <code>Address</code> lives in one <b>Student</b> table. Every form and report reads that single field.</p>
+    </div>
+    <div class="box urdu"><p class="ur">ڈی بی ایم ایس وہ سافٹ ویئر ہے جو صارف اور ڈیٹا بیس کے درمیان پل کا کام کرتا ہے۔ اس سے تکرار کم ہوتی ہے، ڈیٹا ایک جیسا رہتا ہے، صرف مجاز افراد دیکھ سکتے ہیں، اور غلط اندراج رک جاتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Name two DBMS programs.</p>
+      <p><b>2.</b> Which advantage stops two students sharing the same roll number?</p>
+      <div class="ans">Answers: 1. MS Access, MySQL (Oracle, SQLite also). 2. Integrity (unique / primary-key constraint).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.2 Database Components (Tables, Records, Fields)</h2>
+    <div class="box learn">
+      <p>The basic structure is a <b>table</b> (also called a relation): rows and columns, like a spreadsheet, holding facts about one kind of thing (Students, Teachers, Books).</p>
+      <p>A <b>record</b> (row, tuple) is one complete instance — everything about Ali. A <b>field</b> (column, attribute) is one kind of fact — the whole <code>Name</code> column, or the whole <code>Grade</code> column.</p>
+    </div>
+    <table class="center">
+      <tr><th>Roll No</th><th>Name</th><th>Course</th><th>Grade</th></tr>
+      <tr><td>101</td><td>Ali</td><td>CS</td><td>A</td></tr>
+      <tr><td>102</td><td>Sara</td><td>IT</td><td>B+</td></tr>
+      <tr><td>103</td><td>Ahmed</td><td>CS</td><td>A</td></tr>
+    </table>
+    <p>The row <code>101 | Ali | CS | A</code> is one <b>record</b>. The <code>Name</code> column is one <b>field</b>.</p>
+    <div class="box tip"><p>Memory: <b>row = record = one person. column = field = one question on the admission form.</b></p></div>
+    <div class="box warn"><p>Do not mix two entities in one table (students and library books together). Each entity gets its own table; keys will link them later.</p></div>
+    <div class="box urdu"><p class="ur">ٹیبل قطاروں اور کالموں میں ڈیٹا رکھتا ہے۔ ایک قطار ایک ریکارڈ (مثلاً علی کی پوری معلومات) ہے، ایک کالم ایک فیلڈ (مثلاً صرف نام) ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> How many records and how many fields are in the table above?</p>
+      <p><b>2.</b> Is “CS” a record or a field value?</p>
+      <div class="ans">Answers: 1. 3 records, 4 fields. 2. A value stored in the Course field.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.3.1 Keys and Integrity Constraints <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A <b>key</b> is a field (or a set of fields) that uniquely identifies records and links tables. Integrity constraints are the rules that keep those keys honest.</p>
+      <p><b>Candidate key.</b> Any field (or combination) that <i>could</i> uniquely identify a row. A table may have several. In an Employee table: EmpID, EmpLicense# and EmpPassport are all candidate keys.</p>
+      <p><b>Primary key (PK).</b> The one candidate you actually choose. Rules: unique, never NULL, only one PK per table (it may be a <b>composite</b> of two columns). Example: EmpID.</p>
+      <p><b>Alternate key.</b> The leftover candidate keys. After EmpID is chosen, EmpLicense# and EmpPassport become alternate keys — still unique, just not “the” identifier.</p>
+      <p><b>Foreign key (FK).</b> A field in this table that refers to the PK of another table. It <i>may</i> contain duplicates (many employees in one department) and, in some designs, NULL.</p>
+    </div>
+    <div class="box example">
+      <p><b>Classroom analogy.</b> Roll Number, B-Form number and phone number can all identify a student (candidate keys). The school picks Roll Number as the primary key. B-Form and phone become alternate keys. In a <b>Result</b> table, <code>RollNo</code> is a foreign key pointing back to Student.</p>
+      <table>
+        <tr><th>Table</th><th>Field</th><th>Role</th></tr>
+        <tr><td>Student</td><td>RollNo</td><td>Primary key</td></tr>
+        <tr><td>Student</td><td>BFormNo</td><td>Alternate key</td></tr>
+        <tr><td>Result</td><td>RollNo</td><td>Foreign key → Student.RollNo</td></tr>
+        <tr><td>Result</td><td>ExamID + RollNo</td><td>Could be a composite primary key</td></tr>
+      </table>
+    </div>
+    <div class="box exam"><p>Board questions: “Differentiate primary and foreign key” (table of 4 points) and “Why can a PK not be NULL?” Because a NULL would mean “this row has no identity”, so the DBMS could not tell rows apart.</p></div>
+    <div class="box warn"><p>A phone number is a bad PK: people change numbers, two siblings may share one, and some students have none (NULL). Roll numbers are issued by the school and stay unique.</p></div>
+    <div class="box urdu"><p class="ur">کینڈیڈیٹ کی وہ فیلڈ ہے جو ریکارڈ کی شناخت کر سکے۔ پرائمری کی منتخب شدہ شناخت ہے — منفرد اور خالی نہیں۔ جو بچ جائیں وہ آلٹرنیٹ کیز ہیں۔ فارن کی دوسرے ٹیبل کی پرائمری کی کی طرف اشارہ کرتی ہے اور ٹیبلز کو جوڑتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Can a table have two primary keys?</p>
+      <p><b>2.</b> Can a foreign key have duplicate values?</p>
+      <div class="ans">Answers: 1. No — only one PK (it may be composite). 2. Yes — many child rows may point to the same parent.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.3 Relational Database Management System (RDBMS)</h2>
+    <div class="box learn">
+      <p>An <b>RDBMS</b> stores data in several tables and uses primary and foreign keys to keep relationships. Banks, universities and NADRA use RDBMS software. Extra strengths on top of a plain DBMS:</p>
+      <ul>
+        <li>Reduces redundancy by splitting data into related tables.</li>
+        <li>Supports many users at once, with permissions.</li>
+        <li>Is queried with <b>SQL</b> (Structured Query Language) — a standard language of SELECT, INSERT, UPDATE, DELETE.</li>
+      </ul>
+    </div>
+    <div class="box example">
+      <p>Instead of one giant spreadsheet of students-and-departments, an RDBMS has <code>Department(DeptID, DeptName)</code> and <code>Student(RollNo, Name, DeptID FK)</code>. CS is stored once. SQL: <code>SELECT Name FROM Student WHERE DeptID = 1;</code></p>
+    </div>
+    <div class="box urdu"><p class="ur">آر ڈی بی ایم ایس کئی ٹیبلز میں ڈیٹا رکھتا ہے اور کیز سے ان کے تعلقات برقرار رکھتا ہے۔ ایس کیو ایل سے سوال پوچھے جاتے ہیں۔ اس سے تکرار کم اور کئی صارفین محفوظ طریقے سے کام کر سکتے ہیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What language do you use to query an RDBMS?</p>
+      <p><b>2.</b> Why split Department out of the Student table?</p>
+      <div class="ans">Answers: 1. SQL. 2. To store the department name once (less redundancy) and update it in one place.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.4 Entity Relationship Model (ER-Model) <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>The <b>ER model</b> is the architect’s blueprint: you draw what will be stored and how it connects <i>before</i> you create tables in Access. Three building blocks:</p>
+    </div>
+    <table>
+      <tr><th>Component</th><th>Meaning</th><th>Symbol</th><th>Example</th></tr>
+      <tr><td>Entity</td><td>A real-world object we store data about</td><td>Rectangle</td><td>STUDENT, TEACHER, COURSE</td></tr>
+      <tr><td>Attribute</td><td>A property of an entity. PK is underlined</td><td>Oval</td><td>StudentID, Name, Class</td></tr>
+      <tr><td>Relationship</td><td>How two entities are connected</td><td>Diamond</td><td>Enrolls, Teaches, Has</td></tr>
+    </table>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 160" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <rect x="20" y="55" width="110" height="44" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <text x="75" y="82" text-anchor="middle" font-weight="700" fill="#1f3c88">STUDENT</text>
+        <polygon points="200,40 270,77 200,114 130,77" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+        <text x="200" y="82" text-anchor="middle" font-weight="700" fill="#e8590c">Enrolls</text>
+        <rect x="310" y="55" width="110" height="44" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <text x="365" y="82" text-anchor="middle" font-weight="700" fill="#1f3c88">COURSE</text>
+        <ellipse cx="530" cy="77" rx="70" ry="28" fill="#edf9f0" stroke="#2b8a3e" stroke-width="2"/>
+        <text x="530" y="74" text-anchor="middle" fill="#2b8a3e">Name</text>
+        <text x="530" y="90" text-anchor="middle" font-size="10" fill="#2b8a3e">(attribute)</text>
+        <line x1="130" y1="77" x2="165" y2="77" stroke="#1d2433" stroke-width="2"/>
+        <line x1="235" y1="77" x2="310" y2="77" stroke="#1d2433" stroke-width="2"/>
+        <line x1="420" y1="77" x2="460" y2="77" stroke="#1d2433" stroke-width="2"/>
+      </svg>
+      <figcaption>Rectangle = entity, diamond = relationship, oval = attribute. Underline the primary-key attribute.</figcaption>
+    </figure>
+    <h3>Cardinality (types of relationship)</h3>
+    <table>
+      <tr><th>Type</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>One-to-One (1:1)</td><td>One record ↔ exactly one record. Rare; often for security.</td><td>One student has one ID card.</td></tr>
+      <tr><td>One-to-Many (1:M)</td><td>One record in A ↔ many in B. The most common type.</td><td>One teacher teaches many students.</td></tr>
+      <tr><td>Many-to-Many (M:N)</td><td>Many in A ↔ many in B.</td><td>Many students enrol in many classes.</td></tr>
+    </table>
+    <div class="box warn">
+      <p><b>The M:N rule.</b> A relational database cannot store M:N directly — it duplicates data. Break it into two 1:M relationships with a <b>junction table</b> (also called a bridge or associative table). Example: Enrollment(StudentID, ClassID, Date).</p>
+    </div>
+    <div class="box exam"><p>Always state cardinality on the diagram (1 and M at the ends of the line). For M:N, the long question is “how do you resolve it?” — draw the junction entity with two foreign keys.</p></div>
+    <div class="box urdu"><p class="ur">ای آر ماڈل ڈیٹا بیس کا خاکہ ہے۔ مستطیل ہستی، بیضوی صفت، لوزی تعلق۔ تعلقات 1:1، 1:M یا M:N ہوتے ہیں۔ M:N کو دو 1:M میں توڑنے کے لیے جنکشن ٹیبل بنانا پڑتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What symbol is used for a relationship?</p>
+      <p><b>2.</b> A hospital: one patient, many appointments. Cardinality?</p>
+      <div class="ans">Answers: 1. Diamond. 2. 1:M (Patient 1 — has — M Appointment).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.5 Referential Integrity <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p><b>Referential integrity</b> means every foreign-key value in a child table must match an existing primary-key value in the parent — or be NULL if the design allows it. It stops <b>orphan records</b>.</p>
+      <p>If Result.StudentID is a FK to Student.StudentID, you cannot type Result for student 999 if 999 is not in Student. You also cannot delete student 101 while results for 101 still exist — unless you first handle those child rows.</p>
+    </div>
+    <div class="two-col">
+      <div>
+        <p><b>Parent — STUDENT</b></p>
+        <table class="center"><tr><th>ID</th><th>Name</th></tr><tr><td>101</td><td>Ali</td></tr><tr><td>102</td><td>Sara</td></tr></table>
+      </div>
+      <div>
+        <p><b>Child — RESULT</b></p>
+        <table class="center">
+          <tr><th>ID</th><th>Grade</th></tr>
+          <tr><td>101</td><td>A</td></tr>
+          <tr><td class="hl">999</td><td>F — rejected</td></tr>
+        </table>
+      </div>
+    </div>
+    <h3>Cascade operations</h3>
+    <p><b>Cascade Update.</b> Change the PK in the parent, and every matching FK in the child changes automatically. Ali’s ID 101 → 201 updates Enrollments too. Nothing is left pointing at a vanished 101.</p>
+    <p><b>Cascade Delete.</b> Delete the parent, and related child rows are deleted too. If Sara (102) leaves school, her Enrolment and Result rows disappear. That prevents “ghost” marks for a student who is gone.</p>
+    <div class="box example">
+      <p><b>Before Cascade Update</b></p>
+      <table class="center"><tr><th>Student.ID</th><th>Enrol.StudentID</th></tr><tr><td>101</td><td>101</td></tr></table>
+      <p><b>After changing 101 → 201 with Cascade Update ON</b></p>
+      <table class="center"><tr><th>Student.ID</th><th>Enrol.StudentID</th></tr><tr><td>201</td><td>201</td></tr></table>
+      <p>If Cascade Update were OFF, Access would refuse the change, or (in a sloppy file) leave Enrol stuck on 101 — an orphan.</p>
+    </div>
+    <div class="box warn"><p>Cascade Delete is powerful and dangerous. Deleting one parent can wipe years of child history. In a real school, you more often <b>archive</b> a student (a Status field) than delete them.</p></div>
+    <div class="box exam"><p>Write: definition, why it matters (no orphans), then one numbered example of Cascade Update and one of Cascade Delete. Mention parent vs child.</p></div>
+    <div class="box urdu"><p class="ur">ریفرنشل انٹیگریٹی کا مطلب ہے بچہ ٹیبل کی فارن کی ہمیشہ والدین کی موجود پرائمری کی کی طرف اشارہ کرے۔ کیسکیڈ اپ ڈیٹ والدین کی کی بدلنے پر بچوں کو خود بدل دیتی ہے؛ کیسکیڈ ڈیلیٹ والدین مٹانے پر متعلقہ بچے ریکارڈ بھی مٹا دیتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> What is an orphan record?</p>
+      <p><b>2.</b> Cascade Delete: parent Teacher is removed. What happens to that teacher’s Class rows?</p>
+      <div class="ans">Answers: 1. A child row whose FK value does not exist in the parent. 2. They are deleted automatically (if Cascade Delete is on).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.6 Relational Schema Development</h2>
+    <div class="box learn">
+      <p>A <b>relational schema</b> is the formal written design of the database: table names, fields, primary keys, foreign keys and how tables relate. You write it <i>before</i> clicking around in Access.</p>
+      <p>It defines (1) how data is split into tables, (2) which columns each table has, (3) which fields are PK/FK, (4) the relationships. Benefits: less redundancy, integrity planned in advance, easier to grow later.</p>
+    </div>
+    <div class="box example">
+      <p>Written schema for a tiny college:</p>
+<pre class="code">Department (DeptID PK, DeptName)
+Student    (RollNo PK, Name, Class, DeptID FK → Department)
+Course     (CourseID PK, Title, Credit, DeptID FK → Department)</pre>
+    </div>
+    <div class="box tip"><p>Skipping the schema is like building a house without a drawing. You get messy, broken structures that are painful to repair.</p></div>
+    <div class="box urdu"><p class="ur">ریلیشنل اسکیمہ ڈیٹا بیس کا لکھا ہوا نقشہ ہے: کون سے ٹیبل، کون سے فیلڈ، کون سی کیز، کون سے تعلقات۔ سافٹ ویئر کھولنے سے پہلے یہ بنانا چاہیے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Name two things a schema must show.</p>
+      <p><b>2.</b> Give one reason to write a schema before opening Access.</p>
+      <div class="ans">Answers: 1. Tables/fields and keys/relationships. 2. It reduces redundancy and mistakes (any valid benefit).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.7 Case Study — Library Management System</h2>
+    <div class="box learn">
+      <p>A college library needs a database. Walk the seven steps examiners expect.</p>
+      <p><b>Step 1 — Requirements.</b> A book has ID, title, author, publisher. A member (student/teacher) has ID, name, contact. A member can borrow many books; a book can be borrowed by different members over time. Record Issue Date and Return Date.</p>
+      <p><b>Step 2 — Entities.</b> Book, Member. (Borrowing will need a third entity in step 6.)</p>
+      <p><b>Step 3 — Attributes.</b> Book: BookID (PK), Title, Author, Publisher. Member: MemberID (PK), Name, ContactInfo.</p>
+      <p><b>Step 4 — Relationship.</b> Member <i>borrows</i> Book.</p>
+      <p><b>Step 5 — Cardinality.</b> One member borrows many books over time; one book is borrowed by many members over time → <b>M:N</b>.</p>
+      <p><b>Step 6 — Resolve M:N.</b> Add junction entity <b>BorrowRecord</b>: BorrowID (PK), MemberID (FK), BookID (FK), IssueDate, ReturnDate. Now Member 1—M BorrowRecord M—1 Book (two 1:M links).</p>
+      <p><b>Step 7 — Final schema.</b></p>
+    </div>
+<pre class="code">Member       (MemberID PK, Name, ContactInfo)
+Book         (BookID PK, Title, Author, Publisher)
+BorrowRecord (BorrowID PK, MemberID FK, BookID FK, IssueDate, ReturnDate)</pre>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 150" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="12">
+        <rect x="10" y="40" width="160" height="70" rx="6" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <text x="90" y="68" text-anchor="middle" font-weight="700" fill="#1f3c88">MEMBER</text>
+        <text x="90" y="88" text-anchor="middle" font-size="11">PK MemberID</text>
+        <text x="180" y="30" text-anchor="middle" font-weight="700">1</text>
+        <line x1="170" y1="75" x2="230" y2="75" stroke="#1d2433" stroke-width="2"/>
+        <rect x="230" y="30" width="190" height="90" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+        <text x="325" y="55" text-anchor="middle" font-weight="700" fill="#e8590c">BorrowRecord</text>
+        <text x="325" y="75" text-anchor="middle" font-size="11">PK BorrowID</text>
+        <text x="325" y="93" text-anchor="middle" font-size="11">FK MemberID, FK BookID</text>
+        <text x="230" y="28" font-weight="700">M</text>
+        <text x="400" y="28" font-weight="700">M</text>
+        <line x1="420" y1="75" x2="480" y2="75" stroke="#1d2433" stroke-width="2"/>
+        <text x="480" y="30" font-weight="700">1</text>
+        <rect x="480" y="40" width="150" height="70" rx="6" fill="#eef3ff" stroke="#1f3c88" stroke-width="2"/>
+        <text x="555" y="68" text-anchor="middle" font-weight="700" fill="#1f3c88">BOOK</text>
+        <text x="555" y="88" text-anchor="middle" font-size="11">PK BookID</text>
+      </svg>
+      <figcaption>Final library ER: two 1:M relationships through the BorrowRecord junction table.</figcaption>
+    </figure>
+    <div class="box example">
+      <p>Sample rows after Sara borrows “Khushwant” on 5 Oct 2026:</p>
+      <table>
+        <tr><th>BorrowID</th><th>MemberID</th><th>BookID</th><th>IssueDate</th><th>ReturnDate</th></tr>
+        <tr><td>5001</td><td>102</td><td>B-17</td><td>2026-10-05</td><td></td></tr>
+      </table>
+      <p>The same book can later be borrowed by Ali as BorrowID 5002 — no duplicated book title, no duplicated member address.</p>
+    </div>
+    <div class="box urdu"><p class="ur">لائبریری میں ممبر اور کتاب کا تعلق بہت-سے-بہت-سے ہے، اس لیے بورو ریکارڈ نامی پل ٹیبل بناتے ہیں جس میں دونوں کی فارن کیز اور اجراء/واپسی کی تاریخ ہوتی ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Why is BorrowRecord needed?</p>
+      <p><b>2.</b> Where do IssueDate and ReturnDate belong, and why not on Book?</p>
+      <div class="ans">Answers: 1. To break M:N into two 1:M links. 2. On BorrowRecord — they belong to a <i>transaction</i>, not to the book itself (a book is issued many times).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.8 Database Objects (Tables, Forms, Queries, Reports)</h2>
+    <div class="box learn">
+      <p>Four objects you will meet in Access. Learn the one-line jobs cold:</p>
+    </div>
+    <table>
+      <tr><th>Object</th><th>Job</th><th>You …</th></tr>
+      <tr><td>Table</td><td>Stores the data (foundation; every other object depends on it)</td><td>keep the actual records here</td></tr>
+      <tr><td>Form</td><td>Friendly screen for enter / edit / view (text boxes, drop-downs)</td><td>type data in; fewer mistakes than a raw grid</td></tr>
+      <tr><td>Query</td><td>Ask a question: filter, sort, calculate</td><td>e.g. “students above 80%”</td></tr>
+      <tr><td>Report</td><td>Formatted output for printing or sharing</td><td>read only — never type into a report</td></tr>
+    </table>
+    <div class="box tip"><p>Store → Enter → Search → Print. Tables, Forms, Queries, Reports.</p></div>
+    <div class="box warn"><p>A query does not copy the table into a second storage place. It is a saved question. Change the table, re-run the query, and the answer updates.</p></div>
+    <div class="box urdu"><p class="ur">ٹیبل ڈیٹا رکھتی ہے، فارم سے اندراج ہوتا ہے، کوئری سوال پوچھ کر چھانتی ہے، رپورٹ چھپائی کے لیے سنواری ہوئی پیشکش ہے — اس میں ڈیٹا بھرا نہیں جاتا۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which object would you use for a printed fee slip?</p>
+      <p><b>2.</b> Which object actually holds the fee amount?</p>
+      <div class="ans">Answers: 1. Report. 2. Table.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.9 Creation of Tables in Microsoft Access</h2>
+    <div class="box learn">
+      <p><b>Plan first</b> (4.9.1): purpose, field list, data type of each field, which field is the PK.</p>
+      <p><b>Datasheet View</b> (4.9.2) — fast, spreadsheet-like, good for beginners, weak on rules.</p>
+      <ol>
+        <li>Create tab → Table.</li>
+        <li>A blank grid appears.</li>
+        <li>Double-click Field1, Field2, … to rename.</li>
+        <li>Type data; Access guesses the data type.</li>
+      </ol>
+      <p>Limitation: you cannot easily say “Marks cannot exceed 100”. Professionals use Design View.</p>
+      <p><b>Design View</b> (4.9.3) — full control before any data is typed.</p>
+      <ol>
+        <li>Create tab → Table Design.</li>
+        <li>Type each Field Name (StudentID, Name, …).</li>
+        <li>Pick the Data Type from the dropdown.</li>
+        <li>Right-click the unique field → Primary Key (key icon).</li>
+        <li>Save the table.</li>
+      </ol>
+    </div>
+    <table>
+      <tr><th>Data type</th><th>Use it for</th></tr>
+      <tr><td>Short Text</td><td>Names, addresses, phone numbers (you do not add phone numbers). Up to 255 characters.</td></tr>
+      <tr><td>Number</td><td>Values you calculate with: Age, Marks, Quantity.</td></tr>
+      <tr><td>Date/Time</td><td>Date of birth, admission date, appointment time.</td></tr>
+      <tr><td>Currency</td><td>Fees, salary.</td></tr>
+      <tr><td>AutoNumber</td><td>Access fills a unique sequential number — excellent PK.</td></tr>
+    </table>
+    <div class="box warn"><p>Phone numbers look numeric but are Short Text. Leading zeros (0333…) would vanish in a Number field, and you never sum two phone numbers.</p></div>
+    <div class="box urdu"><p class="ur">پہلے ٹیبل کا منصوبہ بنائیں۔ ڈیٹا شیٹ ویو تیز لیکن کمزور ہے؛ ڈیزائن ویو میں فیلڈ، ڈیٹا ٹائپ اور پرائمری کی خود منتخب کرتے ہیں۔ فون نمبر شارٹ ٹیکسٹ رکھیں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Best data type for StudentID if you want Access to generate it?</p>
+      <p><b>2.</b> Best data type for FeeAmount?</p>
+      <div class="ans">Answers: 1. AutoNumber. 2. Currency.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.10 Designing Forms for Data Manipulation</h2>
+    <div class="box learn">
+      <p>A form is the screen people actually type into. It cuts errors and can show validation messages. Every form <b>must</b> have a data source — a table or a query. A form with no source has nowhere to save.</p>
+      <p><b>Form Wizard</b> (the exam method):</p>
+      <ol>
+        <li>Create tab → Form Wizard.</li>
+        <li>Select the table (e.g. Student).</li>
+        <li>Move fields with &gt; (one) or &gt;&gt; (all).</li>
+        <li>Choose layout. <b>Columnar</b> = one record at a time, best for data entry.</li>
+        <li>Name it (“Student Registration”) → Finish.</li>
+      </ol>
+    </div>
+    <div class="box example">
+      <p>A Student Registration form shows Student ID (AutoNumber, locked), Full Name, Class, Department as labelled boxes, plus Save. The clerk never sees the raw datasheet and cannot accidentally overwrite the next row.</p>
+    </div>
+    <div class="box urdu"><p class="ur">فارم اندراج کی سادہ اسکرین ہے۔ ہر فارم کسی ٹیبل یا کوئری سے جڑا ہوتا ہے۔ فارم وزرڈ سے ٹیبل چنائیں، فیلڈز منتخب کریں، کالم نما لے آؤٹ بہتر ہے، نام دے کر ختم کریں۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Can a form exist without a table or query?</p>
+      <p><b>2.</b> Which layout is best for entering one student at a time?</p>
+      <div class="ans">Answers: 1. No — it needs a data source. 2. Columnar.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.11 Creating Queries in MS Access <span class="star">★ Golden</span></h2>
+    <div class="box learn">
+      <p>A query retrieves, filters and analyses data <b>without changing the original tables</b>. A simple SELECT query:</p>
+      <ol>
+        <li>Create tab → Query Design.</li>
+        <li>Show Table → add Student → Close.</li>
+        <li>Double-click the fields you want; they drop into the grid.</li>
+        <li>Red Run (!) button executes it.</li>
+      </ol>
+      <p><b>Criteria</b> restrict rows. Type a value in the Criteria row under a field.</p>
+    </div>
+    <table>
+      <tr><th>Goal</th><th>Where to type</th><th>Example</th></tr>
+      <tr><td>Single criterion</td><td>Criteria row, one column</td><td>Department → <code>"Computer Science"</code></td></tr>
+      <tr><td>AND (both must match)</td><td>Same Criteria row, two columns</td><td>Name <code>"Ali"</code> and Department <code>"Computer Science"</code></td></tr>
+      <tr><td>OR (either may match)</td><td>Criteria row and the or: row</td><td>Department <code>"IT"</code> or <code>"Computer Science"</code></td></tr>
+    </table>
+    <p>Wildcards in Access: <code>*</code> = any characters, <code>?</code> = one character. <code>Like "A*"</code> finds Ali, Ahmed, Ayesha.</p>
+    <div class="box example">
+      <p>Equivalent SQL (what Access writes behind the grid):</p>
+<pre class="code">SELECT StudentName, Department
+FROM Student
+WHERE Department = "Computer Science";
+
+SELECT StudentName, Department
+FROM Student
+WHERE StudentName = "Ali" AND Department = "Computer Science";
+
+SELECT StudentName, Department
+FROM Student
+WHERE Department = "IT" OR Department = "Computer Science";</pre>
+    </div>
+    <div class="box exam"><p>Remember: AND = same row in the grid; OR = different rows. Examiners draw a blank grid and ask you to fill Criteria and or:.</p></div>
+    <div class="box warn"><p>Text criteria need quotes: <code>"IT"</code>. Numbers do not: <code>&gt;= 80</code>. Mixing these is a common cause of empty results.</p></div>
+    <div class="box urdu"><p class="ur">کوئری ٹیبل کو بدلے بغیر سوال پوچھتی ہے۔ ایک شرط Criteria قطار میں، AND ایک ہی قطار کی دو کالموں میں، OR الگ قطار (or:) میں۔ وائلڈ کارڈ <code>*</code> کئی حروف، <code>?</code> ایک حرف۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Criteria for marks at least 80?</p>
+      <p><b>2.</b> You want CS <i>or</i> IT. Same row or two rows?</p>
+      <div class="ans">Answers: 1. <code>&gt;=80</code> under Marks. 2. Two rows (OR).</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.11.4 Data Summarization and Statistical Analysis</h2>
+    <div class="box learn">
+      <p><b>Grouping</b> combines rows that share a value (all CS students together) and then an <b>aggregate</b> calculates a number for the group. In Access click Totals (Σ) to reveal the Total row in the grid.</p>
+    </div>
+    <table>
+      <tr><th>Function</th><th>What it calculates</th></tr>
+      <tr><td>COUNT()</td><td>How many records (students in IT)</td></tr>
+      <tr><td>SUM()</td><td>Total of a number field (fees collected)</td></tr>
+      <tr><td>AVG()</td><td>Mean</td></tr>
+      <tr><td>MAX() / MIN()</td><td>Highest / lowest in the group</td></tr>
+    </table>
+    <div class="box example">
+      <p>Average marks per department: add Department and Marks; Totals Σ; Department → Group By; Marks → Avg; Run.</p>
+      <table class="center"><tr><th>Department</th><th>Avg of Marks</th></tr><tr><td>Computer Science</td><td>82.5</td></tr><tr><td>IT</td><td>76.0</td></tr></table>
+      <p>Check: CS marks 80, 85 → average (80+85)/2 = 82.5. IT 70, 82 → 76.0.</p>
+<pre class="code">SELECT Department, AVG(Marks) AS AvgOfMarks
+FROM Student
+GROUP BY Department;</pre>
+    </div>
+    <div class="box urdu"><p class="ur">گروپ بائی ایک جیسے ریکارڈ جوڑتا ہے، پھر COUNT، SUM، AVG، MAX، MIN سے خلاصہ نکلتا ہے۔ ایکسیس میں Σ بٹن Total قطار کھولتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Which Total setting goes under Department?</p>
+      <p><b>2.</b> Which function counts how many books each member has borrowed?</p>
+      <div class="ans">Answers: 1. Group By. 2. COUNT (of BorrowID or BookID) grouped by MemberID.</div>
+    </div>
+  </div>
+
+  <div class="topic">
+    <h2>4.11.6 Data Visualization in MS Access (Charts)</h2>
+    <div class="box learn">
+      <p>Charts turn numbers into a picture so a pattern jumps out. Pick the chart that matches the question:</p>
+    </div>
+    <table>
+      <tr><th>Chart</th><th>Shape</th><th>Best for</th></tr>
+      <tr><td>Bar (horizontal)</td><td>Bars sideways</td><td>Categories with long names (English, Mathematics, …)</td></tr>
+      <tr><td>Column (vertical)</td><td>Bars standing</td><td>Side-by-side comparison (2024 / 2025 / 2026 admissions)</td></tr>
+      <tr><td>Pie</td><td>Slices of a circle</td><td>Parts of one whole (percent of CS vs IT vs Eng). Few slices.</td></tr>
+      <tr><td>Line</td><td>Dots joined</td><td>A trend over time (visitors per month)</td></tr>
+    </table>
+    <figure class="diagram">
+      <svg viewBox="0 0 620 130" width="620" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="11">
+        <text x="70" y="18" text-anchor="middle" font-weight="700">Column</text>
+        <rect x="30" y="70" width="24" height="40" fill="#1f3c88"/>
+        <rect x="62" y="50" width="24" height="60" fill="#3b5bdb"/>
+        <rect x="94" y="40" width="24" height="70" fill="#e8590c"/>
+        <text x="250" y="18" text-anchor="middle" font-weight="700">Pie</text>
+        <circle cx="250" cy="75" r="36" fill="#1f3c88"/>
+        <path d="M250,75 L250,39 A36,36 0 0,1 281,90 Z" fill="#e8590c"/>
+        <text x="430" y="18" text-anchor="middle" font-weight="700">Line (trend)</text>
+        <polyline points="360,100 400,70 440,80 480,40 520,55" fill="none" stroke="#1f3c88" stroke-width="3"/>
+        <circle cx="360" cy="100" r="3" fill="#e8590c"/>
+        <circle cx="400" cy="70" r="3" fill="#e8590c"/>
+        <circle cx="440" cy="80" r="3" fill="#e8590c"/>
+        <circle cx="480" cy="40" r="3" fill="#e8590c"/>
+        <circle cx="520" cy="55" r="3" fill="#e8590c"/>
+      </svg>
+      <figcaption>Column = compare categories. Pie = share of a total. Line = change over time.</figcaption>
+    </figure>
+    <div class="box exam"><p>“Which chart?” — line for time, pie for composition, bar/column for comparing categories. Mention one reason.</p></div>
+    <div class="box urdu"><p class="ur">بار لمبے ناموں والی اقسام، کالم سادہ موازنہ، پائی حصوں کا تناسب، لائن وقت کے ساتھ رجحان۔ چارٹ کوئری یا ٹیبل کے اعداد کو تصویر بناتا ہے۔</p></div>
+    <div class="box check">
+      <p><b>1.</b> Website visitors each month — which chart?</p>
+      <p><b>2.</b> Share of boys vs girls in one class — which chart?</p>
+      <div class="ans">Answers: 1. Line. 2. Pie (two parts of a whole).</div>
+    </div>
+  </div>
+
+  <section class="review">
+    <h2>Chapter 4 Review</h2>
+    <h3>Chapter summary</h3>
+    <ul class="summary">
+      <li>Data = raw facts; information = processed data used for decisions; a database stores related data in a structured, updatable way.</li>
+      <li>A DBMS is the software layer that provides less redundancy, consistency, security and integrity.</li>
+      <li>Table = rows (records) and columns (fields). One table, one entity.</li>
+      <li>Candidate keys could identify a row; the primary key is the one you choose (unique, not NULL); leftover candidates are alternate keys; a foreign key points at another table’s PK.</li>
+      <li>An RDBMS keeps several related tables and is queried with SQL.</li>
+      <li>ER symbols: rectangle entity, oval attribute, diamond relationship. Cardinality 1:1, 1:M, M:N. M:N needs a junction table.</li>
+      <li>Referential integrity forbids orphan FKs. Cascade Update copies a changed PK into children; Cascade Delete removes children with the parent.</li>
+      <li>Write a relational schema before building. Library case: Member and Book are M:N, resolved by BorrowRecord.</li>
+      <li>Objects: tables store, forms enter, queries search, reports print.</li>
+      <li>Access Design View sets field names, data types and the PK. Phone numbers are Short Text; money is Currency; auto IDs are AutoNumber.</li>
+      <li>Forms need a table/query source; Wizard + columnar layout for data entry.</li>
+      <li>Query criteria: one value; AND on the same row; OR on two rows. Totals Σ for Group By / Count / Sum / Avg / Max / Min.</li>
+      <li>Bar/column compare categories, pie shows parts of a whole, line shows a trend over time.</li>
+    </ul>
+
+    <h3>Key terms</h3>
+    <table class="glossary">
+      <tr><th>Term</th><th>Meaning</th><th>اردو</th></tr>
+      <tr><td>Data</td><td>Raw facts and figures.</td><td class="ur">ڈیٹا / خام حقائق</td></tr>
+      <tr><td>Information</td><td>Processed data that supports a decision.</td><td class="ur">معلومات</td></tr>
+      <tr><td>Database</td><td>Organised collection of related data.</td><td class="ur">ڈیٹا بیس</td></tr>
+      <tr><td>DBMS</td><td>Software that creates and manages databases.</td><td class="ur">ڈیٹا بیس مینجمنٹ سسٹم</td></tr>
+      <tr><td>Table</td><td>Rows and columns about one entity.</td><td class="ur">ٹیبل</td></tr>
+      <tr><td>Record</td><td>One row — one instance.</td><td class="ur">ریکارڈ</td></tr>
+      <tr><td>Field</td><td>One column — one attribute.</td><td class="ur">فیلڈ</td></tr>
+      <tr><td>Primary key</td><td>Chosen unique, non-empty identifier.</td><td class="ur">پرائمری کی</td></tr>
+      <tr><td>Foreign key</td><td>Field that refers to another table’s PK.</td><td class="ur">فارن کی</td></tr>
+      <tr><td>Candidate key</td><td>Any field(s) that could be the PK.</td><td class="ur">کینڈیڈیٹ کی</td></tr>
+      <tr><td>Alternate key</td><td>A candidate not chosen as PK.</td><td class="ur">آلٹرنیٹ کی</td></tr>
+      <tr><td>RDBMS</td><td>DBMS that stores related tables linked by keys.</td><td class="ur">ریلیشنل ڈی بی ایم ایس</td></tr>
+      <tr><td>SQL</td><td>Language to query relational databases.</td><td class="ur">ساختہ استفساری زبان</td></tr>
+      <tr><td>Entity</td><td>Object we store data about (ER rectangle).</td><td class="ur">ہستی</td></tr>
+      <tr><td>Attribute</td><td>Property of an entity (ER oval).</td><td class="ur">صفت</td></tr>
+      <tr><td>Relationship</td><td>Link between entities (ER diamond).</td><td class="ur">تعلق</td></tr>
+      <tr><td>Cardinality</td><td>1:1, 1:M or M:N.</td><td class="ur">عددیت</td></tr>
+      <tr><td>Junction table</td><td>Bridge table that splits an M:N into two 1:M.</td><td class="ur">جنکشن ٹیبل</td></tr>
+      <tr><td>Referential integrity</td><td>Every FK matches a live PK (no orphans).</td><td class="ur">حوالہ جاتی درستگی</td></tr>
+      <tr><td>Cascade Update</td><td>Parent PK change copied to child FKs.</td><td class="ur">کیسکیڈ اپ ڈیٹ</td></tr>
+      <tr><td>Cascade Delete</td><td>Deleting the parent deletes related children.</td><td class="ur">کیسکیڈ ڈیلیٹ</td></tr>
+      <tr><td>Schema</td><td>Written blueprint of tables, keys, relationships.</td><td class="ur">اسکیمہ / نقشہ</td></tr>
+      <tr><td>Form</td><td>Screen for entering data.</td><td class="ur">فارم</td></tr>
+      <tr><td>Query</td><td>Saved question that filters/calculates data.</td><td class="ur">کوئری</td></tr>
+      <tr><td>Report</td><td>Formatted printable output.</td><td class="ur">رپورٹ</td></tr>
+      <tr><td>AutoNumber</td><td>Access-generated unique integer, often the PK.</td><td class="ur">آٹو نمبر</td></tr>
+    </table>
+
+    <h3>Practice: multiple choice</h3>
+    <ol class="mcq">
+      <li>Processed data used for a decision is called:
+        <ol class="opts"><li>a field</li><li>information</li><li>a query</li><li>redundancy</li></ol></li>
+      <li>A complete row about one student is a:
+        <ol class="opts"><li>field</li><li>report</li><li>record</li><li>schema</li></ol></li>
+      <li>A primary key cannot contain:
+        <ol class="opts"><li>numbers</li><li>text</li><li>NULL</li><li>an AutoNumber</li></ol></li>
+      <li>EmpLicense# after EmpID is chosen as PK is an:
+        <ol class="opts"><li>foreign key</li><li>alternate key</li><li>orphan</li><li>report</li></ol></li>
+      <li>A foreign key:
+        <ol class="opts"><li>must be unique in the child table</li><li>may contain duplicates</li><li>cannot exist in an RDBMS</li><li>is always AutoNumber</li></ol></li>
+      <li>The ER symbol for a relationship is a:
+        <ol class="opts"><li>rectangle</li><li>oval</li><li>diamond</li><li>circle</li></ol></li>
+      <li>The most common cardinality is:
+        <ol class="opts"><li>1:1</li><li>1:M</li><li>M:N stored as-is</li><li>0:0</li></ol></li>
+      <li>M:N is stored in an RDBMS by:
+        <ol class="opts"><li>duplicating both tables</li><li>a junction table</li><li>deleting one entity</li><li>using a pie chart</li></ol></li>
+      <li>A child row whose StudentID is not in Student is:
+        <ol class="opts"><li>a candidate key</li><li>an orphan record</li><li>a form</li><li>a primary key</li></ol></li>
+      <li>Changing parent ID 101 → 201 and seeing the child follow is:
+        <ol class="opts"><li>Cascade Delete</li><li>Cascade Update</li><li>a SELECT query</li><li>a pie chart</li></ol></li>
+      <li>Which Access object is for printing a report card?
+        <ol class="opts"><li>Table</li><li>Form</li><li>Query</li><li>Report</li></ol></li>
+      <li>Phone numbers should be stored as:
+        <ol class="opts"><li>Number</li><li>Currency</li><li>Short Text</li><li>Date/Time</li></ol></li>
+      <li>AND criteria go:
+        <ol class="opts"><li>on two different rows of the grid</li><li>on the same Criteria row</li><li>in a report header</li><li>only in SQL Server</li></ol></li>
+      <li>To average marks per department you set Department to:
+        <ol class="opts"><li>Sum</li><li>Where</li><li>Group By</li><li>Expression</li></ol></li>
+      <li>The best chart for admissions in 2024, 2025, 2026 is a:
+        <ol class="opts"><li>pie chart</li><li>column chart</li><li>junction table</li><li>foreign key</li></ol></li>
+    </ol>
+
+    <h3>Practice: short questions</h3>
+    <ol class="short">
+      <li>Differentiate data and information with one example each.</li>
+      <li>List four advantages of a DBMS.</li>
+      <li>Define record and field with reference to a Student table.</li>
+      <li>Differentiate primary key and foreign key (four points).</li>
+      <li>Why can a relational database not store M:N directly?</li>
+      <li>What is referential integrity? Give one rejected-insert example.</li>
+      <li>Differentiate Cascade Update and Cascade Delete.</li>
+      <li>State the four Access objects and the job of each in one line.</li>
+      <li>Why are phone numbers Short Text, not Number?</li>
+      <li>How do you express OR in Query Design?</li>
+    </ol>
+
+    <h3>Practice: long / problem questions</h3>
+    <ol class="long">
+      <li>Draw a complete ER diagram for Student–Course enrolment (M:N). Resolve it with a junction entity. Write the relational schema with keys marked.</li>
+      <li>A Result table uses StudentID as a foreign key. Explain referential integrity, then show before/after tables for (a) Cascade Update of ID 101 → 201 and (b) Cascade Delete of student 102.</li>
+      <li>Work through the library case study: requirements, entities, attributes, relationship, cardinality, junction table, final schema. Include two sample BorrowRecord rows.</li>
+      <li>Write step-by-step how to create a Student table in Access Design View (fields RollNo Number PK, Name Short Text, Marks Number, Fee Currency, AdmDate Date/Time) and then a columnar form with the Wizard.</li>
+      <li>Write the Query Design settings and the SQL to list CS students with Marks ≥ 80, sorted by Name. Then write a totals query that shows COUNT of students and AVG(Marks) for each Department.</li>
+      <li>A principal wants to see (i) fee collected per class, (ii) the share of each class in total enrolment, (iii) enrolment over five years. Which chart for each, and why?</li>
+    </ol>
+
+    <div class="answers">
+      <h2>Answer key</h2>
+      <h3>Multiple choice</h3>
+      <ol class="inline"><li>b</li><li>c</li><li>c</li><li>b</li><li>b</li><li>c</li><li>b</li><li>b</li><li>b</li><li>b</li><li>d</li><li>c</li><li>b</li><li>c</li><li>b</li></ol>
+      <h3>Short questions — model answers</h3>
+      <ol>
+        <li>Data = raw facts (80, 75, 90). Information = processed meaning (“average is 81.7%, the class is ready”).</li>
+        <li>Less redundancy, consistency, security (authorised access), integrity (valid, unique keys). (Sharing / backup also accepted.)</li>
+        <li>Record = one student’s full row (101, Ali, CS, A). Field = one column such as Name.</li>
+        <li>PK uniquely identifies a row, cannot be NULL, one per table, lives in the parent. FK refers to a PK, may duplicate, may be NULL, lives in the child, creates the relationship.</li>
+        <li>It would duplicate attributes of both entities. Split into two 1:M links with a junction table that holds both FKs plus extra attributes (dates).</li>
+        <li>Every FK must match an existing parent PK. Inserting Result.StudentID = 999 is rejected if 999 is not in Student — that would have been an orphan.</li>
+        <li>Cascade Update copies a changed parent PK into child FKs. Cascade Delete removes child rows when the parent is deleted.</li>
+        <li>Table stores; form enters; query searches/filters; report prints.</li>
+        <li>They are identifiers, not quantities; leading zeros would vanish; you never add two numbers of a phone.</li>
+        <li>Put one value on the Criteria row and the other on the or: row of the same field (or of different fields if that is the question).</li>
+      </ol>
+      <h3>Long questions — model answers</h3>
+      <ol>
+        <li>Entities STUDENT and COURSE, relationship Enrolls (M:N). Junction ENROLLMENT(EnrollID PK, StudentID FK, CourseID FK, Date). Schema: Student(StudentID PK, Name, Class); Course(CourseID PK, Title); Enrollment as above. Diagram: 1 — M — M — 1 through the junction.</li>
+        <li>(a) Parent 101 Ali → 201 Ali; child Result rows that said 101 now say 201. (b) Delete parent 102 Sara; all Result and Enrolment rows with 102 disappear. Integrity definition: FK must match a live PK; this stops orphans and keeps reports true.</li>
+        <li>Follow steps 1–7 in the chapter. Sample: (5001, 102, B-17, 2026-10-05, NULL); (5002, 101, B-17, 2026-10-12, 2026-10-20) — same book, two members, no duplicated titles.</li>
+        <li>Create → Table Design; enter the five fields and types; right-click RollNo → Primary Key; Save as Student. Create → Form Wizard → Student → &gt;&gt; all fields → Columnar → name Student Registration → Finish.</li>
+        <li>Grid: Name, Department, Marks. Criteria under Department: <code>"CS"</code> (or <code>"Computer Science"</code>); Criteria under Marks: <code>&gt;=80</code> (same row = AND); Sort under Name: Ascending. SQL: <code>SELECT Name, Department, Marks FROM Student WHERE Department="CS" AND Marks&gt;=80 ORDER BY Name;</code> Totals query: Department Group By, StudentID Count, Marks Avg.</li>
+        <li>(i) Column or bar — compare categories (classes). (ii) Pie — each class is a part of one whole enrolment. (iii) Line — a trend over years.</li>
+      </ol>
+    </div>
+
+    <h3>Self-assessment: I can…</h3>
+    <ul class="checklist">
+      <li>explain data vs information vs database vs DBMS.</li>
+      <li>point at records and fields in a table.</li>
+      <li>choose PK / FK / candidate / alternate keys correctly.</li>
+      <li>draw ER symbols and label 1:1, 1:M, M:N.</li>
+      <li>resolve M:N with a junction table.</li>
+      <li>explain referential integrity and both cascade operations with examples.</li>
+      <li>write a relational schema including the library case study.</li>
+      <li>match tables, forms, queries and reports to a task.</li>
+      <li>create a table in Design View and pick data types.</li>
+      <li>build a Wizard form and a criteria query (AND, OR, totals).</li>
+      <li>choose bar, column, pie or line for a given question.</li>
+    </ul>
+  </section>
+</section>

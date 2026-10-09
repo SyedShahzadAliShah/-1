@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "IntimacyGuide"
-include(":app")
+rootProject.name = "TeachYourselfCS"
+include(":lectures")

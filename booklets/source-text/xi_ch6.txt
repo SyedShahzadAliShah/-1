@@ -1,0 +1,452 @@
+##P111
+COMPUTER SCIENCE XI
+CHAPTER 6:
+DIGITAL LITERACY
+BILINGUAL TEACHER'S EDITION
+High-Yielding Lecture Notes & Golden Topics
+Based on New Sindh Curriculum 2026
+Page 1
+
+##P112
+TABLE OF CONTENTS
+1. 6.1 & 6.2 Introduction to Digital Literacy
+2. 6.3 Types of Data (Qualitative vs Quantitative) ★
+3. 6.4 Data-Collection Strategies ★
+4. 6.4.1 - 6.4.2 Interviews and Surveys
+5. 6.4.3 - 6.4.5 Prototypes, Observation, and Simulations
+6. 6.5 Primary and Secondary Data ★
+7. 6.6 Designing a Data-Collection Approach
+8. 6.7 Presenting Data Using Digital Tools
+9. 6.7.1 - 6.7.4 Spreadsheets, Presentations, Infographics, Reports
+10. 6.8 Case Study: Digital Inquiry Project ★
+11. Step 1 - 3: Advanced Search & Methodology
+12. Step 4 - 6: Survey Prep & Primary Data Collection
+13. Step 7 - 9: Secondary Data & Spreadsheet Organization
+14. Step 10 - 12: Data Analysis, Conclusion & Artefact
+These notes are prepared specifically for teachers. For reference, please
+consult the textbook PDF file named exactly "CS XI (5 & 6).pdf", which has
+been followed verbatim. Topics marked with a ★ are highly critical for
+examinations.
+Page 2
+
+##P113
+6.1 Introduction to Digital Literacy
+Digital literacy refers to the ability to understand and use digital devices, the
+internet, and online tools in a safe, effective, and responsible manner. In our
+increasingly digital world, possessing digital literacy is essential for everyone.
+It enables individuals to find information, communicate, produce digital content,
+and solve problems through technology.
+💡 Did you know?
+Digital literacy is not only using devices; it is using digital information safely
+and wisely. A digitally literate student can locate information, organize it
+properly, turn it into something useful, and share it responsibly.
+6.2 Digital Literacy in the Information Age
+The Information Age is a period where vast amounts of data are produced,
+shared, and accessed instantly through the internet, mobile devices, and digital
+platforms.
+Simply having access to technology is not enough.
+Students and users must develop the skills to understand, manage, and use
+information wisely.
+Digital literacy goes beyond basic computer skills; it involves technical,
+cognitive, and social abilities to function successfully in a digital society.
+Page 3
+
+##P114
+6.3 Types of Data
+★ GOLDEN TOPIC
+The data gathered through a survey, investigation, or classroom project, can be
+described as qualitatively and quantitatively. Understanding the difference is
+critical for proper analysis.
+6.3.1 Qualitative Data
+Describes what people think, feel,
+notice, or experience. It is non-
+numerical and descriptive.
+Examples: Students' opinions about
+online classes, descriptions of study
+habits, observation notes.
+6.3.2 Quantitative Data
+Deals with numbers. It is useful when
+students need to count, measure,
+compare, calculate averages, or
+display results in charts.
+Examples: Number of students using the
+internet daily, marks obtained in a test,
+time spent online in hours.
+6.3.3 Comparing Qualitative and Quantitative Data
+Type of data
+Nature
+Examples
+Best used for
+Qualitative
+Descriptive, non-
+numerical
+Opinions, reasons,
+behaviour
+Understanding why
+and how
+something
+happens
+Quantitative
+Numerical, countable or
+measurable
+Hours, scores,
+percentages, totals
+Comparing results
+and making
+graphs/charts
+Page 4
+
+##P115
+6.4 Data-Collection Strategies
+★ GOLDEN TOPIC
+Digital literacy is not limited to finding information that already exists. Students
+should also learn how to gather original information. Below are the common
+strategies used to collect data.
+Interviews
+Surveys
+Prototypes
+Observation
+Simulations
+6.4.1 Interviews
+An interview is a planned conversation used to gather information directly from a
+person. It may be one-to-one or in a small group. Questions are planned in advance,
+and answers are usually qualitative.
+6.4.2 Surveys / Questionnaires
+A survey is useful when the same set of questions needs to be asked to many people.
+It may be on paper or created with digital tools like Google Forms or Microsoft Forms.
+Note: Online survey tools automatically collect responses and display basic charts,
+making data analysis much easier.
+Page 5
+
+##P116
+Data-Collection Strategies (Continued)
+6.4.3 Prototypes
+A prototype is a simple early version of a product, model, or solution. It allows an idea
+to be tested before time and effort are spent on the final version. Users try the
+prototype and give feedback, which becomes useful data for improvement.
+6.4.4 Observation
+In observation, the researcher watches what people do or what happens in a situation
+and records the results carefully. No direct questions are asked. The data may be
+qualitative (notes) or quantitative (counts).
+6.4.5 Simulations
+A simulation is a computer-based model of a real situation. Variables can be
+changed to see what happens. Simulations are highly useful when real experiments
+are costly, risky, or difficult to perform.
+👨‍🏫 Teacher's Tip
+Ask students which method they would use to find out "how many cars cross
+an intersection at 8 AM" vs "how students feel about the new cafeteria food".
+(Observation vs. Survey/Interview).
+Page 6
+
+##P117
+6.5 Primary and Secondary Data
+★ GOLDEN TOPIC
+Whenever data is used, it is important to know where it came from. The source
+affects how much control the researcher had over collecting it and how
+confidently the results can be used.
+6.5.1 Primary Data
+Primary data is collected first-hand
+by the researcher for a particular
+purpose. It is gathered directly from
+people, events, or situations rather
+than taken from an already published
+source.
+Sources: Interviews, surveys,
+observations, experiments.
+6.5.2 Secondary Data
+Secondary data has already been
+collected by someone else and is
+being used again for a new purpose. It
+is extracted from existing archives.
+Sources: Books, research articles,
+official reports, web statistics, online
+databases.
+Primary Data
+Fresh, Direct Collection
+(You do the work)
+Secondary Data
+Existing Archives
+(Someone else did it)
+Page 7
+
+##P118
+Primary vs Secondary & Approach Design
+6.5.3 Difference Between Primary and Secondary Data
+Aspect
+Primary Data
+Secondary Data
+Source
+Collected directly by the
+researcher.
+Already collected by others.
+Examples
+Survey responses, interviews,
+observations.
+Reports, articles, websites,
+databases.
+Purpose
+Prepared for a specific study.
+Reused for a new purpose.
+Control
+High control over questions and
+collection process.
+Limited control because the data
+already exists.
+6.6 Designing a Data-Collection Approach
+Before collecting data, a researcher must have a plan. This ensures accurate,
+relevant, and useful information is gathered.
+1. Define the research question clearly.
+2. Decide the type of data needed: quantitative, qualitative, or both.
+3. Select suitable methods (survey, interview, observation).
+4. Choose the sample or target group.
+5. Prepare the tools such as forms, questions, and observation sheets.
+6. Collect the data carefully and accurately.
+7. Store the data digitally in a spreadsheet and keep a backup.
+8. Follow ethical practice and respect privacy (Consent is mandatory).
+Page 8
+
+##P119
+6.7 Presenting Data Using Digital Tools
+Collecting data is only one part of the work. Students must also present their
+findings so others can understand them quickly and easily. Digital tools make
+this much easier.
+6.7.1 Spreadsheets
+Spreadsheets such as MS Excel, Google Sheets, and Apple Numbers help students
+arrange information in rows and columns.
+Enter data systematically.
+Calculate totals, averages, and percentages.
+Sort and filter records.
+Create charts and graphs automatically.
+6.7.2 Presentations
+Software like PowerPoint, Google Slides, and Canva helps students explain findings to
+an audience in an organized way.
+Begin with a clear title and research question.
+Use short bullet points instead of long paragraphs.
+Include tables, charts, and key findings.
+Keep the design simple and readable.
+Spreadsheet
+Data
+Chart/Graph
+Insert
+Slides
+Page 9
+
+##P120
+Presenting Data (Continued)
+6.7.3 Infographics
+An infographic is a visual way of presenting information, facts, or data so that people
+can understand the main idea quickly and easily. Tools such as Canva, Power BI, or
+Tableau can be used.
+Simplify complex concepts.
+Highlight the most important findings and results.
+Use clear visuals, limited text, and accurate information.
+6.7.4 Reports
+Reports are structured documents used to present collected data, findings, analysis,
+and conclusions. Tools like MS Word or Google Docs are standard.
+Start with a clear title, introduction, and purpose.
+Present the collected data using tables or charts.
+Explain findings in simple language.
+Include conclusions and recommendations based on the data.
+Optional: Use AI tools carefully to improve wording, but always review for accuracy.
+👨‍🏫 Visual Rule of Thumb
+A good chart or infographic can explain complex data faster than a long
+paragraph. However, visuals must always be accurate and based strictly on
+the real data collected, never exaggerated.
+Page 10
+
+##P121
+6.8 Case Study: Digital Inquiry Project
+★ GOLDEN TOPIC
+This comprehensive case study demonstrates how to apply all the concepts of
+Digital Literacy to solve a real-world problem from start to finish.
+Research Question:
+"How does daily mobile phone use affect the study habits of
+students?"
+Scenario: Students notice classmates using phones during free periods and
+while studying. Some say it helps them learn; others say it wastes time. The
+class must investigate whether phone use helps or harms study habits.
+The Digital Inquiry Workflow
+1
+Question
+2
+Search
+3
+Collect
+4
+Analyze
+5
+Create
+Page 11
+
+##P122
+Methodology (Steps 1 to 3)
+Step 1: Perform Advanced Searches
+Students first search for background information using search engines. They use
+advanced search operators to narrow down results and find reliable secondary data.
+Suggested Advanced Search Queries
+"mobile phone use" "study habits" students
+Uses quotes for exact phrases.
+"academic performance" filetype:pdf
+Finds only official PDF documents.
+digital distraction site:.edu
+Searches only educational websites.
+Source Evaluation Checklist:
+Is the author/organization clearly mentioned?
+Is the information recent?
+Is the website reliable (.edu, .gov, research-based)?
+Does the source provide facts/references, or is it biased?
+Step 2: Identify Data Types
+Students must decide what kind of primary data they will collect.
+Quantitative: Number of hours used daily, percentage who feel distracted.
+Qualitative: Opinions on why they get distracted, suggestions for better use.
+Step 3: Select Data-Collection Methods
+Since they need to ask the same questions to many students, a Survey/Questionnaire
+(via Google Forms or paper) is the most efficient method.
+Page 12
+
+##P123
+Methodology (Steps 4 to 6)
+Step 4: Prepare the Survey
+Design clear, unbiased questions.
+Question
+Type of Data
+How many hours do you use your phone daily?
+Quantitative
+Which activity do you use your phone for the most?
+Quantitative (Categories)
+How does your phone help you in studies?
+Qualitative
+Suggest one way to use phones responsibly.
+Qualitative
+Step 5: Choose the Sample
+The sample is the group of people providing data. The students decide to survey 40
+Class XI students from different sections to get a representative mix of habits.
+Step 6: Collect Primary Data (Ethically)
+When conducting the survey, students must follow strict ethical guidelines:
+Ask permission before collecting responses (Consent).
+Avoid collecting sensitive personal information.
+Do not record names unless absolutely necessary (Anonymity).
+Keep the responses private.
+Use the data only for educational purposes.
+Page 13
+
+##P124
+Methodology (Steps 7 to 9)
+Step 7: Use Secondary Data
+Students include a reliable online article stating "excessive screen time lowers
+concentration." They will compare this secondary data with their own primary survey
+results.
+Step 8: Organize Data in a Spreadsheet
+Responses are entered into MS Excel or Google Sheets to sort, calculate totals, and find
+averages.
+Student
+Hours
+Study Use
+Main Activity
+Distracted?
+1
+3
+Yes
+Lectures
+Sometimes
+2
+5
+No
+Social Media
+Yes
+3
+2
+Yes
+Notes
+No
+Step 9: Create Charts and Graphs
+Convert the spreadsheet data into visuals to make it easy to digest.
+Daily Phone Use (Hours)
+1-3 hrs
+3-5 hrs
+5+ hrs
+Page 14
+
+##P125
+Analysis and Conclusion (Steps 10-12)
+Step 10: Analyze the Results
+By looking at the spreadsheet and charts, the group identifies trends:
+Most students (majority) use phones for 3-5 hours daily.
+Half use it for educational purposes (lectures/notes).
+A clear trend: Students using phones mostly for entertainment report much higher
+distraction levels than those using them for study.
+Step 11: Write the Conclusion
+"The research shows mobile phones have both positive and negative effects. They
+provide access to learning materials. However, excessive use of social media and
+gaming reduces concentration. Therefore, phones should not be banned, but
+managed wisely."
+Step 12: Recommendations
+Based on the data, the students recommend:
+Turn off social media notifications while studying.
+Set daily screen-time limits.
+Take physical breaks from screens to protect health.
+Page 15
+
+##P126
+The Final Digital Artefact
+A digital artefact is a final product created using digital technologies. Students
+must create one final artefact that answers the original research question. It is
+not just a decorated file; it must present evidence and conclusions.
+Artefact Option
+Suitable Digital Tools
+Main Purpose
+Digital Report
+MS Word, Google Docs
+Explain the full study in a
+structured text document.
+Presentation
+PowerPoint, Canva, Slides
+Share key findings with a live
+audience.
+Infographic
+Canva, Adobe Express
+Show the main results visually
+and quickly on one page.
+Dashboard
+Power BI, Tableau
+Explore data through interactive
+charts and filters.
+Standard Artefact Structure
+1. Title
+2. Research Question
+3. Introduction
+4. Method of Data Collection
+5. Primary Data Findings
+6. Secondary Data Summary
+7. Charts and Graphs
+8. Conclusion
+9. Recommendations
+10. References
+Page 16
+
+##P127
+Careers & Summary
+Career Opportunities in Digital Research
+Market Research Analyst: Designs surveys to collect primary data to guide business
+decisions.
+UX (User Experience) Researcher: Gathers qualitative/quantitative data to improve app
+and website designs.
+Data Journalist: Uses advanced search skills to research stories and presents them via
+infographics.
+Digital Marketing Specialist: Collects audience data and presents results through
+dashboards and reports.
+Summary
+Digital Literacy: Not just using devices, but finding, evaluating, and creating information
+safely and responsibly.
+Data Types: Qualitative (opinions, words) vs. Quantitative (numbers, counts).
+Data Sources: Primary (collected first-hand by you) vs. Secondary (already collected by
+someone else).
+Collection Methods: Interviews, Surveys, Prototypes, Observation, and Simulations.
+Advanced Search: Using operators like quotes (" ") or filetype:pdf to find reliable sources
+efficiently.
+Ethics: Always ask for permission (consent) and respect user privacy when collecting data.
+Digital Tools: Spreadsheets (organize/calculate), Presentations (deliver to audience),
+Infographics (quick visual summaries), Reports (detailed structure).
+Digital Artefact: The final product that effectively communicates the answer to the
+research question using evidence and visuals.
+Page 17
