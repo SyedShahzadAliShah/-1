@@ -162,47 +162,37 @@ def bidi_mix(text: str) -> str:
     return "".join(parts)
 
 
+def norm_key(text: str) -> str:
+    key = plain(text).lower()
+    key = re.sub(r"[^a-z0-9\u0600-\u06ff]+", " ", key)
+    return re.sub(r"\s+", " ", key).strip()
+
+
+def fresh(text: str, seen: set[str]) -> bool:
+    """True when this line is not already on the sketchnote."""
+    key = norm_key(text)
+    if len(key) < 8:
+        return False
+    for prev in seen:
+        if key == prev or (len(key) > 28 and (key in prev or prev in key)):
+            return False
+    seen.add(key)
+    return True
+
+
+def unique_units(units: list[str], seen: set[str]) -> list[str]:
+    return [unit for unit in units if fresh(unit, seen)]
+
+
 def urdish_depth(units: list[str]) -> str:
     parts = []
     for i, unit in enumerate(units):
-        coach = COACH[i % len(COACH)]
-        parts.append(
-            f'<p class="urdish"><span class="sk-n">{i + 1}</span> {esc(unit)}'
-            f"<em>{esc(coach)}</em></p>"
-        )
+        parts.append(f'<p class="urdish"><span class="sk-n">{i + 1}</span> {esc(unit)}</p>')
     return "\n".join(parts)
 
 
 def table_row_cards(html: str) -> str:
-    tables = re.findall(r"<table\b[^>]*>.*?</table>", html, flags=re.S)
-    if not tables:
-        return ""
-    chunks = []
-    for table in tables:
-        rows = re.findall(r"<tr\b[^>]*>(.*?)</tr>", table, flags=re.S)
-        if len(rows) < 2:
-            chunks.append(table)
-            continue
-        headers = [plain(c) for c in re.findall(r"<t[hd]\b[^>]*>(.*?)</t[hd]>", rows[0], flags=re.S)]
-        cards = [table]
-        for row in rows[1:]:
-            cells = [plain(c) for c in re.findall(r"<t[hd]\b[^>]*>(.*?)</t[hd]>", row, flags=re.S)]
-            if not cells:
-                continue
-            bits = []
-            for idx, cell in enumerate(cells):
-                label = headers[idx] if idx < len(headers) else f"Col {idx + 1}"
-                bits.append(
-                    f'<div class="sk-cell"><b>{esc(label)}</b><span>{esc(cell)}</span>'
-                    f'<i class="urdish">Urdish: {esc(label)} یعنی {esc(cell)}</i></div>'
-                )
-            mid = "".join(
-                bits[j] + ('<span class="sk-vs">→</span>' if j < len(bits) - 1 else "")
-                for j in range(len(bits))
-            )
-            cards.append(f'<div class="sk-row">{mid}</div>')
-        chunks.append("".join(cards))
-    return "\n".join(chunks)
+    return "\n".join(re.findall(r"<table\b[^>]*>.*?</table>", html, flags=re.S))
 
 
 def extras_html(html: str) -> str:
@@ -221,9 +211,11 @@ def extras_html(html: str) -> str:
     return "\n".join(bits)
 
 
-def sketch_card(kind: str, heading: str, html: str) -> str:
-    units = text_units(html)
+def sketch_card(kind: str, heading: str, html: str, seen: set[str]) -> str:
+    units = unique_units(text_units(html), seen)
     extra = extras_html(html)
+    if not units and not extra:
+        return ""
     body = urdish_depth(units) if units else ""
     return (
         f'<article class="sk-card {kind}">'
@@ -247,40 +239,25 @@ def spoken_urdish(
     leftover: str,
 ) -> str:
     """College-teacher Urdish covering the full lecture sketchnote."""
-    bits = [
-        "Students, السلام علیکم۔",
-        "آج کا lecture sketchnote Urdish میں ہے — poori topic ki in-depth explanation.",
-        "Urdish یعنی class والی language: بات Urdu میں، computer کی terms English میں — formal Urdu ترجمہ نہیں۔",
-        f"Topic کا title ہے: {title}۔",
-        f"یہ chapter {chapter} سے ہے۔",
-        "Sketchnote پر diagrams، tables، formulae aur har point ki depth دیکھتے رہو۔",
-    ]
+    seen: set[str] = set()
+    bits = [f"Lecture {title}۔ Chapter {chapter}۔"]
     if golden:
-        bits.append(
-            "یہ Golden topic ہے۔ Board exam میں زیادہ marks اسی سے آتے ہیں۔ دھیان سے سنو۔"
-        )
+        bits.append("یہ Golden topic ہے۔")
     mixed = urdishize_urdu(urdu) if urdu else ""
-    if mixed:
-        bits.append("Big idea Urdish میں: " + mixed.rstrip("۔") + "۔")
-    bits.append("Ab sketchnote ki poori lecture Urdish میں سنو۔")
-    for i, unit in enumerate(learn_units):
-        bits.append(f"{URDISH_GLUE[i % len(URDISH_GLUE)]} {unit}")
-    if leftover:
-        bits.append("Board sketches aur tables bhi sketchnote کا part ہیں: " + leftover)
-    for i, unit in enumerate(example_units, 1):
-        bits.append(f"Worked example sketchnote {i}: {unit}")
-    if tip:
+    said_idea = bool(mixed) and fresh(mixed, seen)
+    if said_idea:
+        bits.append(mixed.rstrip("۔") + "۔")
+    else:
+        for unit in unique_units(learn_units, seen):
+            bits.append(unit)
+    for unit in unique_units(example_units, seen):
+        bits.append("Example: " + unit)
+    if tip and fresh(tip, seen):
         bits.append("Yaad rakhna: " + tip)
-    if warn:
+    if warn and fresh(warn, seen):
         bits.append("Common mistake: " + warn)
-    if terms:
-        bits.append("Exam میں یہ terms English میں ہی لکھو: " + ", ".join(terms) + "۔")
-        bits.append("ان کا مکمل Urdu ترجمہ examiner نہیں مانگتا۔")
-    if exam:
-        bits.append("Board پہ سوال یوں آتا ہے: " + exam.rstrip("۔.") + ".")
-    bits.append(
-        "Answer میں Definition، Explain، Example، Diagram اور Working لکھنا۔ اللہ حافظ۔"
-    )
+    if exam and fresh(exam, seen):
+        bits.append(exam.rstrip("۔.") + ".")
     return " ".join(bits)
 
 
@@ -301,50 +278,45 @@ def sketchnote_html(
     checks = box_inners(block, "check")
     leftover = strip_boxes(topic_inner(block))
     leftover = re.sub(r"<h2[^>]*>.*?</h2>", "", leftover, flags=re.S)
-    first = text_units(learns[0])[0] if learns and text_units(learns[0]) else title
-    big_visual = urdu if urdu else first
-    stickies = "".join(f'<span class="sk-sticky">{esc(t)}</span>' for t in terms[:10])
+    seen: set[str] = set()
+    fresh(title, seen)
     cards = []
     for i, html in enumerate(learns, 1):
-        label = "Concept depth" if len(learns) == 1 else f"Concept depth {i}"
-        cards.append(sketch_card("learn", f"{label} · Urdish", html))
+        label = "Learn" if len(learns) == 1 else f"Learn {i}"
+        cards.append(sketch_card("learn", label, html, seen))
     if leftover and (plain(leftover) or "<svg" in leftover or "<table" in leftover or "<pre" in leftover):
         vis = extras_html(leftover)
         heads = re.findall(r"<h3\b[^>]*>.*?</h3>", leftover, flags=re.S)
         lists = re.findall(r"<[ou]l\b[^>]*>.*?</[ou]l>", leftover, flags=re.S)
-        cards.append(
-            '<article class="sk-card visual"><h3>Board sketches · tables · formulae</h3>'
-            + "".join(heads)
-            + vis
-            + "".join(lists)
-            + "</article>"
-        )
+        if vis or heads or lists:
+            cards.append(
+                '<article class="sk-card visual"><h3>Diagram</h3>'
+                + "".join(heads)
+                + vis
+                + "".join(lists)
+                + "</article>"
+            )
     for i, html in enumerate(examples, 1):
-        cards.append(sketch_card("example", f"Worked example {i} · sketchnote", html))
-    if tips or warns:
-        t = sketch_card("tip", "Yaad rakhna", tips[0]) if tips else ""
-        w = sketch_card("warn", "Common mistake", warns[0]) if warns else ""
-        extra_tips = "".join(sketch_card("tip", f"Yaad rakhna {i+1}", x) for i, x in enumerate(tips[1:]))
-        extra_warns = "".join(sketch_card("warn", f"Common mistake {i+1}", x) for i, x in enumerate(warns[1:]))
-        cards.append(f'<div class="sk-split">{t}{w}</div>{extra_tips}{extra_warns}')
+        label = "Example" if len(examples) == 1 else f"Example {i}"
+        cards.append(sketch_card("example", label, html, seen))
+    for i, html in enumerate(tips, 1):
+        label = "Remember" if len(tips) == 1 else f"Remember {i}"
+        cards.append(sketch_card("tip", label, html, seen))
+    for i, html in enumerate(warns, 1):
+        label = "Mistake" if len(warns) == 1 else f"Mistake {i}"
+        cards.append(sketch_card("warn", label, html, seen))
     for html in exams:
-        cards.append(sketch_card("exam", "Board exam", html))
+        cards.append(sketch_card("exam", "Exam", html, seen))
     for html in checks:
-        cards.append(sketch_card("check", "Check yourself", html))
+        cards.append(sketch_card("check", "Check", html, seen))
+    cards = [card for card in cards if card]
     sketch = f"""
 <section class="sketchnote" aria-label="Urdish lecture sketchnote">
-  <div class="sk-tape"></div>
   <header class="sk-head">
     <div class="sk-badge-row">
-      <span class="sk-badge">Lecture-wise Sketchnote</span>
-      <span class="sk-badge sk-ur">Urdish · in-depth</span>
-      <span class="sk-badge">{esc(chapter)}</span>
+      <span class="sk-badge sk-ur">Urdish sketchnote</span>
       {star}
     </div>
-    <p class="sk-kicker">Poora topic class sketchnote — har point, example, table aur diagram.</p>
-    <h2 class="sk-title">{esc(title)}</h2>
-    <div class="sk-bigidea"><p class="sk-kicker" dir="ltr">Big idea · Urdish</p><p class="ur">{esc(big_visual)}</p></div>
-    <div class="sk-terms">{stickies}</div>
   </header>
   <div class="sk-stack">
     {"".join(cards)}

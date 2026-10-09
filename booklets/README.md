@@ -107,7 +107,7 @@ python3 booklets/build.py complete
 
 ## Android app — v1.3.1 sketchnotes Urdish edition
 
-Each lecture is an in-depth classroom **sketchnote** (MathJax, SVG, flexbox) that explains the topic in **Urdish**: Urdu classroom language, CS terms in English. Package `com.sindhcs.lectures`, versionName `1.3.1`. Install Google Urdu TTS if prompted.
+Each lecture is one classroom **sketchnote** (MathJax, SVG, flexbox) in **Urdish**: Urdu classroom language, CS terms in English. The board keeps each point once. Package `com.sindhcs.lectures`, versionName `1.3.2`. Install Google Urdu TTS if prompted.
 
 - [CS Teach Yourself Urdish Sketchnotes v1.3.1](https://raw.githubusercontent.com/SyedShahzadAliShah/-1/cursor/teach-yourself-lectures-pdf-339e/releases/CS-Teach-Yourself-Urdu-Lectures.apk)
 
